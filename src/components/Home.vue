@@ -1,8 +1,13 @@
 <template>
   <div class="home">
-    <router-link to="/01">Lesson 1: Basics</router-link>
-    <br>
-    <router-link to="/02">Lesson 2: Next</router-link>
+    <ul>
+      <li>
+        <router-link to="/01">Lesson 1: Basics</router-link>
+      </li>
+      <li>
+        <router-link to="/02">Lesson 2: TBD</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
