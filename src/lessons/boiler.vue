@@ -1,6 +1,6 @@
 <template>
   <div class="lesson-REPLACEME">
-    <Lesson v-bind:text="text" v-bind:code="code">
+    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate">
     </Lesson>
   </div>
 </template>
