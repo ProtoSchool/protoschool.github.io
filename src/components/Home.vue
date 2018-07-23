@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <h1>Lessons</h1>
+
+    <h3>Basics</h3>
     <ul>
       <li>
         <router-link to="/01">Lesson 1: Basics</router-link>
@@ -17,5 +20,5 @@ export default {
 }
 </script>
 
-<style scopted>
+<style scoped>
 </style>

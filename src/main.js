@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import Home from './components/Home.vue'
-import Lesson01 from './components/lessons/01.vue'
-import Lesson02 from './components/lessons/02.vue'
+import Lesson01 from './lessons/Basics/01.vue'
+import Lesson02 from './lessons/Basics/02.vue'
 
 Vue.use(VueRouter)
 

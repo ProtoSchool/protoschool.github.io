@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Lesson from '../Lesson'
+import Lesson from '../../components/Lesson'
 import text from './01.md'
 const CID = require('cids')
 

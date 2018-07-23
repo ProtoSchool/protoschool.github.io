@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Lesson from '../Lesson'
+import Lesson from '../../components/Lesson'
 import text from './02.md'
 
 let code = `/* globals ipfs */
