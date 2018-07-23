@@ -15,7 +15,12 @@
           <button v-on:click="next">Next Lesson</button>
         </div>
       </div>
-      <button v-on:click="run">run</button>
+      <div class="run-button">
+        <button v-on:click="run">run</button>
+      </div>
+    </div>
+    <div class="lesson-title">
+      <h2>{{lessonTitle}}</h2>
     </div>
     <div class="lesson-text" v-html="parsedText">
     </div>
@@ -78,6 +83,7 @@ export default {
       text: self.$attrs.text,
       code: self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
+      lessonTitle: self.$attrs.lessonTitle,
       output,
       IPFS,
       options: {
@@ -128,7 +134,7 @@ export default {
   grid-gap: 2%;
   grid-template-columns: 39% 59%;
   grid-template-areas:
-    "....... run"
+    "lesson-title run"
     "lesson-text editor";
   background-color: #fff;
   color: #444;
@@ -139,8 +145,26 @@ export default {
 .lesson-text {
   grid-area: lesson-text;
 }
+.lesson-title {
+  grid-area: lesson-title;
+}
 .run {
   grid-area: run;
+
+  display: grid;
+  grid-gap: 2%;
+  grid-template-columns: 60px auto;
+  grid-template-areas:
+    "... output"
+    "run-button ...";
+
+}
+.output {
+  grid-area: output;
+}
+.output * {
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
 }
 .output-error {
   background-color: red;
@@ -150,5 +174,17 @@ export default {
 }
 .output-success {
   background-color: greenyellow;
+}
+button {
+  border: solid #222 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+div.run-button {
+  grid-area: run-button;
+}
+div.run-button button {
+  margin-left: 40px;
 }
 </style>

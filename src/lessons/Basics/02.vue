@@ -1,6 +1,8 @@
 <template>
   <div class="lesson-02">
-    <Lesson v-bind:text="text" v-bind:code="code">
+    <Lesson v-bind:text="text" v-bind:code="code"
+            validate="validate"
+            lessonTitle="Basics: Next Lesson">
     </Lesson>
   </div>
 </template>
@@ -26,7 +28,7 @@ export default {
   },
   data: () => {
     return {
-      code, text
+      code, text, validate: () => {}
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div class="lesson-01">
-    <Lesson :text="text" :validate="validate">
+    <Lesson :text="text" :validate="validate"
+            lessonTitle="Basics: Create Dag Node">
     </Lesson>
   </div>
 </template>

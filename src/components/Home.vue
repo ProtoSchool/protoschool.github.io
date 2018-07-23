@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Lessons</h1>
+    <h1>Workshops</h1>
 
     <h3>Basics</h3>
     <ul>
