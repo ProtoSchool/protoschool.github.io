@@ -47,14 +47,18 @@ import MonacoEditor from 'vue-monaco-editor'
 const IPFS = require('ipfs')
 const marked = require('marked')
 
-const _eval = async (text, ipfs) => {
+const _eval = async (text, ipfs, modules = {}) => {
   await new Promise(resolve => ipfs.on('ready', resolve))
 
   // eslint-disable-next-line
-  let fn = new Function('ipfs', text)
+  let fn = new Function('ipfs', 'require', text)
   let result
+  let require = name => {
+    if (!modules[name]) throw new Error(`Cannot find modules: ${name}`)
+    return modules[name]
+  }
   try {
-    result = await fn(ipfs)()
+    result = await fn(ipfs, require)()
   } catch (e) {
     result = {error: e}
   }
@@ -96,7 +100,9 @@ export default {
     run: async function () {
       let ipfs = this.createIPFS()
       let code = this.editor.getValue()
-      let result = await _eval(code, ipfs)
+      let modules = {}
+      if (this.$attrs.modules) modules = this.$attrs.modules
+      let result = await _eval(code, ipfs, modules)
       if (result && result.error) {
         Vue.set(output, 'test', result)
         return

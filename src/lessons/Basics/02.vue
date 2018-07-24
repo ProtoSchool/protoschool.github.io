@@ -1,7 +1,8 @@
 <template>
   <div class="lesson-02">
     <Lesson v-bind:text="text" v-bind:code="code"
-            validate="validate"
+            :validate="validate"
+            :modules="modules"
             lessonTitle="Basics: Next Lesson">
     </Lesson>
   </div>
@@ -22,13 +23,15 @@ return run
 
 `
 
+let modules = {cids: require('cids')}
+
 export default {
   components: {
     Lesson
   },
   data: () => {
     return {
-      code, text, validate: () => {}
+      code, text, validate: () => {}, modules
     }
   }
 }
