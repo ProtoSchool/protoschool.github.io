@@ -15,14 +15,14 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/01', component: Lesson01 },
-  { path: '/02', component: Lesson02 },
-  { path: '/11', component: LessonPw01 },
-  { path: '/12', component: LessonPw02 },
-  { path: '/13', component: LessonPw03 },
-  { path: '/14', component: LessonPw04 },
-  { path: '/15', component: LessonPw05 },
-  { path: '/16', component: LessonPw06 }
+  { path: '/basics/01', component: Lesson01 },
+  { path: '/basics/02', component: Lesson02 },
+  { path: '/Pweb/01', component: LessonPw01 },
+  { path: '/Pweb/02', component: LessonPw02 },
+  { path: '/Pweb/03', component: LessonPw03 },
+  { path: '/Pweb/04', component: LessonPw04 },
+  { path: '/Pweb/05', component: LessonPw05 },
+  { path: '/Pweb/06', component: LessonPw06 }
 ]
 
 const router = new VueRouter({ routes })
