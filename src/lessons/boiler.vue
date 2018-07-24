@@ -1,6 +1,9 @@
 <template>
   <div class="lesson-REPLACEME">
-    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate">
+    <Lesson v-bind:text="text" v-bind:code="code"
+            :validate="validate"
+            :modules="modules"
+    >
     </Lesson>
   </div>
 </template>
@@ -17,9 +20,15 @@ const validate = async (result, ipfs) => {
   }
 }
 
-// const code = `const run = async () => {}
-// return run
-// `
+const code = `const CID = require('cids')
+
+const run = async () => {
+  /* your code here */
+}
+return run
+`
+
+const modules = {cids: require('cids')}
 
 export default {
   components: {
@@ -27,7 +36,7 @@ export default {
   },
   data: () => {
     return {
-      text, validate//, code
+      text, validate, code, modules
     }
   }
 }
