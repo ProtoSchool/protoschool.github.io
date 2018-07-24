@@ -1,6 +1,7 @@
 <template>
   <div class="lesson-pw-02">
-    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate">
+    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
+            lessonTitle="Your first link">
     </Lesson>
   </div>
 </template>

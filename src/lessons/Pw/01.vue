@@ -1,6 +1,7 @@
 <template>
   <div class="lesson-pw-01">
-    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate">
+    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
+            lessonTitle="Create a simple DAG node.">
     </Lesson>
   </div>
 </template>
