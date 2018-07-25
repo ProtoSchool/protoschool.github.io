@@ -18,4 +18,7 @@ export default {
   color: #2c3e50;
   width: 100%;
 }
+pre {
+  overflow: auto;
+}
 </style>

@@ -11,6 +11,7 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './02.md'
+const CID = require('cids')
 
 let code = `/* globals ipfs */
 
@@ -22,6 +23,24 @@ const run = async () => {
 return run
 
 `
+const validate = async (result, ipfs) => {
+  if (!result) {
+    return {fail: 'You forgot to return a result :)'}
+  }
+  if (!CID.isCID(result)) {
+    return {fail: 'Did not return a valid CID instance.'}
+  }
+  let hash = 'zdpuAoPanArLvuFtuvmLYuSvp8zE8wuKSMZUkMN8Y1PaHLvKP'
+  if (result.toBaseEncodedString() === hash) {
+    return {success: 'All works!'}
+  } else {
+    let obj = await ipfs.dag.get(result)
+    let expected = JSON.stringify({bar: {'/': hash}})
+    let got = JSON.stringify(obj.value)
+    let fail = `Was expecting "${expected}" but got "${got}"`
+    return {fail}
+  }
+}
 
 let modules = {cids: require('cids')}
 
@@ -31,7 +50,7 @@ export default {
   },
   data: () => {
     return {
-      code, text, validate: () => {}, modules
+      code, text, validate, modules
     }
   }
 }
