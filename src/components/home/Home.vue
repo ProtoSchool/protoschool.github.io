@@ -2,7 +2,7 @@
   <div class="home">
     <header class="flex items-center bg-navy white pv3">
       <div class="flex-none">
-        <div class="ph4">
+        <div class="ph2 ph4-ns">
           <img src="./ipfs-logo.svg" alt="IPFS" style="height: 66px" />
         </div>
         <div class="header-text indent-1">
@@ -34,27 +34,21 @@
           <h1 class="ma0 f3 fw6 pb2">IPLD</h1>
           <img src="./ipld.svg" alt="" style="height: 54px"/>
         </div>
-        <div class="w-50 measure-wide">
+        <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
           <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
             Store, fetch, and create verifiable links between peer-hosted datasets with IPLD and CIDs. It’s graphs with friends!
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <router-link to="/basics/01" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 1</span>
-                <span class="navy fw5">Basics</span>
-              </router-link>
+              <ExerciseLink to="/basics/01" index="1" name="Basics" />
             </li>
             <li>
-              <router-link to="/basics/02" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 2</span>
-                <span class="navy fw5">TBD</span>
-              </router-link>
+              <ExerciseLink to="/basics/02" index="2" name="TBD" />
             </li>
           </ul>
         </div>
-        <div class="flex-auto tc">
+        <div class="dn db-ns flex-auto tc">
           <img src="./ipfs-illustrations-how-1.svg" alt="">
         </div>
       </div>
@@ -65,51 +59,33 @@
           <h1 class="ma0 f3 fw6 pb2">IPLD</h1>
           <img src="./ipld.svg" alt="" style="height: 54px"/>
         </div>
-        <div class="w-50 measure-wide">
+        <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
           <h2 class="ma0 f3 fw5 ">The permenant web</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
             Cool content addresses don't change
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <router-link to="/Pweb/01" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 1</span>
-                <span class="navy fw5">Create a simple DAG node</span>
-              </router-link>
+              <ExerciseLink to="/Pweb/01" index="1" name="Create a simple DAG node" />
             </li>
             <li>
-              <router-link to="/Pweb/02" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 2</span>
-                <span class="navy fw5">Your first link</span>
-              </router-link>
+              <ExerciseLink to="/Pweb/02" index="2" name="Your first link" />
             </li>
             <li>
-              <router-link to="/Pweb/03" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 3</span>
-                <span class="navy fw5">Create a blog post</span>
-              </router-link>
+              <ExerciseLink to="/Pweb/03" index="3" name="Create a blog post" />
             </li>
             <li>
-              <router-link to="/Pweb/04" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 4</span>
-                <span class="navy fw5">Linking again</span>
-              </router-link>
+              <ExerciseLink to="/Pweb/04" index="4" name="Linking again" />
             </li>
             <li>
-              <router-link to="/Pweb/05" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 5</span>
-                <span class="navy fw5">More linkage</span>
-              </router-link>
+              <ExerciseLink to="/Pweb/05" index="5" name="More linkage" />
             </li>
             <li>
-              <router-link to="/Pweb/06" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-                <span class="green ttu f6 pr3">Exercise 6</span>
-                <span class="navy fw5">Update the blog</span>
-              </router-link>
+              <ExerciseLink to="/Pweb/06" index="6" name="Update the blog" />
             </li>
           </ul>
         </div>
-        <div class="flex-auto tc">
+        <div class="dn db-ns flex-auto tc">
           <img src="./ipfs-illustrations-how-4.svg" alt="">
         </div>
       </div>
@@ -118,8 +94,13 @@
 </template>
 
 <script>
+import ExerciseLink from './ExerciseLink'
+
 export default {
-  name: 'home'
+  name: 'home',
+  components: {
+    ExerciseLink
+  }
 }
 </script>
 
