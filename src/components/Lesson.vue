@@ -126,8 +126,10 @@ export default {
     },
     next: function () {
       Vue.set(output, 'test', null)
-      let current = this.$route.path.slice(1)
+      console.log(this.$route)
+      let current = this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1)
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
+      console.log(current, next)
       this.$router.push({path: next})
     }
   }
