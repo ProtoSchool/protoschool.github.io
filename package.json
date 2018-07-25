@@ -11,8 +11,10 @@
     "async": "^2.6.1",
     "cids": "^0.5.3",
     "ipfs": "^0.30.1",
+    "ipfs-css": "^0.6.0",
     "marked": "^0.4.0",
     "raw-loader": "^0.5.1",
+    "tachyons": "^4.11.1",
     "vue": "^2.5.16",
     "vue-monaco-editor": "0.0.19",
     "vue-router": "^3.0.1"

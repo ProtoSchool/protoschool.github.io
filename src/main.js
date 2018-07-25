@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import Home from './components/Home.vue'
+import Home from './components/home/Home.vue'
 import Lesson01 from './lessons/Basics/01.vue'
 import Lesson02 from './lessons/Basics/02.vue'
 import LessonPw01 from './lessons/Pw/01.vue'
@@ -10,6 +10,10 @@ import LessonPw03 from './lessons/Pw/03.vue'
 import LessonPw04 from './lessons/Pw/04.vue'
 import LessonPw05 from './lessons/Pw/05.vue'
 import LessonPw06 from './lessons/Pw/06.vue'
+
+// Global styles. Opt-in single-purpose atoms only, no hairy css "frameworks".
+import 'tachyons'
+import 'ipfs-css'
 
 Vue.use(VueRouter)
 
