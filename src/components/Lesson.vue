@@ -34,6 +34,10 @@
           {{output.test.success}}
           <button v-on:click="next">Next Lesson</button>
         </div>
+        <div class="output-explorer" v-if="output.test.cid">
+          <Explorer :cid="output.test.cid.toBaseEncodedString()">
+          </Explorer>
+        </div>
       </div>
     </div>
   </div>
@@ -42,7 +46,9 @@
 <script>
 import Vue from 'vue'
 import MonacoEditor from 'vue-monaco-editor'
+import Explorer from './Explorer.vue'
 const IPFS = require('ipfs')
+const CID = require('cids')
 const marked = require('marked')
 
 const _eval = async (text, ipfs, modules = {}) => {
@@ -75,10 +81,12 @@ return run
 `
 
 const output = {}
+let oldIPFS
 
 export default {
   components: {
-    MonacoEditor
+    MonacoEditor,
+    Explorer
   },
   data: self => {
     return {
@@ -97,6 +105,9 @@ export default {
   },
   methods: {
     run: async function () {
+      if (oldIPFS) {
+        oldIPFS.stop()
+      }
       let ipfs = this.createIPFS()
       let code = this.editor.getValue()
       let modules = {}
@@ -108,7 +119,12 @@ export default {
       }
       let test = await this.$attrs.validate(result, ipfs)
       Vue.set(output, 'test', test)
-      ipfs.stop()
+      if (CID.isCID(result)) {
+        oldIPFS = ipfs
+        Vue.set(output.test, 'cid', result)
+      } else {
+        ipfs.stop()
+      }
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
