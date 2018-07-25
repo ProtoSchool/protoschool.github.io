@@ -1,10 +1,30 @@
 <template>
   <div class="lesson">
+    <div class="lesson-title">
+      <h2>{{lessonTitle}}</h2>
+    </div>
+    <div class="lesson-text" v-html="parsedText">
+    </div>
+    <div class="editor">
+      <MonacoEditor
+        :editorOptions="options"
+        class="editor"
+        :code="code"
+        theme="vs"
+        language="javascript"
+        @mounted="onMounted"
+        @codeChange="onCodeChange"
+        >
+      </MonacoEditor>
+    </div>
     <div class="run">
+      <div class="run-buttons">
+        <div class="run-button">
+          <button v-on:click="run">run</button>
+        </div>
+      </div>
       <div v-if="output.test" class="output" v-bind="output.test">
         <div class="output-error" v-if="output.test.error">
-          {{output.test.error.message}}
-          <br>
           {{output.test.error.stack}}
         </div>
         <div class="output-fail" v-if="output.test.fail">
@@ -15,28 +35,6 @@
           <button v-on:click="next">Next Lesson</button>
         </div>
       </div>
-      <div class="run-button">
-        <button v-on:click="run">run</button>
-      </div>
-    </div>
-    <div class="lesson-title">
-      <h2>{{lessonTitle}}</h2>
-    </div>
-    <div class="lesson-text" v-html="parsedText">
-    </div>
-    <div class="editor">
-      <MonacoEditor
-        height="600"
-        width="100%"
-        :editorOptions="options"
-        class="editor"
-        :code="code"
-        theme="vs"
-        language="javascript"
-        @mounted="onMounted"
-        @codeChange="onCodeChange"
-        >
-      </MonacoEditor>
     </div>
   </div>
 </template>
@@ -92,7 +90,8 @@ export default {
       IPFS,
       options: {
         selectOnLineNumbers: false,
-        lineDecorationsWidth: '2px'
+        lineDecorationsWidth: '2px',
+        automaticLayout: true
       }
     }
   },
@@ -142,13 +141,18 @@ export default {
   grid-gap: 2%;
   grid-template-columns: 39% 59%;
   grid-template-areas:
-    "lesson-title run"
-    "lesson-text editor";
+    "lesson-title ..."
+    "lesson-text editor"
+    "... run";
   background-color: #fff;
   color: #444;
+  margin: 15px 15px 15px 15px;
 }
 .editor {
   grid-area: editor;
+  width: 100%;
+  height: 50vh;
+  border: 1px solid #eee;
 }
 .lesson-text {
   grid-area: lesson-text;
@@ -156,43 +160,29 @@ export default {
 .lesson-title {
   grid-area: lesson-title;
 }
-.run {
-  grid-area: run;
 
-  display: grid;
-  grid-gap: 2%;
-  grid-template-columns: 60px auto;
-  grid-template-areas:
-    "... output"
-    "run-button ...";
-
-}
-.output {
-  grid-area: output;
-}
-.output * {
-  padding: 5px 5px 5px 5px;
-  border-radius: 5px;
-}
-.output-error {
-  background-color: red;
-}
-.output-fail {
-  background-color: pink;
-}
-.output-success {
-  background-color: greenyellow;
-}
 button {
   border: solid #222 2px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
 }
-div.run-button {
-  grid-area: run-button;
+.run {
+  grid-area: run;
+  padding-top: 5px;
 }
-div.run-button button {
-  margin-left: 40px;
+.output * {
+  margin-top: 5px;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+}
+.output-error {
+  background-color: pink;
+}
+.output-fail {
+  background-color: pink;
+}
+.output-success {
+  background-color: greenyellow;
 }
 </style>
