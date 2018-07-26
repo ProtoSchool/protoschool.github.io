@@ -1,47 +1,64 @@
 <template>
-  <div class="lesson">
-    <div class="lesson-title">
-      <h2>{{lessonTitle}}</h2>
-    </div>
-    <div class="lesson-text" v-html="parsedText">
-    </div>
-    <div class="test-runner">
-      <div class="editor">
-        <MonacoEditor
-          :editorOptions="options"
-          class="editor"
-          :code="code"
-          theme="vs"
-          language="javascript"
-          @mounted="onMounted"
-          @codeChange="onCodeChange"
-          >
-        </MonacoEditor>
+  <div >
+    <header class="bg-navy pa3 flex items-center justify-around">
+      <a href='/#/' class="dn db-ns link flex-auto w-third-ns">
+        <img src="./home/ipfs-logo.svg" alt="IPFS" style="height: 66px" class="ml3-ns"/>
+      </a>
+      <a href='/#/' class="link ma0 ttu f3 f1-ns fw4 w-third-ns tc">
+        <span class="green">Proto</span>
+        <span class="white">school</span>
+      </a>
+      <div class="w-third-ns tr dn db-ns">
+        <img src="./home/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
       </div>
-      <div class="run">
-        <div class="run-buttons">
-          <div class="run-button">
-            <button v-on:click="run">run</button>
+    </header>
+    <section class="db bt border-aqua bw4 indent-1">
+      <div class="measure-wide pv3">
+        <h1 class="f3">{{lessonTitle}}</h1>
+        <div class="lesson-text lh-copy" v-html="parsedText"></div>
+      </div>
+
+      <div class="exercise pv4 ph2 ph4-l mb5" style="background: #F6F7F9; max-width: 700px">
+        <div class="editor bg-white">
+          <MonacoEditor
+            :editorOptions="options"
+            class="editor"
+            :code="code"
+            theme="vs"
+            language="javascript"
+            @mounted="onMounted"
+            @codeChange="onCodeChange">
+          </MonacoEditor>
+        </div>
+        <div class="pv2">
+          <div v-if="output.test" v-bind="output.test">
+            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+              Error: {{output.test.error.message}}
+            </div>
+            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
+              {{output.test.fail}}
+            </div>
+            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
+              {{output.test.success}}
+              <a class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+                View in IPLD Explorer
+              </a>
+            </div>
+          </div>
+          <div class="lh-copy pv2 ph3" v-else>
+            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
           </div>
         </div>
-        <div v-if="output.test" class="output" v-bind="output.test">
-          <div class="output-error" v-if="output.test.error">
-            {{output.test.error.stack}}
+        <div class="pt3 ph2 tr">
+          <div v-if="output.test && output.test.success">
+            <Button v-bind:click="next" class="bg-aqua white">Next</Button>
           </div>
-          <div class="output-fail" v-if="output.test.fail">
-            {{output.test.fail}}
-          </div>
-          <div class="output-success" v-if="output.test.success">
-            {{output.test.success}}
-            <button v-on:click="next">Next Lesson</button>
-          </div>
-          <div class="output-explorer" v-if="output.test.cid">
-            <Explorer :cid="output.test.cid.toBaseEncodedString()">
-            </Explorer>
+          <div v-else>
+            <Button v-bind:click="run" class="bg-green white">Submit</Button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -49,6 +66,7 @@
 import Vue from 'vue'
 import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
+import Button from './Button.vue'
 const IPFS = require('ipfs')
 const CID = require('cids')
 const marked = require('marked')
@@ -90,7 +108,8 @@ let oldIPFS
 export default {
   components: {
     MonacoEditor,
-    Explorer
+    Explorer,
+    Button
   },
   data: self => {
     return {
@@ -105,6 +124,13 @@ export default {
         lineDecorationsWidth: '2px',
         automaticLayout: true
       }
+    }
+  },
+  computed: {
+    exploreIpldUrl: function () {
+      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
+      cid = cid || ''
+      return `https://ipfs.io/ipfs/QmeznoNAoUcQdCFEEz4ktv4zLfYYyhVNin28Frsv8LLxCb/#/explore/${cid}`
     }
   },
   methods: {
@@ -156,53 +182,16 @@ export default {
 </script>
 
 <style scoped>
-.lesson {
-  display: grid;
-  grid-gap: 2%;
-  grid-template-columns: 39% 59%;
-  grid-template-areas:
-    "lesson-title ..."
-    "lesson-text test-runner";
-  background-color: #fff;
-  color: #444;
-  margin: 15px 15px 15px 15px;
-}
-.test-runner {
-  grid-area: test-runner;
-}
 .editor {
   width: 100%;
-  height: 50vh;
-  border: 1px solid #eee;
+  height: 35vh;
 }
-.lesson-text {
-  grid-area: lesson-text;
+.indent-1 {
+  padding-left: 1rem;
 }
-.lesson-title {
-  grid-area: lesson-title;
-}
-button {
-  border: solid #222 2px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-.run {
-  grid-area: run;
-  padding-top: 5px;
-}
-.output * {
-  margin-top: 5px;
-  padding: 5px 5px 5px 5px;
-  border-radius: 5px;
-}
-.output-error {
-  background-color: pink;
-}
-.output-fail {
-  background-color: pink;
-}
-.output-success {
-  background-color: greenyellow;
+@media screen and (min-width: 60rem) {
+  .indent-1 {
+    padding-left: 93px;
+  }
 }
 </style>

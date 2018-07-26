@@ -21,4 +21,9 @@ export default {
 pre {
   overflow: auto;
 }
+
+.focus-outline:focus {
+  outline: 0;
+  box-shadow: 0 0 0 .2rem rgba(201, 210, 215, .4);
+}
 </style>
