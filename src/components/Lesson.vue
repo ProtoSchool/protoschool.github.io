@@ -17,12 +17,10 @@
         <h1 class="f3">{{lessonTitle}}</h1>
         <div class="lesson-text lh-copy" v-html="parsedText"></div>
       </div>
-
       <div class="exercise pv4 ph2 ph4-l mb5" style="background: #F6F7F9; max-width: 700px">
         <div class="editor bg-white">
           <MonacoEditor
             :editorOptions="options"
-            class="editor"
             :code="code"
             theme="vs"
             language="javascript"
@@ -185,6 +183,20 @@ export default {
 .editor {
   width: 100%;
   height: 35vh;
+}
+.code, code {
+  border-radius: 3px;
+  background-color: rgba(27,31,35,0.05);
+  padding: 0.2rem 0.3rem;
+  margin: 0 -0.1rem;
+  font-size: 85%;
+  font-family: SFMono-Regular, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+}
+pre code {
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.8rem;
+  display: block;
+  font-size: 12px;
 }
 .indent-1 {
   padding-left: 1rem;
