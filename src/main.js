@@ -21,6 +21,7 @@ import LessonBlog03 from './lessons/Blog/03.vue'
 import LessonBlog04 from './lessons/Blog/04.vue'
 import LessonBlog05 from './lessons/Blog/05.vue'
 import LessonBlog06 from './lessons/Blog/06.vue'
+import LessonBlog07 from './lessons/Blog/07.vue'
 
 Vue.use(VueRouter)
 
@@ -40,7 +41,8 @@ const routes = [
   { path: '/Blog/03', component: LessonBlog03 },
   { path: '/Blog/04', component: LessonBlog04 },
   { path: '/Blog/05', component: LessonBlog05 },
-  { path: '/Blog/06', component: LessonBlog06 }
+  { path: '/Blog/06', component: LessonBlog06 },
+  { path: '/Blog/07', component: LessonBlog07 }
 ]
 
 const router = new VueRouter({ routes })

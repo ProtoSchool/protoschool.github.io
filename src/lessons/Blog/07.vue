@@ -1,14 +1,14 @@
 <template>
-  <div class="lesson-blog-06">
+  <div class="lesson-blog-07">
     <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
-            lessonTitle="Add an overview page of all blog posts">
+            lessonTitle="Generate the overview page">
     </Lesson>
   </div>
 </template>
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './06.md'
+import text from './07.md'
 // const CID = require('cids')
 
 const code = `/* globals ipfs */
@@ -24,12 +24,14 @@ const run = async () => {
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()},
-    tags: ["hardware", "hobby"]
+    tags: ["hardware", "hobby"],
+    prev: {"/": treePostCid.toBaseEncodedString()}
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
     author: {"/": samCid.toBaseEncodedString()},
-    tags: ["funny", "hobby"]
+    tags: ["funny", "hobby"],
+    prev: {"/": computers.toBaseEncodedString()}
   })
 
   const natureTagCid = await ipfs.dag.put({
@@ -55,7 +57,7 @@ const run = async () => {
   const hardwareTagCid = await ipfs.dag.put({
     tag: "hardware",
     posts: [
-      {"/": computerPostCid.toBaseEncodedString()}
+      {"/": treePostCid.toBaseEncodedString()}
     ]
   })
   const funnyTagCid = await ipfs.dag.put({
@@ -65,7 +67,7 @@ const run = async () => {
     ]
   })
 
-  return [natureTagCid, outdoorTagCid, hobbyTagCid, hardwareTagCid, funnyTagCid]
+  return dogPostCid
 }
 
 return run`
@@ -75,9 +77,6 @@ const validate = async (result, ipfs) => {
     return {fail: 'You forgot to return a result :)'}
   }
   // TODO vmx 2018-07-25 proper validation:
-  //  - check if CID is correct
-  //  - try to traverse to the other posts and check their CIDs for correctness
-  //  - check if returned node has a `prev` field
   return {success: 'All works!'}
 }
 
