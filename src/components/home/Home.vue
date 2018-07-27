@@ -41,10 +41,13 @@
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <ExerciseLink to="/basics/01" index="1" name="Basics" />
+              <ExerciseLink to="/basics/01" index="1" name="Basic write." />
             </li>
             <li>
-              <ExerciseLink to="/basics/02" index="2" name="TBD" />
+              <ExerciseLink to="/basics/02" index="2" name="Linking Data." />
+            </li>
+            <li>
+              <ExerciseLink to="/basics/03" index="3" name="Reading data in links." />
             </li>
           </ul>
         </div>

@@ -38,7 +38,8 @@
             </div>
             <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
               {{output.test.success}}
-              <a class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+              <a v-if="output.test.cid"
+              class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
                 View in IPLD Explorer
               </a>
             </div>
@@ -61,6 +62,7 @@
 </template>
 
 <script>
+import 'highlight.js/styles/github.css'
 import Vue from 'vue'
 import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
@@ -69,7 +71,16 @@ const IPFS = require('ipfs')
 const CID = require('cids')
 const marked = require('marked')
 
-marked.setOptions({ })
+const hljs = require('highlight.js/lib/highlight.js')
+hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
+hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
+hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
+
+marked.setOptions({
+  highlight: code => {
+    return hljs.highlightAuto(code).value
+  }
+})
 
 const _eval = async (text, ipfs, modules = {}) => {
   await new Promise(resolve => ipfs.on('ready', resolve))

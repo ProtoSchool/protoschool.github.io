@@ -10,6 +10,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "cids": "^0.5.3",
+    "highlight.js": "^9.12.0",
     "ipfs": "^0.30.1",
     "ipfs-css": "^0.6.0",
     "marked": "^0.4.0",

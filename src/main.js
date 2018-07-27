@@ -8,6 +8,7 @@ import App from './App.vue'
 import Home from './components/home/Home.vue'
 import Lesson01 from './lessons/Basics/01.vue'
 import Lesson02 from './lessons/Basics/02.vue'
+import Lesson03 from './lessons/Basics/03.vue'
 import LessonPw01 from './lessons/Pw/01.vue'
 import LessonPw02 from './lessons/Pw/02.vue'
 import LessonPw03 from './lessons/Pw/03.vue'
@@ -21,6 +22,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/basics/01', component: Lesson01 },
   { path: '/basics/02', component: Lesson02 },
+  { path: '/basics/03', component: Lesson03 },
   { path: '/Pweb/01', component: LessonPw01 },
   { path: '/Pweb/02', component: LessonPw02 },
   { path: '/Pweb/03', component: LessonPw03 },
