@@ -121,17 +121,9 @@ const validate = async (result, ipfs) => {
       return {fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.`}
     }
   }
-  const expectedCids = ['zdpuAndBLHA6NSH8F7ytyE2WUR1UuN7fh6KJNszGbJcwpfS9i',
-    'zdpuB1ryg9uwnR3jhx2CFrd42RVe3tTWpc8tqH5N6iNjZcjzh',
-    'zdpuAzXdJ1892H72Xx6bUDrnhJcXXzwrAw1s5fuqvmqfUDko4',
-    'zdpuAmAdYAYn5Gxy5VpwCw9qLJp9XW453aoRYRQ4SieofSWTr',
-    'zdpuAypHe4866WWUB5LLtTGX4qD8ZLegx9beyv5CCPHRVpR6d']
-  const resultCids = result.map((cid) => cid.toBaseEncodedString())
-  if (shallowEqualArrays(resultCids.sort(), expectedCids.sort())) {
-    return {success: 'All works!'}
-  } else {
-    return {fail: `The returned CIDs ${utils.stringify(resultCids)} did not match the expected CIDs ${utils.stringify(expectedCids)}.`}
-  }
+  // Don't check the CIDs as then the order of the links would matter.
+  // But that order really doesn't matter.
+  return {success: 'All works!'}
 }
 
 export default {
