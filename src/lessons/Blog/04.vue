@@ -61,7 +61,6 @@ const run = async () => {
 return run`
 
 const validate = async (result, ipfs) => {
-  console.log('result:', result)
   if (!result) {
     return {fail: 'You forgot to return a result :)'}
   }
