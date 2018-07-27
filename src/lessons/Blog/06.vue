@@ -1,7 +1,7 @@
 <template>
   <div class="lesson-blog-06">
     <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
-            lessonTitle="Add an overview page of all blog posts">
+            lessonTitle="Dynamically list all blog posts">
     </Lesson>
   </div>
 </template>
