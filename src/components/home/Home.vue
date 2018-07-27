@@ -72,10 +72,10 @@
               <ExerciseLink to="/blog/01" index="1" name="Basic linking" />
             </li>
             <li>
-              <ExerciseLink to="/blog/02" index="2" name="Adding tags to the blog post" />
+              <ExerciseLink to="/blog/02" index="2" name="CIDs change" />
             </li>
             <li>
-              <ExerciseLink to="/blog/03" index="3" name="Adding a tag cloud" />
+              <ExerciseLink to="/blog/03" index="3" name="Multiple links" />
             </li>
             <li>
               <ExerciseLink to="/blog/04" index="4" name="Add new blog post" />
