@@ -17,8 +17,10 @@
         <h1 class="f3">{{lessonTitle}}</h1>
         <div class="lesson-text lh-copy" v-html="parsedText"></div>
       </div>
-      <div class="exercise pv4 ph2 ph4-l mb5" style="background: #F6F7F9; max-width: 700px">
-        <div class="editor bg-white">
+      <div class="exercise pv4 ph2 ph4-l mb5"
+           style="background: #F6F7F9; max-width: 700px">
+        <div class="editor bg-white"
+             v-bind:class="{large: code.split('\n').length > 12}">
           <MonacoEditor
             :editorOptions="options"
             :code="code"
@@ -194,6 +196,9 @@ export default {
 .editor {
   width: 100%;
   height: 35vh;
+}
+.large {
+  height: 80vh;
 }
 .code, code {
   border-radius: 3px;
