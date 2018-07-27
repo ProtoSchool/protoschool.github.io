@@ -148,6 +148,7 @@ export default {
     run: async function () {
       if (oldIPFS) {
         oldIPFS.stop()
+        oldIPFS = null
       }
       let ipfs = this.createIPFS()
       let code = this.editor.getValue()
