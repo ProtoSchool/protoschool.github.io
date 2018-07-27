@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
-            lessonTitle="Generate the overview page">
+            lessonTitle="Hop through nodes">
     </Lesson>
   </div>
 </template>

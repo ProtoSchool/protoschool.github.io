@@ -78,13 +78,16 @@
               <ExerciseLink to="/blog/03" index="3" name="Multiple links" />
             </li>
             <li>
-              <ExerciseLink to="/blog/04" index="4" name="Add new blog post" />
+              <ExerciseLink to="/blog/04" index="4" name="Bigger DAG" />
             </li>
             <li>
-              <ExerciseLink to="/blog/05" index="5" name="Update the tags" />
+              <ExerciseLink to="/blog/05" index="5" name="Keep building links" />
             </li>
             <li>
-              <ExerciseLink to="/blog/06" index="6" name="Dynamically list all blog posts" />
+              <ExerciseLink to="/blog/06" index="6" name="Chain of links" />
+            </li>
+            <li>
+              <ExerciseLink to="/blog/07" index="7" name="Hop through nodes" />
             </li>
           </ul>
         </div>

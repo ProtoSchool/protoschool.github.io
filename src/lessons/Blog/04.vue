@@ -1,7 +1,7 @@
 <template>
   <div class="lesson-blog-04">
     <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
-            lessonTitle="Add new blog post">
+            lessonTitle="Bigger DAG">
     </Lesson>
   </div>
 </template>
