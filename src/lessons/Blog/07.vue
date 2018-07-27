@@ -31,7 +31,7 @@ const run = async () => {
     content: "dogs",
     author: {"/": samCid.toBaseEncodedString()},
     tags: ["funny", "hobby"],
-    prev: {"/": computers.toBaseEncodedString()}
+    prev: {"/": computerPostCid.toBaseEncodedString()}
   })
 
   const natureTagCid = await ipfs.dag.put({
