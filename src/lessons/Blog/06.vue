@@ -16,6 +16,9 @@ const code = `/* globals ipfs */
 const run = async () => {
   const natCid = await ipfs.dag.put({author: "Nat"})
   const samCid = await ipfs.dag.put({author: "Sam"})
+
+  // Modify the blog posts below
+
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: {"/": samCid.toBaseEncodedString()},
@@ -53,7 +56,7 @@ const run = async () => {
     ]
   })
 
-  return [outdoorTagCid, hobbyTagCid, funnyTagCid]
+  return dogPostCid
 }
 
 return run`

@@ -18,10 +18,35 @@ const code = `/* globals ipfs */
 const run = async () => {
   const natCid = await ipfs.dag.put({author: "Nat"})
   const samCid = await ipfs.dag.put({author: "Sam"})
+
+  // Modify the blog posts below
+
   const treePostCid = await ipfs.dag.put({content: "trees"})
   const computerPostCid = await ipfs.dag.put({content: "computers"})
 
-  // Your code goes here
+  return [treePostCid, computerPostCid]
+}
+
+return run
+`
+
+// eslint-disable-next-line no-unused-vars
+const _solution = `
+/* globals ipfs */
+
+const run = async () => {
+  const natCid = await ipfs.dag.put({author: "Nat"})
+  const samCid = await ipfs.dag.put({author: "Sam"})
+  const treePostCid = await ipfs.dag.put({
+    content: "trees",
+    author: {"/": samCid.toBaseEncodedString()}
+  })
+  const computerPostCid = await ipfs.dag.put({
+    content: "computers",
+    author: {"/": natCid.toBaseEncodedString()}
+  })
+
+  return [treePostCid, computerPostCid]
 }
 
 return run
