@@ -21,12 +21,12 @@ const run = async () => {
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: {"/": samCid.toBaseEncodedString()},
-    tags: ["nature", "outdoor", "hobby"]
+    tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()},
-    tags: ["hardware", "hobby"]
+    tags: ["hobby"]
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
@@ -34,12 +34,6 @@ const run = async () => {
     tags: ["funny", "hobby"]
   })
 
-  const natureTagCid = await ipfs.dag.put({
-    tag: "nature",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
-  })
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
     posts: [
@@ -53,12 +47,7 @@ const run = async () => {
       {"/": computerPostCid.toBaseEncodedString()}
     ]
   })
-  const hardwareTagCid = await ipfs.dag.put({
-    tag: "hardware",
-    posts: [
-      {"/": computerPostCid.toBaseEncodedString()}
-    ]
-  })
+
   return dogPostCid
 }
 
@@ -68,7 +57,7 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return {fail: 'You forgot to return a result :)'}
   }
-  const validatedArray = utils.validateArrayOfCids(result, 5)
+  const validatedArray = utils.validateArrayOfCids(result, 3)
   if (validatedArray.fail) {
     return validatedArray
   }
@@ -94,27 +83,21 @@ const validate = async (result, ipfs) => {
     }
 
     let expectedPosts
-    const treePostCid = 'zdpuAyYnsUYhTSyqGEEsR6nnexB9xoqvHuKU5HPSuzv5G9hcc'
-    const computerPostCid = 'zdpuB1TVtawVw5qEJ5SqwMJzhrypaTcM6jyZagdyhP1rSezFQ'
+    const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
+    const computerPostCid = 'zdpuAqaHPSosSZFRPe7u5q3yNqgg4JuvrLaUJxGamNPLhWivX'
     const dogPostCid = 'zdpuAuaznfNPWfgSSrcGxkm3yqyssY6mz8i5T2gxqpEpNExG6'
     switch (node.tag) {
       case 'funny':
         expectedPosts = [dogPostCid]
         break
-      case 'hardware':
-        expectedPosts = [computerPostCid]
-        break
       case 'hobby':
         expectedPosts = [treePostCid, computerPostCid, dogPostCid]
-        break
-      case 'nature':
-        expectedPosts = [treePostCid]
         break
       case 'outdoor':
         expectedPosts = [treePostCid]
         break
       default:
-        return {fail: `Wrong tag (${node.tag}). Did you mean one of funny, hardware, hobby, nature, outdoor?`}
+        return {fail: `Wrong tag (${node.tag}). Did you mean one of funny, hobby, outdoor?`}
     }
     const nodePosts = node.posts.map((post) => new CID(post['/']).toBaseEncodedString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {

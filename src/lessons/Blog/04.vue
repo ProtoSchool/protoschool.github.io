@@ -21,20 +21,14 @@ const run = async () => {
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: {"/": samCid.toBaseEncodedString()},
-    tags: ["nature", "outdoor", "hobby"]
+    tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()},
-    tags: ["hardware", "hobby"]
+    tags: ["hobby"]
   })
 
-  const natureTagCid = await ipfs.dag.put({
-    tag: "nature",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
-  })
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
     posts: [
@@ -48,14 +42,8 @@ const run = async () => {
       {"/": computerPostCid.toBaseEncodedString()}
     ]
   })
-  const hardwareTagCid = await ipfs.dag.put({
-    tag: "hardware",
-    posts: [
-      {"/": computerPostCid.toBaseEncodedString()}
-    ]
-  })
 
-  return [natureTagCid, outdoorTagCid, hobbyTagCid, hardwareTagCid]
+  return [outdoorTagCid, hobbyTagCid]
 }
 
 return run`
@@ -99,13 +87,9 @@ const validate = async (result, ipfs) => {
   if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
     return {fail: `The tags of the "${node.content}" blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.`}
   }
-  const expectedCid = 'zdpuAuaznfNPWfgSSrcGxkm3yqyssY6mz8i5T2gxqpEpNExG6'
-  const resultCid = result.toBaseEncodedString()
-  if (resultCid === expectedCid) {
-    return {success: 'All works!'}
-  } else {
-    return {fail: `The returned CID ${resultCid} did not match the expected CID ${expectedCid}.`}
-  }
+  // Don't check the CID as then the order of the links within the tags would
+  // matter. But that order really doesn't matter.
+  return {success: 'All works!'}
 }
 
 export default {

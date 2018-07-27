@@ -25,6 +25,7 @@ const run = async () => {
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()}
   })
+
   return [treePostCid, computerPostCid]
 }
 
@@ -54,24 +55,19 @@ const validate = async (result, ipfs) => {
     let expectedTags
     switch (node.content) {
       case 'trees':
-        expectedTags = ['hobby', 'nature', 'outdoor']
+        expectedTags = ['hobby', 'outdoor']
         break
       case 'computers':
-        expectedTags = ['hardware', 'hobby']
+        expectedTags = ['hobby']
         break
     }
     if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
       return {fail: `The tags of the "${node.content}" blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.`}
     }
   }
-  const expectedCids = ['zdpuAyYnsUYhTSyqGEEsR6nnexB9xoqvHuKU5HPSuzv5G9hcc',
-    'zdpuB1TVtawVw5qEJ5SqwMJzhrypaTcM6jyZagdyhP1rSezFQ']
-  const resultCids = result.map((cid) => cid.toBaseEncodedString())
-  if (shallowEqualArrays(resultCids.sort(), expectedCids.sort())) {
-    return {success: 'All works!'}
-  } else {
-    return {fail: `The returned CIDs ${utils.stringify(resultCids)} did not match the expected CIDs ${utils.stringify(expectedCids)}.`}
-  }
+  // Don't check the CIDs as then the order of the tags would matter.
+  // But that order really doesn't matter.
+  return {success: 'All works!'}
 }
 
 export default {

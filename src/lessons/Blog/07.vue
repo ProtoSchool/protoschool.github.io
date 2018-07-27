@@ -29,12 +29,12 @@ const run = async () => {
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: {"/": samCid.toBaseEncodedString()},
-    tags: ["nature", "outdoor", "hobby"]
+    tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()},
-    tags: ["hardware", "hobby"],
+    tags: ["hobby"],
     prev: {"/": treePostCid.toBaseEncodedString()}
   })
   const dogPostCid = await ipfs.dag.put({
@@ -44,12 +44,6 @@ const run = async () => {
     prev: {"/": computerPostCid.toBaseEncodedString()}
   })
 
-  const natureTagCid = await ipfs.dag.put({
-    tag: "nature",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
-  })
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
     posts: [
@@ -62,12 +56,6 @@ const run = async () => {
       {"/": treePostCid.toBaseEncodedString()},
       {"/": computerPostCid.toBaseEncodedString()},
       {"/": dogPostCid.toBaseEncodedString()}
-    ]
-  })
-  const hardwareTagCid = await ipfs.dag.put({
-    tag: "hardware",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
     ]
   })
   const funnyTagCid = await ipfs.dag.put({
@@ -107,9 +95,9 @@ const validate = async (result, ipfs) => {
     return {fail: 'Return value needs to be a function.'}
   }
 
-  const treePostCid = 'zdpuAyYnsUYhTSyqGEEsR6nnexB9xoqvHuKU5HPSuzv5G9hcc'
-  const computerPostCid = 'zdpuAzfNY2rjMLNHPk1neuLQg9cGrpk7WAdE3uHx4gvTHYw1A'
-  const dogPostCid = 'zdpuAoxgoh78gWs4mdCF9is7yWiZJ1rUztLWcs4VssAXLi644'
+  const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
+  const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
+  const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
   try {
     const returnValue = await result(new CID(dogPostCid))
     if (returnValue === undefined) {

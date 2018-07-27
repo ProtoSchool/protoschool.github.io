@@ -21,12 +21,12 @@ const run = async () => {
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: {"/": samCid.toBaseEncodedString()},
-    tags: ["nature", "outdoor", "hobby"]
+    tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()},
-    tags: ["hardware", "hobby"]
+    tags: ["hobby"]
   })
 
   return [treePostCid, computerPostCid]
@@ -38,7 +38,7 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return {fail: 'You forgot to return a result :)'}
   }
-  const validatedArray = utils.validateArrayOfCids(result, 4)
+  const validatedArray = utils.validateArrayOfCids(result, 2)
   if (validatedArray.fail) {
     return validatedArray
   }
@@ -62,40 +62,27 @@ const validate = async (result, ipfs) => {
       return {fail: 'The values of the `posts` array must be links.'}
     }
 
-    const treePostCid = 'zdpuAyYnsUYhTSyqGEEsR6nnexB9xoqvHuKU5HPSuzv5G9hcc'
-    const computerPostCid = 'zdpuB1TVtawVw5qEJ5SqwMJzhrypaTcM6jyZagdyhP1rSezFQ'
+    const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
+    const computerPostCid = 'zdpuAqaHPSosSZFRPe7u5q3yNqgg4JuvrLaUJxGamNPLhWivX'
     let expectedPosts
     switch (node.tag) {
-      case 'hardware':
-        expectedPosts = [computerPostCid]
-        break
       case 'hobby':
         expectedPosts = [treePostCid, computerPostCid]
-        break
-      case 'nature':
-        expectedPosts = [treePostCid]
         break
       case 'outdoor':
         expectedPosts = [treePostCid]
         break
       default:
-        return {fail: `Wrong tag (${node.tag}). Did you mean one of hardware, hobby, nature, outdoor?`}
+        return {fail: `Wrong tag (${node.tag}). Did you mean "hobby" or "outdoor"?`}
     }
     const nodePosts = node.posts.map((post) => new CID(post['/']).toBaseEncodedString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {
       return {fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.`}
     }
   }
-  const expectedCids = ['zdpuAndBLHA6NSH8F7ytyE2WUR1UuN7fh6KJNszGbJcwpfS9i',
-    'zdpuB1ryg9uwnR3jhx2CFrd42RVe3tTWpc8tqH5N6iNjZcjzh',
-    'zdpuAvCQHDNSoo2Mx6dnoMpJUSW8Vu5ikYnL2NM8kidieKD9R',
-    'zdpuAmAdYAYn5Gxy5VpwCw9qLJp9XW453aoRYRQ4SieofSWTr']
-  const resultCids = result.map((cid) => cid.toBaseEncodedString())
-  if (shallowEqualArrays(resultCids.sort(), expectedCids.sort())) {
-    return {success: 'All works!'}
-  } else {
-    return {fail: `The returned CIDs ${utils.stringify(resultCids)} did not match the expected CIDs ${utils.stringify(expectedCids)}.`}
-  }
+  // Don't check the CIDs as then the order of the links within the tags would
+  // matter. But that order really doesn't matter.
+  return {success: 'All works!'}
 }
 
 export default {

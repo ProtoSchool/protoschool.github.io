@@ -19,12 +19,12 @@ const run = async () => {
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: {"/": samCid.toBaseEncodedString()},
-    tags: ["nature", "outdoor", "hobby"]
+    tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()},
-    tags: ["hardware", "hobby"]
+    tags: ["hobby"]
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
@@ -32,12 +32,6 @@ const run = async () => {
     tags: ["funny", "hobby"]
   })
 
-  const natureTagCid = await ipfs.dag.put({
-    tag: "nature",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
-  })
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
     posts: [
@@ -52,10 +46,55 @@ const run = async () => {
       {"/": dogPostCid.toBaseEncodedString()}
     ]
   })
-  const hardwareTagCid = await ipfs.dag.put({
-    tag: "hardware",
+  const funnyTagCid = await ipfs.dag.put({
+    tag: "funny",
     posts: [
-      {"/": computerPostCid.toBaseEncodedString()}
+      {"/": dogPostCid.toBaseEncodedString()}
+    ]
+  })
+
+  return [outdoorTagCid, hobbyTagCid, funnyTagCid]
+}
+
+return run`
+
+// eslint-disable-next-line no-unused-vars
+const _solution = `
+/* globals ipfs */
+
+const run = async () => {
+  const natCid = await ipfs.dag.put({author: "Nat"})
+  const samCid = await ipfs.dag.put({author: "Sam"})
+  const treePostCid = await ipfs.dag.put({
+    content: "trees",
+    author: {"/": samCid.toBaseEncodedString()},
+    tags: ["outdoor", "hobby"]
+  })
+  const computerPostCid = await ipfs.dag.put({
+    content: "computers",
+    author: {"/": natCid.toBaseEncodedString()},
+    tags: ["hobby"],
+    prev: {"/": treePostCid.toBaseEncodedString()}
+  })
+  const dogPostCid = await ipfs.dag.put({
+    content: "dogs",
+    author: {"/": samCid.toBaseEncodedString()},
+    tags: ["funny", "hobby"],
+    prev: {"/": computerPostCid.toBaseEncodedString()}
+  })
+
+  const outdoorTagCid = await ipfs.dag.put({
+    tag: "outdoor",
+    posts: [
+      {"/": treePostCid.toBaseEncodedString()}
+    ]
+  })
+  const hobbyTagCid = await ipfs.dag.put({
+    tag: "hobby",
+    posts: [
+      {"/": treePostCid.toBaseEncodedString()},
+      {"/": computerPostCid.toBaseEncodedString()},
+      {"/": dogPostCid.toBaseEncodedString()}
     ]
   })
   const funnyTagCid = await ipfs.dag.put({
@@ -65,10 +104,11 @@ const run = async () => {
     ]
   })
 
-  return [natureTagCid, outdoorTagCid, hobbyTagCid, hardwareTagCid, funnyTagCid]
+  return dogPostCid
 }
 
-return run`
+return run
+`
 
 const validate = async (result, ipfs) => {
   if (!result) {
@@ -88,9 +128,9 @@ const validate = async (result, ipfs) => {
     return {fail: 'The value of `prev` of the "dogs" blog post needs to be a link (`{"/": "some-cid"}`).'}
   }
 
-  const dogPostCid = 'zdpuAoxgoh78gWs4mdCF9is7yWiZJ1rUztLWcs4VssAXLi644'
-  const computerPostCid = 'zdpuAzfNY2rjMLNHPk1neuLQg9cGrpk7WAdE3uHx4gvTHYw1A'
-  const treePostCid = 'zdpuAyYnsUYhTSyqGEEsR6nnexB9xoqvHuKU5HPSuzv5G9hcc'
+  const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
+  const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
+  const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
   const nodePrev = new CID(node.prev['/'])
 
   const computerNode = (await ipfs.dag.get(nodePrev)).value
