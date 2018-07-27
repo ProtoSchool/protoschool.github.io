@@ -166,7 +166,7 @@ const validate = async (result, ipfs) => {
       return {fail: `The CIDs returned by the function ${utils.stringify(returnedCids)} did not match the the expected CIDs ${utils.stringify(expectedCids)}.`}
     }
   } catch (err) {
-    return {fail: `Your function cannot be executed with an error: ${err}.`}
+    return {fail: `Your function threw an error: ${err}.`}
   }
   return {success: 'All works!'}
 }
