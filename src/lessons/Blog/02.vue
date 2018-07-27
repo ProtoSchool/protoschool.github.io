@@ -1,7 +1,7 @@
 <template>
   <div class="lesson-blog-02">
     <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
-            lessonTitle="Adding tags to the blog posts">
+            lessonTitle="CIDs change">
     </Lesson>
   </div>
 </template>
@@ -28,6 +28,9 @@ const run = async () => {
     content: "computers",
     author: {"/": natCid.toBaseEncodedString()}
   })
+
+  console.log('post about trees:', treePostCid.toBaseEncodedString())
+  console.log('post about computers:', computerPostCid.toBaseEncodedString())
 
   return [treePostCid, computerPostCid]
 }

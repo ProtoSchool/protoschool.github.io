@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
-            lessonTitle="Generate the overview page">
+            lessonTitle="Hop through nodes">
     </Lesson>
   </div>
 </template>
@@ -166,7 +166,7 @@ const validate = async (result, ipfs) => {
       return {fail: `The CIDs returned by the function ${utils.stringify(returnedCids)} did not match the the expected CIDs ${utils.stringify(expectedCids)}.`}
     }
   } catch (err) {
-    return {fail: `Your function cannot be executed with an error: ${err}.`}
+    return {fail: `Your function threw an error: ${err}.`}
   }
   return {success: 'All works!'}
 }

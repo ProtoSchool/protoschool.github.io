@@ -1,7 +1,7 @@
 <template>
   <div class="lesson-blog-05">
     <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
-            lessonTitle="Update the tags">
+            lessonTitle="Keep building links">
     </Lesson>
   </div>
 </template>
