@@ -43,10 +43,6 @@ const validate = async (result, ipfs) => {
     if (node.author === undefined) {
       return {fail: 'Blog posts need to have an `author` field.'}
     }
-    const links = utils.findLinks(node)
-    if (links.length === 0) {
-      return {fail: 'A blog post is missing the link to the author.'}
-    }
     if (node.author['/'] === undefined) {
       return {fail: 'The value of `author` needs to be a link (`{"/": "some-cid"}`).'}
     }
