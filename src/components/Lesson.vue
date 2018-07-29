@@ -16,9 +16,11 @@
       <div class="measure-wide pv3">
         <h1 class="f3">{{lessonTitle}}</h1>
         <div class="lesson-text lh-copy" v-html="parsedText"></div>
+        <div v-if="concepts" v-html="parsedConcepts"></div>
       </div>
       <div class="exercise pv4 ph2 ph4-l mb5"
            style="background: #F6F7F9; max-width: 700px">
+        <div v-if="exercise" v-html="parsedExercise"></div>
         <div class="editor bg-white"
              v-bind:class="{large: code.split('\n').length > 12}">
           <MonacoEditor
@@ -125,8 +127,12 @@ export default {
   data: self => {
     return {
       text: self.$attrs.text,
+      exercise: self.$attrs.exercise,
+      concepts: self.$attrs.concepts,
       code: self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
+      parsedExercise: marked(self.$attrs.exercise || ''),
+      parsedConcepts: marked(self.$attrs.concepts || ''),
       lessonTitle: self.$attrs.lessonTitle,
       output,
       IPFS,

@@ -1,6 +1,7 @@
 <template>
   <div class="lesson-01">
     <Lesson :text="text" :validate="validate"
+            :exercise="exercise" :concepts="concepts"
             lessonTitle="Basic write.">
     </Lesson>
   </div>
@@ -9,6 +10,8 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './01.md'
+import exercise from './01-exercise.md'
+import concepts from './01-concepts.md'
 const CID = require('cids')
 
 const validate = async (result, ipfs) => {
@@ -35,7 +38,7 @@ export default {
     Lesson
   },
   data: () => {
-    return { text, validate }
+    return { text, validate, exercise, concepts }
   }
 }
 </script>

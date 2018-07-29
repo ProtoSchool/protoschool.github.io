@@ -1,0 +1,1 @@
+For this lesson, create a simple node with a structure of `{test: 1}` and return the CID from your `run()` function.
