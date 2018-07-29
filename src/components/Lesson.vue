@@ -89,9 +89,16 @@ marked.setOptions({
 const _eval = async (text, ipfs, modules = {}) => {
   await new Promise(resolve => ipfs.on('ready', resolve))
 
-  // eslint-disable-next-line
-  let fn = new Function('ipfs', 'require', text)
+  let fn
   let result
+  try {
+    // eslint-disable-next-line
+    fn = new Function('ipfs', 'require', text)
+  } catch (e) {
+    result = {error: e}
+    return result
+  }
+
   let require = name => {
     if (!modules[name]) throw new Error(`Cannot find modules: ${name}`)
     return modules[name]
