@@ -18,34 +18,36 @@
         <div class="lesson-text lh-copy" v-html="parsedText"></div>
         <div v-if="concepts" v-html="parsedConcepts"></div>
       </div>
-      <div v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb5 mr5" style="background: #F6F7F9;">
-        <h2 class="mt0 mb2 green fw4 fill-current">
-          <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
-            <circle cx="6" cy="6" r="6"/>
-          </svg>
-          <span class="green ttu f6 pl2 pr3">Exercise {{lessonNumber}}</span>
-          <span class="navy fw5 f5">{{lessonTitle}}</span>
-          <div class="fr nr3-l">
-            <button
-              v-if="expandExercise"
-              title="Smol"
-              v-on:click="toggleExpandExercise"
-              class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-            </button>
-            <button
-              v-else
-              v-on:click="toggleExpandExercise"
-              title='Embiggen exercise'
-              class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-            </button>
-          </div>
-        </h2>
-        <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
-        <div class="editor bg-white">
+      <div v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb5 mr5 flex flex-column" style="background: #F6F7F9;">
+        <div class="flex-none">
+          <h2 class="mt0 mb2 green fw4 fill-current">
+            <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
+              <circle cx="6" cy="6" r="6"/>
+            </svg>
+            <span class="green ttu f6 pl2 pr3">Exercise {{lessonNumber}}</span>
+            <span class="navy fw5 f5">{{lessonTitle}}</span>
+            <div class="fr">
+              <button
+                v-if="expandExercise"
+                title="go smol"
+                v-on:click="toggleExpandExercise"
+                class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+              </button>
+              <button
+                v-else
+                v-on:click="toggleExpandExercise"
+                title='embiggen the exercise'
+                class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+              </button>
+            </div>
+          </h2>
+          <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+        </div>
+        <div class="bg-white flex-auto" style='height:100%;'>
           <MonacoEditor
-            :width="editorWidth"
+            class="editor"
             :height="editorHeight"
             :options="options"
             :code="code"
@@ -55,32 +57,34 @@
             @codeChange="onCodeChange">
           </MonacoEditor>
         </div>
-        <div class="pv2">
-          <div v-if="output.test" v-bind="output.test">
-            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
-              Error: {{output.test.error.message}}
+        <div class='flex-none'>
+          <div class="pv2">
+            <div v-if="output.test" v-bind="output.test">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+                Error: {{output.test.error.message}}
+              </div>
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
+                {{output.test.fail}}
+              </div>
+              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
+                {{output.test.success}}
+                <a v-if="output.test.cid"
+                class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+                  View in IPLD Explorer
+                </a>
+              </div>
             </div>
-            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
-              {{output.test.fail}}
-            </div>
-            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
-              {{output.test.success}}
-              <a v-if="output.test.cid"
-              class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
-                View in IPLD Explorer
-              </a>
+            <div class="lh-copy pv2 ph3" v-else>
+              Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
             </div>
           </div>
-          <div class="lh-copy pv2 ph3" v-else>
-            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
-          </div>
-        </div>
-        <div class="pt3 ph2 tr">
-          <div v-if="output.test && output.test.success">
-            <Button v-bind:click="next" class="bg-aqua white">Next</Button>
-          </div>
-          <div v-else>
-            <Button v-bind:click="run" class="bg-green white">Submit</Button>
+          <div class="pt3 ph2 tr">
+            <div v-if="output.test && output.test.success">
+              <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+            </div>
+            <div v-else>
+              <Button v-bind:click="run" class="bg-green white">Submit</Button>
+            </div>
           </div>
         </div>
       </div>
@@ -91,7 +95,7 @@
 <script>
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
-import MonacoEditor from 'vue-monaco-editor'
+import MonacoEditor from './editor/MonacoEditor.vue'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 const IPFS = require('ipfs')
@@ -166,7 +170,7 @@ export default {
       lessonTitle: self.$attrs.lessonTitle,
       output,
       IPFS,
-      expandExercise: true,
+      expandExercise: false,
       options: {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
@@ -186,18 +190,13 @@ export default {
     },
     editorHeight: function () {
       if (this.expandExercise) {
-        return window.innerHeight - 195
+        return undefined
       } else {
         const lineHeight = 18
-        const height = (this.code.split('\n').length * lineHeight) + lineHeight
+        // In compact view show at least 12 lines, and at most 25 lines.
+        const lines = Math.min(Math.max(this.code.split('\n').length, 12), 25)
+        const height = lines * lineHeight
         return height
-      }
-    },
-    editorWidth: function () {
-      if (this.expandExercise) {
-        return window.innerWidth - 64
-      } else {
-        return 800
       }
     }
   },
@@ -241,46 +240,38 @@ export default {
     next: function () {
       Vue.set(output, 'test', null)
       console.log(this.$route)
-      let current = this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1)
+      let current = this.lessonNumber
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
       console.log(current, next)
       this.$router.push({path: next})
     },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
+      setTimeout(() => this.editor.layout(), 1000)
     }
   }
 }
 </script>
 
 <style scoped>
+.editor {
+  height: 100%;
+  min-height: 15rem;
+}
 .exercise {
   overflow: hidden;
   max-width: 100%;
-  display:inline-block;
+  width: 900px;
 }
 .exercise.expand {
   height: 100vh;
+  width: initial;
   margin: 0;
   width: auto;
   position: fixed;
   top:0;
   left: 0;
   right:0;
-}
-.code, code {
-  border-radius: 3px;
-  background-color: rgba(27,31,35,0.05);
-  padding: 0.2rem 0.3rem;
-  margin: 0 -0.1rem;
-  font-size: 85%;
-  font-family: SFMono-Regular, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
-}
-pre code {
-  margin: 0.5rem 0;
-  padding: 0.6rem 0.8rem;
-  display: block;
-  font-size: 12px;
 }
 .indent-1 {
   padding-left: 1rem;
