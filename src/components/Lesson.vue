@@ -154,7 +154,7 @@ export default {
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
-      return `https://ipfs.io/ipfs/QmeznoNAoUcQdCFEEz4ktv4zLfYYyhVNin28Frsv8LLxCb/#/explore/${cid}`
+      return `https://ipfs.io/ipfs/QmYJETQ15RAnKXoJxqpXzcvQ2DuQA35UHwJBTjTPCSs9Ky/#/explore/${cid}`
     }
   },
   methods: {
