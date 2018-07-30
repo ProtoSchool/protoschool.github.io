@@ -248,7 +248,6 @@ export default {
     },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
-      setTimeout(() => this.editor.layout(), 1000)
     }
   }
 }
