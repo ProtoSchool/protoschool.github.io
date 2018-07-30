@@ -18,13 +18,36 @@
         <div class="lesson-text lh-copy" v-html="parsedText"></div>
         <div v-if="concepts" v-html="parsedConcepts"></div>
       </div>
-      <div class="exercise pv4 ph2 ph4-l mb5"
-           style="background: #F6F7F9; max-width: 700px">
-        <div v-if="exercise" v-html="parsedExercise"></div>
-        <div class="editor bg-white"
-             v-bind:class="{large: code.split('\n').length > 12}">
+      <div v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb5 mr5" style="background: #F6F7F9;">
+        <h2 class="mt0 mb2 green fw4 fill-current">
+          <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
+            <circle cx="6" cy="6" r="6"/>
+          </svg>
+          <span class="green ttu f6 pl2 pr3">Exercise {{lessonNumber}}</span>
+          <span class="navy fw5 f5">{{lessonTitle}}</span>
+          <div class="fr nr3-l">
+            <button
+              v-if="expandExercise"
+              title="Smol"
+              v-on:click="toggleExpandExercise"
+              class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+            </button>
+            <button
+              v-else
+              v-on:click="toggleExpandExercise"
+              title='Embiggen exercise'
+              class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+            </button>
+          </div>
+        </h2>
+        <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+        <div class="editor bg-white">
           <MonacoEditor
-            :editorOptions="options"
+            :width="editorWidth"
+            :height="editorHeight"
+            :options="options"
             :code="code"
             theme="vs"
             language="javascript"
@@ -143,9 +166,11 @@ export default {
       lessonTitle: self.$attrs.lessonTitle,
       output,
       IPFS,
+      expandExercise: true,
       options: {
         selectOnLineNumbers: false,
-        lineDecorationsWidth: '2px',
+        lineNumbersMinChars: 3,
+        scrollBeyondLastLine: false,
         automaticLayout: true
       }
     }
@@ -155,6 +180,25 @@ export default {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
       return `https://ipfs.io/ipfs/QmYJETQ15RAnKXoJxqpXzcvQ2DuQA35UHwJBTjTPCSs9Ky/#/explore/${cid}`
+    },
+    lessonNumber: function () {
+      return this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1)
+    },
+    editorHeight: function () {
+      if (this.expandExercise) {
+        return window.innerHeight - 195
+      } else {
+        const lineHeight = 18
+        const height = (this.code.split('\n').length * lineHeight) + lineHeight
+        return height
+      }
+    },
+    editorWidth: function () {
+      if (this.expandExercise) {
+        return window.innerWidth - 64
+      } else {
+        return 800
+      }
     }
   },
   methods: {
@@ -201,18 +245,28 @@ export default {
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
       console.log(current, next)
       this.$router.push({path: next})
+    },
+    toggleExpandExercise: function () {
+      this.expandExercise = !this.expandExercise
     }
   }
 }
 </script>
 
 <style scoped>
-.editor {
-  width: 100%;
-  height: 35vh;
+.exercise {
+  overflow: hidden;
+  max-width: 100%;
+  display:inline-block;
 }
-.large {
-  height: 80vh;
+.exercise.expand {
+  height: 100vh;
+  margin: 0;
+  width: auto;
+  position: fixed;
+  top:0;
+  left: 0;
+  right:0;
 }
 .code, code {
   border-radius: 3px;
