@@ -48,6 +48,7 @@
         <div class="bg-white flex-auto" style='height:100%;'>
           <MonacoEditor
             class="editor"
+            srcPath="."
             :height="editorHeight"
             :options="options"
             :code="code"
@@ -95,7 +96,7 @@
 <script>
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
-import MonacoEditor from './editor/MonacoEditor.vue'
+import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 const IPFS = require('ipfs')
