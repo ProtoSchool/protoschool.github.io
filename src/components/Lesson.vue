@@ -18,7 +18,7 @@
         <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
-      <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 measure' style="background: rgba(105, 196, 205, 10%)">
+      <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
         <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
         <div class='f6 lh-copy' v-html="parsedConcepts"></div>
       </section>
