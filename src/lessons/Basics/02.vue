@@ -3,6 +3,8 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
+            :exercise="exercise"
+            :concepts="concepts"
             lessonTitle="Linking Data">
     </Lesson>
   </div>
@@ -11,6 +13,8 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './02.md'
+import concepts from './02-concepts.md'
+import exercise from './02-exercise.md'
 const CID = require('cids')
 
 let code = `/* globals ipfs */
@@ -49,7 +53,7 @@ export default {
   },
   data: () => {
     return {
-      code, text, validate, modules
+      code, text, validate, modules, exercise, concepts
     }
   }
 }

@@ -3,6 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
+            :exercise="exercise"
             lessonTitle="Reading data in links.">
     </Lesson>
   </div>
@@ -11,6 +12,7 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './03.md'
+import exercise from './03-exercise.md'
 
 let code = `/* globals ipfs */
 
@@ -52,7 +54,7 @@ export default {
   },
   data: () => {
     return {
-      code, text, validate, modules
+      code, text, validate, modules, exercise
     }
   }
 }
