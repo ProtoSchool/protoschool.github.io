@@ -33,7 +33,12 @@ const routes = [
   { path: '/blog/07', component: LessonBlog07 }
 ]
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({
+  routes,
+  scrollBehavior (to, from) {
+    return { x: 0, y: 0 }
+  }
+})
 
 Vue.config.productionTip = false
 
