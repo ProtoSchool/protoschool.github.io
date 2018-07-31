@@ -28,7 +28,7 @@ pre {
 .code, code {
   border-radius: 3px;
   background-color: rgba(27,31,35,0.05);
-  padding: 0.2rem 0.3rem;
+  padding: 0.1rem 0.3rem 0.15rem;
   margin: 0 -0.1rem;
   font-size: 85%;
   font-family: SFMono-Regular, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
@@ -38,5 +38,8 @@ pre code {
   padding: 0.6rem 0.8rem;
   display: block;
   font-size: 12px;
+}
+.fill-current {
+  fill: currentColor;
 }
 </style>
