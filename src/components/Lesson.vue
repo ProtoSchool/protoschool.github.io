@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <header class="bg-navy pa3 flex items-center justify-around">
       <a href='/#/' class="dn db-ns link flex-auto w-third-ns">
         <img src="./home/ipfs-logo.svg" alt="IPFS" style="height: 66px" class="ml3-ns"/>
@@ -12,80 +12,85 @@
         <img src="./home/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
       </div>
     </header>
-    <section class="db bt border-aqua bw4 indent-1">
-      <div class="measure-wide pv3">
-        <h1 class="f3">{{lessonTitle}}</h1>
-        <div class="lesson-text lh-copy" v-html="parsedText"></div>
-        <div v-if="concepts" v-html="parsedConcepts"></div>
+
+    <div class="flex-l items-start bt border-aqua bw4">
+      <section class="pv3 indent-1">
+        <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
+        <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
+      </section>
+      <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 measure' style="background: rgba(105, 196, 205, 10%)">
+        <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
+        <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+      </section>
+    </div>
+
+    <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb5 mr5 flex flex-column" style="background: #F6F7F9;">
+      <div class="flex-none">
+        <h2 class="mt0 mb2 green fw4 fill-current">
+          <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
+            <circle cx="6" cy="6" r="6"/>
+          </svg>
+          <span class="green ttu f6 pl2 pr3">Exercise {{lessonNumber}}</span>
+          <span class="navy fw5 f5">{{lessonTitle}}</span>
+          <div class="fr">
+            <button
+              v-if="expandExercise"
+              title="go smol"
+              v-on:click="toggleExpandExercise"
+              class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+            </button>
+            <button
+              v-else
+              v-on:click="toggleExpandExercise"
+              title='embiggen the exercise'
+              class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+            </button>
+          </div>
+        </h2>
+        <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb5 mr5 flex flex-column" style="background: #F6F7F9;">
-        <div class="flex-none">
-          <h2 class="mt0 mb2 green fw4 fill-current">
-            <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
-              <circle cx="6" cy="6" r="6"/>
-            </svg>
-            <span class="green ttu f6 pl2 pr3">Exercise {{lessonNumber}}</span>
-            <span class="navy fw5 f5">{{lessonTitle}}</span>
-            <div class="fr">
-              <button
-                v-if="expandExercise"
-                title="go smol"
-                v-on:click="toggleExpandExercise"
-                class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-              </button>
-              <button
-                v-else
-                v-on:click="toggleExpandExercise"
-                title='embiggen the exercise'
-                class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-              </button>
+      <div class="bg-white flex-auto" style='height:100%;'>
+        <MonacoEditor
+          class="editor"
+          srcPath="."
+          :height="editorHeight"
+          :options="options"
+          :code="code"
+          theme="vs"
+          language="javascript"
+          @mounted="onMounted"
+          @codeChange="onCodeChange">
+        </MonacoEditor>
+      </div>
+      <div class='flex-none'>
+        <div class="pv2">
+          <div v-if="output.test" v-bind="output.test">
+            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+              Error: {{output.test.error.message}}
             </div>
-          </h2>
-          <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
-        </div>
-        <div class="bg-white flex-auto" style='height:100%;'>
-          <MonacoEditor
-            class="editor"
-            srcPath="."
-            :height="editorHeight"
-            :options="options"
-            :code="code"
-            theme="vs"
-            language="javascript"
-            @mounted="onMounted"
-            @codeChange="onCodeChange">
-          </MonacoEditor>
-        </div>
-        <div class='flex-none'>
-          <div class="pv2">
-            <div v-if="output.test" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
-                Error: {{output.test.error.message}}
-              </div>
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
-                {{output.test.fail}}
-              </div>
-              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
-                {{output.test.success}}
-                <a v-if="output.test.cid"
-                class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
-                  View in IPLD Explorer
-                </a>
-              </div>
+            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
+              {{output.test.fail}}
             </div>
-            <div class="lh-copy pv2 ph3" v-else>
-              Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
+              {{output.test.success}}
+              <a v-if="output.test.cid"
+              class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+                View in IPLD Explorer
+              </a>
             </div>
           </div>
-          <div class="pt3 ph2 tr">
-            <div v-if="output.test && output.test.success">
-              <Button v-bind:click="next" class="bg-aqua white">Next</Button>
-            </div>
-            <div v-else>
-              <Button v-bind:click="run" class="bg-green white">Submit</Button>
-            </div>
+          <div class="lh-copy pv2 ph3" v-else>
+            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+          </div>
+        </div>
+        <div class="pt3 ph2 tr">
+          <div v-if="output.test && output.test.success">
+            <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+          </div>
+          <div v-else>
+            <Button v-bind:click="run" class="bg-green white">Submit</Button>
           </div>
         </div>
       </div>
@@ -274,11 +279,11 @@ export default {
   right:0;
 }
 .indent-1 {
-  padding-left: 1rem;
+  margin-left: 1rem;
 }
 @media screen and (min-width: 60rem) {
   .indent-1 {
-    padding-left: 93px;
+    margin-left: 93px;
   }
 }
 </style>

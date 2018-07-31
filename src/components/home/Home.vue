@@ -63,7 +63,7 @@
           <img src="./ipld.svg" alt="" style="height: 54px"/>
         </div>
         <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
-          <h2 class="ma0 f3 fw5 ">Building a DAG</h2>
+          <h2 class="ma0 f3 fw5 ">Blogging on the Permenant Web</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
             Cool content addresses don't change
           </p>
