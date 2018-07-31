@@ -1,6 +1,8 @@
 <template>
   <div class="lesson-blog-06">
-    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
+    <Lesson v-bind:text="text" v-bind:code="code"
+            :validate="validate"
+            :exercise="exercise"
             lessonTitle="Chain of links">
     </Lesson>
   </div>
@@ -9,6 +11,7 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './06.md'
+import exercise from './06-exercise.md'
 const CID = require('cids')
 
 const code = `/* globals ipfs */
@@ -186,7 +189,8 @@ export default {
     return {
       code,
       text,
-      validate
+      validate,
+      exercise
     }
   }
 }
