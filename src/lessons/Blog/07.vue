@@ -3,6 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
+            :exercise="exercise"
             lessonTitle="Hop through nodes">
     </Lesson>
   </div>
@@ -11,6 +12,7 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './07.md'
+import exercise from './07-exercise.md'
 import utils from './utils.js'
 const shallowEqualArrays = require('shallow-equal/arrays')
 const CID = require('cids')
@@ -182,7 +184,8 @@ export default {
       code,
       text,
       validate,
-      modules
+      modules,
+      exercise
     }
   }
 }
