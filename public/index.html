@@ -19,5 +19,52 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script>
+      /* https://github.com/schalkneethling/dnt-helper/blob/master/js/dnt-helper.js
+      */
+      function _dntEnabled (dnt, userAgent) {
+        'use strict'
+        var dntStatus = dnt || navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack
+        var ua = userAgent || navigator.userAgent
+        var anomalousWinVersions = ['Windows NT 6.1', 'Windows NT 6.2', 'Windows NT 6.3']
+
+        var fxMatch = ua.match(/Firefox\/(\d+)/)
+        var ieRegEx = /MSIE|Trident/i
+        var isIE = ieRegEx.test(ua)
+        var platform = ua.match(/Windows.+?(?=;)/g)
+        if (isIE && typeof Array.prototype.indexOf !== 'function') {
+          return false
+        } else if (fxMatch && parseInt(fxMatch[1], 10) < 32) {
+          dntStatus = 'Unspecified'
+        } else if (isIE && platform && anomalousWinVersions.indexOf(platform.toString()) !== -1) {
+          dntStatus = 'Unspecified'
+        } else {
+          dntStatus = { '0': 'Disabled', '1': 'Enabled' }[dntStatus] || 'Unspecified'
+        }
+        return dntStatus === 'Enabled'
+      }
+      /* From https://github.com/nodejs/nodejs.org/blob/703bacbc0da63fa91f156468209758c66c01f30f/layouts/partials/footer.hbs */
+      (function(){
+        if (!_dntEnabled() && location.hostname === 'proto.school') {
+          !function(n,o,d,e,j,s){n.GoogleAnalyticsObject=d;n[d]||(n[d]=function(){
+          (n[d].q=n[d].q||[]).push(arguments)});n[d].l=+new Date;j=o.createElement(e);
+          s=o.getElementsByTagName(e)[0];j.async=1;j.src='//www.google-analytics.com/analytics.js';
+          s.parentNode.insertBefore(j,s)}(window,document,'ga','script');
+          if (!ga) return;
+          ga('create', 'UA-96910779-4', 'auto');
+          ga('send', 'pageview');
+          document.documentElement.addEventListener('click', function(e) {
+            // Track case studies
+            if(!e.target || !e.target.dataset || !e.target.dataset.casestudy) return;
+            ga('send', 'event', {
+              eventCategory: 'casestudy',
+              eventAction: 'click',
+              eventLabel: e.target.dataset.casestudy,
+              eventValue: 0
+            });
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
