@@ -18,9 +18,9 @@
         <div class="lesson-text lh-copy" v-html="parsedText"></div>
         <div v-if="concepts" v-html="parsedConcepts"></div>
       </div>
-      <div class="exercise pv4 ph2 ph4-l mb5"
+      <div v-if="exercise"  class="exercise pv4 ph2 ph4-l mb5"
            style="background: #F6F7F9; max-width: 700px">
-        <div v-if="exercise" v-html="parsedExercise"></div>
+        <div v-html="parsedExercise"></div>
         <div class="editor bg-white"
              v-bind:class="{large: code.split('\n').length > 12}">
           <MonacoEditor
@@ -60,6 +60,9 @@
             <Button v-bind:click="run" class="bg-green white">Submit</Button>
           </div>
         </div>
+      </div>
+      <div v-else>
+        <Button v-bind:click="next" class="bg-aqua white">Next</Button>
       </div>
     </section>
   </div>
