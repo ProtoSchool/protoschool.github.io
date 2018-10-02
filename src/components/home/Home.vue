@@ -35,6 +35,34 @@
           <img src="./ipld.svg" alt="" style="height: 54px"/>
         </div>
         <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
+          <h2 class="ma0 f3 fw5">Learn Decentralized Data-Structures</h2>
+          <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
+            Long Desc
+          </p>
+          <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
+            <li>
+              <ExerciseLink to="/data-structures/01" index="1" name="Hashing." />
+            </li>
+            <li>
+              <ExerciseLink to="/data-structures/02" index="2" name="Content Addressing." />
+            </li>
+            <li>
+              <ExerciseLink to="/data-structures/03" index="3" name="Merkle Trees." />
+            </li>
+          </ul>
+        </div>
+        <div class="dn db-ns flex-auto tc">
+          <img src="./ipfs-illustrations-how-4.svg" alt="">
+        </div>
+      </div>
+    </section>
+    <section class="db">
+      <div class="flex items-start pv4">
+        <div class="section-1 flex-none tc">
+          <h1 class="ma0 f3 fw6 pb2">IPLD</h1>
+          <img src="./ipld.svg" alt="" style="height: 54px"/>
+        </div>
+        <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
           <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
             Store, fetch, and create verifiable links between peer-hosted datasets with IPLD and CIDs. It’s graphs with friends!

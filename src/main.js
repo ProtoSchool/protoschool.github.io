@@ -16,11 +16,17 @@ import LessonBlog04 from './lessons/Blog/04.vue'
 import LessonBlog05 from './lessons/Blog/05.vue'
 import LessonBlog06 from './lessons/Blog/06.vue'
 import LessonBlog07 from './lessons/Blog/07.vue'
+import Data01 from './lessons/Data-Structures/01.vue'
+import Data02 from './lessons/Data-Structures/02.vue'
+import Data03 from './lessons/Data-Structures/03.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   { path: '/', component: Home },
+  { path: '/data-structures/01', component: Data01 },
+  { path: '/data-structures/02', component: Data02 },
+  { path: '/data-structures/03', component: Data03 },
   { path: '/basics/01', component: Lesson01 },
   { path: '/basics/02', component: Lesson02 },
   { path: '/basics/03', component: Lesson03 },
