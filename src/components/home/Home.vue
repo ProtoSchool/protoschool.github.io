@@ -69,13 +69,13 @@
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <ExerciseLink to="/basics/01" index="1" name="Basic write." />
+              <ExerciseLink to="/basics/01" index="1" name="Basic write" />
             </li>
             <li>
-              <ExerciseLink to="/basics/02" index="2" name="Linking Data." />
+              <ExerciseLink to="/basics/02" index="2" name="Linking data" />
             </li>
             <li>
-              <ExerciseLink to="/basics/03" index="3" name="Reading data in links." />
+              <ExerciseLink to="/basics/03" index="3" name="Reading data in links" />
             </li>
           </ul>
         </div>
@@ -91,9 +91,9 @@
           <img src="./ipld.svg" alt="" style="height: 54px"/>
         </div>
         <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
-          <h2 class="ma0 f3 fw5 ">Building a DAG</h2>
+          <h2 class="ma0 f3 fw5 ">Blogging on the Decentralized Web</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
-            Cool content addresses don't change
+            Cool content addresses don't change.
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>

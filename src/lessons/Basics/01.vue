@@ -2,7 +2,7 @@
   <div class="lesson-01">
     <Lesson :text="text" :validate="validate"
             :exercise="exercise" :concepts="concepts"
-            lessonTitle="Basic write.">
+            lessonTitle="Basic write">
     </Lesson>
   </div>
 </template>
@@ -10,8 +10,8 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './01.md'
-import exercise from './01-exercise.md'
 import concepts from './01-concepts.md'
+import exercise from './01-exercise.md'
 const CID = require('cids')
 
 const validate = async (result, ipfs) => {

@@ -1,6 +1,8 @@
 <template>
   <div class="lesson-blog-05">
-    <Lesson v-bind:text="text" v-bind:code="code" :validate="validate"
+    <Lesson v-bind:text="text" v-bind:code="code"
+            :validate="validate"
+            :exercise="exercise"
             lessonTitle="Keep building links">
     </Lesson>
   </div>
@@ -9,6 +11,7 @@
 <script>
 import Lesson from '../../components/Lesson'
 import text from './05.md'
+import exercise from './05-exercise.md'
 import utils from './utils.js'
 const shallowEqualArrays = require('shallow-equal/arrays')
 const CID = require('cids')
@@ -167,7 +170,8 @@ export default {
     return {
       code,
       text,
-      validate
+      validate,
+      exercise
     }
   }
 }
