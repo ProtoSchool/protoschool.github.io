@@ -5,7 +5,7 @@
             :modules="modules"
             :exercise="exercise"
             :concepts="concepts"
-            lessonTitle="Linking Data">
+            lessonTitle="Linking data">
     </Lesson>
   </div>
 </template>
