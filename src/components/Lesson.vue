@@ -95,6 +95,14 @@
         </div>
       </div>
     </section>
+    <section class="indent-1 mb4">
+      <div>
+        Totally stuck? We'd love to hear what's confusing so we can improve
+        this workshop. Please copy the URL of this lesson and include it with your
+        detailed question in a
+        <a href="https://github.com/ipfs-shipyard/proto.school/issues/new">GitHub issue</a>.
+      </div>
+    </section>
   </div>
 </template>
 
