@@ -95,10 +95,10 @@
         </div>
       </div>
     </section>
-    <section class="indent-1 mb4">
+    <section class="indent-1 mb4 mw-900">
       <div>
-        Feeling stuck? We'd love to hear what's confusing so we can improve
-        this lesson. Please <a :href="issueUrl">share your questions and feedback</a>.
+        <p>Feeling stuck? We'd love to hear what's confusing so we can improve
+        this lesson. Please <a :href="issueUrl">share your questions and feedback</a>.</p>
       </div>
     </section>
   </div>
@@ -289,6 +289,9 @@ export default {
 }
 .indent-1 {
   margin-left: 1rem;
+}
+.mw-900 {
+  max-width: 900px;
 }
 @media screen and (min-width: 60rem) {
   .indent-1 {
