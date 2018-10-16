@@ -154,8 +154,6 @@ const run = async () => {
 return run
 
 `
-
-const output = {}
 let oldIPFS
 
 export default {
@@ -174,7 +172,7 @@ export default {
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       lessonTitle: self.$attrs.lessonTitle,
-      output,
+      output: self.output,
       IPFS,
       expandExercise: false,
       options: {
@@ -206,12 +204,16 @@ export default {
       }
     }
   },
+  beforeCreate: function () {
+    this.output = {}
+  },
   methods: {
     run: async function () {
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
       }
+      let output = this.output
       let ipfs = this.createIPFS()
       let code = this.editor.getValue()
       let modules = {}
@@ -244,11 +246,9 @@ export default {
       // console.log(editor.getValue())
     },
     next: function () {
-      Vue.set(output, 'test', null)
-      console.log(this.$route)
+      Vue.set(this.output, 'test', null)
       let current = this.lessonNumber
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
-      console.log(current, next)
       this.$router.push({path: next})
     },
     toggleExpandExercise: function () {
