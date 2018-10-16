@@ -24,7 +24,7 @@
       </section>
     </div>
 
-    <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb5 mr5 flex flex-column" style="background: #F6F7F9;">
+    <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
       <div class="flex-none">
         <h2 class="mt0 mb2 green fw4 fill-current">
           <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
@@ -97,10 +97,8 @@
     </section>
     <section class="indent-1 mb4">
       <div>
-        Totally stuck? We'd love to hear what's confusing so we can improve
-        this workshop. Please copy the URL of this lesson and include it with your
-        detailed question in a
-        <a href="https://github.com/ipfs-shipyard/proto.school/issues/new">GitHub issue</a>.
+        Feeling stuck? We'd love to hear what's confusing so we can improve
+        this lesson. Please <a :href="issueURL">share your questions and feedback</a>.
       </div>
     </section>
   </div>
@@ -201,6 +199,10 @@ export default {
     },
     lessonNumber: function () {
       return this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1)
+    },
+    issueURL: function () {
+      let Url = "https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+" + this.lessonNumber + ": " + this.lessonTitle + " (" + this.$route.path + ")&body=Have+a+question+or+suggestion+regarding+a+ProtoSchool+lesson?+Share+it+here!+We've+noted+the+lesson+your+question+refers+to+in+the+title+of+this+issue.+Please+tell+us+what's+confusing+about+this+lesson.+What+additional+context+could+we+provide+to+help+you+succeed?+What+other+feedback+would+you+like+to+share+about+ProtoSchool?"
+      return Url
     },
     editorHeight: function () {
       if (this.expandExercise) {
