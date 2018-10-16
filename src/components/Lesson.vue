@@ -98,7 +98,7 @@
     <section class="indent-1 mb4">
       <div>
         Feeling stuck? We'd love to hear what's confusing so we can improve
-        this lesson. Please <a :href="issueURL">share your questions and feedback</a>.
+        this lesson. Please <a :href="issueUrl">share your questions and feedback</a>.
       </div>
     </section>
   </div>
@@ -200,9 +200,8 @@ export default {
     lessonNumber: function () {
       return this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1)
     },
-    issueURL: function () {
-      let Url = "https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+" + this.lessonNumber + ": " + this.lessonTitle + " (" + this.$route.path + ")&body=Have+a+question+or+suggestion+regarding+a+ProtoSchool+lesson?+Share+it+here!+We've+noted+the+lesson+your+question+refers+to+in+the+title+of+this+issue.+Please+tell+us+what's+confusing+about+this+lesson.+What+additional+context+could+we+provide+to+help+you+succeed?+What+other+feedback+would+you+like+to+share+about+ProtoSchool?"
-      return Url
+    issueUrl: function () {
+      return `https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+${this.lessonNumber}:+${this.lessonTitle}+(${this.$route.path})&body=Have%20a%20question%20or%20suggestion%20regarding%20a%20ProtoSchool%20lesson%3F%20Please%20use%20this%0Atemplate%20to%20share%20it!%0A%0A1.%20URL%20of%20the%20lesson%20that's%20confusing%3A%0A%20https%3A%2F%2Fproto.school%2F%23${this.$route.path}%0A%0A2.%20What%27s%20confusing%20about%20this%20lesson%3F%0A%0A3.%20What%20additional%20context%20could%20we%20provide%20to%20help%20you%20succeed%3F%0A%0A4.%20What%20other%20feedback%20would%20you%20like%20to%20share%20about%20ProtoSchool%3F%0A`
     },
     editorHeight: function () {
       if (this.expandExercise) {
