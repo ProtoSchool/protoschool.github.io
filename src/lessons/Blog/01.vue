@@ -95,7 +95,7 @@ const validate = async (result, ipfs) => {
     'zdpuAxzw762rP3CXZpAsKagPFR2AyqmZU2sN8U1GuVCeoYUEo']
   const resultCids = result.map((cid) => cid.toBaseEncodedString())
   if (shallowEqualArrays(resultCids.sort(), expectedCids.sort())) {
-    return {success: 'All works!'}
+    return {success: 'Everything works!'}
   } else {
     return {fail: `The returned CIDs ${utils.stringify(resultCids)} did not match the expected CIDs ${utils.stringify(expectedCids)}.`}
   }

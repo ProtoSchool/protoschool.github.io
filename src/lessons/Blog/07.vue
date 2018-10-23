@@ -170,7 +170,7 @@ const validate = async (result, ipfs) => {
   } catch (err) {
     return {fail: `Your function threw an error: ${err}.`}
   }
-  return {success: 'All works!'}
+  return {success: 'Everything works!'}
 }
 
 let modules = {cids: require('cids')}
