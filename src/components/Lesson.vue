@@ -86,7 +86,10 @@
           </div>
         </div>
         <div class="pt3 ph2 tr">
-          <div v-if="output.test && output.test.success">
+          <div v-if="output.test && output.test.success && last === 'true'">
+            <Button v-bind:click="workshopMenu" class="bg-aqua white">More Workshops</Button>
+          </div>
+          <div v-else-if="output.test && output.test.success">
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
           </div>
           <div v-else>
@@ -173,6 +176,7 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
+      last: self.$attrs.last,
       code: self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
@@ -257,6 +261,10 @@ export default {
       let current = this.lessonNumber
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
       this.$router.push({path: next})
+    },
+    workshopMenu: function () {
+      Vue.set(this.output, 'test', null)
+      this.$router.push({path: '/'})
     },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise

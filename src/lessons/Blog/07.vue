@@ -4,7 +4,8 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Hop through nodes">
+            lessonTitle="Hop through nodes"
+            last="true">
     </Lesson>
   </div>
 </template>
@@ -170,7 +171,7 @@ const validate = async (result, ipfs) => {
   } catch (err) {
     return {fail: `Your function threw an error: ${err}.`}
   }
-  return {success: 'Everything works!'}
+  return {success: "Great job! You've completed this series of lessons!"}
 }
 
 let modules = {cids: require('cids')}
