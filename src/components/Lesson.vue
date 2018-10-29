@@ -24,7 +24,7 @@
       </section>
     </div>
 
-    <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb5 mr5 flex flex-column" style="background: #F6F7F9;">
+    <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
       <div class="flex-none">
         <h2 class="mt0 mb2 green fw4 fill-current">
           <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
@@ -86,13 +86,22 @@
           </div>
         </div>
         <div class="pt3 ph2 tr">
-          <div v-if="output.test && output.test.success">
+          <div v-if="output.test && output.test.success && last === 'true'">
+            <Button v-bind:click="workshopMenu" class="bg-aqua white">More Workshops</Button>
+          </div>
+          <div v-else-if="output.test && output.test.success">
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
           </div>
           <div v-else>
             <Button v-bind:click="run" class="bg-green white">Submit</Button>
           </div>
         </div>
+      </div>
+    </section>
+    <section class="indent-1 mb4 mw-900">
+      <div>
+        <p>Feeling stuck? We'd love to hear what's confusing so we can improve
+        this lesson. Please <a :href="issueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </section>
   </div>
@@ -167,11 +176,13 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
+      last: self.$attrs.last,
       code: self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       lessonTitle: self.$attrs.lessonTitle,
+      issueUrl: `https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+${self.$route.path.slice(self.$route.path.lastIndexOf('/') + 1)}:+${self.$attrs.lessonTitle}+(${self.$route.path})&body=Have%20a%20question%20or%20suggestion%20regarding%20a%20ProtoSchool%20lesson%3F%20Please%20use%20this%0Atemplate%20to%20share%20it!%0A%0A1.%20URL%20of%20the%20lesson%20that's%20confusing%3A%0A%20https%3A%2F%2Fproto.school%2F%23${self.$route.path}%0A%0A2.%20What%27s%20confusing%20about%20this%20lesson%3F%0A%0A3.%20What%20additional%20context%20could%20we%20provide%20to%20help%20you%20succeed%3F%0A%0A4.%20What%20other%20feedback%20would%20you%20like%20to%20share%20about%20ProtoSchool%3F%0A`,
       output: self.output,
       IPFS,
       expandExercise: false,
@@ -251,6 +262,10 @@ export default {
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
       this.$router.push({path: next})
     },
+    workshopMenu: function () {
+      Vue.set(this.output, 'test', null)
+      this.$router.push({path: '/'})
+    },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
     }
@@ -280,6 +295,9 @@ export default {
 }
 .indent-1 {
   margin-left: 1rem;
+}
+.mw-900 {
+  max-width: 900px;
 }
 @media screen and (min-width: 60rem) {
   .indent-1 {

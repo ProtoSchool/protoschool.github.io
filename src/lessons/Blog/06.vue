@@ -175,7 +175,7 @@ const validate = async (result, ipfs) => {
   }
   const nodeCid = result.toBaseEncodedString()
   if (nodeCid === dogPostCid) {
-    return {success: 'All works!'}
+    return {success: 'Everything works!'}
   } else {
     return {fail: `The returned CID ${nodeCid} did not match the expected CID ${dogPostCid}.`}
   }

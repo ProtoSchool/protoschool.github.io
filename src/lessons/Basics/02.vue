@@ -35,7 +35,7 @@ const validate = async (result, ipfs) => {
   }
   let hash = 'zdpuAoPanArLvuFtuvmLYuSvp8zE8wuKSMZUkMN8Y1PaHLvKP'
   if (result.toBaseEncodedString() === hash) {
-    return {success: 'All works!'}
+    return {success: 'Everything works!'}
   } else {
     let obj = await ipfs.dag.get(result)
     let expected = JSON.stringify({bar: {'/': hash}})

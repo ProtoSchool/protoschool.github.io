@@ -159,7 +159,7 @@ const validate = async (result, ipfs) => {
   }
   // Don't check the CIDs as then the order of the links would matter.
   // But that order really doesn't matter.
-  return {success: 'All works!'}
+  return {success: 'Everything works!'}
 }
 
 export default {

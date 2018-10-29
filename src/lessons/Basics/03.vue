@@ -4,7 +4,8 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Reading data in links">
+            lessonTitle="Reading data in links"
+            last="true">
     </Lesson>
   </div>
 </template>
@@ -37,7 +38,7 @@ const validate = async (result, ipfs) => {
   }
 
   if (result.value === 1 && result.remainderPath === '') {
-    return {success: 'Great job!'}
+    return {success: `Great job! You've completed this series of lessons!`}
   } else {
     let expected = JSON.stringify({value: 1, remainderPath: ''})
     let got = JSON.stringify(result)
