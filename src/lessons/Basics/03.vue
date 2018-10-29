@@ -38,7 +38,7 @@ const validate = async (result, ipfs) => {
   }
 
   if (result.value === 1 && result.remainderPath === '') {
-    return {success: "Great job! You've completed this series of lessons!"}
+    return {success: `Great job! You've completed this series of lessons!`}
   } else {
     let expected = JSON.stringify({value: 1, remainderPath: ''})
     let got = JSON.stringify(result)
