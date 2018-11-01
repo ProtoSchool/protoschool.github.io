@@ -21,7 +21,7 @@
     </header>
     <section class="db bt border-aqua bw4">
       <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-        <strong>Protoschool is a collection of workshops</strong> that help you learn about the
+        <strong>ProtoSchool is a collection of workshops</strong> that help you learn about the
         IPFS protocol by writing code and solving challenges.
       </p>
     </section>
