@@ -4,7 +4,7 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Reading data in links"
+            lessonTitle="Read nested data using links"
             last="true">
     </Lesson>
   </div>

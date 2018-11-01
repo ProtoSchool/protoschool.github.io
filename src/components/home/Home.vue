@@ -41,13 +41,13 @@
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <ExerciseLink to="/basics/01" index="1" name="Basic write" />
+              <ExerciseLink to="/basics/01" index="1" name="Create a node and return a Content Identifier (CID)" />
             </li>
             <li>
-              <ExerciseLink to="/basics/02" index="2" name="Linking data" />
+              <ExerciseLink to="/basics/02" index="2" name="Create a new node that's linked to an old one" />
             </li>
             <li>
-              <ExerciseLink to="/basics/03" index="3" name="Reading data in links" />
+              <ExerciseLink to="/basics/03" index="3" name="Read nested data using links" />
             </li>
           </ul>
         </div>

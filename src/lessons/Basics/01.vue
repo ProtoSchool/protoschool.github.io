@@ -2,7 +2,7 @@
   <div class="lesson-01">
     <Lesson :text="text" :validate="validate"
             :exercise="exercise" :concepts="concepts"
-            lessonTitle="Basic write">
+            lessonTitle="Create a node and return a Content Identifier (CID)">
     </Lesson>
   </div>
 </template>
