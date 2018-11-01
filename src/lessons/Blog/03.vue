@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="Multiple links">
+            lessonTitle="Build a tag cloud with arrays of links">
     </Lesson>
   </div>
 </template>

@@ -30,7 +30,7 @@
           <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
             <circle cx="6" cy="6" r="6"/>
           </svg>
-          <span class="green ttu f6 pl2 pr3">Exercise {{lessonNumber}}</span>
+          <span class="green ttu f6 pl2 pr3">Exercise</span>
           <span class="navy fw5 f5">{{lessonTitle}}</span>
           <div class="fr">
             <button

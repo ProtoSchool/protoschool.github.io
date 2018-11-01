@@ -31,23 +31,23 @@
       </label>
       <div class="flex items-start pv4">
         <div class="section-1 flex-none tc">
-          <h1 class="ma0 f3 fw6 pb2">IPLD</h1>
-          <img src="./ipld.svg" alt="" style="height: 54px"/>
+          <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
+          <img src="./ipfs.svg" alt="" style="height: 54px"/>
         </div>
         <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
           <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
-            Store, fetch, and create verifiable links between peer-hosted datasets with IPLD and CIDs. It’s graphs with friends!
+            Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <ExerciseLink to="/basics/01" index="1" name="Basic write" />
+              <ExerciseLink to="/basics/01" index="1" name="Create a node and return a Content Identifier (CID)" />
             </li>
             <li>
-              <ExerciseLink to="/basics/02" index="2" name="Linking data" />
+              <ExerciseLink to="/basics/02" index="2" name="Create a new node that's linked to an old one" />
             </li>
             <li>
-              <ExerciseLink to="/basics/03" index="3" name="Reading data in links" />
+              <ExerciseLink to="/basics/03" index="3" name="Read nested data using links" />
             </li>
           </ul>
         </div>
@@ -59,8 +59,8 @@
     <section class="db">
       <div class="flex items-start pv4">
         <div class="section-1 flex-none tc">
-          <h1 class="ma0 f3 fw6 pb2">IPLD</h1>
-          <img src="./ipld.svg" alt="" style="height: 54px"/>
+          <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
+          <img src="./ipfs.svg" alt="" style="height: 54px"/>
         </div>
         <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
           <h2 class="ma0 f3 fw5 ">Blogging on the Decentralized Web</h2>
@@ -69,25 +69,25 @@
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <ExerciseLink to="/blog/01" index="1" name="Basic linking" />
+              <ExerciseLink to="/blog/01" index="1" name="Link an author to a blog post using its CID" />
             </li>
             <li>
-              <ExerciseLink to="/blog/02" index="2" name="CIDs change" />
+              <ExerciseLink to="/blog/02" index="2" name="Update posts with tags and watch their CIDs change" />
             </li>
             <li>
-              <ExerciseLink to="/blog/03" index="3" name="Multiple links" />
+              <ExerciseLink to="/blog/03" index="3" name="Build a tag cloud with arrays of links" />
             </li>
             <li>
-              <ExerciseLink to="/blog/04" index="4" name="Bigger DAG" />
+              <ExerciseLink to="/blog/04" index="4" name="Add a new blog post linked to an author and tags" />
             </li>
             <li>
-              <ExerciseLink to="/blog/05" index="5" name="Keep building links" />
+              <ExerciseLink to="/blog/05" index="5" name="Add a new tag linked to multiple blog posts" />
             </li>
             <li>
-              <ExerciseLink to="/blog/06" index="6" name="Chain of links" />
+              <ExerciseLink to="/blog/06" index="6" name="List posts chronologically with a chain of links" />
             </li>
             <li>
-              <ExerciseLink to="/blog/07" index="7" name="Hop through nodes" />
+              <ExerciseLink to="/blog/07" index="7" name="Traverse through all posts, starting with the most recent" />
             </li>
           </ul>
         </div>
