@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="Bigger DAG">
+            lessonTitle="Add a new blog post linked to an author and tags">
     </Lesson>
   </div>
 </template>

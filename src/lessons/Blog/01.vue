@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="Basic linking">
+            lessonTitle="Link an author to a blog post using its CID">
     </Lesson>
   </div>
 </template>

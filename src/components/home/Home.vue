@@ -69,25 +69,25 @@
           </p>
           <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
             <li>
-              <ExerciseLink to="/blog/01" index="1" name="Basic linking" />
+              <ExerciseLink to="/blog/01" index="1" name="Link an author to a blog post using its CID" />
             </li>
             <li>
-              <ExerciseLink to="/blog/02" index="2" name="CIDs change" />
+              <ExerciseLink to="/blog/02" index="2" name="Update posts with tags and watch their CIDs change" />
             </li>
             <li>
-              <ExerciseLink to="/blog/03" index="3" name="Multiple links" />
+              <ExerciseLink to="/blog/03" index="3" name="Build a tag cloud with arrays of links" />
             </li>
             <li>
-              <ExerciseLink to="/blog/04" index="4" name="Bigger DAG" />
+              <ExerciseLink to="/blog/04" index="4" name="Add a new blog post linked to an author and tags" />
             </li>
             <li>
-              <ExerciseLink to="/blog/05" index="5" name="Keep building links" />
+              <ExerciseLink to="/blog/05" index="5" name="Add a new tag linked to multiple blog posts" />
             </li>
             <li>
-              <ExerciseLink to="/blog/06" index="6" name="Chain of links" />
+              <ExerciseLink to="/blog/06" index="6" name="List posts chronologically with a chain of links" />
             </li>
             <li>
-              <ExerciseLink to="/blog/07" index="7" name="Hop through nodes" />
+              <ExerciseLink to="/blog/07" index="7" name="Traverse through all posts, starting with the most recent" />
             </li>
           </ul>
         </div>

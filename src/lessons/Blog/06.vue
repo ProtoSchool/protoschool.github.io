@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="Chain of links">
+            lessonTitle="List posts chronologically with a chain of links">
     </Lesson>
   </div>
 </template>

@@ -4,7 +4,7 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Hop through nodes"
+            lessonTitle="Traverse through all posts, starting with the most recent"
             last="true">
     </Lesson>
   </div>

@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="CIDs change">
+            lessonTitle="Update posts with tags and watch their CIDs change">
     </Lesson>
   </div>
 </template>
