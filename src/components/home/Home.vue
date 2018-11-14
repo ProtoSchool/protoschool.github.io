@@ -1,21 +1,21 @@
 <template>
   <div class="home">
     <header class="flex items-center bg-navy white pv3">
-      <div class="flex-none">
-        <div class="ph2 ph4-ns">
-          <img src="./ipfs-logo.svg" alt="IPFS" style="height: 66px" />
-        </div>
-        <div class="header-text indent-1">
-          <h1 class="ma0 pt4 ttu fw4">
-            <span class="green">Proto</span>
-            <span class="white">school</span>
-          </h1>
-          <h2 class="ma0 fw5">
-            The interactive IPFS protocol workshop
-          </h2>
+      <div class="flex-auto">
+        <div class="pseudo-logo">
+          <img src="./ps_logotype_color.svg" alt="ProtoSchool" class="mr2 ml2" />
+          <div class="header-text">
+              <h1 class="ma0 fw4">
+                <span class="montserrat fw4">Proto</span>
+                <span class="montserrat fw2">School</span>
+              </h1>
+              <h2 class="ma0 montserrat fw3">
+                The interactive IPFS protocol workshop
+              </h2>
+          </div>
         </div>
       </div>
-      <div class="flex-auto tc">
+      <div class="flex-auto tc bonus-illustration">
         <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 124px;"/>
       </div>
     </header>
@@ -111,8 +111,9 @@ export default {
 </script>
 
 <style scoped>
-.header-text {
-  padding-bottom: 31px;
+
+.bonus-illustration {
+  display: none;
 }
 .header-text h1 {
   font-size: 36px;
@@ -122,6 +123,13 @@ export default {
 }
 .indent-1 {
   padding-left: 1rem;
+}
+.pseudo-logo {
+  display: flex;
+  align-items: center;
+}
+.pseudo-logo img {
+  height: 100px;
 }
 .section-1 {
   display: none;
@@ -139,6 +147,14 @@ export default {
   .section-1 {
     display: block;
     width: 93px;
+  }
+  .pseudo-logo img {
+    height: 120px;
+  }
+}
+@media screen and (min-width: 740px) {
+  .bonus-illustration {
+    display: block;
   }
 }
 </style>
