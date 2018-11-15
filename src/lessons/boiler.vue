@@ -3,7 +3,8 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
-    >
+            :exercise="exercise"
+            lessonTitle="REPLACEME">
     </Lesson>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import Lesson from '../components/Lesson'
 import text from './REPLACEME.md'
+import exercise from './REPLACEME-exercise.md'
 
 const validate = async (result, ipfs) => {
   if (result) {
