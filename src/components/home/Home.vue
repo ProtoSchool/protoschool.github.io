@@ -3,7 +3,7 @@
     <header class="flex items-center bg-navy white pv3">
       <div class="flex-auto">
         <div class="pseudo-logo">
-          <img src="./ps_logotype_color.svg" alt="ProtoSchool" class="mr2 ml2" />
+          <img src="./ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
           <div class="header-text">
               <h1 class="ma0 fw4">
                 <span class="montserrat fw4">Proto</span>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="flex-auto tc bonus-illustration">
-        <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 124px;"/>
+        <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 100px;"/>
       </div>
     </header>
     <section class="db bt border-aqua bw4">
@@ -116,10 +116,10 @@ export default {
   display: none;
 }
 .header-text h1 {
-  font-size: 36px;
+  font-size: 32px;
 }
 .header-text h2 {
-  font-size: 15px;
+  font-size: 16px;
 }
 .indent-1 {
   padding-left: 1rem;
@@ -129,17 +129,17 @@ export default {
   align-items: center;
 }
 .pseudo-logo img {
-  height: 100px;
+  height: 80px;
 }
 .section-1 {
   display: none;
 }
 @media screen and (min-width: 530px) {
   .header-text h1 {
-    font-size: 50px;
+    font-size: 40px;
   }
   .header-text h2 {
-    font-size: 21px;
+    font-size: 20px;
   }
   .indent-1 {
     padding-left: 93px;
@@ -149,7 +149,7 @@ export default {
     width: 93px;
   }
   .pseudo-logo img {
-    height: 120px;
+    height: 100px;
   }
 }
 @media screen and (min-width: 740px) {
