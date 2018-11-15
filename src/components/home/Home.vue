@@ -157,4 +157,16 @@ export default {
     display: block;
   }
 }
+
+@media screen and (max-width: 435px) {
+  .header-text h1 {
+    font-size: 24px;
+  }
+  .header-text h2 {
+    font-size: 12px;
+  }
+  .pseudo-logo img {
+    height: 60px;
+  }
+}
 </style>
