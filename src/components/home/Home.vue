@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="flex-auto tc bonus-illustration">
-        <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 100px;"/>
+        <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
       </div>
     </header>
     <section class="db bt border-aqua bw4">

@@ -1,14 +1,10 @@
 <template>
   <div>
-    <header class="bg-navy pa3 flex items-center justify-around">
-      <a href='/#/' class="dn db-ns link flex-auto w-third-ns">
-        <img src="./home/ipfs-logo.svg" alt="IPFS" style="height: 66px" class="ml3-ns"/>
+    <header class="bg-navy pa2 pa3-ns flex items-center justify-around">
+      <a href='/#/' class="db-ns link flex-auto">
+        <img src="./home/ps_logo_horiz_white.svg" alt="ProtoSchool" style="height: 80px" class="ml3-ns"/>
       </a>
-      <a href='/#/' class="link ma0 ttu f3 f1-ns fw4 w-third-ns tc">
-        <span class="green">Proto</span>
-        <span class="white">school</span>
-      </a>
-      <div class="w-third-ns tr dn db-ns">
+      <div class="tr dn db-ns">
         <img src="./home/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
       </div>
     </header>
