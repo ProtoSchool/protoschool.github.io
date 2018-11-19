@@ -51,6 +51,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
+      <div v-if="cachedCode">This is a cached version of your prior lesson code. <span v-on:click="clearCache" class="clearCache">Reset to default.</span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -172,12 +173,14 @@ export default {
     Button
   },
   data: self => {
+    let cacheKey = self.$attrs.exercise + self.$attrs.lessonTitle
     return {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
       last: self.$attrs.last,
-      code: self.$attrs.code || defaultCode,
+      cachedCode: !!localStorage[cacheKey],
+      code: localStorage[cacheKey] || self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
@@ -250,10 +253,16 @@ export default {
         return new IPFS({repo: Math.random().toString()})
       }
     },
+    clearCache: function () {
+      let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
+      delete localStorage[cacheKey]
+    },
     onMounted: function (editor) {
       this.editor = editor
     },
     onCodeChange: function (editor) {
+      let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
+      localStorage[cacheKey] = editor.getValue()
       // console.log(editor.getValue())
     },
     next: function () {
@@ -303,5 +312,9 @@ export default {
   .indent-1 {
     margin-left: 93px;
   }
+}
+span.clearCache {
+  color: blue;
+  cursor: pointer;
 }
 </style>
