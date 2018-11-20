@@ -34,7 +34,7 @@
           <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
           <img src="./ipfs.svg" alt="" style="height: 54px"/>
         </div>
-        <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
+        <div class="w-100 w-50-l measure-wide ph2 ph0-l">
           <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
             Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
@@ -51,7 +51,7 @@
             </li>
           </ul>
         </div>
-        <div class="dn db-ns flex-auto tc">
+        <div class="dn db-l flex-auto tc">
           <img src="./ipfs-illustrations-how-1.svg" alt="">
         </div>
       </div>
@@ -62,7 +62,7 @@
           <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
           <img src="./ipfs.svg" alt="" style="height: 54px"/>
         </div>
-        <div class="w-100 w-50-ns measure-wide ph2 ph0-ns">
+        <div class="w-100 w-50-l measure-wide ph2 ph0-l">
           <h2 class="ma0 f3 fw5 ">Blogging on the Decentralized Web</h2>
           <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
             Cool content addresses don't change.
@@ -91,7 +91,7 @@
             </li>
           </ul>
         </div>
-        <div class="dn db-ns flex-auto tc">
+        <div class="dn db-l flex-auto tc">
           <img src="./ipfs-illustrations-how-4.svg" alt="">
         </div>
       </div>
