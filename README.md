@@ -26,6 +26,20 @@ of the lesson.
 
 Add your lesson to the routes in `main.js` and to the list of lessons in `Home.vue`.
 
+When adding your routes, it's important that you follow the existing naming
+convention, since the code used elsewhere will parse the route path to determine the
+shortname of the workshop, the current lesson number, and the total number of
+lessons in your workshop. For example, if you add 3 lessons with the following routes:
+
+```
+{ path: '/basics/01', component: LessonBasics01 },
+{ path: '/basics/02', component: LessonBasics02 },
+{ path: '/basics/03', component: LessonBasics03 },
+```
+your second lesson will display the following under the lesson title:
+
+`Basics | Lesson 2 of 3`
+
 ## Boiler Explained
 
 ```javascript
