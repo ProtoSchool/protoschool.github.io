@@ -1,14 +1,10 @@
 <template>
   <div>
-    <header class="bg-navy pa3 flex items-center justify-around">
-      <a href='/#/' class="dn db-ns link flex-auto w-third-ns">
-        <img src="./home/ipfs-logo.svg" alt="IPFS" style="height: 66px" class="ml3-ns"/>
+    <header class="bg-navy pa2 pa3-ns flex items-center justify-around">
+      <a href='/#/' class="db-ns link flex-auto">
+        <img src="./home/ps_logo_horiz_white.svg" alt="ProtoSchool" style="height: 80px" class="ml3-ns"/>
       </a>
-      <a href='/#/' class="link ma0 ttu f3 f1-ns fw4 w-third-ns tc">
-        <span class="green">Proto</span>
-        <span class="white">school</span>
-      </a>
-      <div class="w-third-ns tr dn db-ns">
+      <div class="tr dn db-ns">
         <img src="./home/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
       </div>
     </header>
@@ -16,6 +12,7 @@
     <div class="flex-l items-start bt border-aqua bw4">
       <section class="pv3 indent-1">
         <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
+        <span class="green"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
       <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
@@ -87,7 +84,7 @@
           </div>
         </div>
         <div class="pt3 ph2 tr">
-          <div v-if="output.test && output.test.success && last === 'true'">
+          <div v-if="output.test && output.test.success && lessonNumber === lessonsInWorkshop">
             <Button v-bind:click="workshopMenu" class="bg-aqua white">More Workshops</Button>
           </div>
           <div v-else-if="output.test && output.test.success">
@@ -204,7 +201,19 @@ export default {
       return `https://ipfs.io/ipfs/QmYJETQ15RAnKXoJxqpXzcvQ2DuQA35UHwJBTjTPCSs9Ky/#/explore/${cid}`
     },
     lessonNumber: function () {
-      return this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1)
+      return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
+    },
+    workshopShortname: function () {
+      return this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
+    },
+    lessonsInWorkshop: function () {
+      let basePath = this.$route.path.slice(0, -2)
+      let number = this.$route.path.slice(-2)
+      while (this.$router.resolve(basePath + number).route.name !== '404') {
+        number ++
+        number = number.toString().padStart(2, '0')
+      }
+      return parseInt(number) - 1
     },
     editorHeight: function () {
       if (this.expandExercise) {

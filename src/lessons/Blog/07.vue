@@ -4,8 +4,7 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Traverse through all posts, starting with the most recent"
-            last="true">
+            lessonTitle="Traverse through all posts, starting with the most recent">
     </Lesson>
   </div>
 </template>
