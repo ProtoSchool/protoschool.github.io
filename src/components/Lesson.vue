@@ -51,7 +51,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode">This is a cached version of your prior lesson code. <span v-on:click="clearCache" class="clearCache">Reset to default.</span></div>
+      <div v-if="cachedCode" class="green pb2">Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="clearCache">Reset to default starter code.</span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -178,7 +178,6 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
-      last: self.$attrs.last,
       cachedCode: !!localStorage[cacheKey],
       code: localStorage[cacheKey] || self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
@@ -198,6 +197,7 @@ export default {
     }
   },
   computed: {
+
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
@@ -256,14 +256,24 @@ export default {
     clearCache: function () {
       let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
       delete localStorage[cacheKey]
+      this.cachedCode = false
+      if (this.code !== this.$attrs.code) {
+        this.code = this.$attrs.code || defaultCode
+        this.editor.setValue(this.code)
+      }
     },
     onMounted: function (editor) {
       this.editor = editor
     },
     onCodeChange: function (editor) {
-      let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
-      localStorage[cacheKey] = editor.getValue()
-      // console.log(editor.getValue())
+      if (editor.getValue() === this.$attrs.code) {
+        this.clearCache()
+      } else {
+        let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
+        localStorage[cacheKey] = editor.getValue()
+        this.code = editor.getValue()
+        this.cachedCode = true
+      }
     },
     next: function () {
       Vue.set(this.output, 'test', null)
@@ -308,13 +318,13 @@ export default {
 .mw-900 {
   max-width: 900px;
 }
+span.clearCache {
+  color: blue;
+  cursor: pointer;
+}
 @media screen and (min-width: 60rem) {
   .indent-1 {
     margin-left: 93px;
   }
-}
-span.clearCache {
-  color: blue;
-  cursor: pointer;
 }
 </style>
