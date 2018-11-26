@@ -12,7 +12,7 @@
     <div class="flex-l items-start bt border-aqua bw4">
       <section class="pv3 indent-1">
         <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
-        <span class="green"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+        <span class="green"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span><span v-if="lessonPassed"> &#127942;</span>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
       <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
@@ -48,7 +48,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2">Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="clearCache">Reset to default starter code.</span></div>
+      <div v-if="cachedCode" class="green pb2">&#128190; Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="clearCache">Reset to default starter code.</span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -80,7 +80,10 @@
             </div>
           </div>
           <div class="lh-copy pv2 ph3" v-else>
-            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+          Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+          </div>
+          <div v-if="lessonPassed" class="green">
+            &#127942; Lesson Passed!
           </div>
         </div>
         <div class="pt3 ph2 tr">
@@ -180,6 +183,8 @@ export default {
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
+      lessonKey: self.$route.path,
+      lessonPassed: !!localStorage[self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
       issueUrl: `https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+${self.$route.path.slice(self.$route.path.lastIndexOf('/') + 1)}:+${self.$attrs.lessonTitle}+(${self.$route.path})&body=Have%20a%20question%20or%20suggestion%20regarding%20a%20ProtoSchool%20lesson%3F%20Please%20use%20this%0Atemplate%20to%20share%20it!%0A%0A1.%20URL%20of%20the%20lesson%20that's%20confusing%3A%0A%20https%3A%2F%2Fproto.school%2F%23${self.$route.path}%0A%0A2.%20What%27s%20confusing%20about%20this%20lesson%3F%0A%0A3.%20What%20additional%20context%20could%20we%20provide%20to%20help%20you%20succeed%3F%0A%0A4.%20What%20other%20feedback%20would%20you%20like%20to%20share%20about%20ProtoSchool%3F%0A`,
       output: self.output,
@@ -210,7 +215,7 @@ export default {
       let basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
-        number ++
+        number++
         number = number.toString().padStart(2, '0')
       }
       return parseInt(number) - 1
@@ -228,10 +233,22 @@ export default {
     }
   },
   beforeCreate: function () {
+    console.log('beforeCreate')
     this.output = {}
+    // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
+  },
+  updated: function () {
+    // runs on page load AND every keystroke in editor AND submit
+    console.log('updated')
+    console.log('this.cachedCode is: ', this.cachedCode)
+  },
+  beforeUpdate: function () {
+    // console.log('before update')
+    // runs on every keystroke in editor, NOT on page load, NOT on code submit
   },
   methods: {
     run: async function () {
+      console.log('lessonKey is: ', this.lessonKey)
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -242,8 +259,13 @@ export default {
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       let result = await _eval(code, ipfs, modules)
+
       if (result && result.error) {
         Vue.set(output, 'test', result)
+        console.log('1 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
+        console.log('1 this.lessonPassed is: ', this.lessonPassed)
+        this.lessonPassed = !!localStorage[this.lessonKey]
+        console.log('now lessonPassed is: ', this.lessonPassed)
         return
       }
       let test = await this.$attrs.validate(result, ipfs)
@@ -254,6 +276,14 @@ export default {
       } else {
         ipfs.stop()
       }
+      if (output.test.success) {
+        console.log('success!')
+        localStorage[this.lessonKey] = 'passed'
+      }
+      console.log('2 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
+      console.log('2 this.lessonPassed is: ', this.lessonPassed)
+      this.lessonPassed = !!localStorage[this.lessonKey]
+      console.log('now lessonPassed is: ', this.lessonPassed)
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -272,6 +302,12 @@ export default {
       }
     },
     onMounted: function (editor) {
+      // runs on page load, NOT on every keystroke in editor
+      console.log('mounted')
+      console.log('localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
+      console.log('this.lessonPassed is: ', this.lessonPassed)
+      // don't need to update lessonPassed here because it sets itself correctly
+      // in 'data' on page load
       this.editor = editor
     },
     onCodeChange: function (editor) {
