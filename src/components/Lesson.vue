@@ -311,7 +311,7 @@ export default {
       this.editor = editor
     },
     onCodeChange: function (editor) {
-      if (editor.getValue() === this.$attrs.code) {
+      if (editor.getValue() === (this.$attrs.code || defaultCode) ) {
         this.clearCache()
       } else {
         let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
