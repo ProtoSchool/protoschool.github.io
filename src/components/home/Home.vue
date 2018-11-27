@@ -23,6 +23,10 @@
       <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
         <strong>ProtoSchool is a collection of workshops</strong> that help you learn about the
         IPFS protocol by writing code and solving challenges.
+        <div class="f5 fw5 green indent-1">
+          <div v-if="someLessonPassed"> Welcome back! You're making great progress!</div>
+          <div v-else>Welcome! Pick a lesson below to get started.</div>
+        </div>
       </p>
     </section>
     <section class="db bt border-aqua bw4 relative">
@@ -30,6 +34,7 @@
         TOPICS
       </label>
       <div class="flex items-start pv4">
+
         <div class="section-1 flex-none tc">
           <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
           <img src="./ipfs.svg" alt="" style="height: 54px"/>
@@ -106,6 +111,29 @@ export default {
   name: 'home',
   components: {
     ExerciseLink
+  },
+  data: self => {
+    return {
+      someLessonPassed: false
+    }
+  },
+  mounted: function() {
+    this.checkAllPassed()
+  },
+  methods: {
+    checkAllPassed: function() {
+    console.log('running checkAllPassed')
+      for (let key of Object.keys(localStorage)) {
+        console.log('key is: ', key)
+        if (key.startsWith('passed')) {
+          console.log('going to return true')
+          this.someLessonPassed = true
+          return
+        }
+      } 
+      console.log('done looping, going to return false')
+      this.someLessonPassed = false
+    }
   }
 }
 </script>
