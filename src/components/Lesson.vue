@@ -48,7 +48,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2">&#128190; Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="clearCache">Reset to default starter code.</span></div>
+      <div v-if="cachedCode" class="green pb2">&#128190; Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="textLink">Reset to default starter code.</span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -83,7 +83,7 @@
           Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
           </div>
           <div v-if="lessonPassed" class="green">
-            &#127942; Lesson Passed!
+            &#127942; Lesson Passed! <span v-on:click="clearPassed" class="textLink">Mark lesson incomplete.</span>
           </div>
         </div>
         <div class="pt3 ph2 tr">
@@ -301,6 +301,13 @@ export default {
         this.editor.setValue(this.code)
       }
     },
+    clearPassed: function () {
+      console.log('in clearPassed')
+      console.log('this.lessonPassed is: ', this.lessonPassed)
+      delete localStorage[this.lessonKey]
+      this.lessonPassed = !!localStorage[this.lessonKey]
+      console.log('now lessonPassed is: ', this.lessonPassed)
+    },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
       console.log('mounted')
@@ -363,7 +370,7 @@ export default {
 .mw-900 {
   max-width: 900px;
 }
-span.clearCache {
+span.textLink {
   color: blue;
   cursor: pointer;
 }
