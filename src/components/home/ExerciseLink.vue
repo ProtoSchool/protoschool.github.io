@@ -24,6 +24,6 @@ export default {
       console.log(`localStorage[${lessonKey}] is: `, localStorage[lessonKey])
       return !!localStorage[lessonKey]
     }
-  },
+  }
 }
 </script>
