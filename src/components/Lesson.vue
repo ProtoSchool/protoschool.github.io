@@ -12,7 +12,10 @@
     <div class="flex-l items-start bt border-aqua bw4">
       <section class="pv3 indent-1">
         <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
-        <span class="green"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span><span v-if="lessonPassed"> &#127942;</span>
+        <div class="lh-solid v-mid">
+          <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+          <span class="pl1"><img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+        </div>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
       <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
@@ -48,7 +51,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2">&#128190; Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="textLink">Reset to default starter code.</span></div>
+      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="textLink">Reset to default starter code.</span></span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -82,8 +85,9 @@
           <div class="lh-copy pv2 ph3" v-else>
           Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
           </div>
-          <div v-if="lessonPassed" class="green">
-            &#127942; Lesson Passed! <span v-on:click="clearPassed" class="textLink">Mark lesson incomplete.</span>
+          <div v-if="lessonPassed" class="lh-solid green v-mid">
+            <span class="pr1"><img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+            <span class="v-mid fw5">Lesson Passed! <span v-on:click="clearPassed" class="textLink">Mark lesson incomplete.</span></span>
           </div>
         </div>
         <div class="pt3 ph2 tr">
