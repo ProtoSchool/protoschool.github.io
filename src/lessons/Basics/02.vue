@@ -38,7 +38,7 @@ const validate = async (result, ipfs) => {
     return {success: 'Everything works!'}
   } else {
     let obj = await ipfs.dag.get(result)
-    let expected = JSON.stringify({bar: {'/': hash}})
+    let expected = JSON.stringify({bar: new CID(hash)})
     let got = JSON.stringify(obj.value)
     let fail = `Was expecting "${expected}" but got "${got}"`
     return {fail}

@@ -23,12 +23,12 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
 
@@ -36,16 +36,11 @@ const run = async () => {
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid, computerPostCid ]
   })
 }
 
@@ -60,32 +55,27 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["funny", "hobby"]
   })
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid, computerPostCid ]
   })
 
   return dogPostCid
@@ -111,11 +101,11 @@ const validate = async (result, ipfs) => {
   if (node.author === undefined) {
     return {fail: 'Blog post needs to have an `author` field.'}
   }
-  if (node.author['/'] === undefined) {
-    return {fail: 'The value of `author` needs to be a link (`{"/": "some-cid"}`).'}
+  if (!CID.isCID(node.author)) {
+    return {fail: 'The value of `author` needs to be a link.'}
   }
   const samCid = 'zdpuAzUoWGnKe4p13YbexQrb5AMhnDWDCqJt2XyqVPU6DxS4m'
-  const nodeAuthor = new CID(node.author['/']).toBaseEncodedString()
+  const nodeAuthor = node.author.toBaseEncodedString()
   if (nodeAuthor !== samCid) {
     return {fail: 'The author of the new blog post needs to be Sam.'}
   }

@@ -25,11 +25,11 @@ const run = async () => {
 
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()}
+    author: samCid
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()}
+    author: natCid
   })
 
   console.log('post about trees:', treePostCid.toBaseEncodedString())
@@ -49,12 +49,12 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
 

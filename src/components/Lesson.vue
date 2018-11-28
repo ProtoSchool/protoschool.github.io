@@ -206,7 +206,7 @@ export default {
       let basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
-        number ++
+        number++
         number = number.toString().padStart(2, '0')
       }
       return parseInt(number) - 1

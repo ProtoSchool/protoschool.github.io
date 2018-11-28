@@ -23,12 +23,12 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
 
@@ -46,26 +46,26 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
     posts: [
-      {"/": treePostCid.toBaseEncodedString()}
+      treePostCid
     ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
     posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()}
+      treePostCid,
+      computerPostCid
     ]
   })
 
@@ -98,7 +98,7 @@ const validate = async (result, ipfs) => {
     if (!Array.isArray(node.posts)) {
       return {fail: 'The value of the `posts` field must be an array of links.'}
     }
-    const isLinks = node.posts.every((post) => '/' in post)
+    const isLinks = node.posts.every((post) => CID.isCID(post))
     if (!isLinks) {
       return {fail: 'The values of the `posts` array must be links.'}
     }
@@ -116,7 +116,7 @@ const validate = async (result, ipfs) => {
       default:
         return {fail: `Wrong tag (${node.tag}). Did you mean "hobby" or "outdoor"?`}
     }
-    const nodePosts = node.posts.map((post) => new CID(post['/']).toBaseEncodedString())
+    const nodePosts = node.posts.map(post => post.toBaseEncodedString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {
       return {fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.`}
     }
