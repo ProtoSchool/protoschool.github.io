@@ -51,7 +51,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being cached as you work on this lesson. <span v-on:click="clearCache" class="textLink">Reset to default starter code.</span></span></div>
+      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being cached as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset to default starter code.</span></span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -177,16 +177,16 @@ export default {
     Button
   },
   data: self => {
-    let cacheKey = self.$attrs.exercise + self.$attrs.lessonTitle
     return {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
-      cachedCode: !!localStorage[cacheKey],
-      code: localStorage[cacheKey] || self.$attrs.code || defaultCode,
+      cachedCode: !!localStorage['cached' + self.$route.path],
+      code: localStorage[self.cacheKey] || self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
+      cacheKey: 'cached' + self.$route.path,
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
@@ -237,14 +237,14 @@ export default {
     }
   },
   beforeCreate: function () {
-    console.log('beforeCreate')
+
     this.output = {}
+
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   updated: function () {
     // runs on page load AND every keystroke in editor AND submit
-    console.log('updated')
-    console.log('this.cachedCode is: ', this.cachedCode)
+    // console.log('in UPDATED and this.cachedCode is: ', this.cachedCode)
   },
   beforeUpdate: function () {
     // console.log('before update')
@@ -252,7 +252,7 @@ export default {
   },
   methods: {
     run: async function () {
-      console.log('in run and this.lessonKey is: ', this.lessonKey)
+      // console.log('in run and this.lessonKey is: ', this.lessonKey)
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -266,10 +266,10 @@ export default {
 
       if (result && result.error) {
         Vue.set(output, 'test', result)
-        console.log('1 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
-        console.log('1 this.lessonPassed is: ', this.lessonPassed)
+        // console.log('1 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
+        // console.log('1 this.lessonPassed is: ', this.lessonPassed)
         this.lessonPassed = !!localStorage[this.lessonKey]
-        console.log('now lessonPassed is: ', this.lessonPassed)
+        // console.log('now lessonPassed is: ', this.lessonPassed)
         return
       }
       let test = await this.$attrs.validate(result, ipfs)
@@ -281,13 +281,13 @@ export default {
         ipfs.stop()
       }
       if (output.test.success) {
-        console.log('success!')
+        // console.log('success!')
         localStorage[this.lessonKey] = 'passed'
       }
-      console.log('2 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
-      console.log('2 this.lessonPassed is: ', this.lessonPassed)
+      // console.log('2 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
+      // console.log('2 this.lessonPassed is: ', this.lessonPassed)
       this.lessonPassed = !!localStorage[this.lessonKey]
-      console.log('now lessonPassed is: ', this.lessonPassed)
+      // console.log('now lessonPassed is: ', this.lessonPassed)
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -296,40 +296,59 @@ export default {
         return new IPFS({repo: Math.random().toString()})
       }
     },
-    clearCache: function () {
-      let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
-      delete localStorage[cacheKey]
-      this.cachedCode = false
-      if (this.code !== this.$attrs.code) {
-        this.code = this.$attrs.code || defaultCode
-        this.editor.setValue(this.code)
-      }
+    resetCode: function () {
+      // console.log('in resetCode')
+      this.code = this.$attrs.code || defaultCode
+      // this ^ will trigger onCodeChange which will clear cache
+      this.editor.setValue(this.code)
     },
     clearPassed: function () {
-      console.log('in clearPassed')
-      console.log('this.lessonPassed is: ', this.lessonPassed)
+      // console.log('in clearPassed')
+      // console.log('this.lessonPassed is: ', this.lessonPassed)
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
-      console.log('now lessonPassed is: ', this.lessonPassed)
+      // console.log('now lessonPassed is: ', this.lessonPassed)
+    },
+    loadCodeFromCache: function() {
+      this.code = localStorage[this.cacheKey]
+      this.editor.setValue(this.code)
     },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
-      console.log('mounted')
-      console.log('localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
-      console.log('this.lessonPassed is: ', this.lessonPassed)
+      // console.log('in MOUNTED and localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
+      // console.log('this.lessonPassed is: ', this.lessonPassed)
+      // console.log('in MOUNTED and localStorage[this.cacheKey] is: ', localStorage[this.cacheKey])
+      // console.log('this.cachedCode is: ', this.cachedCode)
       // don't need to update lessonPassed here because it sets itself correctly
       // in 'data' on page load
       this.editor = editor
-    },
-    onCodeChange: function (editor) {
-      if (editor.getValue() === (this.$attrs.code || defaultCode) ) {
-        this.clearCache()
+      if (this.cachedCode) {
+        console.log('PRESUMPTION: Returned to a lesson previously cached (1)')
+        this.loadCodeFromCache()
       } else {
-        let cacheKey = this.$attrs.exercise + this.$attrs.lessonTitle
-        localStorage[cacheKey] = editor.getValue()
-        this.code = editor.getValue()
-        this.cachedCode = true
+        console.log('PRESUMPTION: First time at unstarted lesson')
       }
+    },
+    onCodeChange: function () {
+      // console.log('in ONCODECHANGE')
+      // console.log ('this.code matches this.editor.getValue(): ', this.code === this.editor.getValue())
+      if (this.editor.getValue() === (this.$attrs.code || defaultCode) ) {
+        // console.log('in ONCODECHANGE and going to clear cache because it matches default')
+        console.log('PRESUMPTION: Edited back to default state by chance or by click')
+        delete localStorage[this.cacheKey]
+        this.cachedCode = !!localStorage[this.cacheKey]
+        // console.log('just deleted cache and now this.cachedCode is: ', this.cachedCode)
+      } else if (this.code === this.editor.getValue()) {
+        // onsole.log('ONCODECHANGE code doesnt match default but matches editor')
+        console.log('PRESUMPTION: Returned to a lesson previously cached (2)')
+      } else {
+        // console.log('ONCODECHANGE code doesnt match default')
+        console.log('PRESUMPTION: Continuing to edit ')
+        localStorage[this.cacheKey] = this.editor.getValue()
+        this.code = this.editor.getValue()
+        this.cachedCode = !!localStorage[this.cacheKey]
+      }
+      // console.log(console.log ('NOW this.code matches this.editor.getValue(): ', this.code === this.editor.getValue()))
     },
     next: function () {
       Vue.set(this.output, 'test', null)
