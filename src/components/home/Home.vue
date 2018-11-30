@@ -24,10 +24,6 @@
         <strong>ProtoSchool is a collection of workshops</strong> that help you learn about the
         IPFS protocol by writing code and solving challenges.
       </p>
-      <div class="f5 fw5 green indent-1">
-        <div v-if="someLessonPassed"> Welcome back! You're making great progress!</div>
-        <div v-else>Welcome! Pick a lesson below to get started.</div>
-      </div>
     </section>
     <section class="db bt border-aqua bw4 relative">
       <label class="absolute ttu f6 fw5 white" style="top: -15px; left: 91px;">
