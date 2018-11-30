@@ -110,25 +110,25 @@ export default {
   },
   data: self => {
     return {
-      someLessonPassed: false
+      firstVisit: true
     }
   },
   mounted: function () {
-    this.checkAllPassed()
+    this.checkFirstVisit()
   },
   methods: {
-    checkAllPassed: function () {
-      console.log('running checkAllPassed')
+    checkFirstVisit: function () {
+      console.log('running checkFirstVisit')
       for (let key of Object.keys(localStorage)) {
         console.log('key is: ', key)
-        if (key.startsWith('passed')) {
-          console.log('going to return true')
-          this.someLessonPassed = true
+        if (key.startsWith('passed') || key.startsWith('cached')) {
+          console.log('found something cached or passed so not first visit')
+          this.firstVisit = false
           return
         }
       } 
-      console.log('done looping, going to return false')
-      this.someLessonPassed = false
+      console.log('nothing cached or passed so first visit')
+      this.firstVisit = true
     }
   }
 }
