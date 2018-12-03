@@ -51,7 +51,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being cached as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset to default starter code.</span></span></div>
+      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being saved as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset to default starter code.</span></span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
