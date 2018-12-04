@@ -100,7 +100,7 @@ const validate = async (result, ipfs) => {
   }
   // Don't check the CIDs as then the order of the tags would matter.
   // But that order really doesn't matter.
-  return {success: 'Everything works!'}
+  return {success: 'Everything works! Did you remember to check the console logs?'}
 }
 
 export default {

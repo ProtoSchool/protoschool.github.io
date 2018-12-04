@@ -18,7 +18,6 @@ const shallowEqualArrays = require('shallow-equal/arrays')
 const CID = require('cids')
 
 const code = `/* globals ipfs */
-const CID = require('cids')
 
 const traversePosts = async (cid) => {
   // Your code goes here
