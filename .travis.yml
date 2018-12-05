@@ -12,7 +12,7 @@ notifications:
   email: false
 branches:
   only:
-      - master
+      - code
 deploy:
   provider: pages
   local-dir: dist
