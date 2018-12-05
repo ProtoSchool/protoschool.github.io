@@ -5,9 +5,9 @@ cache:
   directories:
     - code/node_modules
 before_script:
-  - cd code && npm install
+  - cd code && npm install && cd ..
 script:
-  - cd code && npm run build
+  - cd code && npm run build && cd ..
 notifications:
   email: false
 branches:
