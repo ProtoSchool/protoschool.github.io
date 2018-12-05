@@ -22,4 +22,4 @@ deploy:
   keep-history: true
   fqdn: proto.school
   on:
-    branch: master
+    branch: code
