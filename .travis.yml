@@ -3,11 +3,11 @@ node_js:
   - "10"
 cache:
   directories:
-    - code/node_modules
+    - node_modules
 before_script:
-  - cd code && npm install && cd ..
+  npm install
 script:
-  - cd code && npm run build && cd ..
+  npm run build.
 notifications:
   email: false
 branches:
@@ -15,7 +15,7 @@ branches:
       - master
 deploy:
   provider: pages
-  local-dir: code/dist
+  local-dir: dist
   target-branch: master
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
