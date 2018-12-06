@@ -32,7 +32,14 @@
             <img v-else-if="cachedCode" src="./home/in-progress.svg" alt="complete" style="height: 1rem;"/>
             <img v-else src="./home/not-started.svg" alt="not yet started" style="height: 1rem;"/>
           </span>
-          <span class="green ttu f6 pl2 pr3 v-mid">Try it!</span>
+          <span class="green ttu f6 pl2 pr1 fw7 v-mid">
+            <span v-if="lessonPassed">You did it!</span>
+            <span v-else-if="cachedCode">Keep working.</span>
+            <span v-else>Try it!</span>
+          </span>
+          <span class="green f6 fw5 v-mid">
+            <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
+          </span>
           <div class="fr">
             <button
               v-if="expandExercise"
@@ -48,11 +55,14 @@
               class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
             </button>
+
           </div>
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2"><span class="v-mid">Your code is being saved as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset code.</span></span></div>
+      <div>
+        <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
+      </div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -184,6 +194,7 @@ export default {
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
+      cachedStateMsg: "",
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
@@ -323,6 +334,7 @@ export default {
       if (this.cachedCode) {
         console.log('PRESUMPTION: Returned to a lesson previously cached (1)')
         this.loadCodeFromCache()
+        this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
         // if lesson previously passed, run test to display appropriate message
         if (this.lessonPassed) {
           this.run()
@@ -349,6 +361,7 @@ export default {
         localStorage[this.cacheKey] = this.editor.getValue()
         this.code = this.editor.getValue()
         this.cachedCode = !!localStorage[this.cacheKey]
+        this.cachedStateMsg = "We're saving your code as you go."
       }
       // console.log(console.log ('NOW this.code matches this.editor.getValue(): ', this.code === this.editor.getValue()))
     },
