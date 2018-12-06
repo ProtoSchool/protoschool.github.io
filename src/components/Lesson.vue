@@ -162,7 +162,7 @@ const defaultCode = `/* globals ipfs */
 
 const run = async () => {
   // your code goes here!
-  // example: ipfs.dag.put({hello: 'world'})
+  // be sure this function returns the requested value
 }
 
 return run
