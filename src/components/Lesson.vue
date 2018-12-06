@@ -27,11 +27,12 @@
     <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
       <div class="flex-none">
         <h2 class="mt0 mb2 green fw4 fill-current">
-          <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
-            <circle cx="6" cy="6" r="6"/>
-          </svg>
-          <span class="green ttu f6 pl2 pr3">Exercise</span>
-          <span class="navy fw5 f5">{{lessonTitle}}</span>
+          <span style='vertical-align:-1px'>
+            <img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1rem;"/>
+            <img v-else-if="cachedCode" src="./home/in-progress.svg" alt="complete" style="height: 1rem;"/>
+            <img v-else src="./home/not-started.svg" alt="not yet started" style="height: 1rem;"/>
+          </span>
+          <span class="green ttu f6 pl2 pr3 v-mid">Try it!</span>
           <div class="fr">
             <button
               v-if="expandExercise"
