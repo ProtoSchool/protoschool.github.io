@@ -245,22 +245,17 @@ export default {
     }
   },
   beforeCreate: function () {
-
     this.output = {}
-
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   updated: function () {
     // runs on page load AND every keystroke in editor AND submit
-    // console.log('in UPDATED and this.cachedCode is: ', this.cachedCode)
   },
   beforeUpdate: function () {
-    // console.log('before update')
     // runs on every keystroke in editor, NOT on page load, NOT on code submit
   },
   methods: {
     run: async function () {
-      // console.log('in run and this.lessonKey is: ', this.lessonKey)
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -274,10 +269,7 @@ export default {
 
       if (result && result.error) {
         Vue.set(output, 'test', result)
-        // console.log('1 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
-        // console.log('1 this.lessonPassed is: ', this.lessonPassed)
         this.lessonPassed = !!localStorage[this.lessonKey]
-        // console.log('now lessonPassed is: ', this.lessonPassed)
         return
       }
       let test = await this.$attrs.validate(result, ipfs)
@@ -289,13 +281,9 @@ export default {
         ipfs.stop()
       }
       if (output.test.success) {
-        // console.log('success!')
         localStorage[this.lessonKey] = 'passed'
       }
-      // console.log('2 localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
-      // console.log('2 this.lessonPassed is: ', this.lessonPassed)
       this.lessonPassed = !!localStorage[this.lessonKey]
-      // console.log('now lessonPassed is: ', this.lessonPassed)
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -305,18 +293,15 @@ export default {
       }
     },
     resetCode: function () {
-      // console.log('in resetCode')
+      // TRACK? User chose to reset code
       this.code = this.$attrs.code || defaultCode
-      // this ^ will trigger onCodeChange which will clear cache
+      // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.code)
       this.clearPassed()
     },
     clearPassed: function () {
-      // console.log('in clearPassed')
-      // console.log('this.lessonPassed is: ', this.lessonPassed)
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
-      // console.log('now lessonPassed is: ', this.lessonPassed)
     },
     loadCodeFromCache: function() {
       this.code = localStorage[this.cacheKey]
@@ -324,46 +309,31 @@ export default {
     },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
-      // console.log('in MOUNTED and localStorage[this.lessonKey] is: ', localStorage[this.lessonKey])
-      // console.log('this.lessonPassed is: ', this.lessonPassed)
-      // console.log('in MOUNTED and localStorage[this.cacheKey] is: ', localStorage[this.cacheKey])
-      // console.log('this.cachedCode is: ', this.cachedCode)
-      // don't need to update lessonPassed here because it sets itself correctly
-      // in 'data' on page load
       this.editor = editor
       if (this.cachedCode) {
-        console.log('PRESUMPTION: Returned to a lesson previously cached (1)')
+        // TRACK? returned to lesson previously visited
         this.loadCodeFromCache()
         this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
-        // if lesson previously passed, run test to display appropriate message
         if (this.lessonPassed) {
           this.run()
         }
       } else {
-        console.log('PRESUMPTION: First time at unstarted lesson')
+        // TRACK? first time starting lesson
       }
     },
     onCodeChange: function () {
-      // console.log('in ONCODECHANGE')
-      // console.log ('this.code matches this.editor.getValue(): ', this.code === this.editor.getValue())
       if (this.editor.getValue() === (this.$attrs.code || defaultCode) ) {
-        // console.log('in ONCODECHANGE and going to clear cache because it matches default')
-        console.log('PRESUMPTION: Edited back to default state by chance or by click')
+        // TRACK? edited back to default state by chance or by 'reset code'
         delete localStorage[this.cacheKey]
         this.cachedCode = !!localStorage[this.cacheKey]
-        // console.log('just deleted cache and now this.cachedCode is: ', this.cachedCode)
       } else if (this.code === this.editor.getValue()) {
-        // onsole.log('ONCODECHANGE code doesnt match default but matches editor')
-        console.log('PRESUMPTION: Returned to a lesson previously cached (2)')
+        //TRACK? returned to cached lesson in progress
       } else {
-        // console.log('ONCODECHANGE code doesnt match default')
-        console.log('PRESUMPTION: Continuing to edit ')
         localStorage[this.cacheKey] = this.editor.getValue()
         this.code = this.editor.getValue()
         this.cachedCode = !!localStorage[this.cacheKey]
         this.cachedStateMsg = "We're saving your code as you go."
       }
-      // console.log(console.log ('NOW this.code matches this.editor.getValue(): ', this.code === this.editor.getValue()))
     },
     next: function () {
       Vue.set(this.output, 'test', null)
