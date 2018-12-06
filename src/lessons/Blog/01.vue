@@ -42,11 +42,11 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()}
+    author: samCid
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()}
+    author: natCid
   })
 
   return [treePostCid, computerPostCid]
@@ -71,11 +71,11 @@ const validate = async (result, ipfs) => {
     if (node.author === undefined) {
       return {fail: 'Blog posts need to have an `author` field.'}
     }
-    if (node.author['/'] === undefined) {
+    if (!CID.isCID(node.author)) {
       return {fail: 'The value of `author` needs to be a link (`{"/": "some-cid"}`).'}
     }
-    const nodeAuthor = new CID(node.author['/']).toBaseEncodedString()
-    if (![natCid, samCid].includes(nodeAuthor)) {
+    const nodeAuthor = node.author
+    if (![natCid, samCid].includes(nodeAuthor.toBaseEncodedString())) {
       return {fail: 'You need to link to the CID of an author (Nat or Sam).'}
     }
     let expectedAuthor
@@ -87,7 +87,7 @@ const validate = async (result, ipfs) => {
         expectedAuthor = natCid
         break
     }
-    if (nodeAuthor !== expectedAuthor) {
+    if (nodeAuthor.toBaseEncodedString() !== expectedAuthor) {
       return {fail: `The author of the "${node.content}" blog post (${nodeAuthor}) did not match the the expected author (${expectedAuthor}).`}
     }
   }
