@@ -114,16 +114,16 @@ export default {
   },
   methods: {
     checkFirstVisit: function () {
-      console.log('running checkFirstVisit')
+      // console.log('running checkFirstVisit')
       for (let key of Object.keys(localStorage)) {
-        console.log('key is: ', key)
+        // console.log('key is: ', key)
         if (key.startsWith('passed') || key.startsWith('cached')) {
-          console.log('found something cached or passed so not first visit')
+          // console.log('found something cached or passed so not first visit')
           this.firstVisit = false
           return
         }
       } 
-      console.log('nothing cached or passed so first visit')
+      // console.log('nothing cached or passed so first visit')
       this.firstVisit = true
     }
   }

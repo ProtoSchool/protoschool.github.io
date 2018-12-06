@@ -51,7 +51,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being saved as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset to default starter code.</span></span></div>
+      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being saved as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset code.</span></span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -67,14 +67,14 @@
       </div>
       <div class='flex-none'>
         <div class="pv2">
-          <div v-if="output.test" v-bind="output.test">
+          <div v-if="output.test && this.cachedCode" v-bind="output.test">
             <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
               Error: {{output.test.error.message}}
             </div>
             <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
               {{output.test.fail}}
             </div>
-            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
+            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
               {{output.test.success}}
               <a v-if="output.test.cid"
               class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
@@ -85,16 +85,12 @@
           <div class="lh-copy pv2 ph3" v-else>
           Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
           </div>
-          <div v-if="lessonPassed" class="lh-solid green v-mid">
-            <span class="pr1"><img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            <span class="v-mid fw5">Lesson Passed! <span v-on:click="clearPassed" class="textLink">Mark lesson incomplete.</span></span>
-          </div>
         </div>
         <div class="pt3 ph2 tr">
           <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
             <Button v-bind:click="workshopMenu" class="bg-aqua white">More Workshops</Button>
           </div>
-          <div v-else-if="(output.test && output.test.success) || lessonPassed">
+          <div v-else-if="(output.test && output.test.success) && lessonPassed || lessonPassed">
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
           </div>
           <div v-else>
@@ -301,6 +297,7 @@ export default {
       this.code = this.$attrs.code || defaultCode
       // this ^ will trigger onCodeChange which will clear cache
       this.editor.setValue(this.code)
+      this.clearPassed()
     },
     clearPassed: function () {
       // console.log('in clearPassed')
@@ -325,6 +322,10 @@ export default {
       if (this.cachedCode) {
         console.log('PRESUMPTION: Returned to a lesson previously cached (1)')
         this.loadCodeFromCache()
+        // if lesson previously passed, run test to display appropriate message
+        if (this.lessonPassed) {
+          this.run()
+        }
       } else {
         console.log('PRESUMPTION: First time at unstarted lesson')
       }
