@@ -52,7 +52,7 @@
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
       </div>
-      <div v-if="cachedCode" class="green pb2"><img src="./home/in-progress.svg" alt="progress saved" style="height: 1.2rem;" class="v-mid pr1"/></span><span class="v-mid">Your code is being saved as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset code.</span></span></div>
+      <div v-if="cachedCode" class="green pb2"><span class="v-mid">Your code is being saved as you work on this lesson. <span v-on:click="resetCode" class="textLink">Reset code.</span></span></div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
           class="editor"
@@ -398,7 +398,9 @@ export default {
 span.textLink {
   color: blue;
   cursor: pointer;
+  text-decoration: underline;
 }
+
 @media screen and (min-width: 60rem) {
   .indent-1 {
     margin-left: 93px;
