@@ -12,7 +12,10 @@
     <div class="flex-l items-start bt border-aqua bw4">
       <section class="pv3 indent-1">
         <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
-        <span class="green"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+        <div class="lh-solid v-mid">
+          <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+          <span class="pl1"><img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+        </div>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
       <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
@@ -24,11 +27,19 @@
     <section v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
       <div class="flex-none">
         <h2 class="mt0 mb2 green fw4 fill-current">
-          <svg viewBox="0 0 12 12" width='12' xmlns="http://www.w3.org/2000/svg" style='vertical-align:-1px'>
-            <circle cx="6" cy="6" r="6"/>
-          </svg>
-          <span class="green ttu f6 pl2 pr3">Exercise</span>
-          <span class="navy fw5 f5">{{lessonTitle}}</span>
+          <span style='vertical-align:-1px'>
+            <img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1rem;"/>
+            <img v-else-if="cachedCode" src="./home/in-progress.svg" alt="complete" style="height: 1rem;"/>
+            <img v-else src="./home/not-started.svg" alt="not yet started" style="height: 1rem;"/>
+          </span>
+          <span class="green ttu f6 pl2 pr1 fw7 v-mid">
+            <span v-if="lessonPassed">You did it!</span>
+            <span v-else-if="cachedCode">Keep working.</span>
+            <span v-else>Try it!</span>
+          </span>
+          <span class="green f6 fw5 v-mid">
+            <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
+          </span>
           <div class="fr">
             <button
               v-if="expandExercise"
@@ -44,9 +55,13 @@
               class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
             </button>
+
           </div>
         </h2>
         <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+      </div>
+      <div>
+        <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
       </div>
       <div class="bg-white flex-auto" style='height:100%;'>
         <MonacoEditor
@@ -63,14 +78,14 @@
       </div>
       <div class='flex-none'>
         <div class="pv2">
-          <div v-if="output.test" v-bind="output.test">
+          <div v-if="output.test && this.cachedCode" v-bind="output.test">
             <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
               Error: {{output.test.error.message}}
             </div>
             <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
               {{output.test.fail}}
             </div>
-            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success">
+            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
               {{output.test.success}}
               <a v-if="output.test.cid"
               class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
@@ -79,14 +94,14 @@
             </div>
           </div>
           <div class="lh-copy pv2 ph3" v-else>
-            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+          Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
           </div>
         </div>
         <div class="pt3 ph2 tr">
-          <div v-if="output.test && output.test.success && lessonNumber === lessonsInWorkshop">
+          <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
             <Button v-bind:click="workshopMenu" class="bg-aqua white">More Workshops</Button>
           </div>
-          <div v-else-if="output.test && output.test.success">
+          <div v-else-if="lessonPassed">
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
           </div>
           <div v-else>
@@ -173,10 +188,15 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
-      code: self.$attrs.code || defaultCode,
+      cachedCode: !!localStorage['cached' + self.$route.path],
+      code: localStorage[self.cacheKey] || self.$attrs.code || defaultCode,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
+      cacheKey: 'cached' + self.$route.path,
+      cachedStateMsg: "",
+      lessonKey: 'passed' + self.$route.path,
+      lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
       issueUrl: `https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+${self.$route.path.slice(self.$route.path.lastIndexOf('/') + 1)}:+${self.$attrs.lessonTitle}+(${self.$route.path})&body=Have%20a%20question%20or%20suggestion%20regarding%20a%20ProtoSchool%20lesson%3F%20Please%20use%20this%0Atemplate%20to%20share%20it!%0A%0A1.%20URL%20of%20the%20lesson%20that's%20confusing%3A%0A%20https%3A%2F%2Fproto.school%2F%23${self.$route.path}%0A%0A2.%20What%27s%20confusing%20about%20this%20lesson%3F%0A%0A3.%20What%20additional%20context%20could%20we%20provide%20to%20help%20you%20succeed%3F%0A%0A4.%20What%20other%20feedback%20would%20you%20like%20to%20share%20about%20ProtoSchool%3F%0A`,
       output: self.output,
@@ -191,6 +211,7 @@ export default {
     }
   },
   computed: {
+
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
@@ -225,6 +246,13 @@ export default {
   },
   beforeCreate: function () {
     this.output = {}
+    // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
+  },
+  updated: function () {
+    // runs on page load AND every keystroke in editor AND submit
+  },
+  beforeUpdate: function () {
+    // runs on every keystroke in editor, NOT on page load, NOT on code submit
   },
   methods: {
     run: async function () {
@@ -238,8 +266,10 @@ export default {
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       let result = await _eval(code, ipfs, modules)
+
       if (result && result.error) {
         Vue.set(output, 'test', result)
+        this.lessonPassed = !!localStorage[this.lessonKey]
         return
       }
       let test = await this.$attrs.validate(result, ipfs)
@@ -250,6 +280,10 @@ export default {
       } else {
         ipfs.stop()
       }
+      if (output.test.success) {
+        localStorage[this.lessonKey] = 'passed'
+      }
+      this.lessonPassed = !!localStorage[this.lessonKey]
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -258,11 +292,48 @@ export default {
         return new IPFS({repo: Math.random().toString()})
       }
     },
-    onMounted: function (editor) {
-      this.editor = editor
+    resetCode: function () {
+      // TRACK? User chose to reset code
+      this.code = this.$attrs.code || defaultCode
+      // this ^ triggers onCodeChange which will clear cache
+      this.editor.setValue(this.code)
+      this.clearPassed()
     },
-    onCodeChange: function (editor) {
-      // console.log(editor.getValue())
+    clearPassed: function () {
+      delete localStorage[this.lessonKey]
+      this.lessonPassed = !!localStorage[this.lessonKey]
+    },
+    loadCodeFromCache: function() {
+      this.code = localStorage[this.cacheKey]
+      this.editor.setValue(this.code)
+    },
+    onMounted: function (editor) {
+      // runs on page load, NOT on every keystroke in editor
+      this.editor = editor
+      if (this.cachedCode) {
+        // TRACK? returned to lesson previously visited
+        this.loadCodeFromCache()
+        this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
+        if (this.lessonPassed) {
+          this.run()
+        }
+      } else {
+        // TRACK? first time starting lesson
+      }
+    },
+    onCodeChange: function () {
+      if (this.editor.getValue() === (this.$attrs.code || defaultCode) ) {
+        // TRACK? edited back to default state by chance or by 'reset code'
+        delete localStorage[this.cacheKey]
+        this.cachedCode = !!localStorage[this.cacheKey]
+      } else if (this.code === this.editor.getValue()) {
+        //TRACK? returned to cached lesson in progress
+      } else {
+        localStorage[this.cacheKey] = this.editor.getValue()
+        this.code = this.editor.getValue()
+        this.cachedCode = !!localStorage[this.cacheKey]
+        this.cachedStateMsg = "We're saving your code as you go."
+      }
     },
     next: function () {
       Vue.set(this.output, 'test', null)
@@ -307,6 +378,12 @@ export default {
 .mw-900 {
   max-width: 900px;
 }
+span.textLink {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @media screen and (min-width: 60rem) {
   .indent-1 {
     margin-left: 93px;

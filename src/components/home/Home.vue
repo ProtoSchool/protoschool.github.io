@@ -26,9 +26,6 @@
       </p>
     </section>
     <section class="db bt border-aqua bw4 relative">
-      <label class="absolute ttu f6 fw5 white" style="top: -15px; left: 91px;">
-        TOPICS
-      </label>
       <div class="flex items-start pv4">
         <div class="section-1 flex-none tc">
           <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
@@ -106,6 +103,27 @@ export default {
   name: 'home',
   components: {
     ExerciseLink
+  },
+  data: self => {
+    return {
+      firstVisit: true
+    }
+  },
+  mounted: function () {
+    this.checkFirstVisit()
+  },
+  methods: {
+    checkFirstVisit: function () {
+      for (let key of Object.keys(localStorage)) {
+        if (key.startsWith('passed') || key.startsWith('cached')) {
+          // TRACK? return visit
+          this.firstVisit = false
+          return
+        }
+      } 
+      // TRACK? first site visit
+      this.firstVisit = true
+    }
   }
 }
 </script>
