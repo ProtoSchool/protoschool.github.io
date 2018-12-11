@@ -1,5 +1,7 @@
 <template>
-  <Header/>
+  <div>
+    <Header/>
+  </div>
 </template>
 
 <script>
@@ -9,8 +11,6 @@ export default {
   name: 'home',
   components: {
     Header
-  },
-  data: self => {
-  },
+  }
 }
 </script>
