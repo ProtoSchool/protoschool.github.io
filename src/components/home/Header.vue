@@ -1,23 +1,29 @@
 <template>
   <div class="home">
-    <header class="flex items-center bg-navy white pv3">
-      <div class="flex-auto">
-        <div class="pseudo-logo">
-          <img src="./ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
-          <div class="header-text">
-              <h1 class="ma0 fw4">
-                <span class="montserrat fw4">Proto</span>
-                <span class="montserrat fw2">School</span>
-              </h1>
-              <h2 class="ma0 montserrat fw3">
-                The interactive IPFS protocol workshop
-              </h2>
+    <header>
+    <section class="flex items-center bg-navy white pv3">
+        <div class="flex-auto">
+          <div class="pseudo-logo">
+            <img src="./ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
+            <div class="header-text">
+                <h1 class="ma0 fw4">
+                  <span class="montserrat fw4">Proto</span>
+                  <span class="montserrat fw2">School</span>
+                </h1>
+                <h2 class="ma0 montserrat fw3">
+                  The interactive IPFS protocol workshop
+                </h2>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex-auto tc bonus-illustration">
-        <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
-      </div>
+        <div class="flex-auto tc bonus-illustration">
+          <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
+        </div>
+      </section>
+      <nav class="flex items-center bg-aqua white pv3">
+        <router-link :to="'/'" class="nav-link">Home</router-link>
+        <router-link :to="'/workshops'" class="nav-link">Workshops</router-link>
+      </nav>
     </header>
   </div>
 </template>
@@ -39,6 +45,13 @@ export default {
 }
 .header-text h2 {
   font-size: 16px;
+}
+.nav-link {
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  text-decoration: underline;
 }
 .pseudo-logo {
   display: flex;
