@@ -21,8 +21,8 @@
         </div>
       </section>
       <nav class="flex items-center bg-aqua white pv3">
-        <router-link :to="'/'" class="nav-link">Home</router-link>
-        <router-link :to="'/workshops'" class="nav-link">Workshops</router-link>
+        <router-link :to="'/'" class="nav-link navy">Home</router-link>
+        <router-link :to="'/workshops'" class="nav-link navy">Workshops</router-link>
       </nav>
     </header>
   </div>
@@ -47,12 +47,18 @@ export default {
   font-size: 16px;
 }
 .nav-link {
-  color: white;
   cursor: pointer;
-  font-size: 16px;
-  margin: 5px;
-  text-decoration: underline;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 2px 20px;
+  text-decoration: none;
 }
+
+.nav-link:focus, .nav-link:hover {
+  color: white;
+}
+
+
 .pseudo-logo {
   display: flex;
   align-items: center;
