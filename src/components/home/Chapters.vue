@@ -6,6 +6,11 @@
         <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
           <strong>Chapters</strong> content here.
         </p>
+        <ul>
+          <li v-for="chapter in chapters">
+            {{ chapter.location }}
+          </li>
+        </ul>
       </section>
     </div>
   </div>
@@ -13,6 +18,7 @@
 
 <script>
 import Header from './Header'
+const chapterList = require('./chapters.json')
 
 export default {
   name: 'Workshops',
@@ -21,11 +27,14 @@ export default {
   },
   data: self => {
     return {
-      firstWorkshopVisit: true
+      firstWorkshopVisit: true,
+      chapters: chapterList
     }
   },
   mounted: function () {
     this.checkFirstWorkshopVisit()
+    console.log(chapterList)
+    console.log(chapterList)
   },
   methods: {
     checkFirstWorkshopVisit: function () {

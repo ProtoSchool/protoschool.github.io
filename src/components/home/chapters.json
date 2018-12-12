@@ -1,0 +1,27 @@
+[
+   {
+      "name":"ProtoSchool San Francisco",
+      "location":"San Francisco, CA",
+      "country":"US",
+      "region":"North America",
+      "organizers":[
+         "mikeal",
+         "terichadbourne"
+      ],
+      "website":"http://proto.school/san-francisco",
+      "twitter":"sfprotoschool",
+      "repo":"http://github.com/protoschool/san-francisco"
+   },
+   {
+      "name":"ProtoSchool Boston",
+      "location":"Boston, MA",
+      "country":"US",
+      "region":"North America",
+      "organizers":[
+         "terichadbourne"
+      ],
+      "website":"http://proto.school/boston",
+      "twitter":"bostonprotoschool",
+      "repo":"http://github.com/protoschool/boston"
+   }
+]
