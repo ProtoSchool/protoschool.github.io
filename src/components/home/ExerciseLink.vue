@@ -20,13 +20,13 @@ export default {
     'index',
     'name'
   ],
-  methods:  {
-    lessonPassed: function(lessonKey) {
+  methods: {
+    lessonPassed: function (lessonKey) {
       return !!localStorage[lessonKey]
     },
-    lessonCached: function(cacheKey) {
+    lessonCached: function (cacheKey) {
       return !!localStorage[cacheKey]
-    },
+    }
   }
 }
 </script>
