@@ -23,6 +23,7 @@
       <nav class="flex items-center bg-aqua white pv3">
         <router-link :to="'/'" class="nav-link navy">Home</router-link>
         <router-link :to="'/workshops'" class="nav-link navy">Workshops</router-link>
+        <router-link :to="'/chapters'" class="nav-link navy">Chapters</router-link>
       </nav>
     </header>
   </div>
@@ -31,7 +32,7 @@
 <script>
 
 export default {
-  name: 'Header',
+  name: 'Header'
 }
 </script>
 
@@ -53,12 +54,9 @@ export default {
   margin: 2px 20px;
   text-decoration: none;
 }
-
 .nav-link:focus, .nav-link:hover {
   color: white;
 }
-
-
 .pseudo-logo {
   display: flex;
   align-items: center;
