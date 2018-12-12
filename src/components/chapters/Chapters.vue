@@ -7,8 +7,21 @@
           <strong>Chapters</strong> content here.
         </p>
         <ul>
-          <li v-for="chapter in chapters">
-            {{ chapter.location }}
+          <li v-for="region in regions">
+            <h3>{{region}}</h3>
+            <ul>
+              <li v-for="chapter in chaptersByRegion[region]">
+                <span v-if="chapter.website">
+                  <a v-bind:href="chapter.website">{{chapter.city}}, {{chapter.country}}</a>
+                </span>
+                <span v-else-if="chapter.repo">
+                  <a v-bind:href="chapter.repo">{{chapter.city}}, {{chapter.country}}</a>
+                </span>
+                <span v-else>
+                  {{chapter.city}}, {{chapter.country}}
+                </span>
+              </li>
+            </ul>
           </li>
         </ul>
       </section>
@@ -27,24 +40,34 @@ export default {
   },
   data: self => {
     return {
-      firstWorkshopVisit: true,
       chapters: chapterList
     }
   },
-  mounted: function () {
-    this.checkFirstWorkshopVisit()
-  },
-  methods: {
-    checkFirstWorkshopVisit: function () {
-      for (let key of Object.keys(localStorage)) {
-        if (key.startsWith('passed') || key.startsWith('cached')) {
-          // TRACK? return visit
-          this.firstWorkshopVisit = false
-          return
+  computed: {
+    chaptersByRegion: function () {
+      const regions = []
+      const chaptersByRegion = {}
+      this.chapters.forEach(chapter => {
+        if (!regions.includes(chapter.region)) {
+          regions.push(chapter.region)
+          chaptersByRegion[chapter.region] = [chapter]
+        } else {
+          chaptersByRegion[chapter.region].push(chapter)
         }
-      } 
-      // TRACK? first site visit
-      this.firstWorkshopVisit = true
+      })
+      for (var regionName in chaptersByRegion) {
+        chaptersByRegion[regionName].sort((a, b) => a.city.localeCompare(b.city))
+      }
+      return chaptersByRegion
+    },
+    regions: function () {
+      const regions = []
+      this.chapters.forEach(function (chapter) {
+        if (!regions.includes(chapter.region)) {
+          regions.push(chapter.region)
+        }
+      })
+      return regions.sort()
     }
   }
 }
