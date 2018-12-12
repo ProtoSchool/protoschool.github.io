@@ -7,6 +7,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import Home from './components/home/Home.vue'
 import Chapters from './components/chapters/Chapters.vue'
+import Host from './components/Host.vue'
 import Workshops from './components/workshops/Workshops.vue'
 import LessonBasics01 from './lessons/Basics/01.vue'
 import LessonBasics02 from './lessons/Basics/02.vue'
@@ -25,6 +26,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/workshops', component: Workshops },
   { path: '/chapters', component: Chapters },
+  { path: '/host', component: Host },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },

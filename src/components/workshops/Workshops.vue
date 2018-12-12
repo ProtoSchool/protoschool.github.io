@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import ExerciseLink from './ExerciseLink'
-import Header from '../Header'
+import ExerciseLink from './ExerciseLink.vue'
+import Header from '../Header.vue'
 
 export default {
   name: 'Workshops',

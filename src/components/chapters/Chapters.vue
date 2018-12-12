@@ -3,8 +3,9 @@
     <Header/>
     <div class="home">
       <section class="db">
+        <h1 class="tc">ProtoSchool Chapters</h1>
         <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-          <strong>Chapters</strong> content here.
+          Cities all over have started to host ProtoSchool events regularly. Select a chapter below to learn more.
         </p>
         <ul>
           <li v-for="region in regions">
@@ -24,13 +25,16 @@
             </ul>
           </li>
         </ul>
+        <p class="f4 fw3 lh-copy ma0 pv4 indent-1 measure-wide">
+          Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
+        </p>
       </section>
     </div>
   </div>
 </template>
 
 <script>
-import Header from '../Header'
+import Header from '../Header.vue'
 const chapterList = require('./chapters.json')
 
 export default {
