@@ -12,7 +12,7 @@
         <div class="flex items-start pv4">
           <div class="section-1 flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-            <img src="./ipfs.svg" alt="" style="height: 54px"/>
+            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100 w-50-l measure-wide ph2 ph0-l">
             <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
@@ -32,7 +32,7 @@
             </ul>
           </div>
           <div class="dn db-l flex-auto tc">
-            <img src="./ipfs-illustrations-how-1.svg" alt="">
+            <img src="../../images/ipfs-illustrations-how-1.svg" alt="">
           </div>
         </div>
       </section>
@@ -40,7 +40,7 @@
         <div class="flex items-start pv4">
           <div class="section-1 flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-            <img src="./ipfs.svg" alt="" style="height: 54px"/>
+            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100 w-50-l measure-wide ph2 ph0-l">
             <h2 class="ma0 f3 fw5 ">Blogging on the Decentralized Web</h2>
@@ -72,7 +72,7 @@
             </ul>
           </div>
           <div class="dn db-l flex-auto tc">
-            <img src="./ipfs-illustrations-how-4.svg" alt="">
+            <img src="../../images/ipfs-illustrations-how-4.svg" alt="">
           </div>
         </div>
       </section>
@@ -82,7 +82,7 @@
 
 <script>
 import ExerciseLink from './ExerciseLink'
-import Header from './Header'
+import Header from '../Header'
 
 export default {
   name: 'Workshops',

@@ -4,7 +4,7 @@
     <section class="flex items-center bg-navy white pv3">
         <div class="flex-auto">
           <div class="pseudo-logo">
-            <img src="./ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
+            <img src="../images/ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
             <div class="header-text">
                 <h1 class="ma0 fw4">
                   <span class="montserrat fw4">Proto</span>
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="flex-auto tc bonus-illustration">
-          <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
+          <img src="../images/ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
         </div>
       </section>
       <nav class="flex items-center bg-aqua white pv3">

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Header from './Header'
+import Header from '../Header'
 const chapterList = require('./chapters.json')
 
 export default {
@@ -33,8 +33,6 @@ export default {
   },
   mounted: function () {
     this.checkFirstWorkshopVisit()
-    console.log(chapterList)
-    console.log(chapterList)
   },
   methods: {
     checkFirstWorkshopVisit: function () {
