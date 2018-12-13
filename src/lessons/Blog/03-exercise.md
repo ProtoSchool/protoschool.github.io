@@ -1,1 +1,1 @@
-Insert those new tag objects into IPLD via `ipld.dag.put()` and return the two resulting CIDs as array.
+Create new nodes for the tags "outdoor" and "hobby" in the format shown above, linking to the relevant blog posts using arrays. Insert the new tag objects into IPFS via `ipfs.dag.put()` and return the two resulting CIDs as an array.

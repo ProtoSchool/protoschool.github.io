@@ -5,7 +5,7 @@
             :modules="modules"
             :exercise="exercise"
             :concepts="concepts"
-            lessonTitle="Linking data">
+            lessonTitle="Create a new node that's linked to an old one">
     </Lesson>
   </div>
 </template>
@@ -35,10 +35,10 @@ const validate = async (result, ipfs) => {
   }
   let hash = 'zdpuAoPanArLvuFtuvmLYuSvp8zE8wuKSMZUkMN8Y1PaHLvKP'
   if (result.toBaseEncodedString() === hash) {
-    return {success: 'All works!'}
+    return {success: 'Everything works!'}
   } else {
     let obj = await ipfs.dag.get(result)
-    let expected = JSON.stringify({bar: {'/': hash}})
+    let expected = JSON.stringify({bar: new CID(hash)})
     let got = JSON.stringify(obj.value)
     let fail = `Was expecting "${expected}" but got "${got}"`
     return {fail}

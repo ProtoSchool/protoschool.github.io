@@ -1,5 +1,5 @@
-First, you'll need to add the new blog post to the `hobby` tag.
+First, you'll need to add a link to the new blog from the node for the `hobby` tag.
 
-There isn’t a node for the `funny` tag yet either, so create a new node with the same data as the other tag nodes and add a link to the blog post about dogs.
+We don't yet have a node for the `funny` tag. Create a new tag node that matches the format of the others and links to the blog post about dogs.
 
-Return the CIDs of all three tag nodes.
+Return the CIDs of all three tag nodes as an array.

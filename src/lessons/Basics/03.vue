@@ -4,7 +4,7 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Reading data in links">
+            lessonTitle="Read nested data using links">
     </Lesson>
   </div>
 </template>
@@ -18,9 +18,7 @@ let code = `/* globals ipfs */
 
 const run = async () => {
   let cid = await ipfs.dag.put({test: 1})
-  let cid2 = await ipfs.dag.put(
-    {bar: {'/': cid.toBaseEncodedString()}}
-  )
+  let cid2 = await ipfs.dag.put({bar: cid})
   /* your code goes here */
 }
 
@@ -37,7 +35,7 @@ const validate = async (result, ipfs) => {
   }
 
   if (result.value === 1 && result.remainderPath === '') {
-    return {success: 'Great job!'}
+    return {success: `Great job! You've completed this series of lessons!`}
   } else {
     let expected = JSON.stringify({value: 1, remainderPath: ''})
     let got = JSON.stringify(result)

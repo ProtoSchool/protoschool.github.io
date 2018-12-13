@@ -2,7 +2,7 @@
   <div class="lesson-01">
     <Lesson :text="text" :validate="validate"
             :exercise="exercise" :concepts="concepts"
-            lessonTitle="Basic write">
+            lessonTitle="Create a node and return a Content Identifier (CID)">
     </Lesson>
   </div>
 </template>
@@ -23,7 +23,7 @@ const validate = async (result, ipfs) => {
   }
   let hash = 'zdpuApm55Qv2zRxb3KKjVUxhQSw2r4a7jeiDV7163yCQnfivy'
   if (result.toBaseEncodedString() === hash) {
-    return {success: 'All works!'}
+    return {success: 'Everything works!'}
   } else {
     let obj = await ipfs.dag.get(result)
     let expected = JSON.stringify({test: 1})

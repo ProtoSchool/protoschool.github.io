@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="Chain of links">
+            lessonTitle="List posts chronologically with a chain of links">
     </Lesson>
   </div>
 </template>
@@ -24,39 +24,31 @@ const run = async () => {
 
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["funny", "hobby"]
   })
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()},
-      {"/": dogPostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid, computerPostCid, dogPostCid ]
   })
   const funnyTagCid = await ipfs.dag.put({
     tag: "funny",
-    posts: [
-      {"/": dogPostCid.toBaseEncodedString()}
-    ]
+    posts: [ dogPostCid ]
   })
 
   return dogPostCid
@@ -73,41 +65,33 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"],
-    prev: {"/": treePostCid.toBaseEncodedString()}
+    prev: treePostCid
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["funny", "hobby"],
-    prev: {"/": computerPostCid.toBaseEncodedString()}
+    prev: computerPostCid
   })
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()},
-      {"/": dogPostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid, computerPostCid, dogPostCid ]
   })
   const funnyTagCid = await ipfs.dag.put({
     tag: "funny",
-    posts: [
-      {"/": dogPostCid.toBaseEncodedString()}
-    ]
+    posts: [ dogPostCid ]
   })
 
   return dogPostCid
@@ -130,14 +114,14 @@ const validate = async (result, ipfs) => {
   if (node.prev === undefined) {
     return {fail: 'The "dogs" blog post needs to have a `prev` field.'}
   }
-  if (node.prev['/'] === undefined) {
-    return {fail: 'The value of `prev` of the "dogs" blog post needs to be a link (`{"/": "some-cid"}`).'}
+  if (!CID.isCID(node.prev)) {
+    return {fail: 'The value of `prev` of the "dogs" blog post needs to be a link.'}
   }
 
   const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
   const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
   const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
-  const nodePrev = new CID(node.prev['/'])
+  const nodePrev = node.prev
 
   const computerNode = (await ipfs.dag.get(nodePrev)).value
   if (computerNode.content === undefined) {
@@ -149,10 +133,10 @@ const validate = async (result, ipfs) => {
   if (computerNode.prev === undefined) {
     return {fail: 'The "computers" blog post needs to have a `prev` field.'}
   }
-  if (computerNode.prev['/'] === undefined) {
-    return {fail: 'The value of `prev` of the "computers" blog post needs to be a link (`{"/": "some-cid"}`).'}
+  if (!CID.isCID(computerNode.prev)) {
+    return {fail: 'The value of `prev` of the "computers" blog post needs to be a link.'}
   }
-  const computerNodePrev = new CID(computerNode.prev['/'])
+  const computerNodePrev = computerNode.prev
 
   const treeNode = (await ipfs.dag.get(computerNodePrev)).value
   if (treeNode.content === undefined) {
@@ -175,7 +159,7 @@ const validate = async (result, ipfs) => {
   }
   const nodeCid = result.toBaseEncodedString()
   if (nodeCid === dogPostCid) {
-    return {success: 'All works!'}
+    return {success: 'Everything works!'}
   } else {
     return {fail: `The returned CID ${nodeCid} did not match the expected CID ${dogPostCid}.`}
   }

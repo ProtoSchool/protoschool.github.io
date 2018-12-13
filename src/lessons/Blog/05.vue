@@ -3,7 +3,7 @@
     <Lesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :exercise="exercise"
-            lessonTitle="Keep building links">
+            lessonTitle="Add a new tag linked to multiple blog posts">
     </Lesson>
   </div>
 </template>
@@ -23,32 +23,27 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["funny", "hobby"]
   })
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid, computerPostCid ]
   })
 
   // Add your new code here and modify the tags above
@@ -65,39 +60,31 @@ const run = async () => {
   const samCid = await ipfs.dag.put({author: "Sam"})
   const treePostCid = await ipfs.dag.put({
     content: "trees",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["outdoor", "hobby"]
   })
   const computerPostCid = await ipfs.dag.put({
     content: "computers",
-    author: {"/": natCid.toBaseEncodedString()},
+    author: natCid,
     tags: ["hobby"]
   })
   const dogPostCid = await ipfs.dag.put({
     content: "dogs",
-    author: {"/": samCid.toBaseEncodedString()},
+    author: samCid,
     tags: ["funny", "hobby"]
   })
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid ]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [
-      {"/": treePostCid.toBaseEncodedString()},
-      {"/": computerPostCid.toBaseEncodedString()},
-      {"/": dogPostCid.toBaseEncodedString()}
-    ]
+    posts: [ treePostCid, computerPostCid, dogPostCid ]
   })
   const funnyTagCid = await ipfs.dag.put({
     tag: "funny",
-    posts: [
-      {"/": dogPostCid.toBaseEncodedString()}
-    ]
+    posts: [ dogPostCid ]
   })
 
   return [outdoorTagCid, hobbyTagCid, funnyTagCid]
@@ -130,7 +117,7 @@ const validate = async (result, ipfs) => {
     if (!Array.isArray(node.posts)) {
       return {fail: 'The value of the `posts` field must be an array of links.'}
     }
-    const isLinks = node.posts.every((post) => '/' in post)
+    const isLinks = node.posts.every((post) => CID.isCID(post))
     if (!isLinks) {
       return {fail: 'The values of the `posts` array must be links.'}
     }
@@ -152,14 +139,14 @@ const validate = async (result, ipfs) => {
       default:
         return {fail: `Wrong tag (${node.tag}). Did you mean one of funny, hobby, outdoor?`}
     }
-    const nodePosts = node.posts.map((post) => new CID(post['/']).toBaseEncodedString())
+    const nodePosts = node.posts.map(post => post.toBaseEncodedString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {
       return {fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.`}
     }
   }
   // Don't check the CIDs as then the order of the links would matter.
   // But that order really doesn't matter.
-  return {success: 'All works!'}
+  return {success: 'Everything works!'}
 }
 
 export default {
