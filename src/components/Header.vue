@@ -27,6 +27,7 @@
         <router-link :to="'/workshops'" class="nav-link navy">Workshops</router-link>
         <router-link :to="'/chapters'" class="nav-link navy">Chapters</router-link>
         <router-link :to="'/host'" class="nav-link navy">Host</router-link>
+        <router-link :to="'/build'" class="nav-link navy">Build</router-link>
       </nav>
     </header>
   </div>
