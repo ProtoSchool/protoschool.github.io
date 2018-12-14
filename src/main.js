@@ -9,6 +9,7 @@ import Home from './components/home/Home.vue'
 import Chapters from './components/chapters/Chapters.vue'
 import Host from './components/Host.vue'
 import Build from './components/Build.vue'
+import About from './components/About.vue'
 import Workshops from './components/workshops/Workshops.vue'
 import LessonBasics01 from './lessons/Basics/01.vue'
 import LessonBasics02 from './lessons/Basics/02.vue'
@@ -29,6 +30,7 @@ const routes = [
   { path: '/chapters', component: Chapters },
   { path: '/host', component: Host },
   { path: '/build', component: Build },
+  { path: '/about', component: About },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
