@@ -5,7 +5,7 @@
       <section class="db">
         <h1 class="tc">ProtoSchool Chapters</h1>
         <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-          Cities all over have started to host ProtoSchool events regularly. Select a chapter below to learn more.
+          Cities all over host ProtoSchool events regularly. Select a chapter below to learn more.
         </p>
         <ul>
           <li v-for="region in regions">
@@ -25,7 +25,10 @@
             </ul>
           </li>
         </ul>
-        <p class="f4 fw3 lh-copy ma0 pv4 indent-1 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
+          <em>TODO: nicer, more button-y formatting for chapter listings ^</em>
+        </p>
+        <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
           Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
         </p>
       </section>
