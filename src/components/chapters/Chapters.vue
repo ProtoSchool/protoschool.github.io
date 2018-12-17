@@ -5,9 +5,11 @@
       <section class="db">
         <h1 class="tc">ProtoSchool Chapters</h1>
         <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-          Cities all over host ProtoSchool events regularly. Select a chapter below to learn more.
+          Cities all over host ProtoSchool events regularly, offering you the
+          opportunity to complete our interactive tutorials with the support of
+          local mentors. Select a chapter below to learn more.
         </p>
-        <ul>
+        <ul class="indent-1">
           <li v-for="region in regions">
             <h3>{{region}}</h3>
             <ul>

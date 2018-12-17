@@ -10,15 +10,15 @@
         We accomplish this by <strong>creating interactive tutorials</strong>
         and <strong>hosting community learning events</strong>.
         </p>
-        <h2 class="indent-1">Workshops</h2>
+        <h2 class="indent-1">Interactive Tutorials</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
-        Our <router-link to="/workshops">workshops</router-link> are the heart of our educational mission. Each
-        browser-based interactive tutorial consists of lessons of increasing
-        difficulty, in which a new concept is explained and the learner is
-        given a code challenge to solve to apply their learning. The learner
-        submits their solution when ready, and receives contextual feedback
-        if needed to try again. If their code passes, they move on to
-        the next lesson in the workshop.
+        Our <router-link to="/workshops">interactive tutorials</router-link> are
+        the heart of our educational mission. Each browser-based tutorial
+        consists of lessons of increasing difficulty, in which a new
+        concept is explained and the learner is given a code challenge
+        to solve to apply their learning. The learner submits their solution
+        when ready, and receives contextual feedback if needed to try again.
+        If their code passes, they move on to the next lesson in the tutorial.
         </p>
 
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
@@ -32,7 +32,7 @@
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         ProtoSchool content is designed to introduce learners to the concepts,
         protocols, and tools that support the decentralized web. We're excited
-        to add new workshops to our collection, and we'd love your help building
+        to add new tutorials to our collection, and we'd love your help building
         content about projects such as
         <a href="https://ipfs.io/" target="blank">IPFS</a>,
         <a href="https://ipld.io/" target="blank">IPLD</a>,
@@ -41,12 +41,12 @@
         and more.
         </p>
 
-        <h2 class="indent-1">Community Events</h2>
+        <h2 class="indent-1">Chapter Events</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         Community events around the world provide an opportunity for learners
-        to explore ProtoSchool content with guidance from mentors in their
+        to explore ProtoSchool tutorials with guidance from mentors in their
         <router-link to="/chapters">local chapters</router-link>. Anyone can
-        <router-link to="/host">host a ProtoSchool event</router-link>, and we
+        <router-link to="/host">host a ProtoSchool chapter</router-link>, and we
         provide tools and tips for managing local chapters and organizing events
         that are fun and welcoming for everyone.
         </p>
@@ -54,9 +54,9 @@
         <h2 class="indent-1">Contributing</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         ProtoSchool is a community-driven effort, and we depend on contributors
-        to <router-link to="/host">build workshops</router-link>,
+        to <router-link to="/host">build tutorials</router-link>,
         <router-link to="/host">organize chapter events</router-link>,
-        improve our existing workshops and documentation, and answer community
+        improve our existing tutorials and documentation, and answer community
         questions. Learn more about
         <a href="https://github.com/ProtoSchool/organizing/blob/master/CONTRIBUTING.md" target="blank">
         ways to contribute</a>.
@@ -68,7 +68,7 @@
         with questions about chapter leadership and community engagement is our
         <a href="https://github.com/ProtoSchool/organizing" target="blank">organizing
         repository</a>, where you can open a new issue and organizers will be
-        notified and respond. If you have a new workshop idea or suggestions for
+        notified and respond. If you have a new tutorial idea or suggestions for
         improving the ProtoSchool site, please open an issue in the
         <a href="https://github.com/ProtoSchool/protoschool.github.io" target="blank">
         website repository</a>.

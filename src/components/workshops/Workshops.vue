@@ -4,8 +4,8 @@
     <div class="home">
       <section class="db bb border-aqua bw2">
         <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-          <strong>ProtoSchool is a collection of workshops</strong> that help you learn about the
-          IPFS protocol by writing code and solving challenges.
+          <strong>ProtoSchool is a collection of interactive tutorials</strong> that help you learn about the
+          the decentralized web by writing code and solving challenges.
         </p>
       </section>
       <section class="db bt border-aqua bw4 relative">

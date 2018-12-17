@@ -29,7 +29,7 @@
         <h2 class="indent-1">Other ways to contribute</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         Not ready to host a chapter quite yet? We'd love your help
-        <router-link to="/build">building new workshops</router-link>,
+        <router-link to="/build">building new tutorials</router-link>,
         improving existing ones, answering technical questions, or
         making our documentation more clear.
         Learn more about the many

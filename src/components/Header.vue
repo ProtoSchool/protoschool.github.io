@@ -24,7 +24,7 @@
       </section>
       <nav class="flex items-center bg-aqua white pv3">
         <router-link :to="'/'" class="nav-link navy">Home</router-link>
-        <router-link :to="'/workshops'" class="nav-link navy">Workshops</router-link>
+        <router-link :to="'/workshops'" class="nav-link navy">Tutorials</router-link>
         <router-link :to="'/chapters'" class="nav-link navy">Chapters</router-link>
         <router-link :to="'/about'" class="nav-link navy">About</router-link>
         <router-link :to="'/host'" class="nav-link navy">Host</router-link>

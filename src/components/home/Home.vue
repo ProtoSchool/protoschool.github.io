@@ -10,29 +10,29 @@
         </p>
       </section>
       <section class="db">
-        <h2 class="indent-1">Workshops</h2>
+        <h2 class="indent-1">Interactive Tutorials</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
-        Our workshops are self-guided interactive tutorials on decentralized web
-        topics. Complete code challenges right in your web browser and track your
-        progress as you go.
+        Our self-guided interactive tutorials are designed to introduce you to
+        decentralized web concepts, protocols, and tools. Complete code
+        challenges right in your web browser and track your progress as you go.
         </p>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
-        <router-link to="/workshops">View All Workshops</router-link> |
-        <router-link to="/build">Build a Workshop</router-link>
+        <router-link to="/workshops">View All Tutorials</router-link> |
+        <router-link to="/build">Build a Tutorial</router-link>
         </p>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         <em>TODO: make those links ^ more button-y</em>
         </p>
 
-        <h3 class="indent-1">Featured Workshops</h3>
+        <h3 class="indent-1">Featured Tutorials</h3>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
-        <em>TODO: insert some featured workshops</em>
+        <em>TODO: insert some featured tutorials</em>
         </p>
 
 
         <h2 class="indent-1">Chapter Events</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
-        Chapters around the world host in-person events using our workshops as
+        Chapters around the world host in-person events using our tutorials as
         curriculum, with mentors available to help you work through the challenges.
         </p>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
