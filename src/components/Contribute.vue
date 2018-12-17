@@ -3,7 +3,7 @@
     <Header/>
     <div class="home">
       <section class="db">
-        <h1 class="tc">The ProtoSchool Community</h1>
+        <h1 class="tc">Contribute to the Community</h1>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         ProtoSchool is a community-driven open source project dedicated to
         making it easy to get started with decentralized web technologies.
