@@ -13,9 +13,6 @@
         <router-link to="/workshops">View All Tutorials</router-link> |
         <router-link to="/build">Build a Tutorial</router-link>
         </p>
-        <p class="f4 fw5 lh-copy ma0 pv3  ">
-        <em>TODO: make those links ^ more button-y</em>
-        </p>
 
         <h3>Featured Tutorials</h3>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
@@ -31,9 +28,6 @@
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         <router-link to="/chapters">Find a Chapter Near You</router-link> |
         <router-link to="/host">Start Your Own</router-link>
-        </p>
-        <p class="f4 fw5 lh-copy ma0 pv3  ">
-        <em>TODO: make those links ^ more button-y</em>
         </p>
       </section>
     </div>

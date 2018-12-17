@@ -3,9 +3,9 @@
     <header>
       <section class="flex items-center bg-navy white pv3">
         <div class="flex-auto">
-          <div class="pseudo-logo">
+          <div class="pseudo-logo center mw7">
             <a href="/">
-              <img src="../images/ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
+              <img src="../images/ps_symbol_color.svg" alt="ProtoSchool" class="mr3" />
             </a>
             <div class="header-text">
               <h1 class="ma0 fw4">
@@ -13,23 +13,24 @@
                 <span class="montserrat fw2">School</span>
               </h1>
               <h2 class="ma0 montserrat fw3">
-                The interactive decentralized web workshop
+                Interactive tutorials on decentralized web protocols
               </h2>
             </div>
             </div>
         </div>
-        <div class="flex-auto tc bonus-illustration">
-          <img src="../images/ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
+      </section>
+      <section class="flex items-center bg-aqua white pv3"
+        <div class="bg-aqua w-100">
+          <nav class="flex items-center bg-aqua white pv3 center tc mw7">
+            <router-link :to="'/'" class="nav-link navy">Home</router-link>
+            <router-link :to="'/workshops'" class="nav-link navy">Tutorials</router-link>
+            <router-link :to="'/chapters'" class="nav-link navy">Chapters</router-link>
+            <router-link :to="'/contribute'" class="nav-link navy">Contribute</router-link>
+            <router-link :to="'/host'" class="nav-link navy">Host</router-link>
+            <router-link :to="'/build'" class="nav-link navy">Build</router-link>
+          </nav>
         </div>
       </section>
-      <nav class="flex items-center bg-aqua white pv3">
-        <router-link :to="'/'" class="nav-link navy">Home</router-link>
-        <router-link :to="'/workshops'" class="nav-link navy">Tutorials</router-link>
-        <router-link :to="'/chapters'" class="nav-link navy">Chapters</router-link>
-        <router-link :to="'/contribute'" class="nav-link navy">Contribute</router-link>
-        <router-link :to="'/host'" class="nav-link navy">Host</router-link>
-        <router-link :to="'/build'" class="nav-link navy">Build</router-link>
-      </nav>
     </header>
   </div>
 </template>
@@ -43,9 +44,6 @@ export default {
 
 <style scoped>
 
-.bonus-illustration {
-  display: none;
-}
 .header-text h1 {
   font-size: 32px;
 }
@@ -58,6 +56,9 @@ export default {
   font-weight: 700;
   margin: 2px 20px;
   text-decoration: none;
+}
+.nav-link:first {
+  margin: 2px 20px 2px 0px;
 }
 .nav-link:focus, .nav-link:hover {
   color: white;
@@ -79,11 +80,6 @@ export default {
   }
   .pseudo-logo img {
     height: 100px;
-  }
-}
-@media screen and (min-width: 740px) {
-  .bonus-illustration {
-    display: block;
   }
 }
 
