@@ -2,14 +2,14 @@
   <div>
     <Header/>
     <div class="home">
-      <section class="db">
-        <h1 class="tc">ProtoSchool Chapters</h1>
-        <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
+      <section class="mw7 center ph2">
+        <h1 class="mt5">ProtoSchool Chapters</h1>
+        <p class="f4 fw5 lh-copy ma0 pv4  ">
           Cities all over host ProtoSchool events regularly, offering you the
           opportunity to complete our interactive tutorials with the support of
           local mentors. Select a chapter below to learn more.
         </p>
-        <ul class="indent-1">
+        <ul class="">
           <li v-for="region in regions">
             <h3>{{region}}</h3>
             <ul>
@@ -27,10 +27,10 @@
             </ul>
           </li>
         </ul>
-        <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv4  ">
           <em>TODO: nicer, more button-y formatting for chapter listings ^</em>
         </p>
-        <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv4  ">
           Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
         </p>
       </section>
@@ -81,23 +81,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-.indent-1 {
-  padding-left: 1rem;
-}
-.section-1 {
-  display: none;
-}
-@media screen and (min-width: 530px) {
-  .indent-1 {
-    padding-left: 93px;
-  }
-  .section-1 {
-    display: block;
-    width: 93px;
-  }
-}
-
-</style>

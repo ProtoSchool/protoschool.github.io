@@ -2,16 +2,16 @@
   <div>
     <Header/>
     <div>
-      <section class="tc">
-        <h1 class="tc">Contribute to the Community</h1>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+      <section class="mw7 center ph2">
+        <h1 class="mt5">Contribute to the Community</h1>
+        <p class="f4 fw5 lh-copy ma0 pv3">
         ProtoSchool is a community-driven open source project dedicated to
         making it easy to get started with decentralized web technologies.
         We accomplish this by <strong>creating interactive tutorials</strong>
         and <strong>hosting community learning events</strong>.
         </p>
         <h2>Interactive Tutorials</h2>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3">
         Our <router-link to="/workshops">interactive tutorials</router-link> are
         the heart of our educational mission. Each browser-based tutorial
         consists of lessons of increasing difficulty, in which a new
@@ -21,15 +21,15 @@
         If their code passes, they move on to the next lesson in the tutorial.
         </p>
 
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         For contributors <router-link to="/build">building new workshops,</router-link>
         the process feels similar to creating a unit test suite
         which the learner must pass by implementing the correct code.
         </p>
 
 
-        <h2 class="indent-1">Topics</h2>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <h2>Topics</h2>
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         ProtoSchool content is designed to introduce learners to the concepts,
         protocols, and tools that support the decentralized web. We're excited
         to add new tutorials to our collection, and we'd love your help building
@@ -42,7 +42,7 @@
         </p>
 
         <h2>Chapter Events</h2>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         Community events around the world provide an opportunity for learners
         to explore ProtoSchool tutorials with guidance from mentors in their
         <router-link to="/chapters">local chapters</router-link>. Anyone can
@@ -52,7 +52,7 @@
         </p>
 
         <h2>Contributing</h2>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         ProtoSchool is a community-driven effort, and we depend on contributors
         to <router-link to="/host">build tutorials</router-link>,
         <router-link to="/host">organize chapter events</router-link>,
@@ -63,7 +63,7 @@
         </p>
 
         <h2>Get in Touch</h2>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         We use GitHub to organize ProtoSchool. The best place to get in touch
         with questions about chapter leadership and community engagement is our
         <a href="https://github.com/ProtoSchool/organizing" target="blank">organizing
@@ -75,17 +75,16 @@
         </p>
 
         <h2>Code of Conduct</h2>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         ProtoSchool organizers must follow the Code of Conduct outlined in the
         organizing repository. Each ProtoSchool chapter is responsible for
         maintaining their own Code of Conduct. If you have questions about the
         Code of Conduct for a specific chapter, you can open an issue in their
         associated GitHub repository.
         </p>
-        <p class="f4 fw5 lh-copy ma0 pv3 measure-wide">
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
         <strong>TODO: Add a CoC and link to it.</strong>
         </p>
-
       </section>
     </div>
   </div>
@@ -101,23 +100,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-
-.indent-1 {
-  padding-left: 1rem;
-}
-.section-1 {
-  display: none;
-}
-@media screen and (min-width: 530px) {
-  .indent-1 {
-    padding-left: 93px;
-  }
-  .section-1 {
-    display: block;
-    width: 93px;
-  }
-}
-
-</style>
