@@ -26,7 +26,7 @@
         <router-link :to="'/'" class="nav-link navy">Home</router-link>
         <router-link :to="'/workshops'" class="nav-link navy">Tutorials</router-link>
         <router-link :to="'/chapters'" class="nav-link navy">Chapters</router-link>
-        <router-link :to="'/about'" class="nav-link navy">About</router-link>
+        <router-link :to="'/community'" class="nav-link navy">Community</router-link>
         <router-link :to="'/host'" class="nav-link navy">Host</router-link>
         <router-link :to="'/build'" class="nav-link navy">Build</router-link>
       </nav>
