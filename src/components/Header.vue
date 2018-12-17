@@ -13,7 +13,7 @@
                 <span class="montserrat fw2">School</span>
               </h1>
               <h2 class="ma0 montserrat fw3">
-                The interactive IPFS protocol workshop
+                The interactive decentralized web workshop
               </h2>
             </div>
             </div>
