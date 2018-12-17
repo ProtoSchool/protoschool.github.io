@@ -30,7 +30,7 @@
         </p>
 
 
-        <h2 class="indent-1">Community Events</h2>
+        <h2 class="indent-1">Chapter Events</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         Chapters around the world host in-person events using our workshops as
         curriculum, with mentors available to help you work through the challenges.
@@ -42,14 +42,6 @@
         <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
         <em>TODO: make those links ^ more button-y</em>
         </p>
-        <p class="f4 fw5 lh-copy ma0 pv3 indent-1 measure-wide">
-        <em>TODO: Any other content we want here? We've decided not to include
-        event listings right now. Any reason to include "Featured Chapters" or
-        something like that? </em>
-        </p>
-
-
-
       </section>
     </div>
   </div>
