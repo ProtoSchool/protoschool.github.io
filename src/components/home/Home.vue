@@ -3,7 +3,7 @@
     <Header/>
     <div>
       <section class="mw7 center ph2">
-        <h2>Interactive Tutorials</h2>
+        <h1 class="mt5">Interactive Tutorials</h1>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         Our self-guided interactive tutorials are designed to introduce you to
         decentralized web concepts, protocols, and tools. Complete code
@@ -14,13 +14,38 @@
         <router-link to="/build">Build a Tutorial</router-link>
         </p>
 
-        <h3>Featured Tutorials</h3>
-        <p class="f4 fw5 lh-copy ma0 pv3  ">
-        <em>TODO: insert some featured tutorials</em>
-        </p>
+        <h2>Featured Tutorials</h2>
+        <div id="featured" class="flex flex-wrap justify-between">
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/basics/01">
+              <h3 class="ma0 f3 fw7 navy">P2P data links with content addressing</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
+              </p>
+            </router-link>
+          </div>
 
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/blog/01">
+              <h3 class="ma0 f3 fwy navy">Blogging on the Decentralized Web</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                Cool content addresses don't change.
+              </p>
+            </router-link>
+          </div>
 
-        <h2>Chapter Events</h2>
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/basics/01">
+              <h3 class="ma0 f3 fw7 navy">Decentralized Data Structures</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                Put a description here when it's ready!
+              </p>
+            </router-link>
+          </div>
+
+        </div>
+
+        <h1>Chapter Events</h1>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         Chapters around the world host in-person events using our tutorials as
         curriculum, with mentors available to help you work through the challenges.
@@ -45,3 +70,29 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+.tutorial-tile {
+  max-width: 49%
+}
+.tutorial-tile a  {
+  text-decoration: none;
+}
+
+.tutorial-tile a h3:hover,
+.tutorial-tile a h3:focus {
+  color: white;
+}
+
+@media screen and (max-width: 750px) {
+  #featured {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  .tutorial-tile {
+    max-width: 100%
+  }
+}
+
+</style>
