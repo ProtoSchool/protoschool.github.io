@@ -2,21 +2,22 @@
   <div>
     <Header/>
     <div class="home">
-      <section class="db bb border-aqua bw2">
-        <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-          <strong>ProtoSchool is a collection of interactive tutorials</strong> that help you learn about the
+      <section class="db">
+        <h1 class="mw7 center ph2 mt5">Interactive Tutorials</h1>
+        <p class="f4 fw5 lh-copy ma0 pv4 mw7 center ph2">
+          Our interactive tutorials help you learn about the
           the decentralized web by writing code and solving challenges.
         </p>
       </section>
-      <section class="db bt border-aqua bw4 relative">
+      <section class="db mw7 center ph2">
         <div class="flex items-start pv4">
-          <div class="section-1 flex-none tc">
+          <div class="project-label flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
             <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
-          <div class="w-100 w-50-l measure-wide ph2 ph0-l">
-            <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
-            <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
+          <div class="w-100">
+            <h2 class="ma0 f3 fw5"><router-link to="/basics/01">P2P data links with content addressing</router-link></h2>
+            <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
               Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
             </p>
             <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
@@ -31,19 +32,16 @@
               </li>
             </ul>
           </div>
-          <div class="dn db-l flex-auto tc">
-            <img src="../../images/ipfs-illustrations-how-1.svg" alt="">
-          </div>
         </div>
       </section>
-      <section class="db">
+      <section class="db mw7 center ph2">
         <div class="flex items-start pv4">
-          <div class="section-1 flex-none tc">
+          <div class="project-label flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
             <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
-          <div class="w-100 w-50-l measure-wide ph2 ph0-l">
-            <h2 class="ma0 f3 fw5 ">Blogging on the Decentralized Web</h2>
+          <div class="w-100">
+            <h2 class="ma0 f3 fw5 "><router-link to="/blog/01">Blogging on the Decentralized Web</router-link></h2>
             <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
               Cool content addresses don't change.
             </p>
@@ -70,9 +68,6 @@
                 <ExerciseLink to="/blog/07" index="7" name="Traverse through all posts, starting with the most recent" />
               </li>
             </ul>
-          </div>
-          <div class="dn db-l flex-auto tc">
-            <img src="../../images/ipfs-illustrations-how-4.svg" alt="">
           </div>
         </div>
       </section>
@@ -116,17 +111,11 @@ export default {
 
 <style scoped>
 
-.indent-1 {
-  padding-left: 1rem;
-}
-.section-1 {
+.project-label {
   display: none;
 }
 @media screen and (min-width: 530px) {
-  .indent-1 {
-    padding-left: 93px;
-  }
-  .section-1 {
+  .project-label {
     display: block;
     width: 93px;
   }
