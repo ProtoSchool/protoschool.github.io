@@ -9,10 +9,10 @@
         decentralized web concepts, protocols, and tools. Complete code
         challenges right in your web browser and track your progress as you go.
         </p>
-        <p class="f4 fw5 lh-copy ma0 pv3  ">
-        <router-link to="/workshops">View All Tutorials</router-link> |
-        <router-link to="/build">Build a Tutorial</router-link>
-        </p>
+        <div class="mv3">
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/workshops">View All Tutorials</router-link>
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/build">Build a Tutorial</router-link>
+        </div>
 
         <h2>Featured Tutorials</h2>
         <div id="featured" class="flex flex-wrap justify-between">
@@ -50,10 +50,10 @@
         Chapters around the world host in-person events using our tutorials as
         curriculum, with mentors available to help you work through the challenges.
         </p>
-        <p class="f4 fw5 lh-copy ma0 pv3  ">
-        <router-link to="/chapters">Find a Chapter Near You</router-link> |
-        <router-link to="/host">Start Your Own</router-link>
-        </p>
+        <div class="mv3">
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/chapters">Find a Chapter Near You</router-link>
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/host">Start Your Own</router-link>
+        </div>
       </section>
     </div>
   </div>
