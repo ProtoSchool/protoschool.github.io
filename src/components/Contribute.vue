@@ -76,14 +76,17 @@
 
         <h2>Code of Conduct</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 ">
-        ProtoSchool organizers must follow the Code of Conduct outlined in the
-        organizing repository. Each ProtoSchool chapter is responsible for
-        maintaining their own Code of Conduct. If you have questions about the
+        We strive to make ProtoSchool a welcoming place for all community members.
+        All community members, including chapter organizers, must abide by the
+        <a href="https://github.com/protoschool/organizing/blob/master/CODE_OF_CONDUCT.md">
+        Code of Conduct</a> outlined in our organizing repository.
+        </p>
+
+        <p class="f4 fw5 lh-copy ma0 pv3 ">
+        Additionally, each ProtoSchool chapter is responsible for maintaining
+        their own Code of Conduct for chapter events and repos. If you have questions about the
         Code of Conduct for a specific chapter, you can open an issue in their
         associated GitHub repository.
-        </p>
-        <p class="f4 fw5 lh-copy ma0 pv3 ">
-        <strong>TODO: Add a CoC and link to it.</strong>
         </p>
       </section>
     </div>
