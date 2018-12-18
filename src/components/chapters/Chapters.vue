@@ -9,27 +9,24 @@
           opportunity to complete our interactive tutorials with the support of
           local mentors. Select a chapter below to learn more.
         </p>
-        <ul class="">
+        <ul>
           <li v-for="region in regions">
-            <h3>{{region}}</h3>
+            <h2>{{region}}</h2>
             <ul>
               <li v-for="chapter in chaptersByRegion[region]">
                 <span v-if="chapter.website">
-                  <a v-bind:href="chapter.website">{{chapter.city}}, {{chapter.country}}</a>
+                  <a v-bind:href="chapter.website" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}}, {{chapter.country}}</a>
                 </span>
                 <span v-else-if="chapter.repo">
-                  <a v-bind:href="chapter.repo">{{chapter.city}}, {{chapter.country}}</a>
+                  <a v-bind:href="chapter.repo" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}}, {{chapter.country}}</a>
                 </span>
                 <span v-else>
-                  {{chapter.city}}, {{chapter.country}}
+                  <span class="f5 br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}}, {{chapter.country}}</span>
                 </span>
               </li>
             </ul>
           </li>
         </ul>
-        <p class="f4 fw5 lh-copy ma0 pv4  ">
-          <em>TODO: nicer, more button-y formatting for chapter listings ^</em>
-        </p>
         <p class="f4 fw5 lh-copy ma0 pv4  ">
           Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
         </p>
@@ -81,3 +78,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+li {
+  display: inline;
+}
+</style>
