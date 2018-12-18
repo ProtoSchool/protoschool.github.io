@@ -114,6 +114,18 @@ export default {
 .project-label {
   display: none;
 }
+
+h2 a {
+  color: black;
+  text-decoration: none;
+}
+
+h2 a:focus,
+h2 a:hover {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 @media screen and (min-width: 530px) {
   .project-label {
     display: block;
