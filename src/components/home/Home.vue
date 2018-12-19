@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header/>
+    <Header current="Home"/>
     <div>
       <section class="mw7 center ph2">
         <h1 class="mt5">Interactive Tutorials</h1>

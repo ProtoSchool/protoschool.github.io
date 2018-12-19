@@ -25,12 +25,12 @@ import LessonBlog07 from './lessons/Blog/07.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/workshops', component: Workshops },
-  { path: '/chapters', component: Chapters },
-  { path: '/host', component: Host },
-  { path: '/build', component: Build },
-  { path: '/contribute', component: Contribute },
+  { path: '/', component: Home, name: "Home" },
+  { path: '/workshops', component: Workshops, name: "Tutorials" },
+  { path: '/chapters', component: Chapters, name: "Chapters" },
+  { path: '/host', component: Host, name: "Host" },
+  { path: '/build', component: Build, name: "Build" },
+  { path: '/contribute', component: Contribute, name: "Contribute" },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
