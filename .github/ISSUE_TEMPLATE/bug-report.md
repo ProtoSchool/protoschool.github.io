@@ -10,7 +10,7 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**Does this bug apply to a specific lesson or workshop, or does it appear to be sitewide?**
+**Does this bug apply to a specific lesson or tutorial, or does it appear to be sitewide?**
 If the bug is specific to a lesson, please include the lesson URL.
 
 **Expected behavior**

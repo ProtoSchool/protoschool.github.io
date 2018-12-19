@@ -16,14 +16,14 @@
         <h2>Share a tutorial idea</h2>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         Have an idea for a new tutorial? Start by looking at the
-        <a href="https://github.com/protoschool/protoschool.github.io/labels/new%20workshop">
-        tutorial ideas</a> flagged with the "new workshop"
+        <a href="https://github.com/protoschool/protoschool.github.io/labels/new%20tutorial">
+        tutorial ideas</a> flagged with the "new tutorial"
         tag in the ProtoSchool issue queue. If there's a similar idea there
         already, join the conversation!
         </p>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         If you have an idea for a new tutorial that has not yet been proposed,
-        please <a href="https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-workshop&template=workshop-proposal.md&title=New+Workshop%3A+%5BProposed+title%5D">
+        please <a href="https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-tutorial&template=tutorial-proposal.md&title=New+Tutorial%3A+%5BProposed+title%5D">
         open an new issue</a> so we can share feedback before you get started
         building.
         </p>
@@ -50,7 +50,7 @@
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         If the type of lesson you're
         hoping to create isn't supported by the current lesson structure,
-        please <a href="https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-workshop&template=workshop-proposal.md&title=New+Workshop%3A+%5BProposed+title%5D">
+        please <a href="https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-tutorial&template=tutorial-proposal.md&title=New+Tutorial%3A+%5BProposed+title%5D">
         open an issue</a> and tell us more about the format you have in mind.
         </p>
 
