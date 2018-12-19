@@ -5,56 +5,8 @@
       "country":"US",
       "region":"North America",
       "organizers":[
-         "mikeal",
-         "terichadbourne"
+         "mikeal"
       ],
-      "website":"http://proto.school/san-francisco",
-      "twitter":"sfprotoschool",
       "repo":"http://github.com/protoschool/san-francisco"
-   },
-   {
-      "name":"ProtoSchool Boston",
-      "city":"Boston, MA",
-      "country":"US",
-      "region":"North America",
-      "organizers":[
-         "terichadbourne"
-      ],
-      "website":"http://proto.school/boston",
-      "twitter":"bostonprotoschool",
-      "repo":"http://github.com/protoschool/boston"
-   },
-   {
-      "name":"ProtoSchool London",
-      "city":"London",
-      "country":"GB",
-      "region":"Europe",
-      "organizers":[
-         "terichadbourne"
-      ],
-      "twitter":"londonprotoschool"
-   },
-   {
-      "name":"ProtoSchool Beijing",
-      "city":"Beijing",
-      "country":"CN",
-      "region":"Asia",
-      "organizers":[
-         "terichadbourne"
-      ],
-      "twitter":"beijingps",
-      "repo":"http://github.com/protoschool/beijing"
-   },
-   {
-      "name":"ProtoSchool Lisbon",
-      "city":"Lisbon",
-      "country":"PT",
-      "region":"Europe",
-      "organizers":[
-         "terichadbourne"
-      ],
-      "website":"http://proto.school/lisbon",
-      "twitter":"lisbonprotoschool",
-      "repo":"http://github.com/protoschool/lisbon"
    }
 ]
