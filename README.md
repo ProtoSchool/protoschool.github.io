@@ -1,7 +1,8 @@
 # proto.school
 
-If you're just interested in doing the workshops check
-out https://proto.school.
+If you're just interested in doing the tutorials, visit https://proto.school.
+
+If you're interested in building tutorials, keep reading!
 
 ## Developing Lessons
 
@@ -28,8 +29,8 @@ Add your lesson to the routes in `main.js` and to the list of lessons in `Home.v
 
 When adding your routes, it's important that you follow the existing naming
 convention, since the code used elsewhere will parse the route path to determine the
-shortname of the workshop, the current lesson number, and the total number of
-lessons in your workshop. For example, if you add 3 lessons with the following routes:
+shortname of the tutorial, the current lesson number, and the total number of
+lessons in your tutorial. For example, if you add 3 lessons with the following routes:
 
 ```
 { path: '/basics/01', component: LessonBasics01 },

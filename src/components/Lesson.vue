@@ -2,10 +2,10 @@
   <div>
     <header class="bg-navy pa2 pa3-ns flex items-center justify-around">
       <a href='/#/' class="db-ns link flex-auto">
-        <img src="./home/ps_logo_horiz_white.svg" alt="ProtoSchool" style="height: 80px" class="ml3-ns"/>
+        <img src="../images/ps_logo_horiz_white.svg" alt="ProtoSchool" style="height: 80px" class="ml3-ns"/>
       </a>
       <div class="tr dn db-ns">
-        <img src="./home/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
+        <img src="../images/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
       </div>
     </header>
 
@@ -14,7 +14,7 @@
         <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
         <div class="lh-solid v-mid">
           <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-          <span class="pl1"><img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+          <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
         </div>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
@@ -28,9 +28,9 @@
       <div class="flex-none">
         <h2 class="mt0 mb2 green fw4 fill-current">
           <span style='vertical-align:-1px'>
-            <img v-if="lessonPassed" src="./home/complete.svg" alt="complete" style="height: 1rem;"/>
-            <img v-else-if="cachedCode" src="./home/in-progress.svg" alt="complete" style="height: 1rem;"/>
-            <img v-else src="./home/not-started.svg" alt="not yet started" style="height: 1rem;"/>
+            <img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1rem;"/>
+            <img v-else-if="cachedCode" src="../images/in-progress.svg" alt="complete" style="height: 1rem;"/>
+            <img v-else src="../images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
           </span>
           <span class="green ttu f6 pl2 pr1 fw7 v-mid">
             <span v-if="lessonPassed">You did it!</span>
@@ -99,7 +99,7 @@
         </div>
         <div class="pt3 ph2 tr">
           <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
-            <Button v-bind:click="workshopMenu" class="bg-aqua white">More Workshops</Button>
+            <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
           </div>
           <div v-else-if="lessonPassed">
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
@@ -194,7 +194,7 @@ export default {
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
-      cachedStateMsg: "",
+      cachedStateMsg: '',
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
@@ -303,7 +303,7 @@ export default {
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
     },
-    loadCodeFromCache: function() {
+    loadCodeFromCache: function () {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
     },
@@ -322,12 +322,12 @@ export default {
       }
     },
     onCodeChange: function () {
-      if (this.editor.getValue() === (this.$attrs.code || defaultCode) ) {
+      if (this.editor.getValue() === (this.$attrs.code || defaultCode)) {
         // TRACK? edited back to default state by chance or by 'reset code'
         delete localStorage[this.cacheKey]
         this.cachedCode = !!localStorage[this.cacheKey]
       } else if (this.code === this.editor.getValue()) {
-        //TRACK? returned to cached lesson in progress
+        // TRACK? returned to cached lesson in progress
       } else {
         localStorage[this.cacheKey] = this.editor.getValue()
         this.code = this.editor.getValue()

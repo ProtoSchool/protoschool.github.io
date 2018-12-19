@@ -1,190 +1,98 @@
 <template>
-  <div class="home">
-    <header class="flex items-center bg-navy white pv3">
-      <div class="flex-auto">
-        <div class="pseudo-logo">
-          <img src="./ps_symbol_color.svg" alt="ProtoSchool" class="mr3 ml3" />
-          <div class="header-text">
-              <h1 class="ma0 fw4">
-                <span class="montserrat fw4">Proto</span>
-                <span class="montserrat fw2">School</span>
-              </h1>
-              <h2 class="ma0 montserrat fw3">
-                The interactive IPFS protocol workshop
-              </h2>
+  <div>
+    <Header current="Home"/>
+    <div>
+      <section class="mw7 center ph2">
+        <h1 class="mt5">Interactive Tutorials</h1>
+        <p class="f4 fw5 lh-copy ma0 pv3  ">
+        Our self-guided interactive tutorials are designed to introduce you to
+        decentralized web concepts, protocols, and tools. Complete code
+        challenges right in your web browser and track your progress as you go.
+        </p>
+        <div class="mv3">
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">View All Tutorials</router-link>
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/build">Build a Tutorial</router-link>
+        </div>
+
+        <h2>Featured Tutorials</h2>
+        <div id="featured" class="flex flex-wrap justify-between">
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/basics/01">
+              <h3 class="ma0 f3 fw7 navy">P2P data links with content addressing</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
+              </p>
+            </router-link>
           </div>
+
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/blog/01">
+              <h3 class="ma0 f3 fwy navy">Blogging on the Decentralized Web</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                Cool content addresses don't change.
+              </p>
+            </router-link>
+          </div>
+
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/basics/01">
+              <h3 class="ma0 f3 fw7 navy">Decentralized Data Structures</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                Put a description here when it's ready!
+              </p>
+            </router-link>
+          </div>
+
         </div>
-      </div>
-      <div class="flex-auto tc bonus-illustration">
-        <img src="./ipfs-illustrations-how-3.svg" alt="" style="height: 70px;"/>
-      </div>
-    </header>
-    <section class="db bt border-aqua bw4">
-      <p class="f4 fw5 lh-copy ma0 pv4 indent-1 measure-wide">
-        <strong>ProtoSchool is a collection of workshops</strong> that help you learn about the
-        IPFS protocol by writing code and solving challenges.
-      </p>
-    </section>
-    <section class="db bt border-aqua bw4 relative">
-      <div class="flex items-start pv4">
-        <div class="section-1 flex-none tc">
-          <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-          <img src="./ipfs.svg" alt="" style="height: 54px"/>
+
+        <h1>Chapter Events</h1>
+        <p class="f4 fw5 lh-copy ma0 pv3  ">
+        Chapters around the world host in-person events using our tutorials as
+        curriculum, with mentors available to help you work through the challenges.
+        </p>
+        <div class="mv3">
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/chapters">Find a Chapter Near You</router-link>
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/host">Start Your Own</router-link>
         </div>
-        <div class="w-100 w-50-l measure-wide ph2 ph0-l">
-          <h2 class="ma0 f3 fw5">P2P data links with content addressing</h2>
-          <p class="f5 fw5 ma0 pt2 lh-copy measure-wide charcoal-muted">
-            Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
-          </p>
-          <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
-            <li>
-              <ExerciseLink to="/basics/01" index="1" name="Create a node and return a Content Identifier (CID)" />
-            </li>
-            <li>
-              <ExerciseLink to="/basics/02" index="2" name="Create a new node that's linked to an old one" />
-            </li>
-            <li>
-              <ExerciseLink to="/basics/03" index="3" name="Read nested data using links" />
-            </li>
-          </ul>
-        </div>
-        <div class="dn db-l flex-auto tc">
-          <img src="./ipfs-illustrations-how-1.svg" alt="">
-        </div>
-      </div>
-    </section>
-    <section class="db">
-      <div class="flex items-start pv4">
-        <div class="section-1 flex-none tc">
-          <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-          <img src="./ipfs.svg" alt="" style="height: 54px"/>
-        </div>
-        <div class="w-100 w-50-l measure-wide ph2 ph0-l">
-          <h2 class="ma0 f3 fw5 ">Blogging on the Decentralized Web</h2>
-          <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
-            Cool content addresses don't change.
-          </p>
-          <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
-            <li>
-              <ExerciseLink to="/blog/01" index="1" name="Link an author to a blog post using its CID" />
-            </li>
-            <li>
-              <ExerciseLink to="/blog/02" index="2" name="Update posts with tags and watch their CIDs change" />
-            </li>
-            <li>
-              <ExerciseLink to="/blog/03" index="3" name="Build a tag cloud with arrays of links" />
-            </li>
-            <li>
-              <ExerciseLink to="/blog/04" index="4" name="Add a new blog post linked to an author and tags" />
-            </li>
-            <li>
-              <ExerciseLink to="/blog/05" index="5" name="Add a new tag linked to multiple blog posts" />
-            </li>
-            <li>
-              <ExerciseLink to="/blog/06" index="6" name="List posts chronologically with a chain of links" />
-            </li>
-            <li>
-              <ExerciseLink to="/blog/07" index="7" name="Traverse through all posts, starting with the most recent" />
-            </li>
-          </ul>
-        </div>
-        <div class="dn db-l flex-auto tc">
-          <img src="./ipfs-illustrations-how-4.svg" alt="">
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 
 <script>
-import ExerciseLink from './ExerciseLink'
+import Header from '../Header'
 
 export default {
   name: 'home',
   components: {
-    ExerciseLink
-  },
-  data: self => {
-    return {
-      firstVisit: true
-    }
-  },
-  mounted: function () {
-    this.checkFirstVisit()
-  },
-  methods: {
-    checkFirstVisit: function () {
-      for (let key of Object.keys(localStorage)) {
-        if (key.startsWith('passed') || key.startsWith('cached')) {
-          // TRACK? return visit
-          this.firstVisit = false
-          return
-        }
-      } 
-      // TRACK? first site visit
-      this.firstVisit = true
-    }
+    Header
   }
 }
+
 </script>
 
 <style scoped>
 
-.bonus-illustration {
-  display: none;
+.tutorial-tile {
+  max-width: 49%
 }
-.header-text h1 {
-  font-size: 32px;
+.tutorial-tile a  {
+  text-decoration: none;
 }
-.header-text h2 {
-  font-size: 16px;
+
+.tutorial-tile a h3:hover,
+.tutorial-tile a h3:focus {
+  color: white;
 }
-.indent-1 {
-  padding-left: 1rem;
-}
-.pseudo-logo {
-  display: flex;
-  align-items: center;
-}
-.pseudo-logo img {
-  height: 80px;
-}
-.section-1 {
-  display: none;
-}
-@media screen and (min-width: 530px) {
-  .header-text h1 {
-    font-size: 40px;
+
+@media screen and (max-width: 750px) {
+  #featured {
+    flex-wrap: nowrap;
+    flex-direction: column;
   }
-  .header-text h2 {
-    font-size: 20px;
-  }
-  .indent-1 {
-    padding-left: 93px;
-  }
-  .section-1 {
-    display: block;
-    width: 93px;
-  }
-  .pseudo-logo img {
-    height: 100px;
-  }
-}
-@media screen and (min-width: 740px) {
-  .bonus-illustration {
-    display: block;
+  .tutorial-tile {
+    max-width: 100%
   }
 }
 
-@media screen and (max-width: 435px) {
-  .header-text h1 {
-    font-size: 24px;
-  }
-  .header-text h2 {
-    font-size: 12px;
-  }
-  .pseudo-logo img {
-    height: 60px;
-  }
-}
 </style>
