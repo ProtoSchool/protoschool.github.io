@@ -1,15 +1,15 @@
 <template>
-  <div class="lesson-02">
+  <div class="lesson-05">
   <Lesson v-bind:text="text" v-bind:code="code"
           :validate="validate"
-          lessonTitle="The centralized web: Location-based addressing">
+          lessonTitle="Merkle trees and Directed Acyclic Graphs (DAG)">
     </Lesson>
   </div>
 </template>
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './02.md'
+import text from './05.md'
 
 export default {
   components: {

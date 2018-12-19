@@ -21,9 +21,11 @@ import LessonBlog04 from './lessons/Blog/04.vue'
 import LessonBlog05 from './lessons/Blog/05.vue'
 import LessonBlog06 from './lessons/Blog/06.vue'
 import LessonBlog07 from './lessons/Blog/07.vue'
-import Data01 from './lessons/Data-Structures/01.vue'
-import Data02 from './lessons/Data-Structures/02.vue'
-import Data03 from './lessons/Data-Structures/03.vue'
+import LessonDataStructures01 from './lessons/Data-Structures/01.vue'
+import LessonDataStructures02 from './lessons/Data-Structures/02.vue'
+import LessonDataStructures03 from './lessons/Data-Structures/03.vue'
+import LessonDataStructures04 from './lessons/Data-Structures/04.vue'
+import LessonDataStructures05 from './lessons/Data-Structures/05.vue'
 
 Vue.use(VueRouter)
 
@@ -34,9 +36,11 @@ const routes = [
   { path: '/host', component: Host, name: "Host" },
   { path: '/build', component: Build, name: "Build" },
   { path: '/contribute', component: Contribute, name: "Contribute" },
-  { path: '/data-structures/01', component: Data01 },
-  { path: '/data-structures/02', component: Data02 },
-  { path: '/data-structures/03', component: Data03 },
+  { path: '/data-structures/01', component: LessonDataStructures01 },
+  { path: '/data-structures/02', component: LessonDataStructures02 },
+  { path: '/data-structures/03', component: LessonDataStructures03 },
+  { path: '/data-structures/04', component: LessonDataStructures04 },
+  { path: '/data-structures/05', component: LessonDataStructures05 },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },

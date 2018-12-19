@@ -22,14 +22,21 @@
             </p>
             <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
               <li>
-                <ExerciseLink to="/data-structures/01" index="1" name="Hashing" />
+                <ExerciseLink to="/data-structures/01" index="1" name="Data structures" />
               </li>
               <li>
-                <ExerciseLink to="/data-structures/02" index="2" name="Content addressing" />
+                <ExerciseLink to="/data-structures/02" index="2" name="The centralized web: Location-based addressing" />
               </li>
               <li>
-                <ExerciseLink to="/data-structures/03" index="3" name="Merkle trees" />
+                <ExerciseLink to="/data-structures/03" index="3" name="The decentralized web: Content addressing" />
               </li>
+              <li>
+                <ExerciseLink to="/data-structures/04" index="4" name="Cryptographic hashing and Content Identifiers (CIDs)" />
+              </li>
+              <li>
+                <ExerciseLink to="/data-structures/05" index="5" name="Merkle trees and directed acyclic graphs (DAG)" />
+              </li>
+
             </ul>
           </div>
         </div>

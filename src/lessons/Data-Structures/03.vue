@@ -1,6 +1,8 @@
 <template>
   <div class="lesson-03">
-    <Lesson v-bind:text="text">
+  <Lesson v-bind:text="text" v-bind:code="code"
+          :validate="validate"
+          lessonTitle="The decentralized web: Content addressing">
     </Lesson>
   </div>
 </template>

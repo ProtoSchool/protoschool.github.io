@@ -1,15 +1,15 @@
 <template>
-  <div class="lesson-02">
+  <div class="lesson-04">
   <Lesson v-bind:text="text" v-bind:code="code"
           :validate="validate"
-          lessonTitle="The centralized web: Location-based addressing">
+          lessonTitle="Cryptographic hashing and Content Identifiers (CIDs)">
     </Lesson>
   </div>
 </template>
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './02.md'
+import text from './04.md'
 
 export default {
   components: {

@@ -10,12 +10,12 @@
     </header>
 
     <div class="flex-l items-start bt border-aqua bw4">
-      <section class="pv3 indent-1">
-        <h1 class="f3 measure-wide">{{lessonTitle}}</h1>
-        <div class="lh-solid v-mid">
-          <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-          <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-        </div>
+      <section class="pv3 indent-1 mt3">
+          <div class="lh-solid v-mid f4">
+            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+            <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+          </div>
+          <h1 class="measure-wide">{{lessonTitle}}</h1>
         <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
       </section>
       <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
