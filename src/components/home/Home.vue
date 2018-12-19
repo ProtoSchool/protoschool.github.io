@@ -34,15 +34,6 @@
             </router-link>
           </div>
 
-          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-            <router-link to="/basics/01">
-              <h3 class="ma0 f3 fw7 navy">Decentralized Data Structures</h3>
-              <p class="f5 fw5 ma0 pt2 lh-copy white">
-                Put a description here when it's ready!
-              </p>
-            </router-link>
-          </div>
-
         </div>
 
         <h1>Chapter Events</h1>
