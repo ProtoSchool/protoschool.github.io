@@ -6,6 +6,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import Home from './components/home/Home.vue'
+import Chapters from './components/chapters/Chapters.vue'
+import Host from './components/Host.vue'
+import Build from './components/Build.vue'
+import Contribute from './components/Contribute.vue'
+import Tutorials from './components/tutorials/Tutorials.vue'
 import LessonBasics01 from './lessons/Basics/01.vue'
 import LessonBasics02 from './lessons/Basics/02.vue'
 import LessonBasics03 from './lessons/Basics/03.vue'
@@ -23,7 +28,12 @@ import Data03 from './lessons/Data-Structures/03.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: Home, name: "Home" },
+  { path: '/tutorials', component: Tutorials, name: "Tutorials" },
+  { path: '/chapters', component: Chapters, name: "Chapters" },
+  { path: '/host', component: Host, name: "Host" },
+  { path: '/build', component: Build, name: "Build" },
+  { path: '/contribute', component: Contribute, name: "Contribute" },
   { path: '/data-structures/01', component: Data01 },
   { path: '/data-structures/02', component: Data02 },
   { path: '/data-structures/03', component: Data03 },
