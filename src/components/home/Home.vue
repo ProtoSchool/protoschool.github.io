@@ -10,7 +10,7 @@
         challenges right in your web browser and track your progress as you go.
         </p>
         <div class="mv3">
-          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/workshops">View All Tutorials</router-link>
+          <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">View All Tutorials</router-link>
           <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/build">Build a Tutorial</router-link>
         </div>
 

@@ -45,7 +45,7 @@
         <a href="https://www.npmjs.com/package/monaco-editor">Monaco Editor</a>
         to enable interactive code challenges. Check out our
         <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#developing-lessons">
-        instructions for developing tutorial</a> to see how the pieces fit together.
+        instructions for developing tutorials</a> to see how the pieces fit together.
         </p>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         If the type of lesson you're

@@ -26,7 +26,7 @@ export default {
         },
         {
           text: 'Tutorials',
-          path: '/workshops'
+          path: '/tutorials'
         },
         {
           text: 'Chapters',

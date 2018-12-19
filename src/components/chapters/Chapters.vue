@@ -40,7 +40,7 @@ import Header from '../Header.vue'
 const chapterList = require('./chapters.json')
 
 export default {
-  name: 'Workshops',
+  name: 'Tutorials',
   components: {
     Header
   },

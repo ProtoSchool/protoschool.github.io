@@ -1,7 +1,8 @@
 # proto.school
 
-If you're just interested in doing the workshops check
-out https://proto.school.
+If you're just interested in doing the tutorials, visit https://proto.school.
+
+If you're interested in building tutorials, keep reading!
 
 ## Developing Lessons
 

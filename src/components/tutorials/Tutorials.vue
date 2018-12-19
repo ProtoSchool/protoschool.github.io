@@ -80,7 +80,7 @@ import ExerciseLink from './ExerciseLink.vue'
 import Header from '../Header.vue'
 
 export default {
-  name: 'Workshops',
+  name: 'Tutorials',
   components: {
     ExerciseLink,
     Header

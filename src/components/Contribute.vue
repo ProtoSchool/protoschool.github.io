@@ -12,7 +12,7 @@
         </p>
         <h2>Interactive Tutorials</h2>
         <p class="f4 fw5 lh-copy ma0 pv3">
-        Our <router-link to="/workshops">interactive tutorials</router-link> are
+        Our <router-link to="/tutorials">interactive tutorials</router-link> are
         the heart of our educational mission. Each browser-based tutorial
         consists of lessons of increasing difficulty, in which a new
         concept is explained and the learner is given a code challenge
@@ -22,7 +22,7 @@
         </p>
 
         <p class="f4 fw5 lh-copy ma0 pv3 ">
-        For contributors <router-link to="/build">building new workshops,</router-link>
+        For contributors <router-link to="/build">building new tutorials,</router-link>
         the process feels similar to creating a unit test suite
         which the learner must pass by implementing the correct code.
         </p>
