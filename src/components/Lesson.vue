@@ -109,6 +109,16 @@
         </div>
       </div>
     </section>
+    <section v-else>
+      <div class="pt3 ph2 tr">
+        <div v-if="lessonNumber === lessonsInWorkshop">
+          <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
+        </div>
+        <div v-else>
+          <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+        </div>
+      </div>
+    </section>
     <section class="indent-1 mb4 mw-900">
       <div>
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve
