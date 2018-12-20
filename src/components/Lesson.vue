@@ -104,7 +104,7 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <Button v-bind:click="run" class="bg-aquagit s white">Submit</Button>
             </div>
           </div>
         </div>
@@ -230,10 +230,19 @@ export default {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
     workshopShortname: function () {
-      return this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
+      let shortname = this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
+      // // ADD THIS LATER IF WE DECIDE WE WANT ALL WORDS CAPITALIZED
+      // if (shortname.includes("-")) {
+      //   let shortnameArray = shortname.split("-")
+      //   let shortnameArrayUpper = shortnameArray.map( word => {
+      //     return (word.charAt(0).toUpperCase() + word.slice(1))
+      //   })
+      //   shortname = shortnameArrayUpper.join(" ")
+      // }
+      return shortname.split('-').join(" ")
     },
     issueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
     lessonsInWorkshop: function () {
       let basePath = this.$route.path.slice(0, -2)
