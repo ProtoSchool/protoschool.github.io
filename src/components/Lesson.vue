@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="bg-navy pa2 pa3-ns flex items-center justify-around">
+    <header class="bg-navy pa2 pa3-ns flex items-center justify-around bb border-aqua bw4">
       <a href='/#/' class="db-ns link flex-auto">
         <img src="../images/ps_logo_horiz_white.svg" alt="ProtoSchool" style="height: 80px" class="ml3-ns"/>
       </a>
@@ -8,123 +8,124 @@
         <img src="../images/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
       </div>
     </header>
+    <div class="center mw7 ph2">
+      <div class="flex-l items-start  center mw7 ph2">
+        <section class="pv3 mt3">
+            <div class="lh-solid v-mid f4">
+              <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+              <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+            </div>
+            <h1>{{lessonTitle}}</h1>
+          <div class="lesson-text lh-copy" v-html="parsedText"></div>
+        </section>
+        <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
+          <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
+          <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+        </section>
+      </div>
+      <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
+        <div class="flex-none">
+          <h2 class="mt0 mb2 green fw4 fill-current">
+            <span style='vertical-align:-1px'>
+              <img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else-if="cachedCode" src="../images/in-progress.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else src="../images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
+            </span>
+            <span class="green ttu f6 pl2 pr1 fw7 v-mid">
+              <span v-if="lessonPassed">You did it!</span>
+              <span v-else-if="cachedCode">Keep working.</span>
+              <span v-else>Try it!</span>
+            </span>
+            <span class="green f6 fw5 v-mid">
+              <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
+            </span>
+            <div class="fr">
+              <button
+                v-if="expandExercise"
+                title="go smol"
+                v-on:click="toggleExpandExercise"
+                class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+              </button>
+              <button
+                v-else
+                v-on:click="toggleExpandExercise"
+                title='embiggen the exercise'
+                class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
+              </button>
 
-    <div class="flex-l items-start bt border-aqua bw4">
-      <section class="pv3 indent-1 mt3">
-          <div class="lh-solid v-mid f4">
-            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-            <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-          </div>
-          <h1 class="measure-wide">{{lessonTitle}}</h1>
-        <div class="lesson-text lh-copy measure-wide" v-html="parsedText"></div>
-      </section>
-      <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
-        <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-        <div class='f6 lh-copy' v-html="parsedConcepts"></div>
-      </section>
-    </div>
-    <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="indent-1 exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
-      <div class="flex-none">
-        <h2 class="mt0 mb2 green fw4 fill-current">
-          <span style='vertical-align:-1px'>
-            <img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1rem;"/>
-            <img v-else-if="cachedCode" src="../images/in-progress.svg" alt="complete" style="height: 1rem;"/>
-            <img v-else src="../images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
-          </span>
-          <span class="green ttu f6 pl2 pr1 fw7 v-mid">
-            <span v-if="lessonPassed">You did it!</span>
-            <span v-else-if="cachedCode">Keep working.</span>
-            <span v-else>Try it!</span>
-          </span>
-          <span class="green f6 fw5 v-mid">
-            <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
-          </span>
-          <div class="fr">
-            <button
-              v-if="expandExercise"
-              title="go smol"
-              v-on:click="toggleExpandExercise"
-              class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-            </button>
-            <button
-              v-else
-              v-on:click="toggleExpandExercise"
-              title='embiggen the exercise'
-              class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-            </button>
-
-          </div>
-        </h2>
-        <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
-      </div>
-      <div>
-        <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
-      </div>
-      <div class="bg-white flex-auto" style='height:100%;'>
-        <MonacoEditor
-          class="editor"
-          srcPath="."
-          :height="editorHeight"
-          :options="options"
-          :code="code"
-          theme="vs"
-          language="javascript"
-          @mounted="onMounted"
-          @codeChange="onCodeChange">
-        </MonacoEditor>
-      </div>
-      <div class='flex-none'>
-        <div class="pv2">
-          <div v-if="output.test && this.cachedCode" v-bind="output.test">
-            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
-              Error: {{output.test.error.message}}
             </div>
-            <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
-              {{output.test.fail}}
+          </h2>
+          <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+        </div>
+        <div>
+          <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
+        </div>
+        <div class="bg-white flex-auto" style='height:100%;'>
+          <MonacoEditor
+            class="editor"
+            srcPath="."
+            :height="editorHeight"
+            :options="options"
+            :code="code"
+            theme="vs"
+            language="javascript"
+            @mounted="onMounted"
+            @codeChange="onCodeChange">
+          </MonacoEditor>
+        </div>
+        <div class='flex-none'>
+          <div class="pv2">
+            <div v-if="output.test && this.cachedCode" v-bind="output.test">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+                Error: {{output.test.error.message}}
+              </div>
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
+                {{output.test.fail}}
+              </div>
+              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
+                {{output.test.success}}
+                <a v-if="output.test.cid"
+                class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+                  View in IPLD Explorer
+                </a>
+              </div>
             </div>
-            <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
-              {{output.test.success}}
-              <a v-if="output.test.cid"
-              class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
-                View in IPLD Explorer
-              </a>
+            <div class="lh-copy pv2 ph3" v-else>
+            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
             </div>
           </div>
-          <div class="lh-copy pv2 ph3" v-else>
-          Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+          <div class="pt3 ph2 tr">
+            <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
+              <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
+            </div>
+            <div v-else-if="lessonPassed">
+              <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+            </div>
+            <div v-else>
+              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
+            </div>
           </div>
         </div>
-        <div class="pt3 ph2 tr">
-          <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
+      </section>
+      <section v-else >
+        <div class="pt3 ph2 tr mb3">
+          <div v-if="lessonNumber === lessonsInWorkshop">
             <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
           </div>
-          <div v-else-if="lessonPassed">
+          <div v-else>
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
           </div>
-          <div v-else>
-            <Button v-bind:click="run" class="bg-green white">Submit</Button>
-          </div>
         </div>
-      </div>
-    </section>
-    <section v-else>
-      <div class="pt3 ph2 tr">
-        <div v-if="lessonNumber === lessonsInWorkshop">
-          <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
-        </div>
-        <div v-else>
-          <Button v-bind:click="next" class="bg-aqua white">Next</Button>
-        </div>
-      </div>
-    </section>
-    <section class="indent-1 mb4 mw-900">
-      <div>
+      </section>
+    </div>
+    <footer class="bg-navy white ph2 ph3-ns mt4 flex items-center justify-around">
+      <div class="mw7">
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve
         this lesson. Please <a :href="issueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
-    </section>
+    </footer>
   </div>
 </template>
 
@@ -207,7 +208,6 @@ export default {
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
-      issueUrl: `https://github.com/ipfs-shipyard/proto.school/issues/new?labels=question&title=Question+on+Lesson+${self.$route.path.slice(self.$route.path.lastIndexOf('/') + 1)}:+${self.$attrs.lessonTitle}+(${self.$route.path})&body=Have%20a%20question%20or%20suggestion%20regarding%20a%20ProtoSchool%20lesson%3F%20Please%20use%20this%0Atemplate%20to%20share%20it!%0A%0A1.%20URL%20of%20the%20lesson%20that's%20confusing%3A%0A%20https%3A%2F%2Fproto.school%2F%23${self.$route.path}%0A%0A2.%20What%27s%20confusing%20about%20this%20lesson%3F%0A%0A3.%20What%20additional%20context%20could%20we%20provide%20to%20help%20you%20succeed%3F%0A%0A4.%20What%20other%20feedback%20would%20you%20like%20to%20share%20about%20ProtoSchool%3F%0A`,
       output: self.output,
       IPFS,
       expandExercise: false,
@@ -231,6 +231,9 @@ export default {
     },
     workshopShortname: function () {
       return this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
+    },
+    issueUrl: function () {
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
     lessonsInWorkshop: function () {
       let basePath = this.$route.path.slice(0, -2)
@@ -391,6 +394,10 @@ span.textLink {
   color: blue;
   cursor: pointer;
   text-decoration: underline;
+}
+
+footer a {
+  color: aqua;
 }
 
 @media screen and (min-width: 60rem) {
