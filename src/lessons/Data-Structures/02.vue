@@ -2,7 +2,7 @@
   <div class="lesson-02">
   <Lesson v-bind:text="text" v-bind:code="code"
           :validate="validate"
-          lessonTitle="The centralized web: Location-based addressing">
+          lessonTitle="Location addressing and the centralized web">
     </Lesson>
   </div>
 </template>

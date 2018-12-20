@@ -2,7 +2,7 @@
   <div class="lesson-03">
   <Lesson v-bind:text="text" v-bind:code="code"
           :validate="validate"
-          lessonTitle="The decentralized web: Content addressing">
+          lessonTitle="Content addressing with cryptographic hashes">
     </Lesson>
   </div>
 </template>
