@@ -352,13 +352,23 @@ export default {
       }
     },
     next: function () {
-      Vue.set(this.output, 'test', null)
+      if (this.exercise) {
+        Vue.set(this.output, 'test', null)
+      } else {
+        localStorage[this.lessonKey] = 'passed'
+        this.lessonPassed = !!localStorage[this.lessonKey]
+      }
       let current = this.lessonNumber
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
       this.$router.push({path: next})
     },
     workshopMenu: function () {
-      Vue.set(this.output, 'test', null)
+      if (this.exercise) {
+        Vue.set(this.output, 'test', null)
+      } else {
+        localStorage[this.lessonKey] = 'passed'
+        this.lessonPassed = !!localStorage[this.lessonKey]
+      }
       this.$router.push({path: '/'})
     },
     toggleExpandExercise: function () {
