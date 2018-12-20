@@ -1,13 +1,6 @@
 <template>
   <div>
-    <header class="bg-navy pa2 pa3-ns flex items-center justify-around bb border-aqua bw4">
-      <a href='/#/' class="db-ns link flex-auto">
-        <img src="../images/ps_logo_horiz_white.svg" alt="ProtoSchool" style="height: 80px" class="ml3-ns"/>
-      </a>
-      <div class="tr dn db-ns">
-        <img src="../images/ipfs-illustrations-how-3.svg" alt="" style="height: 50px">
-      </div>
-    </header>
+    <Header/>
     <div class="center mw7 ph2">
       <div class="flex-l items-start  center mw7 ph2">
         <section class="pv3 mt3">
@@ -135,6 +128,7 @@ import Vue from 'vue'
 import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
+import Header from './Header.vue'
 const IPFS = require('ipfs')
 const CID = require('cids')
 const marked = require('marked')
@@ -191,7 +185,8 @@ export default {
   components: {
     MonacoEditor,
     Explorer,
-    Button
+    Button,
+    Header
   },
   data: self => {
     return {
