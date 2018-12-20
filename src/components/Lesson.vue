@@ -104,7 +104,7 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <Button v-bind:click="run" class="bg-aquagit s white">Submit</Button>
+              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
             </div>
           </div>
         </div>
