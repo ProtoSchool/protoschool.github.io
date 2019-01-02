@@ -13,9 +13,16 @@
           <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">View All Tutorials</router-link>
           <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/build">Build a Tutorial</router-link>
         </div>
-
         <h2>Featured Tutorials</h2>
         <div id="featured" class="flex flex-wrap justify-between">
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/data-structures/01">
+              <h3 class="ma0 f3 fw7 navy">Decentralized Data Structures</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!
+              </p>
+            </router-link>
+          </div>
           <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
             <router-link to="/basics/01">
               <h3 class="ma0 f3 fw7 navy">P2P data links with content addressing</h3>
@@ -24,7 +31,6 @@
               </p>
             </router-link>
           </div>
-
           <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
             <router-link to="/blog/01">
               <h3 class="ma0 f3 fwy navy">Blogging on the Decentralized Web</h3>
@@ -33,7 +39,6 @@
               </p>
             </router-link>
           </div>
-
         </div>
 
         <h1>Chapter Events</h1>

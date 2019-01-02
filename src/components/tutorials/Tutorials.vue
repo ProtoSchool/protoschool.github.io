@@ -16,6 +16,38 @@
             <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100">
+            <h2 class="ma0 f3 fw5"><router-link to="/data-structures/01">Decentralized data structures</router-link></h2>
+            <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
+              The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!
+            </p>
+            <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
+              <li>
+                <ExerciseLink to="/data-structures/01" index="1" name="Data structures" />
+              </li>
+              <li>
+                <ExerciseLink to="/data-structures/02" index="2" name="The centralized web: Location-based addressing" />
+              </li>
+              <li>
+                <ExerciseLink to="/data-structures/03" index="3" name="The decentralized web: Content addressing" />
+              </li>
+              <li>
+                <ExerciseLink to="/data-structures/04" index="4" name="Cryptographic hashing and Content Identifiers (CIDs)" />
+              </li>
+              <li>
+                <ExerciseLink to="/data-structures/05" index="5" name="Merkle trees and directed acyclic graphs (DAG)" />
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="db mw7 center ph2">
+        <div class="flex items-start pv4">
+          <div class="project-label flex-none tc">
+            <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
+            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
+          </div>
+          <div class="w-100">
             <h2 class="ma0 f3 fw5"><router-link to="/basics/01">P2P data links with content addressing</router-link></h2>
             <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
               Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
