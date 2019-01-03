@@ -97,7 +97,16 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <div v-if="isFileLesson"
+                  v-on:drop="onFileDrop"
+                  v-on:click="onFileClick"
+                  @dragover.prevent
+                  class="dropfile">
+                <input type="file" multiple id="fileInput" name="fileInput" />
+                <p>Drop file(s) here.</p>
+                <p>Click for upload modal.</p>
+              </div>
+              <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
             </div>
           </div>
         </div>
@@ -144,7 +153,7 @@ marked.setOptions({
   }
 })
 
-const _eval = async (text, ipfs, modules = {}) => {
+const _eval = async (text, ipfs, modules = {}, args = []) => {
   await new Promise(resolve => ipfs.on('ready', resolve))
 
   let fn
@@ -162,7 +171,7 @@ const _eval = async (text, ipfs, modules = {}) => {
     return modules[name]
   }
   try {
-    result = await fn(ipfs, require)()
+    result = await fn(ipfs, require)(...args)
   } catch (e) {
     result = {error: e}
   }
@@ -194,7 +203,8 @@ export default {
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
       cachedCode: !!localStorage['cached' + self.$route.path],
-      code: localStorage[self.cacheKey] || self.$attrs.code || defaultCode,
+      code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
+      isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
@@ -234,7 +244,7 @@ export default {
       //   })
       //   shortname = shortnameArrayUpper.join(" ")
       // }
-      return shortname.split('-').join(" ")
+      return shortname.split('-').join(' ')
     },
     issueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
@@ -262,6 +272,7 @@ export default {
   },
   beforeCreate: function () {
     this.output = {}
+    this.defaultCode = defaultCode
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   updated: function () {
@@ -271,7 +282,7 @@ export default {
     // runs on every keystroke in editor, NOT on page load, NOT on code submit
   },
   methods: {
-    run: async function () {
+    run: async function (...args) {
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -281,7 +292,7 @@ export default {
       let code = this.editor.getValue()
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
-      let result = await _eval(code, ipfs, modules)
+      let result = await _eval(code, ipfs, modules, args)
 
       if (result && result.error) {
         Vue.set(output, 'test', result)
@@ -418,5 +429,13 @@ footer a {
   .indent-1 {
     margin-left: 93px;
   }
+}
+
+div.dropfile {
+  cursor: pointer;
+  border: solid 1px black;
+}
+div.dropfile input {
+  display: none;
 }
 </style>
