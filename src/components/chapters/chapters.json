@@ -2,7 +2,7 @@
    {
       "name":"ProtoSchool San Francisco",
       "city":"San Francisco, CA",
-      "country":"US",
+      "country":"USA",
       "region":"North America",
       "organizers":[
          "mikeal"
@@ -12,7 +12,7 @@
    {
      "name":"ProtoSchool Denver",
      "city":"Denver, CO",
-     "country":"US",
+     "country":"USA",
      "region":"North America",
      "organizers":[
         "NukeManDan"
