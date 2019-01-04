@@ -8,5 +8,15 @@
          "mikeal"
       ],
       "repo":"http://github.com/protoschool/san-francisco"
+   },
+   {
+     "name": "ProtoSchool Denver",
+     "location": "Denver, CO",
+     "country": "US",
+     "region": "North America",
+     "organizers": [
+        "NukeManDan"
+     ],
+     "repo": "http://github.com/protoschool/denver"
    }
 ]
