@@ -48,6 +48,6 @@ export default {
   name: 'Host',
   components: {
     Header
-  },
+  }
 }
 </script>
