@@ -2,11 +2,21 @@
    {
       "name":"ProtoSchool San Francisco",
       "city":"San Francisco, CA",
-      "country":"US",
+      "country":"USA",
       "region":"North America",
       "organizers":[
          "mikeal"
       ],
       "repo":"http://github.com/protoschool/san-francisco"
+   },
+   {
+     "name":"ProtoSchool Denver",
+     "city":"Denver, CO",
+     "country":"USA",
+     "region":"North America",
+     "organizers":[
+        "NukeManDan"
+     ],
+     "repo":"http://github.com/protoschool/denver"
    }
 ]
