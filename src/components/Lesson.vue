@@ -90,7 +90,7 @@
             </div>
           </div>
           <div class="pt3 ph2 tr">
-            <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
+            <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
               <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
