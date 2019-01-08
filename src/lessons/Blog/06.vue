@@ -140,25 +140,25 @@ const validate = async (result, ipfs) => {
 
   const treeNode = (await ipfs.dag.get(computerNodePrev)).value
   if (treeNode.content === undefined) {
-    return {fail: `The "compputers" blog post should link to the "trees" blog post.`}
+    return {fail: `The "computers" blog post should link to the "trees" blog post.`}
   }
   if (treeNode.content !== 'trees') {
-    return {fail: `The "compputers" blog post should link to the "trees" blog post, but it links to ${treeNode.content}.`}
+    return {fail: `The "computers" blog post should link to the "trees" blog post, but it links to ${treeNode.content}.`}
   }
-  if ('prev' in treeNode) {
+  if (('prev' in treeNode) && (treeNode.prev !== null)) {
     return {fail: 'The "trees" blog post shouldn\'t link to other blog posts.'}
   }
 
   const computerNodePrevCid = computerNodePrev.toBaseEncodedString()
-  if (computerNodePrevCid !== treePostCid) {
+  if ((computerNodePrevCid !== treePostCid) && (computerNodePrevCid !== 'zdpuAoNUinwYTMoTR8Wq7945MKSSpAUNGW1d1wkTHhRcchG3D')) {
     return {fail: `The "computers" blog post should link to the "trees" blog post, but it links to ${computerNodePrevCid}.`}
   }
   const nodePrevCid = nodePrev.toBaseEncodedString()
-  if (nodePrevCid !== computerPostCid) {
+  if ((nodePrevCid !== computerPostCid) && (nodePrevCid !== 'zdpuAsFHXZkpXcjuERjACPp1pAs9J7b4cdYtn9Dv9xBcAGhWV')) {
     return {fail: `The "dogs" blog post should link to the "computers" blog post, but it links to ${nodePrevCid}.`}
   }
   const nodeCid = result.toBaseEncodedString()
-  if (nodeCid === dogPostCid) {
+  if (nodeCid === dogPostCid || 'zdpuAkUysBpAE2yvWdLCBbUqXusYVe5kgFSS7YriyeLfA5F5d') {
     return {success: 'Everything works!'}
   } else {
     return {fail: `The returned CID ${nodeCid} did not match the expected CID ${dogPostCid}.`}
