@@ -121,6 +121,9 @@ const validate = async (result, ipfs) => {
   const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
   const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
   const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
+  const treePostCidPrevNull = 'zdpuAoNUinwYTMoTR8Wq7945MKSSpAUNGW1d1wkTHhRcchG3D'
+  const computerPostCidWhenTreePostCidPrevNull = 'zdpuAsFHXZkpXcjuERjACPp1pAs9J7b4cdYtn9Dv9xBcAGhWV'
+  const dogPostCidWhenTreePostCidPrevNull = 'zdpuAkUysBpAE2yvWdLCBbUqXusYVe5kgFSS7YriyeLfA5F5d'
   const nodePrev = node.prev
 
   const computerNode = (await ipfs.dag.get(nodePrev)).value
@@ -140,25 +143,27 @@ const validate = async (result, ipfs) => {
 
   const treeNode = (await ipfs.dag.get(computerNodePrev)).value
   if (treeNode.content === undefined) {
-    return {fail: `The "compputers" blog post should link to the "trees" blog post.`}
+    return {fail: `The "computers" blog post should link to the "trees" blog post.`}
   }
   if (treeNode.content !== 'trees') {
-    return {fail: `The "compputers" blog post should link to the "trees" blog post, but it links to ${treeNode.content}.`}
+    return {fail: `The "computers" blog post should link to the "trees" blog post, but it links to ${treeNode.content}.`}
   }
-  if ('prev' in treeNode) {
+  if (('prev' in treeNode) && (treeNode.prev !== null)) {
     return {fail: 'The "trees" blog post shouldn\'t link to other blog posts.'}
   }
 
   const computerNodePrevCid = computerNodePrev.toBaseEncodedString()
-  if (computerNodePrevCid !== treePostCid) {
+  if (![treePostCid, treePostCidPrevNull].includes(computerNodePrevCid)) {
     return {fail: `The "computers" blog post should link to the "trees" blog post, but it links to ${computerNodePrevCid}.`}
   }
+
   const nodePrevCid = nodePrev.toBaseEncodedString()
-  if (nodePrevCid !== computerPostCid) {
+  if (![computerPostCid, computerPostCidWhenTreePostCidPrevNull].includes(nodePrevCid)) {
     return {fail: `The "dogs" blog post should link to the "computers" blog post, but it links to ${nodePrevCid}.`}
   }
+
   const nodeCid = result.toBaseEncodedString()
-  if (nodeCid === dogPostCid) {
+  if (nodeCid === dogPostCid || dogPostCidWhenTreePostCidPrevNull) {
     return {success: 'Everything works!'}
   } else {
     return {fail: `The returned CID ${nodeCid} did not match the expected CID ${dogPostCid}.`}
