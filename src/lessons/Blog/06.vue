@@ -153,12 +153,12 @@ const validate = async (result, ipfs) => {
   }
 
   const computerNodePrevCid = computerNodePrev.toBaseEncodedString()
-  if ((computerNodePrevCid !== treePostCid) && (computerNodePrevCid !== treePostCidPrevNull)) {
+  if (![treePostCid, treePostCidPrevNull].includes(computerNodePrevCid)) {
     return {fail: `The "computers" blog post should link to the "trees" blog post, but it links to ${computerNodePrevCid}.`}
   }
 
   const nodePrevCid = nodePrev.toBaseEncodedString()
-  if ((nodePrevCid !== computerPostCid) && (nodePrevCid !== computerPostCidWhenTreePostCidPrevNull)) {
+  if (![computerPostCid, computerPostCidWhenTreePostCidPrevNull].includes(nodePrevCid)) {
     return {fail: `The "dogs" blog post should link to the "computers" blog post, but it links to ${nodePrevCid}.`}
   }
 
