@@ -74,6 +74,10 @@ export default {
 
 <style scoped>
 
+nav {
+  overflow: auto;
+}
+
 .nav-link {
   cursor: pointer;
   font-size: 18px;
