@@ -99,4 +99,16 @@ nav {
   color: white;
 }
 
+
+
+@media screen and (max-width: 617px) {
+  nav {
+    flex-direction: column;
+  }
+  .nav-link {
+    display: block;
+    margin: 5px 5px;
+  }
+}
+
 </style>
