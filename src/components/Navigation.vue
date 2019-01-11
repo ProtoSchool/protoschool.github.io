@@ -1,45 +1,50 @@
 <template>
-  <section>
+  <nav>
+    <!-- STANDARD NAV -->
     <div class="dn db-ns bg-aqua pv3">
       <div class="center mw7">
         <!-- nav if in lesson (breadcrumbs) -->
-        <nav v-if="isLesson" class="flex overflow-auto items-center bg-aqua navy pv3 center tc mw7">
-          <router-link class="nav-link navy" :to="'/'">Home</router-link> >
-          <router-link class="nav-link navy" :to="'/tutorials'">Tutorials</router-link> >
+        <div v-if="isLesson" class="flex overflow-auto items-center bg-aqua navy pv3 center tc mw7">
+          <router-link class="nav-link navy" :to="'/tutorials'">Tutorials </router-link> >
           <span class="fake-nav-link">{{workshopShortname}}</span>
-        </nav>
+        </div>
         <!-- standard nav  -->
-          <nav v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
+          <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
             <div v-for="link in links">
               <router-link v-if="link.path === $route.path"
                class="nav-link white" :to="`${link.path}`">{{link.text}}</router-link>
                <router-link v-else
                 class="nav-link navy" :to="`${link.path}`">{{link.text}}</router-link>
             </div>
-          </nav>
+          </div>
         </div>
     </div>
+    <!-- MOBILE NAV -->
     <div class="db dn-ns">
       <div class="flex items-center bg-aqua pv3 w-100">
-        <div class="flex-auto link pa2 fw5 f5 db bb border-aqua white">Current Page</div>
-        <button v-on:click="toggleHamburger" class="button-reset bg-transparent b--transparent">
+        <div v-if="isLesson" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
+          <router-link class="link navy" :to="'/tutorials'">Tutorials</router-link> >
+          <span class="white">{{workshopShortname}}</span>
+        </div>
+        <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
+        <button v-on:click="toggleHamburger" class="button-reset bg-transparent b--transparent pr2">
           <img v-if="isHamburgerClosed" src="../images/burger.svg"/>
           <img v-else src="../images/close.svg"/>
         </button>
       </div>
-        <!-- mobile nav that expands and hides -->
+        <!-- hamburger displayed when requested -->
         <div v-bind:class="{ dn: isHamburgerClosed }">
-          <nav class="tc bg-aqua-muted white">
+          <div class="tc bg-aqua-muted white">
             <div v-for="link in links">
               <router-link v-on:click.native="toggleHamburger" v-if="link.path === $route.path"
                class="link pa3 fw5 f4 db bb border-aqua white" :to="`${link.path}`">{{link.text}}</router-link>
                <router-link v-else
                 class="link pa3 fw5 f4 db bb border-aqua navy" :to="`${link.path}`">{{link.text}}</router-link>
             </div>
-          </nav>
+          </div>
       </div>
     </div>
-  </section>
+  </nav>
 </template>
 
 <script>
@@ -92,6 +97,17 @@ export default {
         } else {
           return false
         }
+      },
+      currentPage: function () {
+        let pageName
+        this.links.forEach(link => {
+          if (link.path === this.currentPath) {
+            console.log('this one!')
+            console.log(link.text)
+            pageName = link.text.toString()
+          }
+        })
+        return pageName
       }
     },
     methods: {
@@ -124,17 +140,5 @@ export default {
 .nav-link:focus, .nav-link:hover {
   color: white;
 }
-
-
-
-/* @media screen and (max-width: 617px) {
-  nav {
-    flex-direction: column;
-  }
-  .nav-link {
-    display: block;
-    margin: 5px 5px;
-  }
-} */
 
 </style>
