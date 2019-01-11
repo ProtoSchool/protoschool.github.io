@@ -50,7 +50,7 @@ export default {
   height: 80px;
 }
 
-@media screen and (min-width: 530px) {
+@media screen and (min-width: 620px) {
   .header-text h1 {
     font-size: 40px;
   }
@@ -62,7 +62,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 435px) {
+@media screen and (max-width: 498px) {
   .header-text h1 {
     font-size: 24px;
   }
