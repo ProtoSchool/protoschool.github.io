@@ -30,5 +30,17 @@
          "satazor"
       ],
       "repo":"http://github.com/protoschool/porto"
+   },
+   {
+      "name":"ProtoSchool London",
+      "city":"London",
+      "country":"GB",
+      "region":"Europe",
+      "organizers":[
+         "alanshaw",
+         "achingbrain",
+         "olizilla"
+      ],
+      "repo":"http://github.com/protoschool/london"
    }
 ]
