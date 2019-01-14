@@ -18,5 +18,17 @@
         "NukeManDan"
      ],
      "repo":"http://github.com/protoschool/denver"
+   },
+   {
+      "name":"ProtoSchool Porto",
+      "city":"Porto",
+      "country":"PT",
+      "region":"Europe",
+      "organizers":[
+         "marcooliveira",
+         "filipediasf",
+         "satazor"
+      ],
+      "repo":"http://github.com/protoschool/porto"
    }
 ]
