@@ -42,5 +42,15 @@
          "olizilla"
       ],
       "repo":"http://github.com/protoschool/london"
+   },
+   {
+      "name":"ProtoSchool Hong Kong",
+      "city":"Hong Kong",
+      "country":"HK",
+      "region":"Asia",
+      "organizers":[
+         "kk3wong"
+      ],
+      "repo":"http://github.com/protoschool/hong-kong"
    }
 ]
