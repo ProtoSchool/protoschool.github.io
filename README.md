@@ -95,3 +95,7 @@ the sample code failed in order to help the user along.
 Code is a string property. It's the sample code used to populate the code
 editor. If not set there's a default, used in the first lesson, that is used
 instead.
+
+## License
+
+ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/master/LICENSE.md) for further detail.
