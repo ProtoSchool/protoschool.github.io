@@ -55,12 +55,12 @@
    },
    {
       "name": "ProtoSchool Mumbai",
-      "city": "Mumbai, Maharashtra",
-      "country": "India",
-      "region": "South Asia",
+      "city": "Mumbai, MH",
+      "country": "IN",
+      "region": "Asia",
       "organizers": ["hackerspacemumbai"],
       "twitter": "hackmum",
       "repo": "http://github.com/protoschool/mumbai"
-    }
+   }
 
 ]
