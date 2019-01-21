@@ -52,5 +52,15 @@
          "kk3wong"
       ],
       "repo":"http://github.com/protoschool/hong-kong"
+   },
+   {
+      "name": "ProtoSchool Mumbai",
+      "city": "Mumbai, MH",
+      "country": "IN",
+      "region": "Asia",
+      "organizers": ["hackerspacemumbai"],
+      "twitter": "hackmum",
+      "repo": "http://github.com/protoschool/mumbai"
    }
+
 ]
