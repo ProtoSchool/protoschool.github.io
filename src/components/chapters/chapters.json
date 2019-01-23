@@ -61,6 +61,16 @@
       "organizers": ["hackerspacemumbai"],
       "twitter": "hackmum",
       "repo": "http://github.com/protoschool/mumbai"
+   },
+   {
+     "name":"ProtoSchool Seattle",
+     "city":"Seattle, WA",
+     "country":"US",
+     "region":"North America",
+     "organizers":[
+        "zebul",
+        "jimcal"
+     ],
+     "repo":"http://github.com/protoschool/seattle"
    }
-
 ]
