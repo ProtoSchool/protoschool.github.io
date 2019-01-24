@@ -54,6 +54,19 @@
       "repo":"http://github.com/protoschool/hong-kong"
    },
    {
+      "name":"ProtoSchool Beijing",
+      "city":"Beijing",
+      "country":"CN",
+      "region":"Asia",
+      "organizers":[
+         "daijiale",
+         "bobjiang",
+         "dongtianyi",
+         "facert"
+      ],
+      "repo":"http://github.com/protoschool/beijing"
+   },
+   {
       "name": "ProtoSchool Mumbai",
       "city": "Mumbai, MH",
       "country": "IN",
