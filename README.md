@@ -1,6 +1,12 @@
-# proto.school
+# ProtoSchool
 
-If you're just interested in doing the tutorials, visit https://proto.school.
+ProtoSchool is an educational community that teaches decentralized web protocols and tools
+through online tutorials and local chapter events.
+
+This repository is for the main ProtoSchool website, hosted at https://proto.school, where you can
+explore our self-guided interactive tutorials.
+
+For information on local chapter organizing, please visit our [organizing repo](https://github.com/protoschool/organizing)
 
 If you're interested in building tutorials, keep reading!
 
@@ -89,3 +95,7 @@ the sample code failed in order to help the user along.
 Code is a string property. It's the sample code used to populate the code
 editor. If not set there's a default, used in the first lesson, that is used
 instead.
+
+## License
+
+ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/master/LICENSE.md) for further detail.

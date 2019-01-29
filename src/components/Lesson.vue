@@ -70,7 +70,7 @@
         </div>
         <div class='flex-none'>
           <div class="pv2">
-            <div v-if="output.test && this.cachedCode" v-bind="output.test">
+            <div v-if="output.test && cachedCode" v-bind="output.test">
               <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
                 Error: {{output.test.error.message}}
               </div>
@@ -90,7 +90,7 @@
             </div>
           </div>
           <div class="pt3 ph2 tr">
-            <div v-if="((output.test && output.test.success) || lessonPassed) && lessonNumber === lessonsInWorkshop">
+            <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
               <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
@@ -138,7 +138,6 @@ import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
-const IPFS = require('ipfs')
 const CID = require('cids')
 const marked = require('marked')
 
@@ -214,7 +213,6 @@ export default {
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
       output: self.output,
-      IPFS,
       expandExercise: false,
       options: {
         selectOnLineNumbers: false,
@@ -225,7 +223,6 @@ export default {
     }
   },
   computed: {
-
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
@@ -273,6 +270,7 @@ export default {
   beforeCreate: function () {
     this.output = {}
     this.defaultCode = defaultCode
+    this.IPFSPromise = import('ipfs')
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   updated: function () {
@@ -288,7 +286,7 @@ export default {
         oldIPFS = null
       }
       let output = this.output
-      let ipfs = this.createIPFS()
+      let ipfs = await this.createIPFS()
       let code = this.editor.getValue()
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
@@ -316,7 +314,10 @@ export default {
       if (this.$attrs.createIPFS) {
         return this.$attrs.createIPFS()
       } else {
-        return new IPFS({repo: Math.random().toString()})
+        let ipfs = this.IPFSPromise.then(IPFS => {
+          return IPFS.createNode({repo: Math.random().toString()})
+        })
+        return ipfs
       }
     },
     resetCode: function () {

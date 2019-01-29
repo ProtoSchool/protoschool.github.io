@@ -15,13 +15,13 @@
             <ul>
               <li v-for="chapter in chaptersByRegion[region]">
                 <span v-if="chapter.website">
-                  <a v-bind:href="chapter.website" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}}, {{chapter.country}}</a>
+                  <a v-bind:href="chapter.website" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
                 </span>
                 <span v-else-if="chapter.repo">
-                  <a v-bind:href="chapter.repo" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}}, {{chapter.country}}</a>
+                  <a v-bind:href="chapter.repo" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
                 </span>
                 <span v-else>
-                  <span class="f5 br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}}, {{chapter.country}}</span>
+                  <span class="f5 br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</span>
                 </span>
               </li>
             </ul>
