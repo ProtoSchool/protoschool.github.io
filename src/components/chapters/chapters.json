@@ -85,5 +85,15 @@
         "jimcal"
      ],
      "repo":"http://github.com/protoschool/seattle"
+   },
+   {
+      "name":"ProtoSchool Shenzhen",
+      "city":"Shenzhen",
+      "country":"CN",
+      "region":"Asia",
+      "organizers":[
+         "kk3wong"
+      ],
+      "repo":"http://github.com/protoschool/shenzhen"
    }
 ]
