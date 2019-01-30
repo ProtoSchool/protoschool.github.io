@@ -95,5 +95,16 @@
          "kk3wong"
       ],
       "repo":"http://github.com/protoschool/shenzhen"
+   },
+   {
+     "name":"ProtoSchool DC",
+     "city":"Washington, DC",
+     "country":"US",
+     "region":"North America",
+     "organizers":[
+        "akondagunta",
+        "pi0neerpat"
+     ],
+     "repo":"http://github.com/protoschool/washington-dc"
    }
 ]
