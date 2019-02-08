@@ -106,5 +106,16 @@
         "pi0neerpat"
      ],
      "repo":"http://github.com/protoschool/washington-dc"
+   },
+   {
+      "name": "ProtoSchool Munich",
+      "city": "Munich",
+      "country": "Germany",
+      "region": "Europe",
+      "organizers": [
+         "stefanhans",
+         "rklaehn"
+      ],
+      "repo": "http://github.com/protoschool/munich"
    }
 ]
