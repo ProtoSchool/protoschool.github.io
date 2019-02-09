@@ -1,5 +1,16 @@
 [
    {
+      "name":"ProtoSchool Phoenix",
+      "city":"Phoenix, AZ",
+      "country":"US",
+      "region":"North America",
+      "organizers":[
+         "eosArizona",
+         "5antoshernandez"
+      ],
+      "repo":"http://github.com/protoschool/phoenix"
+   },
+   {
       "name":"ProtoSchool San Francisco",
       "city":"San Francisco, CA",
       "country":"US",
