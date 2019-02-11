@@ -10,14 +10,14 @@
        "repo":"http://github.com/protoschool/denver"
     },
     {
-        "name":"ProtoSchool San Francisco",
-        "city":"San Francisco, CA",
-        "country":"US",
-        "region":"North America",
-        "organizers":[
-           "mikeal"
-        ],
-        "repo":"http://github.com/protoschool/san-francisco"
+       "name":"ProtoSchool San Francisco",
+       "city":"San Francisco, CA",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "mikeal"
+       ],
+       "repo":"http://github.com/protoschool/san-francisco"
     },
     {
        "name":"ProtoSchool Seattle",
@@ -31,15 +31,15 @@
        "repo":"http://github.com/protoschool/seattle"
     },
     {
-        "name":"ProtoSchool DC",
-        "city":"Washington, DC",
-        "country":"US",
-        "region":"North America",
-        "organizers":[
-           "akondagunta",
-           "pi0neerpat"
-        ],
-        "repo":"http://github.com/protoschool/washington-dc"
+       "name":"ProtoSchool DC",
+       "city":"Washington, DC",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "akondagunta",
+          "pi0neerpat"
+       ],
+       "repo":"http://github.com/protoschool/washington-dc"
     },
     {
        "name":"ProtoSchool Beijing",
