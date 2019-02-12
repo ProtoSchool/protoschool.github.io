@@ -108,6 +108,16 @@
        "repo":"http://github.com/protoschool/shenzhen"
     },
     {
+       "name":"ProtoSchool Berlin",
+       "city":"Berlin",
+       "country":"DE",
+       "region":"Europe",
+       "organizers":[
+          "pkafei"
+       ],
+       "repo":"http://github.com/protoschool/berlin"
+    },
+    {
        "name":"ProtoSchool London",
        "city":"London",
        "country":"GB",
