@@ -36,7 +36,6 @@
               <li>
                 <ExerciseLink to="/data-structures/05" index="5" name="Merkle trees and directed acyclic graphs (DAG)" />
               </li>
-
             </ul>
           </div>
         </div>
@@ -98,6 +97,25 @@
               </li>
               <li>
                 <ExerciseLink to="/blog/07" index="7" name="Traverse through all posts, starting with the most recent" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="db mw7 center ph2">
+        <div class="flex items-start pv4">
+          <div class="project-label flex-none tc">
+            <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
+            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
+          </div>
+          <div class="w-100">
+            <h2 class="ma0 f3 fw5"><router-link to="/basics/01">Working with files in IPFS</router-link></h2>
+            <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
+              Do stuff with files!
+            </p>
+            <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
+              <li>
+                <ExerciseLink to="/file-basics/01" index="1" name="Title of first file lesson" />
               </li>
             </ul>
           </div>
