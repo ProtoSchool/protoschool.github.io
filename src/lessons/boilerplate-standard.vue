@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Lesson from '../components/Lesson'
+import Lesson from '../../components/Lesson'
 import text from './REPLACEME.md'
 import exercise from './REPLACEME-exercise.md'
 
