@@ -51,6 +51,32 @@
             </div>
           </h2>
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+          <div v-if="isFileLesson">
+            <h5> Step 1: Upload file(s)</h5>
+            <div
+              class="dropfile">
+              <div v-if="!uploadedFiles" v-on:drop="onFileDrop"
+                v-on:click="onFileClick"
+                @dragover.prevent class="mb0-l pa2 w-100 br3 shadow-4 bg-white color-navy">
+                <div class="o-80 glow">
+                  <label for="add-files" class="flex items-center pointer">
+                  <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
+                  <div class="f5 charcoal">Drop file(s) here or click to select a file to upload.</div>
+                  <input id="add-files"  name="add-files" class="o-0 absolute" type="file" multiple="" style="pointer-events: none;"></label>
+                </div>
+              </div>
+              <!-- TODO: Add v-else to the div below so it's not visible until uploads exist -->
+              <div v-else class="mt2">
+                <p>Uploaded File(s):</p>
+                <ul>
+                  <li>file name 1</li>
+                  <li>file name 2</li>
+                </ul>
+                <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
+              </div>
+            </div>
+          </div>
+          <h5>Step 2: Update code</h5>
         </div>
         <div>
           <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
@@ -86,7 +112,12 @@
               </div>
             </div>
             <div class="lh-copy pv2 ph3" v-else>
-            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+              <div v-if="isFileLesson">
+                Upload file(s) and update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+              </div>
+              <div v-else>
+                Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+              </div>
             </div>
           </div>
           <div class="pt3 ph2 tr">
@@ -97,16 +128,7 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <div v-if="isFileLesson"
-                  v-on:drop="onFileDrop"
-                  v-on:click="onFileClick"
-                  @dragover.prevent
-                  class="dropfile">
-                <input type="file" multiple id="fileInput" name="fileInput" />
-                <p>Drop file(s) here.</p>
-                <p>Click for upload modal.</p>
-              </div>
-              <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
             </div>
           </div>
         </div>
@@ -214,6 +236,7 @@ export default {
       lessonTitle: self.$attrs.lessonTitle,
       output: self.output,
       expandExercise: false,
+      uploadedFiles: false,
       options: {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
@@ -327,6 +350,10 @@ export default {
       this.editor.setValue(this.code)
       this.clearPassed()
     },
+    resetFileUpload: function () {
+      this.uploadedFiles = false
+      console.log({uploadedFiles: this.uploadedFiles})
+    },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
@@ -434,7 +461,6 @@ footer a {
 
 div.dropfile {
   cursor: pointer;
-  border: solid 1px black;
 }
 div.dropfile input {
   display: none;

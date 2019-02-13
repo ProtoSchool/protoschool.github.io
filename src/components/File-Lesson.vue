@@ -22,16 +22,22 @@ export default {
     onFileDrop: function (event) {
       event.preventDefault()
       event.stopPropagation()
-      this.run(Array.from(event.dataTransfer.files))
+      this.onFiles(Array.from(event.dataTransfer.files))
       return false
     },
     onFileClick: function (event) {
-      let elem = document.getElementById('fileInput')
+      event.stopPropagation()
+      let elem = document.getElementById('add-files')
       elem.onchange = () => {
-        this.run(Array.from(elem.files))
+        this.onFiles(Array.from(elem.files))
       }
       elem.click()
+    },
+    onFiles: function (files) {
+      // this.run(files)
+      this.uploadedFiles = true
+      console.log({uploadedFiles: this.uploadedFiles})
+     }
     }
   }
-}
 </script>

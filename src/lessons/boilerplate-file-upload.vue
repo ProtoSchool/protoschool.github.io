@@ -23,9 +23,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `const CID = require('cids')
-
-const run = async () => {
+const code = `const run = async (files) => {
   /* your code here */
 }
 return run
@@ -39,7 +37,7 @@ export default {
   },
   data: () => {
     return {
-      text, validate, code, modules
+      text, validate, code, modules, exercise
     }
   }
 }

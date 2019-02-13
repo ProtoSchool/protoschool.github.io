@@ -16,16 +16,15 @@ import exercise from './01-exercise.md'
 
 const validate = async (result, ipfs) => {
   if (result) {
-    return {'success': 'Happy Message!'}
+    return {'success': 'You successfully uploaded a file! Be sure to check out your console in the inspector.'}
   } else {
     return {'fail': 'Sad but useful message :('}
   }
 }
 
-const code = `const CID = require('cids')
-
-const run = async () => {
+const code = `const run = async (files) => {
   /* your code here */
+  return files
 }
 return run
 `
@@ -38,7 +37,7 @@ export default {
   },
   data: () => {
     return {
-      text, validate, code, modules
+      text, validate, code, modules, exercise
     }
   }
 }
