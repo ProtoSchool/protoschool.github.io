@@ -39,6 +39,14 @@
               </p>
             </router-link>
           </div>
+          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
+            <router-link to="/file-basics/01">
+              <h3 class="ma0 f3 fwy navy">Working with files in IPFS</h3>
+              <p class="f5 fw5 ma0 pt2 lh-copy white">
+                That's all well and good, but how do I share a file?
+              </p>
+            </router-link>
+          </div>
         </div>
 
         <h1>Chapter Events</h1>

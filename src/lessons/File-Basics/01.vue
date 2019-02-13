@@ -4,7 +4,7 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Title of first file lesson">
+            lessonTitle="Working with files">
     </FileLesson>
   </div>
 </template>

@@ -111,11 +111,11 @@
           <div class="w-100">
             <h2 class="ma0 f3 fw5"><router-link to="/basics/01">Working with files in IPFS</router-link></h2>
             <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
-              Do stuff with files!
+              That's all well and good, but how do I share a file?
             </p>
             <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
               <li>
-                <ExerciseLink to="/file-basics/01" index="1" name="Title of first file lesson" />
+                <ExerciseLink to="/file-basics/01" index="1" name="Working with files" />
               </li>
             </ul>
           </div>
