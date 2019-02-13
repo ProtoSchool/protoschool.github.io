@@ -31,12 +31,12 @@ import LessonFileBasics01 from './lessons/File-Basics/01.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: Home, name: "Home" },
-  { path: '/tutorials', component: Tutorials, name: "Tutorials" },
-  { path: '/chapters', component: Chapters, name: "Chapters" },
-  { path: '/host', component: Host, name: "Host" },
-  { path: '/build', component: Build, name: "Build" },
-  { path: '/contribute', component: Contribute, name: "Contribute" },
+  { path: '/', component: Home, name: 'Home' },
+  { path: '/tutorials', component: Tutorials, name: 'Tutorials' },
+  { path: '/chapters', component: Chapters, name: 'Chapters' },
+  { path: '/host', component: Host, name: 'Host' },
+  { path: '/build', component: Build, name: 'Build' },
+  { path: '/contribute', component: Contribute, name: 'Contribute' },
   { path: '/data-structures/01', component: LessonDataStructures01 },
   { path: '/data-structures/02', component: LessonDataStructures02 },
   { path: '/data-structures/03', component: LessonDataStructures03 },

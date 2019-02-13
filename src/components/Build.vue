@@ -75,6 +75,6 @@ export default {
   name: 'Build',
   components: {
     Header
-  },
+  }
 }
 </script>
