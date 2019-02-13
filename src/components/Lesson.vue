@@ -52,12 +52,12 @@
           </h2>
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
           <div v-if="isFileLesson">
-            <h5> Step 1: Upload file(s)</h5>
-            <div
-              class="dropfile">
+            <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
+              <span class="pl1"><img v-if="uploadedFiles" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+            </div>
               <div v-if="!uploadedFiles" v-on:drop="onFileDrop"
                 v-on:click="onFileClick"
-                @dragover.prevent class="mb0-l pa2 w-100 br3 shadow-4 bg-white color-navy">
+                @dragover.prevent class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
                 <div class="o-80 glow">
                   <label for="add-files" class="flex items-center pointer">
                   <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
@@ -65,18 +65,20 @@
                   <input id="add-files"  name="add-files" class="o-0 absolute" type="file" multiple="" style="pointer-events: none;"></label>
                 </div>
               </div>
-              <!-- TODO: Add v-else to the div below so it's not visible until uploads exist -->
               <div v-else class="mt2">
-                <p>Uploaded File(s):</p>
-                <ul>
-                  <li>file name 1</li>
-                  <li>file name 2</li>
-                </ul>
                 <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
+                <div class="mb2 pl3 pa2 w-100 br3 shadow-4 bg-white color-navy flex items-center">
+                  <img src="../images/glyph_document.svg" height="40px">
+                  <ul>
+                    <li>file name 1</li>
+                    <li>file name 2</li>
+                  </ul>
+                </div>
               </div>
+            <div class="f5 fw7 mt4 mb2">Step 2: Update code
+              <span class="pl1"><img v-if="cachedCode" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
-            <h5>Step 2: Update code</h5>
-          </div>        
+          </div>
         </div>
         <div>
           <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
