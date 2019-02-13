@@ -75,8 +75,8 @@
                 <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
               </div>
             </div>
-          </div>
-          <h5>Step 2: Update code</h5>
+            <h5>Step 2: Update code</h5>
+          </div>        
         </div>
         <div>
           <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
