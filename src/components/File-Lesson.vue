@@ -26,16 +26,19 @@ export default {
       return false
     },
     onFileClick: function (event) {
+      event.preventDefault()
       event.stopPropagation()
-      let elem = document.getElementById('add-files')
+      let elem = document.createElement('input')
+      elem.setAttribute("type", "file")
+      elem.setAttribute('multiple', true)
       elem.onchange = () => {
         this.onFiles(Array.from(elem.files))
       }
       elem.click()
     },
     onFiles: function (files) {
-      // this.run(files)
-      this.uploadedFiles = true
+      this.uploadedFiles = files
+      window.uploadedFiles = files
       console.log({uploadedFiles: this.uploadedFiles})
      }
     }

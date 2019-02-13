@@ -24,7 +24,11 @@ const validate = async (result, ipfs) => {
 
 const code = `const run = async (files) => {
   /* your code here */
-  return files
+  let uploaded = []
+  for (let file of files) {
+    uploaded.push(await ipfs.files.add(file))
+  }
+  return uploaded
 }
 return run
 `
