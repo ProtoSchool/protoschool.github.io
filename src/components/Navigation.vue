@@ -102,8 +102,6 @@ export default {
         let pageName
         this.links.forEach(link => {
           if (link.path === this.currentPath) {
-            console.log('this one!')
-            console.log(link.text)
             pageName = link.text.toString()
           }
         })
