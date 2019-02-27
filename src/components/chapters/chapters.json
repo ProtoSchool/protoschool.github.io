@@ -76,6 +76,16 @@
        "repo":"http://github.com/protoschool/hong-kong"
     },
     {
+      "name":"ProtoSchool Bangalore",
+      "city":"Bangalore, KA",
+      "country":"IN",
+      "region":"Asia",
+      "organizers":[
+         "kishansagathiya"
+      ],
+      "repo":"http://github.com/protoschool/bangalore"
+    },
+    {
        "name":"ProtoSchool Mumbai",
        "city":"Mumbai, MH",
        "country":"IN",
