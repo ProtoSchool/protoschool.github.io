@@ -161,5 +161,15 @@
           "satazor"
        ],
        "repo":"http://github.com/protoschool/porto"
+    },
+    {
+       "name":"ProtoSchool Lisbon",
+       "city":"Lisbon",
+       "country":"PT",
+       "region":"Europe",
+       "organizers":[
+          "hacdias"
+       ],
+       "repo":"http://github.com/protoschool/lisbon"
     }
  ]
