@@ -22,7 +22,15 @@ export default {
     onFileDrop: function (event) {
       event.preventDefault()
       event.stopPropagation()
-      this.onFiles(Array.from(event.dataTransfer.files))
+      let files = Array.from(event.dataTransfer.files)
+      for (let f of Array.from(event.dataTransfer.items)) {
+        let isFile = f.getAsEntry ? f.getAsEntry().isFile : (f.webkitGetAsEntry ? f.webkitGetAsEntry().isFile : true)
+        console.log(isFile)
+        if (!isFile) {
+          return alert("Folder upload is not supported. Please select a file or multiple files.")
+        }
+      }
+      this.onFiles(files)
       return false
     },
     onFileClick: function (event) {

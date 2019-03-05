@@ -62,7 +62,9 @@
                 <div class="o-80 glow">
                   <label for="add-files" class="flex items-center h4 pointer">
                     <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
-                    <div class="f5 charcoal">Drop file(s) here or click to select a file to upload.</div>
+                    <div class="f5 charcoal">
+                        <p><strong>Drop file(s) here or click to select file(s) to upload.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
+                    </div>
                   </label>
                 </div>
               </div>
