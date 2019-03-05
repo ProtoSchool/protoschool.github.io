@@ -130,7 +130,11 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <span v-if="isFileLesson && !uploadedFiles" class="hoverDisabled"><Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button></span>
+              <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pv2 ph3">
+                You must upload a file before submitting.
+              </div>
             </div>
           </div>
         </div>
@@ -423,6 +427,14 @@ export default {
 </script>
 
 <style scoped>
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.hoverDisabled:hover + div {
+  font-weight: bold;
+}
 .dragging {
   border: 5px solid #69c4cd;
 }
