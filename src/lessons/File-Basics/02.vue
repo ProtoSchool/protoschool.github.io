@@ -19,7 +19,14 @@ const validate = async (result, ipfs) => {
   console.log('uploadedFiles is: ', uploadedFiles)
   console.log('result is: ', result)
   console.log('ipfs is: ', ipfs)
-  console.log("ipfs.files.ls('/', {long: true}: ", ipfs.files.ls('/', {long: true}))
+  console.log("ipfs.files.ls('/', {long: true}) is: ", ipfs.files.ls('/', {long: true}))
+  console.log("await ipfs.files.ls('/', {long: true}) is: ", await ipfs.files.ls('/', {long: true}))
+  console.log("attempting to loop through in ipfs.files.fs:")
+  ipfs.files.ls('/', {long: true}, function (err, files) {
+    files.forEach((file) => {
+      console.log(file.name)
+    })
+  })
   if (!result) {
     return {'fail': 'You forgot to return a result. :('}
   } else if (result) {
