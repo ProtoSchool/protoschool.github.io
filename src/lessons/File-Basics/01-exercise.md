@@ -1,2 +1,1 @@
-Let's practice using this new lesson interface. First, upload a file by dropping it below or clicking to select it from your file explorer.
-Next, update the `run` function in the code editor to include `console.log(files)`. Open your inspector and select `console` before you hit the "submit" button. What do you see? 
+First, upload one or more files by dropping it below or clicking to make a selection from your file explorer.  Next, in the code editor, remove the comment markers that precede `return files.length` within the `run` function, which will make the function calculate how many files have been uploaded. (The "length" of an array is the number of items it contains.) Open your inspector and select `console` before you hit the "Submit" button. What do you see?

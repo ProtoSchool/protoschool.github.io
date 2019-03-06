@@ -15,29 +15,29 @@ import text from './01.md'
 import exercise from './01-exercise.md'
 
 const validate = async (result, ipfs) => {
-console.log('code is ', code)
-console.log('this is:  ', this)
-
-  if (!code.includes('return files.length')) {
-    return {'fail': 'Looks like you forgot to return `files.length`. Please try again.'}
-  } else if (result === undefined) {
-    return {'fail': 'Looks like you forgot to upload a file. Please try again.'}
-  } else if (!code.includes('console.log(files)')) {
-    return {'fail': 'Looks like you forgot to add that console log. Please try again.'}
-  } else if (result === 1) {
-    return {'success': 'You successfully uploaded a file! Be sure to check out your console in the inspector to see the data we have about the uploaded file.'}
-  } else if (result > 1) {
-    return {'success': 'You successfully uploaded ${result} files! Be sure to check out your console in the inspector.'}
-  } else if (result === 0) {
-    return {'fail': 'Looks like you forgot to upload a file (result is 0). Please try again.'}
+  console.log('user submitted code')
+  console.log('result is: ', result)
+  console.log('typeof result is: ', typeof result)
+  if (!result || typeof result === 'undefined') {
+    console.log('undefined fail message should appear')
+    return {'fail': "Looks like you forgot to return a result. Remember to remove the '//' on Line 5."}
+  } else if (typeof result === 'number') {
+    console.log('number success message should appear')
+    let fileCount = "1 file"
+    if (result > 1) {
+      fileCount = `${result} files`
+    }
+    return {'success': `You successfully uploaded ${fileCount}! ` + 'Check out your console in the inspector to see the `files` array your browser now has access to.'}
   } else {
     return {'fail': 'Something else is wrong.'}
   }
 }
 
 const code = `const run = async (files) => {
-  /* your code here */
-  return files.length
+  console.log(files)
+  console.log(files.length)
+  /* remove the '//' on the line below to complete this challenge */
+  // return files.length
 }
 return run
 `
