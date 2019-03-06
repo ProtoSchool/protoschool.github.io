@@ -63,7 +63,7 @@
                   <label for="add-files" class="flex items-center h4 pointer">
                     <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
                     <div class="f5 charcoal">
-                        <p><strong>Drop file(s) here or click to select file(s) to upload.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
+                        <p><strong>Drop one or more files here or click to select.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
                     </div>
                   </label>
                 </div>
@@ -117,10 +117,10 @@
             </div>
             <div class="lh-copy pv2 ph3" v-else>
               <div v-if="isFileLesson">
-                Upload file(s) and update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+                Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
               </div>
               <div v-else>
-                Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+                Update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
               </div>
             </div>
           </div>
@@ -132,9 +132,9 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <span v-if="isFileLesson && !uploadedFiles" class="hoverDisabled"><Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button></span>
+              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper"><Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button></span>
               <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
-              <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pv2 ph3">
+              <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
                 You must upload a file before submitting.
               </div>
             </div>
@@ -434,8 +434,9 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.hoverDisabled:hover + div {
-  font-weight: bold;
+.disabledButtonWrapper:hover + div {
+  opacity: 1;
+  transition: opacity .2s ease-in;
 }
 .dragging {
   border: 5px solid #69c4cd;
