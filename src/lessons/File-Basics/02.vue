@@ -15,20 +15,36 @@ import text from './02.md'
 import exercise from './02-exercise.md'
 
 const validate = async (result, ipfs) => {
-  if (result) {
-    return {'success': 'You successfully uploaded a file! Be sure to check out your console in the inspector.'}
+  const uploadedFiles = window.uploadedFiles || false
+  console.log('uploadedFiles is: ', uploadedFiles)
+  console.log('result is: ', result)
+  console.log('ipfs is: ', ipfs)
+  console.log("ipfs.files.ls('/', {long: true}: ", ipfs.files.ls('/', {long: true}))
+  if (!result) {
+    return {'fail': 'You forgot to return a result. :('}
+  } else if (result) {
+      return {'success': 'You did something that might be right??'}
   } else {
     return {'fail': 'Sad but useful message :('}
   }
 }
 
 const code = `const run = async (files) => {
-  /* your code here */
-  let uploaded = []
+  let addedFiles = []
   for (let file of files) {
-    uploaded.push(await ipfs.files.add(file))
+    addedFiles.push(/* your code here*/)
   }
-  return uploaded
+  return addedFiles
+}
+return run
+`
+
+const _solution = `const run = async (files) => {
+  let addedFiles = []
+  for (let file of files) {
+    addedFiles.push(await ipfs.files.add(file))
+  }
+  return addedFiles
 }
 return run
 `

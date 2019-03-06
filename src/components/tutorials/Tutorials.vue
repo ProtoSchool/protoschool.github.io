@@ -117,6 +117,9 @@
               <li>
                 <ExerciseLink to="/file-basics/01" index="1" name="Working with files" />
               </li>
+              <li>
+                <ExerciseLink to="/file-basics/02" index="2" name="Adding a file" />
+              </li>
             </ul>
           </div>
         </div>
