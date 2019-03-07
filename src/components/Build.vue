@@ -16,7 +16,7 @@
         <h2>Share a tutorial idea</h2>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         Have an idea for a new tutorial? Start by looking at the
-        <a href="https://github.com/protoschool/protoschool.github.io/labels/new%20tutorial">
+        <a href="https://github.com/protoschool/protoschool.github.io/labels/new-tutorial">
         tutorial ideas</a> flagged with the "new tutorial"
         tag in the ProtoSchool issue queue. If there's a similar idea there
         already, join the conversation!
@@ -35,7 +35,7 @@
         <h2>Build a tutorial</h2>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         Whether you've shared your own tutorial idea or found an
-        <a href="https://github.com/protoschool/protoschool.github.io/labels/new%20workshop">
+        <a href="https://github.com/protoschool/protoschool.github.io/labels/new-tutorial">
         existing proposal</a> you're excited about, we'd love to have your help
         building it.
         </p>

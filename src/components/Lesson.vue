@@ -258,7 +258,7 @@ export default {
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
-      return `https://ipfs.io/ipfs/QmYJETQ15RAnKXoJxqpXzcvQ2DuQA35UHwJBTjTPCSs9Ky/#/explore/${cid}`
+      return `https://explore.ipld.io/#/explore/${cid}`
     },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)

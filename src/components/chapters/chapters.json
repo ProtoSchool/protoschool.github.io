@@ -1,56 +1,175 @@
 [
-   {
-      "name":"ProtoSchool San Francisco",
-      "city":"San Francisco, CA",
-      "country":"USA",
-      "region":"North America",
-      "organizers":[
-         "mikeal"
-      ],
-      "repo":"http://github.com/protoschool/san-francisco"
-   },
-   {
-     "name":"ProtoSchool Denver",
-     "city":"Denver, CO",
-     "country":"USA",
-     "region":"North America",
-     "organizers":[
-        "NukeManDan"
-     ],
-     "repo":"http://github.com/protoschool/denver"
-   },
-   {
-      "name":"ProtoSchool Porto",
-      "city":"Porto",
-      "country":"PT",
-      "region":"Europe",
-      "organizers":[
-         "marcooliveira",
-         "filipediasf",
-         "satazor"
-      ],
-      "repo":"http://github.com/protoschool/porto"
-   },
-   {
-      "name":"ProtoSchool London",
-      "city":"London",
-      "country":"GB",
-      "region":"Europe",
-      "organizers":[
-         "alanshaw",
-         "achingbrain",
-         "olizilla"
-      ],
-      "repo":"http://github.com/protoschool/london"
-   },
-   {
-      "name":"ProtoSchool Hong Kong",
-      "city":"Hong Kong",
-      "country":"HK",
+    {
+       "name":"ProtoSchool Denver",
+       "city":"Denver, CO",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "NukeManDan"
+       ],
+       "repo":"http://github.com/protoschool/denver"
+    },
+    {
+       "name":"ProtoSchool Phoenix",
+       "city":"Phoenix, AZ",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "eosArizona",
+          "5antoshernandez"
+       ],
+       "repo":"http://github.com/protoschool/phoenix"
+    },
+    {
+       "name":"ProtoSchool San Francisco",
+       "city":"San Francisco, CA",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "mikeal"
+       ],
+       "repo":"http://github.com/protoschool/san-francisco"
+    },
+    {
+       "name":"ProtoSchool Seattle",
+       "city":"Seattle, WA",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "zebul",
+          "jimcal"
+       ],
+       "repo":"http://github.com/protoschool/seattle"
+    },
+    {
+       "name":"ProtoSchool DC",
+       "city":"Washington, DC",
+       "country":"US",
+       "region":"North America",
+       "organizers":[
+          "akondagunta",
+          "pi0neerpat"
+       ],
+       "repo":"http://github.com/protoschool/washington-dc"
+    },
+    {
+       "name":"ProtoSchool Beijing",
+       "city":"Beijing",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "daijiale",
+          "bobjiang",
+          "dongtianyi",
+          "facert"
+       ],
+       "repo":"http://github.com/protoschool/beijing"
+    },
+    {
+       "name":"ProtoSchool Hong Kong",
+       "city":"Hong Kong",
+       "country":"HK",
+       "region":"Asia",
+       "organizers":[
+          "kk3wong"
+       ],
+       "repo":"http://github.com/protoschool/hong-kong"
+    },
+    {
+      "name":"ProtoSchool Bangalore",
+      "city":"Bangalore, KA",
+      "country":"IN",
       "region":"Asia",
       "organizers":[
-         "kk3wong"
+         "kishansagathiya"
       ],
-      "repo":"http://github.com/protoschool/hong-kong"
-   }
-]
+      "repo":"http://github.com/protoschool/bangalore"
+    },
+    {
+       "name":"ProtoSchool Mumbai",
+       "city":"Mumbai, MH",
+       "country":"IN",
+       "region":"Asia",
+       "organizers":[
+          "hackerspacemumbai"
+       ],
+       "twitter":"hackmum",
+       "repo":"http://github.com/protoschool/mumbai"
+    },
+    {
+       "name":"ProtoSchool Shanghai",
+       "city":"Shanghai",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "DjangoPeng",
+          "steven004"
+       ],
+       "repo":"http://github.com/protoschool/shanghai"
+    },
+    {
+       "name":"ProtoSchool Shenzhen",
+       "city":"Shenzhen",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "kk3wong"
+       ],
+       "repo":"http://github.com/protoschool/shenzhen"
+    },
+    {
+       "name":"ProtoSchool Berlin",
+       "city":"Berlin",
+       "country":"DE",
+       "region":"Europe",
+       "organizers":[
+          "pkafei"
+       ],
+       "repo":"http://github.com/protoschool/berlin"
+    },
+    {
+       "name":"ProtoSchool London",
+       "city":"London",
+       "country":"GB",
+       "region":"Europe",
+       "organizers":[
+          "alanshaw",
+          "achingbrain",
+          "olizilla"
+       ],
+       "repo":"http://github.com/protoschool/london"
+    },
+    {
+       "name":"ProtoSchool Munich",
+       "city":"Munich",
+       "country":"DE",
+       "region":"Europe",
+       "organizers":[
+          "stefanhans",
+          "rklaehn"
+       ],
+       "repo":"http://github.com/protoschool/munich"
+    },
+    {
+       "name":"ProtoSchool Porto",
+       "city":"Porto",
+       "country":"PT",
+       "region":"Europe",
+       "organizers":[
+          "marcooliveira",
+          "filipediasf",
+          "satazor"
+       ],
+       "repo":"http://github.com/protoschool/porto"
+    },
+    {
+       "name":"ProtoSchool Lisbon",
+       "city":"Lisbon",
+       "country":"PT",
+       "region":"Europe",
+       "organizers":[
+          "hacdias"
+       ],
+       "repo":"http://github.com/protoschool/lisbon"
+    }
+ ]
