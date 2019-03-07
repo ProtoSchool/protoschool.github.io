@@ -2,6 +2,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   baseUrl: './',
   configureWebpack: config => {
+    config.resolve.alias = {
+      ipfs: 'ipfs/dist/index.min.js'
+    }
     config.plugins.push(
       new CopyWebpackPlugin([
         {
