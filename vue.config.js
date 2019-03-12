@@ -1,10 +1,14 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   baseUrl: './',
+  transpileDependencies: [
+    // can be string or regex
+    'ipfs'
+  ],
   configureWebpack: config => {
-    config.resolve.alias = {
-      ipfs: 'ipfs/dist/index.min.js'
-    }
+    // config.resolve.alias = {
+    //   ipfs: 'ipfs/dist/index.min.js'
+    // }
     config.plugins.push(
       new CopyWebpackPlugin([
         {
