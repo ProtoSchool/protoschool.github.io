@@ -55,7 +55,7 @@ export default {
     return {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
-      workshopShortname: (self.$route.path.charAt(1).toUpperCase() + self.$route.path.slice(2, self.$route.path.lastIndexOf('/'))).split('-').join(" "),
+      workshopShortname: (self.$route.path.charAt(1).toUpperCase() + self.$route.path.slice(2, self.$route.path.lastIndexOf('/'))).split('-').join(' '),
       links: [
         {
           text: 'Home',
@@ -83,38 +83,38 @@ export default {
         }
       ]
     }
-    },
-    computed: {
-      isLesson: function () {
-        let count = 0
-        this.links.forEach( link => {
-          if (link.path === this.currentPath) {
-            count++
-          }
-        })
-        if (count === 0) {
-          return true
-        } else {
-          return false
+  },
+  computed: {
+    isLesson: function () {
+      let count = 0
+      this.links.forEach(link => {
+        if (link.path === this.currentPath) {
+          count++
         }
-      },
-      currentPage: function () {
-        let pageName
-        this.links.forEach(link => {
-          if (link.path === this.currentPath) {
-            console.log('this one!')
-            console.log(link.text)
-            pageName = link.text.toString()
-          }
-        })
-        return pageName
+      })
+      if (count === 0) {
+        return true
+      } else {
+        return false
       }
     },
-    methods: {
-      toggleHamburger: function () {
-        this.isHamburgerClosed = !this.isHamburgerClosed
-      }
+    currentPage: function () {
+      let pageName
+      this.links.forEach(link => {
+        if (link.path === this.currentPath) {
+          console.log('this one!')
+          console.log(link.text)
+          pageName = link.text.toString()
+        }
+      })
+      return pageName
     }
+  },
+  methods: {
+    toggleHamburger: function () {
+      this.isHamburgerClosed = !this.isHamburgerClosed
+    }
+  }
 }
 </script>
 
