@@ -27,7 +27,6 @@
         which the learner must pass by implementing the correct code.
         </p>
 
-
         <h2>Topics</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 ">
         ProtoSchool content is designed to introduce learners to the concepts,
@@ -100,6 +99,6 @@ export default {
   name: 'Community',
   components: {
     Header
-  },
+  }
 }
 </script>

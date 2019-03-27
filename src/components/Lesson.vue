@@ -231,7 +231,7 @@ export default {
       //   })
       //   shortname = shortnameArrayUpper.join(" ")
       // }
-      return shortname.split('-').join(" ")
+      return shortname.split('-').join(' ')
     },
     issueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
