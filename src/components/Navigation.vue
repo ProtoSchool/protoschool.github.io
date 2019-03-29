@@ -28,8 +28,8 @@
         </div>
         <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
         <button v-on:click="toggleHamburger" class="button-reset bg-transparent b--transparent pr2">
-          <img v-if="isHamburgerClosed" src="../images/burger.svg"/>
-          <img v-else src="../images/close.svg"/>
+          <img v-if="isHamburgerClosed" src="../static/images/burger.svg"/>
+          <img v-else src="../static/images/close.svg"/>
         </button>
       </div>
         <!-- hamburger displayed when requested -->
@@ -102,7 +102,6 @@ export default {
       let pageName
       this.links.forEach(link => {
         if (link.path === this.currentPath) {
-          console.log('this one!')
           console.log(link.text)
           pageName = link.text.toString()
         }

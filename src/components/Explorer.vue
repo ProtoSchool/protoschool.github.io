@@ -1,4 +1,3 @@
-
 <template>
   <div class="explorer">
     <iframe :src="src">
@@ -8,7 +7,6 @@
 
 <script>
 export default {
-
   data: self => {
     let cid = self.$attrs.cid
     cid = cid.toBaseEncodedString ? cid.toBaseEncodedString() : cid

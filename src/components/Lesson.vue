@@ -6,7 +6,7 @@
         <section class="pv3 mt3">
             <div class="lh-solid v-mid f4">
               <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-              <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+              <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
             <h1>{{lessonTitle}}</h1>
           <div class="lesson-text lh-copy" v-html="parsedText"></div>
@@ -20,9 +20,9 @@
         <div class="flex-none">
           <h2 class="mt0 mb2 green fw4 fill-current">
             <span style='vertical-align:-1px'>
-              <img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else-if="cachedCode" src="../images/in-progress.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else src="../images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
+              <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
             </span>
             <span class="green ttu f6 pl2 pr1 fw7 v-mid">
               <span v-if="lessonPassed">You did it!</span>

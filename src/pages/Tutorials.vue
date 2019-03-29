@@ -13,7 +13,7 @@
         <div class="flex items-start pv4">
           <div class="project-label flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
+            <img src="../static/images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100">
             <h2 class="ma0 f3 fw5"><router-link to="/data-structures/01">Decentralized data structures</router-link></h2>
@@ -36,7 +36,6 @@
               <li>
                 <ExerciseLink to="/data-structures/05" index="5" name="Merkle trees and directed acyclic graphs (DAG)" />
               </li>
-
             </ul>
           </div>
         </div>
@@ -45,7 +44,7 @@
         <div class="flex items-start pv4">
           <div class="project-label flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
+            <img src="../static/images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100">
             <h2 class="ma0 f3 fw5"><router-link to="/basics/01">P2P data links with content addressing</router-link></h2>
@@ -70,7 +69,7 @@
         <div class="flex items-start pv4">
           <div class="project-label flex-none tc">
             <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-            <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
+            <img src="../static/images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100">
             <h2 class="ma0 f3 fw5 "><router-link to="/blog/01">Blogging on the Decentralized Web</router-link></h2>
@@ -108,8 +107,8 @@
 </template>
 
 <script>
-import ExerciseLink from './ExerciseLink.vue'
-import Header from '../Header.vue'
+import ExerciseLink from '../components/ExerciseLink.vue'
+import Header from '../components/Header.vue'
 
 export default {
   name: 'Tutorials',
