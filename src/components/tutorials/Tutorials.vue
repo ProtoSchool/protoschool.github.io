@@ -115,10 +115,13 @@
             </p>
             <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
               <li>
-                <ExerciseLink to="/file-basics/01" index="1" name="Working with files" />
+                <ExerciseLink to="/file-basics/01" index="1" name="Working with your IPFS node" />
               </li>
               <li>
-                <ExerciseLink to="/file-basics/02" index="2" name="Adding a file" />
+                <ExerciseLink to="/file-basics/02" index="2" name="Working with files in ProtoSchool" />
+              </li>
+              <li>
+                <ExerciseLink to="/file-basics/03" index="3" name="Adding a file to IPFS" />
               </li>
             </ul>
           </div>
