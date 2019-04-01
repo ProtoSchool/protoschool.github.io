@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'ExerciseLink',
+  name: 'LessonLink',
   props: [
     'to',
     'index',
