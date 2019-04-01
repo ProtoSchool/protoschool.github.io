@@ -4,15 +4,15 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Adding a file to IPFS">
+            lessonTitle="Adding a file using MFS">
     </FileLesson>
   </div>
 </template>
 
 <script>
 import FileLesson from '../../components/File-Lesson.vue'
-import text from './03.md'
-import exercise from './03-exercise.md'
+import text from './04.md'
+import exercise from './04-exercise.md'
 
 const validate = async (result, ipfs) => {
 
@@ -22,32 +22,21 @@ const validate = async (result, ipfs) => {
   console.log('result is:')
   console.log(result)
 
-  if (uploadedFiles) {
-    let expectedAddedFiles = []
-    for (let file of files) {
-      expectedAddedFiles.push(ipfs.add(file))
-    }
-    console.log('expectedAddedFiles is:')
-    console.log('expectedAddedFiles')
-  } else {
-    console.log('no uploaded files')
-  }
-
   console.log('ipfs is: ')
   console.log(ipfs)
 
-  // console.log("ipfs.files.ls('/', {long: true}) is: ", ipfs.files.ls('/', {long: true}))
-  // console.log("await ipfs.files.ls('/', {long: true}) is: ", await ipfs.files.ls('/', {long: true}))
-  // console.log("attempting to loop through in ipfs.files.fs:")
-  // ipfs.files.ls('/', {long: true}, function (err, files) {
-//     files.forEach((file) => {
-//       console.log(file.name)
-//     })
-//   })
+   console.log("ipfs.files.ls('/', {long: true}) is: ", ipfs.files.ls('/', {long: true}))
+   console.log("await ipfs.files.ls('/', {long: true}) is: ", await ipfs.files.ls('/', {long: true}))
+   console.log("attempting to loop through in ipfs.files.fs:")
+   ipfs.files.ls('/', {long: true}, function (err, files) {
+     files.forEach((file) => {
+       console.log(file.name)
+    })
+  })
 
   if (!result) {
     return {'fail': 'You forgot to return a result. :('}
-  } else if (result && (result === expectedAddedFiles)) {
+  } else if (result) {
       return {'success': 'You did something that might be right??'}
   } else {
     return {'fail': 'Sad but useful message :('}
@@ -68,7 +57,7 @@ return run
 const _solution = `const run = async (files) => {
   let addedFiles = []
   for (let file of files) {
-    addedFiles.push(await ipfs.add(file))
+    addedFiles.push(await ipfs.files.write('/awesome', file, {create: true}))
   }
   return addedFiles
 }

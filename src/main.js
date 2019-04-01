@@ -29,6 +29,7 @@ import LessonDataStructures05 from './lessons/Data-Structures/05.vue'
 import LessonFileBasics01 from './lessons/File-Basics/01.vue'
 import LessonFileBasics02 from './lessons/File-Basics/02.vue'
 import LessonFileBasics03 from './lessons/File-Basics/03.vue'
+import LessonFileBasics04 from './lessons/File-Basics/04.vue'
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,7 @@ const routes = [
   { path: '/file-basics/01', component: LessonFileBasics01 },
   { path: '/file-basics/02', component: LessonFileBasics02 },
   { path: '/file-basics/03', component: LessonFileBasics03 },
+  { path: '/file-basics/04', component: LessonFileBasics04 },
   { path: '*', name: '404' }
 ]
 

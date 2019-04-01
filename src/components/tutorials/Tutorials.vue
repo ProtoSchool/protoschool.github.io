@@ -123,6 +123,9 @@
               <li>
                 <ExerciseLink to="/file-basics/03" index="3" name="Adding a file to IPFS" />
               </li>
+              <li>
+                <ExerciseLink to="/file-basics/04" index="4" name="Adding a file using MFS" />
+              </li>
             </ul>
           </div>
         </div>
