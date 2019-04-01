@@ -1,8 +1,7 @@
 <template>
   <div class="lesson-05">
-  <Lesson v-bind:text="text" v-bind:code="code"
-          :validate="validate"
-          lessonTitle="Merkle trees and Directed Acyclic Graphs (DAG)">
+    <Lesson v-bind:text="text"
+      lessonTitle="Merkle trees and Directed Acyclic Graphs (DAG)">
     </Lesson>
   </div>
 </template>
