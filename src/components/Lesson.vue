@@ -126,7 +126,7 @@
           </div>
           <div class="pt3 ph2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
-              <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
+              <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
@@ -144,7 +144,7 @@
       <section v-else >
         <div class="pt3 ph2 tr mb3">
           <div v-if="lessonNumber === lessonsInWorkshop">
-            <Button v-bind:click="workshopMenu" class="bg-aqua white">More Tutorials</Button>
+            <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
           </div>
           <div v-else>
             <Button v-bind:click="next" class="bg-aqua white">Next</Button>
@@ -412,14 +412,14 @@ export default {
       let next = (parseInt(current) + 1).toString().padStart(2, '0')
       this.$router.push({path: next})
     },
-    workshopMenu: function () {
+    tutorialMenu: function () {
       if (this.exercise) {
         Vue.set(this.output, 'test', null)
       } else {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
-      this.$router.push({path: '/'})
+      this.$router.push({path: '/tutorials/'})
     },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
