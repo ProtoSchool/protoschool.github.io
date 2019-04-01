@@ -302,7 +302,7 @@ export default {
   beforeCreate: function () {
     this.output = {}
     this.defaultCode = defaultCode
-    this.IPFSPromise = import('ipfs')
+    this.IPFSPromise = import('ipfs').then(m => m.default)
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   updated: function () {
@@ -348,7 +348,7 @@ export default {
         return this.$attrs.createIPFS()
       } else {
         let ipfs = this.IPFSPromise.then(IPFS => {
-          return IPFS.createNode({repo: Math.random().toString()})
+          return new IPFS({repo: Math.random().toString()})
         })
         return ipfs
       }
