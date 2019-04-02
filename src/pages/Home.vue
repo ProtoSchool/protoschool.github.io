@@ -15,7 +15,7 @@
         </div>
         <h2>Featured Tutorials</h2>
         <div id="featured" class="flex flex-wrap justify-between">
-          <template v-for="(tutorial, index) in tutorialsList">
+          <template v-for="(tutorial, index) in featuredTutorials">
             <div class="bg-aqua br4 pa3 mb3 tutorial-tile" :key="index">
               <router-link :to="getLandingLink(tutorial)">
                 <h3 class="ma0 f3 fw7 navy">{{tutorial.title}}</h3>
@@ -47,9 +47,9 @@ export default {
   components: {
     Header
   },
-  data: () => {
-    return {
-      tutorialsList
+  computed: {
+    featuredTutorials: function () {
+      return Object.values(tutorialsList).filter(e => e.featured === true)
     }
   },
   methods: {
