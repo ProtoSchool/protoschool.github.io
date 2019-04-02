@@ -1,5 +1,5 @@
 {
-	"basics": {
+	"dataStructures": {
 		"project": "IPFS",
 		"title": "Decentralized data structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
@@ -11,7 +11,7 @@
 				{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
 		]
 	},
-	"dataStructures": {
+	"basics": {
 		"project": "IPFS",
 		"title": "P2P data links with content addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",

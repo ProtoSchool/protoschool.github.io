@@ -6,7 +6,7 @@
         <img :src="ipfsLogo" :alt="tutorial.project" style="height: 54px"/>
       </div>
       <div class="w-100">
-        <h2 class="ma0 f3 fw5"><router-link to="/data-structures/01">{{tutorial.title}}</router-link></h2>
+        <h2 class="ma0 f3 fw5"><router-link :to="landingLink">{{tutorial.title}}</router-link></h2>
         <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">{{tutorial.description}}</p>
         <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
           <template v-for="(lesson, index) in tutorial.lessons">
@@ -35,6 +35,11 @@ export default {
   data: () => {
     return {
       ipfsLogo: ipfsLogo
+    }
+  },
+  computed: {
+    landingLink: function () {
+      return `/${this.tutorial.lessons[0].to.split('/')[1]}/`
     }
   }
 }
