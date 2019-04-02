@@ -27,9 +27,9 @@ npm run serve
 ### Create a directory for your tutorial
 
 
-Create a new directory within `lessons` for your tutorial, using your lesson shortname.
+Create a new directory within `tutorials` for your tutorial, using your lesson shortname.
 
-Example (while in `lessons`):
+Example (while in `tutorials`):
 
 `mkdir Tutorial-Shortname`
 
@@ -39,10 +39,10 @@ Example (while in `lessons`):
 
 #### Vue file
 
-Select the appropriate boilerplate Vue file for your lesson:
+Select the appropriate boilerplate Vue file for your lesson from the `tutorials/boilerplates` directory:
 
 - `boilerplate-standard.vue` for a lesson with an exercise which does not require upload
-- `boilerplate-file-upload.vue` for a lesson that requires a file upload
+- `boilerplate-file-upload.vue` for a lesson with an exercise that requires a file upload
 - `boilerplate-no-exercise.vue` for a text-only lesson
 
 Copy that boilerplate into your tutorial folder and rename it to the 2-digit number of the lesson.
@@ -50,26 +50,27 @@ Copy that boilerplate into your tutorial folder and rename it to the 2-digit num
 Example:
 
 ```
-cp components/lessons/boilerplate-standard.vue components/lessons/Tutorial-Shortname/01.vue
+cp components/tutorials/boilerplate-standard.vue components/tutorials/Tutorial-Shortname/01.vue
 ```
 
 Replace anything in the boiler that reads "REPLACEME".
 
 #### Markdown file
-Create a `.md` file alongside your `.vue` and add the markdown formatted text
-of the lesson.
+Create an`.md` file alongside your `.vue` and add the markdown formatted text
+of the lesson. The name of this file should match the 2-digit lesson number used
+in the corresponding Vue file.
 
 Example:
 ```
-components/lessons/Tutorial-Shortname/01.md
+components/tutorials/Tutorial-Shortname/01.md
 ```
 
 #### Exercise file (skip for text-only lessons)
-Create a second `.md` file alongside your `.vue` and add the markdown formatted text that provides the assignment for the exercise box.
+Create a second `.md` file alongside your `.vue` and add the markdown formatted text that provides the assignment text for the exercise box. The name of this file should match the 2-digit lesson number used previously, with `-exercise` appended.
 
 Example:
 ```
-components/lessons/Tutorial-Shortname/01-exercise.md
+components/tutorials/Tutorial-Shortname/01-exercise.md
 ```
 ### Update routes and import statements in `main.js`
 
@@ -111,7 +112,7 @@ your third lesson will display the following under the lesson title:
 
 `Data Structures | Lesson 3 of 5`
 
-Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated. In component names they are upper camel case (smushed together with the first letter of each word capitalized).
+Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
 
 ### Add tutorial to index in `Home.vue`
 
@@ -237,11 +238,11 @@ export default {
 
 ### validate(result, ipfs)
 
-When the sample code area is eval'd it must return a function, usually an
+When the sample code area is evaluated, it must return a function, usually an
 async function. The result of that function is passed to your validation
 function as `result`.
 
-Each time the user's code is eval'd they get a new, clean, IPFS instance.
+Each time the user's code is evaluated they get a new, clean, IPFS instance.
 That instance is passed as the second argument, `ipfs`.
 
 Validate must return an object with one of two properties: `fail` or
