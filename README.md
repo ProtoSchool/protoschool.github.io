@@ -80,7 +80,7 @@ First, add each of your lessons to the list of routes in `main.js` like so:
 
 Then import them like so:
 
-`import LessonBasics01 from './lessons/Basics/01.vue'`
+`import LessonBasics01 from './tutorials/Basics/01.vue'`
 
 When adding your routes, it's important that you follow the existing naming
 convention, since the code used elsewhere will parse the route path to determine the
