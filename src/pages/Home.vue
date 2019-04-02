@@ -15,32 +15,15 @@
         </div>
         <h2>Featured Tutorials</h2>
         <div id="featured" class="flex flex-wrap justify-between">
-          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-            <router-link to="/data-structures/01">
-              <h3 class="ma0 f3 fw7 navy">Decentralized Data Structures</h3>
-              <p class="f5 fw5 ma0 pt2 lh-copy white">
-                The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!
-              </p>
-            </router-link>
-          </div>
-          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-            <router-link to="/basics/01">
-              <h3 class="ma0 f3 fw7 navy">P2P data links with content addressing</h3>
-              <p class="f5 fw5 ma0 pt2 lh-copy white">
-                Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
-              </p>
-            </router-link>
-          </div>
-          <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-            <router-link to="/blog/01">
-              <h3 class="ma0 f3 fwy navy">Blogging on the Decentralized Web</h3>
-              <p class="f5 fw5 ma0 pt2 lh-copy white">
-                Cool content addresses don't change.
-              </p>
-            </router-link>
-          </div>
+          <template v-for="(tutorial, index) in tutorialsList">
+            <div class="bg-aqua br4 pa3 mb3 tutorial-tile" :key="index">
+              <router-link :to="tutorial.lessons[0].to">
+                <h3 class="ma0 f3 fw7 navy">{{tutorial.title}}</h3>
+                <p class="f5 fw5 ma0 pt2 lh-copy white">{{tutorial.description}}</p>
+              </router-link>
+            </div>
+          </template>
         </div>
-
         <h1>Chapter Events</h1>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
         Chapters around the world host in-person events using our tutorials as
@@ -57,18 +40,23 @@
 
 <script>
 import Header from '../components/Header'
+import tutorialsList from '../static/tutorials.json'
 
 export default {
   name: 'home',
   components: {
     Header
-  }
+  },
+  data: () => {
+    return {
+      tutorialsList
+    }
+  },
 }
 
 </script>
 
 <style scoped>
-
 .tutorial-tile {
   max-width: 49%
 }
@@ -86,9 +74,9 @@ export default {
     flex-wrap: nowrap;
     flex-direction: column;
   }
+
   .tutorial-tile {
     max-width: 100%
   }
 }
-
 </style>

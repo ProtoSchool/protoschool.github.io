@@ -2,14 +2,14 @@
   <section class="db mw7 center ph2">
     <div class="flex items-start pv4">
       <div class="project-label flex-none tc">
-        <h1 class="ma0 f3 fw6 pb2">{{project.title}}</h1>
-        <img :src="project.logo" :alt="project.title" style="height: 54px"/>
+        <h1 class="ma0 f3 fw6 pb2">{{tutorial.project}}</h1>
+        <img :src="ipfsLogo" :alt="tutorial.project" style="height: 54px"/>
       </div>
       <div class="w-100">
-        <h2 class="ma0 f3 fw5"><router-link to="/data-structures/01">{{title}}</router-link></h2>
-        <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">{{description}}</p>
+        <h2 class="ma0 f3 fw5"><router-link to="/data-structures/01">{{tutorial.title}}</router-link></h2>
+        <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">{{tutorial.description}}</p>
         <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
-          <template v-for="(lesson, index) in lessons">
+          <template v-for="(lesson, index) in tutorial.lessons">
             <li :key="index">
               <LessonLink :to="lesson.to" :name="lesson.name" :index="index + 1" />
             </li>
@@ -22,23 +22,25 @@
 
 <script>
 import LessonLink from '../components/LessonLink.vue'
+import ipfsLogo from '../static/images/ipfs.svg'
 
 export default {
   name: 'Tutorial',
   props: {
-    project: Object,
-    title: String,
-    description: String,
-    lessons: Array
+    tutorial: Object
   },
   components: {
     LessonLink
+  },
+  data: () => {
+    return {
+      ipfsLogo: ipfsLogo
+    }
   }
 }
 </script>
 
 <style scoped>
-
 .project-label {
   display: none;
 }
@@ -60,5 +62,4 @@ h2 a:hover {
     width: 93px;
   }
 }
-
 </style>
