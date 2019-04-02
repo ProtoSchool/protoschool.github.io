@@ -6,7 +6,14 @@
         <img :src="ipfsLogo" :alt="tutorial.project" style="height: 54px"/>
       </div>
       <div class="w-100">
-        <h2 class="ma0 f3 fw5"><router-link :to="landingLink">{{tutorial.title}}</router-link></h2>
+        <h2 class="ma0 f3 fw5">
+          <template v-if="isLanding !== true">
+            <router-link :to="landingLink">{{tutorial.title}}</router-link>
+          </template>
+          <template v-else>
+            {{tutorial.title}}
+          </template>
+        </h2>
         <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">{{tutorial.description}}</p>
         <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
           <template v-for="(lesson, index) in tutorial.lessons">
@@ -27,7 +34,8 @@ import ipfsLogo from '../static/images/ipfs.svg'
 export default {
   name: 'Tutorial',
   props: {
-    tutorial: Object
+    tutorial: Object,
+    isLanding: Boolean
   },
   components: {
     LessonLink
@@ -50,6 +58,7 @@ export default {
   display: none;
 }
 
+h2,
 h2 a {
   color: black;
   text-decoration: none;
