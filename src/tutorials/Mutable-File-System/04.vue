@@ -36,7 +36,7 @@ const validate = async (result, ipfs) => {
     // shouldn't happen because you can't hit submit without uploading files
     return {'fail': 'Oops! You forgot to upload files to work with :('}
   } else if (expected.length === 0) {
-    // if somehow no files are written to IPFS
+    // if no files are written to IPFS because they change the default code
     return {'fail': 'Uh oh. Looks like no files made it into IPFS. Did you accidentally edit the default `write` code?'}
   } else if (!itemsAreFiles) {
     // if they forget the file name and just use a directory as the path
