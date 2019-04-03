@@ -49,8 +49,7 @@ export default {
   },
   computed: {
     featuredTutorials: function () {
-      let courseName = 'featured'
-      return Object.values(tutorialsList).filter(e => e.courses.hasOwnProperty(courseName)).sort((a, b) => a.courses[courseName] - b.courses[courseName])
+      return Object.values(tutorialsList).filter(e => e.featured === true)
     }
   },
   methods: {

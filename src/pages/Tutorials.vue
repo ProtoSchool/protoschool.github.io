@@ -9,7 +9,7 @@
           the decentralized web by writing code and solving challenges.
         </p>
       </section>
-      <template v-for="(tutorial, index) in allTutorials">
+      <template v-for="(tutorial, index) in tutorialsList">
         <Tutorial :tutorial="tutorial" :key="index" />
       </template>
     </div>
@@ -31,12 +31,6 @@ export default {
     return {
       firstWorkshopVisit: true,
       tutorialsList
-    }
-  },
-  computed: {
-    allTutorials: function () {
-      let courseName = 'all'
-      return Object.values(tutorialsList).filter(e => e.courses.hasOwnProperty(courseName)).sort((a, b) => a.courses[courseName] - b.courses[courseName])
     }
   },
   mounted: function () {
