@@ -1,10 +1,10 @@
 <template>
-  <div class="lesson-02">
+  <div class="lesson-04">
     <FileLesson v-bind:text="text" v-bind:code="code"
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Adding files to the Mutable File System (MFS)">
+            lessonTitle="View the contents of a directory">
     </FileLesson>
   </div>
 </template>
@@ -16,59 +16,58 @@ import exercise from './04-exercise.md'
 
 const validate = async (result, ipfs) => {
 
-  // The code in this exercise does not have a return value since write doesn't
-  // give anything back, so `result` should always be undefined and is irrelevant
-  // for validation. Validation will be done by matching filenames between the
-  // uploadedFiles array and the files in IPFS and ensuring that the type of each
-  // file in IPFS is 0 (file, not folder).
+  console.log('Here\'s what `files.ls` revealed in your directory:')
+  console.log(result)
 
+  let expected = await ipfs.files.ls('/', {long: true})
+  let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
+
+  // confirm right files were added to IPFS (should be unless they tweaked defalt code)
   let uploadedFiles = window.uploadedFiles || false
-
-  let ipfsFiles = await ipfs.files.ls('/', {long: true})
-  console.log('Here\'s what\'s now in your root directory in IPFS:')
-  console.log(ipfsFiles)
-
   let uploadedFilenames = uploadedFiles.map( file => file.name.toString() ).sort()
-  let ipfsFilenames = ipfsFiles.map( file => file.name.toString() ).sort()
+  let ipfsFilenames = expected.map( file => file.name.toString() ).sort()
   let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
-  let itemsAreFiles = ipfsFiles.every(file => file.type === 0)
+  let itemsAreFiles = expected.every(file => file.type === 0)
+  let rightFilesUploaded = itemsMatch && itemsAreFiles
 
-  if (uploadedFiles = false) {
+  if (!result) {
+    return {'fail': 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
+  } else if (uploadedFiles = false) {
     // shouldn't happen because you can't hit submit without uploading files
     return {'fail': 'Oops! You forgot to upload files to work with :('}
-  } else if (ipfsFiles.length === 0) {
+  } else if (expected.length === 0) {
     // if somehow no files are written to IPFS
-    return {'fail': 'Uh oh. Looks like no files made it into IPFS.'}
+    return {'fail': 'Uh oh. Looks like no files made it into IPFS. Did you accidentally edit the default `write` code?'}
   } else if (!itemsAreFiles) {
     // if they forget the file name and just use a directory as the path
-    // this never shows because there's a native error msg showing that's unclear
+    // shouldn't happen unless they mess with default code
     return {'fail': 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?'}
-  } else if (itemsMatch && itemsAreFiles) {
-    return {'success': 'Success! Open your console to see what data is now in your root directory in IPFS.'}
+  } else if (!rightFilesUploaded) {
+    return {'fail': 'Uh oh. Your files weren\'t added to IPFS correctly. Did you accidentally edit the default `write` code?'}
+  } else if (result[0].hash.length === 0) {
+    return {'fail': 'Oops! Looks like you forgot to use the {long: true} option! Open your console to see what happened.'}
+  } else if (directoryContentsMatch) {
+    return {'success': 'Success! Open your console to see the data returned by the `ls` method.'}
   } else {
     return {'fail': 'Something we haven\'t anticipated is wrong. :('}
   }
-
-  // also wanted to make a custom error for if they forget {create: true}
-  // but it also has a native error msg showing that's unclear
 }
 
-//blah
-
-
-
 const code = `const run = async (files) => {
-  for (let file of files) {
-    // your code to add one file to MFS goes here
-  }
+  // this code adds your uploaded files to IPFS
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+  let directoryContents = // your code goes here
+  return directoryContents
 }
 return run
 `
+// '/' in the solution code below is optional
 
 const _solution = `const run = async (files) => {
-  for (let file of files) {
-    await ipfs.files.write('/' + file.name, file, {create: true})
-  }
+  // this code adds your uploaded files to IPFS
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+  let directoryContents = await ipfs.files.ls('/', {long: true})
+  return directoryContents
 }
 return run
 `

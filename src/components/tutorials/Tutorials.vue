@@ -121,10 +121,10 @@
                 <ExerciseLink to="/mutable-file-system/02" index="2" name="Working with files in ProtoSchool" />
               </li>
               <li>
-                <ExerciseLink to="/mutable-file-system/03" index="3" name="Adding a file to IPFS" />
+                <ExerciseLink to="/mutable-file-system/03" index="3" name="Add a new file to MFS" />
               </li>
               <li>
-                <ExerciseLink to="/mutable-file-system/04" index="4" name="Adding a file using MFS" />
+                <ExerciseLink to="/mutable-file-system/04" index="4" name="View files in your directory" />
               </li>
             </ul>
           </div>
