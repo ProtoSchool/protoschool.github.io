@@ -4,7 +4,7 @@
             :validate="validate"
             :modules="modules"
             :exercise="exercise"
-            lessonTitle="Adding a file using MFS">
+            lessonTitle="Adding files to the Mutable File System (MFS)">
     </FileLesson>
   </div>
 </template>
@@ -16,50 +16,57 @@ import exercise from './04-exercise.md'
 
 const validate = async (result, ipfs) => {
 
-  const uploadedFiles = window.uploadedFiles || false
-  console.log('uploadedFiles is: ', uploadedFiles)
+  // The code in this exercise does not have a return value since write doesn't
+  // give anything back, so `result` should always be undefined and is irrelevant
+  // for validation. Validation will be done by matching filenames between the
+  // uploadedFiles array and the files in IPFS and ensuring that the type of each
+  // file in IPFS is 0 (file, not folder).
 
-  console.log('result is:')
-  console.log(result)
+  let uploadedFiles = window.uploadedFiles || false
 
-  console.log('ipfs is: ')
-  console.log(ipfs)
+  let ipfsFiles = await ipfs.files.ls('/', {long: true})
+  console.log('Here\'s what\'s now in your root directory in IPFS:')
+  console.log(ipfsFiles)
 
-   console.log("ipfs.files.ls('/', {long: true}) is: ", ipfs.files.ls('/', {long: true}))
-   console.log("await ipfs.files.ls('/', {long: true}) is: ", await ipfs.files.ls('/', {long: true}))
-   console.log("attempting to loop through in ipfs.files.fs:")
-   ipfs.files.ls('/', {long: true}, function (err, files) {
-     files.forEach((file) => {
-       console.log(file.name)
-    })
-  })
+  let uploadedFilenames = uploadedFiles.map( file => file.name.toString() ).sort()
+  let ipfsFilenames = ipfsFiles.map( file => file.name.toString() ).sort()
+  let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
+  let itemsAreFiles = ipfsFiles.every(file => file.type === 0)
 
-  if (!result) {
-    return {'fail': 'You forgot to return a result. :('}
-  } else if (result) {
-      return {'success': 'You did something that might be right??'}
+  if (uploadedFiles = false) {
+    // shouldn't happen because you can't hit submit without uploading files
+    return {'fail': 'Oops! You forgot to upload files to work with :('}
+  } else if (ipfsFiles.length === 0) {
+    // if somehow no files are written to IPFS
+    return {'fail': 'Uh oh. Looks like no files made it into IPFS.'}
+  } else if (!itemsAreFiles) {
+    // if they forget the file name and just use a directory as the path
+    // this never shows because there's a native error msg showing that's unclear
+    return {'fail': 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?'}
+  } else if (itemsMatch && itemsAreFiles) {
+    return {'success': 'Success! Open your console to see what data is now in your root directory in IPFS.'}
   } else {
-    return {'fail': 'Sad but useful message :('}
+    return {'fail': 'Something we haven\'t anticipated is wrong. :('}
   }
+
+  // also wanted to make a custom error for if they forget {create: true}
+  // but it also has a native error msg showing that's unclear
 }
 
+
+
 const code = `const run = async (files) => {
-  let addedFiles = []
   for (let file of files) {
-    addedFiles.push(/* your code here*/)
+    // your code to add one file to MFS goes here
   }
-  console.log(addedFiles)
-  return addedFiles
 }
 return run
 `
 
 const _solution = `const run = async (files) => {
-  let addedFiles = []
   for (let file of files) {
-    addedFiles.push(await ipfs.files.write('/awesome', file, {create: true}))
+    await ipfs.files.write('/' + file.name, file, {create: true})
   }
-  return addedFiles
 }
 return run
 `
