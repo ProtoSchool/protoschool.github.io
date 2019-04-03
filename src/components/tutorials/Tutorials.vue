@@ -109,22 +109,22 @@
             <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
           </div>
           <div class="w-100">
-            <h2 class="ma0 f3 fw5"><router-link to="/basics/01">Working with files in IPFS</router-link></h2>
+            <h2 class="ma0 f3 fw5"><router-link to="/mutable-file-system/01">IPFS as a Mutable File System</router-link></h2>
             <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
-              That's all well and good, but how do I share a file?
+              Store, edit, and share files with with the Mutable File System (MFS)
             </p>
             <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
               <li>
-                <ExerciseLink to="/file-basics/01" index="1" name="Working with your IPFS node" />
+                <ExerciseLink to="/mutable-file-system/01" index="1" name="Working with your IPFS node" />
               </li>
               <li>
-                <ExerciseLink to="/file-basics/02" index="2" name="Working with files in ProtoSchool" />
+                <ExerciseLink to="/mutable-file-system/02" index="2" name="Working with files in ProtoSchool" />
               </li>
               <li>
-                <ExerciseLink to="/file-basics/03" index="3" name="Adding a file to IPFS" />
+                <ExerciseLink to="/mutable-file-system/03" index="3" name="Adding a file to IPFS" />
               </li>
               <li>
-                <ExerciseLink to="/file-basics/04" index="4" name="Adding a file using MFS" />
+                <ExerciseLink to="/mutable-file-system/04" index="4" name="Adding a file using MFS" />
               </li>
             </ul>
           </div>

@@ -40,10 +40,10 @@
             </router-link>
           </div>
           <div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-            <router-link to="/file-basics/01">
-              <h3 class="ma0 f3 fwy navy">Working with files in IPFS</h3>
+            <router-link to="/mutable-file-system/01">
+              <h3 class="ma0 f3 fwy navy">IPFS as a Mutable File System</h3>
               <p class="f5 fw5 ma0 pt2 lh-copy white">
-                That's all well and good, but how do I share a file?
+                Store, edit, and share files with with the Mutable File System (MFS)
               </p>
             </router-link>
           </div>
