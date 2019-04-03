@@ -75,13 +75,13 @@ components/tutorials/Tutorial-Shortname/01-exercise.md
 
 ### Update routes and import statements in `main.js`
 
-First, import each of your lessons components:
+First, import each of your lesson components:
 
 ```js
 import LessonBasics01 from './tutorials/Basics/01.vue'
 ```
 
-The add each of them to the list of routes in `main.js` like so:
+Then add each of them to the list of routes in `main.js` like so:
 
 ```js
 { path: '/basics/01', component: LessonBasics01 },
@@ -125,52 +125,24 @@ your third lesson will display the following under the lesson title:
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
 
-### Add tutorial to index in `Home.vue`
-
-In `Home.vue`, add a div as shown below, replacing the path, lesson title, and lesson description placeholders with the appropriate values.
-
-Template:
-```
-<div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-  <router-link to="PATH_OF_FIRST_LESSON_IN_TUTORIAL">
-    <h3 class="ma0 f3 fwy navy">TUTORIAL_TITLE</h3>
-    <p class="f5 fw5 ma0 pt2 lh-copy white">
-      TUTORIAL_DESCRIPTION
-    </p>
-  </router-link>
-</div>
-```
-
-Example:
-```
-<div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-  <router-link to="/basics/01">
-    <h3 class="ma0 f3 fw7 navy">P2P data links with content addressing</h3>
-    <p class="f5 fw5 ma0 pt2 lh-copy white">
-      Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
-    </p>
-  </router-link>
-</div>
-```
-
-### Add your tutorial to the `tutorials.json`
+### Add your tutorial to `tutorials.json`
 
 In `static/tutorials.json`, add a new key for your tutorial and fill the appropriate values:
 
 ```json
-"example": {
+"tutorialShortname": {
   "project": "IPFS",
   "title": "Your tutorial title",
   "description": "Your tutorial description",
   "lessons": [
-      { "to": "/example/01", "name": "Example 1" },
-      { "to": "/example/02", "name": "Example 2" },
-      { "to": "/example/03", "name": "Example 3" }
-  ]
+      { "to": "/example/01", "name": "Title of 1st lesson" },
+      { "to": "/example/02", "name": "Title of 2nd lesson" },
+      { "to": "/example/03", "name": "Title of 3rd lesson" }
+  ],
 },
 ```
 
-After this your tutorial will automatically appear in the Tutorials page!
+After this your tutorial will automatically appear on the Tutorials page!
 
 
 ## Boilerplate Explained
