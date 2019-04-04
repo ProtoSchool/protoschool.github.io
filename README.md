@@ -127,7 +127,7 @@ Notice how multi-word lesson shortnames are treated here. In filepaths, they are
 
 ### Add your tutorial to `tutorials.json` and `courses.json`
 
-In `static/tutorials.json`, add a new key for your tutorial and fill the appropriate values:
+In `static/tutorials.json`, add a new key for your tutorial (for example, `tutorialShortname` as shown in the example below) and fill in the appropriate values:
 
 ```json
 "tutorialShortname": {
@@ -142,8 +142,25 @@ In `static/tutorials.json`, add a new key for your tutorial and fill the appropr
 },
 ```
 
-In `static/courses.json`, add the tutorial key in the `all` array so it appears in the Tutorials page.
+In `static/courses.json`, add the tutorial key ato the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
 
+```json
+{
+  "all": ["dataStructures", "basics", "blog"],
+  "featured": ["dataStructures", "basics", "blog"]
+}
+```
+
+...to this:
+
+```json
+{
+  "all": ["dataStructures", "basics", "blog", "tutorialShortname"],
+  "featured": ["dataStructures", "basics", "blog"]
+}
+```
+
+The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings.
 
 ## Boilerplate Explained
 
