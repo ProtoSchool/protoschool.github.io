@@ -5,7 +5,7 @@
         <div class="flex-auto">
           <div class="pseudo-logo center mw7">
             <a href="/">
-              <img src="../images/ps_symbol_color.svg" alt="ProtoSchool" class="mr3" />
+              <img src="../static/images/ps_symbol_color.svg" alt="ProtoSchool" class="mr3" />
             </a>
             <div class="header-text">
               <h1 class="ma0 fw4">
