@@ -30,7 +30,7 @@ Create a new directory within `tutorials` for your tutorial, using your lesson s
 
 Example (while in `tutorials`):
 
-```
+```sh
 > mkdir Tutorial-Shortname
 ```
 
@@ -46,7 +46,7 @@ Copy that boilerplate into your tutorial folder and rename it to the 2-digit num
 Example:
 
 ```sh
-> cp components/tutorials/boilerplate.vue components/tutorials/Tutorial-Shortname/01.vue
+> cp tutorials/boilerplate.vue tutorials/Tutorial-Shortname/01.vue
 ```
 
 Replace anything in the boilerplate file that reads "REPLACEME".
@@ -70,7 +70,7 @@ Create a second `.md` file alongside your `.vue` and add the markdown formatted 
 Example:
 
 ```
-components/tutorials/Tutorial-Shortname/01-exercise.md
+tutorials/Tutorial-Shortname/01-exercise.md
 ```
 
 ### Update routes and import statements in `main.js`
@@ -142,7 +142,7 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
 },
 ```
 
-In `static/courses.json`, add the tutorial key ato the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
+In `static/courses.json`, add the tutorial key to the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
 
 ```json
 {
