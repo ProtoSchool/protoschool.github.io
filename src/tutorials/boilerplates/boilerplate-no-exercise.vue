@@ -1,9 +1,8 @@
 <template>
-  <div class="lesson-REPLACEME">
-    <Lesson v-bind:text="text"
-            lessonTitle="REPLACEME">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    lessonTitle="REPLACEME">
+  </Lesson>
 </template>
 
 <script>

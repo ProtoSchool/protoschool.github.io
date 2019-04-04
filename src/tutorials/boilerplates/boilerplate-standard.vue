@@ -1,12 +1,12 @@
 <template>
-  <div class="lesson-REPLACEME">
-    <Lesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :modules="modules"
-            :exercise="exercise"
-            lessonTitle="REPLACEME">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :modules="modules"
+    :exercise="exercise"
+    lessonTitle="REPLACEME">
+  </Lesson>
 </template>
 
 <script>

@@ -1,17 +1,17 @@
 <template>
-  <div class="lesson-REPLACEME">
-    <FileLesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :modules="modules"
-            :exercise="exercise"
-            lessonTitle="REPLACEME">
-    </FileLesson>
-  </div>
+  <FileLesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :modules="modules"
+    :exercise="exercise"
+    lessonTitle="REPLACEME">
+  </FileLesson>
 </template>
 
 <script>
 import FileLesson from '../../components/File-Lesson'
-import Lesson from '../components/Lesson'
+import Lesson from '../../components/Lesson'
 import text from './REPLACEME.md'
 import exercise from './REPLACEME-exercise.md'
 
