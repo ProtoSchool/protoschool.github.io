@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import Header from '../Header.vue'
-const chapterList = require('./chapters.json')
+import Header from '../components/Header.vue'
+import chapterList from '../static/chapters.json'
 
 export default {
   name: 'Tutorials',

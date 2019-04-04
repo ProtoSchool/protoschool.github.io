@@ -6,7 +6,7 @@
         <section class="pv3 mt3">
             <div class="lh-solid v-mid f4">
               <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-              <span class="pl1"><img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+              <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
             <h1>{{lessonTitle}}</h1>
           <div class="lesson-text lh-copy" v-html="parsedText"></div>
@@ -20,9 +20,9 @@
         <div class="flex-none">
           <h2 class="mt0 mb2 green fw4 fill-current">
             <span style='vertical-align:-1px'>
-              <img v-if="lessonPassed" src="../images/complete.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else-if="cachedCode" src="../images/in-progress.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else src="../images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
+              <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
             </span>
             <span class="green ttu f6 pl2 pr1 fw7 v-mid">
               <span v-if="lessonPassed">You did it!</span>
@@ -53,7 +53,7 @@
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
           <div v-if="isFileLesson">
             <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
-              <span class="pl1"><img v-if="uploadedFiles" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+              <span class="pl1"><img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
               <div id="drop-area" v-if="!uploadedFiles" v-on:drop="onFileDrop"
                 v-on:click="onFileClick"
@@ -78,7 +78,7 @@
                 </div>
               </div>
             <div class="f5 fw7 mt4 mb2">Step 2: Update code
-              <span class="pl1"><img v-if="cachedCode" src="../images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+              <span class="pl1"><img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ through online tutorials and local chapter events.
 This repository is for the main ProtoSchool website, hosted at https://proto.school, where you can
 explore our self-guided interactive tutorials.
 
-For information on local chapter organizing, please visit our [organizing repo](https://github.com/protoschool/organizing)
+For information on local chapter organizing, please visit our [organizing repo](https://github.com/protoschool/organizing).
 
 If you're interested in building tutorials, keep reading!
 
@@ -19,20 +19,20 @@ Each **tutorial** in ProtoSchool is made up of multiple **lessons**.
 
 First, check out this repository and run the dev server locally.
 
-```
-npm install
-npm run serve
+```sh
+> npm install
+> npm run serve
 ```
 
 ### Create a directory for your tutorial
-
 
 Create a new directory within `tutorials` for your tutorial, using your lesson shortname.
 
 Example (while in `tutorials`):
 
-`mkdir Tutorial-Shortname`
-
+```sh
+> mkdir Tutorial-Shortname
+```
 
 
 ### Create lesson files (repeat for each lesson in tutorial)
@@ -41,46 +41,62 @@ Example (while in `tutorials`):
 
 Select the appropriate boilerplate Vue file for your lesson from the `tutorials/boilerplates` directory:
 
-- `boilerplate-standard.vue` for a lesson with an exercise which does not require upload
+- `boilerplate-standard.vue` for a lesson with an exercise which does not require a file upload
 - `boilerplate-file-upload.vue` for a lesson with an exercise that requires a file upload
 - `boilerplate-no-exercise.vue` for a text-only lesson
 
 Copy that boilerplate into your tutorial folder and rename it to the 2-digit number of the lesson.
 
-Example:
+Example (while in `tutorials`):
 
-```
-cp components/tutorials/boilerplate-standard.vue components/tutorials/Tutorial-Shortname/01.vue
+```sh
+> cp boilerplate/boilerplate-standard.vue Tutorial-Shortname/01.vue
 ```
 
-Replace anything in the boiler that reads "REPLACEME".
+Replace anything in the boilerplate file that reads "REPLACEME".
+
 
 #### Markdown file
-Create an`.md` file alongside your `.vue` and add the markdown formatted text
+
+Create a `.md` file alongside your `.vue` and add the markdown formatted text
 of the lesson. The name of this file should match the 2-digit lesson number used
 in the corresponding Vue file.
 
 Example:
+
 ```
-components/tutorials/Tutorial-Shortname/01.md
+tutorials/Tutorial-Shortname/01.md
 ```
 
 #### Exercise file (skip for text-only lessons)
+
 Create a second `.md` file alongside your `.vue` and add the markdown formatted text that provides the assignment text for the exercise box. The name of this file should match the 2-digit lesson number used previously, with `-exercise` appended.
 
 Example:
+
 ```
-components/tutorials/Tutorial-Shortname/01-exercise.md
+tutorials/Tutorial-Shortname/01-exercise.md
 ```
+
 ### Update routes and import statements in `main.js`
 
-First, add each of your lessons to the list of routes in `main.js` like so:
+First, import each of your lesson components:
 
-`{ path: '/basics/01', component: LessonBasics01 },`
+```js
+import LessonBasics01 from './tutorials/Basics/01.vue'
+```
 
-Then import them like so:
+Then add each of them to the list of routes in `main.js` like so:
 
-`import LessonBasics01 from './tutorials/Basics/01.vue'`
+```js
+{ path: '/basics/01', component: LessonBasics01 },
+```
+
+Don't forget to include a landing page for your tutorial:
+
+```js
+{ path: '/basics', component: Landing, props: { tutorialId: 'basics' } },
+```
 
 When adding your routes, it's important that you follow the existing naming
 convention, since the code used elsewhere will parse the route path to determine the
@@ -89,7 +105,7 @@ lessons in your tutorial.
 
 For example, if you add 3 lessons with the following routes:
 
-```
+```js
 { path: '/basics/01', component: LessonBasics01 },
 { path: '/basics/02', component: LessonBasics02 },
 { path: '/basics/03', component: LessonBasics03 },
@@ -100,7 +116,7 @@ your second lesson will display the following under the lesson title:
 
 If you add 5 lesssons with the following routes:
 
-```
+```js
 { path: '/data-structures/01', component: LessonDataStructures01 },
 { path: '/data-structures/02', component: LessonDataStructures02 },
 { path: '/data-structures/03', component: LessonDataStructures03 },
@@ -114,97 +130,44 @@ your third lesson will display the following under the lesson title:
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
 
-### Add tutorial to index in `Home.vue`
 
-In `Home.vue`, add a div as shown below, replacing the path, lesson title, and lesson description placeholders with the appropriate values.
+### Add your tutorial to `tutorials.json` and `courses.json`
 
-Template:
-```
-<div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-  <router-link to="PATH_OF_FIRST_LESSON_IN_TUTORIAL">
-    <h3 class="ma0 f3 fwy navy">TUTORIAL_TITLE</h3>
-    <p class="f5 fw5 ma0 pt2 lh-copy white">
-      TUTORIAL_DESCRIPTION
-    </p>
-  </router-link>
-</div>
-```
+In `static/tutorials.json`, add a new key for your tutorial (for example, `tutorialShortname` as shown in the example below) and fill in the appropriate values:
 
-Example:
-```
-<div class="bg-aqua br4 pa3 mb3 tutorial-tile">
-  <router-link to="/basics/01">
-    <h3 class="ma0 f3 fw7 navy">P2P data links with content addressing</h3>
-    <p class="f5 fw5 ma0 pt2 lh-copy white">
-      Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
-    </p>
-  </router-link>
-</div>
+```json
+"tutorialShortname": {
+  "project": "IPFS",
+  "title": "Your tutorial title",
+  "description": "Your tutorial description",
+  "lessons": [
+      { "to": "/example/01", "name": "Title of 1st lesson" },
+      { "to": "/example/02", "name": "Title of 2nd lesson" },
+      { "to": "/example/03", "name": "Title of 3rd lesson" }
+  ],
+},
 ```
 
-### Add lessons to `Tutorials.vue`
+In `static/courses.json`, add the tutorial key to the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
 
-In `Tutorials.vue`, add a new section for your tutorial, replacing the path, lesson title, and lesson description placeholders with the appropriate values.
-
-Within the your <ul>, add one <li> for each lesson, containing an `ExerciseLink` component. Fill in the lesson's path, index, and full name accordingly.
-
-Template:
-```
-<section class="db mw7 center ph2">
-  <div class="flex items-start pv4">
-    <div class="project-label flex-none tc">
-      <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-      <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
-    </div>
-    <div class="w-100">
-      <h2 class="ma0 f3 fw5"><router-link to="PATH_OF_FIRST_LESSON_IN_TUTORIAL">TUTORIAL_TITLE</router-link></h2>
-      <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
-        TUTORIAL_DESCRIPTION
-      </p>
-      <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
-        <li>
-          <ExerciseLink to="/TUTORIAL_SHORTNAME/01" index="1" name="COMPLETE_LESSON_TITLE" />
-        </li>
-        <li>
-          <ExerciseLink to="/TUTORIAL_SHORTNAME/02" index="2" name="COMPLETE_LESSON_TITLE" />
-        </li>
-        <li>
-          <ExerciseLink to="/TUTORIAL_SHORTNAME/03" index="3" name="COMPLETE_LESSON_TITLE" />
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
+```json
+{
+  "all": ["dataStructures", "basics", "blog"],
+  "featured": ["dataStructures", "basics", "blog"]
+}
 ```
 
-Example:
+...to this:
+
+```json
+{
+  "all": ["dataStructures", "basics", "blog", "tutorialShortname"],
+  "featured": ["dataStructures", "basics", "blog"]
+}
 ```
-<section class="db mw7 center ph2">
-  <div class="flex items-start pv4">
-    <div class="project-label flex-none tc">
-      <h1 class="ma0 f3 fw6 pb2">IPFS</h1>
-      <img src="../../images/ipfs.svg" alt="" style="height: 54px"/>
-    </div>
-    <div class="w-100">
-      <h2 class="ma0 f3 fw5"><router-link to="/basics/01">P2P data links with content addressing</router-link></h2>
-      <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">
-        Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!
-      </p>
-      <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
-        <li>
-          <ExerciseLink to="/basics/01" index="1" name="Create a node and return a Content Identifier (CID)" />
-        </li>
-        <li>
-          <ExerciseLink to="/basics/02" index="2" name="Create a new node that's linked to an old one" />
-        </li>
-        <li>
-          <ExerciseLink to="/basics/03" index="3" name="Read nested data using links" />
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
-```
+
+The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings.
+
 
 ## Boilerplate Explained
 

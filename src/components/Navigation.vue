@@ -10,7 +10,7 @@
         </div>
         <!-- standard nav  -->
           <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
-            <div v-for="link in links">
+            <div v-for="(link, idx) in links" :key="`desktop-${idx}`">
               <router-link v-if="link.path === $route.path"
                class="nav-link white" :to="`${link.path}`">{{link.text}}</router-link>
                <router-link v-else
@@ -28,14 +28,14 @@
         </div>
         <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
         <button v-on:click="toggleHamburger" class="button-reset bg-transparent b--transparent pr2">
-          <img v-if="isHamburgerClosed" src="../images/burger.svg"/>
-          <img v-else src="../images/close.svg"/>
+          <img v-if="isHamburgerClosed" src="../static/images/burger.svg"/>
+          <img v-else src="../static/images/close.svg"/>
         </button>
       </div>
         <!-- hamburger displayed when requested -->
         <div v-bind:class="{ dn: isHamburgerClosed }">
           <div class="tc bg-aqua-muted white">
-            <div v-for="link in links">
+            <div v-for="(link, idx) in links" :key="`mobile-${idx}`">
               <router-link v-on:click.native="toggleHamburger" v-if="link.path === $route.path"
                class="link pa3 fw5 f4 db bb border-aqua white" :to="`${link.path}`">{{link.text}}</router-link>
                <router-link v-else
