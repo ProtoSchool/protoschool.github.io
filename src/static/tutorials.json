@@ -4,11 +4,11 @@
 		"title": "Decentralized data structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
 		"lessons": [
-				{ "to": "/data-structures/01", "name": "Data structures" },
-				{ "to": "/data-structures/02", "name": "The centralized web: Location-based addressing" },
-				{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
-				{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
-				{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
+			{ "to": "/data-structures/01", "name": "Data structures" },
+			{ "to": "/data-structures/02", "name": "The centralized web: Location-based addressing" },
+			{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
+			{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
+			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
 		]
 	},
 	"basics": {
