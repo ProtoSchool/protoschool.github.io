@@ -40,6 +40,7 @@
 
 <script>
 import Header from '../components/Header'
+import coursesList from '../static/courses.json'
 import tutorialsList from '../static/tutorials.json'
 
 export default {
@@ -48,14 +49,10 @@ export default {
     Header
   },
   computed: {
-    featuredTutorials: function () {
-      return Object.values(tutorialsList).filter(e => e.featured === true)
-    }
+    featuredTutorials: () => coursesList.featured.map((e) => tutorialsList[e])
   },
   methods: {
-    getLandingLink: function (tutorial) {
-      return `/${tutorial.lessons[0].to.split('/')[1]}/`
-    }
+    getLandingLink: (tutorial) => `/${tutorial.lessons[0].to.split('/')[1]}/`
   }
 }
 

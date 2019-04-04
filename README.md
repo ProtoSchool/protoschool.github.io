@@ -125,7 +125,7 @@ your third lesson will display the following under the lesson title:
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
 
-### Add your tutorial to `tutorials.json`
+### Add your tutorial to `tutorials.json` and `courses.json`
 
 In `static/tutorials.json`, add a new key for your tutorial and fill the appropriate values:
 
@@ -142,7 +142,7 @@ In `static/tutorials.json`, add a new key for your tutorial and fill the appropr
 },
 ```
 
-After this your tutorial will automatically appear on the Tutorials page!
+In `static/courses.json`, add the tutorial key in the `all` array so it appears in the Tutorials page.
 
 
 ## Boilerplate Explained
