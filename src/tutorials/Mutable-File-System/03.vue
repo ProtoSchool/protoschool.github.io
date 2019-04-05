@@ -1,12 +1,12 @@
 <template>
-  <div class="lesson-03">
-    <FileLesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :modules="modules"
-            :exercise="exercise"
-            lessonTitle="Add a new file to MFS">
-    </FileLesson>
-  </div>
+  <FileLesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :modules="modules"
+    :exercise="exercise"
+    lessonTitle="Add a new file to MFS">
+  </FileLesson>
 </template>
 
 <script>
@@ -15,7 +15,6 @@ import text from './03.md'
 import exercise from './03-exercise.md'
 
 const validate = async (result, ipfs) => {
-
   // The code in this exercise does not have a return value since write doesn't
   // give anything back, so `result` should always be undefined and is irrelevant
   // for validation. Validation will be done by matching filenames between the
@@ -67,22 +66,20 @@ return run
 
 const _solution = `const run = async (files) => {
   for (let file of files) {
-    await ipfs.files.write('/' + file.name, file, {create: true})
+    await ipfs.files.write('/' + file.name, file, { create: true })
   }
 }
 return run
 `
 
-const modules = {cids: require('cids')}
+const modules = { cids: require('cids') }
 
 export default {
   components: {
     FileLesson
   },
   data: () => {
-    return {
-      text, validate, code, modules, exercise
-    }
+    return { text, validate, code, modules, exercise }
   }
 }
 </script>

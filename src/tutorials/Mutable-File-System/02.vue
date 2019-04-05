@@ -1,12 +1,12 @@
 <template>
-  <div class="lesson-02">
-    <FileLesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :modules="modules"
-            :exercise="exercise"
-            lessonTitle="Working with files in ProtoSchool">
-    </FileLesson>
-  </div>
+  <FileLesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :modules="modules"
+    :exercise="exercise"
+    lessonTitle="Working with files in ProtoSchool">
+  </FileLesson>
 </template>
 
 <script>
@@ -16,15 +16,12 @@ import exercise from './02-exercise.md'
 
 const validate = async (result, ipfs) => {
   if (!result || typeof result === 'undefined') {
-    return {'fail': "Looks like you forgot to return a result. Remember to remove the '//' on Line 5."}
+    return { fail: "Looks like you forgot to return a result. Remember to remove the '//' on Line 5." }
   } else if (typeof result === 'number') {
-    let fileCount = "1 file"
-    if (result > 1) {
-      fileCount = `${result} files`
-    }
-    return {'success': `You successfully uploaded ${fileCount}! ` + 'Check out your console in the inspector. The last entry there is the `files` array your browser now has access to. Click the triangle to expand its contents and see what fields are included.'}
+    const fileCount = result > 1 ? `${result} files` : '1 file'
+    return { success: `You successfully uploaded ${fileCount}! Check out your console in the inspector. The last entry there is the \`files\` array your browser now has access to. Click the triangle to expand its contents and see what fields are included.` }
   } else {
-    return {'fail': 'Something else is wrong.'}
+    return { fail: 'Something is wrong. Reset the code and see the instructions.' }
   }
 }
 
@@ -36,16 +33,14 @@ const code = `const run = async (files) => {
 return run
 `
 
-const modules = {cids: require('cids')}
+const modules = { cids: require('cids') }
 
 export default {
   components: {
     FileLesson
   },
   data: () => {
-    return {
-      text, validate, code, modules, exercise
-    }
+    return { text, validate, code, modules, exercise }
   }
 }
 </script>
