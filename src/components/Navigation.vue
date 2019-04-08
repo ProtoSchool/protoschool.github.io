@@ -95,7 +95,9 @@ export default {
     }
   },
   methods: {
-    toggleHamburger: () => this.isHamburgerClosed = !this.isHamburgerClosed
+    toggleHamburger: function () {
+      this.isHamburgerClosed = !this.isHamburgerClosed
+    }
   }
 }
 </script>
