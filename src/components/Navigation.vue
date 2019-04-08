@@ -5,8 +5,9 @@
       <div class="center mw7">
         <!-- nav if in lesson (breadcrumbs) -->
         <div v-if="isLesson" class="flex overflow-auto items-center bg-aqua navy pv3 center tc mw7">
-          <router-link class="nav-link navy" :to="'/tutorials'">Tutorials </router-link> >
-          <span class="fake-nav-link">{{workshopShortname}}</span>
+          <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
+          <span>></span>
+          <router-link class="nav-link navy" :to="workshopLanding">{{workshopShortname}}</router-link>
         </div>
         <!-- standard nav  -->
           <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
@@ -23,8 +24,9 @@
     <div class="db dn-ns">
       <div class="flex items-center bg-aqua pv3 w-100">
         <div v-if="isLesson" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
-          <router-link class="link navy" :to="'/tutorials'">Tutorials</router-link> >
-          <span class="white">{{workshopShortname}}</span>
+          <router-link class="link navy" to="/tutorials">Tutorials</router-link>
+          <span>></span>
+          <router-link class="nav-link navy" :to="workshopLanding">{{workshopShortname}}</router-link>
         </div>
         <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
         <button v-on:click="toggleHamburger" class="button-reset bg-transparent b--transparent pr2">
@@ -51,36 +53,19 @@
 
 export default {
   name: 'Navigation',
-  data: self => {
+  data: (self) => {
     return {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
-      workshopShortname: (self.$route.path.charAt(1).toUpperCase() + self.$route.path.slice(2, self.$route.path.lastIndexOf('/'))).split('-').join(' '),
+      workshopShortname: self.$route.path.split('/')[1].split('-').map(e => e.charAt(0).toUpperCase() + e.slice(1)).join(' '),
+      workshopLanding: `/${self.$route.path.split('/')[1]}`,
       links: [
-        {
-          text: 'Home',
-          path: '/'
-        },
-        {
-          text: 'Tutorials',
-          path: '/tutorials'
-        },
-        {
-          text: 'Chapters',
-          path: '/chapters'
-        },
-        {
-          text: 'Contribute',
-          path: '/contribute'
-        },
-        {
-          text: 'Host',
-          path: '/host'
-        },
-        {
-          text: 'Build',
-          path: '/build'
-        }
+        { text: 'Home', path: '/' },
+        { text: 'Tutorials', path: '/tutorials' },
+        { text: 'Chapters', path: '/chapters' },
+        { text: 'Contribute', path: '/contribute' },
+        { text: 'Host', path: '/host' },
+        { text: 'Build', path: '/build' }
       ]
     }
   },
@@ -110,15 +95,12 @@ export default {
     }
   },
   methods: {
-    toggleHamburger: function () {
-      this.isHamburgerClosed = !this.isHamburgerClosed
-    }
+    toggleHamburger: () => this.isHamburgerClosed = !this.isHamburgerClosed
   }
 }
 </script>
 
 <style scoped>
-
 .nav-link {
   cursor: pointer;
   font-size: 18px;
@@ -126,18 +108,12 @@ export default {
   margin: 2px 20px;
   text-decoration: none;
 }
-.fake-nav-link {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 2px 20px;
-  text-decoration: none;
-  color: white;
-}
+
 .nav-link:first {
   margin: 2px 20px 2px 0px;
 }
+
 .nav-link:focus, .nav-link:hover {
   color: white;
 }
-
 </style>
