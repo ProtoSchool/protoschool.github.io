@@ -109,6 +109,7 @@ export default {
 .nav-link {
   margin: 2px 20px;
   font-size: 18px;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
 }
