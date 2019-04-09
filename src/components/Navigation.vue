@@ -23,7 +23,7 @@
       <div class="flex items-center bg-aqua pv3 w-100">
         <!-- If in lesson (breadcrumbs) -->
         <div v-if="isLesson" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
-          <router-link class="link navy" to="/tutorials">Tutorials</router-link>
+          <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4"> > </span>
           <router-link class="nav-link navy" :to="workshopLanding">{{workshopShortname}}</router-link>
         </div>
@@ -117,7 +117,7 @@ export default {
 @media screen and (max-width: 479px) {
   .nav-link {
     margin: 2px 0px;
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 </style>
