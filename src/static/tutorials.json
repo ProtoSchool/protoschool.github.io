@@ -43,7 +43,8 @@
 			{ "to": "/mutable-file-system/01", "name": "Working with your IPFS node" },
 			{ "to": "/mutable-file-system/02", "name": "Working with files in ProtoSchool" },
 			{ "to": "/mutable-file-system/03", "name": "Add a new file to MFS" },
-			{ "to": "/mutable-file-system/04", "name": "View files in your directory" }
+			{ "to": "/mutable-file-system/04", "name": "View files in your directory" },
+			{ "to": "/mutable-file-system/05", "name": "Create a directory" }
 		]
 	}
 }
