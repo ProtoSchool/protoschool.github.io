@@ -109,7 +109,6 @@ export default {
   cursor: pointer;
 }
 
-.nav-link:focus,
 .nav-link:hover {
   color: white;
 }
