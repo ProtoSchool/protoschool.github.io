@@ -3,6 +3,7 @@
     :text="text"
     :code="code"
     :validate="validate"
+    :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
     lessonTitle="Add a new file to MFS">
@@ -15,11 +16,11 @@ import text from './03.md'
 import exercise from './03-exercise.md'
 
 const validate = async (result, ipfs) => {
-  // The code in this exercise does not have a return value since write doesn't
-  // give anything back, so `result` should always be undefined and is irrelevant
-  // for validation. Validation will be done by matching filenames between the
+  // Validation will be done by matching filenames between the
   // uploadedFiles array and the files in IPFS and ensuring that the type of each
   // file in IPFS is 0 (file, not folder).
+  // If IPFS errors out, we try to output a clearer version to the user. If that's
+  // not possible, the error from IPFS will be the output.
 
   let uploadedFiles = window.uploadedFiles || false
 
@@ -27,34 +28,27 @@ const validate = async (result, ipfs) => {
   console.log('Here\'s what\'s now in your root directory in IPFS:')
   console.log(ipfsFiles)
 
-  let uploadedFilenames = uploadedFiles.map( file => file.name.toString() ).sort()
-  let ipfsFilenames = ipfsFiles.map( file => file.name.toString() ).sort()
+  let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
+  let ipfsFilenames = ipfsFiles.map(file => file.name.toString()).sort()
   let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
   let itemsAreFiles = ipfsFiles.every(file => file.type === 0)
 
-  if (uploadedFiles = false) {
-    // shouldn't happen because you can't hit submit without uploading files
-    return {'fail': 'Oops! You forgot to upload files to work with :('}
-  } else if (ipfsFiles.length === 0) {
-    // if somehow no files are written to IPFS
-    return {'fail': 'Uh oh. Looks like no files made it into IPFS.'}
-  } else if (!itemsAreFiles) {
-    // if they forget the file name and just use a directory as the path
-    // this never shows because there's a native error msg showing that's unclear
-    return {'fail': 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?'}
-  } else if (itemsMatch && itemsAreFiles) {
-    return {'success': 'Success! Open your console to see what data is now in your root directory in IPFS.'}
-  } else {
-    return {'fail': 'Something we haven\'t anticipated is wrong. :('}
+  if (itemsMatch && itemsAreFiles) {
+    return { success: 'Success! Open your console to see what data is now in your root directory in IPFS.' }
+  } else if (uploadedFiles = false) {
+    // Shouldn't happen because you can't hit submit without uploading files
+    return { fail: 'Oops! You forgot to upload files to work with :(' }
+  } else if (result && result.error.message === 'No child name passed to addLink') {
+    // Forgot the file name and just used a directory as the path
+    return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
+  } else if (result && result.error.message === 'file does not exist') {
+    // Forgot the `{ create: true }` option
+    return { fail: 'The file doesn\'t exist, so you need to create it. Maybe you forgot and option...'  }
   }
 
-  // also wanted to make a custom error for if they forget {create: true}
-  // but it also has a native error msg showing that's unclear
+  // Output the default error if we haven't catched any
+  return { error: result.error }
 }
-
-//blah
-
-
 
 const code = `const run = async (files) => {
   for (let file of files) {

@@ -46,7 +46,6 @@ export default {
     onFiles: function (files) {
       this.uploadedFiles = files
       window.uploadedFiles = files
-      // console.log({uploadedFiles: this.uploadedFiles})
      }
     }
   }

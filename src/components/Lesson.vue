@@ -168,8 +168,8 @@ import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
-const CID = require('cids')
-const marked = require('marked')
+import CID from 'cids'
+import marked from 'marked'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -233,6 +233,7 @@ export default {
       concepts: self.$attrs.concepts,
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
+      overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
@@ -323,13 +324,14 @@ export default {
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
+      // Output external errors or not depending on flag
       let result = await _eval(code, ipfs, modules, args)
-
-      if (result && result.error) {
+      if (!this.$attrs.overrideErrors && result && result.error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         return
       }
+      // Run the `validate` function in the lesson
       let test = await this.$attrs.validate(result, ipfs, args)
       Vue.set(output, 'test', test)
       if (CID.isCID(result)) {
