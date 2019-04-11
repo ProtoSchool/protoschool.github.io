@@ -186,5 +186,16 @@
           "hacdias"
        ],
        "repo":"http://github.com/protoschool/lisbon"
-    }
+    },
+    {
+       "name":"ProtoSchool Taipei",
+       "city":"Taipei",
+       "country":"TW",
+       "region":"Asia",
+       "organizers":[
+          "smpebble",
+          "ccomeon"
+       ],
+       "repo":"https://github.com/ProtoSchool/taipei"
+    }    
  ]
