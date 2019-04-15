@@ -3,7 +3,7 @@ workflow "Build and pin to IPFS" {
   resolves = ["Pin to IPFS Cluster"]
 }
 
-action "Install deps" {
+action "Install" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "ci"
 }
@@ -11,7 +11,7 @@ action "Install deps" {
 action "Build site" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run build"
-  needs = ["Install deps"]
+  needs = ["Install"]
 }
 
 action "Pin to IPFS Cluster" {
