@@ -1,8 +1,7 @@
 <template>
   <Lesson
     :text="text"
-    lessonTitle="REPLACEME">
-  </Lesson>
+    lessonTitle="REPLACEME" />
 </template>
 
 <script>
@@ -14,9 +13,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      text
-    }
+    return { text }
   }
 }
 </script>
