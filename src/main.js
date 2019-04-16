@@ -29,11 +29,11 @@ import LessonDataStructures02 from './tutorials/Data-Structures/02.vue'
 import LessonDataStructures03 from './tutorials/Data-Structures/03.vue'
 import LessonDataStructures04 from './tutorials/Data-Structures/04.vue'
 import LessonDataStructures05 from './tutorials/Data-Structures/05.vue'
-import MutableFileSystem01 from './tutorials/Mutable-File-System/01.vue'
-import MutableFileSystem02 from './tutorials/Mutable-File-System/02.vue'
-import MutableFileSystem03 from './tutorials/Mutable-File-System/03.vue'
-import MutableFileSystem04 from './tutorials/Mutable-File-System/04.vue'
-import MutableFileSystem05 from './tutorials/Mutable-File-System/05.vue'
+// import MutableFileSystem01 from './tutorials/Mutable-File-System/01.vue'
+// import MutableFileSystem02 from './tutorials/Mutable-File-System/02.vue'
+// import MutableFileSystem03 from './tutorials/Mutable-File-System/03.vue'
+// import MutableFileSystem04 from './tutorials/Mutable-File-System/04.vue'
+// import MutableFileSystem05 from './tutorials/Mutable-File-System/05.vue'
 
 Vue.use(VueRouter)
 
@@ -67,12 +67,12 @@ const routes = [
   { path: '/blog/06', component: LessonBlog06 },
   { path: '/blog/07', component: LessonBlog07 },
   // Lessons - MFS
-  { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'mutableFileSystem' } },
-  { path: '/mutable-file-system/01', component: MutableFileSystem01 },
-  { path: '/mutable-file-system/02', component: MutableFileSystem02 },
-  { path: '/mutable-file-system/03', component: MutableFileSystem03 },
-  { path: '/mutable-file-system/04', component: MutableFileSystem04 },
-  { path: '/mutable-file-system/05', component: MutableFileSystem05 },
+  // { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'mutableFileSystem' } },
+  // { path: '/mutable-file-system/01', component: MutableFileSystem01 },
+  // { path: '/mutable-file-system/02', component: MutableFileSystem02 },
+  // { path: '/mutable-file-system/03', component: MutableFileSystem03 },
+  // { path: '/mutable-file-system/04', component: MutableFileSystem04 },
+  // { path: '/mutable-file-system/05', component: MutableFileSystem05 },
   // 404
   { path: '*', name: '404' }
 ]
