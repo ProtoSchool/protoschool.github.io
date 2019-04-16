@@ -119,6 +119,20 @@
        "repo":"http://github.com/protoschool/shenzhen"
     },
     {
+       "name":"ProtoSchool Hangzhou",
+       "city":"Hangzhou",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+           "rjl493456442",
+           "grokcoder",
+           "yyh1102",
+           "terryding77",
+           "QibingLee"
+       ],
+       "repo":"https://github.com/ProtoSchool/hangzhou"
+    },
+    {
        "name":"ProtoSchool Berlin",
        "city":"Berlin",
        "country":"DE",
@@ -172,5 +186,16 @@
           "hacdias"
        ],
        "repo":"http://github.com/protoschool/lisbon"
-    }
+    },
+    {
+       "name":"ProtoSchool Taipei",
+       "city":"Taipei",
+       "country":"TW",
+       "region":"Asia",
+       "organizers":[
+          "smpebble",
+          "ccomeon"
+       ],
+       "repo":"https://github.com/ProtoSchool/taipei"
+    }    
  ]
