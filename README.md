@@ -19,10 +19,19 @@ Each **tutorial** in ProtoSchool is made up of multiple **lessons**.
 
 First, check out this repository and run the dev server locally.
 
-```sh
+```console
 > npm install
 > npm run serve
 ```
+
+### Review bundle size
+
+With the `@vue/cli` [installed](https://cli.vuejs.org/guide/installation.html)
+
+```console
+> vue ui
+```
+then navigate to **Tasks > Build > Run Task**, it's worth it.
 
 ### Create a directory for your tutorial
 
