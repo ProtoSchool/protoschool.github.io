@@ -19,11 +19,10 @@ Each **tutorial** in ProtoSchool is made up of multiple **lessons**.
 
 First, check out this repository and run the dev server locally.
 
-```console
+```sh
 > npm install
 > npm run serve
 ```
-
 
 ### Create a directory for your tutorial
 
