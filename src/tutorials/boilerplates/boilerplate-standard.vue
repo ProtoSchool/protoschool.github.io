@@ -21,18 +21,38 @@ const validate = async (result, ipfs) => {
   }
 
   /*
-    By default, if any external error occurs its output will be shown.
-    If you want to catch those erros and override them to show something
-    else to the users, add the following attribute in the FileLesson component:
+    By default, if any external error occurs (such as errors flagged by the
+    IPFS API or syntax errors caught by our embedded code editor), its output
+    will be shown. If you want to catch specific errors and override them to 
+    display a more user-friendly error message, add the attribute
+    `:overrideErrors="true"` to the Lesson component at the start of this
+    file like so:
 
-    <FileLesson :overrideErrors="true" ... />
+    <Lesson
+       :overrideErrors="true"
+       ...
+    />
 
-    Here in the `validate` function, add the folowing lines below the validation
-    if you enabled the overriding of errors:
+    Within this `validate` function, add cases for the specific error messages
+    you need to override, as in this example:
 
-    // Output the default error if we haven't catched any
+    } else if (result && result.error.message === 'No child name passed to addLink') {
+      // Forgot the file name and just used a directory as the path
+      return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
+    }
+
+    You'll also need to add the following lines below your custom validation to
+    allow external error messages you haven't specifically overridden to be presented
+    to the user to aid in troubleshooting:
+
+    // Output the default error if we haven't caught any
     return { error: result.error }
+
+    Note that most tutorial lessons will not require the overriding of external
+    errors. If you have questions about whether to use this feature, please reach
+    out to the project maintainers for guidance.
   */
+
 }
 
 const code = `const CID = require('cids')
