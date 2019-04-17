@@ -14,8 +14,16 @@ import text from './REPLACEME.md'
 import exercise from './REPLACEME-exercise.md'
 
 const validate = async (result, ipfs) => {
-  if (result) {
+  if (result === 'foo') {
     return { success: 'Happy Message!' }
+  } else if (result === 'bar') {
+    return {
+      success: 'Another Happy Message!',
+      // If you want to add an additional step for the user to check some data,
+      // add following keys (it can be either on `succes` or `fail`):
+      logDesc: 'Random description.', // [optional] A description below the step title.
+      log: 'Random data.' // The data you want the user to see.
+    }
   } else {
     return { fail: 'Sad but useful message :(' }
   }
