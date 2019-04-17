@@ -116,10 +116,10 @@
               </div>
               <div v-if="output.test.log">
                 <div class="f5 fw7 mt4 mb2">Step 3: Check the data</div>
-                <div v-if="output.test.logDesc" class="mb3 lh-copy">{{output.test.logDesc}}</div>
-                <div class="lh-copy pa3 bg-white black">
-                  <pre class="ma0 f6">{{output.test.log}}</pre>
-                </div>
+                <div v-if="output.test.logDesc" class="lh-copy">{{output.test.logDesc}}</div>
+                <pre v-highlightjs class="output-log">
+                  <code>{{output.test.log}}</code>
+                </pre>
               </div>
             </div>
             <div class="lh-copy pv2 ph3" v-else>
@@ -506,5 +506,15 @@ div.dropfile input {
 
 div#drop-area * {
   pointer-events: none;
+}
+
+.output-log {
+  margin: 0;
+}
+
+.output-log code {
+  margin: 0;
+  padding: 1rem;
+  background: white;
 }
 </style>
