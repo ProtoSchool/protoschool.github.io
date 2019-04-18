@@ -34,5 +34,17 @@
 			{ "to": "/blog/06", "name": "List posts chronologically with a chain of links" },
 			{ "to": "/blog/07", "name": "Traverse through all posts, starting with the most recent" }
 		]
+	},
+	"mutableFileSystem": {
+		"project": "IPFS",
+		"title": "IPFS as a Mutable File System",
+		"description": "Store, edit, and share files with with the Mutable File System (MFS).",
+		"lessons": [
+			{ "to": "/mutable-file-system/01", "name": "Working with your IPFS node" },
+			{ "to": "/mutable-file-system/02", "name": "Working with files in ProtoSchool" },
+			{ "to": "/mutable-file-system/03", "name": "Add a new file to MFS" },
+			{ "to": "/mutable-file-system/04", "name": "View files in your directory" },
+			{ "to": "/mutable-file-system/05", "name": "Create a directory" }
+		]
 	}
 }

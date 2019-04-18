@@ -39,17 +39,22 @@ Example (while in `tutorials`):
 
 #### Vue file
 
-Select the boilerplate Vue file for your lesson from the `tutorials` directory.
+Select the appropriate boilerplate Vue file for your lesson from the `tutorials/boilerplates` directory:
+
+- `boilerplate-standard.vue` for a lesson with an exercise which does not require a file upload
+- `boilerplate-file-upload.vue` for a lesson with an exercise that requires a file upload
+- `boilerplate-no-exercise.vue` for a text-only lesson
 
 Copy that boilerplate into your tutorial folder and rename it to the 2-digit number of the lesson.
 
-Example:
+Example (while in `tutorials`):
 
 ```sh
-> cp tutorials/boilerplate.vue tutorials/Tutorial-Shortname/01.vue
+> cp boilerplate/boilerplate-standard.vue Tutorial-Shortname/01.vue
 ```
 
 Replace anything in the boilerplate file that reads "REPLACEME".
+
 
 #### Markdown file
 
@@ -100,7 +105,7 @@ lessons in your tutorial.
 
 For example, if you add 3 lessons with the following routes:
 
-```
+```js
 { path: '/basics/01', component: LessonBasics01 },
 { path: '/basics/02', component: LessonBasics02 },
 { path: '/basics/03', component: LessonBasics03 },
@@ -111,7 +116,7 @@ your second lesson will display the following under the lesson title:
 
 If you add 5 lesssons with the following routes:
 
-```
+```js
 { path: '/data-structures/01', component: LessonDataStructures01 },
 { path: '/data-structures/02', component: LessonDataStructures02 },
 { path: '/data-structures/03', component: LessonDataStructures03 },
@@ -124,6 +129,7 @@ your third lesson will display the following under the lesson title:
 `Data Structures | Lesson 3 of 5`
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
+
 
 ### Add your tutorial to `tutorials.json` and `courses.json`
 
@@ -161,6 +167,7 @@ In `static/courses.json`, add the tutorial key to the `all` array so it will app
 ```
 
 The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings.
+
 
 ## Boilerplate Explained
 

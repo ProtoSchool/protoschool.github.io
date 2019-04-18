@@ -51,6 +51,36 @@
             </div>
           </h2>
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+          <div v-if="isFileLesson">
+            <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
+              <span class="pl1"><img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+            </div>
+              <div id="drop-area" v-if="!uploadedFiles" v-on:drop="onFileDrop"
+                v-on:click="onFileClick"
+                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false"
+                @dragover.prevent v-bind:class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
+                <div class="o-80 glow">
+                  <label for="add-files" class="flex items-center h4 pointer">
+                    <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
+                    <div class="f5 charcoal">
+                        <p><strong>Drop one or more files here or click to select.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div v-else class="mt2">
+                <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
+                <div class="mb2 pl3 pa2 w-100 br3 h4 shadow-4 bg-white color-navy flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="fill-aqua" height="60px"><path d="M55.94 19.17H30a4 4 0 0 0-4 4v53.65a4 4 0 0 0 4 4h40.1a4 4 0 0 0 4-4V38.06zm5.28 21.08c-4.33 0-7.47-2.85-7.47-6.77V21l18.13 19.25z"/></svg>
+                  <ul class="list pl0">
+                    <li v-for="(file, idx) in uploadedFiles" :key="`file-${idx}`">{{file.name}}</li>
+                  </ul>
+                </div>
+              </div>
+            <div class="f5 fw7 mt4 mb2">Step 2: Update code
+              <span class="pl1"><img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+            </div>
+          </div>
         </div>
         <div>
           <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
@@ -86,7 +116,12 @@
               </div>
             </div>
             <div class="lh-copy pv2 ph3" v-else>
-            Update the code to complete the exercise. Click <strong>submit</strong> to check your answer.
+              <div v-if="isFileLesson">
+                Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
+              </div>
+              <div v-else>
+                Update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
+              </div>
             </div>
           </div>
           <div class="pt3 ph2 tr">
@@ -97,7 +132,11 @@
               <Button v-bind:click="next" class="bg-aqua white">Next</Button>
             </div>
             <div v-else>
-              <Button v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper"><Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button></span>
+              <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
+                You must upload a file before submitting.
+              </div>
             </div>
           </div>
         </div>
@@ -129,8 +168,8 @@ import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
-const CID = require('cids')
-const marked = require('marked')
+import CID from 'cids'
+import marked from 'marked'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -143,7 +182,7 @@ marked.setOptions({
   }
 })
 
-const _eval = async (text, ipfs, modules = {}) => {
+const _eval = async (text, ipfs, modules = {}, args = []) => {
   await new Promise(resolve => ipfs.on('ready', resolve))
 
   let fn
@@ -161,7 +200,7 @@ const _eval = async (text, ipfs, modules = {}) => {
     return modules[name]
   }
   try {
-    result = await fn(ipfs, require)()
+    result = await fn(ipfs, require)(...args)
   } catch (e) {
     result = {error: e}
   }
@@ -193,7 +232,9 @@ export default {
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
       cachedCode: !!localStorage['cached' + self.$route.path],
-      code: localStorage[self.cacheKey] || self.$attrs.code || defaultCode,
+      code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
+      overrideErrors: self.$attrs.overrideErrors,
+      isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
@@ -204,6 +245,8 @@ export default {
       lessonTitle: self.$attrs.lessonTitle,
       output: self.output,
       expandExercise: false,
+      dragging: false,
+      uploadedFiles: window.uploadedFiles || false,
       options: {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
@@ -259,7 +302,8 @@ export default {
   },
   beforeCreate: function () {
     this.output = {}
-    this.IPFSPromise = import('ipfs')
+    this.defaultCode = defaultCode
+    this.IPFSPromise = import('ipfs').then(m => m.default)
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   updated: function () {
@@ -269,7 +313,7 @@ export default {
     // runs on every keystroke in editor, NOT on page load, NOT on code submit
   },
   methods: {
-    run: async function () {
+    run: async function (...args) {
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -279,14 +323,16 @@ export default {
       let code = this.editor.getValue()
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
-      let result = await _eval(code, ipfs, modules)
-
-      if (result && result.error) {
+      if (this.isFileLesson) args.unshift(this.uploadedFiles)
+      // Output external errors or not depending on flag
+      let result = await _eval(code, ipfs, modules, args)
+      if (!this.$attrs.overrideErrors && result && result.error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         return
       }
-      let test = await this.$attrs.validate(result, ipfs)
+      // Run the `validate` function in the lesson
+      let test = await this.$attrs.validate(result, ipfs, args)
       Vue.set(output, 'test', test)
       if (CID.isCID(result)) {
         oldIPFS = ipfs
@@ -304,7 +350,7 @@ export default {
         return this.$attrs.createIPFS()
       } else {
         let ipfs = this.IPFSPromise.then(IPFS => {
-          return IPFS.createNode({repo: Math.random().toString()})
+          return new IPFS({repo: Math.random().toString()})
         })
         return ipfs
       }
@@ -315,6 +361,11 @@ export default {
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.code)
       this.clearPassed()
+    },
+    resetFileUpload: function () {
+      this.uploadedFiles = false
+      this.dragging = false
+      console.log({uploadedFiles: this.uploadedFiles})
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
@@ -380,6 +431,18 @@ export default {
 </script>
 
 <style scoped>
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+.disabledButtonWrapper:hover + div {
+  opacity: 1;
+  transition: opacity .2s ease-in;
+}
+.dragging {
+  border: 5px solid #69c4cd;
+}
 .editor {
   height: 100%;
   min-height: 15rem;
@@ -419,5 +482,15 @@ footer a {
   .indent-1 {
     margin-left: 93px;
   }
+}
+
+div.dropfile {
+  cursor: pointer;
+}
+div.dropfile input {
+  display: none;
+}
+div#drop-area * {
+  pointer-events: none;
 }
 </style>

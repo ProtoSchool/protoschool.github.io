@@ -1,9 +1,8 @@
 <template>
-  <div class="lesson-01">
-    <Lesson v-bind:text="text"
-      lessonTitle="Data structures">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    lessonTitle="Working with a local IPFS node">
+  </Lesson>
 </template>
 
 <script>
@@ -15,9 +14,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      text
-    }
+    return { text }
   }
 }
 </script>

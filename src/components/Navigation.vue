@@ -11,7 +11,7 @@
         </div>
         <!-- standard nav  -->
         <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
-          <div v-for="link in links">
+          <div v-for="(link, idx) in links" :key="`desktop-${idx}`">
             <router-link :class="[isActive(link) ? 'white' : 'navy ', 'nav-link']" :to="`${link.path}`">{{link.text}}</router-link>
           </div>
         </div>
@@ -37,7 +37,7 @@
       <!-- hamburger displayed when requested -->
       <div :class="{ dn: isHamburgerClosed }">
         <div class="tc bg-aqua-muted white">
-          <div v-for="link in links">
+          <div v-for="(link, idx) in links" :key="`mobile-${idx}`">
             <router-link @click.native="toggleHamburger" :class="[isActive(link) || isActiveLesson(link) ? 'white' : 'navy', 'link pa3 fw5 f4 db bb border-aqua']" :to="`${link.path}`">{{link.text}}</router-link>
           </div>
         </div>
