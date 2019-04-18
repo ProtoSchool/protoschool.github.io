@@ -199,7 +199,13 @@ export default {
 }
 ```
 
-### validate(result, ipfs)
+### `code`
+
+Code is a string property. It's the sample code used to populate the code
+editor. If not set there's a default, used in the first lesson, that is used
+instead.
+
+### `validate(result, ipfs)`
 
 When the sample code area is evaluated, it must return a function, usually an
 async function. The result of that function is passed to your validation
@@ -212,11 +218,69 @@ Validate must return an object with one of two properties: `fail` or
 `success`. Each property should be used to give a detailed message of *why*
 the sample code failed in order to help the user along.
 
-### code
 
-Code is a string property. It's the sample code used to populate the code
-editor. If not set there's a default, used in the first lesson, that is used
-instead.
+### Dealing with external errors
+
+By default, if any external error occurs (such as errors flagged by the
+IPFS API or syntax errors caught by our embedded code editor), its output
+will be shown. If you want to catch specific errors and override them to
+display a more user-friendly error message, add the attribute
+`:overrideErrors="true"` to the FileLesson component at the start of this
+file like so:
+
+```js
+<FileLesson
+    :overrideErrors="true"
+    ...
+/>
+```
+
+Within the `validate` function, add cases for the specific error messages
+you need to override, as in this example:
+
+```js
+} else if (result && result.error.message === 'No child name passed to addLink') {
+  // Forgot the file name and just used a directory as the path
+  return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
+}
+```
+
+You'll also need to add the following lines below your custom validation to
+allow external error messages you haven't specifically overridden to be presented
+to the user to aid in troubleshooting:
+
+```js
+// Output the default error if we haven't caught any
+return { error: result.error }
+```
+
+Note that most tutorial lessons will not require the overriding of external
+errors. If you have questions about whether to use this feature, please reach
+out to the project maintainers for guidance.
+
+
+### Displaying results to the user
+
+If you want to show some data or result to the user, it's possible to add an additional step after submitting the code.
+
+In the `validate` function, when returning either a *fail* or a *success*, add a `log` and `logDesc` (optional) keys with values, as in this example:
+
+```js
+const ipfsFiles = ipfs.files.ls('/foo')
+
+if (result === 'foo') {
+    return { success: 'Happy Message!' }
+} else if (result === 'bar') {
+  return {
+    success: 'Another Happy Message!',
+    logDesc: 'This is the content in foo.', // A description below the step title
+    log: ipfsFiles // The data you want the user to see
+  }
+} else {
+  return { fail: 'Sad but useful message :(' }
+}
+```
+
 
 ## License
 
