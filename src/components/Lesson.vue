@@ -115,7 +115,7 @@
                 </a>
               </div>
               <div v-if="output.test.log">
-                <div class="f5 fw7 mt4 mb2">Step 3: Check the data</div>
+                <div class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
                 <div v-if="output.test.logDesc" class="lh-copy">{{output.test.logDesc}}</div>
                 <pre v-highlightjs class="output-log">
                   <code>{{output.test.log}}</code>
