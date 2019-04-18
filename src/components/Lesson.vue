@@ -367,6 +367,9 @@ export default {
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.code)
       this.clearPassed()
+      if (this.output.test.log) {
+        delete this.output.test.log
+      }
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
