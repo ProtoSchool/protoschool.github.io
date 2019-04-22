@@ -46,13 +46,13 @@ const validate = async (result, ipfs) => {
   } else if (result[0].hash.length === 0) {
     return {
       fail: 'Oops! Looks like you forgot to use the { long: true } option!',
-      logDesc: 'This is the data returned by the `ls` method.',
+      logDesc: 'When you forget to use the `{ long: true }` option, the `ls` method only returns filenames, not file types, sizes, or hashes (CIDs). Take a look at what happens without that option below, then try again.',
       log: result
     }
   } else if (directoryContentsMatch) {
     return {
       success: 'Success! You did it!',
-      logDesc: 'This is the data returned by the `ls` method:',
+      logDesc: 'Take a look at the complete data returned by the `ls` method:',
       log: result
     }
   } else {

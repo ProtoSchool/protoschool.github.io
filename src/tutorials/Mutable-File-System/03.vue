@@ -45,10 +45,10 @@ const validate = async (result, ipfs) => {
     return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
   } else if (result && result.error.message === 'file does not exist') {
     // Forgot the `{ create: true }` option
-    return { fail: 'The file doesn\'t exist, so you need to create it. Maybe you forgot and option...'  }
+    return { fail: 'The file doesn\'t exist yet, so you need to create it. Did you forget an option?'  }
   }
 
-  // Output the default error if we haven't catched any
+  // Output the default error if we haven't caught any
   return { error: result.error }
 }
 
