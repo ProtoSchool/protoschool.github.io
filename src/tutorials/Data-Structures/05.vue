@@ -1,9 +1,7 @@
 <template>
-  <div class="lesson-05">
-    <Lesson v-bind:text="text"
-      lessonTitle="Merkle trees and Directed Acyclic Graphs (DAG)">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    lessonTitle="Merkle trees and Directed Acyclic Graphs (DAG)" />
 </template>
 
 <script>
@@ -15,9 +13,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      text
-    }
+    return { text }
   }
 }
 </script>

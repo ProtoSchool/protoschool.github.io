@@ -1,9 +1,7 @@
 <template>
-  <div class="lesson-03">
-    <Lesson v-bind:text="text"
-      lessonTitle="Content addressing with cryptographic hashes">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    lessonTitle="Content addressing with cryptographic hashes" />
 </template>
 
 <script>
@@ -15,9 +13,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      text
-    }
+    return { text }
   }
 }
 </script>

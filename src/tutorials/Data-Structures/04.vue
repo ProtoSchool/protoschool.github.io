@@ -1,9 +1,7 @@
 <template>
-  <div class="lesson-04">
-    <Lesson v-bind:text="text"
-      lessonTitle="Content Identifiers (CIDs)">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    lessonTitle="Content Identifiers (CIDs)" />
 </template>
 
 <script>
@@ -15,9 +13,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      text
-    }
+    return { text }
   }
 }
 </script>
