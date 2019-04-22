@@ -44,7 +44,7 @@
         Vue CLI 3</a> with single-file components and use an embedded
         <a href="https://www.npmjs.com/package/monaco-editor">Monaco Editor</a>
         to enable interactive code challenges. Check out our
-        <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#developing-lessons">
+        <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#developing-tutorials">
         instructions for developing tutorials</a> to see how the pieces fit together.
         </p>
         <p class="f4 fw5 lh-copy ma0 pv3  ">
