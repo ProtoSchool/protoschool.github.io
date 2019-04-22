@@ -51,8 +51,8 @@ const validate = async (result, ipfs) => {
     }
   } else if (directoryContentsMatch) {
     return {
-      success: 'Success, you made it!',
-      logDesc: 'This is the data returned by the `ls` method.',
+      success: 'Success! You did it!',
+      logDesc: 'This is the data returned by the `ls` method:',
       log: result
     }
   } else {

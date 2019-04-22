@@ -33,8 +33,8 @@ const validate = async (result, ipfs) => {
 
   if (itemsMatch && itemsAreFiles) {
     return {
-      success: 'Success, you made it!',
-      logDesc: "This is the data that is now in your root directory in IPFS.",
+      success: 'Success! You did it!',
+      logDesc: "This is the data that is now in your root directory in IPFS:",
       log: log
     }
   } else if (uploadedFiles = false) {
