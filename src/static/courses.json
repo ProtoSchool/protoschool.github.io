@@ -1,4 +1,4 @@
 {
-  "all": ["dataStructures", "basics", "blog"],
-  "featured": ["dataStructures", "basics", "blog"]
+  "all": ["mutableFileSystem", "dataStructures", "basics", "blog"],
+  "featured": ["mutableFileSystem", "dataStructures", "basics", "blog"]
 }
