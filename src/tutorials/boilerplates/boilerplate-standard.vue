@@ -21,43 +21,17 @@ const validate = async (result, ipfs) => {
   }
 
   /*
-    By default, if any external error occurs (such as errors flagged by the
-    IPFS API or syntax errors caught by our embedded code editor), its output
-    will be shown. If you want to catch specific errors and override them to 
-    display a more user-friendly error message, add the attribute
-    `:overrideErrors="true"` to the Lesson component at the start of this
-    file like so:
+    There are some additional options you can find useful:
 
-    <Lesson
-       :overrideErrors="true"
-       ...
-    />
+    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
+    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
 
-    Within this `validate` function, add cases for the specific error messages
-    you need to override, as in this example:
-
-    } else if (result && result.error.message === 'No child name passed to addLink') {
-      // Forgot the file name and just used a directory as the path
-      return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
-    }
-
-    You'll also need to add the following lines below your custom validation to
-    allow external error messages you haven't specifically overridden to be presented
-    to the user to aid in troubleshooting:
-
-    // Output the default error if we haven't caught any
-    return { error: result.error }
-
-    Note that most tutorial lessons will not require the overriding of external
-    errors. If you have questions about whether to use this feature, please reach
-    out to the project maintainers for guidance.
+    If you want to catch external errors and override them to display a more user-friendly error message:
+    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
   */
-
 }
 
-const code = `const CID = require('cids')
-
-const run = async () => {
+const code = `const run = async () => {
   /* your code here */
 }
 return run
@@ -70,7 +44,7 @@ export default {
     Lesson
   },
   data: () => {
-    return { text, validate, code, modules }
+    return { text, validate, code, modules, exercise }
   }
 }
 </script>

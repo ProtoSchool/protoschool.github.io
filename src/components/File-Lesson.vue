@@ -9,7 +9,6 @@ const run = async (files) => {
 }
 
 return run
-
 `
 
 export default {

@@ -6,8 +6,7 @@
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
-    lessonTitle="Add a new file to MFS">
-  </FileLesson>
+    lessonTitle="Add a new file to MFS" />
 </template>
 
 <script>
@@ -24,9 +23,8 @@ const validate = async (result, ipfs) => {
 
   let uploadedFiles = window.uploadedFiles || false
 
-  let ipfsFiles = await ipfs.files.ls('/', {long: true})
-  console.log('Here\'s what\'s now in your root directory in IPFS:')
-  console.log(ipfsFiles)
+  let ipfsFiles = await ipfs.files.ls('/', { long: true })
+  let log = JSON.stringify(ipfsFiles, null, 2)
 
   let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
   let ipfsFilenames = ipfsFiles.map(file => file.name.toString()).sort()
@@ -34,7 +32,11 @@ const validate = async (result, ipfs) => {
   let itemsAreFiles = ipfsFiles.every(file => file.type === 0)
 
   if (itemsMatch && itemsAreFiles) {
-    return { success: 'Success! Open your console to see what data is now in your root directory in IPFS.' }
+    return {
+      success: 'Success, you made it!',
+      logDesc: "This is the data that is now in your root directory in IPFS.",
+      log: log
+    }
   } else if (uploadedFiles = false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }

@@ -4,6 +4,7 @@ import 'ipfs-css'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueHighlightJS from 'vue-highlightjs'
 import App from './App.vue'
 // Pages
 import Home from './pages/Home.vue'
@@ -35,7 +36,9 @@ import LessonDataStructures05 from './tutorials/Data-Structures/05.vue'
 // import MutableFileSystem04 from './tutorials/Mutable-File-System/04.vue'
 // import MutableFileSystem05 from './tutorials/Mutable-File-System/05.vue'
 
-Vue.use(VueRouter)
+Vue
+  .use(VueRouter)
+  .use(VueHighlightJS)
 
 const routes = [
   // Pages

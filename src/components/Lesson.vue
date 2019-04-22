@@ -114,6 +114,14 @@
                   View in IPLD Explorer
                 </a>
               </div>
+              <div v-if="output.test.log">
+                <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
+                <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
+                <div v-if="output.test.logDesc" class="lh-copy">{{output.test.logDesc}}</div>
+                <pre v-highlightjs class="output-log">
+                  <code>{{output.test.log}}</code>
+                </pre>
+              </div>
             </div>
             <div class="lh-copy pv2 ph3" v-else>
               <div v-if="isFileLesson">
@@ -215,7 +223,6 @@ const run = async () => {
 }
 
 return run
-
 `
 let oldIPFS
 
@@ -361,6 +368,9 @@ export default {
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.code)
       this.clearPassed()
+      if (this.output.test.log) {
+        delete this.output.test.log
+      }
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
@@ -431,7 +441,6 @@ export default {
 </script>
 
 <style scoped>
-
 button:disabled {
   cursor: not-allowed;
 }
@@ -440,18 +449,22 @@ button:disabled {
   opacity: 1;
   transition: opacity .2s ease-in;
 }
+
 .dragging {
   border: 5px solid #69c4cd;
 }
+
 .editor {
   height: 100%;
   min-height: 15rem;
 }
+
 .exercise {
   overflow: hidden;
   max-width: 100%;
   width: 900px;
 }
+
 .exercise.expand {
   height: 100vh;
   width: initial;
@@ -462,12 +475,15 @@ button:disabled {
   left: 0;
   right:0;
 }
+
 .indent-1 {
   margin-left: 1rem;
 }
+
 .mw-900 {
   max-width: 900px;
 }
+
 span.textLink {
   color: blue;
   cursor: pointer;
@@ -487,10 +503,22 @@ footer a {
 div.dropfile {
   cursor: pointer;
 }
+
 div.dropfile input {
   display: none;
 }
+
 div#drop-area * {
   pointer-events: none;
+}
+
+.output-log {
+  margin: 0;
+}
+
+.output-log code {
+  margin: 0;
+  padding: 1rem;
+  background: white;
 }
 </style>
