@@ -31,9 +31,7 @@ const validate = async (result, ipfs) => {
   */
 }
 
-const code = `const CID = require('cids')
-
-const run = async () => {
+const code = `const run = async () => {
   /* your code here */
 }
 return run
@@ -46,7 +44,7 @@ export default {
     Lesson
   },
   data: () => {
-    return { text, validate, code, modules }
+    return { text, validate, code, modules, exercise }
   }
 }
 </script>

@@ -10,7 +10,6 @@
 
 <script>
 import FileLesson from '../../components/File-Lesson'
-import Lesson from '../../components/Lesson'
 import text from './REPLACEME.md'
 import exercise from './REPLACEME-exercise.md'
 
@@ -42,7 +41,7 @@ const modules = { cids: require('cids') }
 
 export default {
   components: {
-    Lesson
+    FileLesson
   },
   data: () => {
     return { text, validate, code, modules, exercise }
