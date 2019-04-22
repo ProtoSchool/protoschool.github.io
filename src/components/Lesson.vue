@@ -63,7 +63,7 @@
                   <label for="add-files" class="flex items-center h4 pointer">
                     <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
                     <div class="f5 charcoal">
-                        <p><strong>Drop one or more files here or click to select.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
+                      <p><strong>Drop one or more files here or click to select.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
                     </div>
                   </label>
                 </div>
@@ -82,10 +82,11 @@
             </div>
           </div>
         </div>
-        <div>
-          <span v-if="cachedCode" v-on:click="resetCode" class="textLink fr pb1">Reset Code</span>
+        <div class="mb2">
+          <span v-if="solution" @click="viewSolution" class="ml1 fl textLink">View Solution</span>
+          <span v-if="cachedCode" @click="resetCode" class="mr1 fr textLink">Reset Code</span>
         </div>
-        <div class="bg-white flex-auto" style='height:100%;'>
+        <div class="h-100 flex-auto bg-white">
           <MonacoEditor
             class="editor"
             srcPath="."
@@ -240,6 +241,7 @@ export default {
       concepts: self.$attrs.concepts,
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
+      solution: self.$attrs.solution,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
@@ -370,6 +372,13 @@ export default {
       this.clearPassed()
       if (this.output.test.log) {
         delete this.output.test.log
+      }
+    },
+    viewSolution: function () {
+      // TRACK? User chose to view solution
+      this.editor.setValue(this.$attrs.solution)
+      if (this.output.test) {
+        delete this.output.test
       }
     },
     resetFileUpload: function () {

@@ -6,6 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :concepts="concepts"
+    :solution="solution"
     lessonTitle="Create a new node that's linked to an old one">
   </Lesson>
 </template>
@@ -17,7 +18,7 @@ import concepts from './02-concepts.md'
 import exercise from './02-exercise.md'
 import CID from 'cids'
 
-let code = `/* globals ipfs */
+const code = `/* globals ipfs */
 
 const run = async () => {
   let cid = await ipfs.dag.put({ test: 1 })
@@ -48,6 +49,17 @@ const validate = async (result, ipfs) => {
   }
 }
 
+const solution = `/* globals ipfs */
+
+const run = async () => {
+  let cid = await ipfs.dag.put({ test: 1 })
+  let cid2 = await ipfs.dag.put({ bar: cid })
+  return cid2
+}
+
+return run
+`
+
 const modules = { cids: require('cids') }
 
 export default {
@@ -55,7 +67,7 @@ export default {
     Lesson
   },
   data: () => {
-    return { code, text, validate, modules, exercise, concepts }
+    return { code, text, validate, modules, exercise, concepts, solution }
   }
 }
 </script>

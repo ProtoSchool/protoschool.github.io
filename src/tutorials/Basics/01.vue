@@ -4,6 +4,7 @@
     :validate="validate"
     :exercise="exercise"
     :concepts="concepts"
+    :solution="solution"
     lessonTitle="Create a node and return a Content Identifier (CID)">
   </Lesson>
 </template>
@@ -36,12 +37,22 @@ const validate = async (result, ipfs) => {
   }
 }
 
+const solution = `/* globals ipfs */
+
+const run = async () => {
+  let cid = await ipfs.dag.put({ test: 1 })
+  return cid
+}
+
+return run
+`
+
 export default {
   components: {
     Lesson
   },
   data: () => {
-    return { text, validate, exercise, concepts }
+    return { text, validate, exercise, concepts, solution }
   }
 }
 </script>
