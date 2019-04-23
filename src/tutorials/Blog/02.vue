@@ -1,11 +1,10 @@
 <template>
-  <div class="lesson-blog-02">
-    <Lesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :exercise="exercise"
-            lessonTitle="Update posts with tags and watch their CIDs change">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :exercise="exercise"
+    lessonTitle="Update posts with tags and watch their CIDs change" />
 </template>
 
 <script>
@@ -13,16 +12,15 @@ import Lesson from '../../components/Lesson'
 import text from './02.md'
 import exercise from './02-exercise.md'
 import utils from './utils.js'
-const shallowEqualArrays = require('shallow-equal/arrays')
+import shallowEqualArrays from 'shallow-equal/arrays'
 
 const code = `/* globals ipfs */
 
 const run = async () => {
-  const natCid = await ipfs.dag.put({author: "Nat"})
-  const samCid = await ipfs.dag.put({author: "Sam"})
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
 
   // Modify the blog posts below
-
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid
@@ -32,8 +30,7 @@ const run = async () => {
     author: natCid
   })
 
-  console.log('post about trees:', treePostCid.toBaseEncodedString())
-  console.log('post about computers:', computerPostCid.toBaseEncodedString())
+  // DELETE ME
 
   return [treePostCid, computerPostCid]
 }
@@ -45,8 +42,9 @@ const _solution = `
 /* globals ipfs */
 
 const run = async () => {
-  const natCid = await ipfs.dag.put({author: "Nat"})
-  const samCid = await ipfs.dag.put({author: "Sam"})
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
+
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -66,24 +64,37 @@ return run
 
 const validate = async (result, ipfs) => {
   if (!result) {
-    return {fail: 'You forgot to return a result :)'}
+    return { fail: 'You forgot to return a result :)' }
   }
+
   const validatedArray = utils.validateArrayOfCids(result, 2)
   if (validatedArray.fail) {
     return validatedArray
   }
+
+  const TREE_POST_CID = 'zdpuAkSPEnmgR1rqKkzpFN5qfJshCQKqMaVtUSpQJAMLdw3KF'
+  const COMPUTER_POST_CID = 'zdpuAxzw762rP3CXZpAsKagPFR2AyqmZU2sN8U1GuVCeoYUEo'
+  if (TREE_POST_CID === result[0].toBaseEncodedString() && COMPUTER_POST_CID === result[1].toBaseEncodedString()) {
+    return {
+      log: {
+        treePostCid: result[0].toBaseEncodedString(),
+        computerPostCid: result[1].toBaseEncodedString()
+      }
+    }
+  }
+
   for (const cid of result) {
     const obj = await ipfs.dag.get(cid)
     const node = obj.value
     if (node.tags === undefined) {
-      return {fail: 'Blog posts need to have a `tags` field.'}
+      return { fail: 'Blog posts need to have a `tags` field.' }
     }
     if (!Array.isArray(node.tags)) {
-      return {fail: 'The value of the `tags` field must be an array of strings.'}
+      return { fail: 'The value of the `tags` field must be an array of strings.' }
     }
     const isStrings = node.tags.every((tag) => typeof tag === 'string')
     if (!isStrings) {
-      return {fail: `Tags need to be strings.`}
+      return { fail: `Tags need to be strings.` }
     }
     let expectedTags
     switch (node.content) {
@@ -95,12 +106,19 @@ const validate = async (result, ipfs) => {
         break
     }
     if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
-      return {fail: `The tags of the "${node.content}" blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.`}
+      return { fail: `The tags of the "${node.content}" blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.` }
     }
   }
+
   // Don't check the CIDs as then the order of the tags would matter.
   // But that order really doesn't matter.
-  return {success: 'Everything works! Did you remember to check the console logs?'}
+  return {
+    success: 'Everything works!',
+    log: {
+      treePostCid: result[0].toBaseEncodedString(),
+      computerPostCid: result[1].toBaseEncodedString()
+    }
+  }
 }
 
 export default {
@@ -108,12 +126,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      code,
-      text,
-      validate,
-      exercise
-    }
+    return { code, text, validate, exercise }
   }
 }
 </script>

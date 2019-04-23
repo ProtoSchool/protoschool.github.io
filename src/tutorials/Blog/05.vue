@@ -1,11 +1,10 @@
 <template>
-  <div class="lesson-blog-05">
-    <Lesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :exercise="exercise"
-            lessonTitle="Add a new tag linked to multiple blog posts">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :exercise="exercise"
+    lessonTitle="Add a new tag linked to multiple blog posts" />
 </template>
 
 <script>
@@ -13,14 +12,14 @@ import Lesson from '../../components/Lesson'
 import text from './05.md'
 import exercise from './05-exercise.md'
 import utils from './utils.js'
-const shallowEqualArrays = require('shallow-equal/arrays')
-const CID = require('cids')
+import shallowEqualArrays from 'shallow-equal/arrays'
+import CID from 'cids'
 
 const code = `/* globals ipfs */
 
 const run = async () => {
-  const natCid = await ipfs.dag.put({author: "Nat"})
-  const samCid = await ipfs.dag.put({author: "Sam"})
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -39,11 +38,11 @@ const run = async () => {
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [ treePostCid ]
+    posts: [treePostCid]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [ treePostCid, computerPostCid ]
+    posts: [treePostCid, computerPostCid]
   })
 
   // Add your new code here and modify the tags above
@@ -56,8 +55,8 @@ const _solution = `
 /* globals ipfs */
 
 const run = async () => {
-  const natCid = await ipfs.dag.put({author: "Nat"})
-  const samCid = await ipfs.dag.put({author: "Sam"})
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -76,15 +75,15 @@ const run = async () => {
 
   const outdoorTagCid = await ipfs.dag.put({
     tag: "outdoor",
-    posts: [ treePostCid ]
+    posts: [treePostCid]
   })
   const hobbyTagCid = await ipfs.dag.put({
     tag: "hobby",
-    posts: [ treePostCid, computerPostCid, dogPostCid ]
+    posts: [treePostCid, computerPostCid, dogPostCid]
   })
   const funnyTagCid = await ipfs.dag.put({
     tag: "funny",
-    posts: [ dogPostCid ]
+    posts: [dogPostCid]
   })
 
   return [outdoorTagCid, hobbyTagCid, funnyTagCid]
@@ -95,8 +94,9 @@ return run
 
 const validate = async (result, ipfs) => {
   if (!result) {
-    return {fail: 'You forgot to return a result :)'}
+    return { fail: 'You forgot to return a result :)' }
   }
+
   const validatedArray = utils.validateArrayOfCids(result, 3)
   if (validatedArray.fail) {
     return validatedArray
@@ -106,20 +106,20 @@ const validate = async (result, ipfs) => {
     const obj = await ipfs.dag.get(cid)
     const node = obj.value
     if (node.tag === undefined) {
-      return {fail: 'Tag nodes need to have a `tag` field.'}
+      return { fail: 'Tag nodes need to have a `tag` field.' }
     }
     if (typeof node.tag !== 'string') {
-      return {fail: '`tag` field needs to be a string.'}
+      return { fail: '`tag` field needs to be a string.' }
     }
     if (node.posts === undefined) {
-      return {fail: 'Tag nodes need to have a `posts` field.'}
+      return { fail: 'Tag nodes need to have a `posts` field.' }
     }
     if (!Array.isArray(node.posts)) {
-      return {fail: 'The value of the `posts` field must be an array of links.'}
+      return { fail: 'The value of the `posts` field must be an array of links.' }
     }
     const isLinks = node.posts.every((post) => CID.isCID(post))
     if (!isLinks) {
-      return {fail: 'The values of the `posts` array must be links.'}
+      return { fail: 'The values of the `posts` array must be links.' }
     }
 
     let expectedPosts
@@ -137,16 +137,17 @@ const validate = async (result, ipfs) => {
         expectedPosts = [treePostCid]
         break
       default:
-        return {fail: `Wrong tag (${node.tag}). Did you mean one of funny, hobby, outdoor?`}
+        return { fail: `Wrong tag (${node.tag}). Did you mean one of funny, hobby, outdoor?` }
     }
     const nodePosts = node.posts.map(post => post.toBaseEncodedString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {
-      return {fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.`}
+      return { fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.` }
     }
   }
+
   // Don't check the CIDs as then the order of the links would matter.
   // But that order really doesn't matter.
-  return {success: 'Everything works!'}
+  return { success: 'Everything works!' }
 }
 
 export default {
@@ -154,12 +155,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      code,
-      text,
-      validate,
-      exercise
-    }
+    return { code, text, validate, exercise }
   }
 }
 </script>
