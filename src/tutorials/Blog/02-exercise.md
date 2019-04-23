@@ -1,1 +1,1 @@
-Add a new field called `tags` whose value is an array of tags. Use the tags `outdoor` and `hobby` for the blog post about trees. The blog post about computers has only a single tag called `hobby`.
+To each post, add a new field called `tags` whose value is an array of tags. Use the tags `outdoor` and `hobby` for the blog post about trees. Give the blog post about computers a single tag called `hobby`.

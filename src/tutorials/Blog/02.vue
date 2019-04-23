@@ -90,6 +90,7 @@ const validate = async (result, ipfs) => {
   // But that order really doesn't matter.
   return {
     success: 'Everything works!',
+    logDesc: 'These are the CIDs of the blog posts. Notice how they change when the underlying data is altered.',
     log: {
       treePostCid: result[0].toBaseEncodedString(),
       computerPostCid: result[1].toBaseEncodedString()
