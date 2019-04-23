@@ -26,6 +26,7 @@ const traversePosts = async (cid) => {
 const run = async () => {
   const natCid = await ipfs.dag.put({ author: "Nat" })
   const samCid = await ipfs.dag.put({ author: "Sam" })
+
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -57,7 +58,7 @@ const run = async () => {
     posts: [dogPostCid]
   })
 
-  return traversePosts
+  return traversePosts(dogPostCid)
 }
 
 return run`
@@ -66,8 +67,9 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
   }
-  if (typeof result !== 'function') {
-    return { fail: 'Return value needs to be a function.' }
+
+  if (!Array.isArray(result)) {
+    return { fail: 'Return value needs to be an array.' }
   }
 
   const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
@@ -75,18 +77,23 @@ const validate = async (result, ipfs) => {
   const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
 
   try {
-    const returnValue = await result(new CID(dogPostCid))
-    if (returnValue.length !== 3 || returnValue === undefined) {
+    if (result.length !== 3 || result === undefined) {
       return { fail: 'Your function needs to return 3 CIDs.' }
     }
-    const isCids = returnValue.every(CID.isCID)
+    const isCids = result.every(CID.isCID)
     if (!isCids) {
       return { fail: 'Your function needs to return CIDs.' }
     }
     const expectedCids = [treePostCid, computerPostCid, dogPostCid]
-    const returnedCids = returnValue.map(item => item.toBaseEncodedString())
+    const returnedCids = result.map(item => item.toBaseEncodedString())
     if (!shallowEqualArrays(returnedCids.sort(), expectedCids.sort())) {
-      return { fail: `The CIDs returned by the function ${utils.stringify(returnedCids)} did not match the the expected CIDs ${utils.stringify(expectedCids)}.` }
+      return {
+        fail: 'The CIDs returned by the function did not match the expected CIDs.',
+        log: {
+          returnedCids: returnedCids,
+          expectedCids: expectedCids
+        }
+      }
     }
   } catch (err) {
     return { fail: `Your function threw an error: ${err}.` }
@@ -113,6 +120,7 @@ const traversePosts = async (cid) => {
 const run = async () => {
   const natCid = await ipfs.dag.put({ author: "Nat" })
   const samCid = await ipfs.dag.put({ author: "Sam" })
+
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -144,7 +152,7 @@ const run = async () => {
     posts: [dogPostCid]
   })
 
-  return traversePosts
+  return traversePosts(dogPostCid)
 }
 
 return run

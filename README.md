@@ -195,9 +195,9 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
   } else if (result) {
-    return { success: 'Happy Message!'}
+    return { success: 'Happy Message!' }
   } else {
-    return { fail: 'Sad but useful message :('}
+    return { fail: 'Sad but useful message :(' }
   }
 }
 ```
