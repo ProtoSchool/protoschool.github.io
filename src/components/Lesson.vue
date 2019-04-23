@@ -370,7 +370,7 @@ export default {
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.code)
       this.clearPassed()
-      if (this.output.test.log) {
+      if (this.output.test && this.output.test.log) {
         delete this.output.test.log
       }
     },
