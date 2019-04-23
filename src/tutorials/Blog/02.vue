@@ -4,6 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="Update posts with tags and watch their CIDs change" />
 </template>
 
@@ -36,31 +37,6 @@ const run = async () => {
 }
 
 return run`
-
-// eslint-disable-next-line no-unused-vars
-const _solution = `
-/* globals ipfs */
-
-const run = async () => {
-  const natCid = await ipfs.dag.put({ author: "Nat" })
-  const samCid = await ipfs.dag.put({ author: "Sam" })
-
-  const treePostCid = await ipfs.dag.put({
-    content: "trees",
-    author: samCid,
-    tags: ["outdoor", "hobby"]
-  })
-  const computerPostCid = await ipfs.dag.put({
-    content: "computers",
-    author: natCid,
-    tags: ["hobby"]
-  })
-
-  return [treePostCid, computerPostCid]
-}
-
-return run
-`
 
 const validate = async (result, ipfs) => {
   if (!result) {
@@ -121,12 +97,35 @@ const validate = async (result, ipfs) => {
   }
 }
 
+const solution = `/* globals ipfs */
+
+const run = async () => {
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
+
+  const treePostCid = await ipfs.dag.put({
+    content: "trees",
+    author: samCid,
+    tags: ["outdoor", "hobby"]
+  })
+  const computerPostCid = await ipfs.dag.put({
+    content: "computers",
+    author: natCid,
+    tags: ["hobby"]
+  })
+
+  return [treePostCid, computerPostCid]
+}
+
+return run
+`
+
 export default {
   components: {
     Lesson
   },
   data: () => {
-    return { code, text, validate, exercise }
+    return { code, text, validate, exercise, solution }
   }
 }
 </script>

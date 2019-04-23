@@ -4,6 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="Build a tag cloud with arrays of links" />
 </template>
 
@@ -35,39 +36,6 @@ const run = async () => {
 }
 
 return run`
-
-// eslint-disable-next-line no-unused-vars
-const _solution = `
-/* globals ipfs */
-
-const run = async () => {
-  const natCid = await ipfs.dag.put({ author: "Nat" })
-  const samCid = await ipfs.dag.put({ author: "Sam" })
-  const treePostCid = await ipfs.dag.put({
-    content: "trees",
-    author: samCid,
-    tags: ["outdoor", "hobby"]
-  })
-  const computerPostCid = await ipfs.dag.put({
-    content: "computers",
-    author: natCid,
-    tags: ["hobby"]
-  })
-
-  const outdoorTagCid = await ipfs.dag.put({
-    tag: "outdoor",
-    posts: [treePostCid]
-  })
-  const hobbyTagCid = await ipfs.dag.put({
-    tag: "hobby",
-    posts: [treePostCid, computerPostCid]
-  })
-
-  return [outdoorTagCid, hobbyTagCid]
-}
-
-return run
-`
 
 const validate = async (result, ipfs) => {
   if (!result) {
@@ -121,12 +89,43 @@ const validate = async (result, ipfs) => {
   return { success: 'Everything works!' }
 }
 
+const solution = `/* globals ipfs */
+
+const run = async () => {
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
+  const treePostCid = await ipfs.dag.put({
+    content: "trees",
+    author: samCid,
+    tags: ["outdoor", "hobby"]
+  })
+  const computerPostCid = await ipfs.dag.put({
+    content: "computers",
+    author: natCid,
+    tags: ["hobby"]
+  })
+
+  const outdoorTagCid = await ipfs.dag.put({
+    tag: "outdoor",
+    posts: [treePostCid]
+  })
+  const hobbyTagCid = await ipfs.dag.put({
+    tag: "hobby",
+    posts: [treePostCid, computerPostCid]
+  })
+
+  return [outdoorTagCid, hobbyTagCid]
+}
+
+return run
+`
+
 export default {
   components: {
     Lesson
   },
   data: () => {
-    return { code, text, validate, exercise }
+    return { code, text, validate, exercise, solution }
   }
 }
 </script>
