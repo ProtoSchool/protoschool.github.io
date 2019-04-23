@@ -33,6 +33,13 @@ const code = `const run = async (files) => {
 return run
 `
 
+const solution = `const run = async (files) => {
+  console.log(files)
+  return files.length
+}
+return run
+`
+
 const modules = { cids: require('cids') }
 
 export default {
