@@ -153,6 +153,20 @@ Remember that you can add comments to your default code to orient the user, such
 // your code goes here
 ```
 
+#### Provide the simplest solution to your exercise
+
+`solution` is a string property. The value you set for `solution` in your Vue
+file will be used to populate the code editor if the user clicks the "View
+Solution" option. (We hope you'll have provided enough clues that they won't need
+to do this!)
+
+Be sure to test your solution code. If the user clicks "View Solution" and then
+"Submit", they should see your success message.
+
+There's almost always more than one way to solve a coding challenge. Although your
+validation code (see below) should allow all reasonable solutions to pass, the
+`solution` code you provide should be the most straightforward option which
+requires the least thorough understanding of JavaScript.
 
 #### Validate the user's submitted code
 
@@ -189,7 +203,10 @@ const validate = async (result, ipfs) => {
 ```
 Be sure to include conditionals that will catch common mistakes and provide useful clues.
 
-If the object returned by your `validate` function the has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will se the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
+If the object returned by your `validate` function the has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
+
+If this is the last lesson in your tutorial, the user will see a "More Tutorials" button instead of a "Next" button. Please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
+
 
 ##### Override external error messages (optional)
 
