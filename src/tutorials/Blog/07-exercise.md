@@ -1,1 +1,3 @@
 Fill in the body of the `traversePosts()` function. It takes the CID object of the most recent blog post as input. Use that to get the object from IPFS and follow the `prev` links. The return value of the function should be an array with the CID objects of all nodes (including the input CID).
+
+**Hint**: You'll need to use a [while loop](https://www.digitalocean.com/community/tutorials/using-while-and-do-while-loops-in-javascript) and the [array `push` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) for this solution. As noted above, be careful to minimize the number of async calls that could create lag time.
