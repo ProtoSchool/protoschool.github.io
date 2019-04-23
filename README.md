@@ -157,10 +157,10 @@ Remember that you can add comments to your default code to orient the user, such
 
 `solution` is a string property. The value you set for `solution` in your Vue
 file will be used to populate the code editor if the user clicks the "View
-solution" option. (We hope you'll have provided enough clues that they won't need
+Solution" option. (We hope you'll have provided enough clues that they won't need
 to do this!)
 
-Be sure to test your solution code. If the user clicks "View solution" and then
+Be sure to test your solution code. If the user clicks "View Solution" and then
 "Submit", they should see your success message.
 
 There's almost always more than one way to solve a coding challenge. Although your
