@@ -5,6 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="REPLACEME" />
 </template>
 
@@ -44,7 +45,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise }
+    return { text, validate, code, modules, exercise, solution }
   }
 }
 </script>

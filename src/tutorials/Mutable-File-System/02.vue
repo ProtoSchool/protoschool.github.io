@@ -5,6 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="Working with files in ProtoSchool">
   </FileLesson>
 </template>
@@ -47,7 +48,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise }
+    return { text, validate, code, modules, exercise, solution  }
   }
 }
 </script>

@@ -6,6 +6,7 @@
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="Add a new file to MFS" />
 </template>
 
@@ -75,7 +76,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise }
+    return { text, validate, code, modules, exercise, solution  }
   }
 }
 </script>

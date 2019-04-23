@@ -5,6 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="View the contents of a directory">
   </FileLesson>
 </template>
@@ -86,7 +87,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise }
+    return { text, validate, code, modules, exercise, solution  }
   }
 }
 </script>
