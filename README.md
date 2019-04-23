@@ -155,7 +155,7 @@ Remember that you can add comments to your default code to orient the user, such
 
 #### Provide the simplest solution to your exercise
 
-`_solution` is a string property. The value you set for `_solution` in your Vue
+`solution` is a string property. The value you set for `solution` in your Vue
 file will be used to populate the code editor if the user clicks the "View
 solution" option. (We hope you'll have provided enough clues that they won't need
 to do this!)
@@ -165,7 +165,7 @@ Be sure to test your solution code. If the user clicks "View solution" and then
 
 There's almost always more than one way to solve a coding challenge. Although your
 validation code (see below) should allow all reasonable solutions to pass, the
-`_solution` code you provide should be the most straightforward option which
+`solution` code you provide should be the most straightforward option which
 requires the least thorough understanding of JavaScript.
 
 #### Validate the user's submitted code
