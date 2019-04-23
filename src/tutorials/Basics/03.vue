@@ -5,6 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
+    :solution="solution"
     lessonTitle="Read nested data using links">
   </Lesson>
 </template>
@@ -14,12 +15,12 @@ import Lesson from '../../components/Lesson'
 import text from './03.md'
 import exercise from './03-exercise.md'
 
-let code = `/* globals ipfs */
+const code = `/* globals ipfs */
 
 const run = async () => {
   let cid = await ipfs.dag.put({ test: 1 })
   let cid2 = await ipfs.dag.put({ bar: cid })
-  /* your code goes here */
+  // your code goes here
 }
 
 return run
@@ -43,6 +44,18 @@ const validate = async (result, ipfs) => {
   }
 }
 
+const solution = `/* globals ipfs */
+
+const run = async () => {
+  let cid = await ipfs.dag.put({ test: 1 })
+  let cid2 = await ipfs.dag.put({ bar: cid })
+  let cid3 = await ipfs.dag.get(cid2, '/bar/test')
+  return cid3.value
+}
+
+return run
+`
+
 const modules = { cids: require('cids') }
 
 export default {
@@ -50,7 +63,7 @@ export default {
     Lesson
   },
   data: () => {
-    return { code, text, validate, modules, exercise }
+    return { code, text, validate, modules, exercise, solution }
   }
 }
 </script>
