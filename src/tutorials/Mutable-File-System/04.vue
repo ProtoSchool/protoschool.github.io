@@ -70,7 +70,7 @@ return run
 `
 
 // '/' in the solution code below is optional
-const _solution = `const run = async (files) => {
+const solution = `const run = async (files) => {
   // this code adds your uploaded files to IPFS
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   let directoryContents = await ipfs.files.ls('/', { long: true })

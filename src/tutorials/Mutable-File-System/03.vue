@@ -60,7 +60,7 @@ const code = `const run = async (files) => {
 return run
 `
 
-const _solution = `const run = async (files) => {
+const solution = `const run = async (files) => {
   for (let file of files) {
     await ipfs.files.write('/' + file.name, file, { create: true })
   }
