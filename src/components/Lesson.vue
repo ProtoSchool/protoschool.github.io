@@ -120,7 +120,7 @@
                 <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
                 <div v-if="output.test.logDesc" class="lh-copy">{{output.test.logDesc}}</div>
                 <pre v-highlightjs class="output-log">
-                  <code>{{output.test.log}}</code>
+                  <code v-html="output.test.log"></code>
                 </pre>
               </div>
             </div>
