@@ -13,7 +13,6 @@
 import Lesson from '../../components/Lesson'
 import text from './07.md'
 import exercise from './07-exercise.md'
-import utils from './utils.js'
 import shallowEqualArrays from 'shallow-equal/arrays'
 import CID from 'cids'
 
