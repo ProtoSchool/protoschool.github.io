@@ -197,10 +197,10 @@
           "ccomeon"
        ],
        "repo":"https://github.com/ProtoSchool/taipei"
-    }    
+    },    
     {
        "name":"ProtoSchool Nairobi",
-       "city":"Nairobi, KE",
+       "city":"Nairobi",
        "country":"KE",
        "region":"Africa",
        "organizers":[
