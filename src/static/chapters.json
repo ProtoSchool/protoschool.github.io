@@ -197,5 +197,15 @@
           "ccomeon"
        ],
        "repo":"https://github.com/ProtoSchool/taipei"
-    }    
+    },    
+    {
+       "name":"ProtoSchool Nairobi",
+       "city":"Nairobi",
+       "country":"KE",
+       "region":"Africa",
+       "organizers":[
+          "realChainLife"
+       ],
+       "repo":"http://github.com/protoschool/nairobi"
+    }
  ]
