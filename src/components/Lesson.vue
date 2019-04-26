@@ -524,7 +524,7 @@ div#drop-area * {
 
 <style> /* We need this unscoped to override the hljs styles. */
 .output-log {
-  margin: 0;
+  margin: 1rem 0 0 0;
 }
 
 .output-log code {
