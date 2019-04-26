@@ -1,6 +1,9 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   baseUrl: './',
+  devServer: {
+    port: 3000
+  },
   configureWebpack: config => {
     config.resolve.alias = {
       ipfs: 'ipfs/dist/index.min.js'

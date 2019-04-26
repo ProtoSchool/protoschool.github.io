@@ -7,7 +7,8 @@
     "start": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -31,6 +32,7 @@
     "@vue/cli-service": "^3.0.0-rc.5",
     "babel-eslint": "^8.2.6",
     "copy-webpack-plugin": "^4.5.2",
+    "cypress": "^3.2.0",
     "eslint": "^5.1.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-babel": "0.0.2",

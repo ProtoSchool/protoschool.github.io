@@ -83,10 +83,10 @@
           </div>
         </div>
         <div class="mb2">
-          <span v-if="solution" @click="viewSolution" class="ml1 fl textLink">View Solution</span>
-          <span v-if="cachedCode" @click="resetCode" class="mr1 fr textLink">Reset Code</span>
+          <span v-if="solution" @click="viewSolution" class="ml1 fl textLink" data-cy="view-solution">View Solution</span>
+          <span v-if="cachedCode" @click="resetCode" class="mr1 fr textLink" data-cy="reset-code">Reset Code</span>
         </div>
-        <div class="h-100 flex-auto bg-white">
+        <div class="h-100 flex-auto bg-white" v-bind:data-cy="editorReady ? 'editor-ready' : undefined ">
           <MonacoEditor
             class="editor"
             srcPath="."
@@ -102,13 +102,13 @@
         <div class='flex-none'>
           <div class="pv2">
             <div v-if="output.test && cachedCode" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error" data-cy="test-error">
                 Error: {{output.test.error.message}}
               </div>
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail" data-cy="test-fail">
                 {{output.test.fail}}
               </div>
-              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
+              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed" data-cy="test-success">
                 {{output.test.success}}
                 <a v-if="output.test.cid"
                 class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
@@ -135,14 +135,16 @@
           </div>
           <div class="pt3 ph2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
-              <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
+              <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
-              <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+              <Button v-bind:click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
-              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper"><Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button></span>
-              <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper">
+                <Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button>
+              </span>
+              <Button v-else v-bind:click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
                 You must upload a file before submitting.
               </div>
@@ -256,6 +258,7 @@ export default {
       expandExercise: false,
       dragging: false,
       uploadedFiles: window.uploadedFiles || false,
+      editorReady: false,
       options: {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
@@ -397,6 +400,7 @@ export default {
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
       this.editor = editor
+      this.editorReady = true
       if (this.cachedCode) {
         // TRACK? returned to lesson previously visited
         this.loadCodeFromCache()
