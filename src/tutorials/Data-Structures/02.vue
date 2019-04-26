@@ -1,10 +1,7 @@
 <template>
-  <div class="lesson-02">
-  <Lesson v-bind:text="text" v-bind:code="code"
-          :validate="validate"
-          lessonTitle="Location addressing and the centralized web">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    lessonTitle="Location addressing and the centralized web" />
 </template>
 
 <script>
@@ -16,9 +13,7 @@ export default {
     Lesson
   },
   data: () => {
-    return {
-      text
-    }
+    return { text }
   }
 }
 </script>

@@ -1,12 +1,13 @@
 <template>
   <Lesson
     :text="text"
-    lessonTitle="Content addressing with cryptographic hashes" />
+    lessonTitle="Working with a local IPFS node">
+  </Lesson>
 </template>
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './03.md'
+import text from './01.md'
 
 export default {
   components: {

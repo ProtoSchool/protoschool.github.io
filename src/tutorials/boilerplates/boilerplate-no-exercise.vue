@@ -1,12 +1,12 @@
 <template>
   <Lesson
     :text="text"
-    lessonTitle="Content addressing with cryptographic hashes" />
+    lessonTitle="REPLACEME" />
 </template>
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './03.md'
+import text from './REPLACEME.md'
 
 export default {
   components: {

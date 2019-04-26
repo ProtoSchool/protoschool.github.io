@@ -1,12 +1,13 @@
 <template>
-  <div class="lesson-03">
-    <Lesson v-bind:text="text" v-bind:code="code"
-            :validate="validate"
-            :modules="modules"
-            :exercise="exercise"
-            lessonTitle="Read nested data using links">
-    </Lesson>
-  </div>
+  <Lesson
+    :text="text"
+    :code="code"
+    :validate="validate"
+    :modules="modules"
+    :exercise="exercise"
+    :solution="solution"
+    lessonTitle="Read nested data using links">
+  </Lesson>
 </template>
 
 <script>
@@ -14,46 +15,55 @@ import Lesson from '../../components/Lesson'
 import text from './03.md'
 import exercise from './03-exercise.md'
 
-let code = `/* globals ipfs */
+const code = `/* globals ipfs */
 
 const run = async () => {
-  let cid = await ipfs.dag.put({test: 1})
-  let cid2 = await ipfs.dag.put({bar: cid})
-  /* your code goes here */
+  let cid = await ipfs.dag.put({ test: 1 })
+  let cid2 = await ipfs.dag.put({ bar: cid })
+  // your code goes here
 }
 
 return run
 `
+
 const validate = async (result, ipfs) => {
   if (!result) {
-    return {fail: 'You forgot to return a result :)'}
+    return { fail: 'You forgot to return a result :)' }
   }
+
   // TODO: validate ipfs.dag.get call
 
   if (result === 1) {
-    return {success: 'Great job, got 1.'}
-  }
-
-  if (result.value === 1 && result.remainderPath === '') {
-    return {success: `Great job! You've completed this series of lessons!`}
+    return { success: `Great job! You've completed this series of lessons!` }
+  } else if (result.value === 1 && result.remainderPath === '') {
+    return { fail: 'Just want the `value` of `test`, try again.' }
   } else {
-    let expected = JSON.stringify({value: 1, remainderPath: ''})
-    let got = JSON.stringify(result)
-    let fail = `Was expecting "${expected}" but got "${got}".`
-    return {fail}
+    const got = JSON.stringify(result)
+
+    return { fail: `Was expecting "1" but got "${got}".` }
   }
 }
 
-let modules = {cids: require('cids')}
+const solution = `/* globals ipfs */
+
+const run = async () => {
+  let cid = await ipfs.dag.put({ test: 1 })
+  let cid2 = await ipfs.dag.put({ bar: cid })
+  let cid3 = await ipfs.dag.get(cid2, '/bar/test')
+  return cid3.value
+}
+
+return run
+`
+
+const modules = { cids: require('cids') }
 
 export default {
   components: {
     Lesson
   },
   data: () => {
-    return {
-      code, text, validate, modules, exercise
-    }
+    return { code, text, validate, modules, exercise, solution }
   }
 }
 </script>
