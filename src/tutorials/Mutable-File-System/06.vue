@@ -7,13 +7,13 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    lessonTitle="Add a new file to MFS" />
+    lessonTitle="stat something again" />
 </template>
 
 <script>
 import FileLesson from '../../components/File-Lesson.vue'
-import text from './04.md'
-import exercise from './04-exercise.md'
+import text from './06.md'
+import exercise from './06-exercise.md'
 
 const validate = async (result, ipfs) => {
   // Validation will be done by matching filenames between the
