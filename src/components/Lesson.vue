@@ -119,9 +119,9 @@
                 <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
                 <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
                 <div v-if="output.test.logDesc" class="lh-copy">{{output.test.logDesc}}</div>
-                <pre v-highlightjs class="output-log">
-                  <code>{{output.test.log}}</code>
-                </pre>
+                <highlight-code lang="json" class="output-log">
+                  {{output.test.log}}
+                </highlight-code>
               </div>
             </div>
             <div class="lh-copy pv2 ph3" v-else>
@@ -520,9 +520,11 @@ div.dropfile input {
 div#drop-area * {
   pointer-events: none;
 }
+</style>
 
+<style> /* We need this unscoped to override the hljs styles. */
 .output-log {
-  margin: 0;
+  margin: 1rem 0 0 0;
 }
 
 .output-log code {
