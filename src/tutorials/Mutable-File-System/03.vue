@@ -1,49 +1,42 @@
 <template>
-  <Lesson
+  <FileLesson
     :text="text"
     :code="code"
     :validate="validate"
     :modules="modules"
-    :overrideErrors="true"
     :exercise="exercise"
     :solution="solution"
-    lessonTitle="Check the status of a directory" />
+    lessonTitle="Working with files in ProtoSchool">
+  </FileLesson>
 </template>
 
 <script>
-import Lesson from '../../components/Lesson.vue'
+import FileLesson from '../../components/File-Lesson.vue'
 import text from './03.md'
 import exercise from './03-exercise.md'
 
 const validate = async (result, ipfs) => {
-
-  const correctHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
-
-  if (!result) {
-    return { fail: 'Oops! You forgot to return a result :(' }
-  } else if (!!result & !result.hash) {
-    return { fail: 'That result doesn\'t look right. Are you sure you ran the stat method on your empty root directory?' }
-  } else if (!!result && result.hash === correctHash) {
-      return {
-        success: 'Success! You did it!',
-        logDesc: "Here's the status of your root directory (/). Notice that it has a hash (CID) even though it doesn't have contents yet. Every empty IPFS node has this exact same hash, because their non-existent contents are identical!",
-        log: result
-      }
-    }
-  // Output the default error if we haven't caught any
-  return { error: result.error }
+  if (!result || typeof result === 'undefined') {
+    return { fail: "Looks like you forgot to return a result. Remember to remove the '//' on Line 5." }
+  } else if (typeof result === 'number') {
+    const fileCount = result > 1 ? `${result} files` : '1 file'
+    return { success: `You successfully uploaded ${fileCount}! Check out your console in the inspector. The last entry there is the \`files\` array your browser now has access to. Click the triangle to expand its contents and see what fields are included.` }
+  } else {
+    return { fail: 'Something is wrong. Reset the code and see the instructions.' }
+  }
 }
 
-const code = `/* global ipfs */
-  const run = async () => {
-    //your code goes here
+const code = `const run = async (files) => {
+  console.log(files)
+  /* remove the '//' on the line below to complete this challenge */
+  // return files.length
 }
 return run
 `
 
-const solution = `/* global ipfs */
-  const run = async () => {
-    return await ipfs.files.stat('/')
+const solution = `const run = async (files) => {
+  console.log(files)
+  return files.length
 }
 return run
 `
@@ -52,10 +45,10 @@ const modules = { cids: require('cids') }
 
 export default {
   components: {
-    Lesson
+    FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise, solution }
+    return { text, validate, code, modules, exercise, solution  }
   }
 }
 </script>

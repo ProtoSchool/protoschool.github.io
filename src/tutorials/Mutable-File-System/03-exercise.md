@@ -1,1 +1,1 @@
-Run `files.stat` to check the status of your root directory (`/`) in IPFS. Be sure to return your result. 
+First, upload one or more files by dropping it below or clicking to make a selection from your file explorer.  Next, in the code editor, remove the comment markers that precede `return files.length` within the `run` function, which will make the function calculate how many files have been uploaded. (The "length" of an array in JavaScript is the number of items it contains.) Open your inspector and select `Console` before you hit the "Submit" button. What do you see?
