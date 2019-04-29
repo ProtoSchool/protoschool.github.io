@@ -83,10 +83,13 @@
           </div>
         </div>
         <div class="mb2">
-          <span v-if="solution" @click="viewSolution" class="ml1 fl textLink">View Solution</span>
+          <div v-if="solution">
+            <span v-if="viewSolution" @click="toggleSolution" class="ml1 fl textLink">Hide Solution</span>
+            <span v-else @click="toggleSolution" class="ml1 fl textLink">View Solution</span>
+          </div>
           <span v-if="cachedCode" @click="resetCode" class="mr1 fr textLink">Reset Code</span>
         </div>
-        <div class="h-100 flex-auto bg-white">
+        <div class="h-100 flex-auto">
           <MonacoEditor
             class="editor"
             srcPath="."
@@ -96,8 +99,16 @@
             theme="vs"
             language="javascript"
             @mounted="onMounted"
-            @codeChange="onCodeChange">
-          </MonacoEditor>
+            @codeChange="onCodeChange" />
+
+          <MonacoEditor v-show="viewSolution"
+            class="editor mt3"
+            srcPath="."
+            :height="editorHeight"
+            :options="Object.assign({}, { readOnly: true }, options)"
+            :code="solution"
+            theme="vs-dark"
+            language="javascript" />
         </div>
         <div class='flex-none'>
           <div class="pv2">
@@ -111,7 +122,7 @@
               <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
                 {{output.test.success}}
                 <a v-if="output.test.cid"
-                class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+                class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
                   View in IPLD Explorer
                 </a>
               </div>
@@ -150,7 +161,7 @@
           </div>
         </div>
       </section>
-      <section v-else >
+      <section v-else>
         <div class="pt3 ph2 tr mb3">
           <div v-if="lessonNumber === lessonsInWorkshop">
             <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
@@ -242,6 +253,7 @@ export default {
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
+      viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
@@ -374,12 +386,8 @@ export default {
         delete this.output.test.log
       }
     },
-    viewSolution: function () {
-      // TRACK? User chose to view solution
-      this.editor.setValue(this.$attrs.solution)
-      if (this.output.test) {
-        delete this.output.test
-      }
+    toggleSolution: function () {
+      this.viewSolution = !this.viewSolution
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
