@@ -45,7 +45,7 @@
 			{ "to": "/mutable-file-system/03", "name": "Check the status of a directory" },
 			{ "to": "/mutable-file-system/04", "name": "Add a new file to MFS" },
 			{ "to": "/mutable-file-system/05", "name": "View files in your directory" },
-			{ "to": "/mutable-file-system/06", "name": "stat something again" },
+			{ "to": "/mutable-file-system/06", "name": "See how CIDs change as data changes" },
 			{ "to": "/mutable-file-system/07", "name": "Create a directory" }
 
 		]

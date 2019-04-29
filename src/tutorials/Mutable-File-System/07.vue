@@ -58,8 +58,8 @@ const code = `const run = async (files) => {
   // this code adds your uploaded files to your root directory in IPFS
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
   // add your code to create a new directory here
-  let rootContents = await ipfs.files.ls('/', {long: true})
-  return rootContents
+  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  return rootDirectoryContents
 }
 return run
 `
@@ -69,8 +69,8 @@ const solution = `const run = async (files) => {
   // this code adds your uploaded files to your root directory in IPFS
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  let rootContents = await ipfs.files.ls('/', {long: true})
-  return rootContents
+  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  return rootDirectoryContents
 }
 return run
 `

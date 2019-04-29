@@ -7,7 +7,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    lessonTitle="stat something again" />
+    lessonTitle="See how CIDs change as data changes" />
 </template>
 
 <script>
@@ -16,58 +16,47 @@ import text from './06.md'
 import exercise from './06-exercise.md'
 
 const validate = async (result, ipfs) => {
-  // Validation will be done by matching filenames between the
-  // uploadedFiles array and the files in IPFS and ensuring that the type of each
-  // file in IPFS is 0 (file, not folder).
-  // If IPFS errors out, we try to output a clearer version to the user. If that's
-  // not possible, the error from IPFS will be the output.
 
-  let uploadedFiles = window.uploadedFiles || false
+  const emptyDirectoryHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
 
-  let ipfsFiles = await ipfs.files.ls('/', { long: true })
-  let log = JSON.stringify(ipfsFiles, null, 2)
-
-  let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
-  let ipfsFilenames = ipfsFiles.map(file => file.name.toString()).sort()
-  let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
-  let itemsAreFiles = ipfsFiles.every(file => file.type === 0)
-
-  if (itemsMatch && itemsAreFiles) {
-    return {
-      success: 'Success! You did it!',
-      logDesc: "This is the data that is now in your root directory in IPFS:",
-      log: log
-    }
-  } else if (uploadedFiles = false) {
-    // Shouldn't happen because you can't hit submit without uploading files
-    return { fail: 'Oops! You forgot to upload files to work with :(' }
-  } else if (result && result.error.message === 'No child name passed to addLink') {
-    // Forgot the file name and just used a directory as the path
-    return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
-  } else if (result && result.error.message === 'file does not exist') {
-    // Forgot the `{ create: true }` option
-    return { fail: 'The file doesn\'t exist yet, so you need to create it. Did you forget an option?'  }
-  }
-
+  if (!result) {
+    return { fail: 'Oops! You forgot to return a result :(' }
+  } else if (!!result & !result.hash) {
+    return { fail: 'That result doesn\'t look right. Are you sure you ran the stat method on your root directory?' }
+  } else if (!!result && result.hash === emptyDirectoryHash) {
+    return { fail: 'Oops! It looks like your directory is empty. Did you delete some of the previous code?' }
+    } else if (!!result && result.hash !== emptyDirectoryHash) {
+          return {
+            success: 'Success! You did it!',
+            logDesc: "Here's the status of your updated root directory (/). Notice how this data compares to what you saw when the directory was empty.",
+            log: result
+          }
+        }
   // Output the default error if we haven't caught any
   return { error: result.error }
 }
 
-const code = `const run = async (files) => {
-  for (let file of files) {
-    // your code to add one file to MFS goes here
+const code = `/* global ipfs */
+  const run = async (files) => {
+    // this code adds your uploaded files to IPFS
+    await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
+    let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+    let directoryStatus = // your code goes here
+    return directoryStatus
   }
-}
-return run
-`
+  return run
+  `
 
-const solution = `const run = async (files) => {
-  for (let file of files) {
-    await ipfs.files.write('/' + file.name, file, { create: true })
+const solution = `/* global ipfs */
+  const run = async (files) => {
+    // this code adds your uploaded files to IPFS
+    await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
+    let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+    let directoryStatus = await ipfs.files.stat('/')
+    return directoryStatus
   }
-}
-return run
-`
+  return run
+  `
 
 const modules = { cids: require('cids') }
 
