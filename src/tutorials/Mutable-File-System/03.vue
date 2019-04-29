@@ -17,15 +17,18 @@ import exercise from './03-exercise.md'
 
 const validate = async (result, ipfs) => {
 
-  const correctStat = await ipfs.files.stat('/')
+  const correctHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
-  } else if (!!result) {
-    return {
-      success: 'Success! You did it!',
-      logDesc: "Here's the result of your `stat`:",
-      log: result
+  } else if (!!result & !result.hash) {
+    return { fail: 'That result doesn\'t look right. Are you sure you ran the stat method on your empty root directory?' }
+  } else if (!!result && result.hash === correctHash) {
+      return {
+        success: 'Success! You did it!',
+        logDesc: "Here's the status of your root directory (/). Notice that it has a hash (CID) even though it doesn't have contents yet. Every empty IPFS node has this exact same hash, because their non-existent contents are identical!",
+        log: result
+      }
     }
   // Output the default error if we haven't caught any
   return { error: result.error }
