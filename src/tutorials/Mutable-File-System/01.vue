@@ -1,7 +1,7 @@
 <template>
   <Lesson
     :text="text"
-    lessonTitle="Working with a local IPFS node">
+    lessonTitle="Introducing IPFS">
   </Lesson>
 </template>
 
