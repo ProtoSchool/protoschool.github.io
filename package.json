@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint",
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome",
-    "cy:serve": "serve -l 3000 dist -- --silent &",
+    "cy:serve": "serve -l 3000 dist",
     "test": "start-server-and-test serve http://localhost:3000 cy:run"
   },
   "dependencies": {
