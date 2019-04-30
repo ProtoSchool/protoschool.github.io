@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "10.15"
+addons:
+  chrome: stable
 cache:
   # Caches $HOME/.npm when npm ci is default script command
   # Caches node_modules in all other cases
