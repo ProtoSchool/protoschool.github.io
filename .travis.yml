@@ -1,13 +1,20 @@
 language: node_js
 node_js:
-  - "10"
+  - "10.15"
 cache:
+  # Caches $HOME/.npm when npm ci is default script command
+  # Caches node_modules in all other cases
+  npm: true
   directories:
-    - node_modules
-before_script:
-  - npm install
+    # we also need to cache folder with Cypress binary
+    - ~/.cache
+install:
+  - npm ci
 script:
   - npm run build
+  - npm run cy:serve &
+  - npm run cy:run
+  - kill $(jobs -p) || true
 notifications:
   email: false
 deploy:

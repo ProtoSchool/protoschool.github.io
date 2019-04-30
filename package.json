@@ -8,9 +8,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --browser chrome",
-    "test:e2e": "start-server-and-test start http://localhost:3000 cypress:run"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --browser chrome",
+    "cy:serve": "serve -l 3000 dist -- --silent &",
+    "test": "start-server-and-test serve http://localhost:3000 cy:run"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -44,6 +45,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "regenerator-runtime": "^0.12.0",
+    "serve": "^11.0.0",
     "start-server-and-test": "^1.9.0",
     "vue-template-compiler": "^2.5.16"
   },
