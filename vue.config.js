@@ -1,6 +1,6 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
-  baseUrl: './',
+  publicPath: './',
   devServer: {
     port: 3000
   },
