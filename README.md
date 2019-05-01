@@ -363,6 +363,18 @@ In `static/courses.json`, add the tutorial key to the `all` array so it will app
 
 The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings.
 
+## Troubleshooting
+
+### Clearing cached data from localStorage
+
+In order to save the user's progress as they work, ProtoSchool uses [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to save cached code and lesson state between visits. This feature works when the user visits the site repeatedly in the same web browser, so long as they aren't using incognito or private mode. Although this solution doesn't work across browsers (a user would see a different history in Chrome than in Firefox, for example), we find that it enables us to provided a nicely customized experience for most users without requiring a login.
+
+On occasion, while developing a lesson, you may want to view the site as though you're a first-time visitor for testing purposes. To do this, you have a few options:
+- Open the site in an icognito or private window using your normal web browser
+- Open the site in a web browser you haven't used before (Firefox if you normally use Chrome, etc.)
+- Clear the localStorage in your main browser by opening the console in your inspector and entering the command `localStorage.clear()`, then refreshing your browser.
+
+Note that your user history on the live website (https://proto.school) is different from that in your local testing environment (localhost), so deleting your cache in the development environment won't affect your history on the live site.
 
 ## License
 
