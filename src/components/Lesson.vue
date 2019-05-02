@@ -82,16 +82,10 @@
             </div>
           </div>
         </div>
-        <div class="mb2">
-          <div v-if="solution">
-            <span v-if="viewSolution" @click="toggleSolution" class="ml1 fl textLink">Hide Solution</span>
-            <span v-else @click="toggleSolution" class="ml1 fl textLink">View Solution</span>
-          </div>
-          <span v-if="cachedCode" @click="resetCode" class="mr1 fr textLink">Reset Code</span>
-        </div>
         <div class="h-100 flex-auto">
+          <span v-if="cachedCode" @click="resetCode" class="textLink">Reset Code</span>
           <MonacoEditor
-            class="editor"
+            class="editor mt2"
             srcPath="."
             :height="editorHeight"
             :options="options"
@@ -100,9 +94,14 @@
             language="javascript"
             @mounted="onMounted"
             @codeChange="onCodeChange" />
-
+        </div>
+        <div class="mt2 h-100 flex-auto">
+          <div v-if="solution" class="mb2">
+            <span v-if="viewSolution" @click="toggleSolution" class="textLink"><span class="chevron up" />Hide Solution</span>
+            <span v-else @click="toggleSolution" class="textLink"><span class="chevron down" />View Solution</span>
+          </div>
           <MonacoEditor v-show="viewSolution"
-            class="editor mt3"
+            class="editor"
             srcPath="."
             :height="editorHeight"
             :options="Object.assign({}, { readOnly: true }, options)"
@@ -111,7 +110,7 @@
             language="javascript" />
         </div>
         <div class='flex-none'>
-          <div class="pv2">
+          <div class="pt2">
             <div v-if="output.test && cachedCode" v-bind="output.test">
               <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
                 Error: {{output.test.error.message}}
@@ -135,7 +134,7 @@
                 </highlight-code>
               </div>
             </div>
-            <div class="lh-copy pv2 ph3" v-else>
+            <div class="pt2 lh-copy" v-else>
               <div v-if="isFileLesson">
                 Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
               </div>
@@ -144,7 +143,7 @@
               </div>
             </div>
           </div>
-          <div class="pt3 ph2 tr">
+          <div class="pt2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
               <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
             </div>
@@ -504,7 +503,6 @@ button:disabled {
 span.textLink {
   color: blue;
   cursor: pointer;
-  text-decoration: underline;
 }
 
 footer a {
@@ -527,6 +525,25 @@ div.dropfile input {
 
 div#drop-area * {
   pointer-events: none;
+}
+
+.chevron {
+  width: 7px;
+  height: 7px;
+  margin-right: 5px;
+  border: solid blue;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+}
+
+.chevron.up {
+  margin-bottom: -1px;
+  transform: rotate(225deg);
+}
+
+.chevron.down {
+  margin-bottom: 3px;
+  transform: rotate(45deg);
 }
 </style>
 
