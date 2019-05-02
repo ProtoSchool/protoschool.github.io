@@ -17,40 +17,82 @@ import exercise from './07-exercise.md'
 
 const validate = async (result, ipfs) => {
 
+  let ipfsFiles = await ipfs.files.ls('/', { long: true })
+  let log = JSON.stringify(ipfsFiles, null, 2)
+
   console.log('Here\'s what `files.ls` revealed in your directory:')
   console.log(result)
 
-  let expected = await ipfs.files.ls('/', {long: true})
-  let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
+  //let returnedArray = await ipfs.files.ls('/', {long: true})
+// let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
 
-  // confirm right files were added to IPFS (should be unless they tweaked defalt code)
+
+  // correct directory hash
+  const someStuffHash = 'QmVneuc3suf78aVdvFY3BW9HoiEfNxD7WB5zu1f9fbun3D' // /some/stuff/
+
+  // common incorrect directory hashes
+  const emptySomeHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // /some/
+  const emptyStuffHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // /stuff/
+  const stuffSomeHash = 'QmXHDGVf4VnHws1tNyEcyVKjHrtv927xceAG9RmBWMw8cf' // /stuff/some/
+
+  // check whether array contains certain directory hash & certain directory name
+  function contains(certainHash, certainName) {
+   return result.some(file => (file.hash === certainHash) && (file.name === certainName))
+  }
+  console.log('CORRECT contains(someStuffHash, "some"): ', contains(someStuffHash, 'some'))
+  console.log('WRONG contains(emptySomeHash, "some"): ', contains(emptySomeHash, 'some'))
+  console.log('WRONG contains(emptyStuffHash, "stuff"): ', contains(emptyStuffHash, 'stuff'))
+  console.log('WRONG contains(stuffSomeHash, "stuff"): ', contains(stuffSomeHash, 'stuff'))
+
+
+  // expected filenames
   let uploadedFiles = window.uploadedFiles || false
-  let uploadedFilenames = uploadedFiles.map( file => file.name.toString() ).sort()
-  let ipfsFilenames = expected.map( file => file.name.toString() ).sort()
-  let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
-  let itemsAreFiles = expected.every(file => file.type === 0)
-  let rightFilesUploaded = itemsMatch && itemsAreFiles
+  if (uploadedFiles) {
+    console.log('uploaded files: ', uploadedFiles)
+    let expected = uploadedFiles.map( file => file.name.toString() )
+    console.log('expected: ', expected)
+    console.log(Array.isArray(expected))
+    expected.push('some')
+    console.log(expected)
+    let expectedSorted = expected.sort()
+    console.log(expectedSorted)
+  } else {
+    console.log('no files uploaded')
+  }
+
+  //let ipfsFilenames = expected.map( file => { file.name.toString() ).sort()
+//  let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
+//  let itemsAreFiles = expected.every(file => file.type === 0)
+//  let rightFilesUploaded = itemsMatch && itemsAreFiles
 
   if (!result) {
-    return {'fail': 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
+    return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
   } else if (uploadedFiles = false) {
     // shouldn't happen because you can't hit submit without uploading files
-    return {'fail': 'Oops! You forgot to upload files to work with :('}
-  } else if (expected.length === 0) {
+    return {fail: 'Oops! You forgot to upload files to work with :('}
+  //} else if (expected.length === 0) {
     // if no files are written to IPFS because they change the default code
-    return {'fail': 'Uh oh. Looks like no files made it into IPFS. Did you accidentally edit the default `write` code?'}
-  } else if (!itemsAreFiles) {
-    // if they forget the file name and just use a directory as the path
-    // shouldn't happen unless they mess with default code
-    return {'fail': 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?'}
-  } else if (!rightFilesUploaded) {
-    return {'fail': 'Uh oh. Your files weren\'t added to IPFS correctly. Did you accidentally edit the default `write` code?'}
+//    return {fail: 'Uh oh. Looks like no files made it into IPFS. Did you accidentally edit the default `write` code?'}
   } else if (result[0].hash.length === 0) {
-    return {'fail': 'Oops! Looks like you forgot to use the {long: true} option! Open your console to see what happened.'}
-  } else if (directoryContentsMatch) {
-    return {'success': 'Success! Open your console to see the data returned by the `ls` method.'}
+    return {fail: 'Oops! Looks like you forgot to use the {long: true} option! Open your console to see what happened.'}
+  } else if (contains(emptySomeHash, 'some')) {
+    return { fail: 'Uh oh. Looks like you created /some instead of /some/stuff.' }
+  } else if (contains(stuffSomeHash, 'stuff')) {
+    return { fail: 'Uh oh. Looks like you created /stuff/some instead of /some/stuff.' }
+  } else if (contains(emptyStuffHash, 'stuff')) {
+    return { fail: 'Uh oh. Looks like you created /stuff instead of /some/stuff.' }
+// } else if (result && result.error.message === 'file does not exist') {
+//    return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use { parents: true}?'}
+  } else if (!contains(someStuffHash, 'some')) {
+    return { fail: 'Uh oh. Looks like your directory doesn\'t contain an empty /some/stuff/ directory' }
+  } else if (contains(someStuffHash, 'some')){
+    return {
+      success: 'Success! Open your console to see the data returned by the `ls` method.',
+      logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of 1 while files have a type of 0.",
+      log: log
+      }
   } else {
-    return {'fail': 'Something we haven\'t anticipated is wrong. :('}
+    return {fail: 'Something we haven\'t anticipated is wrong. :('}
   }
 }
 
