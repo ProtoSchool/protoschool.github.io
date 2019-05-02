@@ -96,9 +96,9 @@
             @codeChange="onCodeChange" />
         </div>
         <div class="mt2 h-100 flex-auto">
-          <div v-if="solution" class="mb2">
-            <span v-if="viewSolution" @click="toggleSolution" class="textLink"><span class="chevron up" />Hide Solution</span>
-            <span v-else @click="toggleSolution" class="textLink"><span class="chevron down" />View Solution</span>
+          <div v-if="solution" class="mb2 ml3">
+            <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
+            <span v-else @click="toggleSolution" class="textLink chevron right">View Solution</span>
           </div>
           <MonacoEditor v-show="viewSolution"
             class="editor"
@@ -528,22 +528,34 @@ div#drop-area * {
 }
 
 .chevron {
-  width: 7px;
-  height: 7px;
+  position: relative;
+}
+
+.chevron.down::before {
+  content: '';
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-color: blue transparent transparent transparent ;
+  border-style: solid;
+  border-width: 5px 5px 5px 5px;
+  margin-top: 8px;
   margin-right: 5px;
-  border: solid blue;
-  border-width: 0 1px 1px 0;
-  display: inline-block;
 }
 
-.chevron.up {
-  margin-bottom: -1px;
-  transform: rotate(225deg);
-}
-
-.chevron.down {
-  margin-bottom: 3px;
-  transform: rotate(45deg);
+.chevron.right::before {
+  content: '';
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-color: transparent transparent transparent blue;
+  border-style: solid;
+  border-width:  5px 5px 5px;
+  margin-top: 5px;
 }
 </style>
 
