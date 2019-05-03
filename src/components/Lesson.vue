@@ -82,13 +82,10 @@
             </div>
           </div>
         </div>
-        <div class="mb2">
-          <span v-if="solution" @click="viewSolution" class="ml1 fl textLink" data-cy="view-solution">View Solution</span>
-          <span v-if="cachedCode" @click="resetCode" class="mr1 fr textLink" data-cy="reset-code">Reset Code</span>
-        </div>
-        <div class="h-100 flex-auto bg-white" v-bind:data-cy="editorReady ? 'editor-ready' : undefined ">
+        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'editor-ready' : undefined">
+          <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
           <MonacoEditor
-            class="editor"
+            class="editor mt2"
             srcPath="."
             :height="editorHeight"
             :options="options"
@@ -96,11 +93,24 @@
             theme="vs"
             language="javascript"
             @mounted="onMounted"
-            @codeChange="onCodeChange">
-          </MonacoEditor>
+            @codeChange="onCodeChange" />
+        </div>
+        <div class="mt2 h-100 flex-auto">
+          <div v-if="solution" class="mb2 ml3">
+            <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
+            <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
+          </div>
+          <MonacoEditor v-show="viewSolution"
+            class="editor"
+            srcPath="."
+            :height="editorHeight"
+            :options="Object.assign({}, { readOnly: true }, options)"
+            :code="solution"
+            theme="vs-dark"
+            language="javascript" />
         </div>
         <div class='flex-none'>
-          <div class="pv2">
+          <div class="pt2">
             <div v-if="output.test && cachedCode" v-bind="output.test">
               <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error" data-cy="test-error">
                 Error: {{output.test.error.message}}
@@ -111,7 +121,7 @@
               <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed" data-cy="test-success">
                 {{output.test.success}}
                 <a v-if="output.test.cid"
-                class="link fw7 underline-hover dib ph2 mh2 white"  target='explore-ipld' :href='exploreIpldUrl'>
+                class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
                   View in IPLD Explorer
                 </a>
               </div>
@@ -124,7 +134,7 @@
                 </highlight-code>
               </div>
             </div>
-            <div class="lh-copy pv2 ph3" v-else>
+            <div class="pt2 lh-copy" v-else>
               <div v-if="isFileLesson">
                 Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
               </div>
@@ -133,7 +143,7 @@
               </div>
             </div>
           </div>
-          <div class="pt3 ph2 tr">
+          <div class="pt2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
               <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
             </div>
@@ -152,7 +162,7 @@
           </div>
         </div>
       </section>
-      <section v-else >
+      <section v-else>
         <div class="pt3 ph2 tr mb3">
           <div v-if="lessonNumber === lessonsInWorkshop">
             <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
@@ -244,6 +254,7 @@ export default {
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
+      viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
@@ -377,12 +388,8 @@ export default {
         delete this.output.test.log
       }
     },
-    viewSolution: function () {
-      // TRACK? User chose to view solution
-      this.editor.setValue(this.$attrs.solution)
-      if (this.output.test) {
-        delete this.output.test
-      }
+    toggleSolution: function () {
+      this.viewSolution = !this.viewSolution
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
@@ -500,7 +507,6 @@ button:disabled {
 span.textLink {
   color: blue;
   cursor: pointer;
-  text-decoration: underline;
 }
 
 footer a {
@@ -523,6 +529,37 @@ div.dropfile input {
 
 div#drop-area * {
   pointer-events: none;
+}
+
+.chevron {
+  position: relative;
+}
+
+.chevron.down::before {
+  content: '';
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-color: blue transparent transparent transparent ;
+  border-style: solid;
+  border-width: 5px 5px 5px 5px;
+  margin-top: 8px;
+  margin-right: 5px;
+}
+
+.chevron.right::before {
+  content: '';
+  height: 0px;
+  width: 0px;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-color: transparent transparent transparent blue;
+  border-style: solid;
+  border-width:  5px 5px 5px;
+  margin-top: 5px;
 }
 </style>
 
