@@ -64,7 +64,9 @@ const validate = async (result, ipfs) => {
 const code = `const run = async (files) => {
   // this code adds your uploaded files to IPFS
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
+
   let rootDirectoryContents = // your code goes here
+
   return rootDirectoryContents
 }
 return run

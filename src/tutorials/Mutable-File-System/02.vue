@@ -36,7 +36,9 @@ const validate = async (result, ipfs) => {
 
 const code = `/* global ipfs */
   const run = async () => {
-    // Your code goes here
+
+    // your code goes here
+    
 }
 return run
 `

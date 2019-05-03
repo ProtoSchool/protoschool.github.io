@@ -55,7 +55,9 @@ const validate = async (result, ipfs) => {
 
 const code = `const run = async (files) => {
   for (let file of files) {
+
     // your code to add one file to MFS goes here
+    
   }
 }
 return run

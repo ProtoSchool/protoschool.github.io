@@ -58,7 +58,9 @@ const code = `/* global ipfs */
     // this code adds your uploaded files to IPFS
     await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
     let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+
     let directoryStatus = // your code goes here
+
     return directoryStatus
   }
   return run
