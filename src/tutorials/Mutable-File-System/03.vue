@@ -23,7 +23,7 @@ const validate = async (result, ipfs) => {
     const fileCount = result.length > 1 ? `${result.length} files` : '1 file'
     return {
       success: `You successfully uploaded ${fileCount}!`,
-      logDesc: `Check out the data below to see the data now accessible in the "files" array.`,
+      logDesc: `Check out the data below to see the data now accessible in the "files" array. Note that these files are only in the browser right now. In the next lesson we'll see how to add them to IPFS.`,
       log: logFiles(result)
     }
   } else {
