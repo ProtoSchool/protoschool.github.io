@@ -5,6 +5,7 @@
             :modules="modules"
             :exercise="exercise"
             :solution="solution"
+            :overrideErrors="true"
             lessonTitle="Create a directory">
     </FileLesson>
   </div>
@@ -20,30 +21,40 @@ const validate = async (result, ipfs) => {
   let ipfsFiles = await ipfs.files.ls('/', { long: true })
   let log = JSON.stringify(ipfsFiles, null, 2)
 
-  console.log('Here\'s what `files.ls` revealed in your directory:')
-  console.log(result)
 
-  //let returnedArray = await ipfs.files.ls('/', {long: true})
+  console.log("result: ", result)
+
+  console.log("result.error: ", result.error)
+  if (result.error) {
+    console.log("result.error.message: ", result.error.message)
+  }
+
+  // let returnedArray = await ipfs.files.ls('/', {long: true})
 // let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
 
+  /***** CHECK FOR CORRECT DIRECTORY ******/
 
   // correct directory hash
   const someStuffHash = 'QmVneuc3suf78aVdvFY3BW9HoiEfNxD7WB5zu1f9fbun3D' // /some/stuff/
 
   // common incorrect directory hashes
-  const emptySomeHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // /some/
-  const emptyStuffHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // /stuff/
+  const emptyDirectoryHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // empty /some/ OR /stuff/ directory
   const stuffSomeHash = 'QmXHDGVf4VnHws1tNyEcyVKjHrtv927xceAG9RmBWMw8cf' // /stuff/some/
 
   // check whether array contains certain directory hash & certain directory name
   function contains(certainHash, certainName) {
-   return result.some(file => (file.hash === certainHash) && (file.name === certainName))
+    if (!result.error) {
+      return result.some(file => (file.hash === certainHash) && (file.name === certainName))
+    }
   }
+
   console.log('CORRECT contains(someStuffHash, "some"): ', contains(someStuffHash, 'some'))
-  console.log('WRONG contains(emptySomeHash, "some"): ', contains(emptySomeHash, 'some'))
-  console.log('WRONG contains(emptyStuffHash, "stuff"): ', contains(emptyStuffHash, 'stuff'))
+  console.log('WRONG contains(emptyDirectoryHash, "some"): ', contains(emptyDirectoryHash, 'some'))
+  console.log('WRONG contains(emptyDirectoryHash, "stuff"): ', contains(emptyDirectoryHash, 'stuff'))
   console.log('WRONG contains(stuffSomeHash, "stuff"): ', contains(stuffSomeHash, 'stuff'))
 
+
+  /****** CHECK FOR CORRECT FILENAMES *****/
 
   // expected filenames
   let uploadedFiles = window.uploadedFiles || false
@@ -67,6 +78,9 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
+  } else if (result && result.error && result.error.message === 'file does not exist') {
+    // user forgot to use {parents: true} option so path isn't found
+    return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the \{ parents: true \} option?'}
   } else if (uploadedFiles = false) {
     // shouldn't happen because you can't hit submit without uploading files
     return {fail: 'Oops! You forgot to upload files to work with :('}
@@ -75,19 +89,18 @@ const validate = async (result, ipfs) => {
 //    return {fail: 'Uh oh. Looks like no files made it into IPFS. Did you accidentally edit the default `write` code?'}
   } else if (result[0].hash.length === 0) {
     return {fail: 'Oops! Looks like you forgot to use the {long: true} option! Open your console to see what happened.'}
-  } else if (contains(emptySomeHash, 'some')) {
+  } else if (contains(emptyDirectoryHash, 'some')) {
     return { fail: 'Uh oh. Looks like you created /some instead of /some/stuff.' }
   } else if (contains(stuffSomeHash, 'stuff')) {
     return { fail: 'Uh oh. Looks like you created /stuff/some instead of /some/stuff.' }
-  } else if (contains(emptyStuffHash, 'stuff')) {
+  } else if (contains(emptyDirectoryHash, 'stuff')) {
     return { fail: 'Uh oh. Looks like you created /stuff instead of /some/stuff.' }
-// } else if (result && result.error.message === 'file does not exist') {
-//    return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use { parents: true}?'}
+
   } else if (!contains(someStuffHash, 'some')) {
     return { fail: 'Uh oh. Looks like your directory doesn\'t contain an empty /some/stuff/ directory' }
   } else if (contains(someStuffHash, 'some')){
     return {
-      success: 'Success! Open your console to see the data returned by the `ls` method.',
+      success: 'Success! Check out your directory contents below.',
       logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of 1 while files have a type of 0.",
       log: log
       }
