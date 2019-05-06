@@ -36,13 +36,13 @@
               <button
                 v-if="expandExercise"
                 title="go smol"
-                v-on:click="toggleExpandExercise"
+                @click="toggleExpandExercise"
                 class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
               </button>
               <button
                 v-else
-                v-on:click="toggleExpandExercise"
+                @click="toggleExpandExercise"
                 title='embiggen the exercise'
                 class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
@@ -55,10 +55,9 @@
             <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
               <span class="pl1"><img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
-              <div id="drop-area" v-if="!uploadedFiles" v-on:drop="onFileDrop"
-                v-on:click="onFileClick"
-                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false"
-                @dragover.prevent v-bind:class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
+              <div id="drop-area" v-if="!uploadedFiles" @click="onFileClick" @drop="onFileDrop"
+                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" @dragover.prevent
+                :class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
                 <div class="o-80 glow">
                   <label for="add-files" class="flex items-center h4 pointer">
                     <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
@@ -82,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'editor-ready' : undefined">
+        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
           <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
           <MonacoEditor
             class="editor mt2"
@@ -95,12 +94,13 @@
             @mounted="onMounted"
             @codeChange="onCodeChange" />
         </div>
-        <div class="mt2 h-100 flex-auto">
+        <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
           <div v-if="solution" class="mb2 ml3">
             <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
             <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
           </div>
-          <MonacoEditor v-show="viewSolution"
+          <MonacoEditor
+            v-show="viewSolution"
             class="editor"
             srcPath="."
             :height="editorHeight"
@@ -344,6 +344,14 @@ export default {
       let output = this.output
       let ipfs = await this.createIPFS()
       let code = this.editor.getValue()
+
+      // https://docs.cypress.io/faq/questions/using-cypress-faq.html#Is-there-any-way-to-detect-if-my-app-is-running-under-Cypress
+      // If the app is running under Cypress we want to change to inject
+      // the solution into code to submit and check if it passes
+      if (window.Cypress) {
+        code = this.solution
+      }
+
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
