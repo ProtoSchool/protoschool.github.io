@@ -59,30 +59,51 @@ const validate = async (result, ipfs) => {
   /****** CHECK FOR CORRECT FILENAMES *****/
 
   // expected filenames
-  let resultSorted = result.map( file => file.name.toString() ).sort()
-  let uploadedFiles = window.uploadedFiles || false
-  let expectedSorted = null
-  let contentsMatch = null
-  if (uploadedFiles) {
-    let expected = uploadedFiles.map( file => file.name.toString() )
-    expected.push('some')
-    expectedSorted = expected.sort()
-    contentsMatch = JSON.stringify(resultSorted) === JSON.stringify(expectedSorted)
+  if (Array.isArray(result)) {
+    let resultSorted = result.map( file => file.name.toString() ).sort()
+    let uploadedFiles = window.uploadedFiles || false
+    let expectedSorted = null
+    let contentsMatch = null
+    if (uploadedFiles) {
+      let expected = uploadedFiles.map( file => file.name.toString() )
+      expected.push('some')
+      expectedSorted = expected.sort()
+      contentsMatch = JSON.stringify(resultSorted) === JSON.stringify(expectedSorted)
+    } else {
+      console.log('no files uploaded')
+    }
+
+    let resultSomeItemIsFile = result.some(file => file.type === 0)
+    console.log('resultSomeItemIsFile: ', resultSomeItemIsFile)
+    let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 0)
+    console.log('rootSomeItemIsFile: ', rootSomeItemIsFile)
+
+
   } else {
-    console.log('no files uploaded')
+    console.log("result isn't an array" )
   }
 
-  let resultSomeItemIsFile = result.some(file => file.type === 0)
-  console.log('resultSomeItemIsFile: ', resultSomeItemIsFile)
-  let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 0)
-    console.log('rootSomeItemIsFile: ', rootSomeItemIsFile)
 
   /****** DISPLAY FAILURE/SUCCESS MESSAGES *****/
 
   if (!result) {
     return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
   } else if (!listedRoot){
-    return { fail: 'Looks like you edited the `ls` code to list something other than the root directory. Please hit "Reset Code" and try again, editing only the section of code indicated.' }
+    // user edited the ls line to show something other than root directory, which will also cause most later checks to fail
+    let returnedDirectoryMsg = ""
+    if (listedSome) {
+      returnedDirectoryMsg = " in your `/some` directory"
+    } else if (listedSomeStuff) {
+      returnedDirectoryMsg = " in your `/some/stuff` directory"
+    } else {
+      console.log("some other directory")
+      returnedDirectoryMsg = ""
+    }
+    return {
+      fail: 'Looks like you edited the `ls` code to list something other than the root directory. Please try again, editing only the section of code indicated.',
+      logDesc: 'Here\'s what your `ls` command shows' + returnedDirectoryMsg + ':',
+      log: logResult
+   }
   } else if (result && result.error && result.error.message === 'file does not exist') {
     // user forgot to use {parents: true} option so path isn't found
     return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the {parents: true} option?' }
