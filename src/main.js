@@ -4,7 +4,7 @@ import 'ipfs-css'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueHighlightJS from 'vue-highlightjs'
+import VueHighlightJS from 'vue-highlight.js'
 import App from './App.vue'
 // Pages
 import Home from './pages/Home.vue'
