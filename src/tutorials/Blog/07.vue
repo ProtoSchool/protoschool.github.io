@@ -63,12 +63,12 @@ const run = async () => {
 return run`
 
 const validate = async (result, ipfs) => {
-  if (!result) {
-    return { fail: 'You forgot to return a result :)' }
-  }
 
+  if (!result) {
+    return { fail: 'No result was returned. Did you forget to return a result from your traversePosts function? Or perhaps you accidentally edited the run function?' }
+  }
   if (!Array.isArray(result)) {
-    return { fail: 'Return value needs to be an array.' }
+    return { fail: 'The return value of your traversePosts function needs to be an array.' }
   }
 
   const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
@@ -77,17 +77,17 @@ const validate = async (result, ipfs) => {
 
   try {
     if (result.length !== 3 || result === undefined) {
-      return { fail: 'Your function needs to return 3 CIDs.' }
+      return { fail: 'Your traversePosts function needs to return 3 CIDs' }
     }
     const isCids = result.every(CID.isCID)
     if (!isCids) {
-      return { fail: 'Your function needs to return CIDs.' }
+      return { fail: 'Your traversePosts function needs to return CIDs.' }
     }
     const expectedCids = [treePostCid, computerPostCid, dogPostCid]
     const returnedCids = result.map(item => item.toBaseEncodedString())
     if (!shallowEqualArrays(returnedCids.sort(), expectedCids.sort())) {
       return {
-        fail: 'The CIDs returned by the function did not match the expected CIDs.',
+        fail: 'The CIDs returned by the traversePosts function did not match the expected CIDs.',
         log: {
           returnedCids: returnedCids,
           expectedCids: expectedCids
