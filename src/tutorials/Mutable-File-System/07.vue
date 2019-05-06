@@ -18,13 +18,32 @@ import exercise from './07-exercise.md'
 
 const validate = async (result, ipfs) => {
 
-  let ipfsFiles = await ipfs.files.ls('/', { long: true })
-  let log = JSON.stringify(ipfsFiles, null, 2)
+  let stringifiedResult = JSON.stringify(result, null, 2)
+
+  /***** CHECK FOR DOING LS ON SOMETHING OTHER THAN ROOT ******/
+
+  let ipfsFilesInRoot = await ipfs.files.ls('/', { long: true })
+  let listedRoot = stringifiedResult === JSON.stringify(ipfsFilesInRoot, null, 2)
+  console.log('listedRoot: ', listedRoot)
+
+  let ipfsFilesInSome = await ipfs.files.ls('/some', { long: true })
+  let listedSome = stringifiedResult === JSON.stringify(ipfsFilesInSome, null, 2)
+  console.log('listedSome: ', listedSome)
+
+  let ipfsFilesInSomeStuff = await ipfs.files.ls('/some/stuff', { long: true })
+  let listedSomeStuff = stringifiedResult === JSON.stringify(ipfsFilesInSomeStuff, null, 2)
+  console.log('listedSomeStuff: ', listedSomeStuff)
+
+
+  /***** OFFER STRING VALUES FOR LOGGING IN UI  ******/
+
+  let logRoot = JSON.stringify(ipfsFilesInRoot, null, 2)
+  let logResult = JSON.stringify(result, null, 2)
 
   /***** CHECK FOR CORRECT /SOME/STUFF DIRECTORY ******/
 
   // correct directory hash
-  const someStuffHash = 'QmVneuc3suf78aVdvFY3BW9HoiEfNxD7WB5zu1f9fbun3D' // /some/stuff/
+  const someStuff3 = 'QmVneuc3suf78aVdvFY3BW9HoiEfNxD7WB5zu1f9fbun3D' // /some/stuff/
 
   // common incorrect directory hashes
   const emptyDirectoryHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // empty /some/ OR /stuff/ directory
@@ -53,31 +72,36 @@ const validate = async (result, ipfs) => {
     console.log('no files uploaded')
   }
 
-  let someItemIsFile = result.some(file => file.type === 0)
+  let resultSomeItemIsFile = result.some(file => file.type === 0)
+  console.log('resultSomeItemIsFile: ', resultSomeItemIsFile)
+  let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 0)
+    console.log('rootSomeItemIsFile: ', rootSomeItemIsFile)
 
   /****** DISPLAY FAILURE/SUCCESS MESSAGES *****/
 
   if (!result) {
     return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
+  } else if (!listedRoot){
+    return { fail: 'Looks like you edited the `ls` code to list something other than the root directory. Please hit "Reset Code" and try again, editing only the section of code indicated.' }
   } else if (result && result.error && result.error.message === 'file does not exist') {
     // user forgot to use {parents: true} option so path isn't found
-    return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the {parents: true} option?'}
+    return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the {parents: true} option?' }
   } else if (uploadedFiles = false) {
     // shouldn't happen because you can't hit submit without uploading files
     return {fail: 'Oops! You forgot to upload files to work with :('}
-  } else if (!someItemIsFile) {
+  } else if (!rootSomeItemIsFile) {
     // no files written to IPFS because user changed default code to remove write command
     return {
       fail: 'Uh oh. Looks like no files made it into IPFS. Did you accidentally edit the default `write` code?',
       logDesc: "Here's what's in your root directory:",
-      log: log
+      log: logRoot
     }
   } else if (result[0].hash.length === 0) {
     // user edited the ls command to remove {long: true}
     return {
       fail: 'Oops! Looks like you edited the `ls` command and forgot to use the {long: true} option. Check out the results below, then try again without touching that part of the code.',
       logDesc: "Here's what happened when you forgot to use {long: true}:",
-      log: log
+      log: logRoot
       }
   } else if (contains(stuffSomeHash, 'stuff')) {
     // created /stuff/some instead of /some/stuff
@@ -96,14 +120,14 @@ const validate = async (result, ipfs) => {
     return {
       fail: 'Hmmm. You created a `/some/stuff` directory but something else is wrong. Did you accidentally edit the default `write` code so your other files weren\'t all added?',
       logDesc: "Here's what was returned by `ls` in your root directory.",
-      log: log
+      log: logRoot
       }
   } else if (contains(someStuffHash, 'some') && contentsMatch){
     // filenames match and created empty some/stuff
     return {
       success: 'Success! Check out your directory contents below.',
       logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of 1 while files have a type of 0.",
-      log: log
+      log: logRoot
       }
   } else {
     return {fail: 'Something we haven\'t anticipated is wrong. :('}
