@@ -21,17 +21,6 @@ const validate = async (result, ipfs) => {
   let ipfsFiles = await ipfs.files.ls('/', { long: true })
   let log = JSON.stringify(ipfsFiles, null, 2)
 
-
-  console.log("result: ", result)
-
-  console.log("result.error: ", result.error)
-  if (result.error) {
-    console.log("result.error.message: ", result.error.message)
-  }
-
-  // let returnedArray = await ipfs.files.ls('/', {long: true})
-// let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
-
   /***** CHECK FOR CORRECT /SOME/STUFF DIRECTORY ******/
 
   // correct directory hash
@@ -56,25 +45,17 @@ const validate = async (result, ipfs) => {
   let expectedSorted = null
   let contentsMatch = null
   if (uploadedFiles) {
-    console.log('uploaded files: ', uploadedFiles)
     let expected = uploadedFiles.map( file => file.name.toString() )
-    console.log('expected: ', expected)
-    console.log(Array.isArray(expected))
     expected.push('some')
-    console.log("expected: ", expected)
     expectedSorted = expected.sort()
-    console.log("expectedSorted: ", expectedSorted)
     contentsMatch = JSON.stringify(resultSorted) === JSON.stringify(expectedSorted)
-    console.log("contentsMatch: ", contentsMatch)
   } else {
     console.log('no files uploaded')
   }
 
+  let someItemIsFile = result.some(file => file.type === 0)
 
-  //let ipfsFilenames = expected.map( file => { file.name.toString() ).sort()
-//  let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
-    let someItemIsFile = result.some(file => file.type === 0)
-//  let rightFilesUploaded = itemsMatch && itemsAreFiles
+  /****** DISPLAY FAILURE/SUCCESS MESSAGES *****/
 
   if (!result) {
     return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
@@ -140,7 +121,6 @@ const code = `const run = async (files) => {
 }
 return run
 `
-// '/' in the solution code below is optional
 
 const solution = `const run = async (files) => {
   // this code adds your uploaded files to your root directory in IPFS
