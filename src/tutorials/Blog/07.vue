@@ -6,6 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
+    :overrideErrors="true"
     lessonTitle="Traverse through all posts, starting with the most recent" />
 </template>
 
@@ -67,6 +68,15 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'No result was returned. Did you forget to return a result from your traversePosts function? Or perhaps you accidentally edited the run function?' }
   }
+
+  if (result.error && result.error.message === `Cannot read property 'prev' of undefined`) {
+    return {fail: `Cannot read property 'prev' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?`}
+  }
+
+  if (result.error && result.error.message === `Cannot read property 'value' of undefined`) {
+    return {fail: `Cannot read property 'value' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?`}
+  }
+
   if (!Array.isArray(result)) {
     return { fail: 'The return value of your traversePosts function needs to be an array.' }
   }
