@@ -51,8 +51,10 @@ const validate = async (result, ipfs) => {
   /****** CHECK FOR CORRECT FILENAMES *****/
 
   // expected filenames
+  let resultSorted = result.map( file => file.name.toString() ).sort()
   let uploadedFiles = window.uploadedFiles || false
   let expectedSorted = null
+  let contentsMatch = null
   if (uploadedFiles) {
     console.log('uploaded files: ', uploadedFiles)
     let expected = uploadedFiles.map( file => file.name.toString() )
@@ -62,9 +64,12 @@ const validate = async (result, ipfs) => {
     console.log("expected: ", expected)
     expectedSorted = expected.sort()
     console.log("expectedSorted: ", expectedSorted)
+    contentsMatch = JSON.stringify(resultSorted) === JSON.stringify(expectedSorted)
+    console.log("contentsMatch: ", contentsMatch)
   } else {
     console.log('no files uploaded')
   }
+
 
   //let ipfsFilenames = expected.map( file => { file.name.toString() ).sort()
 //  let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
@@ -93,15 +98,27 @@ const validate = async (result, ipfs) => {
       logDesc: "Here's what happened when you forgot to use {long: true}:",
       log: log
       }
-  } else if (contains(emptyDirectoryHash, 'some')) {
-    return { fail: 'Uh oh. Looks like you created /some instead of /some/stuff.' }
   } else if (contains(stuffSomeHash, 'stuff')) {
+    // created /stuff/some instead of /some/stuff
     return { fail: 'Uh oh. Looks like you created /stuff/some instead of /some/stuff.' }
   } else if (contains(emptyDirectoryHash, 'stuff')) {
+    // created /stuff instead of /some/stuff.
     return { fail: 'Uh oh. Looks like you created /stuff instead of /some/stuff.' }
+  } else if (contains(emptyDirectoryHash, 'some')) {
+    // created /some instead of /some/stuff
+    return { fail: 'Uh oh. Looks like you created /some instead of /some/stuff.' }
   } else if (!contains(someStuffHash, 'some')) {
+    // didn't create empty some/stuff
     return { fail: 'Uh oh. Looks like your directory doesn\'t contain an empty /some/stuff/ directory' }
-  } else if (contains(someStuffHash, 'some')){
+  } else if (contains(someStuffHash, 'some') && !contentsMatch){
+    // created empty /some/stuff but other files are wrong (messed up write method)
+    return {
+      fail: 'Hmmm. You created a `/some/stuff` directory but something else is wrong. Did you accidentally edit the default `write` code so your other files weren\'t all added?',
+      logDesc: "Here's what was returned by `ls` in your root directory.",
+      log: log
+      }
+  } else if (contains(someStuffHash, 'some') && contentsMatch){
+    // filenames match and created empty some/stuff
     return {
       success: 'Success! Check out your directory contents below.',
       logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of 1 while files have a type of 0.",
