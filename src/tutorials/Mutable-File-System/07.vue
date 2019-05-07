@@ -18,21 +18,29 @@ import exercise from './07-exercise.md'
 
 const validate = async (result, ipfs) => {
 
+  console.log('result: ', result)
+  if (result.error) {
+    console.log('result.error: ', result.error)
+    console.log('result.error.message: ', result.error.message)
+  }
+
   let stringifiedResult = JSON.stringify(result, null, 2)
 
   /***** CHECK FOR DOING LS ON SOMETHING OTHER THAN ROOT ******/
 
   let ipfsFilesInRoot = await ipfs.files.ls('/', { long: true })
   let listedRoot = stringifiedResult === JSON.stringify(ipfsFilesInRoot, null, 2)
-  console.log('listedRoot: ', listedRoot)
+  // console.log('listedRoot: ', listedRoot)
+  let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 0)
+  // console.log('rootSomeItemIsFile: ', rootSomeItemIsFile)
 
   let ipfsFilesInSome = await ipfs.files.ls('/some', { long: true })
   let listedSome = stringifiedResult === JSON.stringify(ipfsFilesInSome, null, 2)
-  console.log('listedSome: ', listedSome)
+  // console.log('listedSome: ', listedSome)
 
   let ipfsFilesInSomeStuff = await ipfs.files.ls('/some/stuff', { long: true })
   let listedSomeStuff = stringifiedResult === JSON.stringify(ipfsFilesInSomeStuff, null, 2)
-  console.log('listedSomeStuff: ', listedSomeStuff)
+  // console.log('listedSomeStuff: ', listedSomeStuff)
 
 
   /***** OFFER STRING VALUES FOR LOGGING IN UI  ******/
@@ -58,12 +66,14 @@ const validate = async (result, ipfs) => {
 
   /****** CHECK FOR CORRECT FILENAMES *****/
 
+  let uploadedFiles = window.uploadedFiles || false
+  let resultSorted = null
+  let expectedSorted = null
+  let contentsMatch = null
   // expected filenames
   if (Array.isArray(result)) {
-    let resultSorted = result.map( file => file.name.toString() ).sort()
-    let uploadedFiles = window.uploadedFiles || false
-    let expectedSorted = null
-    let contentsMatch = null
+    // console.log('result is array')
+    resultSorted = result.map( file => file.name.toString() ).sort()
     if (uploadedFiles) {
       let expected = uploadedFiles.map( file => file.name.toString() )
       expected.push('some')
@@ -72,16 +82,12 @@ const validate = async (result, ipfs) => {
     } else {
       console.log('no files uploaded')
     }
-
     let resultSomeItemIsFile = result.some(file => file.type === 0)
-    console.log('resultSomeItemIsFile: ', resultSomeItemIsFile)
-    let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 0)
-    console.log('rootSomeItemIsFile: ', rootSomeItemIsFile)
-
-
+    // console.log('resultSomeItemIsFile: ', resultSomeItemIsFile)
   } else {
     console.log("result isn't an array" )
   }
+
 
 
   /****** DISPLAY FAILURE/SUCCESS MESSAGES *****/
@@ -96,7 +102,7 @@ const validate = async (result, ipfs) => {
     } else if (listedSomeStuff) {
       returnedDirectoryMsg = " in your `/some/stuff` directory"
     } else {
-      console.log("some other directory")
+    //  console.log("some other directory")
       returnedDirectoryMsg = ""
     }
     return {
@@ -104,10 +110,10 @@ const validate = async (result, ipfs) => {
       logDesc: 'Here\'s what your `ls` command shows' + returnedDirectoryMsg + ':',
       log: logResult
    }
-  } else if (result && result.error && result.error.message === 'file does not exist') {
+  } else if (result.error && result.error.message === 'file does not exist') {
     // user forgot to use {parents: true} option so path isn't found
     return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the {parents: true} option?' }
-  } else if (uploadedFiles = false) {
+  } else if (uploadedFiles === false) {
     // shouldn't happen because you can't hit submit without uploading files
     return {fail: 'Oops! You forgot to upload files to work with :('}
   } else if (!rootSomeItemIsFile) {
@@ -121,7 +127,7 @@ const validate = async (result, ipfs) => {
     // user edited the ls command to remove {long: true}
     return {
       fail: 'Oops! Looks like you edited the `ls` command and forgot to use the {long: true} option. Check out the results below, then try again without touching that part of the code.',
-      logDesc: "Here's what happened when you forgot to use {long: true}:",
+      logDesc: "Here's what happened when you forgot to use `{long: true}`:",
       log: logRoot
       }
   } else if (contains(stuffSomeHash, 'stuff')) {
@@ -143,13 +149,15 @@ const validate = async (result, ipfs) => {
       logDesc: "Here's what was returned by `ls` in your root directory.",
       log: logRoot
       }
-  } else if (contains(someStuffHash, 'some') && contentsMatch){
+  } else if (contains(someStuffHash, 'some') && contentsMatch) {
     // filenames match and created empty some/stuff
     return {
       success: 'Success! Check out your directory contents below.',
       logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of 1 while files have a type of 0.",
       log: logRoot
       }
+  } else if (result.error) {
+        return { error: result.error }
   } else {
     return {fail: 'Something we haven\'t anticipated is wrong. :('}
   }
