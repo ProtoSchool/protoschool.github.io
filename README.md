@@ -64,7 +64,7 @@ Not familiar with Vue? No worries, we'll be providing the details you need to us
 
 Select the appropriate boilerplate Vue file for your lesson from the `tutorials/boilerplates` directory:
 
-- `boilerplate-standard.vue` for a lesson with a coding excercise  which does not require a file upload
+- `boilerplate-standard.vue` for a lesson with a coding exercise which does not require a file upload
 - `boilerplate-file-upload.vue` for a lesson with a coding exercise that requires a file upload
 - `boilerplate-no-exercise.vue` for a text-only lesson
 
@@ -105,7 +105,7 @@ tutorials/Tutorial-Shortname/01-exercise.md
 ```
 ##### Useful concepts text file (optional)
 
-Ocassionally you may want to add a _useful concepts_ box defining key terminology, if this can't easily be done in-line. If you'd like to do this, create another `.md` file that provides the text for that _useful concepts_ box. The name of this file should match the 2-digit lesson number used previously, with `-concepts` appended. (This step is optional.)
+Occasionally you may want to add a _useful concepts_ box defining key terminology, if this can't easily be done in-line. If you'd like to do this, create another `.md` file that provides the text for that _useful concepts_ box. The name of this file should match the 2-digit lesson number used previously, with `-concepts` appended. (This step is optional.)
 
 Example:
 
@@ -140,7 +140,7 @@ can isolate the action the user needs to take to a single step, representing the
 concept they've learned in this particular lesson.
 
 In practice, most lessons build off of previous ones, and code is repeated and
-built on between exercies. You will often need to pre-populate in your lesson the
+built on between exercises. You will often need to pre-populate in your lesson the
 correct solution to a previous lesson or lessons, so that the current exercise can
 test adding only the most recent method taught.
 
@@ -184,7 +184,7 @@ function as `result`.
 Each time the user's code is evaluated, they get a new, clean, IPFS instance.
 That instance is passed as the second argument, `ipfs`.
 
-You may want to use both the `result` and `ipfs` values when building conditional statements to evalute the success or failure of the user's code submission. If needed, check out this primer on [using conditionals in JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals).
+You may want to use both the `result` and `ipfs` values when building conditional statements to evaluate the success or failure of the user's code submission. If needed, check out this primer on [using conditionals in JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals).
 
 Your `validate` function must return an object with one of two properties: `fail` or
 `success`. Each property should be used to give a detailed message (as a string) either congratulating the user or explaining *why*
@@ -203,7 +203,7 @@ const validate = async (result, ipfs) => {
 ```
 Be sure to include conditionals that will catch common mistakes and provide useful clues.
 
-If the object returned by your `validate` function the has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
+If the object returned by your `validate` function has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
 
 If this is the last lesson in your tutorial, the user will see a "More Tutorials" button instead of a "Next" button. Please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
 
@@ -307,7 +307,7 @@ your second lesson will display the following under the lesson title:
 
 `Basics | Lesson 2 of 3`
 
-If you add 5 lesssons with the following routes:
+If you add 5 lessons with the following routes:
 
 ```js
 { path: '/data-structures/01', component: LessonDataStructures01 },
@@ -370,7 +370,7 @@ The project maintainers will take care of making any updates needed to ensure yo
 In order to save the user's progress as they work, ProtoSchool uses [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to save cached code and lesson state between visits. This feature works when the user visits the site repeatedly in the same web browser, so long as they aren't using incognito or private mode. Although this solution doesn't work across browsers (a user would see a different history in Chrome than in Firefox, for example), we find that it enables us to provide a nicely customized experience for most users without requiring a login.
 
 On occasion, while developing a lesson, you may want to view the site as though you're a first-time visitor for testing purposes. To do this, you have a few options:
-- Open the site in an icognito or private window using your normal web browser
+- Open the site in an incognito or private window using your normal web browser
 - Open the site in a web browser you haven't used before (Firefox if you normally use Chrome, etc.)
 - Clear the localStorage in your main browser by opening the console in your inspector and entering the command `localStorage.clear()`, then refreshing your browser.
 
