@@ -76,6 +76,10 @@ const validate = async (result, ipfs) => {
     return { fail: `Cannot read property 'value' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?` }
   }
 
+  if (result.error) {
+    return { error: result.error }
+  }
+
   if (!Array.isArray(result)) {
     return { fail: 'The return value of your traversePosts function needs to be an array.' }
   }
