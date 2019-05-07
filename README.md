@@ -258,8 +258,8 @@ if (result === 'foo') {
 } else if (result === 'bar') {
   return {
     success: 'You did it!',
-    logDesc: 'Check out the data now stored in your IPFS instance:', // A description of the data you're displaying
-    log: ipfsFiles // The data you want the user to see
+    logDesc: 'Check out the current value of `CID`:', // A description of the data you're displaying (a string, which can optionally include markdown formatting)
+    log: ipfsFiles // The data you want the user to see (a JSON object or a string)
   }
 } else {
   return { fail: 'Sad but useful message :(' }
@@ -267,7 +267,6 @@ if (result === 'foo') {
 ```
 
 When you use this option, a new section will appear below the exercise box, showing your `logDesc` message followed by the `log` data.
-
 
 #### Update routes and import statements in `src/main.js`
 
