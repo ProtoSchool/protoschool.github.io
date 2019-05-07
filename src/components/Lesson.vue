@@ -128,7 +128,7 @@
               <div v-if="output.test.log">
                 <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
                 <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
-                <div v-if="output.test.logDesc" class="lh-copy">{{output.test.logDesc}}</div>
+                <div v-if="output.test.logDesc" class="lh-copy" v-html="parsedLogDesc()"></div>
                 <highlight-code lang="json" class="output-log">
                   {{output.test.log}}
                 </highlight-code>
@@ -276,6 +276,7 @@ export default {
     }
   },
   computed: {
+
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
@@ -451,6 +452,11 @@ export default {
     },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
+    },
+    parsedLogDesc: function () {
+      if (this.output && this.output.test && this.output.test.logDesc) {
+        return marked(this.output.test.logDesc)
+      }
     }
   }
 }
