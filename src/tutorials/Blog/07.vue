@@ -6,6 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
+    :overrideErrors="true"
     lessonTitle="Traverse through all posts, starting with the most recent" />
 </template>
 
@@ -13,7 +14,6 @@
 import Lesson from '../../components/Lesson'
 import text from './07.md'
 import exercise from './07-exercise.md'
-import utils from './utils.js'
 import shallowEqualArrays from 'shallow-equal/arrays'
 import CID from 'cids'
 
@@ -26,6 +26,7 @@ const traversePosts = async (cid) => {
 const run = async () => {
   const natCid = await ipfs.dag.put({ author: "Nat" })
   const samCid = await ipfs.dag.put({ author: "Sam" })
+
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -57,17 +58,30 @@ const run = async () => {
     posts: [dogPostCid]
   })
 
-  return traversePosts
+  return traversePosts(dogPostCid)
 }
 
 return run`
 
 const validate = async (result, ipfs) => {
   if (!result) {
-    return { fail: 'You forgot to return a result :)' }
+    return { fail: 'No result was returned. Did you forget to return a result from your traversePosts function? Or perhaps you accidentally edited the run function?' }
   }
-  if (typeof result !== 'function') {
-    return { fail: 'Return value needs to be a function.' }
+
+  if (result.error && result.error.message === `Cannot read property 'prev' of undefined`) {
+    return { fail: `Cannot read property 'prev' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?` }
+  }
+
+  if (result.error && result.error.message === `Cannot read property 'value' of undefined`) {
+    return { fail: `Cannot read property 'value' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?` }
+  }
+
+  if (result.error) {
+    return { error: result.error }
+  }
+
+  if (!Array.isArray(result)) {
+    return { fail: 'The return value of your traversePosts function needs to be an array.' }
   }
 
   const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
@@ -75,18 +89,23 @@ const validate = async (result, ipfs) => {
   const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
 
   try {
-    const returnValue = await result(new CID(dogPostCid))
-    if (returnValue.length !== 3 || returnValue === undefined) {
-      return { fail: 'Your function needs to return 3 CIDs.' }
+    if (result.length !== 3 || result === undefined) {
+      return { fail: 'Your traversePosts function needs to return 3 CIDs' }
     }
-    const isCids = returnValue.every(CID.isCID)
+    const isCids = result.every(CID.isCID)
     if (!isCids) {
-      return { fail: 'Your function needs to return CIDs.' }
+      return { fail: 'Your traversePosts function needs to return CIDs.' }
     }
     const expectedCids = [treePostCid, computerPostCid, dogPostCid]
-    const returnedCids = returnValue.map(item => item.toBaseEncodedString())
+    const returnedCids = result.map(item => item.toBaseEncodedString())
     if (!shallowEqualArrays(returnedCids.sort(), expectedCids.sort())) {
-      return { fail: `The CIDs returned by the function ${utils.stringify(returnedCids)} did not match the the expected CIDs ${utils.stringify(expectedCids)}.` }
+      return {
+        fail: 'The CIDs returned by the traversePosts function did not match the expected CIDs.',
+        log: {
+          returnedCids: returnedCids,
+          expectedCids: expectedCids
+        }
+      }
     }
   } catch (err) {
     return { fail: `Your function threw an error: ${err}.` }
@@ -113,6 +132,7 @@ const traversePosts = async (cid) => {
 const run = async () => {
   const natCid = await ipfs.dag.put({ author: "Nat" })
   const samCid = await ipfs.dag.put({ author: "Sam" })
+
   const treePostCid = await ipfs.dag.put({
     content: "trees",
     author: samCid,
@@ -144,7 +164,7 @@ const run = async () => {
     posts: [dogPostCid]
   })
 
-  return traversePosts
+  return traversePosts(dogPostCid)
 }
 
 return run
