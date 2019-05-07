@@ -33,7 +33,13 @@ const validate = async (result, ipfs) => {
 }
 
 const code = `const run = async (files) => {
-  /* your code here */
+  // Your code here
+}
+return run
+`
+
+const solution = `const run = async (files) => {
+  // Your solution here
 }
 return run
 `
