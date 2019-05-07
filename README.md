@@ -212,7 +212,7 @@ If this is the last lesson in your tutorial, the user will see a "More Tutorials
 
 As you test your code, you may notice that you see error messages appear that are different from the ones you provided in your `validate` function. These might include syntax errors noted by our embedded code editor or errors returned by the IPFS API, both of which appear by default. Syntax errors can be very helpful for your user, and other errors might help you identify common errors you hadn't thought of.
 
-If you'd like to replace a specific error message returned automatically with a moire user-friendly message created by you, add the attribute
+If you'd like to replace a specific error message returned automatically with a more user-friendly message created by you, add the attribute
 `:overrideErrors="true"` to the Lesson (or FileLesson) component at the start of your Vue file like so:
 
 ```js
@@ -226,11 +226,12 @@ Within the `validate` function, add cases for the specific error messages
 you need to override, as in this example:
 
 ```js
-} else if (result && result.error.message === 'No child name passed to addLink') {
+} else if (result.error && result.error.message === 'No child name passed to addLink') {
   // Forgot the file name and just used a directory as the path
   return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
 }
 ```
+Be aware that the test case may be very different, you should adapt it to what you're trying to achieve. What is required is that you return an object with the `fail` key and a string as its value, as that is what shows the component with the message you provided.
 
 You'll also need to add the following lines below your custom validation so that
 external error messages you haven't specifically overridden will continue to be shown to the user to aid in troubleshooting:
