@@ -43,7 +43,7 @@ const validate = async (result, ipfs) => {
   /***** CHECK FOR CORRECT /SOME/STUFF DIRECTORY ******/
 
   // correct directory hash
-  const someStuff3 = 'QmVneuc3suf78aVdvFY3BW9HoiEfNxD7WB5zu1f9fbun3D' // /some/stuff/
+  const someStuffHash = 'QmVneuc3suf78aVdvFY3BW9HoiEfNxD7WB5zu1f9fbun3D' // /some/stuff/
 
   // common incorrect directory hashes
   const emptyDirectoryHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn' // empty /some/ OR /stuff/ directory
