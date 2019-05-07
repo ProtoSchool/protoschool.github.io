@@ -153,7 +153,7 @@ const validate = async (result, ipfs) => {
     // filenames match and created empty some/stuff
     return {
       success: 'Success! Check out your directory contents below.',
-      logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of 1 while files have a type of 0.",
+      logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of `1` while files have a type of `0`.",
       log: logRoot
       }
   } else if (result.error) {
