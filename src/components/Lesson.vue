@@ -21,7 +21,7 @@
           <h2 class="mt0 mb2 green fw4 fill-current">
             <span style='vertical-align:-1px'>
               <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="complete" style="height: 1rem;"/>
+              <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="in progress" style="height: 1rem;"/>
               <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 1rem;"/>
             </span>
             <span class="green ttu f6 pl2 pr1 fw7 v-mid">
