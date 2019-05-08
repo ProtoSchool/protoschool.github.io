@@ -20,7 +20,7 @@ First, check out this repository, install dependencies, and run the dev server l
 > npm install
 > npm run serve
 ```
-You should now be able to preview your work in a web browser at: http://localhost:8080/#/
+You should now be able to preview your work in a web browser at: http://localhost:3000/#/
 
 (Note that you won't be able to see your new lessons until you've updated the appropriate routes and import statements, as described below.)
 
