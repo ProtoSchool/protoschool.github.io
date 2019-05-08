@@ -17,6 +17,10 @@ import exercise from './08-exercise.md'
 
 const validate = async (result, ipfs) => {
 
+  if (result.error) {
+    console.log('result.error.message: ', result.error.message)
+  }
+
   // check that right directories are there with no loose files in root
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   console.log('rootDirectoryContents', rootDirectoryContents)
@@ -55,6 +59,8 @@ const validate = async (result, ipfs) => {
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result.error && result.error.message === 'paths must start with a leading /'){
     return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?'}
+  } else if (result.error && result.error.message === 'await is only valid in async function'){
+    return { fail: 'Oops! You can\'t use `await` with `files.mv` because it\'s not an async function.'}
   } else if (!returnedSomeStuffContents) {
     return { fail: 'It looks like you returned something other than the contents of the `/some/stuff` directory. Did you accidentally edit the return statement?' }
   } else if (!rootContainsOnlySome) {
@@ -83,7 +89,7 @@ const validate = async (result, ipfs) => {
     return { error: result.error }
   }
   else {
-    return { fail: 'Sad but useful message :(' }
+    return { fail: 'Something doesn\'t look right. Please hit "Reset Code" and try again, editing only the portion of code indicated.' }
   }
 
 
