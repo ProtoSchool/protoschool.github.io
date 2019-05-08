@@ -44,9 +44,7 @@ const code = `/* global ipfs */
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
   rootDirectoryContents.forEach(item => {
-    if (item.type === 0) {
-      ipfs.files.mv('/' + item.name, '/some/stuff')
-    }
+    if (item.type === 0) { ipfs.files.mv('/' + item.name, '/some/stuff') }
   })
 
   // your code goes here
@@ -63,12 +61,10 @@ const solution = `/* global ipfs */
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
   rootDirectoryContents.forEach(item => {
-    if (item.type === 0) {
-      ipfs.files.mv('/' + item.name, '/some/stuff')
-    }
+    if (item.type === 0) { ipfs.files.mv('/' + item.name, '/some/stuff') }
   })
 
-  ipfs.files.mv('/ipfs/Qme1zmi8dxBiVM7K9y5J3oPxiWWBgzA7n9M6tkmkz8kSwV', '/some/stuff')
+  ipfs.files.cp('/ipfs/Qme1zmi8dxBiVM7K9y5J3oPxiWWBgzA7n9M6tkmkz8kSwV', '/some/stuff')
 
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
   return someStuffDirectoryContents
