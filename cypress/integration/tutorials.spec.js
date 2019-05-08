@@ -19,6 +19,7 @@ function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount }) {
       cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=view-solution]').click()
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
+      cy.get('[data-cy=replace-with-solution]').click({ force: true })
       cy.get('[data-cy=submit-answer]').click()
       if (i < lessonCount) {
         cy.get('[data-cy=next-lesson]').click()

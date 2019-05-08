@@ -4,11 +4,11 @@
     <div class="center mw7 ph2">
       <div class="flex-l items-start  center mw7 ph2">
         <section class="pv3 mt3">
-            <div class="lh-solid v-mid f4">
-              <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-              <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            </div>
-            <h1>{{lessonTitle}}</h1>
+          <div class="lh-solid v-mid f4">
+            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+            <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+          </div>
+          <h1>{{lessonTitle}}</h1>
           <div class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
         <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
@@ -98,6 +98,8 @@
           <div v-if="solution" class="mb2 ml3">
             <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
             <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
+            <!-- Below is a special button only to be used by Cypress for the E2E tests -->
+            <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
           </div>
           <MonacoEditor
             v-show="viewSolution"
@@ -345,13 +347,6 @@ export default {
       let ipfs = await this.createIPFS()
       let code = this.editor.getValue()
 
-      // https://docs.cypress.io/faq/questions/using-cypress-faq.html#Is-there-any-way-to-detect-if-my-app-is-running-under-Cypress
-      // If the app is running under Cypress we want to change to inject
-      // the solution into code to submit and check if it passes
-      if (window.Cypress) {
-        code = this.solution
-      }
-
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
@@ -398,6 +393,9 @@ export default {
     },
     toggleSolution: function () {
       this.viewSolution = !this.viewSolution
+    },
+    cyReplaceWithSolution: function () {
+      this.editor.setValue(this.$attrs.solution)
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
