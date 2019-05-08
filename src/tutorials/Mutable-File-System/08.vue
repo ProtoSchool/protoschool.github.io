@@ -24,6 +24,9 @@ const validate = async (result, ipfs) => {
   // check that right directories are there with no loose files in root
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   console.log('rootDirectoryContents', rootDirectoryContents)
+
+  let rootIsEmpty = rootDirectoryContents.length === 0
+  console.log('rootIsEmpty', rootIsEmpty)
   let rootContainsOnlySome = rootDirectoryContents.length === 1 && rootDirectoryContents[0].name === 'some'
   let someContainsOnlyStuff = null
   if (rootContainsOnlySome) {
@@ -37,26 +40,40 @@ const validate = async (result, ipfs) => {
   console.log('result: ', result)
   let logResult = JSON.stringify(result, null, 2)
 
-  // check whether user returned the contents of /some/stuff
-  let someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
-  console.log('someStuffFiles: ', someStuffFiles)
-  let logSomeStuff = JSON.stringify(someStuffFiles, null, 2)
-
-  let returnedSomeStuffContents = JSON.stringify(result) === JSON.stringify(someStuffFiles)
-  console.log('returnedSomeStuffContents ', someStuffFiles)
-
-  // check whether contents of /some/stuff are the right files
+  // identify files that should have been moved
   let uploadedFiles = window.uploadedFiles || false
   let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
-  let someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
-  let itemsMatch = JSON.stringify(someStuffFilenames) === JSON.stringify(uploadedFilenames)
-  let itemsAreFiles = someStuffFiles.every(file => file.type === 0)
+
+  // check whether user returned the contents of /some/stuff
+  let someStuffFiles = null
+  let logSomeStuff = null
+  let returnedSomeStuffContents = null
+  let someStuffFilenames = null
+  let itemsMatch = null
+  let itemsAreFiles = null
+
+  if (!rootIsEmpty && rootContainsOnlySome && someContainsOnlyStuff) {
+    someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
+    someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
+    logSomeStuff = JSON.stringify(someStuffFiles, null, 2)
+    returnedSomeStuffContents = JSON.stringify(result) === JSON.stringify(someStuffFiles)
+    console.log('returnedSomeStuffContents ', returnedSomeStuffContents )
+
+    // check whether contents of /some/stuff are the right files
+    itemsMatch = JSON.stringify(someStuffFilenames) === JSON.stringify(uploadedFilenames)
+    itemsAreFiles = someStuffFiles.every(file => file.type === 0)
+
+  }
+  console.log('someStuffFiles ', someStuffFiles )
+
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?'}
   } else if (uploadedFiles = false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
+  } else if (rootIsEmpty) {
+    return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result.error && result.error.message === 'paths must start with a leading /'){
     return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?'}
   } else if (result.error && result.error.message === 'await is only valid in async function'){
