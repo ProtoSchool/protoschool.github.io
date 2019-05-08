@@ -340,6 +340,7 @@ export default {
   },
   methods: {
     run: async function (...args) {
+      console.log('inside run function')
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -352,7 +353,9 @@ export default {
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
+      console.log('inside run and about to set result')
       let result = await _eval(code, ipfs, modules, args)
+      console.log('inside run and just set result as: ', result)
       if (!this.$attrs.overrideErrors && result && result.error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]

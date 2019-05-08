@@ -15,8 +15,14 @@ import text from './09.md'
 import exercise from './09-exercise.md'
 
 const validate = async (result, ipfs) => {
-  if (result) {
-    return { success: 'Happy Message!' }
+
+  if (!result) {
+    return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?'}
+  } else if (result) {
+    return {
+      success: 'Your function returned a result!',
+      logDesc: 'This is what your function returned:',
+      log: JSON.stringify(result, null, 2)}
   } else {
     return { fail: 'Sad but useful message :(' }
   }
@@ -32,14 +38,40 @@ const validate = async (result, ipfs) => {
   */
 }
 
-const code = `const run = async (files) => {
-  // Your code here
+const code = `/* global ipfs */
+  const run = async (files) => {
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+  await ipfs.files.mkdir('/some/stuff', { parents: true })
+  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  rootDirectoryContents.forEach(item => {
+    if (item.type === 0) {
+      ipfs.files.mv('/' + item.name, '/some/stuff')
+    }
+  })
+
+  // your code goes here
+
+  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
+  return someStuffDirectoryContents
 }
 return run
 `
 
-const solution = `const run = async (files) => {
-  // Your solution here
+const solution = `/* global ipfs */
+  const run = async (files) => {
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+  await ipfs.files.mkdir('/some/stuff', { parents: true })
+  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  rootDirectoryContents.forEach(item => {
+    if (item.type === 0) {
+      ipfs.files.mv('/' + item.name, '/some/stuff')
+    }
+  })
+
+  ipfs.files.mv('/ipfs/Qme1zmi8dxBiVM7K9y5J3oPxiWWBgzA7n9M6tkmkz8kSwV', '/some/stuff')
+
+  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
+  return someStuffDirectoryContents
 }
 return run
 `
