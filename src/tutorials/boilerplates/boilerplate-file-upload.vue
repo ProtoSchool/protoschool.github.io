@@ -32,13 +32,15 @@ const validate = async (result, ipfs) => {
   */
 }
 
-const code = `const run = async (files) => {
+const code = `/* global ipfs */
+  const run = async (files) => {
   // Your code here
 }
 return run
 `
 
-const solution = `const run = async (files) => {
+const solution = `/* global ipfs */
+  const run = async (files) => {
   // Your solution here
 }
 return run
