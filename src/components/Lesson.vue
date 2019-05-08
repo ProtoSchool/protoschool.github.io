@@ -4,11 +4,11 @@
     <div class="center mw7 ph2">
       <div class="flex-l items-start  center mw7 ph2">
         <section class="pv3 mt3">
-            <div class="lh-solid v-mid f4">
-              <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-              <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            </div>
-            <h1>{{lessonTitle}}</h1>
+          <div class="lh-solid v-mid f4">
+            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+            <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+          </div>
+          <h1>{{lessonTitle}}</h1>
           <div class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
         <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
@@ -36,13 +36,13 @@
               <button
                 v-if="expandExercise"
                 title="go smol"
-                v-on:click="toggleExpandExercise"
+                @click="toggleExpandExercise"
                 class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
               </button>
               <button
                 v-else
-                v-on:click="toggleExpandExercise"
+                @click="toggleExpandExercise"
                 title='embiggen the exercise'
                 class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
@@ -55,10 +55,9 @@
             <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
               <span class="pl1"><img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
             </div>
-              <div id="drop-area" v-if="!uploadedFiles" v-on:drop="onFileDrop"
-                v-on:click="onFileClick"
-                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false"
-                @dragover.prevent v-bind:class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
+              <div id="drop-area" v-if="!uploadedFiles" @click="onFileClick" @drop="onFileDrop"
+                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" @dragover.prevent
+                :class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
                 <div class="o-80 glow">
                   <label for="add-files" class="flex items-center h4 pointer">
                     <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
@@ -82,8 +81,8 @@
             </div>
           </div>
         </div>
-        <div class="h-100 flex-auto">
-          <span v-if="cachedCode" @click="resetCode" class="textLink">Reset Code</span>
+        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
+          <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
           <MonacoEditor
             class="editor mt2"
             srcPath="."
@@ -95,12 +94,15 @@
             @mounted="onMounted"
             @codeChange="onCodeChange" />
         </div>
-        <div class="mt2 h-100 flex-auto">
+        <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
           <div v-if="solution" class="mb2 ml3">
             <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
-            <span v-else @click="toggleSolution" class="textLink chevron right">View Solution</span>
+            <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
+            <!-- Below is a special button only to be used by Cypress for the E2E tests -->
+            <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
           </div>
-          <MonacoEditor v-show="viewSolution"
+          <MonacoEditor
+            v-show="viewSolution"
             class="editor"
             srcPath="."
             :height="editorHeight"
@@ -112,13 +114,13 @@
         <div class='flex-none'>
           <div class="pt2">
             <div v-if="output.test && cachedCode" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error" data-cy="test-error">
                 Error: {{output.test.error.message}}
               </div>
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail" data-cy="test-fail">
                 {{output.test.fail}}
               </div>
-              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed">
+              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed" data-cy="test-success">
                 {{output.test.success}}
                 <a v-if="output.test.cid"
                 class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
@@ -145,14 +147,16 @@
           </div>
           <div class="pt2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
-              <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
+              <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
-              <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+              <Button v-bind:click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
-              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper"><Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button></span>
-              <Button v-else v-bind:click="run" class="bg-aqua white">Submit</Button>
+              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper">
+                <Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button>
+              </span>
+              <Button v-else v-bind:click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
                 You must upload a file before submitting.
               </div>
@@ -267,6 +271,7 @@ export default {
       expandExercise: false,
       dragging: false,
       uploadedFiles: window.uploadedFiles || false,
+      editorReady: false,
       options: {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
@@ -342,6 +347,7 @@ export default {
       let output = this.output
       let ipfs = await this.createIPFS()
       let code = this.editor.getValue()
+
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
@@ -389,6 +395,9 @@ export default {
     toggleSolution: function () {
       this.viewSolution = !this.viewSolution
     },
+    cyReplaceWithSolution: function () {
+      this.editor.setValue(this.$attrs.solution)
+    },
     resetFileUpload: function () {
       this.uploadedFiles = false
       this.dragging = false
@@ -405,6 +414,7 @@ export default {
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
       this.editor = editor
+      this.editorReady = true
       if (this.cachedCode) {
         // TRACK? returned to lesson previously visited
         this.loadCodeFromCache()
