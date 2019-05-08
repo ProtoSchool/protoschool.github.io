@@ -70,10 +70,10 @@ Select the appropriate boilerplate Vue file for your lesson from the `tutorials/
 
 Copy that boilerplate into your tutorial folder and rename it to the 2-digit number of the lesson.
 
-Example (while in `tutorials`):
+Example (while in `src/tutorials`):
 
 ```sh
-> cp boilerplate/boilerplate-standard.vue Tutorial-Shortname/01.vue
+> cp boilerplates/boilerplate-standard.vue Tutorial-Shortname/01.vue
 ```
 
 Replace anything in the boilerplate file that reads "REPLACEME".
