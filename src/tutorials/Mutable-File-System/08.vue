@@ -72,12 +72,12 @@ const validate = async (result, ipfs) => {
   } else if (uploadedFiles = false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
+  } else if (result.error && result.error.message === 'await is only valid in async function'){
+    return { fail: 'Oops! You can\'t use `await` with `files.mv` because it\'s not an async function.'}
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result.error && result.error.message === 'paths must start with a leading /'){
     return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?'}
-  } else if (result.error && result.error.message === 'await is only valid in async function'){
-    return { fail: 'Oops! You can\'t use `await` with `files.mv` because it\'s not an async function.'}
   } else if (!returnedSomeStuffContents) {
     return { fail: 'It looks like you returned something other than the contents of the `/some/stuff` directory. Did you accidentally edit the return statement?' }
   } else if (!rootContainsOnlySome) {
