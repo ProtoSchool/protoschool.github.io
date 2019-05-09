@@ -16,15 +16,19 @@ import text from './10.md'
 import exercise from './10-exercise.md'
 
 const validate = async (result, ipfs) => {
+  console.log(err)
   console.log('result is:', result)
   console.log(typeof result)
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?'}
+  } else if (result === '[object Promise]') {
+    // this one isn't working
+    return { fail: 'Something went wrong. Did you try to turn your buffer into a string but forget to wrap your async function in parentheses first?'}
   } else if (result.error && result.error.message === 'Unexpected token return'){
     return { fail: 'Hmm. That doesn\'t look right. Did you forget to set the value of secretMessage?'}
   } else if (result && typeof result !== 'string') {
     return { fail: 'Oops. `secretMessage` should be a string. Did you forget to convert the buffer to a string?' }
-  } else if (result && typeof result === 'string') {
+  } else if (result && typeof result === 'string' && result !== '[object Promise]') {
     return {
       success: 'You did it!',
       logDesc: 'Here\'s the secret message you discovered in `success.txt`:',
