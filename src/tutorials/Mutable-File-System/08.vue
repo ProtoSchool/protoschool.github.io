@@ -72,8 +72,10 @@ const validate = async (result, ipfs) => {
   } else if (uploadedFiles = false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
+  } else if (result.error && result.error.message === 'Unexpected token const') {
+    return { fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`' }
   } else if (result.error && result.error.message === 'await is only valid in async function'){
-    return { fail: 'Oops! You can\'t use `await` with `files.mv` because it\'s not an async function.'}
+    return { fail: 'Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn\'t wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`.'}
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result.error && result.error.message === 'paths must start with a leading /'){
@@ -128,7 +130,11 @@ const code = `/* global ipfs */
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
 
-  // your code goes here
+  const filesToMove = // create an array of files to be moved (no folders)
+
+  const filepathsToMove = // create an array of the paths of those files
+
+  // move all the files in filepathsToMove into /some/stuff
 
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
   return someStuffDirectoryContents
@@ -143,11 +149,9 @@ const solution = `/* global ipfs */
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
 
-  rootDirectoryContents.forEach(item => {
-    if (item.type === 0) {
-      ipfs.files.mv('/' + item.name, '/some/stuff')
-    }
-  })
+  const filesToMove = rootDirectoryContents.filter(file => file.type === 0)
+  const filepathsToMove = filesToMove.map(file => '/' + file.name)
+  await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
   return someStuffDirectoryContents
