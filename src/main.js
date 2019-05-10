@@ -41,7 +41,6 @@ import MutableFileSystem08 from './tutorials/Mutable-File-System/08.vue'
 import MutableFileSystem09 from './tutorials/Mutable-File-System/09.vue'
 import MutableFileSystem10 from './tutorials/Mutable-File-System/10.vue'
 import MutableFileSystem11 from './tutorials/Mutable-File-System/11.vue'
-import MutableFileSystem12 from './tutorials/Mutable-File-System/12.vue'
 
 Vue
   .use(VueRouter)
@@ -89,7 +88,6 @@ const routes = [
   { path: '/mutable-file-system/09', component: MutableFileSystem09 },
   { path: '/mutable-file-system/10', component: MutableFileSystem10 },
   { path: '/mutable-file-system/11', component: MutableFileSystem11 },
-  { path: '/mutable-file-system/12', component: MutableFileSystem12 },
   // 404
   { path: '*', name: '404' }
 ]

@@ -50,8 +50,7 @@
 			{ "to": "/mutable-file-system/08", "name": "Move a file" },
 			{ "to": "/mutable-file-system/09", "name": "Copy a file using a CID" },
 			{ "to": "/mutable-file-system/10", "name": "Read the contents of a file" },
-			{ "to": "/mutable-file-system/11", "name": "Remove a file" },
-			{ "to": "/mutable-file-system/12", "name": "The big finale" }
+			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
 		]
 	}
 }
