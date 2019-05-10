@@ -48,9 +48,8 @@ const code = `/* global ipfs */
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
-  rootDirectoryContents.forEach(item => {
-    if (item.type === 0) { ipfs.files.mv('/' + item.name, '/some/stuff') }
-  })
+  const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
+  await ipfs.files.mv(filepathsToMove, '/some/stuff')
   ipfs.files.cp('/ipfs/Qme1zmi8dxBiVM7K9y5J3oPxiWWBgzA7n9M6tkmkz8kSwV', '/some/stuff')
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
 
@@ -66,9 +65,8 @@ const solution = `/* global ipfs */
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
-  rootDirectoryContents.forEach(item => {
-    if (item.type === 0) { ipfs.files.mv('/' + item.name, '/some/stuff') }
-  })
+  const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
+  await ipfs.files.mv(filepathsToMove, '/some/stuff')
   ipfs.files.cp('/ipfs/Qme1zmi8dxBiVM7K9y5J3oPxiWWBgzA7n9M6tkmkz8kSwV', '/some/stuff')
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
 

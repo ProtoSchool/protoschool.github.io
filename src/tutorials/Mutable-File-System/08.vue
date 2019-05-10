@@ -76,6 +76,8 @@ const validate = async (result, ipfs) => {
     return { fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`' }
   } else if (result.error && result.error.message === 'await is only valid in async function'){
     return { fail: 'Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn\'t wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`.'}
+  } else if (result.error && result.error.message === 'ipfs.mv is not a function'){
+    return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?'}
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result.error && result.error.message === 'paths must start with a leading /'){
@@ -149,9 +151,14 @@ const solution = `/* global ipfs */
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
 
-  const filesToMove = rootDirectoryContents.filter(file => file.type === 0)
-  const filepathsToMove = filesToMove.map(file => '/' + file.name)
+  const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
+
+  //  // alternatively, wrapping multiple mv calls into a single async function with await:
+  //  const filesToMove = rootDirectoryContents.filter(item => item.type === 0)
+  //  await Promise.all(filesToMove.map(file => {
+  //    return ipfs.files.mv('/' + file.name, '/some/stuff')
+  // }))
 
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
   return someStuffDirectoryContents
