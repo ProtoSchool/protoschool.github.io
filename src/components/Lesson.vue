@@ -258,6 +258,7 @@ export default {
       solution: self.$attrs.solution,
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
+      createTestFile: self.$attrs.createTestFile,
       isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
@@ -347,8 +348,12 @@ export default {
       }
       let output = this.output
       let ipfs = await this.createIPFS()
+      if (this.createTestFile) {
+        console.log("creating test file")
+        await ipfs.add(ipfs.Buffer.from('You did it!'))
+        console.log('created test file)')
+      }
       let code = this.editor.getValue()
-
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)

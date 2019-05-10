@@ -6,6 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
+    :createTestFile="true"
     lessonTitle="Copy a file using a CID" />
 </template>
 
