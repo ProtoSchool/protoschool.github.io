@@ -114,14 +114,12 @@
         <div class='flex-none'>
           <div class="pt2">
             <div v-if="output.test && cachedCode" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error" data-cy="test-error">
+              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
                 Error: {{output.test.error.message}}
               </div>
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.fail" data-cy="test-fail">
-                {{output.test.fail}}
-              </div>
-              <div class="lh-copy pv2 ph3 bg-green white" v-if="output.test.success && lessonPassed" data-cy="test-success">
-                {{output.test.success}}
+              <div class="output-log lh-copy bg-red white" v-if="output.test.fail" v-html="parseData(output.test.fail)" />
+              <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
+                <span class="output-log" v-html="parseData(output.test.success)" />
                 <a v-if="output.test.cid"
                 class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
                   View in IPLD Explorer
@@ -130,8 +128,8 @@
               <div v-if="output.test.log">
                 <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
                 <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
-                <div v-if="output.test.logDesc" class="lh-copy" v-html="parsedLogDesc()"></div>
-                <highlight-code lang="json" class="output-log">
+                <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
+                <highlight-code lang="json" class="output-code">
                   {{output.test.log}}
                 </highlight-code>
               </div>
@@ -281,7 +279,6 @@ export default {
     }
   },
   computed: {
-
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
@@ -463,11 +460,7 @@ export default {
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
     },
-    parsedLogDesc: function () {
-      if (this.output && this.output.test && this.output.test.logDesc) {
-        return marked(this.output.test.logDesc)
-      }
-    }
+    parseData: (data) => marked(data)
   }
 }
 </script>
@@ -576,11 +569,16 @@ div#drop-area * {
 </style>
 
 <style> /* We need this unscoped to override the hljs styles. */
-.output-log {
+.output-log p {
+  display: inline-block;
+  margin: .5rem 1rem;
+}
+
+.output-code {
   margin: 1rem 0 0 0;
 }
 
-.output-log code {
+.output-code code {
   margin: 0;
   padding: 1rem;
   background: white;

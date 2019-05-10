@@ -15,6 +15,22 @@ import Lesson from '../../components/Lesson'
 import text from './03.md'
 import exercise from './03-exercise.md'
 
+const validate = async (result, ipfs) => {
+  if (!result) {
+    return { fail: 'You forgot to return a result :)' }
+  }
+
+  if (result === 1) {
+    return { success: 'Great job! You\'ve completed this series of lessons!' }
+  } else if (result.value === 1 && result.remainderPath === '') {
+    return { fail: 'Just want the `value` of `test`, try again.' }
+  } else {
+    const got = JSON.stringify(result)
+
+    return { fail: `Was expecting \`1\` but got \`${got}\`.` }
+  }
+}
+
 const code = `/* globals ipfs */
 
 const run = async () => {
@@ -25,24 +41,6 @@ const run = async () => {
 
 return run
 `
-
-const validate = async (result, ipfs) => {
-  if (!result) {
-    return { fail: 'You forgot to return a result :)' }
-  }
-
-  // TODO: validate ipfs.dag.get call
-
-  if (result === 1) {
-    return { success: `Great job! You've completed this series of lessons!` }
-  } else if (result.value === 1 && result.remainderPath === '') {
-    return { fail: 'Just want the `value` of `test`, try again.' }
-  } else {
-    const got = JSON.stringify(result)
-
-    return { fail: `Was expecting "1" but got "${got}".` }
-  }
-}
 
 const solution = `/* globals ipfs */
 

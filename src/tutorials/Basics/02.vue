@@ -18,16 +18,6 @@ import concepts from './02-concepts.md'
 import exercise from './02-exercise.md'
 import CID from 'cids'
 
-const code = `/* globals ipfs */
-
-const run = async () => {
-  let cid = await ipfs.dag.put({ test: 1 })
-  // your code goes here
-}
-
-return run
-`
-
 const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
@@ -45,9 +35,19 @@ const validate = async (result, ipfs) => {
     const expected = JSON.stringify({ bar: new CID(hash) })
     const got = JSON.stringify(obj.value)
 
-    return { fail: `Was expecting "${expected}" but got "${got}"` }
+    return { fail: `Was expecting \`${expected}\` but got \`${got}\`.` }
   }
 }
+
+const code = `/* globals ipfs */
+
+const run = async () => {
+  let cid = await ipfs.dag.put({ test: 1 })
+  // your code goes here
+}
+
+return run
+`
 
 const solution = `/* globals ipfs */
 
