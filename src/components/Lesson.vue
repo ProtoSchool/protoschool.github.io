@@ -570,8 +570,13 @@ div#drop-area * {
 
 <style> /* We need this unscoped to override the hljs styles. */
 .output-log p {
+  word-break: break-all;
   display: inline-block;
   margin: .5rem 1rem;
+}
+
+.output-log code {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .output-code {
