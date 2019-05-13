@@ -17,6 +17,56 @@ import exercise from './07-exercise.md'
 import shallowEqualArrays from 'shallow-equal/arrays'
 import CID from 'cids'
 
+const validate = async (result, ipfs) => {
+  if (!result) {
+    return { fail: 'No result was returned. Did you forget to return a result from your `traversePosts` function? Or perhaps you accidentally edited the `run` function?' }
+  }
+
+  if (result.error && result.error.message === `Cannot read property 'prev' of undefined`) {
+    return { fail: 'Cannot read property `prev` of undefined. Did you try to access the value of `ipfs.dag.get()` before the function completed?' }
+  }
+
+  if (result.error && result.error.message === `Cannot read property 'value' of undefined`) {
+    return { fail: 'Cannot read property `value` of undefined. Did you try to access the value of `ipfs.dag.get()` before the function completed?' }
+  }
+
+  if (result.error) {
+    return { error: result.error }
+  }
+
+  if (!Array.isArray(result)) {
+    return { fail: 'The return value of your traversePosts function needs to be an array.' }
+  }
+
+  const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
+  const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
+  const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
+
+  try {
+    if (result.length !== 3 || result === undefined) {
+      return { fail: 'Your traversePosts function needs to return 3 CIDs' }
+    }
+    const isCids = result.every(CID.isCID)
+    if (!isCids) {
+      return { fail: 'Your traversePosts function needs to return CIDs.' }
+    }
+    const expectedCids = [treePostCid, computerPostCid, dogPostCid]
+    const returnedCids = result.map(item => item.toBaseEncodedString())
+    if (!shallowEqualArrays(returnedCids.sort(), expectedCids.sort())) {
+      return {
+        fail: 'The CIDs returned by the traversePosts function did not match the expected CIDs.',
+        log: {
+          returnedCids: returnedCids,
+          expectedCids: expectedCids
+        }
+      }
+    }
+  } catch (err) {
+    return { fail: `Your function threw an error: ${err}.` }
+  }
+  return { success: 'Great job! You\'ve completed this series of lessons!' }
+}
+
 const code = `/* globals ipfs */
 
 const traversePosts = async (cid) => {
@@ -61,57 +111,8 @@ const run = async () => {
   return traversePosts(dogPostCid)
 }
 
-return run`
-
-const validate = async (result, ipfs) => {
-  if (!result) {
-    return { fail: 'No result was returned. Did you forget to return a result from your traversePosts function? Or perhaps you accidentally edited the run function?' }
-  }
-
-  if (result.error && result.error.message === `Cannot read property 'prev' of undefined`) {
-    return { fail: `Cannot read property 'prev' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?` }
-  }
-
-  if (result.error && result.error.message === `Cannot read property 'value' of undefined`) {
-    return { fail: `Cannot read property 'value' of undefined. Did you try to access the value of ipfs.dag.get() before the function completed?` }
-  }
-
-  if (result.error) {
-    return { error: result.error }
-  }
-
-  if (!Array.isArray(result)) {
-    return { fail: 'The return value of your traversePosts function needs to be an array.' }
-  }
-
-  const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
-  const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
-  const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
-
-  try {
-    if (result.length !== 3 || result === undefined) {
-      return { fail: 'Your traversePosts function needs to return 3 CIDs' }
-    }
-    const isCids = result.every(CID.isCID)
-    if (!isCids) {
-      return { fail: 'Your traversePosts function needs to return CIDs.' }
-    }
-    const expectedCids = [treePostCid, computerPostCid, dogPostCid]
-    const returnedCids = result.map(item => item.toBaseEncodedString())
-    if (!shallowEqualArrays(returnedCids.sort(), expectedCids.sort())) {
-      return {
-        fail: 'The CIDs returned by the traversePosts function did not match the expected CIDs.',
-        log: {
-          returnedCids: returnedCids,
-          expectedCids: expectedCids
-        }
-      }
-    }
-  } catch (err) {
-    return { fail: `Your function threw an error: ${err}.` }
-  }
-  return { success: 'Great job! You\'ve completed this series of lessons!' }
-}
+return run
+`
 
 const solution = `/* globals ipfs */
 

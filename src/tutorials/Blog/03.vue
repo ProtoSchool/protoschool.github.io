@@ -16,27 +16,6 @@ import utils from './utils.js'
 import shallowEqualArrays from 'shallow-equal/arrays'
 import CID from 'cids'
 
-const code = `/* globals ipfs */
-
-const run = async () => {
-  const natCid = await ipfs.dag.put({ author: "Nat" })
-  const samCid = await ipfs.dag.put({ author: "Sam" })
-  const treePostCid = await ipfs.dag.put({
-    content: "trees",
-    author: samCid,
-    tags: ["outdoor", "hobby"]
-  })
-  const computerPostCid = await ipfs.dag.put({
-    content: "computers",
-    author: natCid,
-    tags: ["hobby"]
-  })
-
-  // Add your code here
-}
-
-return run`
-
 const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
@@ -76,11 +55,11 @@ const validate = async (result, ipfs) => {
         expectedPosts = [treePostCid]
         break
       default:
-        return { fail: `Wrong tag (${node.tag}). Did you mean "hobby" or "outdoor"?` }
+        return { fail: `Wrong tag (${node.tag}). Did you mean \`hobby\` or \`outdoor\`?` }
     }
     const nodePosts = node.posts.map(post => post.toBaseEncodedString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {
-      return { fail: `The posts of the tag "${node.tag}" ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.` }
+      return { fail: `The posts of the tag \`${node.tag}\` ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.` }
     }
   }
 
@@ -88,6 +67,28 @@ const validate = async (result, ipfs) => {
   // matter. But that order really doesn't matter.
   return { success: 'Everything works!' }
 }
+
+const code = `/* globals ipfs */
+
+const run = async () => {
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
+  const treePostCid = await ipfs.dag.put({
+    content: "trees",
+    author: samCid,
+    tags: ["outdoor", "hobby"]
+  })
+  const computerPostCid = await ipfs.dag.put({
+    content: "computers",
+    author: natCid,
+    tags: ["hobby"]
+  })
+
+  // Add your code here
+}
+
+return run
+`
 
 const solution = `/* globals ipfs */
 

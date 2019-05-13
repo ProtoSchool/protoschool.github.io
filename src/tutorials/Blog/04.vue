@@ -16,6 +16,51 @@ import utils from './utils.js'
 import shallowEqualArrays from 'shallow-equal/arrays'
 import CID from 'cids'
 
+const validate = async (result, ipfs) => {
+  if (!result) {
+    return { fail: 'You forgot to return a result :)' }
+  }
+  if (!CID.isCID(result)) {
+    return { fail: 'Did not return a valid CID instance.' }
+  }
+  const node = (await ipfs.dag.get(result)).value
+  if (node.content === undefined) {
+    return { fail: 'Blog post needs to have a `content` field.' }
+  }
+  if (node.content !== 'dogs') {
+    return { fail: 'The `content` of the new blog post must be `dogs`.' }
+  }
+  if (node.author === undefined) {
+    return { fail: 'Blog post needs to have an `author` field.' }
+  }
+  if (!CID.isCID(node.author)) {
+    return { fail: 'The value of `author` needs to be a link.' }
+  }
+  const samCid = 'zdpuAzUoWGnKe4p13YbexQrb5AMhnDWDCqJt2XyqVPU6DxS4m'
+  const nodeAuthor = node.author.toBaseEncodedString()
+  if (nodeAuthor !== samCid) {
+    return { fail: 'The author of the new blog post needs to be `Sam`.' }
+  }
+  if (node.tags === undefined) {
+    return { fail: 'Blog post needs to have a `tags` field.' }
+  }
+  if (!Array.isArray(node.tags)) {
+    return { fail: 'The value of the `tags` field must be an array of strings.' }
+  }
+  const isStrings = node.tags.every((tag) => typeof tag === 'string')
+  if (!isStrings) {
+    return { fail: 'Tags need to be strings.' }
+  }
+  let expectedTags = ['funny', 'hobby']
+  if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
+    return { fail: `The tags of the \`${node.content}\` blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.` }
+  }
+
+  // Don't check the CID as then the order of the links within the tags would
+  // matter. But that order really doesn't matter.
+  return { success: 'Everything works!' }
+}
+
 const code = `/* globals ipfs */
 
 const run = async () => {
@@ -44,52 +89,8 @@ const run = async () => {
   })
 }
 
-return run`
-
-const validate = async (result, ipfs) => {
-  if (!result) {
-    return { fail: 'You forgot to return a result :)' }
-  }
-  if (!CID.isCID(result)) {
-    return { fail: 'Did not return a valid CID instance.' }
-  }
-  const node = (await ipfs.dag.get(result)).value
-  if (node.content === undefined) {
-    return { fail: 'Blog post needs to have a `content` field.' }
-  }
-  if (node.content !== 'dogs') {
-    return { fail: 'The `content` of the new blog post must be "dogs".' }
-  }
-  if (node.author === undefined) {
-    return { fail: 'Blog post needs to have an `author` field.' }
-  }
-  if (!CID.isCID(node.author)) {
-    return { fail: 'The value of `author` needs to be a link.' }
-  }
-  const samCid = 'zdpuAzUoWGnKe4p13YbexQrb5AMhnDWDCqJt2XyqVPU6DxS4m'
-  const nodeAuthor = node.author.toBaseEncodedString()
-  if (nodeAuthor !== samCid) {
-    return { fail: 'The author of the new blog post needs to be Sam.' }
-  }
-  if (node.tags === undefined) {
-    return { fail: 'Blog post needs to have a `tags` field.' }
-  }
-  if (!Array.isArray(node.tags)) {
-    return { fail: 'The value of the `tags` field must be an array of strings.' }
-  }
-  const isStrings = node.tags.every((tag) => typeof tag === 'string')
-  if (!isStrings) {
-    return { fail: 'Tags need to be strings.' }
-  }
-  let expectedTags = ['funny', 'hobby']
-  if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
-    return { fail: `The tags of the "${node.content}" blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.` }
-  }
-
-  // Don't check the CID as then the order of the links within the tags would
-  // matter. But that order really doesn't matter.
-  return { success: 'Everything works!' }
-}
+return run
+`
 
 const solution = `/* globals ipfs */
 

@@ -33,7 +33,7 @@ const validate = async (result, ipfs) => {
     const expected = JSON.stringify({ test: 1 })
     const got = JSON.stringify(obj.value)
 
-    return { fail: `Was expecting "${expected}" but got "${got}"` }
+    return { fail: `Was expecting \`${expected}\` but got \`${got}\`.` }
   }
 }
 
