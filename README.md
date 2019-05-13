@@ -258,7 +258,7 @@ if (result === 'foo') {
   return { success: 'Happy Message!' }
 } else if (result === 'bar') {
   return {
-    success: 'You did it!',
+    success: 'You did it!', // A string, which can optionally include markdown formatting
     logDesc: 'Check out the current value of `CID`:', // A description of the data you're displaying (a string, which can optionally include markdown formatting)
     log: ipfsFiles // The data you want the user to see (a JSON object or a string)
   }

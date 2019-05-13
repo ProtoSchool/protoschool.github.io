@@ -15,29 +15,6 @@ import exercise from './02-exercise.md'
 import utils from './utils.js'
 import shallowEqualArrays from 'shallow-equal/arrays'
 
-const code = `/* globals ipfs */
-
-const run = async () => {
-  const natCid = await ipfs.dag.put({ author: "Nat" })
-  const samCid = await ipfs.dag.put({ author: "Sam" })
-
-  // Modify the blog posts below
-  const treePostCid = await ipfs.dag.put({
-    content: "trees",
-    author: samCid
-  })
-  const computerPostCid = await ipfs.dag.put({
-    content: "computers",
-    author: natCid
-  })
-
-  // DELETE ME
-
-  return [treePostCid, computerPostCid]
-}
-
-return run`
-
 const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
@@ -82,7 +59,7 @@ const validate = async (result, ipfs) => {
         break
     }
     if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
-      return { fail: `The tags of the "${node.content}" blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.` }
+      return { fail: `The tags of the \`${node.content}\` blog post \`${utils.stringify(node.tags)}\` did not match the the expected tags \`${utils.stringify(expectedTags)}\`.` }
     }
   }
 
@@ -97,6 +74,30 @@ const validate = async (result, ipfs) => {
     }
   }
 }
+
+const code = `/* globals ipfs */
+
+const run = async () => {
+  const natCid = await ipfs.dag.put({ author: "Nat" })
+  const samCid = await ipfs.dag.put({ author: "Sam" })
+
+  // Modify the blog posts below
+  const treePostCid = await ipfs.dag.put({
+    content: "trees",
+    author: samCid
+  })
+  const computerPostCid = await ipfs.dag.put({
+    content: "computers",
+    author: natCid
+  })
+
+  // DELETE ME
+
+  return [treePostCid, computerPostCid]
+}
+
+return run
+`
 
 const solution = `/* globals ipfs */
 
