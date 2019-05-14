@@ -2,7 +2,7 @@
   <div>
     <Header/>
     <div class="center mw7 ph2">
-      <div class="flex-l items-start  center mw7 ph2">
+      <div class="center mw7 ph2">
         <section class="pv3 mt3">
           <div class="lh-solid v-mid f4">
             <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
@@ -11,7 +11,7 @@
           <h1>{{lessonTitle}}</h1>
           <div class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
-        <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
+        <section v-if="concepts" class='dn db-ns ba border-green ph4 mb4' style="background: rgba(105, 196, 205, 10%)">
           <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
           <div class='f6 lh-copy' v-html="parsedConcepts"></div>
         </section>
