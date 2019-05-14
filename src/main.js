@@ -15,6 +15,7 @@ import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
 // Lessons
 import Landing from './tutorials/landing.vue'
+import Resources from './tutorials/resources.vue'
 import LessonBasics01 from './tutorials/Basics/01.vue'
 import LessonBasics02 from './tutorials/Basics/02.vue'
 import LessonBasics03 from './tutorials/Basics/03.vue'
@@ -60,6 +61,7 @@ const routes = [
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
+  { path: '/basics/resources', component: Resources, props: { folderName: 'Basics' } },
   // Lessons - Blog
   { path: '/blog', component: Landing, props: { tutorialId: 'blog' } },
   { path: '/blog/01', component: LessonBlog01 },

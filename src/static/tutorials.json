@@ -18,7 +18,8 @@
 		"lessons": [
 			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)"},
 			{ "to": "/basics/02", "name": "Create a new node that's linked to an old one" },
-			{ "to": "/basics/03", "name": "Read nested data using link" }
+			{ "to": "/basics/03", "name": "Read nested data using link" },
+			{ "to": "/basics/resources", "name": "Learn more" }
 		]
 	},
 	"blog": {
