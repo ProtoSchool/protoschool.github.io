@@ -1,5 +1,6 @@
 <template>
   <Lesson
+    :isResources="true"
     :text="text"
     lessonTitle="Resources" />
 </template>

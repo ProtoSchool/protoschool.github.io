@@ -2,10 +2,11 @@
   <div>
     <Header/>
     <div class="center mw7 ph2">
-      <div class="flex-l items-start  center mw7 ph2">
-        <section class="pv3 mt3">
+      <div class="flex-l items-start center mw7 ph2">
+        <section class="pv3 mt3" :class="isResources && 'w-100'">
           <div class="lh-solid v-mid f4">
-            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Next Steps</span>
+            <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
           <h1>{{lessonTitle}}</h1>
@@ -144,17 +145,17 @@
             </div>
           </div>
           <div class="pt2 tr">
-            <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
-              <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
+            <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
+              <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
-              <Button v-bind:click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
+              <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
               <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper">
-                <Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button>
+                <Button :click="next" class="bg-aqua white" disabled>Submit</Button>
               </span>
-              <Button v-else v-bind:click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
+              <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
                 You must upload a file before submitting.
               </div>
@@ -164,11 +165,11 @@
       </section>
       <section v-else>
         <div class="pt3 ph2 tr mb3">
-          <div v-if="lessonNumber === lessonsInWorkshop">
-            <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
+          <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInWorkshop) || isResources)">
+            <Button :click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
           </div>
           <div v-else>
-            <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+            <Button :click="next" class="bg-aqua white">Next</Button>
           </div>
         </div>
       </section>
@@ -248,6 +249,7 @@ export default {
   },
   data: self => {
     return {
+      isResources: self.$attrs.isResources,
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
@@ -310,6 +312,11 @@ export default {
         number = number.toString().padStart(2, '0')
       }
       return parseInt(number) - 1
+    },
+    nextLessonIsResources: function () {
+      let basePath = this.$route.path.slice(0, -2)
+      const hasResources = this.$router.resolve(basePath + 'resources').route.name !== 404
+      return this.lessonNumber === this.lessonsInWorkshop && hasResources
     },
     editorHeight: function () {
       if (this.expandExercise) {
@@ -445,8 +452,12 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
       let current = this.lessonNumber
-      let next = (parseInt(current) + 1).toString().padStart(2, '0')
-      this.$router.push({path: next})
+
+      let next = this.nextLessonIsResources
+        ? 'resources'
+        : (parseInt(current) + 1).toString().padStart(2, '0')
+
+      this.$router.push({ path: next })
     },
     tutorialMenu: function () {
       if (this.exercise) {
