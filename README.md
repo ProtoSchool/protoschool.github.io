@@ -55,6 +55,7 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required |
 | A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used |
 | A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional |
+| A markdown file containing the **text of the optional `Next Steps` lesson**|`resources.md`| Optional | Optional | Optional |
 
 Not familiar with markdown? It's a fairly simple way to style text on the web. [Learn more about markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
 
@@ -322,6 +323,14 @@ your third lesson will display the following under the lesson title:
 `Data Structures | Lesson 3 of 5`
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
+
+Optionally, you can add a final text-only lesson, wrapping up the tutorial or linking to external sources. Add the following to routes:
+
+```js
+{ path: '/basics', component: Resources, props: { folderName: 'Basics' } },
+```
+
+Notice the prop `folderName`, as the name suggests it should equal the name of the folder where your lessons are stored.
 
 
 #### Add your tutorial to `tutorials.json` and `courses.json`
