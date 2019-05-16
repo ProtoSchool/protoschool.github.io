@@ -10,7 +10,8 @@ For information on local chapter organizing, please visit our [organizing repo](
 
 If you're interested in building tutorials, keep reading!
 
-## Table of Contents
+---
+**Table of Contents**
 
 - [Developing Tutorials](#developing-tutorials)
   * [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
@@ -33,6 +34,7 @@ If you're interested in building tutorials, keep reading!
   * [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
 - [License](#license)
 
+---
 
 ## Developing Tutorials
 
