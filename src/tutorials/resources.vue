@@ -9,7 +9,7 @@
 import Lesson from '../components/Lesson'
 import tutorialsList from '../static/tutorials.json'
 
-const constructText = ({ initialDesc, bullets, finalDesc}) => `
+const constructText = ({ initialDesc, bullets, finalDesc }) => `
 ${initialDesc}
 
 ${bullets.map(e => `

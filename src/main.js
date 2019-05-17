@@ -62,6 +62,7 @@ const routes = [
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
+  { path: '/basics/resources', component: Resources, props: { tutorialId: 'basics' } },
   // Lessons - Blog
   { path: '/blog', component: Landing, props: { tutorialId: 'blog' } },
   { path: '/blog/01', component: LessonBlog01 },

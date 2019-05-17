@@ -21,6 +21,7 @@
               <LessonLink :to="lesson.to" :name="lesson.name" :index="index + 1" />
             </li>
           </template>
+          <LessonLink v-if="tutorial.resources" :to="resourcesLink" name="Where to go from here" />
         </ul>
       </div>
     </div>
@@ -48,6 +49,9 @@ export default {
   computed: {
     landingLink: function () {
       return `/${this.tutorial.lessons[0].to.split('/')[1]}/`
+    },
+    resourcesLink: function () {
+      return this.landingLink + 'resources'
     }
   }
 }

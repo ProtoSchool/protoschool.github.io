@@ -8,11 +8,10 @@
 			{ "to": "/data-structures/02", "name": "The centralized web: Location-based addressing" },
 			{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
 			{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
-			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" },
-			{	"to": "/data-structures/resources", "name": "Where to go from here" }
+			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
 		],
 		"resources": {
-			"initialDesc": "This is an initial description.",
+			"initialDesc": "This is an initial description of the DATA STRUCTURES lesson.",
 			"finalDesc": "Closing regards and stuff.",
 			"bullets": [
 				{ "title": "IPFS website", "link": "https://ipfs.io" },
@@ -29,7 +28,16 @@
 			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)" },
 			{ "to": "/basics/02", "name": "Create a new node that's linked to an old one" },
 			{ "to": "/basics/03", "name": "Read nested data using link" }
-		]
+		],
+		"resources": {
+			"initialDesc": "This is an initial description of the BASICS lesson.",
+			"finalDesc": "Closing regards and stuff.",
+			"bullets": [
+				{ "title": "IPFS website", "link": "https://ipfs.io" },
+				{ "title": "JS-IPFS website", "link": "https://js.ipfs.io" },
+				{ "title": "libp2p website", "link": "https://libp2p.io" }
+			]
+		}
 	},
 	"blog": {
 		"project": "IPFS",
