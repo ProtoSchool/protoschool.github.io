@@ -7,34 +7,29 @@
 
 <script>
 import Lesson from '../components/Lesson'
+import tutorialsList from '../static/tutorials.json'
 
-const obj = {}
+const constructText = ({ initialDesc, bullets, finalDesc}) => `
+${initialDesc}
 
-// https://vuejs.org/v2/guide/components-registration.html#Automatic-Global-Registration-of-Base-Components
-const requireResource = require.context(
-  // The relative path of the folder
-  './',
-  // Whether or not to look in subfolders
-  true,
-  // The regular expression used to match filenames
-  /resources\.md$/
-)
+${bullets.map(e => `
+- [${e.title}](${e.link})
+`)}
 
-requireResource.keys().forEach(fileName => {
-  const fileContent = requireResource(fileName)
-  obj[fileName] = fileContent
-})
+${finalDesc}
+`
 
 export default {
   components: {
     Lesson
   },
   props: {
-		folderName: String
+    tutorialId: String
   },
   computed: {
     text: function () {
-      return obj[`./${this.folderName}/resources.md`]
+      const resources = tutorialsList[this.tutorialId].resources
+      return constructText(resources)
     }
   }
 }

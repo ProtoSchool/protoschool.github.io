@@ -305,7 +305,7 @@ export default {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
     lessonsInWorkshop: function () {
-      let basePath = this.$route.path.slice(0, -2)
+      const basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
         number++
@@ -314,8 +314,8 @@ export default {
       return parseInt(number) - 1
     },
     nextLessonIsResources: function () {
-      let basePath = this.$route.path.slice(0, -2)
-      const hasResources = this.$router.resolve(basePath + 'resources').route.name !== 404
+      const basePath = this.$route.path.slice(0, -2)
+      const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
       return this.lessonNumber === this.lessonsInWorkshop && hasResources
     },
     editorHeight: function () {

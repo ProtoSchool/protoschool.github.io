@@ -56,12 +56,12 @@ const routes = [
   { path: '/data-structures/03', component: LessonDataStructures03 },
   { path: '/data-structures/04', component: LessonDataStructures04 },
   { path: '/data-structures/05', component: LessonDataStructures05 },
+  { path: '/data-structures/resources', component: Resources, props: { tutorialId: 'dataStructures' } },
   // Lessons - Basics
   { path: '/basics', component: Landing, props: { tutorialId: 'basics' } },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
-  { path: '/basics/resources', component: Resources, props: { folderName: 'Basics' } },
   // Lessons - Blog
   { path: '/blog', component: Landing, props: { tutorialId: 'blog' } },
   { path: '/blog/01', component: LessonBlog01 },
