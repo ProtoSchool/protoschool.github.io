@@ -16,13 +16,12 @@ import text from './06.md'
 import exercise from './06-exercise.md'
 
 const validate = async (result, ipfs) => {
-
   // hash of directory if empty
   const emptyDirectoryHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
 
   // results of incorrectly running ls instead of stat
   const lsResult = await ipfs.files.ls('/')
-  const lsLongResult = await ipfs.files.ls('/', {long: true})
+  const lsLongResult = await ipfs.files.ls('/', { long: true })
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
@@ -35,47 +34,52 @@ const validate = async (result, ipfs) => {
   } else if ( JSON.stringify(result) === JSON.stringify(lsResult) ) {
     return {
       fail: 'Oops! Looks like you used `ls` instead of `stat`. Check out the results below, then try again.',
-      logDesc: 'Because you used `ls`, your result is an array of files as shown below, not the directory status. You didn\'t use the `{long: true}` option, so only file names are displayed in the results.',
+      logDesc: "Because you used `ls`, your result is an array of files as shown below, not the directory status. You didn't use the `{ long: true }` option, so only file names are displayed in the results.",
       log: JSON.stringify(result, null, 2)
     }
   } else if (!!result & !result.hash) {
-    return { fail: 'That result doesn\'t look right. Are you sure you ran the stat method on your root directory?' }
+    return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your root directory?" }
   } else if (!!result && result.hash === emptyDirectoryHash) {
     return { fail: 'Oops! It looks like your directory is empty. Did you delete some of the previous code?' }
-    } else if (!!result && result.hash !== emptyDirectoryHash) {
-          return {
-            success: 'Success! You did it!',
-            logDesc: "Here's the status of your updated root directory (/). Notice how this data compares to what you saw when the directory was empty. The hash (CID) has changed because of the new contents, as have the cumulative size and blocks. Because a directory is actually made up of links to content, rather than data itself, a directory's size is always 0. Cumulative size changes because it represents the sum of the size values of all of the files linked to. ",
-            log: result
-          }
-        }
+  } else if (!!result && result.hash !== emptyDirectoryHash) {
+    return {
+      success: 'Success! You did it!',
+      logDesc: "Here's the status of your updated root directory (`/`). Notice how this data compares to what you saw when the directory was empty. The hash (CID) has changed because of the new contents, as have the cumulative size and blocks. Because a directory is actually made up of links to content, rather than data itself, a directory's size is always `0`. Cumulative size changes because it represents the sum of the size values of all of the files linked to. ",
+      log: result
+    }
+  }
+
   // Output the default error if we haven't caught any
   return { error: result.error }
 }
 
 const code = `/* global ipfs */
-  const run = async (files) => {
-    // this code adds your uploaded files to IPFS
-    await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
-    let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
 
-    let directoryStatus = // your code goes here
+const run = async (files) => {
+  // this code adds your uploaded files to IPFS
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
+  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
 
-    return directoryStatus
-  }
-  return run
-  `
+  const directoryStatus = // your code goes here
+
+  return directoryStatus
+}
+
+return run
+`
 
 const solution = `/* global ipfs */
-  const run = async (files) => {
-    // this code adds your uploaded files to IPFS
-    await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
-    let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
-    let directoryStatus = await ipfs.files.stat('/')
-    return directoryStatus
-  }
-  return run
-  `
+
+const run = async (files) => {
+  // this code adds your uploaded files to IPFS
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
+  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+  const directoryStatus = await ipfs.files.stat('/')
+  return directoryStatus
+}
+
+return run
+`
 
 const modules = { cids: require('cids') }
 
@@ -84,7 +88,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise, solution  }
+    return { text, validate, code, modules, exercise, solution }
   }
 }
 </script>

@@ -21,11 +21,11 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
   } else if (!!result & !result.hash) {
-    return { fail: 'That result doesn\'t look right. Are you sure you ran the stat method on your empty root directory?' }
+    return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
   } else if (!!result && result.hash === correctHash) {
     return {
       success: 'Success! You did it!',
-      logDesc: "Here's the status of your root directory (/). Notice that it has a hash (CID) even though it doesn't have contents yet. Every empty IPFS node has this exact same hash, because their non-existent contents are identical!",
+      logDesc: "Here's the status of your root directory (`/`). Notice that it has a hash (CID) even though it doesn't have contents yet. Every empty IPFS node has this exact same hash, because their non-existent contents are identical!",
       log: result
     }
   }
@@ -35,18 +35,20 @@ const validate = async (result, ipfs) => {
 }
 
 const code = `/* global ipfs */
-  const run = async () => {
 
-    // your code goes here
-    
+const run = async () => {
+  // your code goes here
 }
+
 return run
 `
 
 const solution = `/* global ipfs */
-  const run = async () => {
-    return await ipfs.files.stat('/')
+
+const run = async () => {
+  return await ipfs.files.stat('/')
 }
+
 return run
 `
 

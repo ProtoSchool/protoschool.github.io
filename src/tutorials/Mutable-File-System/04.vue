@@ -35,7 +35,7 @@ const validate = async (result, ipfs) => {
   if (itemsMatch && itemsAreFiles) {
     return {
       success: 'Success! You did it!',
-      logDesc: "This is the data that is now in your root directory in IPFS:",
+      logDesc: 'This is the data that is now in your root directory in IPFS:',
       log: log
     }
   } else if (uploadedFiles = false) {
@@ -46,7 +46,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
   } else if (result && result.error.message === 'file does not exist') {
     // Forgot the `{ create: true }` option
-    return { fail: 'The file doesn\'t exist yet, so you need to create it. Did you forget an option?'  }
+    return { fail: "The file doesn't exist yet, so you need to create it. Did you forget an option?" }
   }
 
   // Output the default error if we haven't caught any
@@ -55,11 +55,10 @@ const validate = async (result, ipfs) => {
 
 const code = `const run = async (files) => {
   for (let file of files) {
-
-    // your code to add one file to MFS goes here
-    
+    // Your code to add one file to MFS goes here
   }
 }
+
 return run
 `
 
@@ -68,6 +67,7 @@ const solution = `const run = async (files) => {
     await ipfs.files.write('/' + file.name, file, { create: true })
   }
 }
+
 return run
 `
 

@@ -157,6 +157,7 @@ const code = `const run = async (files) => {
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   return rootDirectoryContents
 }
+
 return run
 `
 
@@ -169,6 +170,7 @@ const solution = `const run = async (files) => {
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   return rootDirectoryContents
 }
+
 return run
 `
 

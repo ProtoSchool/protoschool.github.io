@@ -1,4 +1,4 @@
-Move only the files (no directories) from your root directory into the `some/stuff` directory.
+Move only the files (no directories) from your root directory into the `/some/stuff` directory.
 
 Remember that you can pass an array into `files.mv` as the `from` value. This is useful because it allows you to run the async function only once. Be sure to use the `await` keyword so that the `mv` call completes before the contents of your `/some/stuff` directory are evaluated.
 

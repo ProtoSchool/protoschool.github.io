@@ -16,28 +16,18 @@ import text from './08.md'
 import exercise from './08-exercise.md'
 
 const validate = async (result, ipfs) => {
-
-  if (result.error) {
-    console.log('result.error.message: ', result.error.message)
-  }
-
   // check that right directories are there with no loose files in root
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
-  console.log('rootDirectoryContents', rootDirectoryContents)
 
   let rootIsEmpty = rootDirectoryContents.length === 0
-  console.log('rootIsEmpty', rootIsEmpty)
   let rootContainsOnlySome = rootDirectoryContents.length === 1 && rootDirectoryContents[0].name === 'some'
   let someContainsOnlyStuff = null
+
   if (rootContainsOnlySome) {
-    console.log('rootContainsOnlySome', rootContainsOnlySome)
     let someDirectoryContents = await ipfs.files.ls('/some', { long: true })
-    console.log('someDirectoryContents', someDirectoryContents)
     someContainsOnlyStuff = someDirectoryContents.length === 1 && someDirectoryContents[0].name === 'stuff'
-    console.log('someContainsOnlyStuff', someContainsOnlyStuff)
   }
 
-  console.log('result: ', result)
   let logResult = JSON.stringify(result, null, 2)
 
   // identify files that should have been moved
@@ -57,15 +47,11 @@ const validate = async (result, ipfs) => {
     someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
     logSomeStuff = JSON.stringify(someStuffFiles, null, 2)
     returnedSomeStuffContents = JSON.stringify(result) === JSON.stringify(someStuffFiles)
-    console.log('returnedSomeStuffContents ', returnedSomeStuffContents )
 
     // check whether contents of /some/stuff are the right files
     itemsMatch = JSON.stringify(someStuffFilenames) === JSON.stringify(uploadedFilenames)
     itemsAreFiles = someStuffFiles.every(file => file.type === 0)
-
   }
-  console.log('someStuffFiles ', someStuffFiles )
-
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?'}
@@ -74,32 +60,32 @@ const validate = async (result, ipfs) => {
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result.error && result.error.message === 'Unexpected token const') {
     return { fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`' }
-  } else if (result.error && result.error.message === 'await is only valid in async function'){
+  } else if (result.error && result.error.message === 'await is only valid in async function') {
     return { fail: 'Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn\'t wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`.'}
-  } else if (result.error && result.error.message === 'ipfs.mv is not a function'){
+  } else if (result.error && result.error.message === 'ipfs.mv is not a function') {
     return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?'}
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
-  } else if (result.error && result.error.message === 'paths must start with a leading /'){
+  } else if (result.error && result.error.message === 'paths must start with a leading /') {
     return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?'}
   } else if (!returnedSomeStuffContents) {
     return { fail: 'It looks like you returned something other than the contents of the `/some/stuff` directory. Did you accidentally edit the return statement?' }
   } else if (!rootContainsOnlySome) {
     return {
       fail: 'Your root directory should now contain only your `/some` directory, but something else is there.',
-      logDesc: 'Here\'s what\'s in your root directory:',
+      logDesc: "Here's what's in your root directory:",
       log: rootDirectoryContents
     }
   } else if (!someContainsOnlyStuff) {
     return {
       fail: 'Your `/some` directory should now contain only your `/stuff` directory, but something else is there.',
-      logDesc: 'Here\'s what\'s in your `/some` directory:',
+      logDesc: "Here's what's in your `/some` directory:",
       log: JSON.stringify((await ipfs.files.ls('/some', { long: true })), null, 2)
     }
   } else if (!itemsAreFiles) {
-    return { fail: 'Uh oh. It looks like your /some/stuff directory contains a directory. It should only include files.'}
+    return { fail: 'Uh oh. It looks like your `/some/stuff` directory contains a directory. It should only include files.'}
   } else if (!itemsMatch) {
-    return { fail: 'Uh oh. It looks the contents of your /some/stuff directory don\'t match your uploaded files.'}
+    return { fail: "Uh oh. It looks the contents of your `/some/stuff` directory don't match your uploaded files." }
   } else if (itemsMatch && itemsAreFiles) {
     return {
       success: 'Success! You did it!',
@@ -110,27 +96,16 @@ const validate = async (result, ipfs) => {
     return { error: result.error }
   }
   else {
-    return { fail: 'Something doesn\'t look right. Please hit "Reset Code" and try again, editing only the portion of code indicated.' }
+    return { fail: "Something doesn't look right. Please hit `Reset Code` and try again, editing only the portion of code indicated." }
   }
-
-
-
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
 }
 
 const code = `/* global ipfs */
-  const run = async (files) => {
-  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+
+const run = async (files) => {
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
 
   const filesToMove = // create an array of files to be moved (no folders)
 
@@ -138,18 +113,20 @@ const code = `/* global ipfs */
 
   // move all the files in filepathsToMove into /some/stuff
 
-  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
+  const someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
   return someStuffDirectoryContents
 }
+
 return run
 `
 
 
 const solution = `/* global ipfs */
-  const run = async (files) => {
-  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+
+const run = async (files) => {
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
 
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
@@ -160,12 +137,12 @@ const solution = `/* global ipfs */
   //    return ipfs.files.mv('/' + file.name, '/some/stuff')
   // }))
 
-  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
+  const someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
   return someStuffDirectoryContents
 }
+
 return run
 `
-
 
 const modules = { cids: require('cids') }
 
