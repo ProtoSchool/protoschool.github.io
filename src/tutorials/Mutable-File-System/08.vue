@@ -61,7 +61,7 @@ const validate = async (result, ipfs) => {
   } else if (result.error && result.error.message === 'Unexpected token const') {
     return { fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`' }
   } else if (result.error && result.error.message === 'await is only valid in async function') {
-    return { fail: 'Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn\'t wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`.'}
+    return { fail: "Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn't wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`." }
   } else if (result.error && result.error.message === 'ipfs.mv is not a function') {
     return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?'}
   } else if (rootIsEmpty) {
@@ -83,7 +83,7 @@ const validate = async (result, ipfs) => {
       log: JSON.stringify((await ipfs.files.ls('/some', { long: true })), null, 2)
     }
   } else if (!itemsAreFiles) {
-    return { fail: 'Uh oh. It looks like your `/some/stuff` directory contains a directory. It should only include files.'}
+    return { fail: 'Uh oh. It looks like your `/some/stuff` directory contains a directory. It should only include files.' }
   } else if (!itemsMatch) {
     return { fail: "Uh oh. It looks the contents of your `/some/stuff` directory don't match your uploaded files." }
   } else if (itemsMatch && itemsAreFiles) {
@@ -94,8 +94,7 @@ const validate = async (result, ipfs) => {
     }
   } else if (result.error) {
     return { error: result.error }
-  }
-  else {
+  } else {
     return { fail: "Something doesn't look right. Please hit `Reset Code` and try again, editing only the portion of code indicated." }
   }
 }

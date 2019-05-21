@@ -256,7 +256,6 @@ export default {
       solution: self.$attrs.solution,
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
-      createTestFile: self.$attrs.createTestFile,
       isFileLesson: self.isFileLesson,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
@@ -338,26 +337,18 @@ export default {
   },
   methods: {
     run: async function (...args) {
-      console.log('inside run function')
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
       }
       let output = this.output
       let ipfs = await this.createIPFS()
-      if (this.createTestFile) {
-        console.log("creating test file")
-        await ipfs.add(ipfs.Buffer.from('You did it!'))
-        console.log('created test file)')
-      }
       let code = this.editor.getValue()
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
-      console.log('inside run and about to set result')
       let result = await _eval(code, ipfs, modules, args)
-      console.log('inside run and just set result as: ', result)
       if (!this.$attrs.overrideErrors && result && result.error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
@@ -382,7 +373,7 @@ export default {
         return this.$attrs.createIPFS()
       } else {
         let ipfs = this.IPFSPromise.then(IPFS => {
-          return new IPFS({repo: Math.random().toString()})
+          return new IPFS({ repo: Math.random().toString() })
         })
         return ipfs
       }

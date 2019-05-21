@@ -6,7 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    :createTestFile="true"
+    :overrideErrors="true"
     lessonTitle="Copy a file using a CID" />
 </template>
 
@@ -16,59 +16,64 @@ import text from './09.md'
 import exercise from './09-exercise.md'
 
 const validate = async (result, ipfs) => {
+  const someStuffContents = await ipfs.files.ls('/some/stuff', { long: true })
 
   if (!result) {
-    return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?'}
+    return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
+  } else if (result.error && result.error.message === 'Please supply at least one source') {
+    return { fail: 'Did you forgot to destructure the `filepathsToMove` array?' }
+  } else if (!result.error && someStuffContents.length === 0) {
+    return { fail: 'Double check if you copied the files to the `/some/stuff` directory...' }
+  } else if (result.error) {
+    return { error: result.error }
   } else if (result) {
     return {
-      success: 'Your function returned a result!',
-      logDesc: 'This is what your function returned:',
-      log: JSON.stringify(result, null, 2)}
+      success: 'Success, you did it!',
+      logDesc: 'Check the contents of your `root` and `/some/stuff` directories:',
+      log: JSON.stringify(result, null, 2)
+    }
   } else {
-    return { fail: 'Sad but useful message :(' }
+    return { fail: "Something doesn't look right. Please hit `Reset Code` and try again, editing only the portion of code indicated." }
   }
-
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
 }
 
 const code = `/* global ipfs */
-  const run = async (files) => {
-  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+
+const run = async (files) => {
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
+  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
-  await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
-  // your code goes here
+  // Your code goes here
 
-  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
-  return someStuffDirectoryContents
+  const someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
+  return {
+    rootDirectoryContents: rootDirectoryContents,
+    someStuffDirectoryContents: someStuffDirectoryContents
+  }
 }
+
 return run
 `
 
 const solution = `/* global ipfs */
-  const run = async (files) => {
-  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, {create: true})))
+
+const run = async (files) => {
+  await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  let rootDirectoryContents = await ipfs.files.ls('/', {long: true})
-
+  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
-  await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
-  ipfs.files.cp('/ipfs/Qme1zmi8dxBiVM7K9y5J3oPxiWWBgzA7n9M6tkmkz8kSwV', '/some/stuff')
+  await ipfs.files.cp(...filepathsToMove, '/some/stuff')
 
-  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', {long: true})
-  return someStuffDirectoryContents
+  const someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
+  return {
+    rootDirectoryContents: rootDirectoryContents,
+    someStuffDirectoryContents: someStuffDirectoryContents
+  }
 }
+
 return run
 `
 
