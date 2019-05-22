@@ -54,7 +54,7 @@ const validate = async (result, ipfs) => {
   }
 
   if (!result) {
-    return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?'}
+    return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
   } else if (uploadedFiles = false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }

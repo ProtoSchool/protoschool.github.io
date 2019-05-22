@@ -265,6 +265,7 @@ export default {
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
+      createTestFile: self.$attrs.createTestFile,
       output: self.output,
       expandExercise: false,
       dragging: false,
@@ -343,6 +344,9 @@ export default {
       }
       let output = this.output
       let ipfs = await this.createIPFS()
+      if (this.createTestFile) {
+        await this.createFile(ipfs)
+      }
       let code = this.editor.getValue()
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
@@ -373,10 +377,19 @@ export default {
         return this.$attrs.createIPFS()
       } else {
         let ipfs = this.IPFSPromise.then(IPFS => {
+          this.ipfsConstructor = IPFS
           return new IPFS({ repo: Math.random().toString() })
         })
         return ipfs
       }
+    },
+    createFile: function (ipfs) {
+      new Promise((resolve, reject) => {
+        ipfs.on('ready', async () => {
+          await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
+          resolve()
+        })
+      })
     },
     resetCode: function () {
       // TRACK? User chose to reset code

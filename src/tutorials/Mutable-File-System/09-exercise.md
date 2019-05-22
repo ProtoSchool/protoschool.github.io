@@ -1,8 +1,3 @@
-You uploaded some files to the root directory, now copy them into your `/some/stuff` directory in MFS.
+We've created a text file containing a secret message and stored it on the IPFS network under CID `QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ`. Copy it from the IPFS network into your `/some/stuff` directory in MFS.
 
-**Hint:** Use [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) to get the values from `filepathsToMove` array like so:
-
-```js
-const filepathsToMove = ['file1', 'file2', 'file3']
-...filePathsToMove // 'file1', 'file2', 'file3'
-```
+**Hint:** Notice that an IPFS path starts with `/ipfs/` and ends with a CID.
