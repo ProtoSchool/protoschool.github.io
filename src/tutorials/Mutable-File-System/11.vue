@@ -19,7 +19,7 @@ import exercise from './11-exercise.md'
 const validate = async (result, ipfs) => {
   const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   const rootDirectoryStatus = await ipfs.files.stat('/')
-  const correctHash = rootDirectoryStatus.hash === "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
+  const correctHash = rootDirectoryStatus.hash === 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
