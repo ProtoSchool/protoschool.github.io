@@ -10,6 +10,32 @@ For information on local chapter organizing, please visit our [organizing repo](
 
 If you're interested in building tutorials, keep reading!
 
+---
+**Table of Contents**
+
+- [Developing Tutorials](#developing-tutorials)
+  * [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
+  * [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
+  * [Build your lessons (repeat for each lesson in the tutorial)](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial)
+    + [Create lesson files](#create-lesson-files)
+      - [Vue file](#vue-file)
+      - [Lesson text file](#lesson-text-file)
+      - [Exercise text file (skip for text-only lessons)](#exercise-text-file-skip-for-text-only-lessons)
+      - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
+    + [Build code challenges and validation in your Vue file (skip for text-only lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-lessons)
+      - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
+      - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
+      - [Validate the user's submitted code](#validate-the-users-submitted-code)
+        * [Override external error messages (optional)](#override-external-error-messages-optional)
+        * [Display results to the user (optional)](#display-results-to-the-user-optional)
+    + [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
+    + [Add your tutorial to `tutorials.json` and `courses.json`](#add-your-tutorial-to-tutorialsjson-and-coursesjson)
+- [Troubleshooting](#troubleshooting)
+  * [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
+- [License](#license)
+
+---
+
 ## Developing Tutorials
 
 ### Run the server locally to preview your work
@@ -117,7 +143,7 @@ tutorials/Tutorial-Shortname/01-concepts.md
 
 If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's Vue file. The basic template you need to accomplish this is provided in the boilerplate file you selected earlier.
 
-#### Provide the starting code for your exercise
+##### Provide the starting code for your exercise
 
 `code` is a string property. The value you set for `code` in your Vue file will
 be used to populate the code
@@ -153,7 +179,7 @@ Remember that you can add comments to your default code to orient the user, such
 // your code goes here
 ```
 
-#### Provide the simplest solution to your exercise
+##### Provide the simplest solution to your exercise
 
 `solution` is a string property. The value you set for `solution` in your Vue
 file will be used to populate the code editor if the user clicks the "View
@@ -168,7 +194,7 @@ validation code (see below) should allow all reasonable solutions to pass, the
 `solution` code you provide should be the most straightforward option which
 requires the least thorough understanding of JavaScript.
 
-#### Validate the user's submitted code
+##### Validate the user's submitted code
 
 Feedback is key to a positive learning experience. As the author of a tutorial, you'll need to give careful thought both to how you'll verify that your user has submitted successful code and to what mistakes they might make along the way. It's your responsibility to anticipate challenges and provide helpful clues accordingly.
 
@@ -208,7 +234,7 @@ If the object returned by your `validate` function has the property `fail`, the 
 If this is the last lesson in your tutorial, the user will see a "More Tutorials" button instead of a "Next" button. Please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
 
 
-##### Override external error messages (optional)
+###### Override external error messages (optional)
 
 As you test your code, you may notice that you see error messages appear that are different from the ones you provided in your `validate` function. These might include syntax errors noted by our embedded code editor or errors returned by the IPFS API, both of which appear by default. Syntax errors can be very helpful for your user, and other errors might help you identify common errors you hadn't thought of.
 
@@ -245,7 +271,7 @@ Note that most tutorial lessons will _not_ require the overriding of external
 errors. If you have questions about whether to use this optional feature, please reach
 out to the project maintainers for guidance.
 
-##### Display results to the user (optional)
+###### Display results to the user (optional)
 
 When the user submits their code successfully, they'll receive a success message you've provided in your `validate` function (see above). If you'd like to also show some data to the user to help them understand the results of their code, it's possible to add an additional step after code submission.
 
