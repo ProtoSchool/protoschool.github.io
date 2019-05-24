@@ -355,6 +355,8 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         return
       }
+      // Hide the solution
+      this.viewSolution = false
       // Run the `validate` function in the lesson
       let test = await this.$attrs.validate(result, ipfs, args)
       Vue.set(output, 'test', test)
