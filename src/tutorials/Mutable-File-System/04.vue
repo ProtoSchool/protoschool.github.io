@@ -18,7 +18,7 @@ import exercise from './04-exercise.md'
 const validate = async (result, ipfs) => {
   // Validation will be done by matching filenames between the
   // uploadedFiles array and the files in IPFS and ensuring that the type of each
-  // file in IPFS is 0 (file, not folder).
+  // file in IPFS is 0 (file, not directory).
   // If IPFS errors out, we try to output a clearer version to the user. If that's
   // not possible, the error from IPFS will be the output.
 
@@ -43,7 +43,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result && result.error.message === 'No child name passed to addLink') {
     // Forgot the file name and just used a directory as the path
-    return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
+    return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
   } else if (result && result.error.message === 'file does not exist') {
     // Forgot the `{ create: true }` option
     return { fail: "The file doesn't exist yet, so you need to create it. Did you forget an option?" }

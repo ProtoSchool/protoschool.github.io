@@ -41,7 +41,7 @@ const validate = async (result, ipfs) => {
   } else if (!itemsAreFiles) {
     // if they forget the file name and just use a directory as the path
     // shouldn't happen unless they mess with default code
-    return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
+    return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
   } else if (!rightFilesUploaded) {
     return { fail: 'Uh oh. Your files weren\'t added to IPFS correctly. Did you accidentally edit the default `write` code?' }
   } else if (result[0].hash.length === 0) {

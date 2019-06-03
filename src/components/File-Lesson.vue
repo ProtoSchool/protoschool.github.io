@@ -25,7 +25,7 @@ export default {
       for (let f of Array.from(event.dataTransfer.items)) {
         let isFile = f.getAsEntry ? f.getAsEntry().isFile : (f.webkitGetAsEntry ? f.webkitGetAsEntry().isFile : true)
         if (!isFile) {
-          return alert("Folder upload is not supported. Please select a file or multiple files.")
+          return alert("Directory upload is not supported. Please select one or multiple files.")
         }
       }
       this.onFiles(files)
