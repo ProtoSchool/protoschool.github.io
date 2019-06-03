@@ -69,7 +69,7 @@
               </div>
               <div v-else class="mt2">
                 <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
-                <div class="mb2 pl3 pa2 w-100 br3 h4 shadow-4 bg-white color-navy flex items-center">
+                <div class="mb2 pl3 pa2 w-100 br3 shadow-4 bg-white color-navy flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="fill-aqua" height="60px"><path d="M55.94 19.17H30a4 4 0 0 0-4 4v53.65a4 4 0 0 0 4 4h40.1a4 4 0 0 0 4-4V38.06zm5.28 21.08c-4.33 0-7.47-2.85-7.47-6.77V21l18.13 19.25z"/></svg>
                   <ul class="list pl0">
                     <li v-for="(file, idx) in uploadedFiles" :key="`file-${idx}`">{{file.name}}</li>
