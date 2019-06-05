@@ -16,12 +16,23 @@ import FileLesson from '../../components/File-Lesson'
 import text from './10.md'
 import exercise from './10-exercise.md'
 
+
+
 const validate = async (result, ipfs) => {
+
+  const correctMessage = 'You did it!'
+
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
   } else if (result && typeof result !== 'string') {
     return { fail: 'Oops. `secretMessage` should be a string. Did you forget to convert the buffer to a string?' }
-  } else if (result && typeof result === 'string') {
+  } else if (result !== correctMessage) {
+    return {
+      fail: "Uh oh! That's not the message we hid for you.",
+      logDesc: "Here's the current value of `secretMessage`:",
+      log: result
+    }
+  } else if (result === correctMessage) {
     return {
       success: 'Success!',
       logDesc: "Here's the secret message you discovered in the file:",
@@ -40,7 +51,7 @@ const run = async (files) => {
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
-  ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff')
+  ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff/success.txt')
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
 
   let secretMessage = // your code goes here
@@ -59,10 +70,10 @@ const run = async (files) => {
   let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
-  ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff')
+  await ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff/success.txt')
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
 
-  let secretMessage = (await ipfs.files.read('/some/stuff/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')).toString('utf8')
+  let secretMessage = (await ipfs.files.read('/some/stuff/success.txt')).toString('utf8')
 
   return secretMessage
 }
