@@ -19,23 +19,57 @@ import exercise from './09-exercise.md'
 const validate = async (result, ipfs) => {
   const someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
   const someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
-  const uploadedFilenames = uploadedFiles.map(file => file.name.toString())
-  uploadedFilenames.push('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
-  uploadedFilenames.sort()
+  const uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
+  console.log(uploadedFilenames)
 
-  const returnedExpected = JSON.stringify(uploadedFilenames) === JSON.stringify(someStuffFilenames)
+  const noNewFile = JSON.stringify(uploadedFilenames) === JSON.stringify(someStuffFilenames)
+  console.log(noNewFile)
+
+  //establish filenames if they give the copied file the name success.txt
+  const correctFilenames = [...uploadedFilenames]
+  correctFilenames.push('success.txt')
+  correctFilenames.sort()
+  console.log(correctFilenames)
+
+  //establish filenames if they fail to give the copied file a name
+  const incorrectFilenames = [...uploadedFilenames]
+  incorrectFilenames.push('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
+  incorrectFilenames.sort()
+  console.log(incorrectFilenames)
+
+  //check for a file with hash QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
+  console.log(someStuffFiles)
+  const someStuffHashes = someStuffFiles.map(file => file.hash.toString())
+  console.log(someStuffHashes)
+  const someFileHasRightHash = someStuffHashes.includes('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
+  console.log('someFileHasRightHash: ', someFileHasRightHash)
+
+  const returnedCorrectFilenames = JSON.stringify(correctFilenames) === JSON.stringify(someStuffFilenames)
+  const returnedHashAsFilename = JSON.stringify(incorrectFilenames) === JSON.stringify(someStuffFilenames)
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
   } else if (result.error) {
     return { error: result.error }
-  } else if (!returnedExpected) {
+  } else if (noNewFile) {
     return {
-      fail: 'Did you copy the file from IPFS to the `/some/stuff` directory?',
+      fail: 'No new files have been copied into `/some/stuff`',
+      logDesc: "Did you get the desination path wrong in your `files.cp` command? Here's what's in your `/some/stuff` directory now:",
+      log: someStuffFiles
+    }
+  } else if (someFileHasRightHash && returnedHashAsFilename) {
+    return {
+      fail: 'That new file has the wrong name.',
+      logDesc: "Check out the contents of your `/some/stuff` directory. You successfully copied the file but forgot to give it a name, so IPFS set its name equal to its hash. Try adding a filename to your destination path.",
+      log: someStuffFiles
+    }
+  } else if (!returnedCorrectFilenames) {
+    return {
+      fail: 'Did you pick the right destination path `(/some/stuff)`',
       logDesc: "Here's what's in your `/some/stuff` directory:",
       log: someStuffFiles
     }
-  } else if (returnedExpected) {
+  } else if (returnedCorrectFilenames && someFileHasRightHash) { // and hash is right
     return {
       success: 'Success! You did it!',
       logDesc: "This is the data that is now in your `/some/stuff` directory in IPFS:",
@@ -71,7 +105,7 @@ const run = async (files) => {
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
-  await ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff')
+  await ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff/success.txt')
 
   let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
   return someStuffDirectoryContents
