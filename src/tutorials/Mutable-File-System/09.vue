@@ -59,7 +59,7 @@ const validate = async (result, ipfs) => {
     }
   } else if (someFileHasRightHash && returnedHashAsFilename) {
     return {
-      fail: 'That new file has the wrong name.',
+      fail: 'You forgot to specify a filename.',
       logDesc: "Check out the contents of your `/some/stuff` directory. You successfully copied the file but forgot to give it a name, so IPFS set its name equal to its hash. Try adding a filename to your destination path.",
       log: someStuffFiles
     }
@@ -69,7 +69,13 @@ const validate = async (result, ipfs) => {
       logDesc: "Here's what's in your `/some/stuff` directory:",
       log: someStuffFiles
     }
-  } else if (returnedCorrectFilenames && someFileHasRightHash) { // and hash is right
+  } else if (returnedCorrectFilenames && !someFileHasRightHash) {
+    return {
+      fail: 'That new file has the wrong hash.',
+      logDesc: "Check out the contents of your `/some/stuff` directory. You created a file called `success.txt` but it doesn't have the hash we're looking for.",
+      log: someStuffFiles
+    }
+  } else if (returnedCorrectFilenames && someFileHasRightHash) {
     return {
       success: 'Success! You did it!',
       logDesc: "This is the data that is now in your `/some/stuff` directory in IPFS:",
