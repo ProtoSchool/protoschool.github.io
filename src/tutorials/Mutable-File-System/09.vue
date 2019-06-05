@@ -8,7 +8,7 @@
     :solution="solution"
     :overrideErrors="true"
     :createTestFile="true"
-    lessonTitle="Copy a file using a CID" />
+    lessonTitle="Copy a file or directory" />
 </template>
 
 <script>

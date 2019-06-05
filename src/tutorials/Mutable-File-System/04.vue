@@ -7,7 +7,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    lessonTitle="Add a new file to MFS" />
+    lessonTitle="Add a file to MFS" />
 </template>
 
 <script>
