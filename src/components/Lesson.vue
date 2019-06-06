@@ -151,8 +151,11 @@
               <Button v-bind:click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
-              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper">
-                <Button v-bind:click="next" class="bg-aqua white" disabled>Submit</Button>
+              <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabledButtonWrapper">
+                <Button v-bind:click="next" class="bg-aqua white" disabled>
+                  <span v-if="isSubmitting" class="loader"></span>
+                  <span v-else>Submit</span>
+                </Button>
               </span>
               <Button v-else v-bind:click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
@@ -254,6 +257,7 @@ export default {
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
+      isSubmitting: false,
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
@@ -338,6 +342,7 @@ export default {
   },
   methods: {
     run: async function (...args) {
+      this.isSubmitting = true
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
@@ -356,6 +361,7 @@ export default {
       if (!this.$attrs.overrideErrors && result && result.error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
+        this.isSubmitting = false
         return
       }
       // Run the `validate` function in the lesson
@@ -371,6 +377,7 @@ export default {
         localStorage[this.lessonKey] = 'passed'
       }
       this.lessonPassed = !!localStorage[this.lessonKey]
+      this.isSubmitting = false
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -410,7 +417,6 @@ export default {
     resetFileUpload: function () {
       this.uploadedFiles = false
       this.dragging = false
-      console.log({uploadedFiles: this.uploadedFiles})
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
@@ -577,6 +583,49 @@ div#drop-area * {
   border-style: solid;
   border-width:  5px 5px 5px;
   margin-top: 5px;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  animation-fill-mode: both;
+  animation: loadAnim 1.5s infinite ease-in-out;
+}
+
+.loader {
+  display: block;
+  margin: 7px auto;
+  color: #ffffff;
+  font-size: 5px;
+  top: -10px;
+  position: relative;
+  animation-delay: -0.15s;
+  pointer-events: none;
+}
+
+.loader:before {
+  content: '';
+  position: absolute;
+  left: -3.5em;
+  animation-delay: -0.30s;
+}
+
+.loader:after {
+  content: '';
+  position: absolute;
+  left: 3.5em;
+}
+
+@keyframes loadAnim {
+  0%, 80%, 100% {
+    box-shadow: 0 2em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2em 0 0;
+  }
 }
 </style>
 

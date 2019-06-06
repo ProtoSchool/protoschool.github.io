@@ -25,7 +25,7 @@ export default {
       for (let f of Array.from(event.dataTransfer.items)) {
         let isFile = f.getAsEntry ? f.getAsEntry().isFile : (f.webkitGetAsEntry ? f.webkitGetAsEntry().isFile : true)
         if (!isFile) {
-          return alert("Directory upload is not supported. Please select one or more files.")
+          return alert('Directory upload is not supported. Please select one or more files.')
         }
       }
       this.onFiles(files)
@@ -35,7 +35,7 @@ export default {
       event.preventDefault()
       event.stopPropagation()
       let elem = document.createElement('input')
-      elem.setAttribute("type", "file")
+      elem.setAttribute('type', 'file')
       elem.setAttribute('multiple', true)
       elem.onchange = () => {
         this.onFiles(Array.from(elem.files))
