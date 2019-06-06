@@ -38,7 +38,7 @@
 	"mutableFileSystem": {
 		"project": "IPFS",
 		"title": "IPFS: Mutable File System",
-		"description": "All data in IPFS is content-addressed and immutable, but the Mutable File System (MFS) lets you work with files and directories as though you were using a traditional name-based file system.",
+		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
 		"lessons": [
 			{ "to": "/mutable-file-system/01", "name": "Introducing IPFS" },
 			{ "to": "/mutable-file-system/02", "name": "Check the status of a directory" },
