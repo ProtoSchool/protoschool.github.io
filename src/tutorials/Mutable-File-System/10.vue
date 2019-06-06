@@ -16,10 +16,7 @@ import FileLesson from '../../components/File-Lesson'
 import text from './10.md'
 import exercise from './10-exercise.md'
 
-
-
 const validate = async (result, ipfs) => {
-
   const correctMessage = 'You did it!'
 
   if (!result) {

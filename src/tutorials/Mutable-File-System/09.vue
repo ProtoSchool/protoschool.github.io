@@ -20,29 +20,22 @@ const validate = async (result, ipfs) => {
   const someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
   const someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
   const uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
-  console.log(uploadedFilenames)
 
   const noNewFile = JSON.stringify(uploadedFilenames) === JSON.stringify(someStuffFilenames)
-  console.log(noNewFile)
 
-  //establish filenames if they give the copied file the name success.txt
+  // establish filenames if they give the copied file the name `success.txt`
   const correctFilenames = [...uploadedFilenames]
   correctFilenames.push('success.txt')
   correctFilenames.sort()
-  console.log(correctFilenames)
 
-  //establish filenames if they fail to give the copied file a name
+  // establish filenames if they fail to give the copied file a name
   const incorrectFilenames = [...uploadedFilenames]
   incorrectFilenames.push('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
   incorrectFilenames.sort()
-  console.log(incorrectFilenames)
 
-  //check for a file with hash QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
-  console.log(someStuffFiles)
+  // check for a file with hash QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
   const someStuffHashes = someStuffFiles.map(file => file.hash.toString())
-  console.log(someStuffHashes)
   const someFileHasRightHash = someStuffHashes.includes('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
-  console.log('someFileHasRightHash: ', someFileHasRightHash)
 
   const returnedCorrectFilenames = JSON.stringify(correctFilenames) === JSON.stringify(someStuffFilenames)
   const returnedHashAsFilename = JSON.stringify(incorrectFilenames) === JSON.stringify(someStuffFilenames)

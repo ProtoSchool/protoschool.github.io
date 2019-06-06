@@ -74,6 +74,7 @@ const validate = async (result, ipfs) => {
     return { error: result.error }
   }
 }
+
 const code = `/* global ipfs */
 
 const run = async (files) => {
