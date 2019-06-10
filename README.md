@@ -94,7 +94,7 @@ Select the appropriate boilerplate Vue file for your lesson from the `tutorials/
 - `boilerplate-file-upload.vue` for a lesson with a coding exercise that requires a file upload
 - `boilerplate-no-exercise.vue` for a text-only lesson
 
-Copy that boilerplate into your tutorial folder and rename it to the 2-digit number of the lesson.
+Copy that boilerplate into your tutorial directory and rename it to the 2-digit number of the lesson.
 
 Example (while in `src/tutorials`):
 
@@ -254,7 +254,7 @@ you need to override, as in this example:
 ```js
 } else if (result.error && result.error.message === 'No child name passed to addLink') {
   // Forgot the file name and just used a directory as the path
-  return { fail: 'Uh oh. It looks like you created a folder instead of a file. Did you forget to include a filename in your path?' }
+  return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
 }
 ```
 Be sure to adapt your test case so that it works within the context of your other conditionals to meet your validation needs. What is required is that you return an object with the `fail` key and a string as its value; that string is what will be shown to the user.

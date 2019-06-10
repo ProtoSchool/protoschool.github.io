@@ -30,11 +30,17 @@ import LessonDataStructures02 from './tutorials/Data-Structures/02.vue'
 import LessonDataStructures03 from './tutorials/Data-Structures/03.vue'
 import LessonDataStructures04 from './tutorials/Data-Structures/04.vue'
 import LessonDataStructures05 from './tutorials/Data-Structures/05.vue'
-// import MutableFileSystem01 from './tutorials/Mutable-File-System/01.vue'
-// import MutableFileSystem02 from './tutorials/Mutable-File-System/02.vue'
-// import MutableFileSystem03 from './tutorials/Mutable-File-System/03.vue'
-// import MutableFileSystem04 from './tutorials/Mutable-File-System/04.vue'
-// import MutableFileSystem05 from './tutorials/Mutable-File-System/05.vue'
+import MutableFileSystem01 from './tutorials/Mutable-File-System/01.vue'
+import MutableFileSystem02 from './tutorials/Mutable-File-System/02.vue'
+import MutableFileSystem03 from './tutorials/Mutable-File-System/03.vue'
+import MutableFileSystem04 from './tutorials/Mutable-File-System/04.vue'
+import MutableFileSystem05 from './tutorials/Mutable-File-System/05.vue'
+import MutableFileSystem06 from './tutorials/Mutable-File-System/06.vue'
+import MutableFileSystem07 from './tutorials/Mutable-File-System/07.vue'
+import MutableFileSystem08 from './tutorials/Mutable-File-System/08.vue'
+import MutableFileSystem09 from './tutorials/Mutable-File-System/09.vue'
+import MutableFileSystem10 from './tutorials/Mutable-File-System/10.vue'
+import MutableFileSystem11 from './tutorials/Mutable-File-System/11.vue'
 
 Vue
   .use(VueRouter)
@@ -70,12 +76,18 @@ const routes = [
   { path: '/blog/06', component: LessonBlog06 },
   { path: '/blog/07', component: LessonBlog07 },
   // Lessons - MFS
-  // { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'mutableFileSystem' } },
-  // { path: '/mutable-file-system/01', component: MutableFileSystem01 },
-  // { path: '/mutable-file-system/02', component: MutableFileSystem02 },
-  // { path: '/mutable-file-system/03', component: MutableFileSystem03 },
-  // { path: '/mutable-file-system/04', component: MutableFileSystem04 },
-  // { path: '/mutable-file-system/05', component: MutableFileSystem05 },
+  { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'mutableFileSystem' } },
+  { path: '/mutable-file-system/01', component: MutableFileSystem01 },
+  { path: '/mutable-file-system/02', component: MutableFileSystem02 },
+  { path: '/mutable-file-system/03', component: MutableFileSystem03 },
+  { path: '/mutable-file-system/04', component: MutableFileSystem04 },
+  { path: '/mutable-file-system/05', component: MutableFileSystem05 },
+  { path: '/mutable-file-system/06', component: MutableFileSystem06 },
+  { path: '/mutable-file-system/07', component: MutableFileSystem07 },
+  { path: '/mutable-file-system/08', component: MutableFileSystem08 },
+  { path: '/mutable-file-system/09', component: MutableFileSystem09 },
+  { path: '/mutable-file-system/10', component: MutableFileSystem10 },
+  { path: '/mutable-file-system/11', component: MutableFileSystem11 },
   // 404
   { path: '*', name: '404' }
 ]
