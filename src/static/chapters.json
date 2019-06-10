@@ -207,5 +207,15 @@
           "realChainLife"
        ],
        "repo":"http://github.com/protoschool/nairobi"
+    },
+    {
+       "name":"ProtoSchool Chengdu",
+       "city":"Chengdu",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "taoshengshi"
+       ],
+       "repo":"http://github.com/protoschool/chengdu"
     }
  ]
