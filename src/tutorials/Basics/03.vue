@@ -19,9 +19,6 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'No result was returned. Perhaps you tried to access the `value` of the object returned by `ipfs.dag.get` without waiting for the promise to be completed (wrapping the `await` statement in parentheses)?' }
   }
-  console.log(result)
-  console.log(result.value)
-  console.log(result.remainderPath)
 
   if (result === 1) {
     return { success: 'Great job! You\'ve completed this series of lessons!' }
@@ -54,8 +51,8 @@ const solution = `/* globals ipfs */
 const run = async () => {
   let cid = await ipfs.dag.put({ test: 1 })
   let cid2 = await ipfs.dag.put({ bar: cid })
-  let cid3 = await ipfs.dag.get(cid2, '/bar/test')
-  return cid3.value
+  let node = await ipfs.dag.get(cid2, '/bar/test')
+  return node.value
 }
 
 return run
