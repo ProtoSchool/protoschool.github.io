@@ -59,10 +59,7 @@
        "country":"CN",
        "region":"Asia",
        "organizers":[
-          "daijiale",
-          "bobjiang",
-          "dongtianyi",
-          "facert"
+          "bobjiang"
        ],
        "repo":"http://github.com/protoschool/beijing"
     },
