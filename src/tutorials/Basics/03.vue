@@ -17,13 +17,20 @@ import exercise from './03-exercise.md'
 
 const validate = async (result, ipfs) => {
   if (!result) {
-    return { fail: 'You forgot to return a result :)' }
+    return { fail: 'No result was returned. Perhaps you tried to access the `value` of the object returned by `ipfs.dag.get` without waiting for the promise to be completed (wrapping the `await` statement in parentheses)?' }
   }
+  console.log(result)
+  console.log(result.value)
+  console.log(result.remainderPath)
 
   if (result === 1) {
     return { success: 'Great job! You\'ve completed this series of lessons!' }
   } else if (result.value === 1 && result.remainderPath === '') {
-    return { fail: 'Just want the `value` of `test`, try again.' }
+    return {
+      fail: 'Be sure to return only the `value` of `test`.',
+      logDesc: 'Remember that `ipfs.dag.get` returns an object with a `value` property. Your function returned:',
+      log: JSON.stringify(result)
+    }
   } else {
     const got = JSON.stringify(result)
 
