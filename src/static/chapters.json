@@ -214,5 +214,15 @@
           "taoshengshi"
        ],
        "repo":"http://github.com/protoschool/chengdu"
+    },
+    {
+       "name":"ProtoSchool Xiamen",
+       "city":"Xiamen",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "junyaoren"
+       ],
+       "repo":"http://github.com/protoschool/xiamen"
     }
  ]
