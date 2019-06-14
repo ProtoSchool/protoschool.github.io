@@ -9,11 +9,11 @@
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
           <h1>{{lessonTitle}}</h1>
+          <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
+            <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
+            <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+          </div>
           <div class="lesson-text lh-copy" v-html="parsedText"></div>
-        </section>
-        <section v-if="concepts" class='dn db-ns ba border-green ph4 mb4' style="background: rgba(105, 196, 205, 10%)">
-          <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-          <div class='f6 lh-copy' v-html="parsedConcepts"></div>
         </section>
       </div>
       <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
