@@ -37,14 +37,20 @@
 	},
 	"mutableFileSystem": {
 		"project": "IPFS",
-		"title": "IPFS as a Mutable File System",
-		"description": "Store, edit, and share files with with the Mutable File System (MFS).",
+		"title": "IPFS: Mutable File System",
+		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
 		"lessons": [
-			{ "to": "/mutable-file-system/01", "name": "Working with your IPFS node" },
-			{ "to": "/mutable-file-system/02", "name": "Working with files in ProtoSchool" },
-			{ "to": "/mutable-file-system/03", "name": "Add a new file to MFS" },
-			{ "to": "/mutable-file-system/04", "name": "View files in your directory" },
-			{ "to": "/mutable-file-system/05", "name": "Create a directory" }
+			{ "to": "/mutable-file-system/01", "name": "Introducing IPFS" },
+			{ "to": "/mutable-file-system/02", "name": "Check the status of a directory" },
+			{ "to": "/mutable-file-system/03", "name": "Working with files in ProtoSchool" },
+			{ "to": "/mutable-file-system/04", "name": "Add a file to MFS" },
+			{ "to": "/mutable-file-system/05", "name": "View the contents of a directory" },
+			{ "to": "/mutable-file-system/06", "name": "See how CIDs change as data changes" },
+			{ "to": "/mutable-file-system/07", "name": "Create a directory" },
+			{ "to": "/mutable-file-system/08", "name": "Move a file or directory" },
+			{ "to": "/mutable-file-system/09", "name": "Copy a file or directory" },
+			{ "to": "/mutable-file-system/10", "name": "Read the contents of a file" },
+			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
 		]
 	}
 }
