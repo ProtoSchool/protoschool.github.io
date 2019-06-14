@@ -52,5 +52,14 @@
 			{ "to": "/mutable-file-system/10", "name": "Read the contents of a file" },
 			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
 		]
-	}
+	},
+		"tests": {
+			"project": "IPFS",
+			"title": "Testing new lesson formats!",
+			"description": "We'll need to delete this before we merge!",
+			"lessons": [
+				{ "to": "/tests/01", "name": "Sample multiple choice lesson" }
+
+			]
+		}
 }

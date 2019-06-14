@@ -16,7 +16,8 @@
           <div class='f6 lh-copy' v-html="parsedConcepts"></div>
         </section>
       </div>
-      <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
+
+      <section v-if="exercise || isMultipleChoiceLesson" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
         <div class="flex-none">
           <h2 class="mt0 mb2 green fw4 fill-current">
             <span style='vertical-align:-1px'>
@@ -50,6 +51,7 @@
 
             </div>
           </h2>
+
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
           <div v-if="isFileLesson">
             <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
@@ -81,67 +83,76 @@
             </div>
           </div>
         </div>
-        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
-          <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
-          <MonacoEditor
-            class="editor mt2"
-            srcPath="."
-            :height="editorHeight"
-            :options="options"
-            :code="code"
-            theme="vs"
-            language="javascript"
-            @mounted="onMounted"
-            @codeChange="onCodeChange" />
-        </div>
-        <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
-          <div v-if="solution" class="mb2 ml3">
-            <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
-            <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
-            <!-- Below is a special button only to be used by Cypress for the E2E tests -->
-            <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
+
+          <Quiz v-if="isMultipleChoiceLesson"
+            :question="this.question"
+            :choices="this.choices"
+          />
+
+        <div v-if="exercise">
+          <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
+            <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
+            <MonacoEditor
+              class="editor mt2"
+              srcPath="."
+              :height="editorHeight"
+              :options="options"
+              :code="code"
+              theme="vs"
+              language="javascript"
+              @mounted="onMounted"
+              @codeChange="onCodeChange" />
           </div>
-          <MonacoEditor
-            v-show="viewSolution"
-            class="editor"
-            srcPath="."
-            :height="editorHeight"
-            :options="Object.assign({}, { readOnly: true }, options)"
-            :code="solution"
-            theme="vs-dark"
-            language="javascript" />
-        </div>
-        <div class='flex-none'>
-          <div class="pt2">
-            <div v-if="output.test && cachedCode" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
-                Error: {{output.test.error.message}}
+          <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
+            <div v-if="solution" class="mb2 ml3">
+              <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
+              <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
+              <!-- Below is a special button only to be used by Cypress for the E2E tests -->
+              <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
+            </div>
+            <MonacoEditor
+              v-show="viewSolution"
+              class="editor"
+              srcPath="."
+              :height="editorHeight"
+              :options="Object.assign({}, { readOnly: true }, options)"
+              :code="solution"
+              theme="vs-dark"
+              language="javascript" />
+          </div>
+          <div class='flex-none'>
+            <div class="pt2">
+              <div v-if="output.test && cachedCode" v-bind="output.test">
+                <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
+                  Error: {{output.test.error.message}}
+                </div>
+                <div class="output-log lh-copy bg-red white" v-if="output.test.fail" v-html="parseData(output.test.fail)" />
+                <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
+                  <span class="output-log" v-html="parseData(output.test.success)" />
+                  <a v-if="output.test.cid"
+                  class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
+                    View in IPLD Explorer
+                  </a>
+                </div>
+                <div v-if="output.test.log">
+                  <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
+                  <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
+                  <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
+                  <highlight-code lang="json" class="output-code">
+                    {{output.test.log}}
+                  </highlight-code>
+                </div>
               </div>
-              <div class="output-log lh-copy bg-red white" v-if="output.test.fail" v-html="parseData(output.test.fail)" />
-              <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
-                <span class="output-log" v-html="parseData(output.test.success)" />
-                <a v-if="output.test.cid"
-                class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
-                  View in IPLD Explorer
-                </a>
-              </div>
-              <div v-if="output.test.log">
-                <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
-                <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
-                <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
-                <highlight-code lang="json" class="output-code">
-                  {{output.test.log}}
-                </highlight-code>
+              <div class="pt2 lh-copy" v-else>
+                <div v-if="isFileLesson">
+                  Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
+                </div>
+                <div v-else>
+                  Update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
+                </div>
               </div>
             </div>
-            <div class="pt2 lh-copy" v-else>
-              <div v-if="isFileLesson">
-                Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
-              </div>
-              <div v-else>
-                Update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
-              </div>
-            </div>
+          </div>
           </div>
           <div class="pt2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
@@ -163,7 +174,7 @@
               </div>
             </div>
           </div>
-        </div>
+
       </section>
       <section v-else>
         <div class="pt3 ph2 tr mb3">
@@ -192,6 +203,7 @@ import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
+import Quiz from './Quiz.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -247,7 +259,8 @@ export default {
     MonacoEditor,
     Explorer,
     Button,
-    Header
+    Header,
+    Quiz
   },
   data: self => {
     return {
@@ -261,6 +274,9 @@ export default {
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
+      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
+      question: self.$attrs.question,
+      choices: self.$attrs.choices,
       parsedText: marked(self.$attrs.text),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
