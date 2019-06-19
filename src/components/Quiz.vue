@@ -2,17 +2,14 @@
   <div>
     <h3>{{this.question}}</h3>
     <div v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
-      <input type="radio" :id="idx" :value="idx" v-model="selected">
+      <input type="radio" :id="idx" :value="idx" v-model="selected" @click="handleRadioClick">
       <label for="key">{{choice.answer}}</label>
-      <br>
     </div>
     <p v-if="selected !== ''" class="feedback" v-bind:class="answerStatus"> {{feedback}}</p>
-
   </div>
 </template>
 
 <script>
-//import Navigation from './Navigation.vue'
 export default {
   name: 'Quiz',
   data: self => {
@@ -49,6 +46,14 @@ export default {
         return "incorrect"
       }
     }
+    },
+    methods: {
+      handleRadioClick () {
+        this.$emit("handleChoice", {
+          status: this.isCorrect ? "correct" : "incorrect",
+          feedback: this.choices[this.selected].feedback
+        })
+      }
     }
   }
 

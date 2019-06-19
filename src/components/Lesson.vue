@@ -84,10 +84,10 @@
           </div>
         </div>
 
-          <Quiz v-if="isMultipleChoiceLesson"
-            :question="this.question"
-            :choices="this.choices"
-          />
+        <Quiz v-if="isMultipleChoiceLesson"
+          :question="this.question"
+          :choices="this.choices"
+          @handleChoice="handleRadioChoice" />
 
         <div v-if="exercise">
           <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
@@ -472,6 +472,9 @@ export default {
         this.cachedCode = !!localStorage[this.cacheKey]
         this.cachedStateMsg = "We're saving your code as you go."
       }
+    },
+    handleRadioChoice(data) {
+      console.log('------ Data received in parent', data)
     },
     next: function () {
       if (this.exercise) {
