@@ -11,6 +11,7 @@ For information on local chapter organizing, please visit our [organizing repo](
 If you're interested in building tutorials, keep reading!
 
 ---
+
 **Table of Contents**
 
 - [Developing Tutorials](#developing-tutorials)
@@ -111,7 +112,6 @@ Replace anything in the boilerplate file that reads "REPLACEME".
 
 If your lesson includes a coding exercise, you'll also use this file to set up your default code and validation, as described later in these instructions.
 
-
 ##### Lesson text file
 
 Create a `.md` file alongside your `.vue` and add the markdown-formatted text
@@ -124,7 +124,6 @@ Example:
 tutorials/Tutorial-Shortname/01.md
 ```
 
-
 ##### Exercise text file (skip for text-only lessons)
 
 If your lesson includes a coding exercise, create a second `.md` file and add the markdown-formatted text that provides the assignment text for the exercise box. The name of this file should match the 2-digit lesson number used previously, with `-exercise` appended.
@@ -134,6 +133,7 @@ Example:
 ```
 tutorials/Tutorial-Shortname/01-exercise.md
 ```
+
 ##### Useful concepts text file (optional)
 
 Occasionally you may want to add a _useful concepts_ box defining key terminology, if this can't easily be done in-line. If you'd like to do this, create another `.md` file that provides the text for that _useful concepts_ box. The name of this file should match the 2-digit lesson number used previously, with `-concepts` appended. (This step is optional.)
@@ -162,6 +162,7 @@ const code = `const run = async () => {
 return run
 `
 ```
+
 Your default `code` will always have this exterior `run` function, inside of which
 your user creates their own code. The code your user writes will almost always
 include returning a value from the interior function.
@@ -180,6 +181,7 @@ challenges and limit the assignment to executing methods that practice your less
 content.
 
 Remember that you can add comments to your default code to orient the user, such as:
+
 ```js
 // your code goes here
 ```
@@ -205,12 +207,9 @@ To do this, you'll use the `validate` function found in the boilerplate, which t
 
 `validate(result, ipfs)`
 
-
 When the sample code area is evaluated, it must return a function, usually an
 async function. The result of that function is passed to your validation
 function as `result`.
-
-
 
 Each time the user's code is evaluated, they get a new, clean, IPFS instance.
 That instance is passed as the second argument, `ipfs`.
@@ -224,6 +223,7 @@ By using the `FileLesson` component, which comes included in the `boilerplate-fi
 ![screenshot](public/file_upload.png)
 
 The `run` function in the code challenge takes an argument `files`, which is the array of uploaded files.
+
 ```js
 const run = async (files) => {
   /* remove the '//' on the line below to complete this challenge */
@@ -231,9 +231,11 @@ const run = async (files) => {
 ```
 
 Behind the scenes, the uploaded files have been saved as `window.uploadedFiles` for use both in your user's code and in your own validation. In your `validate` function, we recommend saving the files to a variable and allowing for the fact that they may not be present. For example:
+
 ```js
 const uploadedFiles = window.uploadedFiles || false
 ```
+
 Remember that these files are stored as browser file objects. Reference the [Files documentation](https://developer.mozilla.org/en-US/docs/Web/API/File#Properties) to see what properties are available to both you and the user, including `name` and `type`.
 
 If the user proceeds to the next lesson without refreshing their browser, the same files will remain available to them. However, they may also choose to click "Start Over" and upload different files. The user will be unable to click "Submit" until files have either been selected from their machine or carried over from a previous lesson.
@@ -255,12 +257,12 @@ const validate = async (result, ipfs) => {
   }
 }
 ```
+
 Be sure to include conditionals that will catch common mistakes and provide useful clues.
 
 If the object returned by your `validate` function has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
 
 If this is the last lesson in your tutorial, the user will see a "More Tutorials" button instead of a "Next" button. Please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
-
 
 ###### Override external error messages (optional)
 
@@ -287,6 +289,7 @@ you need to override, as in this example:
 ```
 
 You may choose to use markdown formatting in your responses.
+
 Be sure to adapt your test case so that it works within the context of your other conditionals to meet your validation needs. What is required is that you return an object with the `fail` key and a string as its value; that string is what will be shown to the user.
 
 You'll also need to add the following lines below your custom validation so that
@@ -307,7 +310,8 @@ You may (optionally) use [markdown formatting](https://guides.github.com/feature
 } else if (!!result & !result.hash) {
   return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
 }
-  ```
+```
+
 ...would produce this user-facing message:
 
 ![screenshot](public/markdown_error.png)
@@ -316,7 +320,7 @@ You may (optionally) use [markdown formatting](https://guides.github.com/feature
 
 When the user submits their code successfully, they'll receive a success message you've provided in your `validate` function (see above). If you'd like to also show some data to the user to help them understand the results of their code, it's possible to add an additional step after code submission.
 
-In the `validate` function, when returning either a *fail* or a *success*, add `log` and `logDesc` (optional) keys with values, as in this example:
+In the `validate` function, when returning either a *fail* or a *success*, you can optionally add a `log` and `logDesc` keys with values, as in this example:
 
 ```js
 const ipfsFiles = ipfs.files.ls('/foo')
@@ -338,13 +342,14 @@ When you use this option, a new section will appear below the exercise box, show
 
 Note that you may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in both your `fail` or `success` values and your `logDesc` value. For example, the following validation code:
 
-```
+```js
 return {
   fail: 'Looks like you edited the `ls` code to list something other than the root directory. Please try again, editing only the section of code indicated.',
   logDesc: 'Here\'s what your `ls` command shows' + returnedDirectoryMsg + ':',
   log: JSON.stringify(result, null, 2)
 }
 ```
+
 ... would produce this formatted result for the user:
 
 ![screenshot](public/markdown_error_logdesc_log.png)
