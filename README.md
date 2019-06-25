@@ -83,7 +83,7 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 | A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used |
 | A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional |
 
-Here's a look at how these files work together to create the content of your lesson:
+In the example below, four files stored in the `tutorial/Basics` directory work together to create the second lesson in that tutorial.
 
 ![screenshot](public/lesson_sources.png)
 
