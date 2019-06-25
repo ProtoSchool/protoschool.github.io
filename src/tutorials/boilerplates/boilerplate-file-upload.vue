@@ -15,6 +15,9 @@ import text from './REPLACEME.md'
 import exercise from './REPLACEME-exercise.md'
 
 const validate = async (result, ipfs) => {
+
+  // let uploadedFiles = window.uploadedFiles
+  
   if (result) {
     return { success: 'Happy Message!' }
   } else {

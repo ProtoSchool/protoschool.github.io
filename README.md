@@ -26,6 +26,7 @@ If you're interested in building tutorials, keep reading!
       - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
       - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
       - [Validate the user's submitted code](#validate-the-users-submitted-code)
+        * [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
         * [Override external error messages (optional)](#override-external-error-messages-optional)
         * [Display results to the user (optional)](#display-results-to-the-user-optional)
     + [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
@@ -81,6 +82,10 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required |
 | A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used |
 | A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional |
+
+Here's a look at how these files work together to create the content of your lesson:
+
+![screenshot](public/lesson_sources.png)
 
 Not familiar with markdown? It's a fairly simple way to style text on the web. [Learn more about markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
 
@@ -183,11 +188,9 @@ Remember that you can add comments to your default code to orient the user, such
 
 `solution` is a string property. The value you set for `solution` in your Vue
 file will be used to populate the code editor if the user clicks the "View
-Solution" option. (We hope you'll have provided enough clues that they won't need
-to do this!)
+Solution" option. (We hope you'll have provided enough clues that they won't need to do this!)
 
-Be sure to test your solution code. If the user clicks "View Solution" and then
-"Submit", they should see your success message.
+Be sure to test your solution code. If the user clicks "View Solution" and then "Submit", they should see your success message.
 
 There's almost always more than one way to solve a coding challenge. Although your
 validation code (see below) should allow all reasonable solutions to pass, the
@@ -207,10 +210,35 @@ When the sample code area is evaluated, it must return a function, usually an
 async function. The result of that function is passed to your validation
 function as `result`.
 
+
+
 Each time the user's code is evaluated, they get a new, clean, IPFS instance.
 That instance is passed as the second argument, `ipfs`.
 
 You may want to use both the `result` and `ipfs` values when building conditional statements to evaluate the success or failure of the user's code submission. If needed, check out this primer on [using conditionals in JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals).
+
+###### Work with uploaded files (for file upload lessons only)
+
+By using the `FileLesson` component, which comes included in the `boilerplate-file-upload.vue` template, you can create a lesson which requires the user to upload files before completing a code challenge.
+
+![screenshot](public/file_upload.png)
+
+The `run` function in the code challenge takes an argument `files`, which is the array of uploaded files.
+```js
+const run = async (files) => {
+  /* remove the '//' on the line below to complete this challenge */
+}
+```
+
+Behind the scenes, the uploaded files have been saved as `window.uploadedFiles` for use both in your user's code and in your own validation. In your `validate` function, we recommend saving the files to a variable and allowing for the fact that they may not be present. For example:
+```js
+const uploadedFiles = window.uploadedFiles || false
+```
+Remember that these files are stored as browser file objects. Reference the [Files documentation](https://developer.mozilla.org/en-US/docs/Web/API/File#Properties) to see what properties are available to both you and the user, including `name` and `type`.
+
+If the user proceeds to the next lesson without refreshing their browser, the same files will remain available to them. However, they may also choose to click "Start Over" and upload different files. The user will be unable to click "Submit" until files have either been selected from their machine or carried over from a previous lesson.
+
+###### Create success and failure messages
 
 Your `validate` function must return an object with one of two properties: `fail` or
 `success`. Each property should be used to give a detailed message (as a string) either congratulating the user or explaining *why*
@@ -257,6 +285,8 @@ you need to override, as in this example:
   return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
 }
 ```
+
+You may choose to use markdown formatting in your responses.
 Be sure to adapt your test case so that it works within the context of your other conditionals to meet your validation needs. What is required is that you return an object with the `fail` key and a string as its value; that string is what will be shown to the user.
 
 You'll also need to add the following lines below your custom validation so that
@@ -270,6 +300,17 @@ return { error: result.error }
 Note that most tutorial lessons will _not_ require the overriding of external
 errors. If you have questions about whether to use this optional feature, please reach
 out to the project maintainers for guidance.
+
+You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
+
+```js
+} else if (!!result & !result.hash) {
+  return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
+}
+  ```
+...would produce this user-facing message:
+
+![screenshot](public/markdown_error.png)
 
 ###### Display results to the user (optional)
 
@@ -294,6 +335,19 @@ if (result === 'foo') {
 ```
 
 When you use this option, a new section will appear below the exercise box, showing your `logDesc` message followed by the `log` data.
+
+Note that you may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in both your `fail` or `success` values and your `logDesc` value. For example, the following validation code:
+
+```
+return {
+  fail: 'Looks like you edited the `ls` code to list something other than the root directory. Please try again, editing only the section of code indicated.',
+  logDesc: 'Here\'s what your `ls` command shows' + returnedDirectoryMsg + ':',
+  log: JSON.stringify(result, null, 2)
+}
+```
+... would produce this formatted result for the user:
+
+![screenshot](public/markdown_error_logdesc_log.png)
 
 #### Update routes and import statements in `src/main.js`
 
