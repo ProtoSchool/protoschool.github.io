@@ -320,7 +320,7 @@ You may (optionally) use [markdown formatting](https://guides.github.com/feature
 
 When the user submits their code successfully, they'll receive a success message you've provided in your `validate` function (see above). If you'd like to also show some data to the user to help them understand the results of their code, it's possible to add an additional step after code submission.
 
-In the `validate` function, when returning either a *fail* or a *success*, you can optionally add a `log` and `logDesc` keys with values, as in this example:
+In the `validate` function, when returning either a `fail` or a `success`, you can optionally add `log` and `logDesc` keys with values, as in this example:
 
 ```js
 const ipfsFiles = ipfs.files.ls('/foo')
