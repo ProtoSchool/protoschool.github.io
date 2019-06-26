@@ -473,8 +473,12 @@ export default {
         this.cachedStateMsg = "We're saving your code as you go."
       }
     },
-    handleRadioChoice(data) {
-      console.log('------ Data received in parent', data)
+    handleRadioChoice(result) {
+      console.log('------ result received in parent', result)
+      // result should be null if question hasn't been answered yet 
+      console.log('--- output ', this.output.test)
+      Vue.set(this.output, 'test', result)
+      console.log('--- output after set ', this.output.test)
     },
     next: function () {
       if (this.exercise) {

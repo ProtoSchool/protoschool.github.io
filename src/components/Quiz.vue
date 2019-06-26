@@ -2,7 +2,7 @@
   <div>
     <h3>{{this.question}}</h3>
     <div v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
-      <input type="radio" :id="idx" :value="idx" v-model="selected" @click="handleRadioClick">
+      <input type="radio" :id="idx" :value="idx" v-model="selected" @change="handleRadioClick">
       <label for="key">{{choice.answer}}</label>
     </div>
     <p v-if="selected !== ''" class="feedback" v-bind:class="answerStatus"> {{feedback}}</p>
@@ -49,10 +49,17 @@ export default {
     },
     methods: {
       handleRadioClick () {
-        this.$emit("handleChoice", {
-          status: this.isCorrect ? "correct" : "incorrect",
-          feedback: this.choices[this.selected].feedback
-        })
+        let result = null
+        if (this.selected !== '') {
+          if (this.isCorrect) {
+            result = { success: this.choices[this.selected].feedback }
+          } else {
+            result = { fail: this.choices[this.selected].feedback }
+          }
+        } else {
+          console.log('not answered')
+        }
+        this.$emit("handleChoice", result)
       }
     }
   }
