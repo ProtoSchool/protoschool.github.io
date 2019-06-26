@@ -18,7 +18,7 @@ const choices = [
   {
     answer: "Doing good",
     correct: false,
-    feedback: "Sorry, we were looking for a numerical value. Think Douglas Adams."
+    feedback: "Sorry, we were `looking` for a _numerical_ *value*. Think Douglas Adams."
   },
   {
     answer: "42",

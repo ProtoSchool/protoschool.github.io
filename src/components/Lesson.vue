@@ -120,9 +120,10 @@
               theme="vs-dark"
               language="javascript" />
           </div>
+        </div>
           <div class='flex-none'>
             <div class="pt2">
-              <div v-if="output.test && cachedCode" v-bind="output.test">
+              <div v-if="output.test && cachedCode || output.test && isMultipleChoiceLesson" v-bind="output.test">
                 <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
                   Error: {{output.test.error.message}}
                 </div>
@@ -143,7 +144,7 @@
                   </highlight-code>
                 </div>
               </div>
-              <div class="pt2 lh-copy" v-else>
+              <div v-if="exercise" class="pt2 lh-copy" v-else>
                 <div v-if="isFileLesson">
                   Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
                 </div>
@@ -153,7 +154,7 @@
               </div>
             </div>
           </div>
-          </div>
+
           <div class="pt2 tr">
             <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
               <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
@@ -475,10 +476,17 @@ export default {
     },
     handleRadioChoice(result) {
       console.log('------ result received in parent', result)
-      // result should be null if question hasn't been answered yet 
+      // result should be null if question hasn't been answered yet
       console.log('--- output ', this.output.test)
       Vue.set(this.output, 'test', result)
       console.log('--- output after set ', this.output.test)
+      if (this.output.test.success) {
+        console.log('correct multiple choice')
+        localStorage[this.lessonKey] = 'passed'
+        console.log('localStorage[this.lessonKey]', localStorage[this.lessonKey])
+        this.lessonPassed = !!localStorage[this.lessonKey]
+        console.log('this.lessonPassed', this.lessonPassed)
+      }
     },
     next: function () {
       if (this.exercise) {

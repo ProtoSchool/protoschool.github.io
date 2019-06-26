@@ -5,7 +5,6 @@
       <input type="radio" :id="idx" :value="idx" v-model="selected" @change="handleRadioClick">
       <label for="key">{{choice.answer}}</label>
     </div>
-    <p v-if="selected !== ''" class="feedback" v-bind:class="answerStatus"> {{feedback}}</p>
   </div>
 </template>
 
@@ -67,17 +66,5 @@ export default {
 </script>
 
 <style scoped>
-
-.feedback {
-  color: white;
-  padding: 2px;
-}
-.feedback.correct {
-  background-color: green;
-}
-.feedback.incorrect {
-  background-color: red;
-}
-
 
 </style>
