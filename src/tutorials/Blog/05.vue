@@ -47,9 +47,9 @@ const validate = async (result, ipfs) => {
     }
 
     let expectedPosts
-    const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
-    const computerPostCid = 'zdpuAqaHPSosSZFRPe7u5q3yNqgg4JuvrLaUJxGamNPLhWivX'
-    const dogPostCid = 'zdpuAuaznfNPWfgSSrcGxkm3yqyssY6mz8i5T2gxqpEpNExG6'
+    const treePostCid = 'bafyreic5ndfk2yj4vr7pdhk4n435hxr522faalcse2ls4ukzddr7d5qxhi'
+    const computerPostCid = 'bafyreicmrzqpsebu5or7zjeffvnc3g76khmyzdo3q64i7ylvekxgcyqszq'
+    const dogPostCid = 'bafyreieifpyb4ayum62wvgnibargbgu6cedy72vk7sjla2hp4aupk7b5t4'
     switch (node.tag) {
       case 'funny':
         expectedPosts = [dogPostCid]

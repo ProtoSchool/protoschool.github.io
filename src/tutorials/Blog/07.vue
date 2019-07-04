@@ -38,9 +38,9 @@ const validate = async (result, ipfs) => {
     return { fail: 'The return value of your traversePosts function needs to be an array.' }
   }
 
-  const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
-  const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
-  const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
+  const dogPostCid = 'bafyreifvq4aykfnxjgqqmjelphadwhzvc4mt6h3mwytj54oa3qakuis3ie'
+  const computerPostCid = 'bafyreiflecr42lhn6bpy7friobhurxagp6ml34s5uzazqmwxxpqnouhfne'
+  const treePostCid = 'bafyreic5ndfk2yj4vr7pdhk4n435hxr522faalcse2ls4ukzddr7d5qxhi'
 
   try {
     if (result.length !== 3 || result === undefined) {

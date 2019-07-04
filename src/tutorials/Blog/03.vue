@@ -44,8 +44,8 @@ const validate = async (result, ipfs) => {
       return { fail: 'The values of the `posts` array must be links.' }
     }
 
-    const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
-    const computerPostCid = 'zdpuAqaHPSosSZFRPe7u5q3yNqgg4JuvrLaUJxGamNPLhWivX'
+    const treePostCid = 'bafyreic5ndfk2yj4vr7pdhk4n435hxr522faalcse2ls4ukzddr7d5qxhi'
+    const computerPostCid = 'bafyreicmrzqpsebu5or7zjeffvnc3g76khmyzdo3q64i7ylvekxgcyqszq'
     let expectedPosts
     switch (node.tag) {
       case 'hobby':
