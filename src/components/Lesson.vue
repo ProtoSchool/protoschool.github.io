@@ -5,7 +5,7 @@
       <div class="flex-l items-start center mw7 ph2">
         <section class="pv3 mt3" :class="isResources && 'w-100'">
           <div class="lh-solid v-mid f4">
-            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Next Steps</span>
+            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
             <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
