@@ -13,9 +13,10 @@ import Chapters from './pages/Chapters.vue'
 import Contribute from './pages/Contribute.vue'
 import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
+// Components
+import Landing from './components/Landing.vue'
+import ResourcesLesson from './components/ResourcesLesson.vue'
 // Lessons
-import Landing from './tutorials/landing.vue'
-import Resources from './tutorials/resources.vue'
 import LessonBasics01 from './tutorials/Basics/01.vue'
 import LessonBasics02 from './tutorials/Basics/02.vue'
 import LessonBasics03 from './tutorials/Basics/03.vue'
@@ -62,13 +63,12 @@ const routes = [
   { path: '/data-structures/03', component: LessonDataStructures03 },
   { path: '/data-structures/04', component: LessonDataStructures04 },
   { path: '/data-structures/05', component: LessonDataStructures05 },
-  { path: '/data-structures/resources', component: Resources, props: { tutorialId: 'dataStructures' } },
+  { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: 'dataStructures' } },
   // Lessons - Basics
   { path: '/basics', component: Landing, props: { tutorialId: 'basics' } },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
-  { path: '/basics/resources', component: Resources, props: { tutorialId: 'basics' } },
   // Lessons - Blog
   { path: '/blog', component: Landing, props: { tutorialId: 'blog' } },
   { path: '/blog/01', component: LessonBlog01 },
