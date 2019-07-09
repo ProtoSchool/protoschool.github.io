@@ -63,7 +63,6 @@ const routes = [
   { path: '/data-structures/03', component: LessonDataStructures03 },
   { path: '/data-structures/04', component: LessonDataStructures04 },
   { path: '/data-structures/05', component: LessonDataStructures05 },
-  { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: 'dataStructures' } },
   // Lessons - Basics
   { path: '/basics', component: Landing, props: { tutorialId: 'basics' } },
   { path: '/basics/01', component: LessonBasics01 },
