@@ -27,7 +27,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Did not return a valid CID instance.' }
   }
 
-  const hash = 'zdpuAoPanArLvuFtuvmLYuSvp8zE8wuKSMZUkMN8Y1PaHLvKP'
+  const hash = 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy'
   if (result.toBaseEncodedString() === hash) {
     return { success: 'Everything works!' }
   } else {

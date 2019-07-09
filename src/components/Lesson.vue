@@ -10,6 +10,10 @@
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
           <h1>{{lessonTitle}}</h1>
+          <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
+            <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
+            <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+          </div>
           <div v-if="isResources" class="lesson-text lh-copy">
             <div v-for="(item, idx) in resources" :key="`resources-${idx}`" class="mb2">
               <p class='mb2'>
@@ -20,10 +24,7 @@
             </div>
           </div>
           <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
-        </section>
-        <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
-          <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-          <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+          <div class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
       </div>
       <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
@@ -72,14 +73,14 @@
                   <label for="add-files" class="flex items-center h4 pointer">
                     <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
                     <div class="f5 charcoal">
-                      <p><strong>Drop one or more files here or click to select.</strong> Folder upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
+                      <p><strong>Drop one or more files here or click to select.</strong> Directory upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
                     </div>
                   </label>
                 </div>
               </div>
               <div v-else class="mt2">
                 <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
-                <div class="mb2 pl3 pa2 w-100 br3 h4 shadow-4 bg-white color-navy flex items-center">
+                <div class="mb2 pl3 pa2 w-100 br3 shadow-4 bg-white color-navy flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="fill-aqua" height="60px"><path d="M55.94 19.17H30a4 4 0 0 0-4 4v53.65a4 4 0 0 0 4 4h40.1a4 4 0 0 0 4-4V38.06zm5.28 21.08c-4.33 0-7.47-2.85-7.47-6.77V21l18.13 19.25z"/></svg>
                   <ul class="list pl0">
                     <li v-for="(file, idx) in uploadedFiles" :key="`file-${idx}`">{{file.name}}</li>
@@ -161,8 +162,11 @@
               <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
-              <span v-if="isFileLesson && !uploadedFiles" class="disabledButtonWrapper">
-                <Button :click="next" class="bg-aqua white" disabled>Submit</Button>
+              <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabledButtonWrapper">
+                <Button v-bind:click="next" class="bg-aqua white" disabled>
+                  <span v-if="isSubmitting" class="loader"></span>
+                  <span v-else>Submit</span>
+                </Button>
               </span>
               <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
@@ -266,6 +270,7 @@ export default {
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
+      isSubmitting: false,
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
@@ -277,6 +282,7 @@ export default {
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
+      createTestFile: self.$attrs.createTestFile,
       output: self.output,
       expandExercise: false,
       dragging: false,
@@ -354,14 +360,17 @@ export default {
   },
   methods: {
     run: async function (...args) {
+      this.isSubmitting = true
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
       }
       let output = this.output
       let ipfs = await this.createIPFS()
+      if (this.createTestFile) {
+        await this.createFile(ipfs)
+      }
       let code = this.editor.getValue()
-
       let modules = {}
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
@@ -370,8 +379,11 @@ export default {
       if (!this.$attrs.overrideErrors && result && result.error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
+        this.isSubmitting = false
         return
       }
+      // Hide the solution
+      this.viewSolution = false
       // Run the `validate` function in the lesson
       let test = await this.$attrs.validate(result, ipfs, args)
       Vue.set(output, 'test', test)
@@ -385,16 +397,26 @@ export default {
         localStorage[this.lessonKey] = 'passed'
       }
       this.lessonPassed = !!localStorage[this.lessonKey]
+      this.isSubmitting = false
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
         return this.$attrs.createIPFS()
       } else {
         let ipfs = this.IPFSPromise.then(IPFS => {
-          return new IPFS({repo: Math.random().toString()})
+          this.ipfsConstructor = IPFS
+          return new IPFS({ repo: Math.random().toString() })
         })
         return ipfs
       }
+    },
+    createFile: function (ipfs) {
+      new Promise((resolve, reject) => {
+        ipfs.on('ready', async () => {
+          await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
+          resolve()
+        })
+      })
     },
     resetCode: function () {
       // TRACK? User chose to reset code
@@ -415,7 +437,6 @@ export default {
     resetFileUpload: function () {
       this.uploadedFiles = false
       this.dragging = false
-      console.log({uploadedFiles: this.uploadedFiles})
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
@@ -587,11 +608,54 @@ div#drop-area * {
   border-width:  5px 5px 5px;
   margin-top: 5px;
 }
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  animation-fill-mode: both;
+  animation: loadAnim 1.5s infinite ease-in-out;
+}
+
+.loader {
+  display: block;
+  margin: 7px auto;
+  color: #ffffff;
+  font-size: 5px;
+  top: -10px;
+  position: relative;
+  animation-delay: -0.15s;
+  pointer-events: none;
+}
+
+.loader:before {
+  content: '';
+  position: absolute;
+  left: -3.5em;
+  animation-delay: -0.30s;
+}
+
+.loader:after {
+  content: '';
+  position: absolute;
+  left: 3.5em;
+}
+
+@keyframes loadAnim {
+  0%, 80%, 100% {
+    box-shadow: 0 2em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2em 0 0;
+  }
+}
 </style>
 
 <style> /* We need this unscoped to override the hljs styles. */
 .output-log p {
-  word-break: break-all;
+  word-break: break-word;
   display: inline-block;
   margin: .5rem 1rem;
 }

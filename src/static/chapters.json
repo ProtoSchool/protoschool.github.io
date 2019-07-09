@@ -59,10 +59,7 @@
        "country":"CN",
        "region":"Asia",
        "organizers":[
-          "daijiale",
-          "bobjiang",
-          "dongtianyi",
-          "facert"
+          "bobjiang"
        ],
        "repo":"http://github.com/protoschool/beijing"
     },
@@ -207,5 +204,25 @@
           "realChainLife"
        ],
        "repo":"http://github.com/protoschool/nairobi"
+    },
+    {
+       "name":"ProtoSchool Chengdu",
+       "city":"Chengdu",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "taoshengshi"
+       ],
+       "repo":"http://github.com/protoschool/chengdu"
+    },
+    {
+       "name":"ProtoSchool Xiamen",
+       "city":"Xiamen",
+       "country":"CN",
+       "region":"Asia",
+       "organizers":[
+          "junyaoren"
+       ],
+       "repo":"http://github.com/protoschool/xiamen"
     }
  ]

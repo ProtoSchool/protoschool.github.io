@@ -24,8 +24,8 @@ const validate = async (result, ipfs) => {
   if (validatedArray.fail) {
     return validatedArray
   }
-  const natCid = 'zdpuAyB57Xn8fuPvM8Gam5ycJTz6bgzLqtQBihyFuh5T7a6SK'
-  const samCid = 'zdpuAzUoWGnKe4p13YbexQrb5AMhnDWDCqJt2XyqVPU6DxS4m'
+  const natCid = 'bafyreif5pgrqzisqx2uqffd4dfbao7lf5vcgkvernetj7nitapesoyouha'
+  const samCid = 'bafyreigq4aqwo7fisdgkwxao6r6jdcw6pjvqkgeaadwsc2mgzvybuoa4sy'
   for (const cid of result) {
     const obj = await ipfs.dag.get(cid)
     const node = obj.value
@@ -52,7 +52,7 @@ const validate = async (result, ipfs) => {
       return { fail: `The author of the \`${node.content}\` blog post (${nodeAuthor}) did not match the the expected author (${expectedAuthor}).` }
     }
   }
-  const expectedCids = ['zdpuAkSPEnmgR1rqKkzpFN5qfJshCQKqMaVtUSpQJAMLdw3KF', 'zdpuAxzw762rP3CXZpAsKagPFR2AyqmZU2sN8U1GuVCeoYUEo']
+  const expectedCids = ['bafyreiaahxu4lot4ffzaxnz626kxipxt3lm43lsszcc4q6vydqrwnu7kpi', 'bafyreif24ddeqipektksc2jqhulgefwvhwhpylpkmjsdysxygllyeydwqq']
   const resultCids = result.map((cid) => cid.toBaseEncodedString())
   if (shallowEqualArrays(resultCids.sort(), expectedCids.sort())) {
     return { success: 'Everything works!' }

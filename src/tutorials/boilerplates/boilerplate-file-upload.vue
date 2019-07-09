@@ -15,6 +15,10 @@ import text from './REPLACEME.md'
 import exercise from './REPLACEME-exercise.md'
 
 const validate = async (result, ipfs) => {
+  // Learn about working with uploaded files:
+  // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
+  let uploadedFiles = window.uploadedFiles
+
   if (result) {
     return { success: 'Happy Message!' }
   } else {
@@ -32,13 +36,15 @@ const validate = async (result, ipfs) => {
   */
 }
 
-const code = `const run = async (files) => {
+const code = `/* global ipfs */
+  const run = async (files) => {
   // Your code here
 }
 return run
 `
 
-const solution = `const run = async (files) => {
+const solution = `/* global ipfs */
+  const run = async (files) => {
   // Your solution here
 }
 return run

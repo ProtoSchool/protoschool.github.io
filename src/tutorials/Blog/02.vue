@@ -25,8 +25,8 @@ const validate = async (result, ipfs) => {
     return validatedArray
   }
 
-  const TREE_POST_CID = 'zdpuAkSPEnmgR1rqKkzpFN5qfJshCQKqMaVtUSpQJAMLdw3KF'
-  const COMPUTER_POST_CID = 'zdpuAxzw762rP3CXZpAsKagPFR2AyqmZU2sN8U1GuVCeoYUEo'
+  const TREE_POST_CID = 'bafyreiaahxu4lot4ffzaxnz626kxipxt3lm43lsszcc4q6vydqrwnu7kpi'
+  const COMPUTER_POST_CID = 'bafyreif24ddeqipektksc2jqhulgefwvhwhpylpkmjsdysxygllyeydwqq'
   if (TREE_POST_CID === result[0].toBaseEncodedString() && COMPUTER_POST_CID === result[1].toBaseEncodedString()) {
     return {
       log: {
