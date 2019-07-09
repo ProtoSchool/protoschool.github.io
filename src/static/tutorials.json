@@ -9,11 +9,6 @@
 			{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
 			{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
 			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
-		],
-		"resources": [
-			{ "title": "IPFS website", "link": "https://ipfs.io", "description": "The official IPFS website, check it out.", "type": "video" },
-			{ "title": "JS-IPFS website", "link": "https://js.ipfs.io", "type": "article" },
-			{ "title": "libp2p website", "link": "https://ipfs.io", "description": "Welcome to libp2p!", "type": "docs" }
 		]
 	},
 	"basics": {
