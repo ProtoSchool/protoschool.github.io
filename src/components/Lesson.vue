@@ -10,7 +10,16 @@
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
           <h1>{{lessonTitle}}</h1>
-          <div class="lesson-text lh-copy" v-html="parsedText"></div>
+          <div v-if="isResources" class="lesson-text lh-copy">
+            <div v-for="(item, idx) in resources" :key="`resources-${idx}`" class="mb2">
+              <p class='mb2'>
+                <a class="b link blue" :href="item.link" target='_blank'>{{item.title}}</a>
+                <span class='ml2 ph1 bg-navy br-pill white f7'>{{item.type}}</span>
+              </p>
+              <p v-if="item.description" class="ma0">{{item.description}}</p>
+            </div>
+          </div>
+          <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
         <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
           <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
@@ -250,6 +259,7 @@ export default {
   data: self => {
     return {
       isResources: self.$attrs.isResources,
+      resources: self.$attrs.resources,
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
@@ -259,7 +269,7 @@ export default {
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
-      parsedText: marked(self.$attrs.text),
+      parsedText: marked(self.$attrs.text || ''),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,

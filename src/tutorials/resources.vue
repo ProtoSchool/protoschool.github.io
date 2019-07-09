@@ -1,23 +1,13 @@
 <template>
   <Lesson
     :isResources="true"
-    :text="text"
+    :resources="resources"
     lessonTitle="Resources" />
 </template>
 
 <script>
 import Lesson from '../components/Lesson'
 import tutorialsList from '../static/tutorials.json'
-
-const constructText = ({ initialDesc, bullets, finalDesc }) => `
-${initialDesc}
-
-${bullets.map(e => `
-- [${e.title}](${e.link})
-`)}
-
-${finalDesc}
-`
 
 export default {
   components: {
@@ -27,9 +17,8 @@ export default {
     tutorialId: String
   },
   computed: {
-    text: function () {
-      const resources = tutorialsList[this.tutorialId].resources
-      return constructText(resources)
+    resources: function () {
+      return tutorialsList[this.tutorialId].resources
     }
   }
 }
