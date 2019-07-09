@@ -14,17 +14,8 @@
             <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
             <div class='f6 lh-copy' v-html="parsedConcepts"></div>
           </div>
-          <div v-if="isResources" class="lesson-text lh-copy">
-            <div v-for="(item, idx) in resources" :key="`resources-${idx}`" class="mb2">
-              <p class='mb2'>
-                <a class="b link blue" :href="item.link" target='_blank'>{{item.title}}</a>
-                <span class='ml2 ph1 bg-navy br-pill white f7'>{{item.type}}</span>
-              </p>
-              <p v-if="item.description" class="ma0">{{item.description}}</p>
-            </div>
-          </div>
+          <Resources v-if="isResources" :data="resources" />
           <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
-          <div class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
       </div>
       <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
@@ -203,6 +194,7 @@ import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
+import Resources from './Resources.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -258,7 +250,8 @@ export default {
     MonacoEditor,
     Explorer,
     Button,
-    Header
+    Header,
+    Resources
   },
   data: self => {
     return {
