@@ -11,8 +11,8 @@
 			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
 		],
 	  "resources": [
-	    { "title": "Decentralized Web Primer: The Power of Content-Addressing", "link": "https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/avenues-for-access/lessons/power-of-content-addressing.html","description": "A beginner-friendly primer on content addressing from Matt Zumwalt.", "type": "article" },
- 			{ "title": "The Next Internet Revolution (Excerpt)", "link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847","description": "In this excerpt from his TedX Talk, Juan Benet explains how the Interplanetary File System (IPFS) reframes our model for sharing knowledge.", "type": "video" },
+	    { "title": "Decentralized Web Primer: The Power of Content-Addressing", "link": "https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/avenues-for-access/lessons/power-of-content-addressing.html", "description": "A beginner-friendly primer on content addressing from Matt Zumwalt.", "type": "article" },
+ 			{ "title": "The Next Internet Revolution (Excerpt)", "link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847", "description": "In this excerpt from his TedX Talk, Juan Benet explains how the Interplanetary File System (IPFS) reframes our model for sharing knowledge.", "type": "video" },
 			{ "title": "Why is Decentralized and Distributed File Storage Critical for a Better Web?", "link": "https://coincenter.org/entry/why-is-decentralized-and-distributed-file-storage-critical-for-a-better-web", "description": "Juan Benet, Jesse Clayburgh, and Matt Zumwalt of Protocol Labs explain how advances in distributed data storage and strong alignment of market incentives are combining to create a much more secure and efficient web.", "type": "article" },
 			{ "title": "Instructions for Saving Endangered Data", "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html", "description": "Matt Zumwalt of IPFS explains why data isn't safe on the centralized web and how IPFS can be used to protect it.", "type": "article" },
 			{ "title": "HTTP is Obsolete. It's Time for the Distributed, Permanent Web.", "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html", "description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP).", "type": "article" },
@@ -68,8 +68,9 @@
 			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
 		],
 	  "resources": [
-	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
-	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
-	  ]
+	    { "title": "JS-IPFS Files API Documentation", "link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/FILES.md", "description": "Notice that these docs contain two sections, one for top-level methods relevant to files and one for the Mutable File System (MFS) you learned about in this tutorial.", "type": "docs" },
+			{ "title": "Browser MFS Demo", "link": "https://github.com/ipfs/js-ipfs/tree/master/examples/browser-mfs", "description": "Try out MFS methods in your broswer and watch your file directory change as you go.", "type": "demo" },
+			{ "title": "Jeromy Coffee Talks: Files API", "link": "https://youtu.be/FX_AXNDsZ9k", "description": "Wondering how the Mutable File System (MFS) can treat immutable data as though it's mutable? Jeromy Johnson of Protocol Labs explains the abstraction that makes it possible.", "type": "video" }
+		]
 	}
 }
