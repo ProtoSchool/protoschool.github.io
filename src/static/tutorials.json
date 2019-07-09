@@ -9,7 +9,11 @@
 			{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
 			{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
 			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
-		]
+		],
+	  "resources": [
+	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
+	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+	  ]
 	},
 	"basics": {
 		"project": "IPFS",
@@ -19,7 +23,11 @@
 			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)" },
 			{ "to": "/basics/02", "name": "Create a new node that's linked to an old one" },
 			{ "to": "/basics/03", "name": "Read nested data using link" }
-		]
+		],
+	  "resources": [
+	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
+	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+	  ]
 	},
 	"blog": {
 		"project": "IPFS",
@@ -33,7 +41,11 @@
 			{ "to": "/blog/05", "name": "Add a new tag linked to multiple blog posts" },
 			{ "to": "/blog/06", "name": "List posts chronologically with a chain of links" },
 			{ "to": "/blog/07", "name": "Traverse through all posts, starting with the most recent" }
-		]
+		],
+	  "resources": [
+	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
+	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+	  ]
 	},
 	"mutableFileSystem": {
 		"project": "IPFS",
@@ -51,6 +63,10 @@
 			{ "to": "/mutable-file-system/09", "name": "Copy a file or directory" },
 			{ "to": "/mutable-file-system/10", "name": "Read the contents of a file" },
 			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
-		]
+		],
+	  "resources": [
+	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
+	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+	  ]
 	}
 }

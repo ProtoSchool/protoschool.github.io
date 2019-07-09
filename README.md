@@ -433,7 +433,7 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
   "resources": [
     { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
     { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
-  ],
+  ]
 },
 ```
 Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` lesson at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
