@@ -83,7 +83,6 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required |
 | A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used |
 | A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional |
-| A markdown file containing the **text of the optional `Next Steps` lesson**|`resources.md`| Optional | Optional | Optional |
 
 In the example below, four files stored in the `tutorial/Basics` directory work together to create the second lesson in that tutorial.
 
@@ -409,14 +408,11 @@ your third lesson will display the following under the lesson title:
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
 
-Optionally, you can add a final text-only lesson, wrapping up the tutorial or linking to external sources. Add the following to routes:
+Optionally, you can add a final `Resources` lesson, linking users to external sources to sum up or know more about the current tutorial. Add the following to routes:
 
 ```js
-{ path: '/basics', component: Resources, props: { folderName: 'Basics' } },
+{ path: '/basics', component: ResourcesLesson, props: { tutorialId: 'Basics' } },
 ```
-
-Notice the prop `folderName`, as the name suggests it should equal the name of the folder where your lessons are stored.
-
 
 #### Add your tutorial to `tutorials.json` and `courses.json`
 
@@ -436,6 +432,27 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
   ],
 },
 ```
+
+If your tutorial has a `Resources` lesson, you should add the `resources` key, which is an array of items:
+
+```json
+"tutorialShortname": {
+  "project": "IPFS",
+  "title": "Your tutorial title",
+  "description": "Your tutorial description",
+  "lessons": [
+      { "to": "/example/01", "name": "Title of 1st lesson" },
+      { "to": "/example/02", "name": "Title of 2nd lesson" },
+      { "to": "/example/03", "name": "Title of 3rd lesson" }
+  ],
+  "resources": [
+    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
+    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+  ],
+},
+```
+
+It's a pre-styled lesson where you just fill the gaps, `title` is resource with the `link`to it, you can add an optional `description` about it, and `type` is a tag that appears next to the title to hint the users what the resource is about (article, docs, video, etc).
 
 In `static/courses.json`, add the tutorial key to the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
 
