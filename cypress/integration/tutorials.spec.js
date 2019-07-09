@@ -1,7 +1,7 @@
 /* global describe, it, cy */
 
 describe('📝 Basics', function () {
-  viewSolutionsAndSubmitAll({ tutorialName: 'basics', lessonCount: 3, hasResources: true })
+  viewSolutionsAndSubmitAll({ tutorialName: 'basics', lessonCount: 3 })
 })
 
 describe('📝 Blog', function () {
