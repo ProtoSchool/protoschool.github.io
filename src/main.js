@@ -13,8 +13,10 @@ import Chapters from './pages/Chapters.vue'
 import Contribute from './pages/Contribute.vue'
 import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
+// Components
+import Landing from './components/Landing.vue'
+import ResourcesLesson from './components/ResourcesLesson.vue'
 // Lessons
-import Landing from './tutorials/landing.vue'
 import LessonBasics01 from './tutorials/Basics/01.vue'
 import LessonBasics02 from './tutorials/Basics/02.vue'
 import LessonBasics03 from './tutorials/Basics/03.vue'

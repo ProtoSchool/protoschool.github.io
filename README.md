@@ -408,6 +408,11 @@ your third lesson will display the following under the lesson title:
 
 Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are upper camel case (smushed together with the first letter of each word capitalized, e.g. `LessonDataStructures01`).
 
+Be sure to include the route for your final `Resources` lesson, which will link users to external resources or other ProtoSchool tutorials where they can learn more about the subject you've covered. Use the following format to add your route, updating your tutorial name as needed:
+
+```js
+{ path: '/basics', component: ResourcesLesson, props: { tutorialId: 'Basics' } },
+```
 
 #### Add your tutorial to `tutorials.json` and `courses.json`
 
@@ -425,8 +430,17 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
       { "to": "/example/02", "name": "Title of 2nd lesson" },
       { "to": "/example/03", "name": "Title of 3rd lesson" }
   ],
+  "resources": [
+    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
+    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+  ],
 },
 ```
+Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` lesson at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
+
+![screenshot](public/resources.png)
+
+Notice that although you needed to include routes for your landing page and `Resources` lesson in `main.js`, you do _not_ need to include either in your `lessons` array in `tutorials.json`.
 
 In `static/courses.json`, add the tutorial key to the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
 

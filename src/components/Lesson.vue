@@ -2,10 +2,11 @@
   <div>
     <Header/>
     <div class="center mw7 ph2">
-      <div class="center mw7 ph2">
-        <section class="pv3 mt3">
+      <div class="flex-l items-start center mw7 ph2">
+        <section class="pv3 mt3" :class="isResources && 'w-100'">
           <div class="lh-solid v-mid f4">
-            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
+            <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
           <h1>{{lessonTitle}}</h1>
@@ -13,7 +14,8 @@
             <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
             <div class='f6 lh-copy' v-html="parsedConcepts"></div>
           </div>
-          <div class="lesson-text lh-copy" v-html="parsedText"></div>
+          <Resources v-if="isResources" :data="resources" />
+          <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
       </div>
       <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
@@ -144,11 +146,11 @@
             </div>
           </div>
           <div class="pt2 tr">
-            <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
-              <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
+            <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
+              <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
-              <Button v-bind:click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
+              <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
               <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabledButtonWrapper">
@@ -157,7 +159,7 @@
                   <span v-else>Submit</span>
                 </Button>
               </span>
-              <Button v-else v-bind:click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
+              <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
                 You must upload a file before submitting.
               </div>
@@ -167,11 +169,11 @@
       </section>
       <section v-else>
         <div class="pt3 ph2 tr mb3">
-          <div v-if="lessonNumber === lessonsInWorkshop">
-            <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
+          <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInWorkshop) || isResources)">
+            <Button :click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
           </div>
           <div v-else>
-            <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+            <Button :click="next" class="bg-aqua white">Next</Button>
           </div>
         </div>
       </section>
@@ -192,6 +194,7 @@ import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
+import Resources from './Resources.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -247,10 +250,13 @@ export default {
     MonacoEditor,
     Explorer,
     Button,
-    Header
+    Header,
+    Resources
   },
   data: self => {
     return {
+      isResources: self.$attrs.isResources,
+      resources: self.$attrs.resources,
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
@@ -261,7 +267,7 @@ export default {
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
-      parsedText: marked(self.$attrs.text),
+      parsedText: marked(self.$attrs.text || ''),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
@@ -308,13 +314,18 @@ export default {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
     lessonsInWorkshop: function () {
-      let basePath = this.$route.path.slice(0, -2)
+      const basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
         number++
         number = number.toString().padStart(2, '0')
       }
       return parseInt(number) - 1
+    },
+    nextLessonIsResources: function () {
+      const basePath = this.$route.path.slice(0, -2)
+      const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
+      return this.lessonNumber === this.lessonsInWorkshop && hasResources
     },
     editorHeight: function () {
       if (this.expandExercise) {
@@ -465,8 +476,12 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
       let current = this.lessonNumber
-      let next = (parseInt(current) + 1).toString().padStart(2, '0')
-      this.$router.push({path: next})
+
+      let next = this.nextLessonIsResources
+        ? 'resources'
+        : (parseInt(current) + 1).toString().padStart(2, '0')
+
+      this.$router.push({ path: next })
     },
     tutorialMenu: function () {
       if (this.exercise) {

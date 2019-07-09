@@ -1,0 +1,25 @@
+<template>
+  <Lesson
+    :isResources="true"
+    :resources="resources"
+    lessonTitle="Resources" />
+</template>
+
+<script>
+import Lesson from '../components/Lesson'
+import tutorialsList from '../static/tutorials.json'
+
+export default {
+  components: {
+    Lesson
+  },
+  props: {
+    tutorialId: String
+  },
+  computed: {
+    resources: function () {
+      return tutorialsList[this.tutorialId].resources
+    }
+  }
+}
+</script>

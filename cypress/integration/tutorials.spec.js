@@ -8,7 +8,7 @@ describe('📝 Blog', function () {
   viewSolutionsAndSubmitAll({ tutorialName: 'blog', lessonCount: 7 })
 })
 
-function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount }) {
+function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount, hasResources = false }) {
   it(`should find the ${tutorialName} tutorial`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
@@ -21,7 +21,7 @@ function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount }) {
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=replace-with-solution]').click({ force: true })
       cy.get('[data-cy=submit-answer]').click()
-      if (i < lessonCount) {
+      if (i < lessonCount || hasResources) {
         cy.get('[data-cy=next-lesson]').click()
       } else {
         cy.get('[data-cy=more-tutorials]').click()

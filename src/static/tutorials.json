@@ -16,7 +16,7 @@
 		"title": "P2P data links with content addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",
 		"lessons": [
-			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)"},
+			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)" },
 			{ "to": "/basics/02", "name": "Create a new node that's linked to an old one" },
 			{ "to": "/basics/03", "name": "Read nested data using link" }
 		]
