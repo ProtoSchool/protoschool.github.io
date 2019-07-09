@@ -15,7 +15,7 @@
  			{ "title": "The Next Internet Revolution (Excerpt)", "link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847", "description": "In this excerpt from his TedX Talk, Juan Benet explains how the Interplanetary File System (IPFS) reframes our model for sharing knowledge.", "type": "video" },
 			{ "title": "Why is Decentralized and Distributed File Storage Critical for a Better Web?", "link": "https://coincenter.org/entry/why-is-decentralized-and-distributed-file-storage-critical-for-a-better-web", "description": "Juan Benet, Jesse Clayburgh, and Matt Zumwalt of Protocol Labs explain how advances in distributed data storage and strong alignment of market incentives are combining to create a much more secure and efficient web.", "type": "article" },
 			{ "title": "Instructions for Saving Endangered Data", "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html", "description": "Matt Zumwalt of IPFS explains why data isn't safe on the centralized web and how IPFS can be used to protect it.", "type": "article" },
-			{ "title": "HTTP is Obsolete. It's Time for the Distributed, Permanent Web.", "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html", "description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP).", "type": "article" },
+			{ "title": "HTTP is Obsolete. It's Time for the Distributed, Permanent Web.", "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html", "description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP).", "type": "article" }
 		]
 	},
 	"basics": {
@@ -28,8 +28,7 @@
 			{ "to": "/basics/03", "name": "Read nested data using link" }
 		],
 	  "resources": [
-	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
-	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+	    { "title": "JS-IPFS DAG API Documentation", "link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/DAG.md", "type": "docs" }
 	  ]
 	},
 	"blog": {
@@ -46,8 +45,7 @@
 			{ "to": "/blog/07", "name": "Traverse through all posts, starting with the most recent" }
 		],
 	  "resources": [
-	    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
-	    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+	    { "title": "JS-IPFS DAG API Documentation", "link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/DAG.md", "type": "docs" }
 	  ]
 	},
 	"mutableFileSystem": {
