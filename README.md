@@ -411,7 +411,7 @@ Notice how multi-word lesson shortnames are treated here. In filepaths, they are
 Be sure to include the route for your final `Resources` lesson, which will link users to external resources or other ProtoSchool tutorials where they can learn more about the subject you've covered. Use the following format to add your route, updating your tutorial name as needed:
 
 ```js
-{ path: '/basics', component: ResourcesLesson, props: { tutorialId: 'Basics' } },
+{ path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: 'Basics' } },
 ```
 
 #### Add your tutorial to `tutorials.json` and `courses.json`
