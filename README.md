@@ -431,8 +431,17 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
       { "to": "/example/03", "name": "Title of 3rd lesson" }
   ],
   "resources": [
-    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
-    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
+    {
+      "title": "Website 1", 
+      "link": "https://domain.io",
+      "type": "website",
+      "description": "Sample description"
+    },
+    {
+      "title": "Documentation 1",
+      "link": "https://docs.domain.io",
+      "type": "docs"
+    }
   ]
 },
 ```

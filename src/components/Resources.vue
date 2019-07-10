@@ -4,7 +4,8 @@
     <div v-for="(item, idx) in data" :key="`resources-${idx}`" class="mb3">
       <p class="ma0 flex items-center">
         <a class="b blue link" :href="item.link" target="_blank">{{item.title}}</a>
-        <span class="ml2 ph1 bg-navy br-pill white f7">{{item.type}}</span>
+        <span class="ml2 ph2 bg-navy br-pill white f7">{{item.type}}</span>
+        <span v-if="item.link.includes('/proto.school/')" class="ml2 ph2 bg-aqua br-pill navy f7">ProtoSchool</span>
       </p>
       <p v-if="item.description" class="ma0">{{item.description}}</p>
     </div>
