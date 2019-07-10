@@ -101,8 +101,10 @@ const router = new VueRouter({
   }
 })
 
-router.afterEach((to, from, next) => {
-  console.log("to", to.path)
+// track page view via Countly when route changes
+router.afterEach((to) => {
+  if (!window.Countly) return
+  window.Countly.q.push(['track_pageview', to.path])
 })
 
 Vue.config.productionTip = false
