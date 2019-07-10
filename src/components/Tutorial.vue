@@ -21,7 +21,7 @@
               <LessonLink :to="lesson.to" :name="lesson.name" :index="index + 1" />
             </li>
           </template>
-          <LessonLink v-if="tutorial.resources" :to="resourcesLink" name="Where to go from here" />
+          <LessonLink v-if="tutorial.resources" :to="resourcesLink" name="More to explore" />
         </ul>
       </div>
     </div>
