@@ -178,10 +178,15 @@
         </div>
       </section>
     </div>
-    <footer class="bg-navy white ph2 ph3-ns mt4 flex items-center justify-around">
+    <footer v-if=isResources class="bg-navy white ph2 ph3-ns mt4 flex items-center justify-around">
+      <div class="mw7">
+        <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
+      </div>
+    </footer>
+    <footer v-else class="bg-navy white ph2 ph3-ns mt4 flex items-center justify-around">
       <div class="mw7">
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve
-        this lesson. Please <a :href="issueUrl" target="_blank">share your questions and feedback</a>.</p>
+        this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </footer>
   </div>
@@ -310,8 +315,11 @@ export default {
       // }
       return shortname.split('-').join(' ')
     },
-    issueUrl: function () {
+    lessonIssueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+    },
+    tutorialIssueUrl: function () {
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.workshopShortname}`
     },
     lessonsInWorkshop: function () {
       const basePath = this.$route.path.slice(0, -2)
