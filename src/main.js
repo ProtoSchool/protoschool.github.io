@@ -101,6 +101,10 @@ const router = new VueRouter({
   }
 })
 
+router.afterEach((to, from, next) => {
+  console.log("to", to.path)
+})
+
 Vue.config.productionTip = false
 
 new Vue({
