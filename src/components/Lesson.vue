@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>
-    <div class="center mw7 ph2">
+    <div class="container center mw7 ph2">
       <div class="flex-l items-start center mw7 ph2">
         <section class="pv3 mt3" :class="isResources && 'w-100'">
           <div class="lh-solid v-mid f4">
@@ -178,8 +178,8 @@
         </div>
       </section>
     </div>
-    <footer class="bg-navy white ph2 ph3-ns mt4 flex items-center justify-around">
-      <div class="mw7">
+    <footer class="bg-navy white ph2 ph3-ns mt4">
+      <div class="mw7 center">
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve
         this lesson. Please <a :href="issueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
@@ -501,6 +501,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  flex-grow: 1;
+}
+
 button:disabled {
   cursor: not-allowed;
 }
