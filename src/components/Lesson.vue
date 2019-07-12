@@ -53,34 +53,14 @@
             </div>
           </h2>
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
-          <div v-if="isFileLesson">
-            <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
-              <span class="pl1"><img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            </div>
-              <div id="drop-area" v-if="!uploadedFiles" @click="onFileClick" @drop="onFileDrop"
-                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" @dragover.prevent
-                :class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
-                <div class="o-80 glow">
-                  <label for="add-files" class="flex items-center h4 pointer">
-                    <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
-                    <div class="f5 charcoal">
-                      <p><strong>Drop one or more files here or click to select.</strong> Directory upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <div v-else class="mt2">
-                <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
-                <div class="mb2 pl3 pa2 w-100 br3 shadow-4 bg-white color-navy flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="fill-aqua" height="60px"><path d="M55.94 19.17H30a4 4 0 0 0-4 4v53.65a4 4 0 0 0 4 4h40.1a4 4 0 0 0 4-4V38.06zm5.28 21.08c-4.33 0-7.47-2.85-7.47-6.77V21l18.13 19.25z"/></svg>
-                  <ul class="list pl0">
-                    <li v-for="(file, idx) in uploadedFiles" :key="`file-${idx}`">{{file.name}}</li>
-                  </ul>
-                </div>
-              </div>
-            <div class="f5 fw7 mt4 mb2">Step 2: Update code
-              <span class="pl1"><img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            </div>
+          <FileUpload
+            v-if="isFileLesson"
+            :onFileClick="onFileClick"
+            :onFileDrop="onFileDrop"
+            :resetFileUpload="resetFileUpload"
+            :uploadedFiles="uploadedFiles" />
+          <div class="f5 fw7 mt4 mb2">Step 2: Update code
+            <span class="pl1"><img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
         </div>
         <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
@@ -195,6 +175,7 @@ import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
 import Resources from './Resources.vue'
+import FileUpload from './FileUpload.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -251,7 +232,8 @@ export default {
     Explorer,
     Button,
     Header,
-    Resources
+    Resources,
+    FileUpload
   },
   data: self => {
     return {
@@ -278,7 +260,6 @@ export default {
       createTestFile: self.$attrs.createTestFile,
       output: self.output,
       expandExercise: false,
-      dragging: false,
       uploadedFiles: window.uploadedFiles || false,
       editorReady: false,
       options: {
@@ -430,7 +411,6 @@ export default {
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
-      this.dragging = false
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
@@ -515,10 +495,6 @@ button:disabled {
   transition: opacity .2s ease-in;
 }
 
-.dragging {
-  border: 5px solid #69c4cd;
-}
-
 .editor {
   height: 100%;
   min-height: 15rem;
@@ -562,18 +538,6 @@ footer a {
   .indent-1 {
     margin-left: 93px;
   }
-}
-
-div.dropfile {
-  cursor: pointer;
-}
-
-div.dropfile input {
-  display: none;
-}
-
-div#drop-area * {
-  pointer-events: none;
 }
 
 .chevron {
