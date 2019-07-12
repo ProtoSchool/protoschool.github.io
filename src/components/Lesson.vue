@@ -49,7 +49,6 @@
                 class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
               </button>
-
             </div>
           </h2>
           <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
@@ -59,39 +58,16 @@
             :onFileDrop="onFileDrop"
             :resetFileUpload="resetFileUpload"
             :uploadedFiles="uploadedFiles" />
-          <div class="f5 fw7 mt4 mb2">Step 2: Update code
-            <span class="pl1"><img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-          </div>
-        </div>
-        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
-          <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
-          <MonacoEditor
-            class="editor mt2"
-            srcPath="."
-            :height="editorHeight"
-            :options="options"
+          <CodeEditor
+            :editorReady="editorReady"
             :code="code"
-            theme="vs"
-            language="javascript"
-            @mounted="onMounted"
-            @codeChange="onCodeChange" />
-        </div>
-        <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
-          <div v-if="solution" class="mb2 ml3">
-            <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
-            <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
-            <!-- Below is a special button only to be used by Cypress for the E2E tests -->
-            <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
-          </div>
-          <MonacoEditor
-            v-show="viewSolution"
-            class="editor"
-            srcPath="."
-            :height="editorHeight"
-            :options="Object.assign({}, { readOnly: true }, options)"
-            :code="solution"
-            theme="vs-dark"
-            language="javascript" />
+            :solution="solution"
+            :cachedCode="cachedCode"
+            :onMounted="onMounted"
+            :onCodeChange="onCodeChange"
+            :resetCode="resetCode"
+            :expandExercise="expandExercise"
+            :cyReplaceWithSolution="cyReplaceWithSolution" />
         </div>
         <div class='flex-none'>
           <div class="pt2">
@@ -170,12 +146,12 @@
 <script>
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
-import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
 import Resources from './Resources.vue'
 import FileUpload from './FileUpload.vue'
+import CodeEditor from './CodeEditor.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -228,12 +204,12 @@ let oldIPFS
 
 export default {
   components: {
-    MonacoEditor,
     Explorer,
     Button,
     Header,
     Resources,
-    FileUpload
+    FileUpload,
+    CodeEditor
   },
   data: self => {
     return {
@@ -261,13 +237,7 @@ export default {
       output: self.output,
       expandExercise: false,
       uploadedFiles: window.uploadedFiles || false,
-      editorReady: false,
-      options: {
-        selectOnLineNumbers: false,
-        lineNumbersMinChars: 3,
-        scrollBeyondLastLine: false,
-        automaticLayout: true
-      }
+      editorReady: false
     }
   },
   computed: {
@@ -307,17 +277,6 @@ export default {
       const basePath = this.$route.path.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
       return this.lessonNumber === this.lessonsInWorkshop && hasResources
-    },
-    editorHeight: function () {
-      if (this.expandExercise) {
-        return undefined
-      } else {
-        const lineHeight = 18
-        // In compact view show at least 12 lines, and at most 25 lines.
-        const lines = Math.min(Math.max(this.code.split('\n').length, 12), 25)
-        const height = lines * lineHeight
-        return height
-      }
     }
   },
   beforeCreate: function () {
@@ -403,12 +362,6 @@ export default {
         delete this.output.test.log
       }
     },
-    toggleSolution: function () {
-      this.viewSolution = !this.viewSolution
-    },
-    cyReplaceWithSolution: function () {
-      this.editor.setValue(this.$attrs.solution)
-    },
     resetFileUpload: function () {
       this.uploadedFiles = false
     },
@@ -476,6 +429,9 @@ export default {
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
     },
+    cyReplaceWithSolution: function () {
+      this.editor.setValue(this.$attrs.solution)
+    },
     parseData: (data) => marked(data)
   }
 }
@@ -493,11 +449,6 @@ button:disabled {
 .disabledButtonWrapper:hover + div {
   opacity: 1;
   transition: opacity .2s ease-in;
-}
-
-.editor {
-  height: 100%;
-  min-height: 15rem;
 }
 
 .exercise {
@@ -538,37 +489,6 @@ footer a {
   .indent-1 {
     margin-left: 93px;
   }
-}
-
-.chevron {
-  position: relative;
-}
-
-.chevron.down::before {
-  content: '';
-  height: 0px;
-  width: 0px;
-  position: absolute;
-  top: 0;
-  right: 100%;
-  border-color: blue transparent transparent transparent ;
-  border-style: solid;
-  border-width: 5px 5px 5px 5px;
-  margin-top: 8px;
-  margin-right: 5px;
-}
-
-.chevron.right::before {
-  content: '';
-  height: 0px;
-  width: 0px;
-  position: absolute;
-  top: 0;
-  right: 100%;
-  border-color: transparent transparent transparent blue;
-  border-style: solid;
-  border-width:  5px 5px 5px;
-  margin-top: 5px;
 }
 
 .loader,
