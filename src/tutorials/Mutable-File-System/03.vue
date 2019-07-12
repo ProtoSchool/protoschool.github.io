@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson.vue'
+import FileLesson from '../../components/FileLesson.vue'
 import text from './03.md'
 import exercise from './03-exercise.md'
 import { logFiles } from '../../utils/files'

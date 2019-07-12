@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson'
+import FileLesson from '../../components/FileLesson'
 import text from './09.md'
 import exercise from './09-exercise.md'
 

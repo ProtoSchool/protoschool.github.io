@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import Header from "../components/Header.vue";
-import Tutorial from "../components/Tutorial.vue";
-import tutorialsList from "../static/tutorials.json";
+import Header from '../components/Header.vue'
+import Tutorial from '../components/Tutorial.vue'
+import tutorialsList from '../static/tutorials.json'
 
 export default {
   components: {
@@ -19,9 +19,9 @@ export default {
     tutorialId: String
   },
   computed: {
-    tutorial: function() {
-      return tutorialsList[this.tutorialId];
+    tutorial: function () {
+      return tutorialsList[this.tutorialId]
     }
   }
-};
+}
 </script>

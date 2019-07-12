@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson'
+import FileLesson from '../../components/FileLesson'
 import text from './08.md'
 import exercise from './08-exercise.md'
 

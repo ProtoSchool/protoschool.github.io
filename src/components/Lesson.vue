@@ -404,6 +404,7 @@ export default {
       }
     },
     createFile: function (ipfs) {
+      /* eslint-disable no-new */
       new Promise((resolve, reject) => {
         ipfs.on('ready', async () => {
           await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
