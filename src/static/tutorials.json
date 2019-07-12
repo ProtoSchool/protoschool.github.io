@@ -30,7 +30,7 @@
 				"description": "A beginner-friendly primer on content addressing from Matt Zumwalt."
 			},
  			{
-				"title": "The Next Internet Revolution (Excerpt)",
+				"title": "The Next Internet Revolution",
 				"link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847",
 				"type": "video",
 				"description": "In this excerpt from his TedX Talk, Juan Benet explains how the InterPlanetary File System (IPFS) uses content addressing to reframe our model for sharing knowledge."
@@ -64,7 +64,7 @@
 			{ "to": "/basics/03", "name": "Read nested data using link" }
 		],
 	  "resources": [
-	    { "title": "JS-IPFS DAG API Documentation",
+	    { "title": "JS-IPFS DAG API",
 				"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/DAG.md",
 				"type": "docs"
 			},
@@ -89,7 +89,7 @@
 			{ "to": "/blog/07", "name": "Traverse through all posts, starting with the most recent" }
 		],
 	  "resources": [
-	    { "title": "JS-IPFS DAG API Documentation",
+	    { "title": "JS-IPFS DAG API",
 				"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/DAG.md",
 				"type": "docs"
 			}
@@ -114,7 +114,7 @@
 		],
 	  "resources": [
 	    {
-				"title": "JS-IPFS Files API Documentation",
+				"title": "JS-IPFS Files API",
 				"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/FILES.md",
 				"type": "docs",
 				"description": "Notice that these docs contain two sections, one for top-level methods relevant to files and one for the Mutable File System (MFS) you learned about in this tutorial."
