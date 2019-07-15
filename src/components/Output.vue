@@ -1,27 +1,25 @@
 <template>
   <div class="pt2">
-    <div v-bind="output.test">
-      <div v-if="output.test.error" class="lh-copy pv2 ph3 bg-red white">
-        Error: {{output.test.error.message}}
-      </div>
-      <div
-        class="output-log lh-copy bg-red white"
-        v-if="output.test.fail"
-        v-html="parseData(output.test.fail)" />
-      <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
-        <span class="output-log" v-html="parseData(output.test.success)" />
-        <a
-          v-if="output.test.cid"
-          class="link fw7 underline-hover dib ph2 mh2 white"
-          target="explore-ipld"
-          :href="exploreIpldUrl">View in IPLD Explorer</a>
-      </div>
-      <div v-if="output.test.log">
-        <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
-        <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
-        <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
-        <highlight-code lang="json" class="output-code">{{output.test.log}}</highlight-code>
-      </div>
+    <div v-if="output.test.error" class="lh-copy pv2 ph3 bg-red white">
+      Error: {{output.test.error.message}}
+    </div>
+    <div
+      v-if="output.test.fail"
+      class="output-log lh-copy bg-red white"
+      v-html="parseData(output.test.fail)" />
+    <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
+      <span class="output-log" v-html="parseData(output.test.success)" />
+      <a
+        v-if="output.test.cid"
+        class="link fw7 underline-hover dib ph2 mh2 white"
+        target="explore-ipld"
+        :href="exploreIpldUrl">View in IPLD Explorer</a>
+    </div>
+    <div v-if="output.test.log">
+      <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
+      <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
+      <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
+      <highlight-code lang="json" class="output-code">{{output.test.log}}</highlight-code>
     </div>
   </div>
 </template>
