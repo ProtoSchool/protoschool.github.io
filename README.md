@@ -411,7 +411,7 @@ Notice how multi-word lesson shortnames are treated here. In filepaths, they are
 Be sure to include the route for your final `Resources` lesson, which will link users to external resources or other ProtoSchool tutorials where they can learn more about the subject you've covered. Use the following format to add your route, updating your tutorial name as needed:
 
 ```js
-{ path: '/basics', component: ResourcesLesson, props: { tutorialId: 'Basics' } },
+{ path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: 'Basics' } },
 ```
 
 #### Add your tutorial to `tutorials.json` and `courses.json`
@@ -431,9 +431,18 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
       { "to": "/example/03", "name": "Title of 3rd lesson" }
   ],
   "resources": [
-    { "title": "Website 1", "link": "https://domain.io", "description": "Sample description", "type": "website" },
-    { "title": "Documentation 1", "link": "https://docs.domain.io", "type": "docs" }
-  ],
+    {
+      "title": "Website 1", 
+      "link": "https://domain.io",
+      "type": "website",
+      "description": "Sample description"
+    },
+    {
+      "title": "Documentation 1",
+      "link": "https://docs.domain.io",
+      "type": "docs"
+    }
+  ]
 },
 ```
 Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` lesson at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:

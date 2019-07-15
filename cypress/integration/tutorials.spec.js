@@ -8,7 +8,7 @@ describe('📝 Blog', function () {
   viewSolutionsAndSubmitAll({ tutorialName: 'blog', lessonCount: 7 })
 })
 
-function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount, hasResources = false }) {
+function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount, hasResources = true }) {
   it(`should find the ${tutorialName} tutorial`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
