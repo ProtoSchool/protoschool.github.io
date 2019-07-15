@@ -70,35 +70,20 @@
             :cyReplaceWithSolution="cyReplaceWithSolution" />
         </div>
         <div class='flex-none'>
-          <div class="pt2">
-            <div v-if="output.test && cachedCode" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
-                Error: {{output.test.error.message}}
-              </div>
-              <div class="output-log lh-copy bg-red white" v-if="output.test.fail" v-html="parseData(output.test.fail)" />
-              <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
-                <span class="output-log" v-html="parseData(output.test.success)" />
-                <a v-if="output.test.cid"
-                class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
-                  View in IPLD Explorer
-                </a>
-              </div>
-              <div v-if="output.test.log">
-                <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
-                <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
-                <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
-                <highlight-code lang="json" class="output-code">
-                  {{output.test.log}}
-                </highlight-code>
-              </div>
+          <Output
+            v-if="output.test && cachedCode"
+            :output="output"
+            :isFileLesson="isFileLesson"
+            :lessonPassed="lessonPassed"
+            :parseData="parseData" />
+          <div v-else class="pt2 lh-copy">
+            <div v-if="isFileLesson">
+              Upload file(s) and update the code to complete the exercise. Click
+              <strong>Submit</strong> to check your answer.
             </div>
-            <div class="pt2 lh-copy" v-else>
-              <div v-if="isFileLesson">
-                Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
-              </div>
-              <div v-else>
-                Update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
-              </div>
+            <div v-else>
+              Update the code to complete the exercise. Click
+              <strong>Submit</strong> to check your answer.
             </div>
           </div>
           <div class="pt2 tr">
@@ -157,6 +142,7 @@ import Header from './Header.vue'
 import Resources from './Resources.vue'
 import FileUpload from './FileUpload.vue'
 import CodeEditor from './CodeEditor.vue'
+import Output from './Output.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -214,7 +200,8 @@ export default {
     Header,
     Resources,
     FileUpload,
-    CodeEditor
+    CodeEditor,
+    Output
   },
   data: self => {
     return {
@@ -246,11 +233,6 @@ export default {
     }
   },
   computed: {
-    exploreIpldUrl: function () {
-      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
-      cid = cid || ''
-      return `https://explore.ipld.io/#/explore/${cid}`
-    },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
@@ -540,27 +522,5 @@ footer a {
   40% {
     box-shadow: 0 2em 0 0;
   }
-}
-</style>
-
-<style> /* We need this unscoped to override the hljs styles. */
-.output-log p {
-  word-break: break-word;
-  display: inline-block;
-  margin: .5rem 1rem;
-}
-
-.output-log code {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.output-code {
-  margin: 1rem 0 0 0;
-}
-
-.output-code code {
-  margin: 0;
-  padding: 1rem;
-  background: white;
 }
 </style>
