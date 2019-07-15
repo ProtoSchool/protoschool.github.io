@@ -18,7 +18,7 @@ import { logFiles } from '../../utils/files'
 
 const validate = async (result, ipfs) => {
   if (!result || typeof result.length === 'undefined') {
-    return { fail: "Looks like you forgot to return a result. Did you forget to remove the `//` before `return files`?" }
+    return { fail: 'Looks like you forgot to return a result. Did you forget to remove the `//` before `return files`?' }
   } else if (typeof result.length === 'number') {
     const fileCount = result.length > 1 ? `${result.length} files` : '1 file'
     return {

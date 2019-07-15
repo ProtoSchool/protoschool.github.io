@@ -17,7 +17,7 @@ import exercise from './06-exercise.md'
 
 const validate = async (result, ipfs) => {
   // hash of directory if empty
-  const emptyDirectoryHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
+  const emptyDirectoryHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
 
   // results of incorrectly running ls instead of stat
   const lsResult = await ipfs.files.ls('/')
@@ -25,13 +25,13 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
-  } else if ( JSON.stringify(result) === JSON.stringify(lsLongResult) ) {
+  } else if (JSON.stringify(result) === JSON.stringify(lsLongResult)) {
     return {
       fail: 'Oops! Looks like you used `ls` instead of `stat`. Check out the results below, then try again.',
       logDesc: 'Because you used `ls`, your result is an array of files as shown below, not the directory status.',
       log: JSON.stringify(result, null, 2)
     }
-  } else if ( JSON.stringify(result) === JSON.stringify(lsResult) ) {
+  } else if (JSON.stringify(result) === JSON.stringify(lsResult)) {
     return {
       fail: 'Oops! Looks like you used `ls` instead of `stat`. Check out the results below, then try again.',
       logDesc: "Because you used `ls`, your result is an array of files as shown below, not the directory status. You didn't use the `{ long: true }` option, so only file names are displayed in the results.",

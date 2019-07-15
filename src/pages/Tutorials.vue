@@ -48,7 +48,7 @@ export default {
           this.firstWorkshopVisit = false
           return
         }
-      } 
+      }
       // TRACK? first site visit
       this.firstWorkshopVisit = true
     }
