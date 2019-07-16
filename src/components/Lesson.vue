@@ -394,15 +394,6 @@ export default {
   flex-grow: 1;
 }
 
-button:disabled {
-  cursor: not-allowed;
-}
-
-.disabledButtonWrapper:hover + div {
-  opacity: 1;
-  transition: opacity .2s ease-in;
-}
-
 .exercise {
   overflow: hidden;
   max-width: 100%;

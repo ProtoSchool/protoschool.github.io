@@ -9,16 +9,16 @@
         <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
       </div>
       <div v-else>
-        <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabledButtonWrapper">
-          <Button v-bind:click="next" class="bg-aqua white" disabled>
+        <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabled-btn-wrapper">
+          <span v-if="isFileLesson && !uploadedFiles" class="red lh-copy o-0">
+            You must upload a file before submitting.
+          </span>
+          <Button class="bg-aqua white" disabled>
             <span v-if="isSubmitting" class="loader"></span>
             <span v-else>Submit</span>
           </Button>
         </span>
         <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
-        <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy o-0">
-          You must upload a file before submitting.
-        </div>
       </div>
     </div>
     <!-- Text only lesson -->
@@ -60,6 +60,15 @@ export default {
 <style scoped>
 .coding-exercise-container {
   background: #F6F7F9;
+}
+
+.disabled-btn-wrapper:hover > span {
+  opacity: 1;
+  transition: opacity .2s ease-in;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 .loader,
