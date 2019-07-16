@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'overflow-hidden': expandExercise}">
     <Header/>
     <div class="container center-l mw7-l ph2">
       <section class="mw7 center mt3 pa3" :class="isResources && 'w-100'">
@@ -16,7 +16,7 @@
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
       </section>
-      <section v-if="exercise" :class="{expand: expandExercise}" class="exercise pa3 ph4-l mr5 flex flex-column">
+      <section v-if="exercise" :class="{expand: expandExercise}" class="exercise mw7 center pa3 ph4-l mr5 flex flex-column">
         <div class="flex-none">
           <Progress
             :lessonPassed="lessonPassed"
@@ -395,20 +395,17 @@ export default {
 
 .exercise {
   overflow: hidden;
-  max-width: 100%;
-  width: 900px;
   background: #F6F7F9;
 }
 
 .exercise.expand {
   height: 100vh;
-  width: initial;
+  max-width: none;
   margin: 0;
-  width: auto;
   position: fixed;
   top:0;
-  left: 0;
   right:0;
+  overflow: scroll;
 }
 
 .indent-1 {
