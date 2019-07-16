@@ -20,38 +20,13 @@
       </div>
       <section v-if="exercise" :class="{expand: expandExercise}" class="exercise pa3 ph4-l mr5 flex flex-column">
         <div class="flex-none">
-          <h2 class="mt0 mb2 green fw4 fill-current">
-            <span style='vertical-align:-1px'>
-              <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="in progress" style="height: 1rem;"/>
-              <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 0.9rem;"/>
-            </span>
-            <span class="green ttu f6 pl2 pr1 fw7 v-mid">
-              <span v-if="lessonPassed">You did it!</span>
-              <span v-else-if="cachedCode">Keep working.</span>
-              <span v-else>Try it!</span>
-            </span>
-            <span class="green f6 fw5 v-mid">
-              <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
-            </span>
-            <div class="fr">
-              <button
-                v-if="expandExercise"
-                title="go smol"
-                @click="toggleExpandExercise"
-                class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-              </button>
-              <button
-                v-else
-                @click="toggleExpandExercise"
-                title='embiggen the exercise'
-                class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-              </button>
-            </div>
-          </h2>
-          <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
+          <Progress
+            :lessonPassed="lessonPassed"
+            :cachedCode="cachedCode"
+            :cachedStateMsg="cachedStateMsg"
+            :expandExercise="expandExercise"
+            :toggleExpandExercise="toggleExpandExercise" />
+          <div v-html="parsedExercise" class='lh-copy' />
           <FileUpload
             v-if="isFileLesson"
             :onFileClick="onFileClick"
@@ -127,6 +102,7 @@ import FileUpload from './FileUpload.vue'
 import CodeEditor from './CodeEditor.vue'
 import Output from './Output.vue'
 import Validator from './Validator.vue'
+import Progress from './Progress.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -186,7 +162,8 @@ export default {
     FileUpload,
     CodeEditor,
     Output,
-    Validator
+    Validator,
+    Progress
   },
   data: self => {
     return {
