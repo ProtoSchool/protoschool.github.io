@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Coding lesson -->
-    <div v-if="exercise" class="coding-exercise-container pr4 pb4 tr">
+    <div v-if="exercise" :class="{'fixed bottom-0 right-0': expandExercise}" class="coding-exercise-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
         <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
@@ -13,7 +13,7 @@
           <span v-if="isFileLesson && !uploadedFiles" class="red lh-copy o-0">
             You must upload a file before submitting.
           </span>
-          <Button class="bg-aqua white" disabled>
+          <Button :click="next" class="bg-aqua white" disabled>
             <span v-if="isSubmitting" class="loader"></span>
             <span v-else>Submit</span>
           </Button>
@@ -52,7 +52,8 @@ export default {
     isSubmitting: Boolean,
     next: Function,
     run: Function,
-    tutorialMenu: Function
+    tutorialMenu: Function,
+    expandExercise: Boolean
   }
 }
 </script>

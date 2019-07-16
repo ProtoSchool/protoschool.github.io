@@ -1,23 +1,21 @@
 <template>
   <div>
     <Header/>
-    <div class="container center mw7 ph2">
-      <div class="flex-l items-start center mw7 ph2">
-        <section class="pv3 mt3" :class="isResources && 'w-100'">
-          <div class="lh-solid v-mid f4">
-            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
-            <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-            <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-          </div>
-          <h1>{{lessonTitle}}</h1>
-          <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
-            <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-            <div class='f6 lh-copy' v-html="parsedConcepts"></div>
-          </div>
-          <Resources v-if="isResources" :data="resources" />
-          <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
-        </section>
-      </div>
+    <div class="container center-l mw7-l ph2">
+      <section class="mw7 center mt3 pa3" :class="isResources && 'w-100'">
+        <div class="lh-solid v-mid f4">
+          <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
+          <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+          <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
+        </div>
+        <h1>{{lessonTitle}}</h1>
+        <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
+          <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
+          <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+        </div>
+        <Resources v-if="isResources" :data="resources" />
+        <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
+      </section>
       <section v-if="exercise" :class="{expand: expandExercise}" class="exercise pa3 ph4-l mr5 flex flex-column">
         <div class="flex-none">
           <Progress
@@ -72,6 +70,7 @@
         :nextLessonIsResources="nextLessonIsResources"
         :lessonNumber="lessonNumber"
         :lessonsInWorkshop="lessonsInWorkshop"
+        :expandExercise="expandExercise"
         :isSubmitting="isSubmitting"
         :run="run"
         :next="next"
