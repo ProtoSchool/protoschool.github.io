@@ -2,7 +2,7 @@
   <div :class="{'overflow-hidden': expandExercise}">
     <Header/>
     <div class="container center-l mw7-l ph2">
-      <section class="mw7 center mt3 pa3" :class="isResources && 'w-100'">
+      <section class="mw7 center mt3 pa3">
         <div class="lh-solid v-mid f4">
           <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
           <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
