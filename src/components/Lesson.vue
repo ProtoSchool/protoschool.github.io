@@ -3,16 +3,14 @@
     <Header/>
     <div class="container center-l mw7-l ph2">
       <section class="mw7 center mt3 pa3">
-        <div class="lh-solid v-mid f4">
-          <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
-          <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-          <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-        </div>
+        <Breadcrumbs
+          :isResources="isResources"
+          :workshopShortname="workshopShortname"
+          :lessonNumber="lessonNumber"
+          :lessonsInWorkshop="lessonsInWorkshop"
+          :lessonPassed="lessonPassed" />
         <h1>{{lessonTitle}}</h1>
-        <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
-          <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-          <div class='f6 lh-copy' v-html="parsedConcepts"></div>
-        </div>
+        <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
       </section>
@@ -97,11 +95,13 @@ import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
 import Resources from './Resources.vue'
+import Breadcrumbs from './Breadcrumbs.vue'
+import Progress from './Progress.vue'
+import Concepts from './Concepts.vue'
 import FileUpload from './FileUpload.vue'
 import CodeEditor from './CodeEditor.vue'
 import Output from './Output.vue'
 import Validator from './Validator.vue'
-import Progress from './Progress.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -158,11 +158,13 @@ export default {
     Button,
     Header,
     Resources,
+    Breadcrumbs,
+    Progress,
+    Concepts,
     FileUpload,
     CodeEditor,
     Output,
-    Validator,
-    Progress
+    Validator
   },
   data: self => {
     return {
