@@ -66,11 +66,12 @@
         We use GitHub to organize ProtoSchool. The best place to get in touch
         with questions about chapter leadership and community engagement is our
         <a href="https://github.com/ProtoSchool/organizing" target="blank">organizing
-        repository</a>, where you can open a new issue and organizers will be
+        repository</a>, where you can open a new issue and our organizers will be
         notified and respond. If you have a new tutorial idea or suggestions for
-        improving the ProtoSchool site, please open an issue in the
+        improving the ProtoSchool website or curriculum, please open an issue in the
         <a href="https://github.com/ProtoSchool/protoschool.github.io" target="blank">
-        website repository</a>.
+        website repository</a>. For other issues, including Code of Conduct reports, 
+        please <a href="mailto:protoschool@protocol.ai">email the project maintainers</a>.
         </p>
 
         <h2>Code of Conduct</h2>

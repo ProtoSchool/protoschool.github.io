@@ -36,7 +36,7 @@ const validate = async (result, ipfs) => {
   if (!CID.isCID(node.author)) {
     return { fail: 'The value of `author` needs to be a link.' }
   }
-  const samCid = 'zdpuAzUoWGnKe4p13YbexQrb5AMhnDWDCqJt2XyqVPU6DxS4m'
+  const samCid = 'bafyreigq4aqwo7fisdgkwxao6r6jdcw6pjvqkgeaadwsc2mgzvybuoa4sy'
   const nodeAuthor = node.author.toBaseEncodedString()
   if (nodeAuthor !== samCid) {
     return { fail: 'The author of the new blog post needs to be `Sam`.' }

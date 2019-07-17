@@ -13,8 +13,10 @@ import Chapters from './pages/Chapters.vue'
 import Contribute from './pages/Contribute.vue'
 import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
+// Components
+import Landing from './components/Landing.vue'
+import ResourcesLesson from './components/ResourcesLesson.vue'
 // Lessons
-import Landing from './tutorials/landing.vue'
 import LessonBasics01 from './tutorials/Basics/01.vue'
 import LessonBasics02 from './tutorials/Basics/02.vue'
 import LessonBasics03 from './tutorials/Basics/03.vue'
@@ -62,11 +64,13 @@ const routes = [
   { path: '/data-structures/03', component: LessonDataStructures03 },
   { path: '/data-structures/04', component: LessonDataStructures04 },
   { path: '/data-structures/05', component: LessonDataStructures05 },
+  { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: 'dataStructures' } },
   // Lessons - Basics
   { path: '/basics', component: Landing, props: { tutorialId: 'basics' } },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
+  { path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: 'basics' } },
   // Lessons - Blog
   { path: '/blog', component: Landing, props: { tutorialId: 'blog' } },
   { path: '/blog/01', component: LessonBlog01 },
@@ -76,6 +80,7 @@ const routes = [
   { path: '/blog/05', component: LessonBlog05 },
   { path: '/blog/06', component: LessonBlog06 },
   { path: '/blog/07', component: LessonBlog07 },
+  { path: '/blog/resources', component: ResourcesLesson, props: { tutorialId: 'blog' } },
   // Lessons - MFS
   { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'mutableFileSystem' } },
   { path: '/mutable-file-system/01', component: MutableFileSystem01 },
@@ -89,7 +94,8 @@ const routes = [
   { path: '/mutable-file-system/09', component: MutableFileSystem09 },
   { path: '/mutable-file-system/10', component: MutableFileSystem10 },
   { path: '/mutable-file-system/11', component: MutableFileSystem11 },
-  // Tests 
+  { path: '/mutable-file-system/resources', component: ResourcesLesson, props: { tutorialId: 'mutableFileSystem' } },
+  // Tests
   { path: '/tests', component: Landing, props: { tutorialId: 'tests' } },
   { path: '/tests/01', component: Tests01 },
   // 404
@@ -101,6 +107,12 @@ const router = new VueRouter({
   scrollBehavior (to, from) {
     return { x: 0, y: 0 }
   }
+})
+
+// track page view via Countly when route changes
+router.afterEach((to) => {
+  if (!window.Countly) return
+  window.Countly.q.push(['track_pageview', to.path])
 })
 
 Vue.config.productionTip = false

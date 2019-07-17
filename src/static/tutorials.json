@@ -9,6 +9,49 @@
 			{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
 			{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
 			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
+		],
+	  "resources": [
+			{
+				"title": "IPFS: Mutable File System (MFS)",
+				"link": "https://proto.school/#/mutable-file-system",
+				"type": "tutorial",
+				"description": "Explore the Mutable File System (MFS), which lets you work with files and directories in IPFS as if you were using a traditional name-based file system."
+			},
+ 			{
+				"title": "P2P Data Links with Content Addressing",
+				"link": "https://proto.school/#/basics/",
+				"type": "tutorial",
+				"description": "Use the IPFS DAG API to create create verifiable links between dataset with Content Identifiers (CIDs)."
+			},
+			{
+				"title": "Decentralized Web Primer: The Power of Content-Addressing",
+				"link": "https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/avenues-for-access/lessons/power-of-content-addressing.html",
+				"type": "article",
+				"description": "A beginner-friendly primer on content addressing from Matt Zumwalt."
+			},
+ 			{
+				"title": "The Next Internet Revolution",
+				"link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847",
+				"type": "video",
+				"description": "In this excerpt from his TedX Talk, Juan Benet explains how the InterPlanetary File System (IPFS) uses content addressing to reframe our model for sharing knowledge."
+			},
+			{
+				"title": "Why is Decentralized and Distributed File Storage Critical for a Better Web?",
+				"link": "https://coincenter.org/entry/why-is-decentralized-and-distributed-file-storage-critical-for-a-better-web",
+				"type": "article",
+				"description": "Juan Benet, Jesse Clayburgh, and Matt Zumwalt of Protocol Labs explain how advances in distributed data storage and strong alignment of market incentives are combining to create a more secure and efficient web."
+			},
+			{
+				"title": "Instructions for Saving Endangered Data",
+				"link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html",
+				"type": "article",
+				"description": "Matt Zumwalt of IPFS explains why data isn't safe on the centralized web and how IPFS can be used to protect it."
+			},
+			{ "title": "HTTP is Obsolete. It's Time for the Distributed, Permanent Web.",
+				"link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html",
+				"type": "article",
+				"description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP)."
+			}
 		]
 	},
 	"basics": {
@@ -16,10 +59,21 @@
 		"title": "P2P data links with content addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",
 		"lessons": [
-			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)"},
+			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)" },
 			{ "to": "/basics/02", "name": "Create a new node that's linked to an old one" },
 			{ "to": "/basics/03", "name": "Read nested data using link" }
-		]
+		],
+	  "resources": [
+	    { "title": "JS-IPFS DAG API",
+				"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/DAG.md",
+				"type": "docs"
+			},
+			{ "title": "Blogging on the Decentralized Web",
+				"link": "https://proto.school/#/blog/",
+				"type": "tutorial",
+				"description": "Ready for a bigger challenge with the IPFS DAG API? Use CIDs to build and update a complex web of data."
+			}
+	  ]
 	},
 	"blog": {
 		"project": "IPFS",
@@ -33,7 +87,13 @@
 			{ "to": "/blog/05", "name": "Add a new tag linked to multiple blog posts" },
 			{ "to": "/blog/06", "name": "List posts chronologically with a chain of links" },
 			{ "to": "/blog/07", "name": "Traverse through all posts, starting with the most recent" }
-		]
+		],
+	  "resources": [
+	    { "title": "JS-IPFS DAG API",
+				"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/DAG.md",
+				"type": "docs"
+			}
+	  ]
 	},
 	"mutableFileSystem": {
 		"project": "IPFS",
@@ -51,6 +111,34 @@
 			{ "to": "/mutable-file-system/09", "name": "Copy a file or directory" },
 			{ "to": "/mutable-file-system/10", "name": "Read the contents of a file" },
 			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
+		],
+	  "resources": [
+	    {
+				"title": "JS-IPFS Files API",
+				"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/FILES.md",
+				"type": "docs",
+				"description": "Notice that these docs contain two sections, one for top-level methods relevant to files and one for the Mutable File System (MFS) you learned about in this tutorial."
+			},
+			{
+				"title": "Browser MFS Demo",
+				"link": "https://github.com/ipfs/js-ipfs/tree/master/examples/browser-mfs",
+				"type": "demo",
+				"description": "Try out MFS methods in your broswer and watch your file directory change as you go."
+
+			},
+			{
+				"title": "Jeromy Coffee Talks: Files API",
+				"link": "https://youtu.be/FX_AXNDsZ9k",
+				"type": "video",
+				"description": "Wondering how the Mutable File System (MFS) can treat immutable data as though it's mutable? Jeromy Johnson of Protocol Labs explains the abstraction that makes it possible."
+			},
+			{
+				"title": "P2P Data Links with Content Addressing",
+				"link": "https://proto.school/#/basics/",
+				"type": "tutorial",
+				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
+
+			}
 		]
 	},
 		"tests": {

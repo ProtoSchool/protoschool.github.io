@@ -1,19 +1,21 @@
 <template>
   <div>
     <Header/>
-    <div class="center mw7 ph2">
-      <div class="flex-l items-start  center mw7 ph2">
-        <section class="pv3 mt3">
+    <div class="container center mw7 ph2">
+      <div class="flex-l items-start center mw7 ph2">
+        <section class="pv3 mt3" :class="isResources && 'w-100'">
           <div class="lh-solid v-mid f4">
-            <span class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
+            <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
             <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
           </div>
           <h1>{{lessonTitle}}</h1>
-          <div class="lesson-text lh-copy" v-html="parsedText"></div>
-        </section>
-        <section v-if="concepts" class='dn db-ns ba border-green ph4 ml3 ml5-l mt5 mb3 mr3 measure' style="background: rgba(105, 196, 205, 10%)">
-          <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-          <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+          <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
+            <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
+            <div class='f6 lh-copy' v-html="parsedConcepts"></div>
+          </div>
+          <Resources v-if="isResources" :data="resources" />
+          <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
         </section>
       </div>
 
@@ -156,11 +158,11 @@
           </div>
 
           <div class="pt2 tr">
-            <div v-if="lessonPassed && (lessonNumber === lessonsInWorkshop)">
-              <Button v-bind:click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
+            <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
+              <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
             </div>
             <div v-else-if="lessonPassed">
-              <Button v-bind:click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
+              <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
             </div>
             <div v-else>
               <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabledButtonWrapper">
@@ -169,7 +171,7 @@
                   <span v-else>Submit</span>
                 </Button>
               </span>
-              <Button v-else v-bind:click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
+              <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
               <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
                 You must upload a file before submitting.
               </div>
@@ -179,19 +181,24 @@
       </section>
       <section v-else>
         <div class="pt3 ph2 tr mb3">
-          <div v-if="lessonNumber === lessonsInWorkshop">
-            <Button v-bind:click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
+          <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInWorkshop) || isResources)">
+            <Button :click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
           </div>
           <div v-else>
-            <Button v-bind:click="next" class="bg-aqua white">Next</Button>
+            <Button :click="next" class="bg-aqua white">Next</Button>
           </div>
         </div>
       </section>
     </div>
-    <footer class="bg-navy white ph2 ph3-ns mt4 flex items-center justify-around">
-      <div class="mw7">
+    <footer v-if=isResources class="bg-navy white ph2 ph3-ns mt4">
+      <div class="mw7 center">
+        <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
+      </div>
+    </footer>
+    <footer v-else class="bg-navy white ph2 ph3-ns mt4">
+      <div class="mw7 center">
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve
-        this lesson. Please <a :href="issueUrl" target="_blank">share your questions and feedback</a>.</p>
+        this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </footer>
   </div>
@@ -205,6 +212,7 @@ import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
 import Quiz from './Quiz.vue'
+import Resources from './Resources.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -261,10 +269,13 @@ export default {
     Explorer,
     Button,
     Header,
-    Quiz
+    Quiz,
+    Resources
   },
   data: self => {
     return {
+      isResources: self.$attrs.isResources,
+      resources: self.$attrs.resources,
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
@@ -278,7 +289,7 @@ export default {
       isMultipleChoiceLesson: self.isMultipleChoiceLesson,
       question: self.$attrs.question,
       choices: self.$attrs.choices,
-      parsedText: marked(self.$attrs.text),
+      parsedText: marked(self.$attrs.text || ''),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
@@ -321,17 +332,25 @@ export default {
       // }
       return shortname.split('-').join(' ')
     },
-    issueUrl: function () {
+    lessonIssueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
+    tutorialIssueUrl: function () {
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.workshopShortname}`
+    },
     lessonsInWorkshop: function () {
-      let basePath = this.$route.path.slice(0, -2)
+      const basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
         number++
         number = number.toString().padStart(2, '0')
       }
       return parseInt(number) - 1
+    },
+    nextLessonIsResources: function () {
+      const basePath = this.$route.path.slice(0, -2)
+      const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
+      return this.lessonNumber === this.lessonsInWorkshop && hasResources
     },
     editorHeight: function () {
       if (this.expandExercise) {
@@ -496,8 +515,12 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
       let current = this.lessonNumber
-      let next = (parseInt(current) + 1).toString().padStart(2, '0')
-      this.$router.push({path: next})
+
+      let next = this.nextLessonIsResources
+        ? 'resources'
+        : (parseInt(current) + 1).toString().padStart(2, '0')
+
+      this.$router.push({ path: next })
     },
     tutorialMenu: function () {
       if (this.exercise) {
@@ -517,6 +540,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  flex-grow: 1;
+}
+
 button:disabled {
   cursor: not-allowed;
 }

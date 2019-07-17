@@ -32,12 +32,12 @@ const validate = async (result, ipfs) => {
     return { fail: 'The value of `prev` of the "dogs" blog post needs to be a link.' }
   }
 
-  const dogPostCid = 'zdpuAxe3g8XBLrqbp3NrjaiBLTrXjJ3SJymePGutsRRMrhAKS'
-  const computerPostCid = 'zdpuAwwT4kGJxT7mgVZRgvmV3ke8qGNZGLuCgLhJsdBSQGM44'
-  const treePostCid = 'zdpuAri55PR9iW239ahcbnfkFU2TVyD5iLmqEFmwY634KZAJV'
-  const treePostCidPrevNull = 'zdpuAoNUinwYTMoTR8Wq7945MKSSpAUNGW1d1wkTHhRcchG3D'
-  const computerPostCidWhenTreePostCidPrevNull = 'zdpuAsFHXZkpXcjuERjACPp1pAs9J7b4cdYtn9Dv9xBcAGhWV'
-  const dogPostCidWhenTreePostCidPrevNull = 'zdpuAkUysBpAE2yvWdLCBbUqXusYVe5kgFSS7YriyeLfA5F5d'
+  const dogPostCid = 'bafyreifvq4aykfnxjgqqmjelphadwhzvc4mt6h3mwytj54oa3qakuis3ie'
+  const computerPostCid = 'bafyreiflecr42lhn6bpy7friobhurxagp6ml34s5uzazqmwxxpqnouhfne'
+  const treePostCid = 'bafyreic5ndfk2yj4vr7pdhk4n435hxr522faalcse2ls4ukzddr7d5qxhi'
+  const treePostCidPrevNull = 'bafyreibl2dm2gt7mcgkmlviujca35332oq35tieyhcqaxtmuconjeg4d5q'
+  const computerPostCidWhenTreePostCidPrevNull = 'bafyreidfm7qcllrk2n7nbxdoapc52e3hb37sgtcg3fhhx5agto6bk67rcy'
+  const dogPostCidWhenTreePostCidPrevNull = 'bafyreiaa5a5haprk3wxxhw36y6p6mk5pnzsitykr77jjpq2tebqw4idggq'
   const nodePrev = node.prev
 
   const computerNode = (await ipfs.dag.get(nodePrev)).value

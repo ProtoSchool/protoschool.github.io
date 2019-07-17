@@ -16,8 +16,6 @@
     <meta name="twitter:site" content="@ProtoSchool">
     <link rel="icon" href="<%= BASE_URL %>favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <!-- ipfs camp -->
-    <script src="https://camp.ipfs.io/ribbon.min.js" async></script>
     <title>ProtoSchool</title>
     <style>
       body {
@@ -55,27 +53,39 @@
         }
         return dntStatus === 'Enabled'
       }
-      /* From https://github.com/nodejs/nodejs.org/blob/703bacbc0da63fa91f156468209758c66c01f30f/layouts/partials/footer.hbs */
+
+      //some default pre init
+      var Countly = Countly || {};
+      Countly.q = Countly.q || [];
+
       (function(){
+
+        // ************ FOR TESTING ONLY ************************
+        // Uncomment line below for testing, comment out for deployment
+        // if (!_dntEnabled()) {
+        // *******************************************************
+
+        // *********** FOR DEPLOYMENT *****************************
+        // Comment out line below for testing, uncomment for deployment
         if (!_dntEnabled() && location.hostname === 'proto.school') {
-          !function(n,o,d,e,j,s){n.GoogleAnalyticsObject=d;n[d]||(n[d]=function(){
-          (n[d].q=n[d].q||[]).push(arguments)});n[d].l=+new Date;j=o.createElement(e);
-          s=o.getElementsByTagName(e)[0];j.async=1;j.src='//www.google-analytics.com/analytics.js';
-          s.parentNode.insertBefore(j,s)}(window,document,'ga','script');
-          if (!ga) return;
-          ga('create', 'UA-96910779-4', 'auto');
-          ga('send', 'pageview');
-          document.documentElement.addEventListener('click', function(e) {
-            // Track case studies
-            if(!e.target || !e.target.dataset || !e.target.dataset.casestudy) return;
-            ga('send', 'event', {
-              eventCategory: 'casestudy',
-              eventAction: 'click',
-              eventLabel: e.target.dataset.casestudy,
-              eventValue: 0
-            });
-          });
-        }
+        // *******************************************************
+
+          //provide countly initialization parameters
+          Countly.app_key = 'c785b6eaa9c61617e1a7db83cb437e5f3dfe4280';
+          Countly.url = 'https://countly.ipfs.io';
+
+          Countly.q.push(['track_sessions']);
+          Countly.q.push(['track_pageview']);
+          Countly.q.push(['track_clicks']);
+
+          //load countly script asynchronously
+           var cly = document.createElement('script'); cly.type = 'text/javascript';
+           cly.async = true;
+           //enter url of script here
+           cly.src = 'https://countly.ipfs.io/sdk/web/countly.min.js';
+           cly.onload = function(){Countly.init()};
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
+         }
       })();
     </script>
   </body>
