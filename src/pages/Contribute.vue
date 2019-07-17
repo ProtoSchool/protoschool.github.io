@@ -61,7 +61,6 @@
         ways to contribute</a>.
         </p>
 
-        <a name="contact"></a> 
         <h2>Get in Touch</h2>
         <p class="f4 fw5 lh-copy ma0 pv3 ">
         We use GitHub to organize ProtoSchool. The best place to get in touch
