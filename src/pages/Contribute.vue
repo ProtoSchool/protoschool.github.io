@@ -72,7 +72,7 @@
         improving the ProtoSchool website or curriculum, please open an issue in the
         <a href="https://github.com/ProtoSchool/protoschool.github.io" target="blank">
         website repository</a>. For other issues, including Code of Conduct reports, 
-        please [email the project maintainers](mailto:protoschool@protocol.ai).
+        please <a href="mailto:protoschool@protocol.ai">email the project maintainers</a>.
         </p>
 
         <h2>Code of Conduct</h2>
