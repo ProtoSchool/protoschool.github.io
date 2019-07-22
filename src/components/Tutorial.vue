@@ -2,8 +2,11 @@
   <section class="db mw7 center ph2">
     <div class="flex items-start pv4">
       <div class="project-label flex-none tc">
-        <h1 class="ma0 f3 fw6 pb2">{{tutorial.project}}</h1>
-        <img :src="ipfsLogo" :alt="tutorial.project" style="height: 54px"/>
+        <h1 class="ma0 mb2 f3 fw4">{{tutorial.project}}</h1>
+        <img
+          :src="tutorial.project === 'libp2p' ? libp2pLogo : ipfsLogo"
+          :alt="tutorial.project"
+          style="height: 54px" />
       </div>
       <div class="w-100">
         <h2 class="ma0 f3 fw5">
@@ -31,6 +34,7 @@
 <script>
 import LessonLink from '../components/LessonLink.vue'
 import ipfsLogo from '../static/images/ipfs.svg'
+import libp2pLogo from '../static/images/libp2p.svg'
 
 export default {
   name: 'Tutorial',
@@ -43,7 +47,8 @@ export default {
   },
   data: () => {
     return {
-      ipfsLogo: ipfsLogo
+      ipfsLogo: ipfsLogo,
+      libp2pLogo: libp2pLogo
     }
   },
   computed: {
