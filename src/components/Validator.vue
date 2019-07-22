@@ -43,7 +43,7 @@ export default {
   props: {
     exercise: String,
     isFileLesson: Boolean,
-    uploadedFiles: Boolean || Array,
+    uploadedFiles: [Boolean, Array],
     lessonPassed: Boolean,
     isResources: Boolean,
     nextLessonIsResources: Boolean,
