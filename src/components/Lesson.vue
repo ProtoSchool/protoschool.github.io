@@ -14,7 +14,7 @@
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
       </section>
-      <section v-if="exercise" :class="{expand: expandExercise}" class="exercise mw7 center pa3 ph4-l mr5 flex flex-column">
+      <section v-if="exercise" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
         <div class="flex-none">
           <Progress
             :lessonPassed="lessonPassed"
@@ -393,24 +393,22 @@ export default {
 .exercise {
   overflow: hidden;
   background: #F6F7F9;
+  max-width: 48rem;
 }
 
 .exercise.expand {
   height: 100vh;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   position: fixed;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   overflow: scroll;
 }
 
 .indent-1 {
   margin-left: 1rem;
-}
-
-.mw-900 {
-  max-width: 900px;
 }
 
 span.textLink {
