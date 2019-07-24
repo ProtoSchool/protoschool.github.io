@@ -240,7 +240,8 @@ export default {
     // runs on every keystroke in editor, NOT on page load, NOT on code submit
   },
   methods: {
-    run: async function (...args) {
+    run: async function (auto = false) {
+      let args = []
       this.isSubmitting = true
       if (oldIPFS) {
         oldIPFS.stop()
@@ -253,6 +254,13 @@ export default {
       }
       let code = this.editor.getValue()
       let modules = {}
+
+      if (this.isFileLesson && this.uploadedFiles === false && auto === true) {
+        Vue.set(output, 'test', { fail: 'Please upload files and **Submit** to see the output.' })
+        this.isSubmitting = false
+        return
+      }
+
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
@@ -328,7 +336,7 @@ export default {
         this.loadCodeFromCache()
         this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
         if (this.lessonPassed) {
-          this.run()
+          this.run(true)
         }
       } else {
         // TRACK? first time starting lesson
