@@ -348,6 +348,7 @@ export default {
         this.cachedStateMsg = "We're saving your code as you go."
         if (this.code !== this.solution) {
           this.clearPassed()
+          delete this.output.test
         }
       }
     },

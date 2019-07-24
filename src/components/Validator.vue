@@ -5,7 +5,7 @@
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
         <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
-      <div v-else-if="lessonPassed">
+      <div v-else-if="lessonPassed && !isSubmitting">
         <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
       </div>
       <div v-else>
