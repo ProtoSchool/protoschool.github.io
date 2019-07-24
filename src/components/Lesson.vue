@@ -346,6 +346,9 @@ export default {
         this.code = this.editor.getValue()
         this.cachedCode = !!localStorage[this.cacheKey]
         this.cachedStateMsg = "We're saving your code as you go."
+        if (this.code !== this.solution) {
+          this.clearPassed()
+        }
       }
     },
     next: function () {
