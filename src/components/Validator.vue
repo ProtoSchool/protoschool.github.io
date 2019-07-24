@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mw7 center">
     <!-- Coding lesson -->
     <div v-if="exercise" :class="{'fixed bottom-0 right-0': expandExercise}" class="coding-exercise-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
