@@ -72,7 +72,7 @@
 
           //provide countly initialization parameters
           Countly.app_key = 'c785b6eaa9c61617e1a7db83cb437e5f3dfe4280';
-          Countly.url = 'https://countly.ipfs.io';
+          Countly.url = 'https://countly.proto.school';
 
           Countly.q.push(['track_sessions']);
           Countly.q.push(['track_pageview']);
@@ -82,7 +82,7 @@
            var cly = document.createElement('script'); cly.type = 'text/javascript';
            cly.async = true;
            //enter url of script here
-           cly.src = 'https://countly.ipfs.io/sdk/web/countly.min.js';
+           cly.src = 'https://countly.proto.school/sdk/web/countly.min.js';
            cly.onload = function(){Countly.init()};
            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
          }
