@@ -58,6 +58,7 @@
         :isFileLesson="isFileLesson"
         :uploadedFiles="uploadedFiles"
         :lessonPassed="lessonPassed"
+        :output="output.test"
         :isResources="isResources"
         :nextLessonIsResources="nextLessonIsResources"
         :lessonNumber="lessonNumber"
