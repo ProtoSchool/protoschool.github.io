@@ -47,6 +47,10 @@
             :isFileLesson="isFileLesson"
             :lessonPassed="lessonPassed"
             :parseData="parseData" />
+          <div v-else-if="showUploadInfo" class="lh-copy">
+            You've passed this lesson previously, but the cached files are no longer available.
+            Upload files and <strong>Submit</strong> to see the output again.
+          </div>
           <div v-else class="pt2 lh-copy">
             <span v-if="isFileLesson">Upload file(s) and update the code to complete the exercise.</span>
             <span v-else>Update the code to complete the exercise.</span>
@@ -185,6 +189,7 @@ export default {
       lessonTitle: self.$attrs.lessonTitle,
       createTestFile: self.$attrs.createTestFile,
       output: self.output,
+      showUploadInfo: false,
       expandExercise: false,
       uploadedFiles: window.uploadedFiles || false,
       editorReady: false
@@ -256,9 +261,11 @@ export default {
       let modules = {}
 
       if (this.isFileLesson && this.uploadedFiles === false && auto === true) {
-        Vue.set(output, 'test', { fail: 'Please upload files and **Submit** to see the output.' })
+        this.showUploadInfo = true
         this.isSubmitting = false
         return
+      } else {
+        this.showUploadInfo = false
       }
 
       if (this.$attrs.modules) modules = this.$attrs.modules
