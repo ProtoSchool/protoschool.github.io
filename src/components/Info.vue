@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showUploadInfo" class="lh-copy">
+  <div v-if="showUploadInfo" class="pt2 lh-copy">
     You've passed this lesson previously, but the cached files are no longer available.
     Upload files and
     <strong>Submit</strong> to see the output again.

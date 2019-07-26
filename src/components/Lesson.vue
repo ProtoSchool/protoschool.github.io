@@ -319,6 +319,7 @@ export default {
       this.editor.setValue(this.code)
       this.clearPassed()
       delete this.output.test
+      this.showUploadInfo = false
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
