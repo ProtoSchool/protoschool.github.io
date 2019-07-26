@@ -47,15 +47,10 @@
             :isFileLesson="isFileLesson"
             :lessonPassed="lessonPassed"
             :parseData="parseData" />
-          <div v-else-if="showUploadInfo" class="lh-copy">
-            You've passed this lesson previously, but the cached files are no longer available.
-            Upload files and <strong>Submit</strong> to see the output again.
-          </div>
-          <div v-else class="pt2 lh-copy">
-            <span v-if="isFileLesson">Upload file(s) and update the code to complete the exercise.</span>
-            <span v-else>Update the code to complete the exercise.</span>
-            Click <strong>Submit</strong> to check your answer.
-          </div>
+          <Info
+            v-else-if="!isSubmitting"
+            :showUploadInfo="showUploadInfo"
+            :isFileLesson="isFileLesson" />
         </div>
       </section>
       <Validator
@@ -100,6 +95,7 @@ import Concepts from './Concepts.vue'
 import FileUpload from './FileUpload.vue'
 import CodeEditor from './CodeEditor.vue'
 import Output from './Output.vue'
+import Info from './Info.vue'
 import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
@@ -163,6 +159,7 @@ export default {
     FileUpload,
     CodeEditor,
     Output,
+    Info,
     Validator
   },
   data: self => {
