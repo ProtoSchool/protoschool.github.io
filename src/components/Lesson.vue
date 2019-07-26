@@ -68,15 +68,12 @@
         :next="next"
         :tutorialMenu="tutorialMenu" />
     </div>
-    <footer v-if=isResources class="bg-navy white ph2 ph3-ns mt4">
-      <div class="mw7 center">
+    <footer class="mt4 ph2 ph3-ns bg-navy white">
+      <div v-if="isResources" class="mw7 center">
         <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
       </div>
-    </footer>
-    <footer v-else class="bg-navy white ph2 ph3-ns mt4">
-      <div class="mw7 center">
-        <p>Feeling stuck? We'd love to hear what's confusing so we can improve
-        this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
+      <div v-else class="mw7 center">
+        <p>Feeling stuck? We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </footer>
   </div>
