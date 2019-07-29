@@ -6,7 +6,7 @@
         <h1 class="mw7 center ph2 mt5">Interactive Tutorials</h1>
         <p class="f4 fw5 lh-copy ma0 pv4 mw7 center ph2">
           Our interactive tutorials help you learn about the
-          the decentralized web by writing code and solving challenges.
+          decentralized web by writing code and solving challenges.
         </p>
       </section>
       <template v-for="(tutorial, index) in allTutorials">
