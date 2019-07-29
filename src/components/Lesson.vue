@@ -326,6 +326,7 @@ export default {
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
+      delete this.output.test
       this.clearPassed()
     },
     clearPassed: function () {
