@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson'
+import FileLesson from '../../components/FileLesson'
 import text from './08.md'
 import exercise from './08-exercise.md'
 
@@ -27,8 +27,6 @@ const validate = async (result, ipfs) => {
     let someDirectoryContents = await ipfs.files.ls('/some', { long: true })
     someContainsOnlyStuff = someDirectoryContents.length === 1 && someDirectoryContents[0].name === 'stuff'
   }
-
-  let logResult = JSON.stringify(result, null, 2)
 
   // identify files that should have been moved
   let uploadedFiles = window.uploadedFiles || false
@@ -55,7 +53,7 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
-  } else if (uploadedFiles = false) {
+  } else if (uploadedFiles === false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result.error && result.error.message === 'Unexpected token const') {
@@ -63,11 +61,11 @@ const validate = async (result, ipfs) => {
   } else if (result.error && result.error.message === 'await is only valid in async function') {
     return { fail: "Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn't wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`." }
   } else if (result.error && result.error.message === 'ipfs.mv is not a function') {
-    return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?'}
+    return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?' }
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result.error && result.error.message === 'paths must start with a leading /') {
-    return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?'}
+    return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?' }
   } else if (!returnedSomeStuffContents) {
     return { fail: 'It looks like you returned something other than the contents of the `/some/stuff` directory. Did you accidentally edit the return statement?' }
   } else if (!rootContainsOnlySome) {
@@ -89,7 +87,7 @@ const validate = async (result, ipfs) => {
   } else if (itemsMatch && itemsAreFiles) {
     return {
       success: 'Success! You did it!',
-      logDesc: "This is the data that is now in your `/some/stuff` directory in IPFS:",
+      logDesc: 'This is the data that is now in your `/some/stuff` directory in IPFS:',
       log: logSomeStuff
     }
   } else if (result.error) {
@@ -118,7 +116,6 @@ const run = async (files) => {
 
 return run
 `
-
 
 const solution = `/* global ipfs */
 

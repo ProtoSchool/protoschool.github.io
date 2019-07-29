@@ -16,7 +16,7 @@ import text from './02.md'
 import exercise from './02-exercise.md'
 
 const validate = async (result, ipfs) => {
-  const correctHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
+  const correctHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }

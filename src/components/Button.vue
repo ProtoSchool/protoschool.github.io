@@ -18,22 +18,23 @@ export default {
 </script>
 
 <style scoped>
-  button {
-    opacity: 0.9;
-    min-width:120px;
-  }
-  button:hover {
-    opacity: 1;
-  }
+button {
+  opacity: 0.9;
+  min-width: 120px;
+}
 
-  button:active {
-    opacity: 0.95;
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
-  }
+button:hover {
+  opacity: 1;
+}
 
-  button:disabled {
-    opacity: 0.8;
-    box-shadow: initial;
-    cursor: default;
-  }
+button:active {
+  opacity: 0.95;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+}
+
+button:disabled {
+  opacity: 0.8;
+  box-shadow: initial;
+  cursor: default;
+}
 </style>

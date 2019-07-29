@@ -10,10 +10,10 @@
           local mentors. Select a chapter below to learn more.
         </p>
         <ul>
-          <li v-for="region in regions">
+          <li v-for="(region, idx) in regions" :key="`region-${idx}`">
             <h2>{{region}}</h2>
             <ul>
-              <li v-for="chapter in chaptersByRegion[region]">
+              <li v-for="(chapter, idx) in chaptersByRegion[region]" :key="`chapter-${idx}`">
                 <span v-if="chapter.website">
                   <a v-bind:href="chapter.website" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
                 </span>
