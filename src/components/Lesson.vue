@@ -272,6 +272,7 @@ export default {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
+        this.clearPassed()
         return
       }
       // Hide the solution
@@ -325,6 +326,7 @@ export default {
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
+      this.clearPassed()
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]

@@ -6,7 +6,12 @@
         <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
       <div v-else-if="lessonPassed && !isSubmitting">
-        <Button v-if="isFileLesson && !output" :click="run" class="mr2 bg-aqua white" style="minWidth: 90px">Submit</Button>
+        <span class="disabled-btn-wrapper">
+          <span v-if="isFileLesson && !uploadedFiles" class="red lh-copy o-0">
+            You must upload a file before submitting.
+          </span>
+          <Button v-if="(isFileLesson && !output) || (isFileLesson && !uploadedFiles)" :disabled="!uploadedFiles" :click="run" class="mr2 bg-aqua white" style="minWidth: 90px">Submit</Button>
+        </span>
         <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
       </div>
       <div v-else>
