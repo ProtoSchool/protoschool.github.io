@@ -30,6 +30,7 @@
             :resetFileUpload="resetFileUpload"
             :uploadedFiles="uploadedFiles" />
           <CodeEditor
+            :isFileLesson="isFileLesson"
             :editorReady="editorReady"
             :code="code"
             :solution="solution"
