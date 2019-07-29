@@ -287,7 +287,10 @@ export default {
       }
       if (output.test.success) {
         localStorage[this.lessonKey] = 'passed'
+      } else {
+        this.clearPassed()
       }
+
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
     },
