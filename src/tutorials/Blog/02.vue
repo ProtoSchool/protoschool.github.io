@@ -91,8 +91,6 @@ const run = async () => {
     author: natCid
   })
 
-  // DELETE ME
-
   return [treePostCid, computerPostCid]
 }
 
