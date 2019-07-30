@@ -382,17 +382,13 @@ export default {
       }
     },
     handleRadioChoice (result) {
-      console.log('------ result received in parent', result)
-      // result should be null if question hasn't been answered yet
-      console.log('--- output ', this.output.test)
       Vue.set(this.output, 'test', result)
-      console.log('--- output after set ', this.output.test)
       if (this.output.test.success) {
-        console.log('correct multiple choice')
         localStorage[this.lessonKey] = 'passed'
-        console.log('localStorage[this.lessonKey]', localStorage[this.lessonKey])
         this.lessonPassed = !!localStorage[this.lessonKey]
-        console.log('this.lessonPassed', this.lessonPassed)
+      } else {
+        this.cachedCode = true
+        this.clearPassed()
       }
     },
     next: function () {

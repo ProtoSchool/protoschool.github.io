@@ -3,7 +3,7 @@
     <h3>{{this.question}}</h3>
     <div v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
       <input type="radio" :id="idx" :value="idx" v-model="selected" @change="handleRadioClick">
-      <label for="key">{{choice.answer}}</label>
+      <label :for="idx">{{choice.answer}}</label>
     </div>
   </div>
 </template>
@@ -65,5 +65,34 @@ export default {
 </script>
 
 <style scoped>
+input[type=radio] {
+  display: none;
+}
 
+label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 0.5rem;
+  padding-left: 25px;
+}
+
+label:before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #7f8491;
+}
+
+input[type=radio]:checked + label:before {
+  content: "\2022";
+  color: #f3f3f3;
+  font-size: 1.45rem;
+  text-align: center;
+  line-height: 1.1rem;
+}
 </style>
