@@ -17,6 +17,7 @@
       <section v-if="exercise || isMultipleChoiceLesson" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
         <div class="flex-none">
           <Progress
+            :isMultipleChoiceLesson="isMultipleChoiceLesson"
             :lessonPassed="lessonPassed"
             :cachedCode="cachedCode"
             :cachedStateMsg="cachedStateMsg"
@@ -382,6 +383,8 @@ export default {
       }
     },
     handleRadioChoice (result) {
+      console.log('---- cacheKey', this.cacheKey)
+      console.log('---- lessonKey', this.lessonKey)
       Vue.set(this.output, 'test', result)
       if (this.output.test.success) {
         localStorage[this.lessonKey] = 'passed'

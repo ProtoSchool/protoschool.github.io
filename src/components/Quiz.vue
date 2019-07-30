@@ -27,7 +27,6 @@ export default {
     isCorrect: function () {
       return this.selected === this.correctChoice
     },
-    // Can we pass this value to parent to use existing display in Lesson.vue?
     feedback: function () {
       if (this.selected === '') {
         return ''
@@ -35,7 +34,6 @@ export default {
         return this.choices[this.selected].feedback
       }
     },
-    // Can we pass this value to parent to use existing display in Lesson.vue?
     answerStatus: function () {
       if (this.selected === '') {
         return 'unanswered'
@@ -47,6 +45,19 @@ export default {
     }
   },
   methods: {
+    onMounted: function () {
+      this.editorReady = true
+      if (this.cachedCode) {
+        // TRACK? returned to lesson previously visited
+        this.loadCodeFromCache()
+        this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
+        if (this.lessonPassed) {
+          this.run(true)
+        }
+      } else {
+        // TRACK? first time starting lesson
+      }
+    },
     handleRadioClick () {
       let result = null
       if (this.selected !== '') {
@@ -84,13 +95,14 @@ label:before {
   left: 0;
   width: 16px;
   height: 16px;
+  background-color: #fff;
+  border: 1px solid #0a3a52;
   border-radius: 50%;
-  background-color: #7f8491;
 }
 
 input[type=radio]:checked + label:before {
   content: "\2022";
-  color: #f3f3f3;
+  color: #0a3a52;
   font-size: 1.45rem;
   text-align: center;
   line-height: 1.1rem;

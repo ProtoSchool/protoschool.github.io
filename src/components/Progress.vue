@@ -7,8 +7,8 @@
     </span>
     <span class="green ttu f6 pl2 pr1 fw7 v-mid">
       <span v-if="lessonPassed">You did it!</span>
-      <span v-else-if="cachedCode">Keep working.</span>
-      <span v-else>Try it!</span>
+      <span v-else-if="cachedCode">{{ isMultipleChoiceLesson ? 'Try again.' : 'Keep working.' }}</span>
+      <span v-else>{{ isMultipleChoiceLesson ? 'Take the quiz!' : 'Try it!' }}</span>
     </span>
     <span class="green f6 fw5 v-mid">
       <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
@@ -31,6 +31,7 @@
 <script>
 export default {
   props: {
+    isMultipleChoiceLesson: Boolean,
     lessonPassed: Boolean,
     cachedCode: Boolean,
     cachedStateMsg: String,
