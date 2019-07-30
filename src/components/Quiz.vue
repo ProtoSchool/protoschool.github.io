@@ -27,7 +27,7 @@ export default {
     isCorrect: function () {
       return this.selected === this.correctChoice
     },
-    //can we pass this value to parent to use existing display in Lesson.vue?
+    // Can we pass this value to parent to use existing display in Lesson.vue?
     feedback: function () {
       if (this.selected === '') {
         return ''
@@ -35,34 +35,33 @@ export default {
         return this.choices[this.selected].feedback
       }
     },
-    //can we pass this value to parent to use existing display in Lesson.vue?
+    // Can we pass this value to parent to use existing display in Lesson.vue?
     answerStatus: function () {
       if (this.selected === '') {
-        return "unanswered"
+        return 'unanswered'
       } else if (this.isCorrect) {
-        return "correct"
+        return 'correct'
       } else {
-        return "incorrect"
+        return 'incorrect'
       }
     }
-    },
-    methods: {
-      handleRadioClick () {
-        let result = null
-        if (this.selected !== '') {
-          if (this.isCorrect) {
-            result = { success: this.choices[this.selected].feedback }
-          } else {
-            result = { fail: this.choices[this.selected].feedback }
-          }
+  },
+  methods: {
+    handleRadioClick () {
+      let result = null
+      if (this.selected !== '') {
+        if (this.isCorrect) {
+          result = { success: this.choices[this.selected].feedback }
         } else {
-          console.log('not answered')
+          result = { fail: this.choices[this.selected].feedback }
         }
-        this.$emit("handleChoice", result)
+      } else {
+        console.log('not answered')
       }
+      this.$emit('handleChoice', result)
     }
   }
-
+}
 </script>
 
 <style scoped>

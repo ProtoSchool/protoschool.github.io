@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson'
+import FileLesson from '../../components/FileLesson'
 import text from './11.md'
 import exercise from './11-exercise.md'
 
@@ -46,7 +46,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Your root directory doesn\'t look right. Are you sure you ran the `files.rm` method on your `/some` directory with the option `{ recursive: true }`?' }
   } else if (result.error && result.error.message === 'Cannot delete root') {
     return {
-      fail: 'Oops! Your root directory can\'t be removed. Remove `/some` instead.',
+      fail: 'Oops! Your root directory can\'t be removed. Remove `/some` instead.'
     }
   } else if (rootContainsSome && someIsEmpty) {
     // only removed /some/stuff with {recursive:true} or tried to remove the root itself
@@ -55,7 +55,7 @@ const validate = async (result, ipfs) => {
     }
   } else if (rootContainsSome && someContainsStuff) {
     return {
-      fail: 'You still have a `/some/stuff` directory. Be sure to run the `files.rm` method on your `/some` directory with the option `{ recursive: true }`',
+      fail: 'You still have a `/some/stuff` directory. Be sure to run the `files.rm` method on your `/some` directory with the option `{ recursive: true }`'
     }
   } else if (!result.error && !rootIsEmpty) {
     // only removed /some/stuff with {recursive:true} or tried to remove the root itself

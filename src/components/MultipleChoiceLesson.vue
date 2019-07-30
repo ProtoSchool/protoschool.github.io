@@ -8,7 +8,7 @@ export default {
   },
   methods: {
     doSomething: function () {
-      console.log("in doSomething function")
+      console.log('in doSomething function')
     }
   }
 }
