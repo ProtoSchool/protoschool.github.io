@@ -15,7 +15,7 @@ export default {
     return {
       question: self.$attrs.question,
       choices: self.$attrs.choices,
-      selected: ''
+      selected: self.$attrs.selected
     }
   },
   computed: {
@@ -33,41 +33,17 @@ export default {
       } else {
         return this.choices[this.selected].feedback
       }
-    },
-    answerStatus: function () {
-      if (this.selected === '') {
-        return 'unanswered'
-      } else if (this.isCorrect) {
-        return 'correct'
-      } else {
-        return 'incorrect'
-      }
     }
   },
   methods: {
-    onMounted: function () {
-      this.editorReady = true
-      if (this.cachedCode) {
-        // TRACK? returned to lesson previously visited
-        this.loadCodeFromCache()
-        this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
-        if (this.lessonPassed) {
-          this.run(true)
-        }
-      } else {
-        // TRACK? first time starting lesson
-      }
-    },
     handleRadioClick () {
       let result = null
       if (this.selected !== '') {
         if (this.isCorrect) {
-          result = { success: this.choices[this.selected].feedback }
+          result = { success: this.choices[this.selected].feedback, selected: this.selected }
         } else {
-          result = { fail: this.choices[this.selected].feedback }
+          result = { fail: this.choices[this.selected].feedback, selected: this.selected }
         }
-      } else {
-        console.log('not answered')
       }
       this.$emit('handleChoice', result)
     }

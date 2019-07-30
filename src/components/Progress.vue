@@ -2,12 +2,12 @@
   <h2 class="mt0 mb2 green fw4 fill-current">
     <span style="vertical-align:-1px">
       <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" />
-      <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="in progress" />
+      <img v-else-if="cachedCode || cachedChoice" src="../static/images/in-progress.svg" alt="in progress" />
       <img v-else src="../static/images/not-started.svg" alt="not yet started" />
     </span>
     <span class="green ttu f6 pl2 pr1 fw7 v-mid">
       <span v-if="lessonPassed">You did it!</span>
-      <span v-else-if="cachedCode">{{ isMultipleChoiceLesson ? 'Try again.' : 'Keep working.' }}</span>
+      <span v-else-if="cachedCode || cachedChoice">{{ isMultipleChoiceLesson ? 'Try again.' : 'Keep working.' }}</span>
       <span v-else>{{ isMultipleChoiceLesson ? 'Take the quiz!' : 'Try it!' }}</span>
     </span>
     <span class="green f6 fw5 v-mid">
@@ -33,6 +33,7 @@ export default {
   props: {
     isMultipleChoiceLesson: Boolean,
     lessonPassed: Boolean,
+    cachedChoice: Boolean,
     cachedCode: Boolean,
     cachedStateMsg: String,
     expandExercise: Boolean,

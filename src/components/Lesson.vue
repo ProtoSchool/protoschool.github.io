@@ -19,6 +19,7 @@
           <Progress
             :isMultipleChoiceLesson="isMultipleChoiceLesson"
             :lessonPassed="lessonPassed"
+            :cachedChoice="cachedChoice"
             :cachedCode="cachedCode"
             :cachedStateMsg="cachedStateMsg"
             :expandExercise="expandExercise"
@@ -46,6 +47,7 @@
             v-if="isMultipleChoiceLesson"
             :question="this.question"
             :choices="this.choices"
+            :selected="choice"
             @handleChoice="handleRadioChoice" />
         </div>
         <div class='flex-none'>
@@ -177,6 +179,8 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
+      cachedChoice: !!localStorage['cached' + self.$route.path],
+      choice: localStorage[self.cacheKey] || '',
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
@@ -246,12 +250,15 @@ export default {
     this.IPFSPromise = import('ipfs').then(m => m.default)
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
-  updated: function () {
-    // runs on page load AND every keystroke in editor AND submit
+  beforeMount: function () {
+    this.choice = localStorage[this.cacheKey] || ''
   },
-  beforeUpdate: function () {
-    // runs on every keystroke in editor, NOT on page load, NOT on code submit
-  },
+  // updated: function () {
+  //   runs on page load AND every keystroke in editor AND submit
+  // },
+  // beforeUpdate: function () {
+  //   runs on every keystroke in editor, NOT on page load, NOT on code submit
+  // },
   methods: {
     run: async function (auto = false) {
       let args = []
@@ -383,14 +390,14 @@ export default {
       }
     },
     handleRadioChoice (result) {
-      console.log('---- cacheKey', this.cacheKey)
-      console.log('---- lessonKey', this.lessonKey)
+      this.cachedChoice = !!localStorage[this.cacheKey]
+      localStorage[this.cacheKey] = result.selected
+      this.choice = localStorage[this.cacheKey]
       Vue.set(this.output, 'test', result)
       if (this.output.test.success) {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
       } else {
-        this.cachedCode = true
         this.clearPassed()
       }
     },
