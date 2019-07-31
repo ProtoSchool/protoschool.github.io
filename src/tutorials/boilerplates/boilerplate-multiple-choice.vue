@@ -15,6 +15,7 @@ const question = "What's the meaning of life, the universe, and everything?"
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
+// Only one answer can be correct.
 const choices = [
   {
     answer: 'Some correct answer.',
