@@ -58,7 +58,7 @@
             :lessonPassed="lessonPassed"
             :parseData="parseData" />
           <Info
-            v-else-if="!isSubmitting"
+            v-else-if="exercise && !isSubmitting"
             :showUploadInfo="showUploadInfo"
             :isFileLesson="isFileLesson" />
         </div>
@@ -66,6 +66,7 @@
       <Validator
         :exercise="exercise"
         :isFileLesson="isFileLesson"
+        :isMultipleChoiceLesson="isMultipleChoiceLesson"
         :uploadedFiles="uploadedFiles"
         :lessonPassed="lessonPassed"
         :output="output.test"

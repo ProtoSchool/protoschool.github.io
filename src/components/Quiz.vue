@@ -18,14 +18,14 @@ export default {
       selected: self.$attrs.selected
     }
   },
+  mounted: function () {
+    this.handleRadioClick()
+  },
   computed: {
     correctChoice: function () {
       // assumes there is only ONE correct answer in the list,
       // which is a limitation we'll put on authors but will need to test for somehow
       return this.choices.findIndex(choice => choice.correct === true)
-    },
-    isCorrect: function () {
-      return this.selected === this.correctChoice
     },
     feedback: function () {
       if (this.selected === '') {
@@ -39,13 +39,13 @@ export default {
     handleRadioClick () {
       let result = null
       if (this.selected !== '') {
-        if (this.isCorrect) {
+        if (parseInt(this.selected) === this.correctChoice) {
           result = { success: this.choices[this.selected].feedback, selected: this.selected }
         } else {
           result = { fail: this.choices[this.selected].feedback, selected: this.selected }
         }
+        this.$emit('handleChoice', result)
       }
-      this.$emit('handleChoice', result)
     }
   }
 }
