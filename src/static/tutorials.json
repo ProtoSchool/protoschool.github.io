@@ -146,8 +146,16 @@
 			"title": "Testing new lesson formats!",
 			"description": "We'll need to delete this before we merge!",
 			"lessons": [
-				{ "to": "/tests/01", "name": "Sample multiple choice lesson" }
-
+				{ "to": "/tests/01", "name": "Sample multiple choice lesson" },
+				{ "to": "/tests/02", "name": "This is another lesson" }
+			],
+			"resources": [
+				{
+					"title": "JS-IPFS Files API",
+					"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/FILES.md",
+					"type": "docs",
+					"description": "Notice that these docs contain two sections, one for top-level methods relevant to files and one for the Mutable File System (MFS) you learned about in this tutorial."
+				}
 			]
 		}
 }

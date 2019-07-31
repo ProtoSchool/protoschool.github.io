@@ -44,6 +44,7 @@ import MutableFileSystem09 from './tutorials/Mutable-File-System/09.vue'
 import MutableFileSystem10 from './tutorials/Mutable-File-System/10.vue'
 import MutableFileSystem11 from './tutorials/Mutable-File-System/11.vue'
 import Tests01 from './tutorials/Tests/01.vue'
+import Tests02 from './tutorials/Tests/02.vue'
 
 Vue
   .use(VueRouter)
@@ -98,6 +99,8 @@ const routes = [
   // Tests
   { path: '/tests', component: Landing, props: { tutorialId: 'tests' } },
   { path: '/tests/01', component: Tests01 },
+  { path: '/tests/02', component: Tests02 },
+  { path: '/tests/resources', component: ResourcesLesson, props: { tutorialId: 'tests' } },
   // 404
   { path: '*', name: '404' }
 ]
