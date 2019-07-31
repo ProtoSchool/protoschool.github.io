@@ -391,9 +391,9 @@ export default {
       }
     },
     handleRadioChoice (result) {
-      this.cachedChoice = !!localStorage[this.cacheKey]
       localStorage[this.cacheKey] = result.selected
       this.choice = localStorage[this.cacheKey]
+      this.cachedChoice = !!localStorage[this.cacheKey]
       Vue.set(this.output, 'test', result)
       if (this.output.test.success) {
         localStorage[this.lessonKey] = 'passed'
