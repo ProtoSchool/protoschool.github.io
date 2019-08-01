@@ -14,10 +14,12 @@
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
       </section>
-      <section v-if="exercise" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
+      <section v-if="exercise || isMultipleChoiceLesson" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
         <div class="flex-none">
           <Progress
+            :isMultipleChoiceLesson="isMultipleChoiceLesson"
             :lessonPassed="lessonPassed"
+            :cachedChoice="cachedChoice"
             :cachedCode="cachedCode"
             :cachedStateMsg="cachedStateMsg"
             :expandExercise="expandExercise"
@@ -30,6 +32,7 @@
             :resetFileUpload="resetFileUpload"
             :uploadedFiles="uploadedFiles" />
           <CodeEditor
+            v-if="exercise"
             :isFileLesson="isFileLesson"
             :editorReady="editorReady"
             :code="code"
@@ -40,6 +43,12 @@
             :resetCode="resetCode"
             :expandExercise="expandExercise"
             :cyReplaceWithSolution="cyReplaceWithSolution" />
+          <Quiz
+            v-if="isMultipleChoiceLesson"
+            :question="this.question"
+            :choices="this.choices"
+            :selected="choice"
+            @handleChoice="handleRadioChoice" />
         </div>
         <div class='flex-none'>
           <Output
@@ -49,7 +58,7 @@
             :lessonPassed="lessonPassed"
             :parseData="parseData" />
           <Info
-            v-else-if="!isSubmitting"
+            v-else-if="exercise && !isSubmitting"
             :showUploadInfo="showUploadInfo"
             :isFileLesson="isFileLesson" />
         </div>
@@ -57,6 +66,7 @@
       <Validator
         :exercise="exercise"
         :isFileLesson="isFileLesson"
+        :isMultipleChoiceLesson="isMultipleChoiceLesson"
         :uploadedFiles="uploadedFiles"
         :lessonPassed="lessonPassed"
         :output="output.test"
@@ -87,6 +97,7 @@ import Vue from 'vue'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
+import Quiz from './Quiz.vue'
 import Resources from './Resources.vue'
 import Breadcrumbs from './Breadcrumbs.vue'
 import Progress from './Progress.vue'
@@ -151,6 +162,7 @@ export default {
     Explorer,
     Button,
     Header,
+    Quiz,
     Resources,
     Breadcrumbs,
     Progress,
@@ -168,6 +180,8 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
+      cachedChoice: !!localStorage['cached' + self.$route.path],
+      choice: localStorage[self.cacheKey] || '',
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
@@ -175,6 +189,9 @@ export default {
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
+      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
+      question: self.$attrs.question,
+      choices: self.$attrs.choices,
       parsedText: marked(self.$attrs.text || ''),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
@@ -234,12 +251,15 @@ export default {
     this.IPFSPromise = import('ipfs').then(m => m.default)
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
-  updated: function () {
-    // runs on page load AND every keystroke in editor AND submit
+  beforeMount: function () {
+    this.choice = localStorage[this.cacheKey] || ''
   },
-  beforeUpdate: function () {
-    // runs on every keystroke in editor, NOT on page load, NOT on code submit
-  },
+  // updated: function () {
+  //   runs on page load AND every keystroke in editor AND submit
+  // },
+  // beforeUpdate: function () {
+  //   runs on every keystroke in editor, NOT on page load, NOT on code submit
+  // },
   methods: {
     run: async function (auto = false) {
       let args = []
@@ -368,6 +388,18 @@ export default {
           this.clearPassed()
           delete this.output.test
         }
+      }
+    },
+    handleRadioChoice (result) {
+      localStorage[this.cacheKey] = result.selected
+      this.choice = localStorage[this.cacheKey]
+      this.cachedChoice = !!localStorage[this.cacheKey]
+      Vue.set(this.output, 'test', result)
+      if (this.output.test.success) {
+        localStorage[this.lessonKey] = 'passed'
+        this.lessonPassed = !!localStorage[this.lessonKey]
+      } else {
+        this.clearPassed()
       }
     },
     next: function () {

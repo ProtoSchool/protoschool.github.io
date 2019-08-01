@@ -7,7 +7,7 @@
       </div>
       <div v-else-if="lessonPassed && !isSubmitting">
         <span class="disabled-btn-wrapper">
-          <span v-if="isFileLesson && !uploadedFiles" class="red lh-copy o-0">
+          <span v-if="isFileLesson && !uploadedFiles" class="mr2 red lh-copy o-0">
             You must upload a file before submitting.
           </span>
           <Button v-if="(isFileLesson && !output) || (isFileLesson && !uploadedFiles)" :disabled="!uploadedFiles" :click="run" class="mr2 bg-aqua white" style="minWidth: 90px">Submit</Button>
@@ -16,7 +16,7 @@
       </div>
       <div v-else>
         <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabled-btn-wrapper">
-          <span v-if="isFileLesson && !uploadedFiles" class="red lh-copy o-0">
+          <span v-if="isFileLesson && !uploadedFiles" class="mr2 red lh-copy o-0">
             You must upload a file before submitting.
           </span>
           <Button :click="next" class="bg-aqua white" disabled>
@@ -26,6 +26,18 @@
         </span>
         <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
       </div>
+    </div>
+    <!-- Multiple choice lesson -->
+    <div v-else-if="isMultipleChoiceLesson" class="coding-exercise-container pr4 pb4 tr">
+      <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
+        <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
+      </div>
+      <span v-else class="disabled-btn-wrapper">
+        <span v-if="!lessonPassed" class="mr2 red lh-copy o-0">
+          Oops, you haven't selected the right answer yet!
+        </span>
+        <Button :click="next" class="bg-aqua white" :disabled="!lessonPassed" data-cy="next-lesson">Next</Button>
+      </span>
     </div>
     <!-- Text only lesson -->
     <div v-else class="mb3 ph2 tr">
@@ -49,6 +61,7 @@ export default {
   props: {
     exercise: String,
     isFileLesson: Boolean,
+    isMultipleChoiceLesson: Boolean,
     uploadedFiles: [Boolean, Array],
     lessonPassed: Boolean,
     output: Object,
