@@ -148,7 +148,7 @@ tutorials/Tutorial-Shortname/01-concepts.md
 
 #### Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)
 
-When creating a multiple-choice lesson, you'll use your Vue file to define the question its answer choices.
+When creating a multiple-choice lesson, you'll use your Vue file to define the question and its answer choices.
 
 The `question` value must be a string:
 
