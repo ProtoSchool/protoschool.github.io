@@ -54,7 +54,7 @@ pre code {
   padding: 0.6rem 0.8rem;
   display: block;
   font-size: 12px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .fill-current {
