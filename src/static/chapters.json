@@ -224,5 +224,16 @@
           "junyaoren"
        ],
        "repo":"http://github.com/protoschool/xiamen"
+    },
+    
+    {
+       "name":"ProtoSchool Prague",
+       "city":"Prague",
+       "country":"CZ",
+       "region":"Europe",
+       "organizers":[
+          "AuHau"
+       ],
+       "repo":"http://github.com/protoschool/prague"
     }
  ]
