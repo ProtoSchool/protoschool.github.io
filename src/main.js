@@ -115,7 +115,6 @@ const router = new VueRouter({
 // track page view via Countly when route changes
 router.afterEach((to) => {
   if (!window.Countly) return
-  console.log('/#' + to.path)
   window.Countly.q.push(['track_pageview', '/#' + to.path])
 })
 
