@@ -315,12 +315,27 @@ export default {
       }
       if (output.test.success) {
         localStorage[this.lessonKey] = 'passed'
+        console.log("auto: ", auto)
+        if (auto !== true) {
+          console.log("not auto, going to track passed")
+          // track lesson passed if it has an exercise (incl file ones)
+          this.trackLessonPassed()
+        }
       } else {
         this.clearPassed()
       }
-
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
+    },
+    trackLessonPassed: function () {
+      window.Countly.q.push(['add_event',{
+        "key": "lessonPassed",
+        "segmentation": {
+          "tutorial": this.workshopShortname,
+          "lessonNumber": this.lessonNumber,
+          "path": this.$route.path
+        }
+      }])
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -415,6 +430,9 @@ export default {
       } else {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
+        // track passed lesson if text only
+        console.log("about to track lesson passed, not an exercise")
+        this.trackLessonPassed()
       }
       let current = this.lessonNumber
 

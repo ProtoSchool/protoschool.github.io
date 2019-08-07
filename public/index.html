@@ -74,6 +74,17 @@
           Countly.app_key = 'c785b6eaa9c61617e1a7db83cb437e5f3dfe4280';
           Countly.url = 'https://countly.ipfs.io';
 
+          // Countly.getViewUrl = function(){
+          //   console.log("in getViewUrl")
+          //   //we want to have path and query string and hash as url
+          //   return location.pathname + location.search + location.hash;
+          // }
+          //
+          // Countly.getViewName = function(){
+          //   console.log("in getViewName")
+          //   return location.pathname + location.search + location.hash;
+          // }
+
           Countly.q.push(['track_sessions']);
           Countly.q.push(['track_pageview']);
           Countly.q.push(['track_clicks']);
