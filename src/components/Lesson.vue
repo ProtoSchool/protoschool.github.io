@@ -315,9 +315,7 @@ export default {
       }
       if (output.test.success) {
         localStorage[this.lessonKey] = 'passed'
-        console.log("auto: ", auto)
         if (auto !== true) {
-          console.log("not auto, going to track passed")
           // track lesson passed if it has an exercise (incl file ones)
           this.trackLessonPassed()
         }
@@ -330,6 +328,7 @@ export default {
     trackLessonPassed: function () {
       window.Countly.q.push(['add_event',{
         "key": "lessonPassed",
+        "count": 20,
         "segmentation": {
           "tutorial": this.workshopShortname,
           "lessonNumber": this.lessonNumber,
@@ -420,6 +419,10 @@ export default {
       if (this.output.test.success) {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
+        if (result.auto !== true) {
+          // track multiple choice lesson passed if not on page load
+          this.trackLessonPassed()
+        } 
       } else {
         this.clearPassed()
       }
@@ -431,8 +434,9 @@ export default {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
         // track passed lesson if text only
-        console.log("about to track lesson passed, not an exercise")
-        this.trackLessonPassed()
+        if (!this.isMultipleChoiceLesson) {
+          this.trackLessonPassed()
+        }
       }
       let current = this.lessonNumber
 
