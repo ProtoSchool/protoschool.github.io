@@ -328,7 +328,6 @@ export default {
     trackLessonPassed: function () {
       window.Countly.q.push(['add_event',{
         "key": "lessonPassed",
-        "count": 20,
         "segmentation": {
           "tutorial": this.workshopShortname,
           "lessonNumber": this.lessonNumber,
@@ -422,7 +421,7 @@ export default {
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
           this.trackLessonPassed()
-        } 
+        }
       } else {
         this.clearPassed()
       }
