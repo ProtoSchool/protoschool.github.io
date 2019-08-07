@@ -1,0 +1,1 @@
+First, upload one or more files by dragging and dropping below or clicking to make a selection from your file explorer.  Next, in the code editor, remove the comment markers (`//`) that precede `return files` within the `run` function.

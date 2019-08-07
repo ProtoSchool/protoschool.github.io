@@ -1,0 +1,19 @@
+<template>
+  <Lesson
+    :text="text"
+    lessonTitle="Sample text-only lesson" />
+</template>
+
+<script>
+import Lesson from '../../components/Lesson'
+import text from './03.md'
+
+export default {
+  components: {
+    Lesson
+  },
+  data: () => {
+    return { text }
+  }
+}
+</script>
