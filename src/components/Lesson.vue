@@ -109,6 +109,7 @@ import Info from './Info.vue'
 import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
+import { EVENTS } from '../static/countly'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -269,6 +270,9 @@ export default {
   // },
   methods: {
     run: async function (auto = false) {
+      if (auto !== true) {
+        this.trackEvent(EVENTS.CODE_SUBMIT)
+      }
       let args = []
       this.isSubmitting = true
       if (oldIPFS) {
@@ -317,23 +321,13 @@ export default {
         localStorage[this.lessonKey] = 'passed'
         if (auto !== true) {
           // track lesson passed if it has an exercise (incl file ones)
-          this.trackLessonPassed()
+          this.trackEvent(EVENTS.LESSON_PASSED)
         }
       } else {
         this.clearPassed()
       }
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
-    },
-    trackLessonPassed: function () {
-      window.Countly.q.push(['add_event',{
-        "key": "lessonPassed",
-        "segmentation": {
-          "tutorial": this.workshopShortname,
-          "lessonNumber": this.lessonNumber,
-          "path": this.$route.path
-        }
-      }])
     },
     createIPFS: function () {
       if (this.$attrs.createIPFS) {
@@ -363,6 +357,7 @@ export default {
       this.clearPassed()
       delete this.output.test
       this.showUploadInfo = false
+      this.trackEvent(EVENTS.CODE_RESET)
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
@@ -376,6 +371,16 @@ export default {
     loadCodeFromCache: function () {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
+    },
+    trackEvent: function (event) {
+      window.Countly.q.push(['add_event', {
+        'key': event,
+        'segmentation': {
+          'tutorial': this.workshopShortname,
+          'lessonNumber': this.lessonNumber,
+          'path': this.$route.path
+        }
+      }])
     },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
@@ -420,7 +425,7 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
-          this.trackLessonPassed()
+          this.trackEvent(EVENTS.LESSON_PASSED)
         }
       } else {
         this.clearPassed()
@@ -434,7 +439,7 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
-          this.trackLessonPassed()
+          this.trackEvent(EVENTS.LESSON_PASSED)
         }
       }
       let current = this.lessonNumber
