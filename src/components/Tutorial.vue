@@ -16,6 +16,7 @@
           <template v-else>
             {{tutorial.title}}
           </template>
+          <span v-if="isTutorialPassed" class="ml1">🏆</span>
         </h2>
         <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">{{tutorial.description}}</p>
         <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
@@ -45,10 +46,11 @@ export default {
   components: {
     LessonLink
   },
-  data: () => {
+  data: self => {
     return {
       ipfsLogo: ipfsLogo,
-      libp2pLogo: libp2pLogo
+      libp2pLogo: libp2pLogo,
+      isTutorialPassed: !!localStorage[`passed/${self.tutorial.lessons[0].to.split('/')[1]}`]
     }
   },
   computed: {

@@ -205,6 +205,7 @@ export default {
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
+      tutorialPath: self.$route.path.split('/')[1],
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
@@ -322,6 +323,7 @@ export default {
         if (auto !== true) {
           // track lesson passed if it has an exercise (incl file ones)
           this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
         }
       } else {
         this.clearPassed()
@@ -370,10 +372,22 @@ export default {
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
+      delete localStorage[`passed/${this.tutorialPath}`]
     },
     loadCodeFromCache: function () {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
+    },
+    isTutorialPassed: function () {
+      for (let i = 1; i <= this.lessonsInWorkshop; i++) {
+        let n = (i < 10) ? `0${i}` : i
+        const lsKey = `passed/${this.tutorialPath}/${n}`
+        if (localStorage[lsKey] !== 'passed') {
+          return false
+        }
+      }
+      localStorage[`passed/${this.tutorialPath}`] = 'passed'
+      return true
     },
     trackEvent: function (event, opts = {}) {
       window.Countly.q.push(['add_event', {
@@ -430,6 +444,7 @@ export default {
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
           this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
         }
       } else {
         this.clearPassed()
@@ -447,6 +462,7 @@ export default {
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
           this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
         }
       }
       let current = this.lessonNumber
