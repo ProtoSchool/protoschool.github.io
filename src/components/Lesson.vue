@@ -270,9 +270,6 @@ export default {
   // },
   methods: {
     run: async function (auto = false) {
-      if (auto !== true) {
-        this.trackEvent(EVENTS.CODE_SUBMIT)
-      }
       let args = []
       this.isSubmitting = true
       if (oldIPFS) {
@@ -304,6 +301,9 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
         this.clearPassed()
+        if (auto !== true) {
+          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+        }
         return
       }
       // Hide the solution
@@ -325,6 +325,9 @@ export default {
         }
       } else {
         this.clearPassed()
+        if (auto !== true) {
+          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+        }
       }
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
@@ -372,13 +375,14 @@ export default {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
     },
-    trackEvent: function (event) {
+    trackEvent: function (event, opts = {}) {
       window.Countly.q.push(['add_event', {
         'key': event,
         'segmentation': {
           'tutorial': this.workshopShortname,
           'lessonNumber': this.lessonNumber,
-          'path': this.$route.path
+          'path': this.$route.path,
+          ...opts
         }
       }])
     },
@@ -429,6 +433,9 @@ export default {
         }
       } else {
         this.clearPassed()
+        if (result.auto !== true) {
+          this.trackEvent(EVENTS.CHOICE_SUBMIT_WRONG, { wrongChoice: result.selected })
+        }
       }
     },
     next: function () {
