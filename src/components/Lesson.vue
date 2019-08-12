@@ -387,6 +387,7 @@ export default {
         }
       }
       localStorage[`passed/${this.tutorialPath}`] = 'passed'
+      this.trackEvent(EVENTS.TUTORIAL_PASSED)
       return true
     },
     trackEvent: function (event, opts = {}) {
