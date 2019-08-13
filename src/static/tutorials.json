@@ -139,5 +139,41 @@
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
 			}
 		]
-	}
+		},
+			"tests": {
+				"project": "IPFS",
+				"title": "Testing new lesson formats!",
+				"description": "We'll need to delete this before we merge!",
+				"lessons": [
+					{ "to": "/tests/01", "name": "Sample multiple choice lesson" },
+					{ "to": "/tests/02", "name": "Another multiple choice lesson" },
+					{ "to": "/tests/03", "name": "Sample text-only lesson" },
+					{ "to": "/tests/04", "name": "Another text-only lesson" },
+					{ "to": "/tests/05", "name": "Sample excercise lesson with useful concepts box" },
+					{ "to": "/tests/06", "name": "Another excercise lesson without concepts" },
+					{ "to": "/tests/07", "name": "Sample file upload lesson" },
+					{ "to": "/tests/08", "name": "Another file upload lesson" }
+				],
+				"resources": [
+					{
+						"title": "Lipsum",
+						"link": "https://www.lipsum.com/",
+						"type": "docs",
+						"description": "This is a pretend resource."
+					},
+					{
+						"title": "Lorem Ipsum",
+						"link": "https://loremipsum.io/",
+						"type": "demo",
+						"description": "What a great fake resource!"
+
+					},
+					{
+						"title": "This Fake ProtoSchool Tutorial",
+						"link": "http://localhost:3000/#/tests",
+						"type": "tutorial",
+						"description": "The best fake resource ever."
+					}
+				]
+			}
 }
