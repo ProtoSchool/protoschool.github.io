@@ -1,192 +1,91 @@
 <template>
-  <div>
+  <div :class="{'overflow-hidden': expandExercise}">
     <Header/>
-    <div class="container center mw7 ph2">
-      <div class="flex-l items-start center mw7 ph2">
-        <section class="pv3 mt3" :class="isResources && 'w-100'">
-          <div class="lh-solid v-mid f4">
-            <span v-if="isResources" class="green v-mid"><span class="b">{{workshopShortname}}</span> | Resources</span>
-            <span v-else class="green v-mid"><span class="b">{{workshopShortname}}</span> | Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
-            <span class="pl1"><img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-          </div>
-          <h1>{{lessonTitle}}</h1>
-          <div v-if="concepts" class='fr-l measure-narrow-l ph3 mb2 ml3-l ba border-green' style="background: rgba(105, 196, 205, 10%)">
-            <h2 class="f5 fw2 green mt0 nb1 pt3">Useful concepts</h2>
-            <div class='f6 lh-copy' v-html="parsedConcepts"></div>
-          </div>
-          <Resources v-if="isResources" :data="resources" />
-          <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
-        </section>
-      </div>
-      <section v-if="exercise" v-bind:class="{expand: expandExercise}" class="exercise pb4 pt3 ph3 ph4-l mb3 mr5 flex flex-column" style="background: #F6F7F9;">
+    <div class="container center-l mw7-l ph2">
+      <section class="mw7 center mt3 pa3">
+        <Breadcrumbs
+          :isResources="isResources"
+          :workshopShortname="workshopShortname"
+          :lessonNumber="lessonNumber"
+          :lessonsInWorkshop="lessonsInWorkshop"
+          :lessonPassed="lessonPassed" />
+        <h1>{{lessonTitle}}</h1>
+        <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
+        <Resources v-if="isResources" :data="resources" />
+        <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
+      </section>
+      <section v-if="exercise || isMultipleChoiceLesson" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
         <div class="flex-none">
-          <h2 class="mt0 mb2 green fw4 fill-current">
-            <span style='vertical-align:-1px'>
-              <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
-              <img v-else-if="cachedCode" src="../static/images/in-progress.svg" alt="in progress" style="height: 1rem;"/>
-              <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 0.9rem;"/>
-            </span>
-            <span class="green ttu f6 pl2 pr1 fw7 v-mid">
-              <span v-if="lessonPassed">You did it!</span>
-              <span v-else-if="cachedCode">Keep working.</span>
-              <span v-else>Try it!</span>
-            </span>
-            <span class="green f6 fw5 v-mid">
-              <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
-            </span>
-            <div class="fr">
-              <button
-                v-if="expandExercise"
-                title="go smol"
-                @click="toggleExpandExercise"
-                class='b--transparent bg-transparent green hover-green-muted pointer focus-outline'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-              </button>
-              <button
-                v-else
-                @click="toggleExpandExercise"
-                title='embiggen the exercise'
-                class='b--transparent bg-transparent charcoal-muted hover-green pointer focus-outline'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 32 32"><path d="M16 4 L28 4 L28 16 L24 12 L20 16 L16 12 L20 8z M4 16 L8 20 L12 16 L16 20 L12 24 L16 28 L4 28z"></path></svg>
-              </button>
-
-            </div>
-          </h2>
-          <div v-if="exercise" v-html="parsedExercise" class='lh-copy'></div>
-          <div v-if="isFileLesson">
-            <div class="f5 fw7 mt4 mb2"> Step 1: Upload file(s)
-              <span class="pl1"><img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            </div>
-              <div id="drop-area" v-if="!uploadedFiles" @click="onFileClick" @drop="onFileDrop"
-                @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" @dragover.prevent
-                :class="{dragging: dragging}" class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy">
-                <div class="o-80 glow">
-                  <label for="add-files" class="flex items-center h4 pointer">
-                    <svg viewBox="0 0 100 100" class="fill-aqua" height="60px" alt="Add"><path d="M71.13 28.87a29.88 29.88 0 1 0 0 42.26 29.86 29.86 0 0 0 0-42.26zm-18.39 37.6h-5.48V52.74H33.53v-5.48h13.73V33.53h5.48v13.73h13.73v5.48H52.74z"></path></svg>
-                    <div class="f5 charcoal">
-                      <p><strong>Drop one or more files here or click to select.</strong> Directory upload is not supported, but you may select multiple files using Ctrl+Click or Command+Click.</p>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <div v-else class="mt2">
-                <span v-on:click="resetFileUpload" class="textLink fr pb1">Start Over</span>
-                <div class="mb2 pl3 pa2 w-100 br3 shadow-4 bg-white color-navy flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="fill-aqua" height="60px"><path d="M55.94 19.17H30a4 4 0 0 0-4 4v53.65a4 4 0 0 0 4 4h40.1a4 4 0 0 0 4-4V38.06zm5.28 21.08c-4.33 0-7.47-2.85-7.47-6.77V21l18.13 19.25z"/></svg>
-                  <ul class="list pl0">
-                    <li v-for="(file, idx) in uploadedFiles" :key="`file-${idx}`">{{file.name}}</li>
-                  </ul>
-                </div>
-              </div>
-            <div class="f5 fw7 mt4 mb2">Step 2: Update code
-              <span class="pl1"><img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid"/></span>
-            </div>
-          </div>
-        </div>
-        <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
-          <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
-          <MonacoEditor
-            class="editor mt2"
-            srcPath="."
-            :height="editorHeight"
-            :options="options"
+          <Progress
+            :isMultipleChoiceLesson="isMultipleChoiceLesson"
+            :lessonPassed="lessonPassed"
+            :cachedChoice="cachedChoice"
+            :cachedCode="cachedCode"
+            :cachedStateMsg="cachedStateMsg"
+            :expandExercise="expandExercise"
+            :toggleExpandExercise="toggleExpandExercise" />
+          <div v-html="parsedExercise" class='lh-copy' />
+          <FileUpload
+            v-if="isFileLesson"
+            :onFileClick="onFileClick"
+            :onFileDrop="onFileDrop"
+            :resetFileUpload="resetFileUpload"
+            :uploadedFiles="uploadedFiles" />
+          <CodeEditor
+            v-if="exercise"
+            :isFileLesson="isFileLesson"
+            :editorReady="editorReady"
             :code="code"
-            theme="vs"
-            language="javascript"
-            @mounted="onMounted"
-            @codeChange="onCodeChange" />
-        </div>
-        <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
-          <div v-if="solution" class="mb2 ml3">
-            <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
-            <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
-            <!-- Below is a special button only to be used by Cypress for the E2E tests -->
-            <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
-          </div>
-          <MonacoEditor
-            v-show="viewSolution"
-            class="editor"
-            srcPath="."
-            :height="editorHeight"
-            :options="Object.assign({}, { readOnly: true }, options)"
-            :code="solution"
-            theme="vs-dark"
-            language="javascript" />
+            :solution="solution"
+            :cachedCode="cachedCode"
+            :onMounted="onMounted"
+            :onCodeChange="onCodeChange"
+            :resetCode="resetCode"
+            :expandExercise="expandExercise"
+            :cyReplaceWithSolution="cyReplaceWithSolution" />
+          <Quiz
+            v-if="isMultipleChoiceLesson"
+            :question="this.question"
+            :choices="this.choices"
+            :selected="choice"
+            @handleChoice="handleRadioChoice" />
         </div>
         <div class='flex-none'>
-          <div class="pt2">
-            <div v-if="output.test && cachedCode" v-bind="output.test">
-              <div class="lh-copy pv2 ph3 bg-red white" v-if="output.test.error">
-                Error: {{output.test.error.message}}
-              </div>
-              <div class="output-log lh-copy bg-red white" v-if="output.test.fail" v-html="parseData(output.test.fail)" />
-              <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
-                <span class="output-log" v-html="parseData(output.test.success)" />
-                <a v-if="output.test.cid"
-                class="link fw7 underline-hover dib ph2 mh2 white" target='explore-ipld' :href='exploreIpldUrl'>
-                  View in IPLD Explorer
-                </a>
-              </div>
-              <div v-if="output.test.log">
-                <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
-                <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
-                <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
-                <highlight-code lang="json" class="output-code">
-                  {{output.test.log}}
-                </highlight-code>
-              </div>
-            </div>
-            <div class="pt2 lh-copy" v-else>
-              <div v-if="isFileLesson">
-                Upload file(s) and update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
-              </div>
-              <div v-else>
-                Update the code to complete the exercise. Click <strong>Submit</strong> to check your answer.
-              </div>
-            </div>
-          </div>
-          <div class="pt2 tr">
-            <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
-              <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
-            </div>
-            <div v-else-if="lessonPassed">
-              <Button :click="next" class="bg-aqua white" data-cy="next-lesson">Next</Button>
-            </div>
-            <div v-else>
-              <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabledButtonWrapper">
-                <Button v-bind:click="next" class="bg-aqua white" disabled>
-                  <span v-if="isSubmitting" class="loader"></span>
-                  <span v-else>Submit</span>
-                </Button>
-              </span>
-              <Button v-else :click="run" class="bg-aqua white" data-cy="submit-answer">Submit</Button>
-              <div v-if="isFileLesson && !uploadedFiles" class="red lh-copy pt2 o-0">
-                You must upload a file before submitting.
-              </div>
-            </div>
-          </div>
+          <Output
+            v-if="output.test"
+            :output="output"
+            :isFileLesson="isFileLesson"
+            :lessonPassed="lessonPassed"
+            :parseData="parseData" />
+          <Info
+            v-else-if="exercise && !isSubmitting"
+            :showUploadInfo="showUploadInfo"
+            :isFileLesson="isFileLesson" />
         </div>
       </section>
-      <section v-else>
-        <div class="pt3 ph2 tr mb3">
-          <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInWorkshop) || isResources)">
-            <Button :click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
-          </div>
-          <div v-else>
-            <Button :click="next" class="bg-aqua white">Next</Button>
-          </div>
-        </div>
-      </section>
+      <Validator
+        :exercise="exercise"
+        :isFileLesson="isFileLesson"
+        :isMultipleChoiceLesson="isMultipleChoiceLesson"
+        :uploadedFiles="uploadedFiles"
+        :lessonPassed="lessonPassed"
+        :output="output.test"
+        :isResources="isResources"
+        :nextLessonIsResources="nextLessonIsResources"
+        :lessonNumber="lessonNumber"
+        :lessonsInWorkshop="lessonsInWorkshop"
+        :expandExercise="expandExercise"
+        :isSubmitting="isSubmitting"
+        :run="run"
+        :next="next"
+        :tutorialMenu="tutorialMenu" />
     </div>
-    <footer v-if=isResources class="bg-navy white ph2 ph3-ns mt4">
-      <div class="mw7 center">
+    <footer class="mt4 ph2 ph3-ns bg-navy white">
+      <div v-if="isResources" class="mw7 center">
         <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
       </div>
-    </footer>
-    <footer v-else class="bg-navy white ph2 ph3-ns mt4">
-      <div class="mw7 center">
-        <p>Feeling stuck? We'd love to hear what's confusing so we can improve
-        this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
+      <div v-else class="mw7 center">
+        <p>Feeling stuck? We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </footer>
   </div>
@@ -195,11 +94,19 @@
 <script>
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
-import MonacoEditor from 'vue-monaco-editor'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
+import Quiz from './Quiz.vue'
 import Resources from './Resources.vue'
+import Breadcrumbs from './Breadcrumbs.vue'
+import Progress from './Progress.vue'
+import Concepts from './Concepts.vue'
+import FileUpload from './FileUpload.vue'
+import CodeEditor from './CodeEditor.vue'
+import Output from './Output.vue'
+import Info from './Info.vue'
+import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
 
@@ -208,7 +115,14 @@ hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
 hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
 
+const renderer = new marked.Renderer()
+renderer.link = function (href, title, text) {
+  const link = marked.Renderer.prototype.link.call(this, href, title, text)
+  return link.replace('<a', '<a target=\'_blank\' ')
+}
+
 marked.setOptions({
+  renderer: renderer,
   highlight: code => {
     return hljs.highlightAuto(code).value
   }
@@ -252,11 +166,19 @@ let oldIPFS
 
 export default {
   components: {
-    MonacoEditor,
     Explorer,
     Button,
     Header,
-    Resources
+    Quiz,
+    Resources,
+    Breadcrumbs,
+    Progress,
+    Concepts,
+    FileUpload,
+    CodeEditor,
+    Output,
+    Info,
+    Validator
   },
   data: self => {
     return {
@@ -265,6 +187,8 @@ export default {
       text: self.$attrs.text,
       exercise: self.$attrs.exercise,
       concepts: self.$attrs.concepts,
+      cachedChoice: !!localStorage['cached' + self.$route.path],
+      choice: localStorage[self.cacheKey] || '',
       cachedCode: !!localStorage['cached' + self.$route.path],
       code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
       solution: self.$attrs.solution,
@@ -272,6 +196,9 @@ export default {
       viewSolution: false,
       overrideErrors: self.$attrs.overrideErrors,
       isFileLesson: self.isFileLesson,
+      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
+      question: self.$attrs.question,
+      choices: self.$attrs.choices,
       parsedText: marked(self.$attrs.text || ''),
       parsedExercise: marked(self.$attrs.exercise || ''),
       parsedConcepts: marked(self.$attrs.concepts || ''),
@@ -282,24 +209,13 @@ export default {
       lessonTitle: self.$attrs.lessonTitle,
       createTestFile: self.$attrs.createTestFile,
       output: self.output,
+      showUploadInfo: false,
       expandExercise: false,
-      dragging: false,
       uploadedFiles: window.uploadedFiles || false,
-      editorReady: false,
-      options: {
-        selectOnLineNumbers: false,
-        lineNumbersMinChars: 3,
-        scrollBeyondLastLine: false,
-        automaticLayout: true
-      }
+      editorReady: false
     }
   },
   computed: {
-    exploreIpldUrl: function () {
-      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
-      cid = cid || ''
-      return `https://explore.ipld.io/#/explore/${cid}`
-    },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
@@ -334,17 +250,6 @@ export default {
       const basePath = this.$route.path.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
       return this.lessonNumber === this.lessonsInWorkshop && hasResources
-    },
-    editorHeight: function () {
-      if (this.expandExercise) {
-        return undefined
-      } else {
-        const lineHeight = 18
-        // In compact view show at least 12 lines, and at most 25 lines.
-        const lines = Math.min(Math.max(this.code.split('\n').length, 12), 25)
-        const height = lines * lineHeight
-        return height
-      }
     }
   },
   beforeCreate: function () {
@@ -353,14 +258,18 @@ export default {
     this.IPFSPromise = import('ipfs').then(m => m.default)
     // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
-  updated: function () {
-    // runs on page load AND every keystroke in editor AND submit
+  beforeMount: function () {
+    this.choice = localStorage[this.cacheKey] || ''
   },
-  beforeUpdate: function () {
-    // runs on every keystroke in editor, NOT on page load, NOT on code submit
-  },
+  // updated: function () {
+  //   runs on page load AND every keystroke in editor AND submit
+  // },
+  // beforeUpdate: function () {
+  //   runs on every keystroke in editor, NOT on page load, NOT on code submit
+  // },
   methods: {
-    run: async function (...args) {
+    run: async function (auto = false) {
+      let args = []
       this.isSubmitting = true
       if (oldIPFS) {
         oldIPFS.stop()
@@ -373,6 +282,15 @@ export default {
       }
       let code = this.editor.getValue()
       let modules = {}
+
+      if (this.isFileLesson && this.uploadedFiles === false && auto === true) {
+        this.showUploadInfo = true
+        this.isSubmitting = false
+        return
+      } else {
+        this.showUploadInfo = false
+      }
+
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
@@ -381,6 +299,7 @@ export default {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
+        this.clearPassed()
         return
       }
       // Hide the solution
@@ -396,7 +315,10 @@ export default {
       }
       if (output.test.success) {
         localStorage[this.lessonKey] = 'passed'
+      } else {
+        this.clearPassed()
       }
+
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
     },
@@ -412,6 +334,7 @@ export default {
       }
     },
     createFile: function (ipfs) {
+      /* eslint-disable no-new */
       new Promise((resolve, reject) => {
         ipfs.on('ready', async () => {
           await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
@@ -425,19 +348,13 @@ export default {
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.code)
       this.clearPassed()
-      if (this.output.test && this.output.test.log) {
-        delete this.output.test.log
-      }
-    },
-    toggleSolution: function () {
-      this.viewSolution = !this.viewSolution
-    },
-    cyReplaceWithSolution: function () {
-      this.editor.setValue(this.$attrs.solution)
+      delete this.output.test
+      this.showUploadInfo = false
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
-      this.dragging = false
+      delete this.output.test
+      this.clearPassed()
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
@@ -456,7 +373,7 @@ export default {
         this.loadCodeFromCache()
         this.cachedStateMsg = "Pick up where you left off. We've saved your code for you!"
         if (this.lessonPassed) {
-          this.run()
+          this.run(true)
         }
       } else {
         // TRACK? first time starting lesson
@@ -474,6 +391,22 @@ export default {
         this.code = this.editor.getValue()
         this.cachedCode = !!localStorage[this.cacheKey]
         this.cachedStateMsg = "We're saving your code as you go."
+        if (this.code !== this.solution) {
+          this.clearPassed()
+          delete this.output.test
+        }
+      }
+    },
+    handleRadioChoice (result) {
+      localStorage[this.cacheKey] = result.selected
+      this.choice = localStorage[this.cacheKey]
+      this.cachedChoice = !!localStorage[this.cacheKey]
+      Vue.set(this.output, 'test', result)
+      if (this.output.test.success) {
+        localStorage[this.lessonKey] = 'passed'
+        this.lessonPassed = !!localStorage[this.lessonKey]
+      } else {
+        this.clearPassed()
       }
     },
     next: function () {
@@ -503,6 +436,9 @@ export default {
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
     },
+    cyReplaceWithSolution: function () {
+      this.editor.setValue(this.$attrs.solution)
+    },
     parseData: (data) => marked(data)
   }
 }
@@ -513,47 +449,25 @@ export default {
   flex-grow: 1;
 }
 
-button:disabled {
-  cursor: not-allowed;
-}
-
-.disabledButtonWrapper:hover + div {
-  opacity: 1;
-  transition: opacity .2s ease-in;
-}
-
-.dragging {
-  border: 5px solid #69c4cd;
-}
-
-.editor {
-  height: 100%;
-  min-height: 15rem;
-}
-
 .exercise {
   overflow: hidden;
-  max-width: 100%;
-  width: 900px;
+  background: #F6F7F9;
+  max-width: 48rem;
 }
 
 .exercise.expand {
   height: 100vh;
-  width: initial;
+  width: 100%;
+  max-width: 100%;
   margin: 0;
-  width: auto;
   position: fixed;
-  top:0;
-  left: 0;
-  right:0;
+  top: 0;
+  right: 0;
+  overflow: scroll;
 }
 
 .indent-1 {
   margin-left: 1rem;
-}
-
-.mw-900 {
-  max-width: 900px;
 }
 
 span.textLink {
@@ -569,113 +483,5 @@ footer a {
   .indent-1 {
     margin-left: 93px;
   }
-}
-
-div.dropfile {
-  cursor: pointer;
-}
-
-div.dropfile input {
-  display: none;
-}
-
-div#drop-area * {
-  pointer-events: none;
-}
-
-.chevron {
-  position: relative;
-}
-
-.chevron.down::before {
-  content: '';
-  height: 0px;
-  width: 0px;
-  position: absolute;
-  top: 0;
-  right: 100%;
-  border-color: blue transparent transparent transparent ;
-  border-style: solid;
-  border-width: 5px 5px 5px 5px;
-  margin-top: 8px;
-  margin-right: 5px;
-}
-
-.chevron.right::before {
-  content: '';
-  height: 0px;
-  width: 0px;
-  position: absolute;
-  top: 0;
-  right: 100%;
-  border-color: transparent transparent transparent blue;
-  border-style: solid;
-  border-width:  5px 5px 5px;
-  margin-top: 5px;
-}
-
-.loader,
-.loader:before,
-.loader:after {
-  border-radius: 50%;
-  width: 2em;
-  height: 2em;
-  animation-fill-mode: both;
-  animation: loadAnim 1.5s infinite ease-in-out;
-}
-
-.loader {
-  display: block;
-  margin: 7px auto;
-  color: #ffffff;
-  font-size: 5px;
-  top: -10px;
-  position: relative;
-  animation-delay: -0.15s;
-  pointer-events: none;
-}
-
-.loader:before {
-  content: '';
-  position: absolute;
-  left: -3.5em;
-  animation-delay: -0.30s;
-}
-
-.loader:after {
-  content: '';
-  position: absolute;
-  left: 3.5em;
-}
-
-@keyframes loadAnim {
-  0%, 80%, 100% {
-    box-shadow: 0 2em 0 -1.3em;
-  }
-  40% {
-    box-shadow: 0 2em 0 0;
-  }
-}
-</style>
-
-<style> /* We need this unscoped to override the hljs styles. */
-.output-log p {
-  word-break: break-word;
-  display: inline-block;
-  margin: .5rem 1rem;
-}
-
-.output-log code {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.output-code {
-  margin: 1rem 0 0 0;
-}
-
-.output-code code {
-  margin: 0;
-  padding: 1rem;
-  background: white;
 }
 </style>

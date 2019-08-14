@@ -137,7 +137,6 @@
 				"link": "https://proto.school/#/basics/",
 				"type": "tutorial",
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
-
 			}
 		]
 	}

@@ -21,9 +21,10 @@ If you're interested in building tutorials, keep reading!
     + [Create lesson files](#create-lesson-files)
       - [Vue file](#vue-file)
       - [Lesson text file](#lesson-text-file)
-      - [Exercise text file (skip for text-only lessons)](#exercise-text-file-skip-for-text-only-lessons)
+      - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-lessons)
       - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
-    + [Build code challenges and validation in your Vue file (skip for text-only lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-lessons)
+    + [Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-vue-file-skip-for-coding-exercises-and-text-only-lessons)
+    + [Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-lessons)
       - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
       - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
       - [Validate the user's submitted code](#validate-the-users-submitted-code)
@@ -77,12 +78,12 @@ Follow the steps below to create each lesson.
 
 Depending on which lesson format you've chosen, you'll need to create 2-4 files within your project directory. Check the table below to see which files you need, then read on for instructions on how to create them.
 
-| File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Text-Only Lesson
-| :--- | :---: | :---: | :---: | :---: |
-| A Vue file that provides **required metadata** (e.g. title) for your lesson and, when relevant, the **default code and validation for the exercise**|`01.vue`| Required | Required | Required |
-| A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required |
-| A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used |
-| A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional |
+| File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Multiple-Choice Lesson | Text-Only Lesson
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| A Vue file that provides **required metadata** (e.g. title) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.vue`| Required | Required | Required | Required |
+| A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required | Required |
+| A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used | Not Used |
+| A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional | Optional |
 
 In the example below, four files stored in the `tutorial/Basics` directory work together to create the second lesson in that tutorial.
 
@@ -98,6 +99,7 @@ Select the appropriate boilerplate Vue file for your lesson from the `tutorials/
 
 - `boilerplate-standard.vue` for a lesson with a coding exercise which does not require a file upload
 - `boilerplate-file-upload.vue` for a lesson with a coding exercise that requires a file upload
+- `boilerplate-multiple-choice.vue` for a lesson with a multiple-choice quiz
 - `boilerplate-no-exercise.vue` for a text-only lesson
 
 Copy that boilerplate into your tutorial directory and rename it to the 2-digit number of the lesson.
@@ -124,7 +126,7 @@ Example:
 tutorials/Tutorial-Shortname/01.md
 ```
 
-##### Exercise text file (skip for text-only lessons)
+##### Exercise text file (skip for text-only and multiple-choice lessons)
 
 If your lesson includes a coding exercise, create a second `.md` file and add the markdown-formatted text that provides the assignment text for the exercise box. The name of this file should match the 2-digit lesson number used previously, with `-exercise` appended.
 
@@ -144,7 +146,48 @@ Example:
 tutorials/Tutorial-Shortname/01-concepts.md
 ```
 
-#### Build code challenges and validation in your Vue file (skip for text-only lessons)
+#### Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)
+
+When creating a multiple-choice lesson, you'll use your Vue file to define the question and its answer choices.
+
+The `question` value must be a string:
+
+```js
+const question = "What's the meaning of life, the universe, and everything?"
+```
+
+ The `choices` variable must be an array of objects, one for each answer the learner may select. Each object in the array must contain three keys and their respective values:
+ - `answer` (a string)
+ - `correct` (a boolean: `true` if the answer is correct and `false` if it's wrong)
+ - `feedback` (a string displaying a helpful error message for a wrong answer or a congratulatory message for a correct answer)
+
+```js
+ const choices = [
+   {
+     answer: 'An incorrect answer',
+     correct: false,
+     feedback: 'Oops. Here\'s some clue about why that answer is wrong.'
+   },
+   {
+     answer: 'A correct answer.',
+     correct: true,
+     feedback: 'Great job!'
+   },
+   {
+     answer: 'A different incorrect answer',
+     correct: false,
+     feedback: 'Sorry, here\'s some clue about why this choice is wrong.'
+   }
+ ]
+ ```
+
+Please provide 3-5 answer choices per question. **You may only provide _one_ correct choice.**
+
+The answer choices will be presented in the order in which you list them. Be sure to vary the position of the correct answer from lesson to lesson.
+
+The `feedback` provided for each choice will be shown highlighted in red if incorrect or in green if correct, and the user will be able to advance to next lesson once they've made the right selection.
+
+#### Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)
 
 If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's Vue file. The basic template you need to accomplish this is provided in the boilerplate file you selected earlier.
 
@@ -432,7 +475,7 @@ In `static/tutorials.json`, add a new key for your tutorial (for example, `tutor
   ],
   "resources": [
     {
-      "title": "Website 1", 
+      "title": "Website 1",
       "link": "https://domain.io",
       "type": "website",
       "description": "Sample description"

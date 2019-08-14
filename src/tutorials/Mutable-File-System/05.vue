@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson.vue'
+import FileLesson from '../../components/FileLesson.vue'
 import text from './05.md'
 import exercise from './05-exercise.md'
 
@@ -24,15 +24,15 @@ const validate = async (result, ipfs) => {
 
   // Confirm the right files were added to IPFS (should be unless they tweaked the default code)
   let uploadedFiles = window.uploadedFiles || false
-  let uploadedFilenames = uploadedFiles.map( file => file.name.toString() ).sort()
-  let ipfsFilenames = expected.map( file => file.name.toString() ).sort()
+  let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
+  let ipfsFilenames = expected.map(file => file.name.toString()).sort()
   let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
   let itemsAreFiles = expected.every(file => file.type === 0)
   let rightFilesUploaded = itemsMatch && itemsAreFiles
 
   if (!result) {
     return { fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?' }
-  } else if (uploadedFiles = false) {
+  } else if (uploadedFiles === false) {
     // shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (expected.length === 0) {
@@ -90,7 +90,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise, solution  }
+    return { text, validate, code, modules, exercise, solution }
   }
 }
 </script>

@@ -51,12 +51,14 @@
         }
         return dntStatus === 'Enabled'
       }
+
       // Some default pre init
       var Countly = Countly || {};
       Countly.q = Countly.q || [];
       const COUNTLY_KEY_PROTOSCHOOL = 'c785b6eaa9c61617e1a7db83cb437e5f3dfe4280';
       const COUNTLY_KEY_PROTOSCHOOL_TEST = '50f696b92cba4fe18cf60f37349f7c757625a871';
       const COUNTLY_URL = 'https://countly.proto.school';
+
       (function(){
         if (!_dntEnabled()) {
           // Provide countly initialization parameters

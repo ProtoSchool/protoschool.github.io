@@ -16,7 +16,7 @@ import text from './02.md'
 import exercise from './02-exercise.md'
 
 const validate = async (result, ipfs) => {
-  const correctHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
+  const correctHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
@@ -25,7 +25,7 @@ const validate = async (result, ipfs) => {
   } else if (!!result && result.hash === correctHash) {
     return {
       success: 'Success! You did it!',
-      logDesc: "Here's the status of your root directory (`/`). Notice that it has a hash (CID) even though it doesn't have contents yet. Every empty IPFS node has this exact same hash, because their non-existent contents are identical!",
+      logDesc: "Here's the status of your root directory ( `/` ). Notice that it has a hash (CID) even though it doesn't have contents yet. Every empty IPFS node has this exact same hash, because their non-existent contents are identical!",
       log: result
     }
   }

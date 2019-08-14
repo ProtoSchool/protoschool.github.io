@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson.vue'
+import FileLesson from '../../components/FileLesson.vue'
 import text from './07.md'
 import exercise from './07-exercise.md'
 
@@ -89,16 +89,16 @@ const validate = async (result, ipfs) => {
       fail: 'Oops! Looks like you edited the `ls` command and forgot to use the `{ long: true }` option. Check out the results below, then try again without touching that part of the code.',
       logDesc: "Here's what happened when you forgot to use `{ long: true }`:",
       log: logRoot
-      }
-  } else if (!listedRoot){
+    }
+  } else if (!listedRoot) {
     // user edited the ls line to show something other than root directory, which will also cause most later checks to fail
-    let returnedDirectoryMsg = ""
+    let returnedDirectoryMsg = ''
     if (listedSome) {
-      returnedDirectoryMsg = " in your `/some` directory"
+      returnedDirectoryMsg = ' in your `/some` directory'
     } else if (listedSomeStuff) {
-      returnedDirectoryMsg = " in your `/some/stuff` directory"
+      returnedDirectoryMsg = ' in your `/some/stuff` directory'
     } else {
-      returnedDirectoryMsg = ""
+      returnedDirectoryMsg = ''
     }
     return {
       fail: 'Looks like you edited the `ls` code to list something other than the root directory. Please try again, editing only the section of code indicated.',
@@ -127,7 +127,7 @@ const validate = async (result, ipfs) => {
   } else if (!contains(someStuffHash, 'some')) {
     // didn't create empty some/stuff
     return { fail: 'Uh oh. Looks like your directory doesn\'t contain an empty `/some/stuff/` directory.' }
-  } else if (contains(someStuffHash, 'some') && !contentsMatch){
+  } else if (contains(someStuffHash, 'some') && !contentsMatch) {
     // created empty /some/stuff but other files are wrong (messed up write method)
     return {
       fail: 'Hmmm. You created a `/some/stuff` directory but something else is wrong. Did you accidentally edit the default `write` code so your other files weren\'t all added?',

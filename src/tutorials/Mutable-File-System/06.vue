@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson.vue'
+import FileLesson from '../../components/FileLesson.vue'
 import text from './06.md'
 import exercise from './06-exercise.md'
 
 const validate = async (result, ipfs) => {
   // hash of directory if empty
-  const emptyDirectoryHash = "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn"
+  const emptyDirectoryHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn'
 
   // results of incorrectly running ls instead of stat
   const lsResult = await ipfs.files.ls('/')
@@ -25,13 +25,13 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
-  } else if ( JSON.stringify(result) === JSON.stringify(lsLongResult) ) {
+  } else if (JSON.stringify(result) === JSON.stringify(lsLongResult)) {
     return {
       fail: 'Oops! Looks like you used `ls` instead of `stat`. Check out the results below, then try again.',
       logDesc: 'Because you used `ls`, your result is an array of files as shown below, not the directory status.',
       log: JSON.stringify(result, null, 2)
     }
-  } else if ( JSON.stringify(result) === JSON.stringify(lsResult) ) {
+  } else if (JSON.stringify(result) === JSON.stringify(lsResult)) {
     return {
       fail: 'Oops! Looks like you used `ls` instead of `stat`. Check out the results below, then try again.',
       logDesc: "Because you used `ls`, your result is an array of files as shown below, not the directory status. You didn't use the `{ long: true }` option, so only file names are displayed in the results.",
@@ -44,7 +44,7 @@ const validate = async (result, ipfs) => {
   } else if (!!result && result.hash !== emptyDirectoryHash) {
     return {
       success: 'Success! You did it!',
-      logDesc: "Here's the status of your updated root directory (`/`). Notice how this data compares to what you saw when the directory was empty. The `hash` (CID) has changed because of the new contents, as have the `cumulativeSize` and `blocks`. Because a directory is actually made up of links to content, rather than data itself, a directory's `size` is always `0`. `cumulativeSize` changes because it represents not just the file sizes of all the entries in that directory, but also the metadata that describes those entries: types, block sizes and so on.",
+      logDesc: "Here's the status of your updated root directory ( `/` ). Notice how this data compares to what you saw when the directory was empty. The `hash` (CID) has changed because of the new contents, as have the `cumulativeSize` and `blocks`. Because a directory is actually made up of links to content, rather than data itself, a directory's `size` is always `0`. `cumulativeSize` changes because it represents not just the file sizes of all the entries in that directory, but also the metadata that describes those entries: types, block sizes and so on.",
       log: result
     }
   }

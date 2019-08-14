@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import FileLesson from '../../components/File-Lesson.vue'
+import FileLesson from '../../components/FileLesson.vue'
 import text from './04.md'
 import exercise from './04-exercise.md'
 
@@ -38,7 +38,7 @@ const validate = async (result, ipfs) => {
       logDesc: 'This is the data that is now in your root directory in IPFS:',
       log: log
     }
-  } else if (uploadedFiles = false) {
+  } else if (uploadedFiles === false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result && result.error.message === 'No child name passed to addLink') {
@@ -78,7 +78,7 @@ export default {
     FileLesson
   },
   data: () => {
-    return { text, validate, code, modules, exercise, solution  }
+    return { text, validate, code, modules, exercise, solution }
   }
 }
 </script>
