@@ -36,7 +36,6 @@
         var dntStatus = dnt || navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack
         var ua = userAgent || navigator.userAgent
         var anomalousWinVersions = ['Windows NT 6.1', 'Windows NT 6.2', 'Windows NT 6.3']
-
         var fxMatch = ua.match(/Firefox\/(\d+)/)
         var ieRegEx = /MSIE|Trident/i
         var isIE = ieRegEx.test(ua)
@@ -56,10 +55,9 @@
       // Some default pre init
       var Countly = Countly || {};
       Countly.q = Countly.q || [];
-
       const COUNTLY_KEY_PROTOSCHOOL = 'c785b6eaa9c61617e1a7db83cb437e5f3dfe4280';
       const COUNTLY_KEY_PROTOSCHOOL_TEST = '50f696b92cba4fe18cf60f37349f7c757625a871';
-      const COUNTLY_URL = 'https://countly.ipfs.io';
+      const COUNTLY_URL = 'https://countly.proto.school';
 
       (function(){
         if (!_dntEnabled()) {
