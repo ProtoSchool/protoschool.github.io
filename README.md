@@ -38,6 +38,79 @@ If you're interested in building tutorials, keep reading!
 - [License](#license)
 
 ---
+## Designing Effective Tutorials
+In our [Developing Tutorials](#developing-tutorials) section below, you'll learn how to work with the files in this repo to build a ProtoSchool tutorial. Before you get started, let's take a step back and think about what make a great experience for the learner.
+
+### ProtoSchool's guiding principles
+
+In our roadmap repo, we've documented the [guiding principles](https://github.com/protoschool/roadmap#guiding-principles) of the ProtoSchool project, which we apply to both our online tutorials and local chapter events. Here are some key highlights that apply directly to tutorial development:
+
+- ProtoSchool’s self-paced online tutorials are **beginner-friendly**. (Advanced content is presented only when we have intermediate content in place to provide **scaffolding** that bridges the content gap.)
+- ProtoSchool offers a **cohesive** and **consistently-formatted** set of tutorials for learning about the decentralized web. (It doesn’t serve as a catch-all for all formats of educational content.)
+- Online tutorials provide a **welcoming and inclusive environment** for all community members.
+
+### Brainstorm tutorial ideas as a team
+
+We're excited to add new tuorials to our collection, and we'd love your help brainstorming and building new content about decentralized web concepts and protocols.
+
+Have an idea for a new tutorial? Start by looking at the [tutorial ideas](https://github.com/protoschool/protoschool.github.io/labels/new-tutorial) flagged with the "new tutorial" tag in the ProtoSchool issue queue. If there's a similar idea there already, join the conversation!
+
+If you have an idea for a new tutorial that has not yet been proposed, please [open an new issue](https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-tutorial&template=tutorial-proposal.md&title=New+Tutorial%3A+%5BProposed+title%5D) so we can share feedback before you get started building. With help from our guiding principles, we'll work together to make sure it fits _cohevisely_ into the ProtoSchool curriculum and will encourage you to create a content outline that supports a _beginner-friendly_ learning experience with appropriate _scaffolding_.
+
+Don't feel like you have the skills or time to build a tutorial yourself? Please still go ahead and share your idea! There may be another community member who can help out.
+
+### Know the capabilities of our platform (and yourself!)
+
+A ProtoSchool tutorial is made up of a series of lessons. We currently support the following lesson types, which can be mixed and matched within a tutorial:
+- Text-only lessons
+- Multiple-choice lessons
+- Code challenges (with or without file upload required)
+
+You'll learn more about how to build each lesson type in our section on [building your lessons](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial).
+
+#### What you need to know to build a tutorial
+
+The text portions of all of our lessons are written in markdown, which is a fairly simple way to style text on the web. [Learn more about markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
+
+Whether or not you know how to code, you should be able to follow the instructions here to build a tutorial made up of **text-only or multiple-choice lessons** by using our boilerplate templates.
+
+To build **code challenges**, you'll need to know JavaScript, both to provide the starter and solution code and to create validation code to evaluate the code submitted by the user.
+
+Although our tutorials and website are hosted within the Vue.js framework, we've done our best to provide enough guidance so that **you won't need any familiarity with Vue.js** to build your own tutorial.
+
+#### Browser-based code challenges
+
+**All code challenges must run in JavaScript in the browser**; we don't currently support tutorials that run from the command line or in other coding languages. We believe that offering our tutorials directly in the browser, as opposed to via the command line, reduces the barrier to entry for our learners. (Do you remember when cloning a repo, installing dependencies, and using the terminal felt overwhelming? We do!)
+
+In the context of lessons on IPFS, this means that our coding challenges teach js-ipfs API methods. You can help our learners who specialize in langauges other than JavaScript by ensuring that you provide links to documentation on any complex JavaScript methods that are required, so that they can focus on learning IPFS rather than JavaScript in your tutorial.
+
+#### Decentralized web protocols supported by our platform
+
+##### IPFS
+To support lessons on IPFS, **we create a new IPFS instance for the user each time they submit their code**. You'll be able to access that instance in your validation function to confirm the learner has submitted successful code. Notice that the IPFS instance is not maintained from one lesson to the next. That means that when you build a series of lessons as part of a series of steps, you'll usually need to include successful code that passes the previous lessons and let the user add new code for the new step you're teaching. Learn more about this appraoch in our [instructions for building code challenges]((#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-lessons)).
+
+##### libp2p
+Although libp2p runs in the background during IPFS lessons, we don't yet surface a libp2p instance that we can validate against. We hope to add that feature in the future! Check out [this issue](https://github.com/ProtoSchool/protoschool.github.io/issues/229) if you'd like to help.
+
+##### Other decentralized web protocols
+We're currently focused on improving our platform and growing our curriculum on IPFS. In the future, we envision adding support for other decentralized web protocols as well. We welcome your [suggestions for new features](https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=enhancement&template=feature-request.md&title=Feature%3A+%5BYour+idea%5D)!
+
+### Focus on the learner experience
+
+braindump of more ideas to extrapolate on...
+- step-by-step, limited scope per lesson
+- scaffolding, each lesson builds on the previous one
+- limit the amount of text in each lesson
+- limit coding language challenges, focus on protocol challenges (link to docs for complicated JS methods)
+- provide actionable feedback in error messages for code challenges or multiple choice quizzes
+- link to official documentation when referencing new methods
+- state pre-reqs at start of tutorial, linking to other tutorials or learning materials
+- use the resources page at the end of the tutorial to suggest next steps for further learning
+- use real-world examples (kitten.gif, not foo/bar)
+- be gender-neutral or use a variety of genders in your examples
+- avoid slang/jargon for the sake of English language learners
+- know your audience: don't mix super advanced and super beginner concepts in the same tutorial without scaffolding
+- 
 
 ## Developing Tutorials
 
@@ -71,6 +144,7 @@ Currently there are three lesson formats available, which you may mix and match 
 - A standard lesson with a coding exercise (the most common)
 - A lesson with a coding exercise that requires a file upload
 - A text-only lesson with no code challenge
+- A lesson that concludes with a multiple-choice quiz
 
 Follow the steps below to create each lesson.
 
