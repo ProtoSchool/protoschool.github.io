@@ -2,7 +2,7 @@
   <div class="mw7 center">
     <!-- Coding lesson -->
     <div v-if="exercise" :class="{'fixed bottom-0 right-0': expandExercise}" class="coding-exercise-container pr4 pb4 tr">
-      <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
+      <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
         <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
       <div v-else-if="lessonPassed && !isSubmitting">
@@ -29,7 +29,7 @@
     </div>
     <!-- Multiple choice lesson -->
     <div v-else-if="isMultipleChoiceLesson" class="coding-exercise-container pr4 pb4 tr">
-      <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInWorkshop)) || isResources">
+      <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
         <Button :click="tutorialMenu" class="bg-aqua white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
       <span v-else class="disabled-btn-wrapper">
@@ -41,7 +41,7 @@
     </div>
     <!-- Text only lesson -->
     <div v-else class="mb3 ph2 tr">
-      <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInWorkshop) || isResources)">
+      <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInTutorial) || isResources)">
         <Button :click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
       </div>
       <div v-else>
@@ -68,7 +68,7 @@ export default {
     isResources: Boolean,
     nextLessonIsResources: Boolean,
     lessonNumber: Number,
-    lessonsInWorkshop: Number,
+    lessonsInTutorial: Number,
     isSubmitting: Boolean,
     next: Function,
     run: Function,
