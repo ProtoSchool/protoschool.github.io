@@ -29,7 +29,7 @@
         </div>
         <!-- standard nav  -->
         <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
-        <button @click="toggleHamburger" class="button-reset bg-transparent b--transparent pr2">
+        <button @click="toggleHamburger" class="button-reset bg-transparent b--transparent pv1 pr2 pl3">
           <img v-if="isHamburgerClosed" src="../static/images/burger.svg"/>
           <img v-else src="../static/images/close.svg"/>
         </button>
