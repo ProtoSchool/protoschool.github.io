@@ -1,8 +1,8 @@
 <template>
   <div class="lh-solid v-mid f4 green">
-    <span class="b">{{workshopShortname}}</span> |
+    <span class="b">{{tutorialShortname}}</span> |
     <span v-if="isResources">Resources</span>
-    <span v-else>Lesson {{lessonNumber}} of {{lessonsInWorkshop}}</span>
+    <span v-else>Lesson {{lessonNumber}} of {{lessonsInTutorial}}</span>
     <img v-if="lessonPassed" src="../static/images/complete.svg" class="dib ml1 v-mid" alt="complete" />
   </div>
 </template>
@@ -11,9 +11,9 @@
 export default {
   props: {
     isResources: Boolean,
-    workshopShortname: String,
+    tutorialShortname: String,
     lessonNumber: Number,
-    lessonsInWorkshop: Number,
+    lessonsInTutorial: Number,
     lessonPassed: Boolean
   }
 }

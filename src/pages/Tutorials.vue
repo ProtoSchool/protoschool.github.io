@@ -33,24 +33,7 @@ export default {
   },
   data: self => {
     return {
-      firstWorkshopVisit: true,
       tutorialsList
-    }
-  },
-  mounted: function () {
-    this.checkFirstWorkshopVisit()
-  },
-  methods: {
-    checkFirstWorkshopVisit: function () {
-      for (let key of Object.keys(localStorage)) {
-        if (key.startsWith('passed') || key.startsWith('cached')) {
-          // TRACK? return visit
-          this.firstWorkshopVisit = false
-          return
-        }
-      }
-      // TRACK? first site visit
-      this.firstWorkshopVisit = true
     }
   }
 }

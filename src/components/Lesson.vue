@@ -5,9 +5,9 @@
       <section class="mw7 center mt3 pa3">
         <Breadcrumbs
           :isResources="isResources"
-          :workshopShortname="workshopShortname"
+          :tutorialShortname="tutorialShortname"
           :lessonNumber="lessonNumber"
-          :lessonsInWorkshop="lessonsInWorkshop"
+          :lessonsInTutorial="lessonsInTutorial"
           :lessonPassed="lessonPassed" />
         <h1>{{lessonTitle}}</h1>
         <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
@@ -73,7 +73,7 @@
         :isResources="isResources"
         :nextLessonIsResources="nextLessonIsResources"
         :lessonNumber="lessonNumber"
-        :lessonsInWorkshop="lessonsInWorkshop"
+        :lessonsInTutorial="lessonsInTutorial"
         :expandExercise="expandExercise"
         :isSubmitting="isSubmitting"
         :run="run"
@@ -221,7 +221,7 @@ export default {
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
-    workshopShortname: function () {
+    tutorialShortname: function () {
       let shortname = this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
       // // ADD THIS LATER IF WE DECIDE WE WANT ALL WORDS CAPITALIZED
       // if (shortname.includes("-")) {
@@ -234,12 +234,12 @@ export default {
       return shortname.split('-').join(' ')
     },
     lessonIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
     tutorialIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.workshopShortname}`
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`
     },
-    lessonsInWorkshop: function () {
+    lessonsInTutorial: function () {
       const basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
@@ -251,7 +251,7 @@ export default {
     nextLessonIsResources: function () {
       const basePath = this.$route.path.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
-      return this.lessonNumber === this.lessonsInWorkshop && hasResources
+      return this.lessonNumber === this.lessonsInTutorial && hasResources
     }
   },
   beforeCreate: function () {

@@ -7,7 +7,7 @@
         <div v-if="isLesson" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4">></span>
-          <router-link class="nav-link navy" :to="workshopLanding">{{workshopShortname}}</router-link>
+          <router-link class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
         </div>
         <!-- standard nav  -->
         <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
@@ -25,7 +25,7 @@
         <div v-if="isLesson" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4"> > </span>
-          <router-link class="nav-link navy" :to="workshopLanding">{{workshopShortname}}</router-link>
+          <router-link class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
         </div>
         <!-- standard nav  -->
         <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
@@ -54,8 +54,8 @@ export default {
     return {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
-      workshopShortname: self.$route.path.split('/')[1].split('-').map(e => e.charAt(0).toUpperCase() + e.slice(1)).join(' '),
-      workshopLanding: `/${self.$route.path.split('/')[1]}`,
+      tutorialShortname: self.$route.path.split('/')[1].split('-').map(e => e.charAt(0).toUpperCase() + e.slice(1)).join(' '),
+      tutorialLanding: `/${self.$route.path.split('/')[1]}`,
       links: [
         { text: 'Home', path: '/' },
         { text: 'Tutorials', path: '/tutorials' },
