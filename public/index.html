@@ -60,7 +60,7 @@
       const COUNTLY_URL = 'https://countly.proto.school';
 
       (function(){
-        if (!_dntEnabled()) {
+        if (!window.Cypress && !_dntEnabled()) {
           // Provide countly initialization parameters
           Countly.app_key = location.hostname === 'proto.school' ? COUNTLY_KEY_PROTOSCHOOL : COUNTLY_KEY_PROTOSCHOOL_TEST;
           Countly.url = COUNTLY_URL;
