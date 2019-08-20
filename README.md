@@ -72,7 +72,7 @@ You'll learn more about how to build each lesson type in our section on [buildin
 
 The text portions of all of our lessons are written in markdown, which is a fairly simple way to style text on the web. [Learn more about markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
 
-Whether or not you know how to code, you should be able to follow the instructions here to build a tutorial made up of **text-only or multiple-choice lessons** by using our boilerplate templates.
+Whether or not you know how to code, you should be able to follow the instructions here to build a tutorial made up of **text-only** or **multiple-choice lessons** by using our boilerplate templates.
 
 To build **code challenges**, you'll need to know JavaScript, both to provide the starter and solution code and to create validation code to evaluate the code submitted by the user.
 
