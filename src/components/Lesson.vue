@@ -110,6 +110,7 @@ import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
 import { EVENTS } from '../static/countly'
+import { deriveShortname } from '../utils/paths'
 import tutorialsList from '../static/tutorials.json'
 
 const hljs = require('highlight.js/lib/highlight.js')
@@ -207,6 +208,7 @@ export default {
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
       tutorialPath: self.$route.path.split('/')[1],
+      tutorialShortname: deriveShortname(self.$route.path),
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       createTestFile: self.$attrs.createTestFile,
@@ -230,18 +232,6 @@ export default {
     },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
-    },
-    tutorialShortname: function () {
-      let shortname = this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
-      // // ADD THIS LATER IF WE DECIDE WE WANT ALL WORDS CAPITALIZED
-      // if (shortname.includes("-")) {
-      //   let shortnameArray = shortname.split("-")
-      //   let shortnameArrayUpper = shortnameArray.map( word => {
-      //     return (word.charAt(0).toUpperCase() + word.slice(1))
-      //   })
-      //   shortname = shortnameArrayUpper.join(" ")
-      // }
-      return shortname.split('-').join(' ')
     },
     lessonIssueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`

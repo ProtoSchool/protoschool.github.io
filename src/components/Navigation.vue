@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { deriveShortname } from '../utils/paths'
 
 export default {
   name: 'Navigation',
@@ -54,7 +55,7 @@ export default {
     return {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
-      tutorialShortname: self.$route.path.split('/')[1].split('-').map(e => e.charAt(0).toUpperCase() + e.slice(1)).join(' '),
+      tutorialShortname: deriveShortname(self.$route.path),
       tutorialLanding: `/${self.$route.path.split('/')[1]}`,
       links: [
         { text: 'Home', path: '/' },
