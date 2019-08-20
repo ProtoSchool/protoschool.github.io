@@ -109,6 +109,7 @@ import Info from './Info.vue'
 import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
+import { EVENTS } from '../static/countly'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -204,6 +205,7 @@ export default {
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
+      tutorialPath: self.$route.path.split('/')[1],
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       lessonTitle: self.$attrs.lessonTitle,
@@ -300,6 +302,9 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
         this.clearPassed()
+        if (auto !== true) {
+          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+        }
         return
       }
       // Hide the solution
@@ -315,10 +320,17 @@ export default {
       }
       if (output.test.success) {
         localStorage[this.lessonKey] = 'passed'
+        if (auto !== true) {
+          // track lesson passed if it has an exercise (incl file ones)
+          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
+        }
       } else {
         this.clearPassed()
+        if (auto !== true) {
+          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+        }
       }
-
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
     },
@@ -350,6 +362,7 @@ export default {
       this.clearPassed()
       delete this.output.test
       this.showUploadInfo = false
+      this.trackEvent(EVENTS.CODE_RESET)
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
@@ -359,10 +372,34 @@ export default {
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
+      delete localStorage[`passed/${this.tutorialPath}`]
     },
     loadCodeFromCache: function () {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
+    },
+    isTutorialPassed: function () {
+      for (let i = 1; i <= this.lessonsInTutorial; i++) {
+        let lessonNr = i.toString().padStart(2, 0)
+        const lsKey = `passed/${this.tutorialPath}/${lessonNr}`
+        if (localStorage[lsKey] !== 'passed') {
+          return false
+        }
+      }
+      localStorage[`passed/${this.tutorialPath}`] = 'passed'
+      this.trackEvent(EVENTS.TUTORIAL_PASSED)
+      return true
+    },
+    trackEvent: function (event, opts = {}) {
+      window.Countly.q.push(['add_event', {
+        'key': event,
+        'segmentation': {
+          'tutorial': this.tutorialShortname,
+          'lessonNumber': this.lessonNumber,
+          'path': this.$route.path,
+          ...opts
+        }
+      }])
     },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
@@ -405,8 +442,16 @@ export default {
       if (this.output.test.success) {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
+        if (result.auto !== true) {
+          // track multiple choice lesson passed if not on page load
+          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
+        }
       } else {
         this.clearPassed()
+        if (result.auto !== true) {
+          this.trackEvent(EVENTS.CHOICE_SUBMIT_WRONG, { wrongChoice: result.selected })
+        }
       }
     },
     next: function () {
@@ -415,6 +460,11 @@ export default {
       } else {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
+        // track passed lesson if text only
+        if (!this.isMultipleChoiceLesson) {
+          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
+        }
       }
       let current = this.lessonNumber
 
