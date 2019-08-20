@@ -1,8 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="Introducing IPFS">
-  </Lesson>
+  <Lesson :text="text" />
 </template>
 
 <script>

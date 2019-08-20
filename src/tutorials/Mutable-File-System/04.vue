@@ -6,8 +6,7 @@
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Add a file to MFS" />
+    :solution="solution" />
 </template>
 
 <script>

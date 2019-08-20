@@ -5,9 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Working with files in ProtoSchool">
-  </FileLesson>
+    :solution="solution" />
 </template>
 
 <script>

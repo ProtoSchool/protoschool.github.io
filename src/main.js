@@ -57,21 +57,21 @@ const routes = [
   { path: '/build', component: Build, name: 'Build' },
   { path: '/contribute', component: Contribute, name: 'Contribute' },
   // Lessons - Data Structures
-  { path: '/data-structures', component: Landing, props: { tutorialId: 'dataStructures' } },
+  { path: '/data-structures', component: Landing, props: { tutorialId: 'a61242e4-f579-4387-8abc-c7ba49bea61a' } },
   { path: '/data-structures/01', component: LessonDataStructures01 },
   { path: '/data-structures/02', component: LessonDataStructures02 },
   { path: '/data-structures/03', component: LessonDataStructures03 },
   { path: '/data-structures/04', component: LessonDataStructures04 },
   { path: '/data-structures/05', component: LessonDataStructures05 },
-  { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: 'dataStructures' } },
+  { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: 'a61242e4-f579-4387-8abc-c7ba49bea61a' } },
   // Lessons - Basics
-  { path: '/basics', component: Landing, props: { tutorialId: 'basics' } },
+  { path: '/basics', component: Landing, props: { tutorialId: '1d79669b-6051-4da7-b5e7-6cd15c649c6e' } },
   { path: '/basics/01', component: LessonBasics01 },
   { path: '/basics/02', component: LessonBasics02 },
   { path: '/basics/03', component: LessonBasics03 },
-  { path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: 'basics' } },
+  { path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: '1d79669b-6051-4da7-b5e7-6cd15c649c6e' } },
   // Lessons - Blog
-  { path: '/blog', component: Landing, props: { tutorialId: 'blog' } },
+  { path: '/blog', component: Landing, props: { tutorialId: '6ee97e68-28f9-4b76-b4f9-2dc95114ae66' } },
   { path: '/blog/01', component: LessonBlog01 },
   { path: '/blog/02', component: LessonBlog02 },
   { path: '/blog/03', component: LessonBlog03 },
@@ -79,9 +79,9 @@ const routes = [
   { path: '/blog/05', component: LessonBlog05 },
   { path: '/blog/06', component: LessonBlog06 },
   { path: '/blog/07', component: LessonBlog07 },
-  { path: '/blog/resources', component: ResourcesLesson, props: { tutorialId: 'blog' } },
+  { path: '/blog/resources', component: ResourcesLesson, props: { tutorialId: '6ee97e68-28f9-4b76-b4f9-2dc95114ae66' } },
   // Lessons - MFS
-  { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'mutableFileSystem' } },
+  { path: '/mutable-file-system', component: Landing, props: { tutorialId: 'd708c64d-12f6-4493-9039-e6d6ad047d38' } },
   { path: '/mutable-file-system/01', component: MutableFileSystem01 },
   { path: '/mutable-file-system/02', component: MutableFileSystem02 },
   { path: '/mutable-file-system/03', component: MutableFileSystem03 },
@@ -93,7 +93,7 @@ const routes = [
   { path: '/mutable-file-system/09', component: MutableFileSystem09 },
   { path: '/mutable-file-system/10', component: MutableFileSystem10 },
   { path: '/mutable-file-system/11', component: MutableFileSystem11 },
-  { path: '/mutable-file-system/resources', component: ResourcesLesson, props: { tutorialId: 'mutableFileSystem' } },
+  { path: '/mutable-file-system/resources', component: ResourcesLesson, props: { tutorialId: 'd708c64d-12f6-4493-9039-e6d6ad047d38' } },
   // 404
   { path: '*', name: '404' }
 ]

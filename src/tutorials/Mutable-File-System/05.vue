@@ -5,9 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="View the contents of a directory">
-  </FileLesson>
+    :solution="solution" />
 </template>
 
 <script>

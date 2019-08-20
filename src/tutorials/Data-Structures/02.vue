@@ -1,7 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="Location addressing and the centralized web" />
+  <Lesson :text="text" />
 </template>
 
 <script>

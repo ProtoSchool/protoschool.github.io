@@ -4,8 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Add a new blog post linked to an author and tags" />
+    :solution="solution" />
 </template>
 
 <script>

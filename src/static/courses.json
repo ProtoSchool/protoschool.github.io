@@ -1,4 +1,4 @@
 {
-  "all": ["mutableFileSystem", "dataStructures", "basics", "blog"],
-  "featured": ["mutableFileSystem", "dataStructures", "basics", "blog"]
+  "all": ["d708c64d-12f6-4493-9039-e6d6ad047d38", "a61242e4-f579-4387-8abc-c7ba49bea61a", "1d79669b-6051-4da7-b5e7-6cd15c649c6e", "6ee97e68-28f9-4b76-b4f9-2dc95114ae66"],
+  "featured": ["d708c64d-12f6-4493-9039-e6d6ad047d38", "a61242e4-f579-4387-8abc-c7ba49bea61a", "1d79669b-6051-4da7-b5e7-6cd15c649c6e", "6ee97e68-28f9-4b76-b4f9-2dc95114ae66"]
 }

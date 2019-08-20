@@ -6,8 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    :overrideErrors="true"
-    lessonTitle="Move a file or directory" />
+    :overrideErrors="true" />
 </template>
 
 <script>

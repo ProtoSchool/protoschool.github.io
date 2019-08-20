@@ -1,7 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="Data structures" />
+  <Lesson :text="text" />
 </template>
 
 <script>

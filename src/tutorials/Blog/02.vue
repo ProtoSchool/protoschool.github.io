@@ -4,8 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Update posts with tags and watch their CIDs change" />
+    :solution="solution" />
 </template>
 
 <script>

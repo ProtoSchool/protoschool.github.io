@@ -9,7 +9,7 @@
           :lessonNumber="lessonNumber"
           :lessonsInTutorial="lessonsInTutorial"
           :lessonPassed="lessonPassed" />
-        <h1>{{lessonTitle}}</h1>
+        <h1>{{isResources ? 'Resources' : lessonTitle}}</h1>
         <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
@@ -110,6 +110,7 @@ import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
 import { EVENTS } from '../static/countly'
+import tutorialsList from '../static/tutorials.json'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -208,7 +209,6 @@ export default {
       tutorialPath: self.$route.path.split('/')[1],
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
-      lessonTitle: self.$attrs.lessonTitle,
       createTestFile: self.$attrs.createTestFile,
       output: self.output,
       showUploadInfo: false,
@@ -218,6 +218,16 @@ export default {
     }
   },
   computed: {
+    lessonTitle: function () {
+      const path = this.$route.path
+      const splitted = this.$route.path.split('/')[1]
+      for (let t in tutorialsList) {
+        if (tutorialsList[t].url === splitted) {
+          return tutorialsList[t].lessons.find(e => e.to === path).name
+        }
+      }
+      return ''
+    },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },

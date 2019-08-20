@@ -5,8 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="REPLACEME" />
+    :solution="solution" />
 </template>
 
 <script>

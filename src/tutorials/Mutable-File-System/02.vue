@@ -6,8 +6,7 @@
     :modules="modules"
     :overrideErrors="true"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Check the status of a directory" />
+    :solution="solution" />
 </template>
 
 <script>

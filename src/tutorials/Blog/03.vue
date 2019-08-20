@@ -4,8 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Build a tag cloud with arrays of links" />
+    :solution="solution" />
 </template>
 
 <script>

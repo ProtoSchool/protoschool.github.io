@@ -6,8 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    :overrideErrors="true"
-    lessonTitle="Traverse through all posts, starting with the most recent" />
+    :overrideErrors="true" />
 </template>
 
 <script>

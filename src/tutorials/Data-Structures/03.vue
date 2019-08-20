@@ -1,7 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="Content addressing with cryptographic hashes" />
+  <Lesson :text="text" />
 </template>
 
 <script>

@@ -4,8 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Link an author to a blog post using its CID" />
+    :solution="solution" />
 </template>
 
 <script>

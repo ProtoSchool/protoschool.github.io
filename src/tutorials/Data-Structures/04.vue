@@ -1,7 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="Content Identifiers (CIDs)" />
+  <Lesson :text="text" />
 </template>
 
 <script>

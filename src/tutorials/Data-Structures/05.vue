@@ -1,7 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="Merkle trees and Directed Acyclic Graphs (DAG)" />
+  <Lesson :text="text" />
 </template>
 
 <script>

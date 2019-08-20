@@ -5,9 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="Read nested data using links">
-  </Lesson>
+    :solution="solution" />
 </template>
 
 <script>

@@ -4,9 +4,7 @@
     :validate="validate"
     :exercise="exercise"
     :concepts="concepts"
-    :solution="solution"
-    lessonTitle="Create a node and return a Content Identifier (CID)">
-  </Lesson>
+    :solution="solution" />
 </template>
 
 <script>

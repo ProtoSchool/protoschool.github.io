@@ -6,8 +6,7 @@
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="See how CIDs change as data changes" />
+    :solution="solution" />
 </template>
 
 <script>

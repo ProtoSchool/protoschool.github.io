@@ -4,8 +4,7 @@
     :code="code"
     :validate="validate"
     :exercise="exercise"
-    :solution="solution"
-    lessonTitle="List posts chronologically with a chain of links" />
+    :solution="solution" />
 </template>
 
 <script>

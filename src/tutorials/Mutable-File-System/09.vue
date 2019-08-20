@@ -7,8 +7,7 @@
     :exercise="exercise"
     :solution="solution"
     :overrideErrors="true"
-    :createTestFile="true"
-    lessonTitle="Copy a file or directory" />
+    :createTestFile="true" />
 </template>
 
 <script>

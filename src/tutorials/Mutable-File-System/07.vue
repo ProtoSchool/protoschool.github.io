@@ -6,9 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
-    :overrideErrors="true"
-    lessonTitle="Create a directory">
-  </FileLesson>
+    :overrideErrors="true" />
 </template>
 
 <script>

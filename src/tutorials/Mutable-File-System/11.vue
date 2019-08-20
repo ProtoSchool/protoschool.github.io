@@ -7,8 +7,7 @@
     :exercise="exercise"
     :solution="solution"
     :overrideErrors="true"
-    :createTestFile="true"
-    lessonTitle="Remove a file or directory" />
+    :createTestFile="true" />
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 {
-	"dataStructures": {
+	"a61242e4-f579-4387-8abc-c7ba49bea61a": {
+    "url": "data-structures",
 		"project": "IPFS",
 		"title": "Decentralized data structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
@@ -54,7 +55,8 @@
 			}
 		]
 	},
-	"basics": {
+	"1d79669b-6051-4da7-b5e7-6cd15c649c6e": {
+    "url": "basics",
 		"project": "IPFS",
 		"title": "P2P data links with content addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",
@@ -75,7 +77,8 @@
 			}
 	  ]
 	},
-	"blog": {
+	"6ee97e68-28f9-4b76-b4f9-2dc95114ae66": {
+    "url": "blog",
 		"project": "IPFS",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
@@ -95,7 +98,8 @@
 			}
 	  ]
 	},
-	"mutableFileSystem": {
+	"d708c64d-12f6-4493-9039-e6d6ad047d38": {
+    "url": "mutable-file-system",
 		"project": "IPFS",
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",

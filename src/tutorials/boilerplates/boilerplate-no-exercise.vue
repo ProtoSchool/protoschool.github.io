@@ -1,7 +1,5 @@
 <template>
-  <Lesson
-    :text="text"
-    lessonTitle="REPLACEME" />
+  <Lesson :text="text" />
 </template>
 
 <script>

@@ -6,9 +6,7 @@
     :modules="modules"
     :exercise="exercise"
     :concepts="concepts"
-    :solution="solution"
-    lessonTitle="Create a new node that's linked to an old one">
-  </Lesson>
+    :solution="solution" />
 </template>
 
 <script>

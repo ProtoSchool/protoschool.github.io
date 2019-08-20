@@ -7,8 +7,7 @@
     :exercise="exercise"
     :solution="solution"
     :errorOverride="true"
-    :createTestFile="true"
-    lessonTitle="Read the contents of a file" />
+    :createTestFile="true" />
 </template>
 
 <script>
