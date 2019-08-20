@@ -14,8 +14,9 @@ function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount, hasResources = 
     cy.get(`[href="#/${tutorialName}/01"]`).click()
   })
   for (let i = 1; i <= lessonCount; i++) {
-    it(`should view the solution and pass test ${i}`, function () {
-      cy.url().should('include', `#/${tutorialName}/0${i}`)
+    let lessonNr = i.toString().padStart(2, 0)
+    it(`should view the solution and pass test ${lessonNr}`, function () {
+      cy.url().should('include', `#/${tutorialName}/${lessonNr}`)
       cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=view-solution]').click()
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated

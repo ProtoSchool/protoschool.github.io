@@ -60,7 +60,7 @@
       const COUNTLY_URL = 'https://countly.proto.school';
 
       (function(){
-        if (!_dntEnabled()) {
+        if (!window.Cypress && !_dntEnabled()) {
           // Provide countly initialization parameters
           Countly.app_key = location.hostname === 'proto.school' ? COUNTLY_KEY_PROTOSCHOOL : COUNTLY_KEY_PROTOSCHOOL_TEST;
           Countly.url = COUNTLY_URL;
@@ -68,11 +68,18 @@
           Countly.q.push(['track_sessions']);
           Countly.q.push(['track_pageview']);
           Countly.q.push(['track_clicks']);
+          Countly.q.push(['track_scrolls']);
+          Countly.q.push(['track_links']);
           // Load countly script asynchronously
           var cly = document.createElement('script'); cly.type = 'text/javascript';
           cly.async = true;
           cly.src = 'https://countly.proto.school/sdk/web/countly.min.js';
-          cly.onload = function(){Countly.init()};
+          cly.onload = function(){
+            Countly.init()
+            Countly.getViewUrl = function () {
+              return location.pathname + location.search + location.hash;
+            }
+          };
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
         }
       })();
