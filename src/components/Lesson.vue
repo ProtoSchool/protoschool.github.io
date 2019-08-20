@@ -379,9 +379,9 @@ export default {
       this.editor.setValue(this.code)
     },
     isTutorialPassed: function () {
-      for (let i = 1; i <= this.lessonsInWorkshop; i++) {
-        let n = (i < 10) ? `0${i}` : i
-        const lsKey = `passed/${this.tutorialPath}/${n}`
+      for (let i = 1; i <= this.lessonsInTutorial; i++) {
+        let lessonNr = i.toString().padStart(2, 0)
+        const lsKey = `passed/${this.tutorialPath}/${lessonNr}`
         if (localStorage[lsKey] !== 'passed') {
           return false
         }
@@ -394,7 +394,7 @@ export default {
       window.Countly.q.push(['add_event', {
         'key': event,
         'segmentation': {
-          'tutorial': this.workshopShortname,
+          'tutorial': this.tutorialShortname,
           'lessonNumber': this.lessonNumber,
           'path': this.$route.path,
           ...opts
