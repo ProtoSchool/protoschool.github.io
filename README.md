@@ -82,7 +82,7 @@ Although our tutorials and website are hosted within the Vue.js framework, we've
 
 **All code challenges must run in JavaScript in the browser**; we don't currently support tutorials that run from the command line or in other coding languages. We believe that offering our tutorials directly in the browser, as opposed to via the command line, reduces the barrier to entry for our learners. (Do you remember when cloning a repo, installing dependencies, and using the terminal felt overwhelming? We do!)
 
-In the context of lessons on IPFS, this means that our coding challenges teach js-ipfs API methods. You can help our learners who specialize in langauges other than JavaScript by ensuring that you provide links to documentation on any complex JavaScript methods that are required, so that they can focus on learning IPFS rather than JavaScript in your tutorial.
+In the context of lessons on IPFS, this means that our coding challenges teach js-ipfs API methods. You can help our learners who specialize in languages other than JavaScript by ensuring that you provide links to documentation on any complex JavaScript methods that are required, so that they can focus on learning IPFS rather than JavaScript in your tutorial.
 
 #### Decentralized web protocols supported by our platform
 
