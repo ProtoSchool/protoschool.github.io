@@ -23,7 +23,7 @@
           <template v-for="(lesson, index) in tutorial.lessons">
             <li :key="index">
               <LessonLink
-                :to="`${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
+                :to="`/${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
                 :name="lesson"
                 :index="index + 1" />
             </li>
