@@ -11,7 +11,7 @@
       <div class="w-100">
         <h2 class="ma0 f3 fw5">
           <template v-if="isLanding !== true">
-            <router-link :to="landingLink">{{tutorial.title}}</router-link>
+            <router-link :to="tutorial.url">{{tutorial.title}}</router-link>
           </template>
           <template v-else>
             {{tutorial.title}}
@@ -22,7 +22,10 @@
         <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
           <template v-for="(lesson, index) in tutorial.lessons">
             <li :key="index">
-              <LessonLink :to="lesson.to" :name="lesson.name" :index="index + 1" />
+              <LessonLink
+                :to="`${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
+                :name="lesson"
+                :index="index + 1" />
             </li>
           </template>
           <LessonLink v-if="tutorial.resources" :to="resourcesLink" name="More to explore" />
@@ -50,15 +53,12 @@ export default {
     return {
       ipfsLogo: ipfsLogo,
       libp2pLogo: libp2pLogo,
-      isTutorialPassed: !!localStorage[`passed/${self.tutorial.lessons[0].to.split('/')[1]}`]
+      isTutorialPassed: !!localStorage[`passed/${self.tutorial.url}`]
     }
   },
   computed: {
-    landingLink: function () {
-      return `/${this.tutorial.lessons[0].to.split('/')[1]}/`
-    },
     resourcesLink: function () {
-      return this.landingLink + 'resources'
+      return `${this.tutorial.url}/resources`
     }
   }
 }

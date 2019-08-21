@@ -225,7 +225,7 @@ export default {
       const splitted = this.$route.path.split('/')[1]
       for (let t in tutorialsList) {
         if (tutorialsList[t].url === splitted) {
-          return tutorialsList[t].lessons.find(e => e.to === path).name
+          return tutorialsList[t].lessons.find((e, idx) => (`/${tutorialsList[t].url}/${(idx + 1).toString().padStart(2, 0)}`) === path)
         }
       }
       return ''

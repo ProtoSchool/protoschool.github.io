@@ -1,15 +1,15 @@
 {
-	"a61242e4-f579-4387-8abc-c7ba49bea61a": {
+	"001": {
     "url": "data-structures",
 		"project": "IPFS",
 		"title": "Decentralized data structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
 		"lessons": [
-			{ "to": "/data-structures/01", "name": "Data structures" },
-			{ "to": "/data-structures/02", "name": "The centralized web: Location-based addressing" },
-			{ "to": "/data-structures/03", "name": "The decentralized web: Content addressing" },
-			{ "to": "/data-structures/04", "name": "Cryptographic hashing and Content Identifiers (CIDs)" },
-			{ "to": "/data-structures/05", "name": "Merkle trees and directed acyclic graphs (DAG)" }
+			"Data structures",
+			"The centralized web: Location-based addressing",
+			"The decentralized web: Content addressing",
+			"Cryptographic hashing and Content Identifiers (CIDs)",
+			"Merkle trees and directed acyclic graphs (DAG)"
 		],
 	  "resources": [
 			{
@@ -55,15 +55,15 @@
 			}
 		]
 	},
-	"1d79669b-6051-4da7-b5e7-6cd15c649c6e": {
+	"002": {
     "url": "basics",
 		"project": "IPFS",
 		"title": "P2P data links with content addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",
 		"lessons": [
-			{ "to": "/basics/01", "name": "Create a node and return a Content Identifier (CID)" },
-			{ "to": "/basics/02", "name": "Create a new node that's linked to an old one" },
-			{ "to": "/basics/03", "name": "Read nested data using link" }
+			"Create a node and return a Content Identifier (CID)",
+			"Create a new node that's linked to an old one",
+			"Read nested data using link"
 		],
 	  "resources": [
 	    { "title": "JS-IPFS DAG API",
@@ -77,19 +77,19 @@
 			}
 	  ]
 	},
-	"6ee97e68-28f9-4b76-b4f9-2dc95114ae66": {
+	"003": {
     "url": "blog",
 		"project": "IPFS",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
 		"lessons": [
-			{ "to": "/blog/01", "name": "Link an author to a blog post using its CID" },
-			{ "to": "/blog/02", "name": "Update posts with tags and watch their CIDs change" },
-			{ "to": "/blog/03", "name": "Build a tag cloud with arrays of links" },
-			{ "to": "/blog/04", "name": "Add a new blog post linked to an author and tags" },
-			{ "to": "/blog/05", "name": "Add a new tag linked to multiple blog posts" },
-			{ "to": "/blog/06", "name": "List posts chronologically with a chain of links" },
-			{ "to": "/blog/07", "name": "Traverse through all posts, starting with the most recent" }
+			"Link an author to a blog post using its CID",
+			"Update posts with tags and watch their CIDs change",
+			"Build a tag cloud with arrays of links",
+			"Add a new blog post linked to an author and tags",
+			"Add a new tag linked to multiple blog posts",
+			"List posts chronologically with a chain of links",
+			"Traverse through all posts, starting with the most recent"
 		],
 	  "resources": [
 	    { "title": "JS-IPFS DAG API",
@@ -98,23 +98,23 @@
 			}
 	  ]
 	},
-	"d708c64d-12f6-4493-9039-e6d6ad047d38": {
+	"004": {
     "url": "mutable-file-system",
 		"project": "IPFS",
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
 		"lessons": [
-			{ "to": "/mutable-file-system/01", "name": "Introducing IPFS" },
-			{ "to": "/mutable-file-system/02", "name": "Check the status of a directory" },
-			{ "to": "/mutable-file-system/03", "name": "Working with files in ProtoSchool" },
-			{ "to": "/mutable-file-system/04", "name": "Add a file to MFS" },
-			{ "to": "/mutable-file-system/05", "name": "View the contents of a directory" },
-			{ "to": "/mutable-file-system/06", "name": "See how CIDs change as data changes" },
-			{ "to": "/mutable-file-system/07", "name": "Create a directory" },
-			{ "to": "/mutable-file-system/08", "name": "Move a file or directory" },
-			{ "to": "/mutable-file-system/09", "name": "Copy a file or directory" },
-			{ "to": "/mutable-file-system/10", "name": "Read the contents of a file" },
-			{ "to": "/mutable-file-system/11", "name": "Remove a file or directory" }
+			"Introducing IPFS",
+			"Check the status of a directory",
+			"Working with files in ProtoSchool",
+			"Add a file to MFS",
+			"View the contents of a directory",
+			"See how CIDs change as data changes",
+			"Create a directory",
+			"Move a file or directory",
+			"Copy a file or directory",
+			"Read the contents of a file",
+			"Remove a file or directory"
 		],
 	  "resources": [
 	    {

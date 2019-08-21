@@ -17,7 +17,7 @@
         <div id="featured" class="flex flex-wrap justify-between">
           <template v-for="(tutorial, index) in featuredTutorials">
             <div class="bg-aqua br4 pa3 mb3 tutorial-tile" :key="index">
-              <router-link :to="getLandingLink(tutorial)">
+              <router-link :to="tutorial.url">
                 <h3 class="ma0 f3 fw7 navy">{{tutorial.title}}</h3>
                 <p class="f5 fw5 ma0 pt2 lh-copy white">{{tutorial.description}}</p>
               </router-link>
@@ -50,9 +50,6 @@ export default {
   },
   computed: {
     featuredTutorials: () => coursesList.featured.map((e) => tutorialsList[e])
-  },
-  methods: {
-    getLandingLink: (tutorial) => `/${tutorial.lessons[0].to.split('/')[1]}/`
   }
 }
 

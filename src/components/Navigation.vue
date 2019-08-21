@@ -56,7 +56,7 @@ export default {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
       tutorialShortname: deriveShortname(self.$route.path),
-      tutorialLanding: `/${self.$route.path.split('/')[1]}`,
+      tutorialLanding: self.$route.path.split('/')[1],
       links: [
         { text: 'Home', path: '/' },
         { text: 'Tutorials', path: '/tutorials' },
