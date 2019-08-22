@@ -529,6 +529,43 @@ On occasion, while developing a lesson, you may want to view the site as though 
 
 Note that your user history on the live website (https://proto.school) is different from that in your local testing environment (localhost), so deleting your cache in the development environment won't affect your history on the live site.
 
+### Renaming a tutorial
+
+It's possible to rename a tutorial URL (and thus its name) and still allow the user to keep its progress on ProtoSchool.
+
+To do so, go to the `tutorials.json` file and change the `url` key of the tutorial you want to change the name of:
+
+```json
+"002": {
+  "url": "xyz",
+  "project": "IPFS",
+  "title": "P2P data links with content addressing",
+  "description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",
+  ...
+```
+
+Then in the `main.js` file update the routes (replace the value of the `path` key):
+
+```js
+// Lessons - 002
+{ path: '/xyz', component: Landing, props: { tutorialId: '002' } },
+{ path: '/xyz/01', component: T002L01 },
+{ path: '/xyz/02', component: T002L02 },
+{ path: '/xyz/03', component: T002L03 },
+{ path: '/xyz/resources', component: ResourcesLesson, props: { tutorialId: '002' } },
+```
+
+Finally, add a new object to the `MIGRATIONS` array, with the tutorial ID and the past URL name:
+
+```js
+const MIGRATIONS = [
+  // { tutorialId: '003', pastUrl: 'blog' }
+  { tutorialId: '002', pastUrl: 'basics' }
+]
+```
+
+That's it! Next time you run ProtoSchool the tutorial should be renamed!
+
 ## License
 
 ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/master/LICENSE.md) for further detail.

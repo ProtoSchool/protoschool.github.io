@@ -58,7 +58,7 @@ const routes = [
   { path: '/host', component: Host, name: 'Host' },
   { path: '/build', component: Build, name: 'Build' },
   { path: '/contribute', component: Contribute, name: 'Contribute' },
-  // Lessons - Data Structures
+  // Lessons -001
   { path: '/data-structures', component: Landing, props: { tutorialId: '001' } },
   { path: '/data-structures/01', component: T001L01 },
   { path: '/data-structures/02', component: T001L02 },
@@ -66,13 +66,13 @@ const routes = [
   { path: '/data-structures/04', component: T001L04 },
   { path: '/data-structures/05', component: T001L05 },
   { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: '001' } },
-  // Lessons - Basics
+  // Lessons - 002
   { path: '/xxx', component: Landing, props: { tutorialId: '002' } },
   { path: '/xxx/01', component: T002L01 },
   { path: '/xxx/02', component: T002L02 },
   { path: '/xxx/03', component: T002L03 },
   { path: '/xxx/resources', component: ResourcesLesson, props: { tutorialId: '002' } },
-  // Lessons - Blog
+  // Lessons - 003
   { path: '/blog', component: Landing, props: { tutorialId: '003' } },
   { path: '/blog/01', component: T003L01 },
   { path: '/blog/02', component: T003L02 },
@@ -82,7 +82,7 @@ const routes = [
   { path: '/blog/06', component: T003L06 },
   { path: '/blog/07', component: T003L07 },
   { path: '/blog/resources', component: ResourcesLesson, props: { tutorialId: '003' } },
-  // Lessons - MFS
+  // Lessons - 004
   { path: '/mutable-file-system', component: Landing, props: { tutorialId: '004' } },
   { path: '/mutable-file-system/01', component: T004L01 },
   { path: '/mutable-file-system/02', component: T004L02 },
