@@ -6,6 +6,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueHighlightJS from 'vue-highlight.js'
 import App from './App.vue'
+// Utils
+import { migrateCache } from './utils/paths'
 // Pages
 import Home from './pages/Home.vue'
 import Tutorials from './pages/Tutorials.vue'
@@ -65,11 +67,11 @@ const routes = [
   { path: '/data-structures/05', component: T001L05 },
   { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: '001' } },
   // Lessons - Basics
-  { path: '/basics', component: Landing, props: { tutorialId: '002' } },
-  { path: '/basics/01', component: T002L01 },
-  { path: '/basics/02', component: T002L02 },
-  { path: '/basics/03', component: T002L03 },
-  { path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: '002' } },
+  { path: '/xxx', component: Landing, props: { tutorialId: '002' } },
+  { path: '/xxx/01', component: T002L01 },
+  { path: '/xxx/02', component: T002L02 },
+  { path: '/xxx/03', component: T002L03 },
+  { path: '/xxx/resources', component: ResourcesLesson, props: { tutorialId: '002' } },
   // Lessons - Blog
   { path: '/blog', component: Landing, props: { tutorialId: '003' } },
   { path: '/blog/01', component: T003L01 },
@@ -97,6 +99,12 @@ const routes = [
   // 404
   { path: '*', name: '404' }
 ]
+
+const MIGRATIONS = [
+  { tutorialId: '002', pastUrl: 'basics' }
+]
+
+MIGRATIONS.forEach((m) => migrateCache(m.tutorialId, m.pastUrl))
 
 const router = new VueRouter({
   routes,
