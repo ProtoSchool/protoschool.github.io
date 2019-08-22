@@ -11,7 +11,7 @@
       <div class="w-100">
         <h2 class="ma0 f3 fw5">
           <template v-if="isLanding !== true">
-            <router-link :to="tutorial.url">{{tutorial.title}}</router-link>
+            <router-link :to="landingLink">{{tutorial.title}}</router-link>
           </template>
           <template v-else>
             {{tutorial.title}}
@@ -57,8 +57,11 @@ export default {
     }
   },
   computed: {
+    landingLink: function () {
+      return `/${this.tutorial.url}`
+    },
     resourcesLink: function () {
-      return `${this.tutorial.url}/resources`
+      return `/${this.tutorial.url}/resources`
     }
   }
 }
