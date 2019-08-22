@@ -2,12 +2,12 @@
 
 import tutorials from '../../src/static/tutorials.json'
 
-describe('📝 002', function () {
-  viewSolutionsAndSubmitAll({ tutorialId: '002', lessonCount: 3 })
+describe('📝 0002', function () {
+  viewSolutionsAndSubmitAll({ tutorialId: '0002', lessonCount: 3 })
 })
 
-describe('📝 003', function () {
-  viewSolutionsAndSubmitAll({ tutorialId: '003', lessonCount: 7 })
+describe('📝 0003', function () {
+  viewSolutionsAndSubmitAll({ tutorialId: '0003', lessonCount: 7 })
 })
 
 function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = true }) {

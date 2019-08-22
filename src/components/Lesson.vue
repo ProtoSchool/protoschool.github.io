@@ -222,9 +222,9 @@ export default {
   computed: {
     lessonTitle: function () {
       const path = this.$route.path
-      const splitted = this.$route.path.split('/')[1]
+      const split = this.$route.path.split('/')[1]
       for (let t in tutorialsList) {
-        if (tutorialsList[t].url === splitted) {
+        if (tutorialsList[t].url === split) {
           return tutorialsList[t].lessons.find((e, idx) => (`/${tutorialsList[t].url}/${(idx + 1).toString().padStart(2, 0)}`) === path)
         }
       }

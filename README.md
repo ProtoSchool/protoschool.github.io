@@ -55,12 +55,24 @@ You should now be able to preview your work in a web browser at: http://localhos
 
 ### Create a directory for your tutorial
 
-Create a new directory for your files within `tutorials`, using your tutorial ID.
+Create a new directory for your files within `tutorials`, using your tutorial ID. That ID should be the number after the last folder that exists.
 
 Example (while in `tutorials`):
 
+List your folders to see the last existent ID:
+
 ```sh
-> mkdir 777
+> ls
+0001
+0002
+0003
+0004
+```
+
+Then create a new folder with the next number (for example, 0005):
+
+```sh
+> mkdir 0005
 ```
 
 ### Build your lessons (repeat for each lesson in the tutorial)
@@ -85,7 +97,7 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 | A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.vue`| Required | Required | Not Used | Not Used |
 | A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional | Optional |
 
-In the example below, four files stored in the `tutorial/777` directory work together to create the second lesson in that tutorial.
+In the example below, four files stored in the `tutorial/0005` directory work together to create the second lesson in that tutorial.
 
 ![screenshot](public/lesson_sources.png)
 
@@ -107,7 +119,7 @@ Copy that boilerplate into your tutorial directory and rename it to the 2-digit 
 Example (while in `src/tutorials`):
 
 ```sh
-> cp boilerplates/boilerplate-standard.vue 777/01.vue
+> cp boilerplates/boilerplate-standard.vue 0005/01.vue
 ```
 
 Replace anything in the boilerplate file that reads "REPLACEME".
@@ -123,7 +135,7 @@ in the corresponding Vue file.
 Example:
 
 ```
-tutorials/777/01.md
+tutorials/0005/01.md
 ```
 
 ##### Exercise text file (skip for text-only and multiple-choice lessons)
@@ -133,7 +145,7 @@ If your lesson includes a coding exercise, create a second `.md` file and add th
 Example:
 
 ```
-tutorials/Tutorial-Shortname/01-exercise.md
+tutorials/0005/01-exercise.md
 ```
 
 ##### Useful concepts text file (optional)
@@ -143,7 +155,7 @@ Occasionally you may want to add a _useful concepts_ box defining key terminolog
 Example:
 
 ```
-tutorials/777/01-concepts.md
+tutorials/0005/01-concepts.md
 ```
 
 #### Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)
@@ -404,13 +416,13 @@ To ensure your lessons appear on the website (and in your local preview), you'll
 First, import each of your lesson components:
 
 ```js
-import T777L01 from './tutorials/777/01.vue' // Tutorial 777 - Lesson 01
+import T0005L01 from './tutorials/0005/01.vue' // Tutorial 0005 - Lesson 01
 ```
 
 Then add each of them to the list of routes in `main.js` like so:
 
 ```js
-{ path: '/basics/01', component: T777L01 },
+{ path: '/basics/01', component: T0005L01 },
 ```
 
 Don't forget to include a landing page for your tutorial:
@@ -421,15 +433,15 @@ Don't forget to include a landing page for your tutorial:
 
 When adding your routes, it's important that you follow the existing naming
 convention, since the code used elsewhere will parse the route path to determine the
-shortname of the tutorial, the current lesson number, and the total number of
+url of the tutorial (which you defined in the `tutorials.json`), the current lesson number, and the total number of
 lessons in your tutorial.
 
 For example, if you add 3 lessons with the following routes:
 
 ```js
-{ path: '/basics/01', component: T002L01 },
-{ path: '/basics/02', component: T002L02 },
-{ path: '/basics/03', component: T002L03 },
+{ path: '/basics/01', component: T0002L01 },
+{ path: '/basics/02', component: T0002L02 },
+{ path: '/basics/03', component: T0002L03 },
 ```
 your second lesson will display the following under the lesson title:
 
@@ -438,33 +450,33 @@ your second lesson will display the following under the lesson title:
 If you add 5 lessons with the following routes:
 
 ```js
-{ path: '/data-structures/01', component: T001L01 },
-{ path: '/data-structures/02', component: T001L02 },
-{ path: '/data-structures/03', component: T001L03 },
-{ path: '/data-structures/04', component: T001L04 },
-{ path: '/data-structures/05', component: T001L05 },
+{ path: '/data-structures/01', component: T0001L01 },
+{ path: '/data-structures/02', component: T0001L02 },
+{ path: '/data-structures/03', component: T0001L03 },
+{ path: '/data-structures/04', component: T0001L04 },
+{ path: '/data-structures/05', component: T0001L05 },
 ```
 
 your third lesson will display the following under the lesson title:
 
 `Data Structures | Lesson 3 of 5`
 
-Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are a code with the tutorial ID and the lesson number, e.g. `T001L01`).
+Notice how multi-word lesson shortnames are treated here. In filepaths, they are lowercase and hyphenated (e.g. `/data-structures/01`). In component names they are a code with the tutorial ID and the lesson number, e.g. `T0001L01`).
 
 Be sure to include the route for your final `Resources` lesson, which will link users to external resources or other ProtoSchool tutorials where they can learn more about the subject you've covered. Use the following format to add your route, updating your tutorial name as needed:
 
 ```js
-{ path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: '002' } },
+{ path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: '0002' } },
 ```
 
 #### Add your tutorial to `tutorials.json` and `courses.json`
 
 Although the step above ensures that your lessons are available at specific URLs on the website, you'll also need to ensure that your tutorial appears in our course listings.
 
-In `static/tutorials.json`, add a new key for your tutorial (for example, `777` as shown in the example below) and fill in the appropriate values:
+In `static/tutorials.json`, add a new key for your tutorial (for example, `0005` as shown in the example below) and fill in the appropriate values:
 
 ```json
-"777": {
+"0005": {
   "url": "example-url",
   "project": "IPFS",
   "title": "Your tutorial title",
@@ -500,8 +512,8 @@ In `static/courses.json`, add the tutorial key to the `all` array so it will app
 
 ```json
 {
-  "all": ["001", "002", "003"],
-  "featured": ["001", "002", "003"]
+  "all": ["0001", "0002", "0003"],
+  "featured": ["0001", "0002", "0003"]
 }
 ```
 
@@ -509,8 +521,8 @@ In `static/courses.json`, add the tutorial key to the `all` array so it will app
 
 ```json
 {
-  "all": ["001", "002", "003", "777"],
-  "featured": ["001", "002", "003"]
+  "all": ["0001", "0002", "0003", "0005"],
+  "featured": ["0001", "0002", "0003"]
 }
 ```
 
@@ -529,14 +541,14 @@ On occasion, while developing a lesson, you may want to view the site as though 
 
 Note that your user history on the live website (https://proto.school) is different from that in your local testing environment (localhost), so deleting your cache in the development environment won't affect your history on the live site.
 
-### Renaming a tutorial
+### Renaming a tutorial after it has been published
 
 It's possible to rename a tutorial URL (and thus its name) and still allow the user to keep its progress on ProtoSchool.
 
 To do so, go to the `tutorials.json` file and change the `url` key of the tutorial you want to change the name of:
 
 ```json
-"002": {
+"0002": {
   "url": "xyz",
   "project": "IPFS",
   "title": "P2P data links with content addressing",
@@ -547,20 +559,20 @@ To do so, go to the `tutorials.json` file and change the `url` key of the tutori
 Then in the `main.js` file update the routes (replace the value of the `path` key):
 
 ```js
-// Lessons - 002
-{ path: '/xyz', component: Landing, props: { tutorialId: '002' } },
-{ path: '/xyz/01', component: T002L01 },
-{ path: '/xyz/02', component: T002L02 },
-{ path: '/xyz/03', component: T002L03 },
-{ path: '/xyz/resources', component: ResourcesLesson, props: { tutorialId: '002' } },
+// Tutorial 0002
+{ path: '/xyz', component: Landing, props: { tutorialId: '0002' } },
+{ path: '/xyz/01', component: T0002L01 },
+{ path: '/xyz/02', component: T0002L02 },
+{ path: '/xyz/03', component: T0002L03 },
+{ path: '/xyz/resources', component: ResourcesLesson, props: { tutorialId: '0002' } },
 ```
 
 Finally, add a new object to the `MIGRATIONS` array, with the tutorial ID and the past URL name:
 
 ```js
 const MIGRATIONS = [
-  // { tutorialId: '003', pastUrl: 'blog' }
-  { tutorialId: '002', pastUrl: 'basics' }
+  // { tutorialId: '0003', pastUrl: 'blog' }
+  { tutorialId: '0002', pastUrl: 'basics' }
 ]
 ```
 

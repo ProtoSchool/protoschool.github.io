@@ -1,5 +1,5 @@
 {
-	"001": {
+	"0001": {
     "url": "data-structures",
 		"project": "IPFS",
 		"title": "Decentralized data structures",
@@ -55,7 +55,7 @@
 			}
 		]
 	},
-	"002": {
+	"0002": {
     "url": "xxx",
 		"project": "IPFS",
 		"title": "P2P data links with content addressing",
@@ -77,7 +77,7 @@
 			}
 	  ]
 	},
-	"003": {
+	"0003": {
     "url": "blog",
 		"project": "IPFS",
 		"title": "Blogging on the Decentralized Web",
@@ -98,7 +98,7 @@
 			}
 	  ]
 	},
-	"004": {
+	"0004": {
     "url": "mutable-file-system",
 		"project": "IPFS",
 		"title": "IPFS: Mutable File System",
