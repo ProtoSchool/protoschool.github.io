@@ -114,7 +114,7 @@ Replace anything in the boilerplate file that reads "REPLACEME".
 
 If your lesson includes a coding exercise, you'll also use this file to set up your default code and validation, as described later in these instructions.
 
-##### Lesson text file
+##### Lesson text file (with optional images)
 
 Create a `.md` file alongside your `.vue` and add the markdown-formatted text
 of the lesson itself (your educational content). The name of this file should match the 2-digit lesson number used
@@ -124,6 +124,23 @@ Example:
 
 ```
 tutorials/Tutorial-Shortname/01.md
+```
+
+
+If you want to add images to your markdown file, place them in the `public/tutorial-assets` folder, with the following naming convention (you'll use the same convention when creating the lesson components):
+
+`T<tutorialId>L<lessonNumber>-<imageName>`, such as `T0001L05-dag.svg`.
+
+Then in your lesson markdown file, you can either add it with regular markdown:
+
+```
+![Description of the image](tutorial-assets/T0001L01-dag.svg)
+```
+
+...or with regular HTML, if you need to set the image size:
+
+```html
+<img src="tutorial-assets/T0001L01-dag.svg" width="300px" height="150px" />
 ```
 
 ##### Exercise text file (skip for text-only and multiple-choice lessons)
