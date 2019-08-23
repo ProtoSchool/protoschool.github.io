@@ -9,7 +9,7 @@
           :lessonNumber="lessonNumber"
           :lessonsInTutorial="lessonsInTutorial"
           :lessonPassed="lessonPassed" />
-        <h1>{{lessonTitle}}</h1>
+        <h1>{{isResources ? 'Resources' : lessonTitle}}</h1>
         <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
@@ -110,6 +110,8 @@ import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
 import { EVENTS } from '../static/countly'
+import { deriveShortname } from '../utils/paths'
+import tutorialsList from '../static/tutorials.json'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -206,9 +208,9 @@ export default {
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
       tutorialPath: self.$route.path.split('/')[1],
+      tutorialShortname: deriveShortname(self.$route.path),
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
-      lessonTitle: self.$attrs.lessonTitle,
       createTestFile: self.$attrs.createTestFile,
       output: self.output,
       showUploadInfo: false,
@@ -218,20 +220,18 @@ export default {
     }
   },
   computed: {
+    lessonTitle: function () {
+      const path = this.$route.path
+      const split = this.$route.path.split('/')[1]
+      for (let t in tutorialsList) {
+        if (tutorialsList[t].url === split) {
+          return tutorialsList[t].lessons.find((e, idx) => (`/${tutorialsList[t].url}/${(idx + 1).toString().padStart(2, 0)}`) === path)
+        }
+      }
+      return ''
+    },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
-    },
-    tutorialShortname: function () {
-      let shortname = this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
-      // // ADD THIS LATER IF WE DECIDE WE WANT ALL WORDS CAPITALIZED
-      // if (shortname.includes("-")) {
-      //   let shortnameArray = shortname.split("-")
-      //   let shortnameArrayUpper = shortnameArray.map( word => {
-      //     return (word.charAt(0).toUpperCase() + word.slice(1))
-      //   })
-      //   shortname = shortnameArrayUpper.join(" ")
-      // }
-      return shortname.split('-').join(' ')
     },
     lessonIssueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`

@@ -1,14 +1,17 @@
 /* global describe, it, cy */
 
-describe('📝 Basics', function () {
-  viewSolutionsAndSubmitAll({ tutorialName: 'basics', lessonCount: 3 })
+import tutorials from '../../src/static/tutorials.json'
+
+describe('📝 0002', function () {
+  viewSolutionsAndSubmitAll({ tutorialId: '0002', lessonCount: 3 })
 })
 
-describe('📝 Blog', function () {
-  viewSolutionsAndSubmitAll({ tutorialName: 'blog', lessonCount: 7 })
+describe('📝 0003', function () {
+  viewSolutionsAndSubmitAll({ tutorialId: '0003', lessonCount: 7 })
 })
 
-function viewSolutionsAndSubmitAll ({ tutorialName, lessonCount, hasResources = true }) {
+function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = true }) {
+  const tutorialName = tutorials[tutorialId].url
   it(`should find the ${tutorialName} tutorial`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
