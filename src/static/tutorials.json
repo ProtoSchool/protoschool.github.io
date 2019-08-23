@@ -56,7 +56,7 @@
 		]
 	},
 	"0002": {
-    "url": "xxx",
+    "url": "basics",
 		"project": "IPFS",
 		"title": "P2P data links with content addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets with IPFS and CIDs. It’s graphs with friends!",

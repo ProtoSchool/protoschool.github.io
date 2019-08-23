@@ -68,11 +68,11 @@ const routes = [
   { path: '/data-structures/05', component: T0001L05 },
   { path: '/data-structures/resources', component: ResourcesLesson, props: { tutorialId: '0001' } },
   // Tutorial 0002
-  { path: '/xxx', component: Landing, props: { tutorialId: '0002' } },
-  { path: '/xxx/01', component: T0002L01 },
-  { path: '/xxx/02', component: T0002L02 },
-  { path: '/xxx/03', component: T0002L03 },
-  { path: '/xxx/resources', component: ResourcesLesson, props: { tutorialId: '0002' } },
+  { path: '/basics', component: Landing, props: { tutorialId: '0002' } },
+  { path: '/basics/01', component: T0002L01 },
+  { path: '/basics/02', component: T0002L02 },
+  { path: '/basics/03', component: T0002L03 },
+  { path: '/basics/resources', component: ResourcesLesson, props: { tutorialId: '0002' } },
   // Tutorial 0003
   { path: '/blog', component: Landing, props: { tutorialId: '0003' } },
   { path: '/blog/01', component: T0003L01 },
