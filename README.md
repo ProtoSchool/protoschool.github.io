@@ -567,15 +567,12 @@ Then in the `main.js` file update the routes (replace the value of the `path` ke
 { path: '/xyz/resources', component: ResourcesLesson, props: { tutorialId: '0002' } },
 ```
 
-If you still want to keep the previous url accessible, just add the `alias` key with the appropriate value and that url will be redirected to the new one:
+If you want to redirect links from the previous url, add two new object to the array:
 
 ```js
 // Tutorial 0002
-{ path: '/xyz', component: Landing, props: { tutorialId: '0002' }, alias: '/basics' },
-{ path: '/xyz/01', component: T0002L01, alias: '/basics/01' },
-{ path: '/xyz/02', component: T0002L02, alias: '/basics/02' },
-{ path: '/xyz/03', component: T0002L03, alias: '/basics/03' },
-{ path: '/xyz/resources', component: ResourcesLesson, props: { tutorialId: '0002' }, alias: '/basics/resources' },
+{ path: '/basics', redirect: '/xxx' },
+{ path: '/basics/*', redirect: '/xxx' },
 ```
 
 Finally, add a new object to the `MIGRATIONS` array, with the tutorial ID and the past URL name:
