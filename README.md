@@ -20,19 +20,21 @@ If you're interested in building tutorials, keep reading!
   * [Build your lessons (repeat for each lesson in the tutorial)](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial)
     + [Create lesson files](#create-lesson-files)
       - [Vue file](#vue-file)
-      - [Lesson text file](#lesson-text-file)
+      - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
       - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-lessons)
       - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
     + [Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-vue-file-skip-for-coding-exercises-and-text-only-lessons)
-    + [Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-lessons)
+    + [Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-and-multiple-choice-lessons)
       - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
       - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
       - [Validate the user's submitted code](#validate-the-users-submitted-code)
         * [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
         * [Override external error messages (optional)](#override-external-error-messages-optional)
         * [Display results to the user (optional)](#display-results-to-the-user-optional)
-    + [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
-    + [Add your tutorial to `tutorials.json` and `courses.json`](#add-your-tutorial-to-tutorialsjson-and-coursesjson)
+  * [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
+    + [Add your tutorial to `tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+    + [Add your tutorial to `courses.json`](#add-your-tutorial-to-staticcoursesjson)
+    + [Update import statements and routes in `src/main.js`](#update-import-statements-and-routes-in-srcmainjs)
 - [Troubleshooting](#troubleshooting)
   * [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
 - [License](#license)
@@ -425,9 +427,14 @@ return {
 
 ![screenshot](public/markdown_error_logdesc_log.png)
 
-#### Add your tutorial to `tutorials.json`
 
-Although the step above ensures that your lessons are available at specific URLs on the website, you'll also need to ensure that your tutorial appears in our course listings.
+### Manage your tutorial's metadata and routing
+
+There are a few administrative steps you need to take to ensure that all of your lessons appear on our site, along with a landing page and resources page.
+
+Note that you won't be able to preview your lessons until your routing is set up, so you'll need to refer to this section regularly during your development.
+
+#### Add your tutorial to `static/tutorials.json`
 
 In `static/tutorials.json`, add a new key for your tutorial and fill in the appropriate values, as in the example below.
 
@@ -466,19 +473,18 @@ TODO: Add screenshot of table of contents and of featured tutorials card.
 
 The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
 
-`lessons` is an array of titles (strings) for each of the lessons in your tutorial. Be sure to list these in order. Each title will automatically appear at the top of the appropriate lesson.
+`lessons` is an array of titles (strings) for each of the lessons in your tutorial. Be sure to list these in order. Each title will automatically appear at the top of the appropriate lesson. (Notice that although you will need to include routes for your landing page and resources page in `main.js` as described below, you do _not_ need to include either in this `lessons` array.)
 
 TODO: Add screenshot of top of lesson page with breadcrumbs, header, and lesson title
 
-Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` lesson at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
+Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
 
 ![screenshot](public/resources.png)
 
-Notice that although you needed to include routes for your landing page and `Resources` lesson in `main.js`, you do _not_ need to include either in your `lessons` array in `tutorials.json`.
 
-#### Add your tutorial to `courses.json`
+#### Add your tutorial to `static/courses.json`
 
-In `static/courses.json`, add the tutorial key to the `all` array so it will appear in the Tutorials page. It must exactly match the key you've used in `static/tutorials.json`. For example, to continue with the same example shown above, you would change this:
+In `static/courses.json`, add the tutorial key that you used in `static/tutorials.json` to the `all` array so it will appear in the Tutorials page. For example, to continue with the same example shown above, you would change this:
 
 ```json
 {
@@ -496,7 +502,7 @@ In `static/courses.json`, add the tutorial key to the `all` array so it will app
 }
 ```
 
-The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings.
+The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings elsewhere on our site.
 
 #### Update routes and import statements in `src/main.js`
 
@@ -565,9 +571,9 @@ Note that your user history on the live website (https://proto.school) is differ
 
 ### Renaming a tutorial after it has been published
 
-Because we use IDs as our primary point of reference, it's possible to rename a tutorial or adjust its URL (and thus its shortened name in breadcrumbs and lesson headers) without affecting the user's progress indicators. (We should use this feature sparingly.)
+On rare occassion, we may need to change the name of a tutorial, and its related URL, after it has been published. Because we use IDs as our primary point of reference and have built a migration tool for the cache, it's possible to do this without affecting the user's progress indicators.
 
-To change a tutorial's name and URL, go to its entry in `src/tutorials.json` file, update its `title` and `url`. Remember that the URL you use will be converted into a shortened title use at the top of each lesson. (For example, the URL `short-tutorial-title` would create the header  `Short Tutorial Title | Lesson 2 of 3`.)
+To change a tutorial's name, go to its entry in `static/tutorials.json` and update its `title` and `url`. Remember that the URL you use will be converted into a shortened title displayed at the top of each lesson. (For example, the URL `short-tutorial-title` would create the header  `Short Tutorial Title | Lesson 2 of 3` above the title for its second lesson.)
 
 ```json
 "0005": {
@@ -578,7 +584,7 @@ To change a tutorial's name and URL, go to its entry in `src/tutorials.json` fil
   ...
 ```
 
-Then in the `main.js` file update the routes (replace the value of the `path` key):
+Then in the `src/main.js` file, find the routes for your tutorial by its ID (which will remain unchanged) and update the paths to reflect the new `url` value in `static/tutorials.json`:
 
 ```js
 // Tutorial 0005
@@ -589,7 +595,7 @@ Then in the `main.js` file update the routes (replace the value of the `path` ke
 { path: '/new-short-tutorial-title/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
 ```
 
-To ensure that
+In case someone uses an old link shared with them before the tutorial name and URL were changed, you'll also need to add two redirect objects as follows.
 
 ```js
 // Tutorial 0005
@@ -597,7 +603,7 @@ To ensure that
 { path: '/old-short-tutorial-name/*', redirect: '/new-short-tutorial-name' },
 ```
 
-Finally, add a new object to the `MIGRATIONS` array, with the tutorial ID and the past URL name:
+Finally, add a new object to the `MIGRATIONS` array, with the tutorial ID (unchaged) and the past URL:
 
 ```js
 const MIGRATIONS = [
@@ -606,7 +612,7 @@ const MIGRATIONS = [
 ]
 ```
 
-That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page with its updated URL.
+That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL. 
 
 ## License
 
