@@ -469,13 +469,15 @@ The _key_ must match your tutorial's ID and the name of the directory where you'
 
 The `title` of your tutorial will be seen in course listings on our tutorials page, your tutorial's table of contents, and anywhere else your tutorial is featured.
 
-TODO: Add screenshot of table of contents and of featured tutorials card.
+![screenshot](public/title-in-toc.png)
+
+![screenshot](public/title-in-featured-tutorials.png)
 
 The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
 
-`lessons` is an array of titles (strings) for each of the lessons in your tutorial. Be sure to list these in order. Each title will automatically appear at the top of the appropriate lesson. (Notice that although you will need to include routes for your landing page and resources page in `main.js` as described below, you do _not_ need to include either in this `lessons` array.)
+![screenshot](public/url-breadcrumb-header.png)
 
-TODO: Add screenshot of top of lesson page with breadcrumbs, header, and lesson title
+`lessons` is an array of titles (strings) for each of the lessons in your tutorial. Be sure to list these in order. Each title will automatically appear at the top of the appropriate lesson. (Notice that although you will need to include routes for your landing page and resources page in `main.js` as described below, you do _not_ need to include either in this `lessons` array.)
 
 Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
 
@@ -612,7 +614,7 @@ const MIGRATIONS = [
 ]
 ```
 
-That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL. 
+That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL.
 
 ## License
 
