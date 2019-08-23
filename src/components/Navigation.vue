@@ -12,7 +12,7 @@
         <!-- standard nav  -->
         <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
           <div v-for="(link, idx) in links" :key="`desktop-${idx}`">
-            <router-link :class="[isActive(link) ? 'white' : 'navy ', 'nav-link']" :to="`/${link.path}`">{{link.text}}</router-link>
+            <router-link :class="[isActive(link) ? 'white' : 'navy ', 'nav-link']" :to="`${link.path}`">{{link.text}}</router-link>
           </div>
         </div>
       </div>
