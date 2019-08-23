@@ -140,9 +140,9 @@ For example (for Lesson 01 of Tutorial 0005):
 src/tutorials/0005/01.md
 ```
 
-If you want to add images to your markdown file, place them in the `public/tutorial-assets` folder, with the following naming convention (you'll use the same convention when creating the lesson components):
+If you want to add images to your markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention (you'll use a similar convention when creating the lesson components in the router):
 
-`T<tutorialId>L<lessonNumber>-<imageName>`, such as `T0001L05-dag.svg`.
+`T<4-digit-tutorial-id>L<2-digit-lesson-number>-<imageName>`, such as `T0001L05-dag.svg`.
 
 Then in your lesson markdown file, you can either add it with regular markdown:
 
@@ -512,7 +512,7 @@ To ensure your lessons appear on the website (and in your local preview), you'll
 
 First, import each of your lesson components, naming them according to this pattern:
 
-T + <4-digit tutorial ID> + L + <2-digit lesson number>
+T<4-digit-tutorial-id>L<2-digit-lesson-number>
 
 For example, the imports for the first 2 lessons of the tutorial with ID 0005 would look like this:
 ```js
@@ -577,13 +577,13 @@ On rare occassion, we may need to change the name of a tutorial, and its related
 
 To change a tutorial's name, go to its entry in `static/tutorials.json` and update its `title` and `url`. Remember that the URL you use will be converted into a shortened title displayed at the top of each lesson. (For example, the URL `short-tutorial-title` would create the header  `Short Tutorial Title | Lesson 2 of 3` above the title for its second lesson.)
 
-```json
+```js
 "0005": {
   "url": "new-short-tutorial-title",
   "project": "IPFS",
   "title": "New name of this tutorial",
   "description": "Description of tutorial",
-  ...
+  // etc.
 ```
 
 Then in the `src/main.js` file, find the routes for your tutorial by its ID (which will remain unchanged) and update the paths to reflect the new `url` value in `static/tutorials.json`:
