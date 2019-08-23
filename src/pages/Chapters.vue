@@ -1,37 +1,35 @@
 <template>
   <div>
     <Header/>
-    <div class="home">
-      <section class="mw7 center ph2">
-        <h1 class="mt5">ProtoSchool Chapters</h1>
-        <p class="f4 fw5 lh-copy ma0 pv4  ">
-          Cities all over host ProtoSchool events regularly, offering you the
-          opportunity to complete our interactive tutorials with the support of
-          local mentors. Select a chapter below to learn more.
-        </p>
-        <ul>
-          <li v-for="(region, idx) in regions" :key="`region-${idx}`">
-            <h2>{{region}}</h2>
-            <ul>
-              <li v-for="(chapter, idx) in chaptersByRegion[region]" :key="`chapter-${idx}`">
-                <span v-if="chapter.website">
-                  <a v-bind:href="chapter.website" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
-                </span>
-                <span v-else-if="chapter.repo">
-                  <a v-bind:href="chapter.repo" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
-                </span>
-                <span v-else>
-                  <span class="f5 br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</span>
-                </span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <p class="f4 fw5 lh-copy ma0 pv4  ">
-          Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
-        </p>
-      </section>
-    </div>
+    <section class="mw7 center ph2">
+      <h1 class="mt5">ProtoSchool Chapters</h1>
+      <p class="f4 fw5 lh-copy ma0 pv4">
+        Cities all over host ProtoSchool events regularly, offering you the
+        opportunity to complete our interactive tutorials with the support of
+        local mentors. Select a chapter below to learn more.
+      </p>
+      <ul>
+        <li v-for="(region, idx) in regions" :key="`region-${idx}`">
+          <h2>{{region}}</h2>
+          <ul>
+            <li v-for="(chapter, idx) in chaptersByRegion[region]" :key="`chapter-${idx}`">
+              <span v-if="chapter.website">
+                <a v-bind:href="chapter.website" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
+              </span>
+              <span v-else-if="chapter.repo">
+                <a v-bind:href="chapter.repo" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</a>
+              </span>
+              <span v-else>
+                <span class="f5 br-pill ph3 pv2 mb2 dib white bg-navy mr3">{{chapter.city}} - {{chapter.country}}</span>
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p class="f4 fw5 lh-copy ma0 pv4">
+        Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
+      </p>
+    </section>
   </div>
 </template>
 

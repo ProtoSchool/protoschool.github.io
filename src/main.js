@@ -13,6 +13,7 @@ import Chapters from './pages/Chapters.vue'
 import Contribute from './pages/Contribute.vue'
 import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
+import NotFound from './pages/NotFound.vue'
 // Components
 import Landing from './components/Landing.vue'
 import ResourcesLesson from './components/ResourcesLesson.vue'
@@ -95,7 +96,7 @@ const routes = [
   { path: '/mutable-file-system/11', component: MutableFileSystem11 },
   { path: '/mutable-file-system/resources', component: ResourcesLesson, props: { tutorialId: 'mutableFileSystem' } },
   // 404
-  { path: '*', name: '404' }
+  { path: '*', name: '404', component: NotFound, props: { notFound: true } }
 ]
 
 const router = new VueRouter({
