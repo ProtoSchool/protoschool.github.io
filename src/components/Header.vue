@@ -19,7 +19,7 @@
             </div>
         </div>
       </section>
-      <Navigation :notFound="notFound" />
+      <Navigation/>
     </header>
   </div>
 </template>
@@ -30,14 +30,12 @@ export default {
   name: 'Header',
   components: {
     Navigation
-  },
-  props: {
-    notFound: Boolean
   }
 }
 </script>
 
 <style scoped>
+
 .header-text h1 {
   font-size: 32px;
 }
