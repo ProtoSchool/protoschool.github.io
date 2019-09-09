@@ -17,6 +17,12 @@ export default {
     this.isFileLesson = true
     this.defaultCode = defaultCode
   },
+  mounted: function () {
+    let elem = document.querySelector('input#file')
+    elem.onchange = () => {
+      this.onFiles(Array.from(elem.files))
+    }
+  },
   methods: {
     onFileDrop: function (event) {
       event.preventDefault()
@@ -34,12 +40,7 @@ export default {
     onFileClick: function (event) {
       event.preventDefault()
       event.stopPropagation()
-      let elem = document.createElement('input')
-      elem.setAttribute('type', 'file')
-      elem.setAttribute('multiple', true)
-      elem.onchange = () => {
-        this.onFiles(Array.from(elem.files))
-      }
+      let elem = document.querySelector('input#file')
       elem.click()
     },
     onFiles: function (files) {
