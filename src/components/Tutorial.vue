@@ -1,5 +1,5 @@
 <template>
-  <section class="db mw7 center ph2">
+  <section class="db mw7 w-100 center ph2">
     <div class="flex items-start pv4">
       <div class="project-label flex-none tc">
         <h1 class="ma0 mb2 f3 fw4">{{tutorial.project}}</h1>
