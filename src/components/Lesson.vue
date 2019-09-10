@@ -5,11 +5,11 @@
       <section class="mw7 center mt3 pa3">
         <Breadcrumbs
           :isResources="isResources"
-          :workshopShortname="workshopShortname"
+          :tutorialShortname="tutorialShortname"
           :lessonNumber="lessonNumber"
-          :lessonsInWorkshop="lessonsInWorkshop"
+          :lessonsInTutorial="lessonsInTutorial"
           :lessonPassed="lessonPassed" />
-        <h1>{{lessonTitle}}</h1>
+        <h1>{{isResources ? 'Resources' : lessonTitle}}</h1>
         <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
@@ -73,7 +73,7 @@
         :isResources="isResources"
         :nextLessonIsResources="nextLessonIsResources"
         :lessonNumber="lessonNumber"
-        :lessonsInWorkshop="lessonsInWorkshop"
+        :lessonsInTutorial="lessonsInTutorial"
         :expandExercise="expandExercise"
         :isSubmitting="isSubmitting"
         :run="run"
@@ -109,6 +109,9 @@ import Info from './Info.vue'
 import Validator from './Validator.vue'
 import CID from 'cids'
 import marked from 'marked'
+import { EVENTS } from '../static/countly'
+import { deriveShortname } from '../utils/paths'
+import tutorialsList from '../static/tutorials.json'
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -204,9 +207,10 @@ export default {
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
+      tutorialPath: self.$route.path.split('/')[1],
+      tutorialShortname: deriveShortname(self.$route.path),
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
-      lessonTitle: self.$attrs.lessonTitle,
       createTestFile: self.$attrs.createTestFile,
       output: self.output,
       showUploadInfo: false,
@@ -216,28 +220,26 @@ export default {
     }
   },
   computed: {
+    lessonTitle: function () {
+      const path = this.$route.path
+      const split = this.$route.path.split('/')[1]
+      for (let t in tutorialsList) {
+        if (tutorialsList[t].url === split) {
+          return tutorialsList[t].lessons.find((e, idx) => (`/${tutorialsList[t].url}/${(idx + 1).toString().padStart(2, 0)}`) === path)
+        }
+      }
+      return ''
+    },
     lessonNumber: function () {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
-    workshopShortname: function () {
-      let shortname = this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2, this.$route.path.lastIndexOf('/'))
-      // // ADD THIS LATER IF WE DECIDE WE WANT ALL WORDS CAPITALIZED
-      // if (shortname.includes("-")) {
-      //   let shortnameArray = shortname.split("-")
-      //   let shortnameArrayUpper = shortnameArray.map( word => {
-      //     return (word.charAt(0).toUpperCase() + word.slice(1))
-      //   })
-      //   shortname = shortnameArrayUpper.join(" ")
-      // }
-      return shortname.split('-').join(' ')
-    },
     lessonIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.workshopShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
     tutorialIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.workshopShortname}`
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`
     },
-    lessonsInWorkshop: function () {
+    lessonsInTutorial: function () {
       const basePath = this.$route.path.slice(0, -2)
       let number = this.$route.path.slice(-2)
       while (this.$router.resolve(basePath + number).route.name !== '404') {
@@ -249,7 +251,7 @@ export default {
     nextLessonIsResources: function () {
       const basePath = this.$route.path.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
-      return this.lessonNumber === this.lessonsInWorkshop && hasResources
+      return this.lessonNumber === this.lessonsInTutorial && hasResources
     }
   },
   beforeCreate: function () {
@@ -300,6 +302,9 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
         this.clearPassed()
+        if (auto !== true) {
+          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+        }
         return
       }
       // Hide the solution
@@ -315,10 +320,17 @@ export default {
       }
       if (output.test.success) {
         localStorage[this.lessonKey] = 'passed'
+        if (auto !== true) {
+          // track lesson passed if it has an exercise (incl file ones)
+          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
+        }
       } else {
         this.clearPassed()
+        if (auto !== true) {
+          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+        }
       }
-
       this.lessonPassed = !!localStorage[this.lessonKey]
       this.isSubmitting = false
     },
@@ -350,6 +362,7 @@ export default {
       this.clearPassed()
       delete this.output.test
       this.showUploadInfo = false
+      this.trackEvent(EVENTS.CODE_RESET)
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
@@ -359,10 +372,34 @@ export default {
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       this.lessonPassed = !!localStorage[this.lessonKey]
+      delete localStorage[`passed/${this.tutorialPath}`]
     },
     loadCodeFromCache: function () {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
+    },
+    isTutorialPassed: function () {
+      for (let i = 1; i <= this.lessonsInTutorial; i++) {
+        let lessonNr = i.toString().padStart(2, 0)
+        const lsKey = `passed/${this.tutorialPath}/${lessonNr}`
+        if (localStorage[lsKey] !== 'passed') {
+          return false
+        }
+      }
+      localStorage[`passed/${this.tutorialPath}`] = 'passed'
+      this.trackEvent(EVENTS.TUTORIAL_PASSED)
+      return true
+    },
+    trackEvent: function (event, opts = {}) {
+      window.Countly.q.push(['add_event', {
+        'key': event,
+        'segmentation': {
+          'tutorial': this.tutorialShortname,
+          'lessonNumber': this.lessonNumber,
+          'path': this.$route.path,
+          ...opts
+        }
+      }])
     },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
@@ -405,8 +442,16 @@ export default {
       if (this.output.test.success) {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
+        if (result.auto !== true) {
+          // track multiple choice lesson passed if not on page load
+          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
+        }
       } else {
         this.clearPassed()
+        if (result.auto !== true) {
+          this.trackEvent(EVENTS.CHOICE_SUBMIT_WRONG, { wrongChoice: result.selected })
+        }
       }
     },
     next: function () {
@@ -415,6 +460,11 @@ export default {
       } else {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
+        // track passed lesson if text only
+        if (!this.isMultipleChoiceLesson) {
+          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.isTutorialPassed()
+        }
       }
       let current = this.lessonNumber
 

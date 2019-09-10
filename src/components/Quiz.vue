@@ -19,7 +19,7 @@ export default {
     }
   },
   mounted: function () {
-    this.handleRadioClick()
+    this.handleRadioClick(true)
   },
   computed: {
     correctChoice: function () {
@@ -36,13 +36,13 @@ export default {
     }
   },
   methods: {
-    handleRadioClick () {
+    handleRadioClick (auto = false) {
       let result = null
       if (this.selected !== '') {
         if (parseInt(this.selected) === this.correctChoice) {
-          result = { success: this.choices[this.selected].feedback, selected: this.selected }
+          result = { success: this.choices[this.selected].feedback, selected: this.selected, auto: auto }
         } else {
-          result = { fail: this.choices[this.selected].feedback, selected: this.selected }
+          result = { fail: this.choices[this.selected].feedback, selected: this.selected, auto: auto }
         }
         this.$emit('handleChoice', result)
       }

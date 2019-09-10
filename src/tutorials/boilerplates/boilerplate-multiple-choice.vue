@@ -2,8 +2,7 @@
   <MultipleChoiceLesson
     :text="text"
     :question="question"
-    :choices="choices"
-    lessonTitle="REPLACEME" />
+    :choices="choices" />
 </template>
 
 <script>

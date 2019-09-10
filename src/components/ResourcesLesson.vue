@@ -1,8 +1,7 @@
 <template>
   <Lesson
     :isResources="true"
-    :resources="resources"
-    lessonTitle="Resources" />
+    :resources="resources" />
 </template>
 
 <script>

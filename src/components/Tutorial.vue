@@ -1,5 +1,5 @@
 <template>
-  <section class="db mw7 center ph2">
+  <section class="db mw7 w-100 center ph2">
     <div class="flex items-start pv4">
       <div class="project-label flex-none tc">
         <h1 class="ma0 mb2 f3 fw4">{{tutorial.project}}</h1>
@@ -16,12 +16,16 @@
           <template v-else>
             {{tutorial.title}}
           </template>
+          <span v-if="isTutorialPassed" class="ml1">🏆</span>
         </h2>
         <p class="f5 fw5 ma0 pt2 lh-copy charcoal-muted">{{tutorial.description}}</p>
         <ul class="mv4 pa0 f5" style="list-style-type: none; background: rgba(11, 58, 82, 5%)">
           <template v-for="(lesson, index) in tutorial.lessons">
             <li :key="index">
-              <LessonLink :to="lesson.to" :name="lesson.name" :index="index + 1" />
+              <LessonLink
+                :to="`/${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
+                :name="lesson"
+                :index="index + 1" />
             </li>
           </template>
           <LessonLink v-if="tutorial.resources" :to="resourcesLink" name="More to explore" />
@@ -45,18 +49,19 @@ export default {
   components: {
     LessonLink
   },
-  data: () => {
+  data: self => {
     return {
       ipfsLogo: ipfsLogo,
-      libp2pLogo: libp2pLogo
+      libp2pLogo: libp2pLogo,
+      isTutorialPassed: !!localStorage[`passed/${self.tutorial.url}`]
     }
   },
   computed: {
     landingLink: function () {
-      return `/${this.tutorial.lessons[0].to.split('/')[1]}/`
+      return `/${this.tutorial.url}`
     },
     resourcesLink: function () {
-      return this.landingLink + 'resources'
+      return `/${this.tutorial.url}/resources`
     }
   }
 }

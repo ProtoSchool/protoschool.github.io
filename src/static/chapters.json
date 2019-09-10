@@ -194,7 +194,7 @@
           "ccomeon"
        ],
        "repo":"https://github.com/ProtoSchool/taipei"
-    },    
+    },
     {
        "name":"ProtoSchool Nairobi",
        "city":"Nairobi",
@@ -225,7 +225,6 @@
        ],
        "repo":"http://github.com/protoschool/xiamen"
     },
-    
     {
        "name":"ProtoSchool Prague",
        "city":"Prague",
@@ -235,5 +234,15 @@
           "AuHau"
        ],
        "repo":"http://github.com/protoschool/prague"
-    }
- ]
+    },
+   {
+      "name": "ProtoSchool Tokyo",
+      "city": "Tokyo",
+      "country": "JP",
+      "region": "Asia",
+      "organizers": [
+         "onion797jp"
+      ],
+      "repo": "https://github.com/ProtoSchool/tokyo"
+   }
+]

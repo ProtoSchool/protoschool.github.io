@@ -4,7 +4,7 @@
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './REPLACEME.md'
+import text from './05.md'
 
 export default {
   components: {
