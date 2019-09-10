@@ -41,7 +41,7 @@ If you're interested in building tutorials, keep reading!
 
 ---
 ## Designing Effective Tutorials
-In our [Developing Tutorials](#developing-tutorials) section below, you'll learn how to work with the files in this repo to build a ProtoSchool tutorial. Before you get started, let's take a step back and think about what make a great experience for the learner.
+In our [Developing Tutorials](#developing-tutorials) section below, you'll learn how to work with the files in this repo to build a ProtoSchool tutorial. Before you get started, let's take a step back and think about what makes a great experience for the learner.
 
 ### ProtoSchool's guiding principles
 
@@ -53,15 +53,15 @@ In our roadmap repo, we've documented the [guiding principles](https://github.co
 
 ### Brainstorm tutorial ideas as a team
 
-We're excited to add new tuorials to our collection, and we'd love your help brainstorming and building new content about decentralized web concepts and protocols.
+We're excited to add new tutorials to our collection, and we'd love your help brainstorming and building new content about decentralized web concepts and protocols.
 
 Have an idea for a new tutorial? Start by looking at the [tutorial ideas](https://github.com/protoschool/protoschool.github.io/labels/new-tutorial) flagged with the "new tutorial" tag in the ProtoSchool issue queue. If there's a similar idea there already, join the conversation!
 
-If you have an idea for a new tutorial that has not yet been proposed, please [open an new issue](https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-tutorial&template=tutorial-proposal.md&title=New+Tutorial%3A+%5BProposed+title%5D) so we can share feedback before you get started building. With help from our guiding principles, we'll work together to make sure it fits _cohevisely_ into the ProtoSchool curriculum and will encourage you to create a content outline that supports a _beginner-friendly_ learning experience with appropriate _scaffolding_.
+If you have an idea for a new tutorial that has not yet been proposed, please [open a new issue](https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=new-tutorial&template=tutorial-proposal.md&title=New+Tutorial%3A+%5BProposed+title%5D) so we can share feedback before you get started building. With the help of our guiding principles, we'll work together to make sure it fits _cohesively_ into the ProtoSchool curriculum and will encourage you to create a content outline that supports a _beginner-friendly_ learning experience with appropriate _scaffolding_.
 
 Don't feel like you have the skills or time to build a tutorial yourself? Please still go ahead and share your idea! There may be another community member who can help out.
 
-### Know the capabilities of our platform (and yourself!)
+### Know the capabilities of our platform
 
 A ProtoSchool tutorial is made up of a series of lessons. We currently support the following lesson types, which can be mixed and matched within a tutorial:
 - Text-only lessons
