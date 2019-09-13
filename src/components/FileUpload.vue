@@ -6,6 +6,7 @@
         <img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid" />
       </span>
     </div>
+    <input type="file" multiple id="file" class="dn" />
     <div v-if="!uploadedFiles"
       @click="onFileClick" @drop="onFileDrop"
       @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" @dragover.prevent
