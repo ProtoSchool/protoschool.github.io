@@ -46,6 +46,7 @@ import T0004L08 from './tutorials/0004/08.vue'
 import T0004L09 from './tutorials/0004/09.vue'
 import T0004L10 from './tutorials/0004/10.vue'
 import T0004L11 from './tutorials/0004/11.vue'
+import T0005L01 from './tutorials/0005/01.vue'
 
 Vue
   .use(VueRouter)
@@ -96,7 +97,11 @@ const routes = [
   { path: '/mutable-file-system/08', component: T0004L08 },
   { path: '/mutable-file-system/09', component: T0004L09 },
   { path: '/mutable-file-system/10', component: T0004L10 },
-  { path: '/mutable-file-system/11', component: T0004L11 },
+  { path: '/mutable-file-system/01', component: T0004L11 },
+  // Tutorial 0005
+  { path: '/file-api', component: Landing, props: { tutorialId: '0005' } },
+  { path: '/file-api/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
+  { path: '/file-api/01', component: T0005L01 },
   // 404
   { path: '*', name: '404', component: NotFound, props: { notFound: true } }
 ]
