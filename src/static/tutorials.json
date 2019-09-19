@@ -143,5 +143,14 @@
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
 			}
 		]
+	},
+	"0005": {
+		"url": "file-api",
+		"project": "IPFS",
+		"title": "IPFS: File API",
+		"description": "The IPFS File API provides a way to store and share files in a peer-to-peer storage system",
+		"lessons": [
+			"Introducing the File API"
+		]
 	}
 }
