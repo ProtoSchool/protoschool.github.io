@@ -21,7 +21,21 @@ const validate = async (result, ipfs) => {
   // If IPFS errors out, we try to output a clearer version to the user. If that's
   // not possible, the error from IPFS will be the output.
 
-  let uploadedFiles = window.uploadedFiles || false
+  if (result instanceof Error) {
+    if (result.message === 'No child name passed to addLink') {
+      // Forgot the file name and just used a directory as the path
+      return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
+    } else if (result.message === 'file does not exist') {
+      // Forgot the `{ create: true }` option
+      return { fail: "The file doesn't exist yet, so you need to create it. Did you forget an option?" }
+    }
+
+    return {
+      error: result
+    }
+  }
+
+  let uploadedFiles = window.uploadedFiles || []
 
   let ipfsFiles = await ipfs.files.ls('/', { long: true })
   let log = JSON.stringify(ipfsFiles, null, 2)
@@ -37,19 +51,24 @@ const validate = async (result, ipfs) => {
       logDesc: 'This is the data that is now in your root directory in IPFS:',
       log: log
     }
-  } else if (uploadedFiles === false) {
-    // Shouldn't happen because you can't hit submit without uploading files
-    return { fail: 'Oops! You forgot to upload files to work with :(' }
-  } else if (result && result.error.message === 'No child name passed to addLink') {
-    // Forgot the file name and just used a directory as the path
-    return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
-  } else if (result && result.error.message === 'file does not exist') {
-    // Forgot the `{ create: true }` option
-    return { fail: "The file doesn't exist yet, so you need to create it. Did you forget an option?" }
   }
 
-  // Output the default error if we haven't caught any
-  return { error: result.error }
+  if (uploadedFiles === false) {
+    // Shouldn't happen because you can't hit submit without uploading files
+    return { fail: 'Oops! You forgot to upload files to work with :(' }
+  }
+
+  if (!ipfsFiles.length) {
+    return { fail: 'Uh oh. There was nothing in your MFS. Did you add the uploaded files to it?' }
+  }
+
+  if (!itemsAreFiles) {
+    return { fail: "Looks like you didn't upload files. Did you upload a directory?" }
+  }
+
+  if (!itemsMatch) {
+    return { fail: 'Your uploaded files have the wrong names. Did you specify the correct path?' }
+  }
 }
 
 const code = `const run = async (files) => {

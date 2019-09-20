@@ -52,7 +52,7 @@ const validate = async (result, ipfs) => {
 
   // Check whether array contains certain directory hash & certain directory name
   function contains (certainHash, certainName) {
-    if (!result.error) {
+    if (Array.isArray(result)) {
       return result.some(file => (file.hash === certainHash) && (file.name === certainName))
     }
   }
@@ -78,7 +78,7 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
-  } else if (result.error && result.error.message === 'file does not exist') {
+  } else if (result instanceof Error && result.message === 'file does not exist') {
     // user forgot to use {parents: true} option so path isn't found
     return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the `{ parents: true }` option?' }
   } else if (Array.isArray(result) && result[0].hash.length === 0) {
@@ -139,10 +139,6 @@ const validate = async (result, ipfs) => {
       logDesc: "Here's what was returned by `ls` in your root directory. Notice how directories have a type of `1` while files have a type of `0`.",
       log: logRoot
     }
-  } else if (result.error) {
-    return { error: result.error }
-  } else {
-    return { fail: 'Something we haven\'t anticipated is wrong. :(' }
   }
 }
 

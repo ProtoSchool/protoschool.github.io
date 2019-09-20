@@ -33,11 +33,11 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
-  } else if (result.error && result.error.message.includes('is a directory, use -r to remove directories')) {
+  } else if (result instanceof Error && result.message.includes('is a directory, use -r to remove directories')) {
     return { fail: 'Oops! You tried to remove a non-empty directory and it didn\'t work because you forgot to use `{ recursive: true }`.' }
   } else if (!rootDirectoryStatus.hash) {
     return { fail: 'Your root directory doesn\'t look right. Are you sure you ran the `files.rm` method on your `/some` directory with the option `{ recursive: true }`?' }
-  } else if (result.error && result.error.message === 'Cannot delete root') {
+  } else if (result instanceof Error && result.message === 'Cannot delete root') {
     return {
       fail: 'Oops! Your root directory can\'t be removed. Remove `/some` instead.'
     }
@@ -50,7 +50,7 @@ const validate = async (result, ipfs) => {
     return {
       fail: 'You still have a `/some/stuff` directory. Be sure to run the `files.rm` method on your `/some` directory with the option `{ recursive: true }`'
     }
-  } else if (!result.error && !rootIsEmpty) {
+  } else if (!(result instanceof Error) && !rootIsEmpty) {
     // only removed /some/stuff with {recursive:true} or tried to remove the root itself
     return {
       fail: 'Your root directory isn\'t empty. Are you sure you ran the `files.rm` method on your `/some` directory with the option `{ recursive: true }`?',
@@ -63,8 +63,6 @@ const validate = async (result, ipfs) => {
       logDesc: "Your function returned an empty array (`[]`) as there is no content in your root directory. Its status (`stat`) is shown below. Note that we're back to exactly the same CID we started with!",
       log: JSON.stringify(rootDirectoryStatus, null, 2)
     }
-  } else if (result.error) {
-    return { error: result.error }
   }
 }
 

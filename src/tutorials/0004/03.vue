@@ -24,8 +24,6 @@ const validate = async (result, ipfs) => {
       logDesc: "Check out the data below to see the data now accessible in the `files` array. Note that these files are only in the browser right now. In the next lesson we'll see how to add them to IPFS.",
       log: logFiles(result)
     }
-  } else {
-    return { fail: 'Something is wrong. Reset the code and see the instructions.' }
   }
 }
 

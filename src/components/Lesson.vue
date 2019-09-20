@@ -134,21 +134,30 @@ marked.setOptions({
   }
 })
 
+class SyntaxError extends Error {
+  toString () {
+    return `SyntaxtError: ${this.message}`
+  }
+}
+
 const _eval = async (text, ipfs, modules = {}, args = []) => {
+  if (!text || typeof text !== 'string' || !text.trim()) {
+    return new Error('Please submit a solution')
+  }
+
   let fn
-  let result
   try {
     // eslint-disable-next-line
     fn = new Function('ipfs', 'require', text)
-  } catch (e) {
-    result = {error: e}
-    return result
+  } catch (err) {
+    return new SyntaxError(err.message, err)
   }
 
   let require = name => {
     if (!modules[name]) throw new Error(`Cannot find modules: ${name}`)
     return modules[name]
   }
+
   try {
     result = await pTimeout(fn(ipfs, require)(...args), MAX_EXEC_TIMEOUT).catch((err) => {
       if (err.name === 'TimeoutError') {
@@ -159,7 +168,6 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
   } catch (e) {
     result = {error: e}
   }
-  return result
 }
 
 const defaultCode = `/* globals ipfs */
@@ -310,7 +318,7 @@ export default {
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
       let result = await _eval(code, ipfs, modules, args)
-      if (!this.$attrs.overrideErrors && result && result.error) {
+      if (!this.$attrs.overrideErrors && result instanceof Error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
@@ -324,6 +332,17 @@ export default {
       this.viewSolution = false
       // Run the `validate` function in the lesson
       let test = await this.$attrs.validate(result, ipfs, args)
+
+      if (test === undefined) {
+        if (result instanceof Error) {
+          // show the user the error message
+          test = result
+        } else {
+          // show the default error message
+          test = { fail: 'Something is wrong. Reset the code and see the instructions.' }
+        }
+      }
+
       Vue.set(output, 'test', test)
       if (CID.isCID(result)) {
         oldIPFS = ipfs

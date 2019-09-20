@@ -20,7 +20,7 @@ const validate = async (result, ipfs) => {
 
   const someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
   const someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
-  const uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
+  const uploadedFilenames = (window.uploadedFiles || []).map(file => file.name.toString()).sort()
 
   const noNewFile = JSON.stringify(uploadedFilenames) === JSON.stringify(someStuffFilenames)
 
@@ -43,8 +43,6 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
-  } else if (result.error) {
-    return { error: result.error }
   } else if (noNewFile) {
     return {
       fail: 'No new files have been copied into `/some/stuff`',

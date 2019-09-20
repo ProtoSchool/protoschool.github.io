@@ -55,15 +55,15 @@ const validate = async (result, ipfs) => {
   } else if (uploadedFiles === false) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
-  } else if (result.error && result.error.message === 'Unexpected token const') {
+  } else if (result instanceof Error && result.message === 'Unexpected token const') {
     return { fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`' }
-  } else if (result.error && result.error.message === 'await is only valid in async function') {
+  } else if (result instanceof Error && result.message === 'await is only valid in async function') {
     return { fail: "Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn't wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`." }
-  } else if (result.error && result.error.message === 'ipfs.mv is not a function') {
+  } else if (result instanceof Error && result.message === 'ipfs.mv is not a function') {
     return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?' }
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
-  } else if (result.error && result.error.message === 'paths must start with a leading /') {
+  } else if (result instanceof Error && result.message === 'paths must start with a leading /') {
     return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?' }
   } else if (!returnedSomeStuffContents) {
     return { fail: 'It looks like you returned something other than the contents of the `/some/stuff` directory. Did you accidentally edit the return statement?' }
@@ -89,10 +89,6 @@ const validate = async (result, ipfs) => {
       logDesc: 'This is the data that is now in your `/some/stuff` directory in IPFS:',
       log: logSomeStuff
     }
-  } else if (result.error) {
-    return { error: result.error }
-  } else {
-    return { fail: "Something doesn't look right. Please hit `Reset Code` and try again, editing only the portion of code indicated." }
   }
 }
 
