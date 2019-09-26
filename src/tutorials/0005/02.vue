@@ -49,9 +49,6 @@ const validate = async (result, ipfs) => {
   // Learn about working with uploaded files:
   // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
 
-  // TODO Validate it is an array of objects and not an array of promises (no .then())
-  // TODO Check the number of uploaded files is the same of nodes in the result
-
   const uploadedFiles = window.uploadedFiles || false
 
   if (!result) {
