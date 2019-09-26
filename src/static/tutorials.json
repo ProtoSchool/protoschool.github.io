@@ -151,7 +151,8 @@
 		"description": "The IPFS File API provides a way to store and share files in a peer-to-peer storage system",
 		"lessons": [
 			"Introducing the File API",
-			"Adding a file"
+			"Adding a file",
+			"Read the contents of a file"
 		]
 	}
 }
