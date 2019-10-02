@@ -82,17 +82,17 @@ const validate = async (result, ipfs) => {
       fail: 'Could not get CID of `dir` directory'
     }
   } else {
-    if (resultingFiles.length === uploadedFiles.length) {
-      return {
-        success: 'Success!',
-        logDesc: "Here's what the result of adding the files looks like",
-        log: result
-      }
-    } else {
+    if (resultingFiles.length !== uploadedFiles.length) {
       return {
         fail: 'Number of uploaded files does not match the number of files on your ifps node. Did you skip any of the files you uploaded? Did you make sure each file had a unique name when defining the path?'
       }
     }
+  }
+
+  return {
+    success: 'Success!',
+    logDesc: "Here's what the result of adding the files looks like",
+    log: result
   }
 
   /*

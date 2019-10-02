@@ -153,7 +153,8 @@
 			"Introducing the File API",
 			"Adding a file",
 			"Read the contents of a file",
-			"Add files in a folder"
+			"Add files in a folder",
+			"Listing the files in a directory"
 		]
 	}
 }
