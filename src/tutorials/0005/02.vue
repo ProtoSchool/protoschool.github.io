@@ -17,13 +17,7 @@ import exercise from './02-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const result = []
-  
-  for(const file of files) {
-    const afterAdd = // Place your code to add a file here
-
-    result.push(afterAdd)
-  }
+  const result = // Place your code to add a file or files here
 
   return result
 }
@@ -32,14 +26,8 @@ return run
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const result = []
+  const result = await ipfs.add(files)
   
-  for(const file of files) {
-    const afterAdd = await ipfs.add(file)
-
-    result.push(afterAdd)
-  }
-
   return result
 }
 return run
@@ -73,17 +61,21 @@ const validate = async (result, ipfs) => {
     return { error: result.error }
   }
 
+  if (!Array.isArray(result)) {
+    return {
+      fail: 'The returned value should be an array.'
+    }
+  }
+
   for (const resultData of result) {
-    if (!Array.isArray(resultData) ||
-      resultData.length !== 1 ||
-      !resultData[0].hash) {
+    if (!resultData.hash) {
       return {
-        fail: 'The value you returned is incorrect :( Are you sure you are returning an array of the results of the ipfs.add operations?'
+        fail: 'The value you returned is incorrect :( Are you sure you are returning the result of the ipfs.add operation?'
       }
     }
 
-    const lsResult = await pTimeout(ipfs.ls(resultData[0].hash), 2000).catch(() => 'error')
-    if (lsResult === 'error' || resultData[0].hash !== lsResult[0].hash) {
+    const lsResult = await pTimeout(ipfs.ls(resultData.hash), 2000).catch(() => 'error')
+    if (lsResult === 'error' || resultData.hash !== lsResult[0].hash) {
       return {
         fail: 'The value you returned is incorrect :( Are you sure you are returning an array of the results of the ipfs.add operations?'
       }
