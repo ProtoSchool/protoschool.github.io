@@ -154,7 +154,8 @@
 			"Adding a file",
 			"Read the contents of a file",
 			"Add files in a folder",
-			"Listing the files in a directory"
+			"Listing the files in a directory",
+			"Getting all the files in a directory tree"
 		]
 	}
 }
