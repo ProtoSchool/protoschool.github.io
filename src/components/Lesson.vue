@@ -212,6 +212,7 @@ export default {
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       createTestFile: self.$attrs.createTestFile,
+      createTestTree: self.$attrs.createTestTree,
       output: self.output,
       showUploadInfo: false,
       expandExercise: false,
@@ -282,6 +283,9 @@ export default {
       if (this.createTestFile) {
         await this.createFile(ipfs)
       }
+      if (this.createTestTree) {
+        await this.createTree(ipfs)
+      }
       let code = this.editor.getValue()
       let modules = {}
 
@@ -350,6 +354,32 @@ export default {
       new Promise((resolve, reject) => {
         ipfs.on('ready', async () => {
           await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
+          resolve()
+        })
+      })
+    },
+    createTree: function (ipfs) {
+      /* eslint-disable no-new */
+      new Promise((resolve, reject) => {
+        ipfs.on('ready', async () => {
+          await ipfs.add([
+            {
+              content: this.ipfsConstructor.Buffer.from('This is file1.txt in /root/foo!'),
+              path: '/root/foo/file1.txt'
+            },
+            {
+              content: this.ipfsConstructor.Buffer.from('This is file2.txt in /root/foo!'),
+              path: '/root/foo/file2.txt'
+            },
+            {
+              content: this.ipfsConstructor.Buffer.from('This is file3.txt in /root/foo!'),
+              path: '/root/foo/file3.txt'
+            },
+            {
+              content: this.ipfsConstructor.Buffer.from('This is file4.txt, which is in /root/bar!'),
+              path: '/root/bar/file4.txt'
+            }
+          ])
           resolve()
         })
       })
