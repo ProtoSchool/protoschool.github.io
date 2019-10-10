@@ -147,15 +147,15 @@
 	"0005": {
 		"url": "file-api",
 		"project": "IPFS",
-		"title": "IPFS: File API",
+		"title": "IPFS: Regular File API",
 		"description": "The IPFS File API provides a way to store and share files in a peer-to-peer storage system",
 		"lessons": [
 			"Introducing the File API",
-			"Adding a file",
+			"Add a file with the API",
 			"Read the contents of a file",
 			"Add files in a folder",
-			"Listing the files in a directory",
-			"Getting all the files in a directory tree"
+			"List the files in a directory",
+			"Get all of the files in a directory"
 		]
 	}
 }
