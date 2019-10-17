@@ -1,43 +1,35 @@
 <template>
-  <FileLesson
+  <Lesson
     :text="text"
     :code="code"
     :validate="validate"
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution" />
+    :solution="solution"
+    :createTestFile="true" />
 </template>
 
 <script>
-import pTimeout from 'p-timeout'
-import FileLesson from '../../components/FileLesson'
+import Lesson from '../../components/Lesson'
 import text from './04.md'
 import exercise from './04-exercise.md'
 
 const code = `/* global ipfs */
-const run = async (files) => {
-  let filesWithPath = // build the array of {content, path} objects here
+const run = async () => {
+  const fileContents = // place your code here
 
-  let result = // write code to add files here
-
-  return result
+  // don't forget to return the string value
 }
 return run
 `
 
 const solution = `/* global ipfs */
-const run = async (files) => {
-  let filesWithPath = files.map((elem, idx) => {
-    return {
-      content: elem,
-      path: \`/dir/\${elem.name}\`
-    }
-  })
+const run = async () => {
+  const fileContents = await ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
+  const message = fileContents.toString('utf8')
 
-  let result = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-
-  return result
+  return message
 }
 return run
 `
@@ -46,53 +38,18 @@ const validate = async (result, ipfs) => {
   // Learn about working with uploaded files:
   // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
 
-  let uploadedFiles = window.uploadedFiles || false
-
   if (!result) {
     return {
       fail: 'Oops! You forgot to return a result :('
     }
   }
 
-  if (result.error) {
-    return { error: result.error }
-  }
-
-  if (uploadedFiles.length === result.length - 1) {
+  if (result === 'You did it!') {
     return {
-      fail: "We're missing an element in the returned array. Did you forget to specify the `/dir` directory in the path?"
+      success: 'Success!',
+      logDesc: "Here's the message hidden in that secret file 🤫",
+      log: result
     }
-  }
-
-  if (uploadedFiles.length === result.length) {
-    return {
-      fail: "We can't find a directory. Did you set the `wrapWithDirection` option to true?"
-    }
-  }
-
-  if (uploadedFiles.length !== result.length - 2) {
-    return {
-      fail: 'The resulting array seems to be wrong. You should have one element per file, plus two extra elements to represent the directories'
-    }
-  }
-
-  const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 2].hash), 2000).catch(() => 'error')
-  if (resultingFiles === 'error') {
-    return {
-      fail: 'Could not get CID of `dir` directory'
-    }
-  } else {
-    if (resultingFiles.length !== uploadedFiles.length) {
-      return {
-        fail: 'Number of uploaded files does not match the number of files on your ifps node. Did you skip any of the files you uploaded? Did you make sure each file had a unique name when defining the path?'
-      }
-    }
-  }
-
-  return {
-    success: 'Success!',
-    logDesc: "Here's what the result of adding the files looks like",
-    log: result
   }
 
   /*
@@ -110,7 +67,7 @@ const modules = { cids: require('cids') }
 
 export default {
   components: {
-    FileLesson
+    Lesson
   },
   data: () => {
     return {

@@ -1,7 +1,9 @@
-Let's upload some files and add them to our IPFS node. This time, however, we will use the option `{ wrapWithDirectory: true }` to put all the files in the same directory!
+In this exercise, we will try to read the contents of a file we have already uploaded for you. In order to read its contents, you'll need the path to the file on IPFS, which corresponds to the following `CID`:
 
-We want to add the files into a directory called `/dir`. You can upload one or multiple files.
+```
+"QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ"
+```
 
-Don't forget, you can get the name of the file you uploaded with `file.name`.
+Use the `cat` function to read the contents of the file to a variable.
 
-**Hint:** Remember the `add` function from our previous lesson? It looks like `await ipfs.add(file, options)`. Dont forget you need to pass an array to file if you want to add multiple files, and the object structure to indicate the desired path of the file.
+**Hint:** Don't forget to convert it to a string using `.toString('utf8')` before returning the result.

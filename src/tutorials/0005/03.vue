@@ -6,40 +6,29 @@
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    :createTestFile="true" />
+    :solution="solution" />
 </template>
 
 <script>
+import pTimeout from 'p-timeout'
 import FileLesson from '../../components/FileLesson'
 import text from './03.md'
 import exercise from './03-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const uploadedFiles = []
-  for(const file of files) {
-    uploadedFiles.push(await ipfs.add(file))
-  }
+  const result = // Place your code to add a file or files here
 
-  let message = // place your code here
-
-  return message
+  return result
 }
 return run
 `
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const uploadedFiles = []
-  for(const file of files) {
-    uploadedFiles.push(await ipfs.add(file))
-  }
+  const result = await ipfs.add(files)
   
-  let message = await ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
-  message = message.toString('utf8')
-
-  return message
+  return result
 }
 return run
 `
@@ -48,18 +37,55 @@ const validate = async (result, ipfs) => {
   // Learn about working with uploaded files:
   // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
 
+  const uploadedFiles = window.uploadedFiles || false
+
   if (!result) {
     return {
       fail: 'Oops! You forgot to return a result :('
     }
   }
 
-  if (result === 'You did it!') {
+  if (result.length > uploadedFiles.length) {
     return {
-      success: 'Success!',
-      logDesc: "Here's the message hidden in that secret file 🤫",
-      log: result
+      fail: 'The array you returned has more items than the number of files you uploaded, did you add something in the array twice.'
     }
+  }
+
+  if (result.length < uploadedFiles.length) {
+    return {
+      fail: 'The array you returned has less items than the number of files you uploaded, maybe you forgot to put one of the results in the array.'
+    }
+  }
+
+  if (result.error) {
+    return { error: result.error }
+  }
+
+  if (!Array.isArray(result)) {
+    return {
+      fail: 'The returned value should be an array.'
+    }
+  }
+
+  for (const resultData of result) {
+    if (!resultData.hash) {
+      return {
+        fail: 'The value you returned is incorrect :( Are you sure you are returning the result of the ipfs.add operation?'
+      }
+    }
+
+    const lsResult = await pTimeout(ipfs.ls(resultData.hash), 2000).catch(() => 'error')
+    if (lsResult === 'error' || resultData.hash !== lsResult[0].hash) {
+      return {
+        fail: 'The value you returned is incorrect :( Are you sure you are returning an array of the results of the ipfs.add operations?'
+      }
+    }
+  }
+
+  return {
+    success: 'Success! You did it!',
+    logDesc: "Here's the result of the `add` command",
+    log: result
   }
 
   /*

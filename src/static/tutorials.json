@@ -151,11 +151,26 @@
 		"description": "The IPFS File API provides a way to store and share files in a peer-to-peer storage system",
 		"lessons": [
 			"Introducing the File API",
+			"Working with files in ProtoSchool",
 			"Add a file with the API",
 			"Read the contents of a file",
-			"Add files in a folder",
+			"Add files in a directory",
 			"List the files in a directory",
 			"Get all of the files in a directory"
-		]
+		],
+		"resources": [
+			{
+					"title": "JS-IPFS Files API",
+					"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/FILES.md",
+					"type": "docs",
+					"description": "Notice that these docs contain two sections, one for top-level methods relevant to files, which we learned about in this tutorial, and one for the Mutable File System (MFS)."
+				},
+				{
+					"title": "P2P Data Links with Content Addressing",
+					"link": "https://proto.school/#/basics/",
+					"type": "tutorial",
+					"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
+				}
+			]
 	}
 }

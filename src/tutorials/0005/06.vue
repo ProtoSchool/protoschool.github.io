@@ -6,8 +6,7 @@
     :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution"
-    :createTestTree="true" />
+    :solution="solution" />
 </template>
 
 <script>
@@ -22,11 +21,9 @@ const run = async (files) => {
   const pathCID = addedFiles.find((elem) => elem.path==="dir").hash
   // Only edit code bellow this point
 
-  let result = // write your get code here
+  let result = // write your code here
 
-  // loop over the results to modify the content of the files in the result array here
-
-  return result
+  // don't forget to return the string value
 }
 return run
 `
@@ -38,25 +35,18 @@ const run = async (files) => {
   const pathCID = addedFiles.find((elem) => elem.path==="dir").hash
   // Only edit code bellow this point
 
-  let result = await ipfs.get('QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa')
-
-  result = result.map((elem) => {
-    if(elem.content) {
-      elem.content = elem.content.toString('utf-8')
-    }
-    return elem
-  })
+  let result = await ipfs.ls(pathCID)
 
   return result
 }
 return run
 `
 
-const testResult = '[{"hash":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","name":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","depth":1,"size":0,"type":"dir"},{"hash":"QmeMSPkjXkD2VzMzQXex7TQNkaoCfxmh6uKtZQxyqhXQRD","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/bar","name":"bar","depth":2,"size":0,"type":"dir"},{"hash":"QmT92qKASn2wUL2fxspZkDaB9kCfzc8Bx1qvKq5u2ai1BW","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/bar/file4.txt","name":"file4.txt","depth":3,"size":41,"type":"file","content":"This is file4.txt, which is in /root/bar!"},{"hash":"QmZEdiqdX7RNzqaQGNVr9MvQBSUXuB58cqVzV1NwYmdide","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo","name":"foo","depth":2,"size":0,"type":"dir"},{"hash":"QmdrbiHCxBJ87H92V3cj7dhVoSY2HuYt6d13pvPmEF3KzN","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file1.txt","name":"file1.txt","depth":3,"size":31,"type":"file","content":"This is file1.txt in /root/foo!"},{"hash":"QmWCr8P75nAutWJ2RhKWxq9KNHuArrfh6bShCVGyEjk715","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file2.txt","name":"file2.txt","depth":3,"size":31,"type":"file","content":"This is file2.txt in /root/foo!"},{"hash":"QmYA4wXzcYyEvbjhKWvZx89wDtgKo51F4hfhEDqkTH4eK1","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file3.txt","name":"file3.txt","depth":3,"size":31,"type":"file","content":"This is file3.txt in /root/foo!"}]'
-
 const validate = async (result, ipfs) => {
   // Learn about working with uploaded files:
   // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
+
+  let uploadedFiles = window.uploadedFiles || false
 
   if (!result) {
     return {
@@ -68,7 +58,7 @@ const validate = async (result, ipfs) => {
     if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
         result.error.toString().includes('path.indexOf is not a function')) {
       return {
-        fail: "The `CID` provided to `ipfs.get` is incorrect. Make sure you're using the `CID` we provided"
+        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `pathCID` variable we provided"
       }
     } else {
       return { error: result.error }
@@ -77,35 +67,35 @@ const validate = async (result, ipfs) => {
 
   if (!Array.isArray(result)) {
     return {
-      fail: 'The return value should be an array, just like the `get` function returns. Make sure you are returning the correct value.'
+      fail: 'The return value should be an array, just like the `ls` function returns. Make sure you are returning the correct value.'
+    }
+  }
+
+  if (uploadedFiles.length !== result.length) {
+    return {
+      fail: 'The number of uploaded files is different from the number of files on the `dir` directory. Make sure you are using the correct `CID` and not changing the preset code block.'
     }
   }
 
   let isStructureValid = result.every((elem) => {
-    if (elem.hash === undefined || typeof elem.hash !== 'string') return false
-    if (elem.path === undefined || typeof elem.path !== 'string') return false
-    if (elem.name === undefined || typeof elem.name !== 'string') return false
-    if (elem.depth === undefined || typeof elem.depth !== 'number') return false
-    if (elem.size === undefined || typeof elem.size !== 'number') return false
-    if (elem.type === undefined || typeof elem.type !== 'string') return false
+    if (!elem.hash || typeof elem.hash !== 'string') return false
+    if (!elem.path || typeof elem.path !== 'string') return false
+    if (!elem.name || typeof elem.name !== 'string') return false
+    if (!elem.depth || typeof elem.depth !== 'number') return false
+    if (!elem.size || typeof elem.size !== 'number') return false
+    if (!elem.type || typeof elem.type !== 'string') return false
     return true
   })
 
   if (!isStructureValid) {
     return {
-      fail: 'The returned value does not match the structure of the typical output of the `get` function. Are you sure your are returning the result of the `get` function?'
-    }
-  }
-
-  if (JSON.stringify(result) !== testResult) {
-    return {
-      fail: 'The data returned does not match what we expect. Did you forget to convert the `content` values from `Buffer` to string?'
+      fail: 'The returned value does not match the structure of the typical output of the `ls` function. Are you sure your are returning the result of the `ls` function?'
     }
   }
 
   return {
     success: 'Success!',
-    logDesc: 'Here are the contents of the `dir` directory.',
+    logDesc: 'Here is the result of calling the `ls` method for the `dir` directory.',
     log: result
   }
 

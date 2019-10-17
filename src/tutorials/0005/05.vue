@@ -10,32 +10,44 @@
 </template>
 
 <script>
+import pTimeout from 'p-timeout'
 import FileLesson from '../../components/FileLesson'
 import text from './05.md'
 import exercise from './05-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`/dir/\${elem.name}\` }})
-  const addedFiles = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-  const pathCID = addedFiles.find((elem) => elem.path==="dir").hash
-  // Only edit code bellow this point
+  let filesWithPath = // build the array of {content, path} objects here
 
-  let result = // write your code here
+  let result = // write code to add files here
 
-  return result
+  // don't forget to return the result
 }
 return run
 `
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`/dir/\${elem.name}\` }})
-  const addedFiles = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-  const pathCID = addedFiles.find((elem) => elem.path==="dir").hash
-  // Only edit code bellow this point
+  let filesWithPath = []
 
-  let result = await ipfs.ls()
+  for(let file of files) {
+    let fileObject = {
+      content: file,
+      path: \`/dir/\${file.name}\`
+    }
+
+    filesWithPath.push(fileObject)
+  }
+  
+  // You can also create this array using the map array method
+  // let filesWithPath = files.map((file, idx) => {
+  //   return {
+  //     content: file,
+  //     path: \`/dir/\${file.name}\`
+  //   }
+  // })
+
+  let result = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
 
   return result
 }
@@ -55,47 +67,43 @@ const validate = async (result, ipfs) => {
   }
 
   if (result.error) {
-    if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
-        result.error.toString().includes('path.indexOf is not a function')) {
+    return { error: result.error }
+  }
+
+  if (uploadedFiles.length === result.length - 1) {
+    return {
+      fail: "We're missing an element in the returned array. Did you forget to specify the `/dir` directory in the path?"
+    }
+  }
+
+  if (uploadedFiles.length === result.length) {
+    return {
+      fail: "We can't find a directory. Did you set the `wrapWithDirection` option to true?"
+    }
+  }
+
+  if (uploadedFiles.length !== result.length - 2) {
+    return {
+      fail: 'The resulting array seems to be wrong. You should have one element per file, plus two extra elements to represent the directories'
+    }
+  }
+
+  const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 2].hash), 2000).catch(() => 'error')
+  if (resultingFiles === 'error') {
+    return {
+      fail: 'Could not get CID of `dir` directory'
+    }
+  } else {
+    if (resultingFiles.length !== uploadedFiles.length) {
       return {
-        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `pathCID` variable we provided"
+        fail: 'Number of uploaded files does not match the number of files on your ifps node. Did you skip any of the files you uploaded? Did you make sure each file had a unique name when defining the path?'
       }
-    } else {
-      return { error: result.error }
-    }
-  }
-
-  if (!Array.isArray(result)) {
-    return {
-      fail: 'The return value should be an array, just like the `ls` function returns. Make sure you are returning the correct value.'
-    }
-  }
-
-  if (uploadedFiles.length !== result.length) {
-    return {
-      fail: 'The number of uploaded files is different from the number of files on the `dir` directory. Make sure you are using the correct `CID` and not changing the preset code block.'
-    }
-  }
-
-  let isStructureValid = result.every((elem) => {
-    if (!elem.hash || typeof elem.hash !== 'string') return false
-    if (!elem.path || typeof elem.path !== 'string') return false
-    if (!elem.name || typeof elem.name !== 'string') return false
-    if (!elem.depth || typeof elem.depth !== 'number') return false
-    if (!elem.size || typeof elem.size !== 'number') return false
-    if (!elem.type || typeof elem.type !== 'string') return false
-    return true
-  })
-
-  if (!isStructureValid) {
-    return {
-      fail: 'The returned value does not match the structure of the typical output of the `ls` function. Are you sure your are returning the result of the `ls` function?'
     }
   }
 
   return {
     success: 'Success!',
-    logDesc: 'Here are the contents of the `dir` directory.',
+    logDesc: "Here's what the result of the `add` method. Note that you get 2 extra elements besides the files you uploaded. These match the directories the `add` method created due to the `wrapWithDirectory` option.",
     log: result
   }
 
