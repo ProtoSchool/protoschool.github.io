@@ -27,7 +27,7 @@ return run
 const solution = `/* global ipfs */
 const run = async (files) => {
   const result = await ipfs.add(files)
-  
+
   return result
 }
 return run
@@ -81,22 +81,15 @@ const validate = async (result, ipfs) => {
       }
     }
   }
+  const fileText = result.length > 1 ? `these files` : 'this file'
+  const valueText = result.length > 1 ? `values` : 'value'
+  const thatText = result.length > 1 ? `them` : 'it'
 
   return {
     success: 'Success! You did it!',
-    logDesc: "Here's the result of the `add` command",
+    logDesc: "Your `add` command returned the array of objects below. Notice in particular the `hash` " + valueText + ", since we'll need " + thatText + " to access " + fileText + " again later. The `path` matches the `hash` for " + fileText + ", but we'll see in future lessons that that's not always true.",
     log: result
   }
-
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
 }
 
 const modules = { cids: require('cids') }
