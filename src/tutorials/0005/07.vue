@@ -16,7 +16,7 @@ import text from './07.md'
 import exercise from './07-exercise.md'
 
 const code = `/* global ipfs */
-const run = async () => { 
+const run = async () => {
   let result = // write your get code here
 
   // loop over the results to modify the content of the files in the result array here
@@ -56,8 +56,6 @@ return run
 const testResult = '[{"hash":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","name":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","depth":1,"size":0,"type":"dir"},{"hash":"QmeMSPkjXkD2VzMzQXex7TQNkaoCfxmh6uKtZQxyqhXQRD","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/bar","name":"bar","depth":2,"size":0,"type":"dir"},{"hash":"QmT92qKASn2wUL2fxspZkDaB9kCfzc8Bx1qvKq5u2ai1BW","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/bar/file4.txt","name":"file4.txt","depth":3,"size":41,"type":"file","content":"This is file4.txt, which is in /root/bar!"},{"hash":"QmZEdiqdX7RNzqaQGNVr9MvQBSUXuB58cqVzV1NwYmdide","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo","name":"foo","depth":2,"size":0,"type":"dir"},{"hash":"QmdrbiHCxBJ87H92V3cj7dhVoSY2HuYt6d13pvPmEF3KzN","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file1.txt","name":"file1.txt","depth":3,"size":31,"type":"file","content":"This is file1.txt in /root/foo!"},{"hash":"QmWCr8P75nAutWJ2RhKWxq9KNHuArrfh6bShCVGyEjk715","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file2.txt","name":"file2.txt","depth":3,"size":31,"type":"file","content":"This is file2.txt in /root/foo!"},{"hash":"QmYA4wXzcYyEvbjhKWvZx89wDtgKo51F4hfhEDqkTH4eK1","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file3.txt","name":"file3.txt","depth":3,"size":31,"type":"file","content":"This is file3.txt in /root/foo!"}]'
 
 const validate = async (result, ipfs) => {
-  // Learn about working with uploaded files:
-  // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
 
   if (!result) {
     return {
@@ -110,15 +108,6 @@ const validate = async (result, ipfs) => {
     log: result
   }
 
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
 }
 
 const modules = { cids: require('cids') }

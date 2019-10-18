@@ -34,8 +34,6 @@ return run
 `
 
 const validate = async (result, ipfs) => {
-  // Learn about working with uploaded files:
-  // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
 
   const uploadedFiles = window.uploadedFiles || false
 
