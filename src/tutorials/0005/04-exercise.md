@@ -1,9 +1,9 @@
-In this exercise, we will try to read the contents of a file we have already uploaded for you. In order to read its contents, you'll need the path to the file on IPFS, which corresponds to the following `CID`:
+For this exercise, we've added a plain text file to your IPFS node for you, and its CID is:
 
 ```
-"QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ"
+'QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ'
 ```
 
-Use the `cat` function to read the contents of the file to a variable.
+Using the `cat` function, retrieve the file's contents and return them as a string.
 
-**Hint:** Don't forget to convert it to a string using `.toString('utf8')` before returning the result.
+**Hint:** Don't forget to convert the buffered contents of the text file to a string using `.toString('utf8')` before returning your result.

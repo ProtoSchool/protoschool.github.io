@@ -45,10 +45,12 @@ const validate = async (result, ipfs) => {
   if (result === 'You did it!') {
     return {
       success: 'Success!',
-      logDesc: "Here's the message hidden in that secret file 🤫",
+      logDesc: "Here's the secret message hidden in that file (🤫): ",
       log: result
     }
   }
+
+  // TODO : Add `else if` and `else` clauses with more validation options
 }
 
 const modules = { cids: require('cids') }
