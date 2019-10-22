@@ -95,7 +95,8 @@ const validate = async (result, ipfs) => {
   return {
     success: 'Success!',
     logDesc: "Here's what the result of the `add` method. Note that you get 2 extra elements besides the files you uploaded. These match the directories the `add` method created due to the `wrapWithDirectory` option." +
-              "\n\n Notice also that the `path` attribute of the files matches their name. We will be able to use them in combination with the directory's `CID` to get the file's content in a future lesson.",
+              "\n\n Notice also that the `path` attribute of the files matches their name. We will be able to use them in combination with the directory's `CID` to get the file's content in a future lesson." +
+              "\n\n We only have access to the added files' and directories' `CID`s when the `add` method returns them, so you should save them if you want to use them later.",
     log: result
   }
 }

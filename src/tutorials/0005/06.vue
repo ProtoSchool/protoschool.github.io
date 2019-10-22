@@ -16,9 +16,9 @@ import exercise from './06-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`/dir/\${elem.name}\` }})
+  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`\${elem.name}\` }})
   const addedFiles = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-  const pathCID = addedFiles.find((elem) => elem.path==="dir").hash
+  const pathCID = addedFiles.find((elem) => elem.path==="").hash
   // Only edit code bellow this point
 
   let result = // write your code here
@@ -30,9 +30,9 @@ return run
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`/dir/\${elem.name}\` }})
+  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`\${elem.name}\` }})
   const addedFiles = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-  const pathCID = addedFiles.find((elem) => elem.path==="dir").hash
+  const pathCID = addedFiles.find((elem) => elem.path==="").hash
   // Only edit code bellow this point
 
   let result = await ipfs.ls(pathCID)
@@ -43,7 +43,6 @@ return run
 `
 
 const validate = async (result, ipfs) => {
-
   let uploadedFiles = window.uploadedFiles || false
 
   if (!result) {
@@ -96,7 +95,6 @@ const validate = async (result, ipfs) => {
     logDesc: 'Here is the result of calling the `ls` method for the `dir` directory.',
     log: result
   }
-
 }
 
 const modules = { cids: require('cids') }
