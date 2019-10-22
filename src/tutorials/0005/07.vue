@@ -16,7 +16,7 @@ import text from './07.md'
 import exercise from './07-exercise.md'
 
 const code = `/* global ipfs */
-const run = async () => { 
+const run = async () => {
   let result = // write your get code here
 
   // loop over the results to modify the content of the files in the result array here
@@ -56,9 +56,6 @@ return run
 const testResult = '[{"path":"file3.txt","hash":"QmS4ejbuxt7JvN3oYyX85yVfsgRHMPrVzgxukXMvToK5td","size":9},{"path":"file2.txt","hash":"QmQLd9KEkw5eLKfr9VwfthiWbuqa9LXhRchWqD4kRPPWEf","size":9},{"path":"file1.txt","hash":"QmfDmsHTywy6L9Ne5RXsj5YumDedfBLMvCvmaxjBoe6w4d","size":9},{"path":"","hash":"Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH","size":184}]'
 
 const validate = async (result, ipfs) => {
-  // Learn about working with uploaded files:
-  // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
-
   if (!result) {
     return {
       fail: 'Oops! You forgot to return a result :('
@@ -109,16 +106,6 @@ const validate = async (result, ipfs) => {
     logDesc: 'Here is the result of calling the `get` method with the `CID` of the `dir` directory.',
     log: result
   }
-
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
 }
 
 const modules = { cids: require('cids') }

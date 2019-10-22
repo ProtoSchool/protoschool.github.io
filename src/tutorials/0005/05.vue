@@ -38,7 +38,7 @@ const run = async (files) => {
 
     filesWithPath.push(fileObject)
   }
-  
+
   // You can also create this array using the map array method
   // let filesWithPath = files.map((file, idx) => {
   //   return {
@@ -55,9 +55,6 @@ return run
 `
 
 const validate = async (result, ipfs) => {
-  // Learn about working with uploaded files:
-  // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
-
   let uploadedFiles = window.uploadedFiles || false
 
   if (!result) {
@@ -101,16 +98,6 @@ const validate = async (result, ipfs) => {
               "\n\n Notice also that the `path` attribute of the files matches their name. We will be able to use them in combination with the directory's `CID` to get the file's content in a future lesson.",
     log: result
   }
-
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
 }
 
 const modules = { cids: require('cids') }

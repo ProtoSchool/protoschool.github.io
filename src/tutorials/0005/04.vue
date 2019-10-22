@@ -35,8 +35,6 @@ return run
 `
 
 const validate = async (result, ipfs) => {
-  // Learn about working with uploaded files:
-  // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
 
   if (!result) {
     return {
@@ -47,20 +45,12 @@ const validate = async (result, ipfs) => {
   if (result === 'You did it!') {
     return {
       success: 'Success!',
-      logDesc: "Here's the message hidden in that secret file 🤫",
+      logDesc: "Here's the secret message hidden in that file (🤫): ",
       log: result
     }
   }
 
-  /*
-    There are some additional options you can find useful:
-
-    If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
-
-    If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
-  */
+  // TODO : Add `else if` and `else` clauses with more validation options
 }
 
 const modules = { cids: require('cids') }
