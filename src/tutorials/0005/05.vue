@@ -33,7 +33,7 @@ const run = async (files) => {
   for(let file of files) {
     let fileObject = {
       content: file,
-      path: \`/dir/\${file.name}\`
+      path: \`\${file.name}\`
     }
 
     filesWithPath.push(fileObject)
@@ -43,7 +43,7 @@ const run = async (files) => {
   // let filesWithPath = files.map((file, idx) => {
   //   return {
   //     content: file,
-  //     path: \`/dir/\${file.name}\`
+  //     path: \`\${file.name}\`
   //   }
   // })
 
@@ -70,25 +70,19 @@ const validate = async (result, ipfs) => {
     return { error: result.error }
   }
 
-  if (uploadedFiles.length === result.length - 1) {
-    return {
-      fail: "We're missing an element in the returned array. Did you forget to specify the `/dir` directory in the path?"
-    }
-  }
-
   if (uploadedFiles.length === result.length) {
     return {
       fail: "We can't find a directory. Did you set the `wrapWithDirection` option to true?"
     }
   }
 
-  if (uploadedFiles.length !== result.length - 2) {
+  if (uploadedFiles.length !== result.length - 1) {
     return {
-      fail: 'The resulting array seems to be wrong. You should have one element per file, plus two extra elements to represent the directories'
+      fail: 'The resulting array seems to be wrong. You should have one element per file, plus another for the root directory'
     }
   }
 
-  const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 2].hash), 2000).catch(() => 'error')
+  const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 1].hash), 2000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
       fail: 'Could not get CID of `dir` directory'
@@ -103,7 +97,8 @@ const validate = async (result, ipfs) => {
 
   return {
     success: 'Success!',
-    logDesc: "Here's what the result of the `add` method. Note that you get 2 extra elements besides the files you uploaded. These match the directories the `add` method created due to the `wrapWithDirectory` option.",
+    logDesc: "Here's what the result of the `add` method. Note that you get 2 extra elements besides the files you uploaded. These match the directories the `add` method created due to the `wrapWithDirectory` option." +
+              "\n\n Notice also that the `path` attribute of the files matches their name. We will be able to use them in combination with the directory's `CID` to get the file's content in a future lesson.",
     log: result
   }
 

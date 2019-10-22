@@ -15,7 +15,7 @@ The file structure has been created for us, and it looks like this:
 In order to use the `get` function to obtain all the files and directories, we will need an IPFS path for the `/root` directory. The IPFS path is this `CID`:
 
 ```
-QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa
+"Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH"
 ```
 
 Here's the challenging part: we need to loop over the array of results of the `get` function and replace the value of `content` (if the `content` exists) with the string version of the content.

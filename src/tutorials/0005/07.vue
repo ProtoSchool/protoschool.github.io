@@ -28,7 +28,7 @@ return run
 
 const solution = `/* global ipfs */
 const run = async () => {
-  let filesAndDirectories = await ipfs.get('QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa')
+  let filesAndDirectories = await ipfs.get('Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH')
 
   let filesContents = []
 
@@ -38,7 +38,7 @@ const run = async () => {
       item.content = item.content.toString('utf-8')
     }
 
-    filesContent.push(item)
+    filesContents.push(item)
   }
 
   // filesAndDirectories = filesAndDirectories.map((elem) => {
@@ -53,7 +53,7 @@ const run = async () => {
 return run
 `
 
-const testResult = '[{"hash":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","name":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa","depth":1,"size":0,"type":"dir"},{"hash":"QmeMSPkjXkD2VzMzQXex7TQNkaoCfxmh6uKtZQxyqhXQRD","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/bar","name":"bar","depth":2,"size":0,"type":"dir"},{"hash":"QmT92qKASn2wUL2fxspZkDaB9kCfzc8Bx1qvKq5u2ai1BW","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/bar/file4.txt","name":"file4.txt","depth":3,"size":41,"type":"file","content":"This is file4.txt, which is in /root/bar!"},{"hash":"QmZEdiqdX7RNzqaQGNVr9MvQBSUXuB58cqVzV1NwYmdide","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo","name":"foo","depth":2,"size":0,"type":"dir"},{"hash":"QmdrbiHCxBJ87H92V3cj7dhVoSY2HuYt6d13pvPmEF3KzN","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file1.txt","name":"file1.txt","depth":3,"size":31,"type":"file","content":"This is file1.txt in /root/foo!"},{"hash":"QmWCr8P75nAutWJ2RhKWxq9KNHuArrfh6bShCVGyEjk715","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file2.txt","name":"file2.txt","depth":3,"size":31,"type":"file","content":"This is file2.txt in /root/foo!"},{"hash":"QmYA4wXzcYyEvbjhKWvZx89wDtgKo51F4hfhEDqkTH4eK1","path":"QmZ7k62bCGUzhTMiuXxMLz7rVn4KyPuVPvJCDHYSNdZDqa/foo/file3.txt","name":"file3.txt","depth":3,"size":31,"type":"file","content":"This is file3.txt in /root/foo!"}]'
+const testResult = '[{"path":"file3.txt","hash":"QmS4ejbuxt7JvN3oYyX85yVfsgRHMPrVzgxukXMvToK5td","size":9},{"path":"file2.txt","hash":"QmQLd9KEkw5eLKfr9VwfthiWbuqa9LXhRchWqD4kRPPWEf","size":9},{"path":"file1.txt","hash":"QmfDmsHTywy6L9Ne5RXsj5YumDedfBLMvCvmaxjBoe6w4d","size":9},{"path":"","hash":"Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH","size":184}]'
 
 const validate = async (result, ipfs) => {
   // Learn about working with uploaded files:
