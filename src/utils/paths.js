@@ -1,11 +1,20 @@
 import tutorials from '../static/tutorials.json'
 
-export const deriveShortname = (path) =>
-  path
-    .split('/')[1]
-    .split('-')
-    .map(e => e.charAt(0).toUpperCase() + e.slice(1))
-    .join(' ')
+const correctedCases = {
+  api: 'API'
+}
+
+const fixCasing = function (e) {
+  if (correctedCases.hasOwnProperty(e)) {
+    return correctedCases[e]
+  } else {
+    return e.charAt(0).toUpperCase() + e.slice(1)
+  }
+}
+
+export const deriveShortname = function (path) {
+  return path.split('/')[1].split('-').map(e => fixCasing(e)).join(' ')
+}
 
 export const migrateCache = (tutorialId, pastUrl) => {
   const tutorial = tutorials[tutorialId]
