@@ -145,7 +145,7 @@
 		]
 	},
 	"0005": {
-		"url": "file-api",
+		"url": "files-api",
 		"project": "IPFS",
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Files API provides a way to store and share files in a peer-to-peer storage system.",
@@ -159,6 +159,12 @@
 			"Get all of the files in a directory"
 		],
 		"resources": [
+			{
+				 "title": "Understanding How IPFS Deals with Files",
+				 "link": "https://youtu.be/Z5zNPwMDYGg",
+				 "type": "video",
+				 "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports. It also introduces some the joys and pitfalls of the Mutable File System (MFS)."
+			 },
 		   {
 					"title": "JS-IPFS Files API",
 					"link": "https://github.com/ipfs/interface-js-ipfs-core/blob/master/SPEC/FILES.md",
