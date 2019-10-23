@@ -17,39 +17,40 @@ import exercise from './05-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  let filesWithPath = // build the array of {content, path} objects here
 
-  let result = // write code to add files here
+  let fileObjectsArray = // build your array of {content, path} objects here
 
-  // don't forget to return the result
+  return // add the files to IPFS here, returning the result
+
 }
 return run
 `
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  let filesWithPath = []
+
+  let fileObjectsArray = []
 
   for(let file of files) {
     let fileObject = {
-      content: file,
-      path: \`\${file.name}\`
+      path: file.name,
+      content: file
     }
 
-    filesWithPath.push(fileObject)
+    fileObjectsArray.push(fileObject)
   }
 
-  // You can also create this array using the map array method
-  // let filesWithPath = files.map((file, idx) => {
+  // Alternatively, using the Array.map method:
+  //
+  // let fileObjectsArray = files.map((file, idx) => {
   //   return {
-  //     content: file,
-  //     path: \`\${file.name}\`
+  //     path: file.name,
+  //     content: file
   //   }
   // })
 
-  let result = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
+  return await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
 
-  return result
 }
 return run
 `
@@ -69,13 +70,14 @@ const validate = async (result, ipfs) => {
 
   if (uploadedFiles.length === result.length) {
     return {
-      fail: "We can't find a directory. Did you set the `wrapWithDirection` option to true?"
+      fail: "We can't find a directory in your results. Did you remember to set the `wrapWithDirectory` option to true?"
     }
   }
 
   if (uploadedFiles.length !== result.length - 1) {
     return {
-      fail: 'The resulting array seems to be wrong. You should have one element per file, plus another for the root directory'
+      fail: 'The resulting array seems to be wrong. You should have one element per file, plus another for the root directory.'
+      // can we add language about them perhaps creating a subdirectory they shouldn't have? Or might there be other reasons for this result?
     }
   }
 
@@ -83,20 +85,21 @@ const validate = async (result, ipfs) => {
   if (resultingFiles === 'error') {
     return {
       fail: 'Could not get CID of `dir` directory'
+      // is this reference to dir out of date??
     }
   } else {
     if (resultingFiles.length !== uploadedFiles.length) {
       return {
-        fail: 'Number of uploaded files does not match the number of files on your ifps node. Did you skip any of the files you uploaded? Did you make sure each file had a unique name when defining the path?'
+        fail: "The number of uploaded files doesn't match the number of files on your IPFS node. Did you add every file you uploaded to IPFS? Did you make sure each file had a unique name when defining its path?"
       }
     }
   }
 
   return {
     success: 'Success!',
-    logDesc: "Here's what the result of the `add` method. Note that you get 2 extra elements besides the files you uploaded. These match the directories the `add` method created due to the `wrapWithDirectory` option." +
-              "\n\n Notice also that the `path` attribute of the files matches their name. We will be able to use them in combination with the directory's `CID` to get the file's content in a future lesson." +
-              "\n\n We only have access to the added files' and directories' `CID`s when the `add` method returns them, so you should save them if you want to use them later.",
+    logDesc: "Here are the results returned by the `add` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the root directory with path `''`)." +
+              "\n\n Because you used the `{ wrapWithDirectory: true }` option, the `path` of each file is now the filename you provided, rather than matching the file's `hash`.  You'll be able to use these human-readable paths to in combination with the directory's CID to access the file's content in a future lesson." +
+              "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them, so you should save them if you want to use them later.",
     log: result
   }
 }
