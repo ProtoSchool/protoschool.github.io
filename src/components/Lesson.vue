@@ -132,8 +132,6 @@ marked.setOptions({
 })
 
 const _eval = async (text, ipfs, modules = {}, args = []) => {
-  await new Promise(resolve => ipfs.on('ready', resolve))
-
   let fn
   let result
   try {
@@ -282,9 +280,11 @@ export default {
       let ipfs = await this.createIPFS()
       if (this.createTestFile) {
         await this.createFile(ipfs)
-      }
+      } else
       if (this.createTestTree) {
         await this.createTree(ipfs)
+      } else {
+        await new Promise(resolve => ipfs.on('ready', resolve))
       }
       let code = this.editor.getValue()
       let modules = {}
@@ -351,7 +351,7 @@ export default {
     },
     createFile: function (ipfs) {
       /* eslint-disable no-new */
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         ipfs.on('ready', async () => {
           await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
           resolve()
@@ -360,26 +360,22 @@ export default {
     },
     createTree: function (ipfs) {
       /* eslint-disable no-new */
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         ipfs.on('ready', async () => {
           await ipfs.add([
             {
-              content: this.ipfsConstructor.Buffer.from('This is file1.txt in /root/foo!'),
-              path: '/root/foo/file1.txt'
+              content: this.ipfsConstructor.Buffer.from('a'),
+              path: 'file1.txt'
             },
             {
-              content: this.ipfsConstructor.Buffer.from('This is file2.txt in /root/foo!'),
-              path: '/root/foo/file2.txt'
+              content: this.ipfsConstructor.Buffer.from('b'),
+              path: 'file2.txt'
             },
             {
-              content: this.ipfsConstructor.Buffer.from('This is file3.txt in /root/foo!'),
-              path: '/root/foo/file3.txt'
-            },
-            {
-              content: this.ipfsConstructor.Buffer.from('This is file4.txt, which is in /root/bar!'),
-              path: '/root/bar/file4.txt'
+              content: this.ipfsConstructor.Buffer.from('You did it!'),
+              path: 'success.txt'
             }
-          ])
+          ], { wrapWithDirectory: true })
           resolve()
         })
       })
