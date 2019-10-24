@@ -1,5 +1,3 @@
-In the previous exercise, we uploaded multiple files into a root directory. This time, let's check which files are, in fact, in the root directory of our IPFS node.
+Use `ls` to list the contents of the root directory you created in the previous exercise.
 
-**Hint:** The IPFS path (`CID`) you need to call the `ls` function is stored in the `pathCID` variable.
-
-**Note**: You may be wondering how we obtained the `CID` of the `/dir` directory. After you add files into the directory, any directories created will be part of the resulting array. Therefore we look through the array resulting from the `add` method for the element with the empty path (which corresponds to the root directory), whose `hash` will be the `CID` to the directory.
+**Hint:** The CID of the root directory ( `""` ) has been stored for you in the `rootCID` variable in the starter code below. You could have jotted this value down after the last exercise, but here we're looking through the array returned by the `add` method to find the element with the empty string as its `path` (the root directory) and saving its `hash` value, or CID.
