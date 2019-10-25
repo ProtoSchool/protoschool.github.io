@@ -105,15 +105,15 @@ const routes = [
   { path: '/mutable-file-system/10', component: T0004L10 },
   { path: '/mutable-file-system/01', component: T0004L11 },
   // Tutorial 0005
-  { path: '/file-api', component: Landing, props: { tutorialId: '0005' } },
-  { path: '/file-api/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
-  { path: '/file-api/01', component: T0005L01 },
-  { path: '/file-api/02', component: T0005L02 },
-  { path: '/file-api/03', component: T0005L03 },
-  { path: '/file-api/04', component: T0005L04 },
-  { path: '/file-api/05', component: T0005L05 },
-  { path: '/file-api/06', component: T0005L06 },
-  { path: '/file-api/07', component: T0005L07 },
+  { path: '/files-api', component: Landing, props: { tutorialId: '0005' } },
+  { path: '/files-api/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
+  { path: '/files-api/01', component: T0005L01 },
+  { path: '/files-api/02', component: T0005L02 },
+  { path: '/files-api/03', component: T0005L03 },
+  { path: '/files-api/04', component: T0005L04 },
+  { path: '/files-api/05', component: T0005L05 },
+  { path: '/files-api/06', component: T0005L06 },
+  { path: '/files-api/07', component: T0005L07 },
   // 404
   { path: '*', name: '404', component: NotFound, props: { notFound: true } }
 ]

@@ -16,28 +16,24 @@ import exercise from './06-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`\${elem.name}\` }})
-  const addedFiles = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-  const pathCID = addedFiles.find((elem) => elem.path==="").hash
-  // Only edit code bellow this point
+  const fileObjectsArray = files.map((file, idx) => { return { path: file.name, content: file }})
+  const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
+  const rootCID = addedFiles.find((file) => file.path==="").hash
 
-  let result = // write your code here
+  // only edit code below this point
 
-  // don't forget to return the string value
+  return // your code to list the contents of the root directory
 }
 return run
 `
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const filesWithPath = files.map((elem, idx) => { return { content: elem, path: \`\${elem.name}\` }})
-  const addedFiles = await ipfs.add(filesWithPath, {wrapWithDirectory: true})
-  const pathCID = addedFiles.find((elem) => elem.path==="").hash
-  // Only edit code bellow this point
+  const fileObjectsArray = files.map((file, idx) => { return { path: file.name, content: file }})
+  const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
+  const rootCID = addedFiles.find((file) => file.path==="").hash
 
-  let result = await ipfs.ls(pathCID)
-
-  return result
+  return await ipfs.ls(rootCID)
 }
 return run
 `
@@ -55,7 +51,7 @@ const validate = async (result, ipfs) => {
     if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
         result.error.toString().includes('path.indexOf is not a function')) {
       return {
-        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `pathCID` variable we provided"
+        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `rootCID` variable we provided."
       }
     } else {
       return { error: result.error }
@@ -70,7 +66,7 @@ const validate = async (result, ipfs) => {
 
   if (uploadedFiles.length !== result.length) {
     return {
-      fail: 'The number of uploaded files is different from the number of files on the `dir` directory. Make sure you are using the correct `CID` and not changing the preset code block.'
+      fail: "The number of uploaded files is different from the number of files in the root directory. Make sure you're using the correct `CID` and not changing the preset code block."
     }
   }
 
@@ -86,13 +82,13 @@ const validate = async (result, ipfs) => {
 
   if (!isStructureValid) {
     return {
-      fail: 'The returned value does not match the structure of the typical output of the `ls` function. Are you sure your are returning the result of the `ls` function?'
+      fail: "The returned value doesn't match the structure normally returned by `ls`. Are you sure you're returning the result of the `ls` function?"
     }
   }
 
   return {
     success: 'Success!',
-    logDesc: 'Here is the result of calling the `ls` method for the `dir` directory.',
+    logDesc: "Here are the results returned by the `ls` method for the root directory ( \"\" ). Notice that there are new fields here that we didn't see in the data returned by the `add` method.",
     log: result
   }
 }

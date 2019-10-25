@@ -1,7 +1,3 @@
-Let's upload some files and add them to our IPFS node. This time, however, we will use the option `{ wrapWithDirectory: true }` to put all the files in the same directory!
+Add one or more files to your IPFS node, using `{ wrapWithDirectory: true }` to put them in the root directory. Because you're targeting the root directory, not a subdirectory, the path of each file should be its name.
 
-We want to add the files into a common root directory, which means the path of each file should be its name. You can upload one or multiple files.
-
-Don't forget, you can get the name of the file you uploaded with `file.name`.
-
-**Hint:** Remember the `add` function from our previous lesson? It looks like `await ipfs.add(file, options)`. Dont forget you need to pass an array to file if you want to add multiple files, and the object structure to indicate the desired path of the file.
+**Hints:** Be sure to reference the examples above for the object structure needed to indicate the desired path of each file, as well as how to pass in multiple files as an array. Remember, you can access the name of a file you uploaded with `file.name`.
