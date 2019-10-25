@@ -88,7 +88,7 @@ const validate = async (result, ipfs) => {
 
   return {
     success: 'Success!',
-    logDesc: "Here are the results returned by the `ls` method for the root directory ( \"\" ). Notice that there are new fields here that we didn't see in the data returned by the `add` method.",
+    logDesc: "Here are the results returned by the `ls` method for the root directory ( \"\" ). Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `hash` and `path` values now differ. The `hash` for each file is the CID of the file itself, while the the `path` is the CID of the root directory followed by the filename.",
     log: result
   }
 }

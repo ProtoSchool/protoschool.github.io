@@ -17,20 +17,23 @@ import exercise from './07-exercise.md'
 
 const code = `/* global ipfs */
 const run = async () => {
-  const fileContents = // write your code here
+  const bufferedContents = // access the content of the file
 
-  // don't forget to return a value
+  const textContents = // convert the Buffer to a string
+
+  return textContents // return the text contained in the file
+
 }
 return run
 `
 
 const solution = `/* global ipfs */
 const run = async () => {
-  const fileBufferContents = await ipfs.cat("QmbDyYL9SaWD2pYvN6JmGwetcDgzr466Z3WjigDmndZ6ea/success.txt")
+  const bufferedContents = await ipfs.cat("QmbDyYL9SaWD2pYvN6JmGwetcDgzr466Z3WjigDmndZ6ea/success.txt")
 
-  const fileMessage = fileBufferContents.toString('utf-8')
+  const textContents = bufferedContents.toString('utf-8')
 
-  return fileMessage
+  return textContents
 }
 return run
 `
@@ -48,19 +51,19 @@ const validate = async (result, ipfs) => {
 
   if (typeof result !== 'string') {
     return {
-      fail: 'You should convert the message to a string before returning it.'
+      fail: "Oops! Don't forget to convert the file's contents to a string."
     }
   }
 
   if (result !== 'You did it!') {
     return {
-      fail: 'Oops, the string you returned does not match the contents of the file! Make sure you are returning what you get from the `cat` method converted to a string'
+      fail: "Uh oh. The string you returned doesn't match the contents of the file! Did you use as your path the directory's CID followed by the filename? Are you returning the results of the `cat` method converted to a string."
     }
   }
 
   return {
     success: 'Success!',
-    logDesc: 'Here is the result of calling the `get` method with the `CID` of the `dir` directory.',
+    logDesc: 'Here is the message you read from `success.txt` using `cat`:',
     log: result
   }
 }
