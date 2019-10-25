@@ -156,6 +156,7 @@
 			"Read the contents of a file",
 			"Add files in a directory",
 			"List the files in a directory",
+			"Read a file in a directory",
 			"Get all of the files in a directory"
 		],
 		"resources": [

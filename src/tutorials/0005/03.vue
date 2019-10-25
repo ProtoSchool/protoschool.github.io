@@ -34,7 +34,6 @@ return run
 `
 
 const validate = async (result, ipfs) => {
-
   const uploadedFiles = window.uploadedFiles || false
 
   if (!result) {
@@ -85,7 +84,7 @@ const validate = async (result, ipfs) => {
 
   return {
     success: 'Success! You did it!',
-    logDesc: "Your `add` command returned the array of objects below. Notice in particular the `hash` " + valueText + ", since we'll need " + thatText + " to access " + fileText + " again later. The `path` matches the `hash` for " + fileText + ", but we'll see in future lessons that that's not always true.",
+    logDesc: 'Your `add` command returned the array of objects below. Notice in particular the `hash` ' + valueText + ", since we'll need " + thatText + ' to access ' + fileText + ' again later. The `path` matches the `hash` for ' + fileText + ", but we'll see in future lessons that that's not always true.",
     log: result
   }
 }

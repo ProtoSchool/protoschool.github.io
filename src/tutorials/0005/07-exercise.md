@@ -1,26 +1,17 @@
-In this last lesson of this tutorial, let's try to do something a bit more challenging. We will use the `get` method we learned about to get all the files and directories from a directory structure.
+The goal of this exercise is to read the contents of a file named `success.txt`, present inside a root directory.
 
-The file structure has been created for us, and it looks like this: 
+We will provide you the directory `CID`, so you will have to use it and the file path to access the file.
 
-```
-/root
-/root/foo
-/root/foo/file1.txt
-/root/foo/file2.txt
-/root/foo/file3.txt
-/root/bar
-/root/bar/file4.txt
-```
+The root directory has the following `CID`:
 
-In order to use the `get` function to obtain all the files and directories, we will need an IPFS path for the `/root` directory. The IPFS path is this `CID`:
+`"QmbDyYL9SaWD2pYvN6JmGwetcDgzr466Z3WjigDmndZ6ea"`
 
-```
-"Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH"
-```
+And the file we are trying to read is called:
 
-Here's the challenging part: we need to loop over the array of results of the `get` function and replace the value of `content` (if the `content` exists) with the string version of the content.
+`success.txt`
+
+Don't forget to return to convert the contents of the file into a string before returning it.
 
 **Hints:**
-* You can either check if `content` already exists in an object, or test if `type === "file"`.
-
+* You can access the file by combining the `CID` of the directory it is in with the file name, like `"CID/file.txt"`
 * If you remember, we have talked about how to convert a `Buffer` to a string in a previous lesson, with `content.toString('utf-8').

@@ -3,10 +3,10 @@
     :text="text"
     :code="code"
     :validate="validate"
-    :overrideErrors="true"
     :modules="modules"
     :exercise="exercise"
     :solution="solution"
+    :overrideErrors="true"
     :createTestTree="true" />
 </template>
 
@@ -17,87 +17,44 @@ import exercise from './07-exercise.md'
 
 const code = `/* global ipfs */
 const run = async () => {
-  let result = // write your get code here
+  const fileContents = // write your code here
 
-  // loop over the results to modify the content of the files in the result array here
-
-  // don't forget to return the string value
+  // don't forget to return a value
 }
 return run
 `
 
 const solution = `/* global ipfs */
 const run = async () => {
-  let filesAndDirectories = await ipfs.get('Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH')
+  const fileBufferContents = await ipfs.cat("QmbDyYL9SaWD2pYvN6JmGwetcDgzr466Z3WjigDmndZ6ea/success.txt")
 
-  let filesContents = []
+  const fileMessage = fileBufferContents.toString('utf-8')
 
-  for( let item in filesAndDirectories ) {
-    // If the item is a file, it has content
-    if(item.content) {
-      item.content = item.content.toString('utf-8')
-    }
-
-    filesContents.push(item)
-  }
-
-  // filesAndDirectories = filesAndDirectories.map((elem) => {
-  //   if(elem.content) {
-  //     elem.content = elem.content.toString('utf-8')
-  //   }
-  //   return elem
-  // })
-
-  return filesAndDirectories
+  return fileMessage
 }
 return run
 `
 
-const testResult = '[{"path":"file3.txt","hash":"QmS4ejbuxt7JvN3oYyX85yVfsgRHMPrVzgxukXMvToK5td","size":9},{"path":"file2.txt","hash":"QmQLd9KEkw5eLKfr9VwfthiWbuqa9LXhRchWqD4kRPPWEf","size":9},{"path":"file1.txt","hash":"QmfDmsHTywy6L9Ne5RXsj5YumDedfBLMvCvmaxjBoe6w4d","size":9},{"path":"","hash":"Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH","size":184}]'
-
 const validate = async (result, ipfs) => {
   if (!result) {
     return {
-      fail: 'Oops! You forgot to return a result :('
+      fail: 'Oops! You forgot to return a result. We are looking for the message in the file :('
     }
   }
 
   if (result.error) {
-    if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
-        result.error.toString().includes('path.indexOf is not a function')) {
-      return {
-        fail: "The `CID` provided to `ipfs.get` is incorrect. Make sure you're using the `CID` we provided"
-      }
-    } else {
-      return { error: result.error }
+    return { error: result.error }
+  }
+
+  if (typeof result !== 'string') {
+    return {
+      fail: 'You should convert the message to a string before returning it.'
     }
   }
 
-  if (!Array.isArray(result)) {
+  if (result !== 'You did it!') {
     return {
-      fail: 'The return value should be an array, just like the `get` function returns. Make sure you are returning the correct value.'
-    }
-  }
-
-  let isStructureValid = result.every((elem) => {
-    if (elem.hash === undefined || typeof elem.hash !== 'string') return false
-    if (elem.path === undefined || typeof elem.path !== 'string') return false
-    if (elem.name === undefined || typeof elem.name !== 'string') return false
-    if (elem.depth === undefined || typeof elem.depth !== 'number') return false
-    if (elem.size === undefined || typeof elem.size !== 'number') return false
-    if (elem.type === undefined || typeof elem.type !== 'string') return false
-    return true
-  })
-
-  if (!isStructureValid) {
-    return {
-      fail: 'The returned value does not match the structure of the typical output of the `get` function. Are you sure your are returning the result of the `get` function?'
-    }
-  }
-
-  if (JSON.stringify(result) !== testResult) {
-    return {
-      fail: 'The data returned does not match what we expect. Did you forget to convert the `content` values from `Buffer` to string?'
+      fail: 'Oops, the string you returned does not match the contents of the file! Make sure you are returning what you get from the `cat` method converted to a string'
     }
   }
 
