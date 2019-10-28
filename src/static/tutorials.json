@@ -148,7 +148,7 @@
 		"url": "files-api",
 		"project": "IPFS",
 		"title": "IPFS: Regular Files API",
-		"description": "The IPFS Files API provides a way to store and share files in a peer-to-peer storage system.",
+		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
 		"lessons": [
 			"Introducing the Files API",
 			"Working with files in ProtoSchool",
