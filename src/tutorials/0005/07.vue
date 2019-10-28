@@ -29,7 +29,14 @@ return run
 
 const solution = `/* global ipfs */
 const run = async () => {
-  const bufferedContents = await ipfs.cat("QmbDyYL9SaWD2pYvN6JmGwetcDgzr466Z3WjigDmndZ6ea/success.txt")
+
+  // You can access the file in two different ways with the CID's we gave you
+
+  // Using the root CID and file path relative to root
+  const bufferedContents = await ipfs.cat("QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir/success.txt")
+
+  // Using the subdirectory CID and file path relative to the dir subdirectory
+  // const bufferedContents = await ipfs.cat("QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt")
 
   const textContents = bufferedContents.toString('utf-8')
 

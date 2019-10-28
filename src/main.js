@@ -53,6 +53,7 @@ import T0005L04 from './tutorials/0005/04.vue'
 import T0005L05 from './tutorials/0005/05.vue'
 import T0005L06 from './tutorials/0005/06.vue'
 import T0005L07 from './tutorials/0005/07.vue'
+import T0005L08 from './tutorials/0005/08.vue'
 
 Vue
   .use(VueRouter)
@@ -114,6 +115,7 @@ const routes = [
   { path: '/files-api/05', component: T0005L05 },
   { path: '/files-api/06', component: T0005L06 },
   { path: '/files-api/07', component: T0005L07 },
+  { path: '/files-api/08', component: T0005L08 },
   // 404
   { path: '*', name: '404', component: NotFound, props: { notFound: true } }
 ]

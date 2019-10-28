@@ -12,8 +12,8 @@
 
 <script>
 import Lesson from '../../components/Lesson'
-import text from './07.md'
-import exercise from './07-exercise.md'
+import text from './08.md'
+import exercise from './08-exercise.md'
 
 const code = `/* global ipfs */
 const run = async () => {
@@ -28,32 +28,14 @@ return run
 
 const solution = `/* global ipfs */
 const run = async () => {
-  let filesAndDirectories = await ipfs.get('Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH')
+  let result = await ipfs.get('QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk')
 
-  let filesContents = []
-
-  for( let item in filesAndDirectories ) {
-    // If the item is a file, it has content
-    if(item.content) {
-      item.content = item.content.toString('utf-8')
-    }
-
-    filesContents.push(item)
-  }
-
-  // filesAndDirectories = filesAndDirectories.map((elem) => {
-  //   if(elem.content) {
-  //     elem.content = elem.content.toString('utf-8')
-  //   }
-  //   return elem
-  // })
-
-  return filesAndDirectories
+  return result
 }
 return run
 `
 
-const testResult = '[{"path":"file3.txt","hash":"QmS4ejbuxt7JvN3oYyX85yVfsgRHMPrVzgxukXMvToK5td","size":9},{"path":"file2.txt","hash":"QmQLd9KEkw5eLKfr9VwfthiWbuqa9LXhRchWqD4kRPPWEf","size":9},{"path":"file1.txt","hash":"QmfDmsHTywy6L9Ne5RXsj5YumDedfBLMvCvmaxjBoe6w4d","size":9},{"path":"","hash":"Qmeybqr2GaiUyGSRWX3dhS2Qz6VTVBXzBiYiFcKpYFJ7tH","size":184}]'
+const testResult = '[{"hash":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk","name":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk","depth":1,"size":0,"type":"dir"},{"hash":"QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir","name":"dir","depth":2,"size":0,"type":"dir"},{"hash":"QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir/success.txt","name":"success.txt","depth":3,"size":11,"type":"file","content":{"type":"Buffer","data":[89,111,117,32,100,105,100,32,105,116,33]}},{"hash":"QmfDmsHTywy6L9Ne5RXsj5YumDedfBLMvCvmaxjBoe6w4d","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/file1.txt","name":"file1.txt","depth":2,"size":1,"type":"file","content":{"type":"Buffer","data":[97]}},{"hash":"QmQLd9KEkw5eLKfr9VwfthiWbuqa9LXhRchWqD4kRPPWEf","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/file2.txt","name":"file2.txt","depth":2,"size":1,"type":"file","content":{"type":"Buffer","data":[98]}}]'
 
 const validate = async (result, ipfs) => {
   if (!result) {

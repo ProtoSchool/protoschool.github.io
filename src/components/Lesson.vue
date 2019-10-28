@@ -373,7 +373,7 @@ export default {
             },
             {
               content: this.ipfsConstructor.Buffer.from('You did it!'),
-              path: 'success.txt'
+              path: 'dir/success.txt'
             }
           ], { wrapWithDirectory: true })
           resolve()
