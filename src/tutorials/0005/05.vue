@@ -98,7 +98,7 @@ const validate = async (result, ipfs) => {
     success: 'Success!',
     logDesc: "Here are the results returned by the `add` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the root directory with path `''`)." +
               "\n\n Because you used the `{ wrapWithDirectory: true }` option, the `path` of each file is now the filename you provided, rather than matching the file's `hash`.  You'll be able to use these human-readable paths to in combination with the directory's CID to access the file's content in a future lesson." +
-              "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them, when you use this method in the future you may want to save them for later use.",
+              "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them. When you use this method in the future, you may want to save them for later use.",
     log: result
   }
 }
