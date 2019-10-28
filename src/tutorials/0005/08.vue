@@ -17,11 +17,9 @@ import exercise from './08-exercise.md'
 
 const code = `/* global ipfs */
 const run = async () => {
-  let result = // write your get code here
+  let result = // your code here
 
-  // loop over the results to modify the content of the files in the result array here
-
-  // don't forget to return the string value
+  return result
 }
 return run
 `
@@ -57,7 +55,7 @@ const validate = async (result, ipfs) => {
 
   if (!Array.isArray(result)) {
     return {
-      fail: 'The return value should be an array, just like the `get` function returns. Make sure you are returning the correct value.'
+      fail: 'The return value should be an array identical to the one returned by the `get` function.'
     }
   }
 
@@ -73,19 +71,21 @@ const validate = async (result, ipfs) => {
 
   if (!isStructureValid) {
     return {
-      fail: 'The returned value does not match the structure of the typical output of the `get` function. Are you sure your are returning the result of the `get` function?'
+      fail: 'The returned value does not match the structure of the typical output of the `get` function. Did you accidentally use a method other than `get`?'
     }
   }
 
   if (JSON.stringify(result) !== testResult) {
+    // is this one still valid?? look like it's from when you were having them convert file contexts
     return {
       fail: 'The data returned does not match what we expect. Did you forget to convert the `content` values from `Buffer` to string?'
     }
   }
 
   return {
-    success: 'Success!',
-    logDesc: 'Here is the result of calling the `get` method with the `CID` of the `dir` directory.',
+    success: "Congratulations! You've completed this series of lessons!",
+    logDesc: "Below is the result of calling the `get` method on the root directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)" +
+              "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the root directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the root directory itself has a `path` value that matches its `hash` and `name`, all of which are identical CIDs.",
     log: result
   }
 }

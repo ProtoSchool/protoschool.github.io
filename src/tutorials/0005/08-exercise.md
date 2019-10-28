@@ -1,6 +1,4 @@
-In this last lesson of this tutorial, we will use the `get` method we learned about to get all the files and directories from a directory structure.
-
-The file structure has been created for us, and it looks like this: 
+For this last challenge, we've created the following file structure in the root directory of your IPFS node:
 
 ```
 /
@@ -10,9 +8,8 @@ The file structure has been created for us, and it looks like this:
 /dir/success.txt
 ```
 
-In order to use the `get` function to obtain all the files and directories, we will need an IPFS path for the root directory. The IPFS path is this `CID`:
+The CID of the root directory is: `"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk"`
 
-`"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk"`
+Use the `get` method to return data on all of the files and subdirectories contained in the root directory.
 
-**Hint:**
-* Don't forget to return the result of the `get` function.
+**Hint:** Be sure to return the array created by the `get` method.
