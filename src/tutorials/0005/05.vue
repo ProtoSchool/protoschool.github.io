@@ -31,14 +31,14 @@ const run = async (files) => {
 
   let fileObjectsArray = []
 
-  for(let file of files) {
+  files.forEach((file, idx) => {
     let fileObject = {
       path: file.name,
       content: file
     }
 
     fileObjectsArray.push(fileObject)
-  }
+  })
 
   // Alternatively, using the Array.map method:
   //
@@ -84,13 +84,12 @@ const validate = async (result, ipfs) => {
   const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 1].hash), 2000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
-      fail: 'Could not get CID of `dir` directory'
-      // is this reference to dir out of date??
+      fail: 'Could not get CID of root directory'
     }
   } else {
     if (resultingFiles.length !== uploadedFiles.length) {
       return {
-        fail: "The number of uploaded files doesn't match the number of files on your IPFS node. Did you add every file you uploaded to IPFS? Did you make sure each file had a unique name when defining its path?"
+        fail: "The number of uploaded files doesn't match the number of files on your IPFS node. Did you add every file you uploaded to IPFS? Did you make sure each file had a unique name when defining its path? Did you create any more directories than you needed to?"
       }
     }
   }
@@ -99,7 +98,7 @@ const validate = async (result, ipfs) => {
     success: 'Success!',
     logDesc: "Here are the results returned by the `add` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the root directory with path `''`)." +
               "\n\n Because you used the `{ wrapWithDirectory: true }` option, the `path` of each file is now the filename you provided, rather than matching the file's `hash`.  You'll be able to use these human-readable paths to in combination with the directory's CID to access the file's content in a future lesson." +
-              "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them, so you should save them if you want to use them later.",
+              "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them, when you use this method in the future you may want to save them for later use.",
     log: result
   }
 }
