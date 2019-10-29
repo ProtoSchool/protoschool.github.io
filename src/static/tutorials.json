@@ -145,7 +145,7 @@
 		]
 	},
 	"0005": {
-		"url": "files-api",
+		"url": "regular-files-api",
 		"project": "IPFS",
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
