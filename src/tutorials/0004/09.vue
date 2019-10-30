@@ -16,9 +16,26 @@ import text from './09.md'
 import exercise from './09-exercise.md'
 
 const validate = async (result, ipfs) => {
-  const uploadedFiles = window.uploadedFiles || false
+  if (!result) {
+    return {
+      fail: 'You forgot to return a result. Did you accidentally edit the return statement?'
+    }
+  }
 
-  const someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
+  let someStuffFiles
+
+  try {
+    someStuffFiles = await await ipfs.files.ls('/some/stuff', { long: true })
+  } catch (err) {
+    if (err.code === 'ERR_NOT_FOUND') {
+      return {
+        fail: 'The directory `/some/stuff` did not exist - try resetting the code and starting again'
+      }
+    }
+
+    throw err
+  }
+
   const someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
   const uploadedFilenames = (window.uploadedFiles || []).map(file => file.name.toString()).sort()
 
@@ -41,9 +58,7 @@ const validate = async (result, ipfs) => {
   const returnedCorrectFilenames = JSON.stringify(correctFilenames) === JSON.stringify(someStuffFilenames)
   const returnedHashAsFilename = JSON.stringify(incorrectFilenames) === JSON.stringify(someStuffFilenames)
 
-  if (!result) {
-    return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
-  } else if (noNewFile) {
+  if (noNewFile) {
     return {
       fail: 'No new files have been copied into `/some/stuff`',
       logDesc: "Did you get the desination path wrong in your `files.cp` command? Here's what's in your `/some/stuff` directory now:",

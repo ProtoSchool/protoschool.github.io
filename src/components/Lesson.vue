@@ -158,6 +158,8 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
     return modules[name]
   }
 
+  let result
+
   try {
     result = await pTimeout(fn(ipfs, require)(...args), MAX_EXEC_TIMEOUT).catch((err) => {
       if (err.name === 'TimeoutError') {
@@ -168,6 +170,8 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
   } catch (e) {
     result = {error: e}
   }
+
+  return result
 }
 
 const defaultCode = `/* globals ipfs */
@@ -330,16 +334,22 @@ export default {
       }
       // Hide the solution
       this.viewSolution = false
-      // Run the `validate` function in the lesson
-      let test = await this.$attrs.validate(result, ipfs, args)
 
-      if (test === undefined) {
-        if (result instanceof Error) {
-          // show the user the error message
-          test = result
-        } else {
-          // show the default error message
-          test = { fail: 'Something is wrong. Reset the code and see the instructions.' }
+      let test
+
+      if (result instanceof Error) {
+        test = {
+          fail: result.toString()
+        }
+      } else {
+        // Run the `validate` function in the lesson
+        try {
+          test = await this.$attrs.validate(result, ipfs, args)
+        } catch (err) {
+          // Something in our validation threw an error, it's probably a bug
+          test = {
+            fail: 'Something is wrong. Reset the code and see the instructions.'
+          }
         }
       }
 
