@@ -45,15 +45,30 @@ If you're interested in building tutorials, keep reading!
 
 ### Run the server locally to preview your work
 
-First, check out this repository, install dependencies, and run the dev server locally:
+1. [Clone this repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) to your computer in one of two ways: 
+
+```sh 
+> git clone https://github.com/ProtoSchool/protoschool.github.io.git
+```
+
+2. Change into the new directory created: 
+```sh
+> cd protoschool.github.io
+```
+
+3. Install dependencies using NPM:
 
 ```sh
 > npm install
+
+```
+4. Run the dev server locally:
+```sh
 > npm run serve
 ```
-You should now be able to preview your work in a web browser at: http://localhost:3000/#/
+5. Open a web browser to the following address to preview your work: http://localhost:3000/#/
 
-(Note that you won't be able to see your new lessons until you've updated the appropriate routes and import statements, as described below.)
+Vue will update your localhost preview automatically as you make changes. However, you won't be able to see any newly added lessons until you've updated the appropriate routes and import statements, as described below.
 
 ### Create a directory for your tutorial
 
