@@ -114,7 +114,7 @@ import { EVENTS } from '../static/countly'
 import { deriveShortname } from '../utils/paths'
 import tutorialsList from '../static/tutorials.json'
 
-const MAX_EXEC_TIMEOUT = 3000
+const MAX_EXEC_TIMEOUT = 5000
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
