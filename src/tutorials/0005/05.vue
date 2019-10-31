@@ -31,7 +31,7 @@ const run = async (files) => {
 
   let fileObjectsArray = []
 
-  files.forEach((file, idx) => {
+  files.forEach((file) => {
     let fileObject = {
       path: file.name,
       content: file
@@ -41,15 +41,18 @@ const run = async (files) => {
   })
 
   // Alternatively, using the Array.map method:
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
   //
-  // let fileObjectsArray = files.map((file, idx) => {
+  // let fileObjectsArray = files.map((file) => {
   //   return {
   //     path: file.name,
   //     content: file
   //   }
   // })
 
-  return await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
+  const results = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
+
+  return results
 
 }
 return run

@@ -42,6 +42,16 @@ const validate = async (result, ipfs) => {
     }
   }
 
+  if (result.error) {
+    return { error: result.error }
+  }
+
+  if (!Array.isArray(result)) {
+    return {
+      fail: 'The returned value should be an array.'
+    }
+  }
+
   if (result.length > uploadedFiles.length) {
     return {
       fail: 'The array you returned has more items than the number of files you uploaded, did you add something in the array twice.'
@@ -54,16 +64,6 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  if (result.error) {
-    return { error: result.error }
-  }
-
-  if (!Array.isArray(result)) {
-    return {
-      fail: 'The returned value should be an array.'
-    }
-  }
-
   for (const resultData of result) {
     if (!resultData.hash) {
       return {
@@ -71,13 +71,20 @@ const validate = async (result, ipfs) => {
       }
     }
 
-    const lsResult = await pTimeout(ipfs.ls(resultData.hash), 2000).catch(() => 'error')
-    if (lsResult === 'error' || resultData.hash !== lsResult[0].hash) {
+    try {
+      const lsResult = await pTimeout(ipfs.ls(resultData.hash), 2000)
+      if (resultData.hash !== lsResult[0].hash) {
+        return {
+          fail: 'The value you returned is incorrect :( Are you sure you are returning an array of the results of the ipfs.add operations?'
+        }
+      }
+    } catch (err) {
       return {
-        fail: 'The value you returned is incorrect :( Are you sure you are returning an array of the results of the ipfs.add operations?'
+        fail: 'The value you returned is incorrect :( One of the `CIDs` in the array you returned does not match any file in your IPFS node'
       }
     }
   }
+
   const fileText = result.length > 1 ? `these files` : 'this file'
   const valueText = result.length > 1 ? `values` : 'value'
   const thatText = result.length > 1 ? `them` : 'it'

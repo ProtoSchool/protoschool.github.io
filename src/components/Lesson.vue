@@ -278,14 +278,15 @@ export default {
       }
       let output = this.output
       let ipfs = await this.createIPFS()
+
+      await ipfs.ready
       if (this.createTestFile) {
         await this.createFile(ipfs)
-      } else
+      }
       if (this.createTestTree) {
         await this.createTree(ipfs)
-      } else {
-        await new Promise(resolve => ipfs.on('ready', resolve))
       }
+
       let code = this.editor.getValue()
       let modules = {}
 
@@ -351,34 +352,24 @@ export default {
     },
     createFile: function (ipfs) {
       /* eslint-disable no-new */
-      return new Promise((resolve, reject) => {
-        ipfs.on('ready', async () => {
-          await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
-          resolve()
-        })
-      })
+      return ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
     },
     createTree: function (ipfs) {
       /* eslint-disable no-new */
-      return new Promise((resolve, reject) => {
-        ipfs.on('ready', async () => {
-          await ipfs.add([
-            {
-              content: this.ipfsConstructor.Buffer.from('a'),
-              path: 'file1.txt'
-            },
-            {
-              content: this.ipfsConstructor.Buffer.from('b'),
-              path: 'file2.txt'
-            },
-            {
-              content: this.ipfsConstructor.Buffer.from('You did it!'),
-              path: 'dir/success.txt'
-            }
-          ], { wrapWithDirectory: true })
-          resolve()
-        })
-      })
+      return ipfs.add([
+        {
+          content: this.ipfsConstructor.Buffer.from('a'),
+          path: 'file1.txt'
+        },
+        {
+          content: this.ipfsConstructor.Buffer.from('b'),
+          path: 'file2.txt'
+        },
+        {
+          content: this.ipfsConstructor.Buffer.from('You did it!'),
+          path: 'dir/success.txt'
+        }
+      ], { wrapWithDirectory: true })
     },
     resetCode: function () {
       // TRACK? User chose to reset code

@@ -27,7 +27,7 @@ return run
 const solution = `/* global ipfs */
 const run = async () => {
   const fileContents = await ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
-  const message = fileContents.toString('utf8')
+  const message = fileContents.toString()
 
   return message
 }
@@ -35,7 +35,6 @@ return run
 `
 
 const validate = async (result, ipfs) => {
-
   if (!result) {
     return {
       fail: 'Oops! You forgot to return a result :('

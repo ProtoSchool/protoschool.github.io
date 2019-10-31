@@ -16,9 +16,9 @@ import exercise from './06-exercise.md'
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const fileObjectsArray = files.map((file, idx) => { return { path: file.name, content: file }})
+  const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
   const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const rootCID = addedFiles.find((file) => file.path==="").hash
+  const dirCID = addedFiles[addedFiles.length - 1].hash
 
   // only edit code below this point
 
@@ -29,11 +29,11 @@ return run
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const fileObjectsArray = files.map((file, idx) => { return { path: file.name, content: file }})
+  const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
   const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const rootCID = addedFiles.find((file) => file.path==="").hash
+  const dirCID = addedFiles[addedFiles.length - 1].hash
 
-  return await ipfs.ls(rootCID)
+  return await ipfs.ls(dirCID)
 }
 return run
 `
@@ -51,7 +51,7 @@ const validate = async (result, ipfs) => {
     if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
         result.error.toString().includes('path.indexOf is not a function')) {
       return {
-        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `rootCID` variable we provided."
+        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided."
       }
     } else {
       return { error: result.error }
