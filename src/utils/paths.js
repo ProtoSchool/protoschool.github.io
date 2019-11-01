@@ -1,11 +1,21 @@
 import tutorials from '../static/tutorials.json'
 
-export const deriveShortname = (path) =>
-  path
-    .split('/')[1]
-    .split('-')
-    .map(e => e.charAt(0).toUpperCase() + e.slice(1))
-    .join(' ')
+// SET CASING OVERRIDES HERE
+// If a word in a URL would not be appopriate if only the first letter were capitalized,
+// add that word here as a property with the correct capitalization (string) as its value.
+// This is to be used for single words, not full hyphenated paths. Capitalization of that
+// word will apply throughout all tutorial shortnames that include it.
+const correctedCases = {
+  api: 'API'
+}
+
+const fixCasing = function (word) {
+  return correctedCases.hasOwnProperty(word) ? correctedCases[word] : (word.charAt(0).toUpperCase() + word.slice(1))
+}
+
+export const deriveShortname = function (path) {
+  return path.split('/')[1].split('-').map(word => fixCasing(word)).join(' ')
+}
 
 export const migrateCache = (tutorialId, pastUrl) => {
   const tutorial = tutorials[tutorialId]
