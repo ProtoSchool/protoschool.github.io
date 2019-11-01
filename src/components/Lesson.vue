@@ -152,7 +152,7 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
   try {
     result = await pTimeout(fn(ipfs, require)(...args), MAX_EXEC_TIMEOUT).catch((err) => {
       if (err.name === 'TimeoutError') {
-        err.message = 'Your code took too long to execute. This could be the result of trying to fetch an IPFS CID that doesn't exist, or you may have created an infinite loop in your code. (Learn more about [looping and iteration in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration) and how to [avoid infinite loops](https://www.dummies.com/web-design-development/avoid-infinite-loops-javascript/).) Take a close look at your code with these possiblities in mind. Still can't figure out what's wrong? Use the View Solution feature above to see our suggested approach to this challenge.'
+        err.message = 'Your code took too long to execute. This could be the result of trying to fetch an IPFS CID that doesn\'t exist, or you may have created an infinite loop in your code. (Learn more about [looping and iteration in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration) and how to [avoid infinite loops](https://www.dummies.com/web-design-development/avoid-infinite-loops-javascript/).) Take a close look at your code with these possiblities in mind. Still can\'t figure out what\'s wrong? Use the View Solution feature above to see our suggested approach to this challenge.'
       }
       throw err
     })
