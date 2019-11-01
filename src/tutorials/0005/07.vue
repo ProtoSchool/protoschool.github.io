@@ -17,11 +17,11 @@ import exercise from './07-exercise.md'
 
 const code = `/* global ipfs */
 const run = async () => {
-  const bufferedContents = // access the content of the file
+  const bufferedContents = // access the content of the file as a buffer
 
-  const textContents = // convert the Buffer to a string
-
-  return textContents // return the text contained in the file
+  // we've taken care of converting the buffer to a string in the return statement below
+  
+  return bufferedContents.toString()
 
 }
 return run
@@ -33,14 +33,12 @@ const run = async () => {
   // You can access the file in two different ways with the CIDs we gave you
 
   // Using the root CID and file path relative to root
-  const bufferedContents = await ipfs.cat("QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir/success.txt")
+  const bufferedContents = await ipfs.cat("/ipfs/QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir/success.txt")
 
   // Using the subdirectory CID and file path relative to the dir subdirectory
-  // const bufferedContents = await ipfs.cat("QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt")
+  // const bufferedContents = await ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt")
 
-  const textContents = bufferedContents.toString('utf-8')
-
-  return textContents
+  return bufferedContents.toString('utf-8')
 }
 return run
 `
