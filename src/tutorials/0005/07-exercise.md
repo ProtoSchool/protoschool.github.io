@@ -5,7 +5,7 @@ The CIDs associated with these directories are:
 * top level directory: `"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk"`
 * `dir` directory: `"QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r"`
 
-Since you don't know the CID of the file itself, you'll need to define the its IPFS path by combining a directory's CID and the file's path relative to that directory.
+Since you don't know the CID of the file itself, you'll need to define its IPFS path by combining a directory's CID and the file's path relative to that directory.
 
 Based on our file structure, the path could be expressed as:
 
