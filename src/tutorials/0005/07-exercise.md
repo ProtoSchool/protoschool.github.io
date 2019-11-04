@@ -15,3 +15,5 @@ Based on our file structure, the path could be expressed as:
 There are two valid ways to solve this challenge. Take your pick!
 
 **Hint:** In the code below we've already taken care of converting the `bufferedContents` to a string before returning the result, as you did yourself previously using `.toString()`.
+
+Don't forget to preapend `/ipfs/` to the IPFS Path string

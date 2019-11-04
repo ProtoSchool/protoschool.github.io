@@ -29,25 +29,28 @@ return run
 const solution = `/* global ipfs */
 const run = async (files) => {
 
-  let fileObjectsArray = []
-
-  files.forEach((file) => {
-    let fileObject = {
+  // You can do this exercise using the Array.map method:
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+  
+  let fileObjectsArray = files.map((file) => {
+    return {
       path: file.name,
       content: file
     }
-
-    fileObjectsArray.push(fileObject)
   })
 
-  // Alternatively, using the Array.map method:
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-  //
-  // let fileObjectsArray = files.map((file) => {
-  //   return {
+  // Alternatively, you could use a forEach
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+  // 
+  // let fileObjectsArray = []
+  // 
+  // files.forEach((file) => {
+  //   let fileObject = {
   //     path: file.name,
   //     content: file
   //   }
+  // 
+  //   fileObjectsArray.push(fileObject)
   // })
 
   const results = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
