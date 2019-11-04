@@ -33,7 +33,7 @@ const run = async () => {
 return run
 `
 
-const testResult = '[{"hash":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk","name":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk","depth":1,"size":0,"type":"dir"},{"hash":"QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir","name":"dir","depth":2,"size":0,"type":"dir"},{"hash":"QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir/success.txt","name":"success.txt","depth":3,"size":11,"type":"file","content":{"type":"Buffer","data":[89,111,117,32,100,105,100,32,105,116,33]}},{"hash":"QmfDmsHTywy6L9Ne5RXsj5YumDedfBLMvCvmaxjBoe6w4d","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/file1.txt","name":"file1.txt","depth":2,"size":1,"type":"file","content":{"type":"Buffer","data":[97]}},{"hash":"QmQLd9KEkw5eLKfr9VwfthiWbuqa9LXhRchWqD4kRPPWEf","path":"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/file2.txt","name":"file2.txt","depth":2,"size":1,"type":"file","content":{"type":"Buffer","data":[98]}}]'
+const testResult = '[{"hash":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy","name":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy","depth":1,"size":0,"type":"dir"},{"hash":"QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun","name":"fun","depth":2,"size":0,"type":"dir"},{"hash":"QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt","name":"success.txt","depth":3,"size":11,"type":"file","content":{"type":"Buffer","data":[89,111,117,32,100,105,100,32,105,116,33]}},{"hash":"QmQDHitBegfht9eKo7ZJ7S3haq1QVAysjUZg8tmYdPJmSx","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/shrug.txt","name":"shrug.txt","depth":2,"size":13,"type":"file","content":{"type":"Buffer","data":[194,175,92,95,40,227,131,132,41,95,47,194,175]}},{"hash":"Qmbfrc4cF2X4KXbHuqD593SLnR2xj6hULYTnrj65wKWaKm","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/smile.txt","name":"smile.txt","depth":2,"size":2,"type":"file","content":{"type":"Buffer","data":[58,41]}}]'
 
 const validate = async (result, ipfs) => {
   if (!result) {
@@ -84,7 +84,7 @@ const validate = async (result, ipfs) => {
 
   return {
     success: "Congratulations! You've completed this series of lessons!",
-    logDesc: "Below is the result of calling the `get` method on the root directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)" +
+    logDesc: 'Below is the result of calling the `get` method on the root directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)' +
               "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the root directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the root directory itself has a `path` value that matches its `hash` and `name`, all of which are identical CIDs.",
     log: result
   }

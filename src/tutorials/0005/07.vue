@@ -33,7 +33,7 @@ const run = async () => {
   // You can access the file in two different ways with the CIDs we gave you
 
   // Using the root CID and file path relative to root
-  const bufferedContents = await ipfs.cat("/ipfs/QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk/dir/success.txt")
+  const bufferedContents = await ipfs.cat("/ipfs/QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt")
 
   // Using the subdirectory CID and file path relative to the dir subdirectory
   // const bufferedContents = await ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt")
@@ -55,7 +55,7 @@ const validate = async (result, ipfs) => {
   }
 
   if (typeof result !== 'string') {
-    //this condition is too broad as it catches more than just returned the correct buffered contents of the file
+    // this condition is too broad as it catches more than just returned the correct buffered contents of the file
     return {
       fail: "Oops! Don't forget to convert the file's contents to a string."
     }

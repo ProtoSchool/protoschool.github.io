@@ -358,16 +358,16 @@ export default {
       /* eslint-disable no-new */
       return ipfs.add([
         {
-          content: this.ipfsConstructor.Buffer.from('a'),
-          path: 'file1.txt'
+          content: this.ipfsConstructor.Buffer.from('¯\\_(ツ)_/¯'),
+          path: 'shrug.txt'
         },
         {
-          content: this.ipfsConstructor.Buffer.from('b'),
-          path: 'file2.txt'
+          content: this.ipfsConstructor.Buffer.from(':)'),
+          path: 'smile.txt'
         },
         {
           content: this.ipfsConstructor.Buffer.from('You did it!'),
-          path: 'dir/success.txt'
+          path: 'fun/success.txt'
         }
       ], { wrapWithDirectory: true })
     },

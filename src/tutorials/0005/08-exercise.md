@@ -2,13 +2,13 @@ For this last challenge, we've created the following file structure in the root 
 
 ```
 /
-/file1.txt
-/file2.txt
-/dir/
-/dir/success.txt
+/shrug.txt
+/smile.txt
+/fun/
+/fun/success.txt
 ```
 
-The CID of the root directory is: `"QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk"`
+The CID of the root directory is: `"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy"`
 
 Use the `get` method to return data on all of the files and subdirectories contained in the root directory.
 
