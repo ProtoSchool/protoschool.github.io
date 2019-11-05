@@ -51,26 +51,30 @@ const validate = async (result, ipfs) => {
   }
 
   if (result.error) {
-    return { error: result.error }
+    if (result.error.toString().includes('file does not exist')) {
+      return {
+        fail: "Oops, we could not find a file with that IPFS path. Are you sure you are using the correct path with the correct `CID`? Remember, if you use the wraping directory's `CID`, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory `CID`, you need to append `/success.txt` to the path name."
+      }
+    } else {
+      return { error: result.error }
+    }
   }
 
   if (typeof result !== 'string') {
     // this condition is too broad as it catches more than just returned the correct buffered contents of the file
     return {
-      fail: "Oops! Don't forget to convert the file's contents to a string."
+      fail: "Oops, don't forget that the value you're returning should be a string!"
     }
   }
 
-  if (result !== 'You did it!') {
+  if (result === 'You did it!') {
     return {
-      fail: "Uh oh. The string you returned doesn't match the contents of the file! Did you use as your path the directory's CID followed by the filename? Are you returning the results of the `cat` method converted to a string?"
+      success: 'Success!',
+      logDesc: 'Here is the message you read from `success.txt` using `cat`:',
+      log: result
     }
-  }
-
-  return {
-    success: 'Success!',
-    logDesc: 'Here is the message you read from `success.txt` using `cat`:',
-    log: result
+  } else {
+    return { fail: "Something we haven't anticipated is wrong. :(" }
   }
 }
 
