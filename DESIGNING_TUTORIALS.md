@@ -1,10 +1,8 @@
 # Designing Effective ProtoSchool Tutorials
 
-This guide will introduce you to the process of building a ProtoSchool tutorial. It covers the steps you'll need to take to build the files that create your lessons, using the platform we've built in VueJS.
+This guide is the starting place for creating a ProtoSchool tutorial. It covers the process for proposing and outlining a new tutorial with community input and explains the skillset you'll need to build a tutorial using the ProtoSchool platform. Perhaps more importantly, it clarifies the scope of ProtoSchool and outlines some of the key elements of an effective learning experience, so that you can design the best possible tutorial for our users. **Please be sure to read this document in full before you get started with development.**
 
-This guide is the starting place for creating a ProtoSchool tutorial. It covers the process for proposing and outlining a new tutorial with community input and explains the skillset you'll need to build a tutorial using the ProtoSchool platform. Perhaps more importantly, it clarifies the scope of ProtoSchool and outlines some of the key elements of an effective learning experience, so that you can design the best possible tutorial for our users. Please be sure to read this document in full before you get started with development.
-
-Before you build your tutorial, you'll need to have reviewed this guide and opened an issue in GitHub with your proposal so that the community can offer feedback. Once you have an outline there approved by the ProtoSchool team, you'll be ready to get started by following our [Developing Tutorials](DEVELOPING_TUTORIALS.md) guide.
+Before you build your tutorial, you'll need to have reviewed this guide and opened an issue in GitHub with your proposal so that the community can offer feedback. Once you have an outline there approved by the ProtoSchool team, you'll be ready to get started by following our [**Developing Tutorials**](DEVELOPING_TUTORIALS.md) guide.
 
 ---
 

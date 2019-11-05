@@ -2,9 +2,9 @@
 
 This guide will introduce you to the process of building a ProtoSchool tutorial. It covers the steps you'll need to take to build the files that create your lessons, using the platform we've built in VueJS.
 
-Before you get started here, please be sure to read our documentation on [Designing Tutorials](DESIGNING_TUTORIALS.md) in its entirety. There you'll learn about the process for proposing and outlining a new tutorial with community input, as well as some of the key elements of an effective learning experience.
+**Before you get started here, please be sure to read our documentation on [Designing Tutorials](DESIGNING_TUTORIALS.md) in its entirety.** There you'll learn about the process for proposing and outlining a new tutorial with community input, as well as some of the key elements of an effective learning experience.
 
-Before you start building your tutorial, you should have an open issue in GitHub with your proposal/outline, with buy-in and feedback from the ProtoSchool team.
+**Before you start building your tutorial, you should have an open issue in this repo with your proposal/outline, with buy-in and feedback from the ProtoSchool team.**
 
 Ready to get started? Read on!
 
@@ -51,11 +51,13 @@ Ready to get started? Read on!
 ```
 
 2. Change into the new directory created:
+
 ```sh
 > cd protoschool.github.io
 ```
 
 3. Install dependencies using NPM:
+
 ```sh
 > npm install
 
@@ -64,15 +66,18 @@ Ready to get started? Read on!
 4. Check out the appropriate branch:
 
 If creating a new tutorial, create a new branch before making any changes:
+
 ```sh
 > git checkout -b new-branch-name
 ```
 If proofing a PR for someone else, check out their branch (you'll see its name listed in the PR):
+
 ```sh
 > git checkout existing-branch-name
 ```
 
 5. Run the dev server locally:
+
 ```sh
 > npm run serve
 ```
