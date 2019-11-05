@@ -5,7 +5,7 @@
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution" />
+    :solution="solution"/>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ import exercise from './02-exercise.md'
 import { logFiles } from '../../utils/files'
 
 const validate = async (result, ipfs) => {
-  if (!result || typeof result.length === 'undefined') {
+  if (!result || typeof result.length === 'undefined') { 
     return { fail: 'Looks like you forgot to return a result. Did you forget to remove the `//` before `return files`?' }
   } else if (typeof result.length === 'number') {
     const fileCount = result.length > 1 ? `${result.length} files` : '1 file'
@@ -25,7 +25,7 @@ const validate = async (result, ipfs) => {
       log: logFiles(result)
     }
   } else {
-    return { fail: 'Something is wrong. Reset the code and see the instructions.' }
+    return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
   }
 }
 
