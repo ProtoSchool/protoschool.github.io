@@ -29,8 +29,7 @@ return run
 const solution = `/* global ipfs */
 const run = async (files) => {
 
-  // You can do this exercise using the Array.map method:
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+  // Using Array.map method:
 
   let fileObjectsArray = files.map((file) => {
     return {
@@ -39,8 +38,7 @@ const run = async (files) => {
     }
   })
 
-  // Alternatively, you could use a forEach
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+  // Alternatively, using Array.forEach:
   //
   // let fileObjectsArray = []
   //
