@@ -91,6 +91,17 @@ const validate = async (result, ipfs) => {
     }
   }
 
+  let rootIsFile = result.every((elem) => {
+    if (elem.path === elem.name && elem.path === elem.hash) return true
+    return false
+  })
+
+  if (rootIsFile) {
+    return {
+      fail: "You tried to use a file `CID` as an argument to the `ls` method. Please don't modify the boilerplate code. The wrapping directory should always be the last in the array resulting from the `add` method call."
+    }
+  }
+
   if (JSON.stringify(expectedResults) === JSON.stringify(result)) {
     return {
       success: 'Success!',
