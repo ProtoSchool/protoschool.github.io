@@ -10,7 +10,9 @@ Ready to get started? Read on!
 
 ---
 
-## Table of Contents
+**Table of Contents**
+
+<!-- toc -->
 
 - [Developing Tutorials](#developing-tutorials)
   * [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
@@ -19,7 +21,7 @@ Ready to get started? Read on!
     + [Create lesson files](#create-lesson-files)
       - [Vue file](#vue-file)
       - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
-      - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-lessons)
+      - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-and-multiple-choice-lessons)
       - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
     + [Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-vue-file-skip-for-coding-exercises-and-text-only-lessons)
     + [Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-and-multiple-choice-lessons)
@@ -27,16 +29,19 @@ Ready to get started? Read on!
       - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
       - [Validate the user's submitted code](#validate-the-users-submitted-code)
         * [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
+        * [Create success and failure messages](#create-success-and-failure-messages)
         * [Override external error messages (optional)](#override-external-error-messages-optional)
         * [Display results to the user (optional)](#display-results-to-the-user-optional)
   * [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
-    + [Add your tutorial to `tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
-    + [Add your tutorial to `courses.json`](#add-your-tutorial-to-staticcoursesjson)
-    + [Update import statements and routes in `src/main.js`](#update-import-statements-and-routes-in-srcmainjs)
+    + [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+    + [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
+    + [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
 - [Troubleshooting](#troubleshooting)
   * [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
   * [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
 - [License](#license)
+
+<!-- tocstop -->
 
 ---
 

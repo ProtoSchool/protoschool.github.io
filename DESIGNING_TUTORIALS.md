@@ -6,10 +6,27 @@ Before you build your tutorial, you'll need to have reviewed this guide and open
 
 ---
 
-## Table of Contents**
-TBC
+**Table of Contents**
+
+<!-- toc -->
+
+- [Designing Effective ProtoSchool Tutorials](#designing-effective-protoschool-tutorials)
+  * [ProtoSchool's guiding principles](#protoschools-guiding-principles)
+  * [Brainstorming tutorial ideas as a team](#brainstorming-tutorial-ideas-as-a-team)
+  * [The capabilities and limitations of our platform](#the-capabilities-and-limitations-of-our-platform)
+    + [Technical skills needed to build a tutorial](#technical-skills-needed-to-build-a-tutorial)
+    + [Browser-based code challenges](#browser-based-code-challenges)
+    + [Decentralized web protocols supported by our platform](#decentralized-web-protocols-supported-by-our-platform)
+      - [IPFS](#ipfs)
+      - [libp2p](#libp2p)
+      - [Other decentralized web protocols](#other-decentralized-web-protocols)
+  * [Creating an effective learner experience](#creating-an-effective-learner-experience)
+- [License](#license)
+
+<!-- tocstop -->
 
 ---
+
 ## Designing Effective ProtoSchool Tutorials
 
 ### ProtoSchool's guiding principles
