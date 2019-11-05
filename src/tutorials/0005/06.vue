@@ -54,7 +54,8 @@ const validate = async (result, ipfs) => {
 
   if (result.error) {
     if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
-        result.error.toString().includes('path.indexOf is not a function')) {
+        result.error.toString().includes('path.indexOf is not a function') ||
+        result.error.toString().includes('multihash unknown function code')) {
       return {
         fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided as an argument to `ipfs.ls`."
       }

@@ -26,16 +26,16 @@ return run
 
 const solution = `/* global ipfs */
 const run = async () => {
-  let result = await ipfs.get('QmX1rvLYrhqfnnjvrFqudYZgQyomZxS9U9p5e8Dn3ot4Jk')
+  let result = await ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy')
 
   return result
 }
 return run
 `
 
-const testResult = '[{"hash":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy","name":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy","depth":1,"size":0,"type":"dir"},{"hash":"QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun","name":"fun","depth":2,"size":0,"type":"dir"},{"hash":"QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt","name":"success.txt","depth":3,"size":11,"type":"file","content":{"type":"Buffer","data":[89,111,117,32,100,105,100,32,105,116,33]}},{"hash":"QmQDHitBegfht9eKo7ZJ7S3haq1QVAysjUZg8tmYdPJmSx","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/shrug.txt","name":"shrug.txt","depth":2,"size":13,"type":"file","content":{"type":"Buffer","data":[194,175,92,95,40,227,131,132,41,95,47,194,175]}},{"hash":"Qmbfrc4cF2X4KXbHuqD593SLnR2xj6hULYTnrj65wKWaKm","path":"QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/smile.txt","name":"smile.txt","depth":2,"size":2,"type":"file","content":{"type":"Buffer","data":[58,41]}}]'
-
 const validate = async (result, ipfs) => {
+  const expectedResult = await ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy')
+
   if (!result) {
     return {
       fail: 'Oops! You forgot to return a result :('
@@ -44,7 +44,8 @@ const validate = async (result, ipfs) => {
 
   if (result.error) {
     if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
-        result.error.toString().includes('path.indexOf is not a function')) {
+        result.error.toString().includes('path.indexOf is not a function') ||
+        result.error.toString().includes('multihash unknown function code')) {
       return {
         fail: "The `CID` provided to `ipfs.get` is incorrect. Make sure you're using the `CID` we provided"
       }
@@ -71,22 +72,30 @@ const validate = async (result, ipfs) => {
 
   if (!isStructureValid) {
     return {
-      fail: 'The returned value does not match the structure of the typical output of the `get` function. Did you accidentally use a method other than `get`?'
+      fail: 'The returned value does not match the structure of the typical output of the `get` method. Did you accidentally use a method other than `get`?'
     }
   }
 
-  if (JSON.stringify(result) !== testResult) {
-    // is this one still valid?? look like it's from when you were having them convert file contexts
+  let usedLsInsteadOfGet = result.every((elem) => {
+    if (elem.type === 'file' && elem.content === undefined) return true
+    return false
+  })
+
+  if (usedLsInsteadOfGet) {
     return {
-      fail: 'The data returned does not match what we expect. Did you forget to convert the `content` values from `Buffer` to string?'
+      fail: 'It appears you used the `ls` method instead of the `get` method. Please try again with the get method.'
     }
   }
 
-  return {
-    success: "Congratulations! You've completed this series of lessons!",
-    logDesc: 'Below is the result of calling the `get` method on the root directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)' +
+  if (JSON.stringify(result) === JSON.stringify(expectedResult)) {
+    return {
+      success: "Congratulations! You've completed this series of lessons!",
+      logDesc: 'Below is the result of calling the `get` method on the root directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)' +
               "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the root directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the root directory itself has a `path` value that matches its `hash` and `name`, all of which are identical CIDs.",
-    log: result
+      log: result
+    }
+  } else {
+    return { fail: "Something we haven't anticipated is wrong. :(" }
   }
 }
 

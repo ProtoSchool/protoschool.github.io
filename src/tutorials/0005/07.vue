@@ -55,6 +55,11 @@ const validate = async (result, ipfs) => {
       return {
         fail: "Oops, we could not find a file with that IPFS path. Are you sure you are using the correct path with the correct `CID`? Remember, if you use the wraping directory's `CID`, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory `CID`, you need to append `/success.txt` to the path name."
       }
+    }
+    if (result.error.toString().includes('multihash unknown function code')) {
+      return {
+        fail: 'The `CID` you used in the IPFS path for the `cat` method is not valid. Make sure you are using one of the `CID`s we provided.'
+      }
     } else {
       return { error: result.error }
     }
