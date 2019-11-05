@@ -21,6 +21,13 @@ Before you build your tutorial, you'll need to have reviewed this guide and open
       - [libp2p](#libp2p)
       - [Other decentralized web protocols](#other-decentralized-web-protocols)
   * [Creating an effective learner experience](#creating-an-effective-learner-experience)
+    + [Know your audience](#know-your-audience)
+    + [Teach a single concept per lesson and provide scaffolding](#teach-a-single-concept-per-lesson-and-provide-scaffolding)
+    + [Use accessible and inclusive language and examples](#use-accessible-and-inclusive-language-and-examples)
+    + [Specific tips for coding challenges](#specific-tips-for-coding-challenges)
+      - [Provide clear usage examples for API methods](#provide-clear-usage-examples-for-api-methods)
+      - [Limit dependencies on complex JavaScript methods](#limit-dependencies-on-complex-javascript-methods)
+      - [Use comprehensive validation to give detailed feedback to the user](#use-comprehensive-validation-to-give-detailed-feedback-to-the-user)
 - [License](#license)
 
 <!-- tocstop -->
