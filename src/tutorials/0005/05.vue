@@ -31,7 +31,7 @@ const run = async (files) => {
 
   // You can do this exercise using the Array.map method:
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-  
+
   let fileObjectsArray = files.map((file) => {
     return {
       path: file.name,
@@ -41,15 +41,15 @@ const run = async (files) => {
 
   // Alternatively, you could use a forEach
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-  // 
+  //
   // let fileObjectsArray = []
-  // 
+  //
   // files.forEach((file) => {
   //   let fileObject = {
   //     path: file.name,
   //     content: file
   //   }
-  // 
+  //
   //   fileObjectsArray.push(fileObject)
   // })
 
@@ -95,14 +95,14 @@ const validate = async (result, ipfs) => {
 
   if (uploadedFiles.length !== result.length - 1) {
     return {
-      fail: "The resulting array seems to be wrong. You should have one element per file, plus another for the root directory. Maybe you created an extra subdirectory with one of the files' path name?"
+      fail: "The resulting array seems to be wrong. You should have one element per file, plus another for the top-level directory. Maybe you created an extra subdirectory with one of the files' path name?"
     }
   }
 
   const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 1].hash), 2000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
-      fail: 'Could not get CID of root directory'
+      fail: 'Could not get CID of top-level directory'
     }
   } else {
     if (resultingFiles.length === 1) {
@@ -120,7 +120,7 @@ const validate = async (result, ipfs) => {
   if (JSON.stringify(result) === JSON.stringify(expectedResults)) {
     return {
       success: 'Success!',
-      logDesc: "Here are the results returned by the `add` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the root directory with path `''`)." +
+      logDesc: "Here are the results returned by the `add` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the top-level directory with path `''`)." +
                 "\n\n Because you used the `{ wrapWithDirectory: true }` option, the `path` of each file is now the filename you provided, rather than matching the file's `hash`.  You'll be able to use these human-readable paths to in combination with the directory's CID to access the file's content in a future lesson." +
                 "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them. When you use this method in the future, you may want to save them for later use.",
       log: result

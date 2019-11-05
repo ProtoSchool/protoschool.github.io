@@ -90,8 +90,8 @@ const validate = async (result, ipfs) => {
   if (JSON.stringify(result) === JSON.stringify(expectedResult)) {
     return {
       success: "Congratulations! You've completed this series of lessons!",
-      logDesc: 'Below is the result of calling the `get` method on the root directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)' +
-              "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the root directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the root directory itself has a `path` value that matches its `hash` and `name`, all of which are identical CIDs.",
+      logDesc: 'Below is the result of calling the `get` method on the top-level directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)' +
+              "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the top-level directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the top-level directory itself has a `path` value that matches its `hash` and `name`, all of which are identical CIDs.",
       log: result
     }
   } else {
