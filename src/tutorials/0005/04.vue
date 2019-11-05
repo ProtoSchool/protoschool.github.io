@@ -35,21 +35,30 @@ return run
 `
 
 const validate = async (result, ipfs) => {
+  const correctMessage = 'You did it!'
+
   if (!result) {
     return {
       fail: 'Oops! You forgot to return a result :('
     }
   }
-
-  if (result === 'You did it!') {
+  if (result.error) {
+    return { error: result.error }
+  }
+  if (typeof result !== 'string') {
+    return {
+      fail: 'Oh no... your result should be a string.'
+    }
+  }
+  if (result === correctMessage) {
     return {
       success: 'Success!',
       logDesc: "Here's the secret message hidden in that file (🤫): ",
       log: result
     }
+  } else {
+    return { fail: "Something we haven't anticipated is wrong. :(" }
   }
-
-  // TODO : Add `else if` and `else` clauses with more validation options
 }
 
 const modules = { cids: require('cids') }

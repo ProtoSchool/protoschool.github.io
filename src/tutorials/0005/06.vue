@@ -40,6 +40,11 @@ return run
 
 const validate = async (result, ipfs) => {
   let uploadedFiles = window.uploadedFiles || false
+  const fileObjectsArray = window.uploadedFiles.map((file) => { return { path: file.name, content: file } })
+  const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
+  const dirCID = addedFiles[addedFiles.length - 1].hash
+
+  const expectedResults = await ipfs.ls(dirCID)
 
   if (!result) {
     return {
@@ -51,7 +56,7 @@ const validate = async (result, ipfs) => {
     if (result.error.toString().includes("Cannot read property 'indexOf' of null") ||
         result.error.toString().includes('path.indexOf is not a function')) {
       return {
-        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided."
+        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided as an argument to `ipfs.ls`."
       }
     } else {
       return { error: result.error }
@@ -86,10 +91,14 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  return {
-    success: 'Success!',
-    logDesc: "Here are the results returned by the `ls` method for the root directory ( \"\" ). Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `hash` and `path` values now differ. The `hash` for each file is the CID of the file itself, while the the `path` is the CID of the root directory followed by the filename.",
-    log: result
+  if (JSON.stringify(expectedResults) === JSON.stringify(result)) {
+    return {
+      success: 'Success!',
+      logDesc: "Here are the results returned by the `ls` method for the root directory ( \"\" ). Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `hash` and `path` values now differ. The `hash` for each file is the CID of the file itself, while the the `path` is the CID of the root directory followed by the filename.",
+      log: result
+    }
+  } else {
+    return { fail: "Something we haven't anticipated is wrong. :(" }
   }
 }
 

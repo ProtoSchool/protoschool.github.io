@@ -20,6 +20,8 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
+  } else if (result.error) {
+    return { error: result.error }
   } else if (result && typeof result !== 'string') {
     return { fail: 'Oops. `secretMessage` should be a string. Did you forget to convert the buffer to a string?' }
   } else if (result !== correctMessage) {
@@ -34,8 +36,6 @@ const validate = async (result, ipfs) => {
       logDesc: "Here's the secret message you discovered in the file:",
       log: result
     }
-  } else if (result.error) {
-    return { error: result.error }
   }
 }
 
