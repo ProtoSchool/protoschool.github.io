@@ -53,12 +53,12 @@ const validate = async (result, ipfs) => {
   if (result.error) {
     if (result.error.toString().includes('file does not exist')) {
       return {
-        fail: "Oops, we could not find a file with that IPFS path. Are you sure you are using the correct path with the correct `CID`? Remember, if you use the wraping directory's `CID`, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory `CID`, you need to append `/success.txt` to the path name."
+        fail: "Oops, we could not find a file with that IPFS path. Are you sure you're using the correct path with the correct CID? Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID', you need to append `/success.txt`."
       }
     }
     if (result.error.toString().includes('multihash unknown function code')) {
       return {
-        fail: 'The `CID` you used in the IPFS path for the `cat` method is not valid. Make sure you are using one of the `CID`s we provided.'
+        fail: 'The CID you used in the IPFS path for the `cat` method is not valid. Make sure you are using one of the CIDs we provided.'
       }
     } else {
       return { error: result.error }
@@ -66,9 +66,11 @@ const validate = async (result, ipfs) => {
   }
 
   if (typeof result !== 'string') {
-    // this condition is too broad as it catches more than just returned the correct buffered contents of the file
+    // TODO: can we instead make this conditional check for the returned value being identical to the buffered contents of the right files, so that
+    // this error message is relevant? I can randomly return a number and hit this when I should really hit the "we have no idea what's wrong"
+    // nmessage, unless you know that I got the bufferedcontents right and didn't stringify them
     return {
-      fail: "Oops, don't forget that the value you're returning should be a string!"
+      fail: "Oops, don't forget to return a string! We included `.toString()` for you in the starter code. Did you remove it?"
     }
   }
 

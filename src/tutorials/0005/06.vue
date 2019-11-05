@@ -57,7 +57,7 @@ const validate = async (result, ipfs) => {
         result.error.toString().includes('path.indexOf is not a function') ||
         result.error.toString().includes('multihash unknown function code')) {
       return {
-        fail: "The `CID` provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided as an argument to `ipfs.ls`."
+        fail: "The CID provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided as an argument to `ipfs.ls`."
       }
     } else {
       return { error: result.error }
@@ -88,7 +88,7 @@ const validate = async (result, ipfs) => {
 
   if (!isStructureValid) {
     return {
-      fail: "The returned value doesn't match the structure normally returned by `ls`. Are you sure you're returning the result of the `ls` function?"
+      fail: "The returned value doesn't match the structure normally returned by `ls`. Are you sure you're returning the result of the `ls` method?"
     }
   }
 
@@ -99,7 +99,7 @@ const validate = async (result, ipfs) => {
 
   if (rootIsFile) {
     return {
-      fail: "You tried to use a file `CID` as an argument to the `ls` method. Please don't modify the boilerplate code. The wrapping directory should always be the last in the array resulting from the `add` method call."
+      fail: "You passed a file's CID as an argument to the `ls` method, rather than the wrapping directory's CID. If you reset your code, you'll find that we've already saving the needed CID for you as `dirCID` (see the hint above)."
     }
   }
 

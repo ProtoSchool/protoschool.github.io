@@ -1,3 +1,3 @@
 Use `ls` to list the contents of the directory you created in the previous exercise.
 
-**Hint:** The `CID` of the directory you created in the previous exercise has been stored for you in the dirCID variable in the starter code below. You could have jotted this value down after the last exercise, but here we're looking at the last element (the wrapping directory) in the array returned by the `add` method and saving its `hash` value, or CID.
+**Hint:** The CID of the directory you created in the previous exercise has been stored for you in the dirCID variable in the starter code below. Because the last element in the results returned by the `add` method is always the wrapping directory, our code finds that last element and saves its `hash` value, or CID.

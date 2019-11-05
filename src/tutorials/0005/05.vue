@@ -102,12 +102,13 @@ const validate = async (result, ipfs) => {
   const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 1].hash), 2000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
+      // WHAT WOULD THE USER HAVE DONE WRONG TO CAUSE THIS ERROR? PROVIDE ACTIONABLE FEEDBACK.
       fail: 'Could not get CID of top-level directory'
     }
   } else {
     if (resultingFiles.length === 1) {
       return {
-        fail: 'The last entry in your results correspond to a directory. Did you forget to use `wrapWithDirectory`.'
+        fail: 'The last entry in your results correspond to a directory. Did you forget to use `wrapWithDirectory`?'
       }
     }
     if (resultingFiles.length !== uploadedFiles.length) {

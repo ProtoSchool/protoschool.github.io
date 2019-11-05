@@ -56,13 +56,13 @@ const validate = async (result, ipfs) => {
 
   if (result.length > uploadedFiles.length) {
     return {
-      fail: 'The array you returned has more items than the number of files you uploaded.'
+      fail: 'The array you returned has more items than the number of files you uploaded. Be sure to add each file to IPFS just once, which you can do most easily by passing the whole array to the `add` method.'
     }
   }
 
   if (result.length < uploadedFiles.length) {
     return {
-      fail: 'The array you returned has less items than the number of files you uploaded.'
+      fail: 'The array you returned has fewer items than the number of files you uploaded. Be sure to add each file to IPFS, which you can do most easily by passing the whole array to the `add` method.'
     }
   }
 
