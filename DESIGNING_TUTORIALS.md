@@ -85,19 +85,44 @@ We're currently focused on improving our platform and growing our curriculum on 
 
 ### Creating an effective learner experience
 
-braindump of more ideas to extrapolate on here...
-- step-by-step, limited scope per lesson
-- scaffolding, each lesson builds on the previous one
-- limit the amount of text in each lesson
-- limit coding language challenges, focus on protocol challenges (link to docs for complicated JS methods)
-- provide actionable feedback in error messages for code challenges or multiple choice quizzes
-- link to official documentation when referencing new methods
-- state pre-reqs at start of tutorial, linking to other tutorials or learning materials
-- use the resources page at the end of the tutorial to suggest next steps for further learning
-- use real-world examples (kitten.gif, not foo/bar)
-- be gender-neutral or use a variety of genders in your examples
-- avoid slang/jargon for the sake of English language learners
-- know your audience: don't mix super advanced and super beginner concepts in the same tutorial without scaffolding
+#### Know your audience
+- Your tutorial should be aimed at a specific audience level, typically beginner and ocassionally intermediate given our current curriculum.
+- Do your users need to already be familiar with certain concepts before starting your tutorial? Use the first lesson as a place to set out your expectations, linking to other tutorials or beginner-friendly learning materials they should review before starting your tutorial.
+- Don't go into detail on advanced concepts in a tutorial aimed at beginners. If you think of a related, more advanced topic that users might be interested to learn more about, consider including an aside in your text with a link to where they can learn more.
+- Use the resources page at the end of your tutorial to suggest next steps for further learning, linking to specific tutorials, videos or articles that build on the concepts you've just taught.
+
+#### Teach a single concept per lesson and provide scaffolding
+- In general, each lesson should teach (and in the case of code challenges, ask the user to apply) a single new concept, with each lesson building on the prior one. (This is especially true for coding challenges, where the pre-filled starter code for one lesson will often be the solution code from the prior lesson.)
+- Provide clear and actionable feedback in error messages for code challenges or multiple choice quizzes. They are your opportunity to address common misconceptions and nudge users in the right direction.
+
+#### Use accessible and inclusive language and examples
+- Avoid slang or jargon for the sake of English language learners.
+- Telling a story in a way that includes example humans, such as three users sharing files on the peer-to-peer network? It's great to personalize the story by giving these characters names, but be sure to use gender-neutral names/pronouns or include a variety of genders in your examples.
+- Use familiar, real-world examples when explaining new concepts. This includes both the stories you tell and the sample code you choose to present (e.g. `cats/kitten.gif` or `/fun/message.txt`, not `/dir/file.txt` or `/foo/bar.txt`).
+- Avoid large blocks of text by keeping individual paragraphs short.
+- If the full text of your lesson is long, it may be overwhelming to learners. Consider whether the content might be more effectively split across multiple lessons.
+
+#### Specific tips for coding challenges
+
+##### Provide clear usage examples for API methods
+- Link to official documentation when introducing new API methods. This will allow you to stay focused on the most common options or use cases for the method while pointing to information on other options that may be available to the user should they like to learn more.
+- Be sure to show an example of a method being used in addition to showing the format or arguments required. For example, the following might be harder for beginners:
+```js
+await ipfs.files.write(path, content, [options])
+```
+Whereas a usage example can help clarify the type of data needed and will be more helpful to refer to when completing a related code challenge:
+```js
+await ipfs.files.write('/cat.jpg', catPic, { create: true })
+```
+- In some cases, you may want to offer hints within the body of the exercise Markdown file as opposed to only providing feedback after certain mistakes have been made.
+
+##### Limit dependencies on complex JavaScript methods
+- Do everything you can to create code challenges focused on the protocol you're teaching (e.g. IPFS), not the language you're teaching it in (JavaScript). Many of our learners are either new to coding or new to JavaScript. Give them hints with links to documentation on specific JavaScript methods that might be needed, such as `Array.map()`.
+- When providing solutions for code challenges, consider including a commented-out alternate solution that uses simpler JavaScript methods. Options like `Array.forEach` may be less efficient than array methods built for a specific use case (e.g. `Array.filter()`), but they are often easier for beginners to understand because they take things step-by-step.
+
+##### Use comprehensive validation to give detailed feedback to the user
+- Create your validation code in a way that lets you test for many specific anticipated errors. Detailed error messages such as "Did you forget to do X?" or "It looks like you ran the Y method instead of the Z method" help the user determine what to do next.
+- When a user submits correct code, consider using our logging feature to display the results of their code and ask them to notice something about the output (e.g. "Notice how the `hash` and `path` values are the same? We'll talk more about that in a future lesson.")
 
 
 ## License
