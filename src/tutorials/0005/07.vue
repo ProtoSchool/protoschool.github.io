@@ -56,6 +56,11 @@ const validate = async (result, ipfs) => {
         fail: "Oops, we could not find a file with that IPFS path. Are you sure you're using the correct path with the correct CID? Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID', you need to append `/success.txt`."
       }
     }
+    if (result.error.toString().includes('this dag node is a directory')) {
+      return {
+        fail: "The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path?"
+      }
+    }
     if (result.error.toString().includes('multihash unknown function code')) {
       return {
         fail: 'The CID you used in the IPFS path for the `cat` method is not valid. Make sure you are using one of the CIDs we provided.'
