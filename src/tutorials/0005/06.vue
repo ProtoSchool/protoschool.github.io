@@ -18,7 +18,7 @@ const code = `/* global ipfs */
 const run = async (files) => {
   const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
   const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const dirCID = addedFiles[addedFiles.length - 1].hash
+  const directoryCID = addedFiles[addedFiles.length - 1].hash
 
   // only edit code below this point
 
@@ -31,9 +31,9 @@ const solution = `/* global ipfs */
 const run = async (files) => {
   const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
   const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const dirCID = addedFiles[addedFiles.length - 1].hash
+  const directoryCID = addedFiles[addedFiles.length - 1].hash
 
-  return await ipfs.ls(dirCID)
+  return await ipfs.ls(directoryCID)
 }
 return run
 `
@@ -42,9 +42,9 @@ const validate = async (result, ipfs) => {
   let uploadedFiles = window.uploadedFiles || false
   const fileObjectsArray = window.uploadedFiles.map((file) => { return { path: file.name, content: file } })
   const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const dirCID = addedFiles[addedFiles.length - 1].hash
+  const directoryCID = addedFiles[addedFiles.length - 1].hash
 
-  const expectedResults = await ipfs.ls(dirCID)
+  const expectedResults = await ipfs.ls(directoryCID)
 
   if (!result) {
     return {
@@ -57,7 +57,7 @@ const validate = async (result, ipfs) => {
         result.error.toString().includes('path.indexOf is not a function') ||
         result.error.toString().includes('multihash unknown function code')) {
       return {
-        fail: "The CID provided to `ipfs.ls` is incorrect. Make sure you're using the `dirCID` variable we provided as an argument to `ipfs.ls`."
+        fail: "The CID provided to `ipfs.ls` is incorrect. Make sure you're using the `directoryCID` variable we provided as an argument to `ipfs.ls`."
       }
     } else {
       return { error: result.error }
@@ -99,7 +99,7 @@ const validate = async (result, ipfs) => {
 
   if (rootIsFile) {
     return {
-      fail: "You passed a file's CID as an argument to the `ls` method, rather than the wrapping directory's CID. If you reset your code, you'll find that we've already saving the needed CID for you as `dirCID` (see the hint above)."
+      fail: "You passed a file's CID as an argument to the `ls` method, rather than the wrapping directory's CID. If you reset your code, you'll find that we've already saving the needed CID for you as `directoryCID` (see the hint above)."
     }
   }
 
