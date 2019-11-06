@@ -132,8 +132,6 @@ marked.setOptions({
 })
 
 const _eval = async (text, ipfs, modules = {}, args = []) => {
-  await new Promise(resolve => ipfs.on('ready', resolve))
-
   let fn
   let result
   try {
@@ -212,6 +210,7 @@ export default {
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       createTestFile: self.$attrs.createTestFile,
+      createTestTree: self.$attrs.createTestTree,
       output: self.output,
       showUploadInfo: false,
       expandExercise: false,
@@ -279,9 +278,15 @@ export default {
       }
       let output = this.output
       let ipfs = await this.createIPFS()
+
+      await ipfs.ready
       if (this.createTestFile) {
         await this.createFile(ipfs)
       }
+      if (this.createTestTree) {
+        await this.createTree(ipfs)
+      }
+
       let code = this.editor.getValue()
       let modules = {}
 
@@ -347,12 +352,24 @@ export default {
     },
     createFile: function (ipfs) {
       /* eslint-disable no-new */
-      new Promise((resolve, reject) => {
-        ipfs.on('ready', async () => {
-          await ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
-          resolve()
-        })
-      })
+      return ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
+    },
+    createTree: function (ipfs) {
+      /* eslint-disable no-new */
+      return ipfs.add([
+        {
+          content: this.ipfsConstructor.Buffer.from('¯\\_(ツ)_/¯'),
+          path: 'shrug.txt'
+        },
+        {
+          content: this.ipfsConstructor.Buffer.from(':)'),
+          path: 'smile.txt'
+        },
+        {
+          content: this.ipfsConstructor.Buffer.from('You did it!'),
+          path: 'fun/success.txt'
+        }
+      ], { wrapWithDirectory: true })
     },
     resetCode: function () {
       // TRACK? User chose to reset code

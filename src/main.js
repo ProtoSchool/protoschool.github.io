@@ -46,6 +46,14 @@ import T0004L08 from './tutorials/0004/08.vue'
 import T0004L09 from './tutorials/0004/09.vue'
 import T0004L10 from './tutorials/0004/10.vue'
 import T0004L11 from './tutorials/0004/11.vue'
+import T0005L01 from './tutorials/0005/01.vue'
+import T0005L02 from './tutorials/0005/02.vue'
+import T0005L03 from './tutorials/0005/03.vue'
+import T0005L04 from './tutorials/0005/04.vue'
+import T0005L05 from './tutorials/0005/05.vue'
+import T0005L06 from './tutorials/0005/06.vue'
+import T0005L07 from './tutorials/0005/07.vue'
+import T0005L08 from './tutorials/0005/08.vue'
 
 Vue
   .use(VueRouter)
@@ -96,7 +104,18 @@ const routes = [
   { path: '/mutable-file-system/08', component: T0004L08 },
   { path: '/mutable-file-system/09', component: T0004L09 },
   { path: '/mutable-file-system/10', component: T0004L10 },
-  { path: '/mutable-file-system/11', component: T0004L11 },
+  { path: '/mutable-file-system/01', component: T0004L11 },
+  // Tutorial 0005
+  { path: '/regular-files-api', component: Landing, props: { tutorialId: '0005' } },
+  { path: '/regular-files-api/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
+  { path: '/regular-files-api/01', component: T0005L01 },
+  { path: '/regular-files-api/02', component: T0005L02 },
+  { path: '/regular-files-api/03', component: T0005L03 },
+  { path: '/regular-files-api/04', component: T0005L04 },
+  { path: '/regular-files-api/05', component: T0005L05 },
+  { path: '/regular-files-api/06', component: T0005L06 },
+  { path: '/regular-files-api/07', component: T0005L07 },
+  { path: '/regular-files-api/08', component: T0005L08 },
   // 404
   { path: '*', name: '404', component: NotFound, props: { notFound: true } }
 ]

@@ -55,7 +55,8 @@ export default {
 
 <style scoped>
 .tutorial-tile {
-  max-width: 49%
+  max-width: 49%;
+  min-height: 167px;
 }
 .tutorial-tile a  {
   text-decoration: none;
