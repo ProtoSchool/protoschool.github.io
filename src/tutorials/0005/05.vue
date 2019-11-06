@@ -100,8 +100,7 @@ const validate = async (result, ipfs) => {
   const resultingFiles = await pTimeout(ipfs.ls(result[result.length - 1].hash), 2000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
-      // WHAT WOULD THE USER HAVE DONE WRONG TO CAUSE THIS ERROR? PROVIDE ACTIONABLE FEEDBACK.
-      fail: 'Could not get CID of top-level directory'
+      fail: 'Could not get CID of top-level directory. Please make sure you are returning the result of the `add` method. The items of the array should be objects with a `hash` attribute whose value must be a valid `CID`.j'
     }
   } else {
     if (resultingFiles.length === 1) {
@@ -125,7 +124,7 @@ const validate = async (result, ipfs) => {
       log: result
     }
   } else {
-        return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
+    return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
   }
 }
 

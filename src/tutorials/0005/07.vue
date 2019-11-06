@@ -65,12 +65,14 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  if (typeof result !== 'string') {
-    // TODO: can we instead make this conditional check for the returned value being identical to the buffered contents of the right files, so that
-    // this error message is relevant? I can randomly return a number and hit this when I should really hit the "we have no idea what's wrong"
-    // nmessage, unless you know that I got the bufferedcontents right and didn't stringify them
-    return {
-      fail: "Oops, don't forget to return a string! We included `.toString()` for you in the starter code. Did you remove it?"
+  if (Object.prototype.toString.call(result) === '[object Uint8Array]') {
+    let isEqual = (new TextEncoder()).encode('You did it!').every((elem, idx) => {
+      return elem === result[idx]
+    })
+    if (isEqual) {
+      return {
+        fail: "Oops, don't forget to return a string! We included `.toString()` for you in the starter code. Did you remove it?"
+      }
     }
   }
 
@@ -81,7 +83,7 @@ const validate = async (result, ipfs) => {
       log: result
     }
   } else {
-        return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
+    return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
   }
 }
 
