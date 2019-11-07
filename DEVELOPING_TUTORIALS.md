@@ -4,7 +4,7 @@ This guide will introduce you to the process of building a ProtoSchool tutorial.
 
 **Before you get started here, please be sure to read our documentation on [Designing Tutorials](DESIGNING_TUTORIALS.md) in its entirety.** There you'll learn about the process for proposing and outlining a new tutorial with community input, as well as some of the key elements of an effective learning experience.
 
-**Before you start building your tutorial, you should have an open issue in this repo with your proposal/outline, with buy-in and feedback from the ProtoSchool team.**
+**Before you start building your tutorial, you should have an open issue in this repo with your proposal/outline, with feedback and approval from the ProtoSchool team.**
 
 Ready to get started? Read on!
 
