@@ -1,7 +1,6 @@
 <template>
   <div class="pt2">
-    <div v-if="output.test.error" class="lh-copy pv2 ph3 bg-red white">
-      Error: {{output.test.error.message}}
+    <div v-if="output.test.error" class="lh-copy pv2 ph3 bg-red white" v-html="parseData(`Error: ${output.test.error.message}`)">
     </div>
     <div
       v-if="output.test.fail"
