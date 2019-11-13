@@ -9,11 +9,16 @@
       v-html="parseData(output.test.fail)" />
     <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
       <span class="output-log" v-html="parseData(output.test.success)" />
-      <a
-        v-if="output.test.cid"
-        class="link fw7 underline-hover dib ph2 mh2 white"
-        target="explore-ipld"
+      <span v-if="output.test.cid">
+        <a
+          class="link fw7 underline-hover dib ph2 mh2 white"
+          target="_blank"
         :href="exploreIpldUrl">View in IPLD Explorer</a>
+        <a
+          class="link fw7 underline-hover dib ph2 mh2 white"
+          target="_blank"
+          :href="inspectCidUrl">View in CID Inspector</a>
+      </span>
     </div>
     <div v-if="output.test.log">
       <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
@@ -37,6 +42,11 @@ export default {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
       cid = cid || ''
       return `https://explore.ipld.io/#/explore/${cid}`
+    },
+    inspectCidUrl: function () {
+      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
+      cid = cid || ''
+      return `https://cid.ipfs.io/#/${cid}`
     }
   }
 }
