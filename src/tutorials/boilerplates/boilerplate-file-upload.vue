@@ -18,6 +18,9 @@ const validate = async (result, ipfs) => {
   // https://github.com/ProtoSchool/protoschool.github.io/README.md#work-with-uploaded-files-for-file-upload-lessons-only
   let uploadedFiles = window.uploadedFiles
 
+  if (!uploadedFiles) {
+    return { fail: 'You need to upload some files first' }
+  }
   if (result) {
     return { success: 'Happy Message!' }
   } else {
