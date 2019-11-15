@@ -23,18 +23,12 @@ const validate = async (result, ipfs) => {
   let rootContainsSome = rootDirectoryContents.length === 1 && rootDirectoryContents[0].name === 'some'
   let someContainsStuff = null
   let someIsEmpty = null
-  let stuffIsEmpty = null
   let someDirectoryContents = null
-  let stuffDirectoryContents = null
 
   if (rootContainsSome) {
     someDirectoryContents = await ipfs.files.ls('/some', { long: true })
     someContainsStuff = someDirectoryContents.length === 1 && someDirectoryContents[0].name === 'stuff'
     someIsEmpty = someDirectoryContents.length === 0
-    if (someContainsStuff) {
-      stuffDirectoryContents = await ipfs.files.ls('/some', { long: true })
-      stuffIsEmpty = stuffDirectoryContents.length === 0
-    }
   }
 
   if (!result) {

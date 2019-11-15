@@ -58,7 +58,7 @@ const validate = async (result, ipfs) => {
     }
     if (result.error.toString().includes('this dag node is a directory')) {
       return {
-        fail: "The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path?"
+        fail: 'The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path?'
       }
     }
     if (result.error.toString().includes('multihash unknown function code')) {

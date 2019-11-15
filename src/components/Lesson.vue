@@ -94,6 +94,7 @@
 <script>
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
+import pTimeout from 'p-timeout'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
@@ -112,6 +113,8 @@ import marked from 'marked'
 import { EVENTS } from '../static/countly'
 import { deriveShortname } from '../utils/paths'
 import tutorialsList from '../static/tutorials.json'
+
+const MAX_EXEC_TIMEOUT = 5000
 
 const hljs = require('highlight.js/lib/highlight.js')
 hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
@@ -147,7 +150,12 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
     return modules[name]
   }
   try {
-    result = await fn(ipfs, require)(...args)
+    result = await pTimeout(fn(ipfs, require)(...args), MAX_EXEC_TIMEOUT).catch((err) => {
+      if (err.name === 'TimeoutError') {
+        err.message = 'Your code took too long to execute. This could be the result of trying to fetch data that\'s not available on the IPFS network. Take a close look at your code with this possiblity in mind. Still can\'t figure out what\'s wrong? Use the View Solution feature above to see our suggested approach to this challenge.'
+      }
+      throw err
+    })
   } catch (e) {
     result = {error: e}
   }

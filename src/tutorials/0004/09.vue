@@ -16,6 +16,8 @@ import text from './09.md'
 import exercise from './09-exercise.md'
 
 const validate = async (result, ipfs) => {
+  const uploadedFiles = window.uploadedFiles || false
+
   const someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
   const someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
   const uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
