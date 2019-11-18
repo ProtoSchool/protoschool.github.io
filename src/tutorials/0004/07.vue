@@ -78,9 +78,12 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return {fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?'}
-  } else if (result instanceof Error && result.message === 'file does not exist') {
+  } else if (result instanceof Error && (result.message === 'file does not exist' || result.message.includes('does not exist, use the -p flag to create it'))) {
     // user forgot to use {parents: true} option so path isn't found
-    return { fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the `{ parents: true }` option?' }
+    return {
+      fail: 'The path to the directory you\'re trying to create can\'t be found. Did you forget to use the `{ parents: true }` option?',
+      overrideError: true
+    }
   } else if (Array.isArray(result) && result[0].hash.length === 0) {
     // user edited the ls command to remove {long: true}
     return {

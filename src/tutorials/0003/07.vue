@@ -22,11 +22,17 @@ const validate = async (result, ipfs) => {
   }
 
   if (result instanceof Error && result.message === `Cannot read property 'prev' of undefined`) {
-    return { fail: 'Cannot read property `prev` of undefined. Did you try to access the value of `ipfs.dag.get` before the function completed?' }
+    return {
+      fail: 'Cannot read property `prev` of undefined. Did you try to access the value of `ipfs.dag.get` before the function completed?',
+      overrideError: true
+    }
   }
 
   if (result instanceof Error && result.message === `Cannot read property 'value' of undefined`) {
-    return { fail: 'Cannot read property `value` of undefined. Did you try to access the value of `ipfs.dag.get` before the function completed?' }
+    return {
+      fail: 'Cannot read property `value` of undefined. Did you try to access the value of `ipfs.dag.get` before the function completed?',
+      overrideError: true
+    }
   }
 
   if (!Array.isArray(result)) {

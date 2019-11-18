@@ -348,6 +348,8 @@ export default {
       }
 
       if (result instanceof Error) {
+        console.log('result', result)
+        console.log('test', test)
         if (test === undefined || !test.overrideError) {
           // In case of an error, if the author did not return anything or isn't sending an overriding error message, use the base error
           test = {

@@ -34,12 +34,16 @@ const validate = async (result, ipfs) => {
   if (!result) {
     return { fail: 'Oops! You forgot to return a result :(' }
   } else if (result instanceof Error && result.message.includes('is a directory, use -r to remove directories')) {
-    return { fail: 'Oops! You tried to remove a non-empty directory and it didn\'t work because you forgot to use `{ recursive: true }`.' }
+    return {
+      fail: 'Oops! You tried to remove a non-empty directory and it didn\'t work because you forgot to use `{ recursive: true }`.',
+      overrideError: true
+    }
   } else if (!rootDirectoryStatus.hash) {
     return { fail: 'Your root directory doesn\'t look right. Are you sure you ran the `files.rm` method on your `/some` directory with the option `{ recursive: true }`?' }
   } else if (result instanceof Error && result.message === 'Cannot delete root') {
     return {
-      fail: 'Oops! Your root directory can\'t be removed. Remove `/some` instead.'
+      fail: 'Oops! Your root directory can\'t be removed. Remove `/some` instead.',
+      overrideError: true
     }
   } else if (rootContainsSome && someIsEmpty) {
     // only removed /some/stuff with {recursive:true} or tried to remove the root itself

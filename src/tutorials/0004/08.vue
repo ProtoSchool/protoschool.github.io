@@ -56,15 +56,27 @@ const validate = async (result, ipfs) => {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result instanceof Error && result.message === 'Unexpected token const') {
-    return { fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`' }
+    return {
+      fail: 'Oops! Looks like you forgot to assign a value to `filesToMove` or `filepathsToMove`',
+      overrideError: true
+    }
   } else if (result instanceof Error && result.message === 'await is only valid in async function') {
-    return { fail: "Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn't wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`." }
+    return {
+      fail: "Oops! `await` is only valid in an async function. Perhaps you ran `file.mv` multiple times and didn't wrap it in a single async function? See our suggestion for passing in an array so you can make a single call to `files.mv`.",
+      overrideError: true
+    }
   } else if (result instanceof Error && result.message === 'ipfs.mv is not a function') {
-    return { fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?' }
+    return {
+      fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?',
+      overrideError: true
+    }
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result instanceof Error && result.message === 'paths must start with a leading /') {
-    return { fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?' }
+    return {
+      fail: 'Paths must start with a leading `/`. Did you use just the file name when attempting to move each file?',
+      overrideError: true
+    }
   } else if (!returnedSomeStuffContents) {
     return { fail: 'It looks like you returned something other than the contents of the `/some/stuff` directory. Did you accidentally edit the return statement?' }
   } else if (!rootContainsOnlySome) {
