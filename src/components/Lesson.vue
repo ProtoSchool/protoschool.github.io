@@ -337,19 +337,28 @@ export default {
 
       let test
 
-      if (result instanceof Error) {
+      // Run the `validate` function in the lesson
+      try {
+        test = await this.$attrs.validate(result, ipfs, args)
+      } catch (err) {
+        // Something in our validation threw an error, it's probably a bug
         test = {
-          fail: result.toString()
+          fail: 'Something went wrong in the validation. Please, reset the code and see the instructions.'
         }
-      } else {
-        // Run the `validate` function in the lesson
-        try {
-          test = await this.$attrs.validate(result, ipfs, args)
-        } catch (err) {
-          // Something in our validation threw an error, it's probably a bug
+      }
+
+      if (result instanceof Error) {
+        if (test === undefined || !test.overrideError) {
+          // In case of an error, if the author did not return anything or isn't sending an overriding error message, use the base error
           test = {
-            fail: 'Something is wrong. Reset the code and see the instructions.'
+            fail: result.toString()
           }
+        }
+      } else if (test === undefined) {
+        // Our validation did not return anything and the original result is also not an error.
+        // This may be the result of a missing validation case + not returning anything by default
+        test = {
+          fail: 'Something went wrong in the validation, possibly a missing validation case. Please, create an issue [here](https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+%5BLesson+Title+%28URL%29%5D) with a copy of your code.'
         }
       }
 
