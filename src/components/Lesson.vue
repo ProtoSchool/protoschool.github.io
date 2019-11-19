@@ -167,8 +167,8 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
       }
       throw err
     })
-  } catch (e) {
-    result = {error: e}
+  } catch (error) {
+    result = error
   }
 
   return result
@@ -348,8 +348,6 @@ export default {
       }
 
       if (result instanceof Error) {
-        console.log('result', result)
-        console.log('test', test)
         if (test === undefined || !test.overrideError) {
           // In case of an error, if the author did not return anything or isn't sending an overriding error message, use the base error
           test = {
