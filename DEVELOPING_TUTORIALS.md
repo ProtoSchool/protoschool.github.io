@@ -406,7 +406,7 @@ Then, within the `validate` function, add cases for the specific error messages
 you need to override, as in this example:
 
 ```js
-} else if (result.error && result.error.message === 'No child name passed to addLink') {
+} else if (result instanceof Error && result.message === 'No child name passed to addLink') {
   // Forgot the file name and just used a directory as the path
   return {
     fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?',
