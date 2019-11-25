@@ -374,6 +374,18 @@ Be sure to include conditionals that will catch common mistakes and provide usef
 
 If the object returned by your `validate` function has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
 
+You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
+
+```js
+} else if (!!result & !result.hash) {
+  return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
+}
+```
+
+...would produce this user-facing message:
+
+![screenshot](public/markdown_error.png)
+
 If this is the last lesson in your tutorial, the user will see a "More Tutorials" button instead of a "Next" button. Please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
 
 ###### Override external error messages (optional)
@@ -390,7 +402,7 @@ If you'd like to replace a specific error message returned automatically with a 
 />
 ```
 
-Within the `validate` function, add cases for the specific error messages
+Then, within the `validate` function, add cases for the specific error messages
 you need to override, as in this example:
 
 ```js
@@ -403,29 +415,17 @@ you need to override, as in this example:
 }
 ```
 
-The `overrideError` attribute let's us know that you don't want the original error to be shown. If it is not set to `true` and the result of the user code is an error, the result of your validation will be ignored in order to show the original error.
+The `overrideError` attribute lets us know that you don't want the original error to be shown. If it is missing (or is not set to `true`) and the result of the user code is an error, the result of your validation will be ignored in order to show the original error.
 
-You may choose to use markdown formatting in your responses.
+The value of the `fail` attribute must be the string you'd like displayed to the user instead of the built-in error message you're overriding. As is true for all other success and failure messages, you may (optionally) choose to use Markdown formatting in your message string.
 
 Be sure to adapt your test case so that it works within the context of your other conditionals to meet your
-validation needs. What is required is that you return an object with the `fail` key and a string as its value,
-that string is what will be shown to the user.
+validation needs.
 
 Note that most tutorial lessons will _not_ require the overriding of external
 errors. If you have questions about whether to use this optional feature, please reach
 out to the project maintainers for guidance.
 
-You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
-
-```js
-} else if (!!result & !result.hash) {
-  return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
-}
-```
-
-...would produce this user-facing message:
-
-![screenshot](public/markdown_error.png)
 
 ###### Display results to the user (optional)
 
