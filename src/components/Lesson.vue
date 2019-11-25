@@ -136,13 +136,13 @@ marked.setOptions({
 
 class SyntaxError extends Error {
   toString () {
-    return `SyntaxtError: ${this.message}`
+    return `SyntaxError: ${this.message}`
   }
 }
 
 const _eval = async (text, ipfs, modules = {}, args = []) => {
   if (!text || typeof text !== 'string' || !text.trim()) {
-    return new Error('Please submit a solution')
+    return new Error('Please submit a solution.')
   }
 
   let fn
@@ -255,6 +255,9 @@ export default {
     lessonIssueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
     },
+    validationIssueUrl: function () {
+      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback%2C+validation-error&template=validation-error.md&title=Validation+Error%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+    },
     tutorialIssueUrl: function () {
       return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`
     },
@@ -343,7 +346,7 @@ export default {
       } catch (err) {
         // Something in our validation threw an error, it's probably a bug
         test = {
-          fail: 'Something went wrong in the validation. Please, reset the code and see the instructions.'
+          fail: 'Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click View Solution to see the approach we recommend for this challenge.'
         }
       }
 
@@ -355,10 +358,12 @@ export default {
           }
         }
       } else if (test === undefined) {
+
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl}) noting that you encountered a validation error and pasting in the code you submitted.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
-          fail: 'Something went wrong in the validation, possibly a missing validation case. Please, create an issue [here](https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+%5BLesson+Title+%28URL%29%5D) with a copy of your code.'
+          fail: validationErrorMessage
         }
       }
 
