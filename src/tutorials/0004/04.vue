@@ -65,11 +65,11 @@ const validate = async (result, ipfs) => {
   }
 
   if (!ipfsFiles.length) {
-    return { fail: 'Uh oh. There was nothing in your MFS. Did you add the uploaded files to it?' }
+    return { fail: 'Uh oh. There was nothing in your MFS node. Did you add the uploaded files to it?' }
   }
 
   if (!itemsAreFiles) {
-    return { fail: "Looks like you didn't upload files. Did you upload a directory?" }
+    return { fail: "Looks like you didn't upload any files. Did you upload a directory instead?" }
   }
 
   if (!itemsMatch) {

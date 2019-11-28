@@ -253,13 +253,13 @@ export default {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
     lessonIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`)
     },
     validationIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback%2C+validation-error&template=validation-error.md&title=Validation+Error%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback%2C+validation-error&template=validation-error.md&title=Validation+Error%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`)
     },
     tutorialIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`)
     },
     lessonsInTutorial: function () {
       const basePath = this.$route.path.slice(0, -2)
@@ -358,7 +358,6 @@ export default {
           }
         }
       } else if (test === undefined) {
-
         let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl}) noting that you encountered a validation error and pasting in the code you submitted.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
