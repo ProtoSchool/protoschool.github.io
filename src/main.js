@@ -104,7 +104,7 @@ const routes = [
   { path: '/mutable-file-system/08', component: T0004L08 },
   { path: '/mutable-file-system/09', component: T0004L09 },
   { path: '/mutable-file-system/10', component: T0004L10 },
-  { path: '/mutable-file-system/01', component: T0004L11 },
+  { path: '/mutable-file-system/11', component: T0004L11 },
   // Tutorial 0005
   { path: '/regular-files-api', component: Landing, props: { tutorialId: '0005' } },
   { path: '/regular-files-api/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
