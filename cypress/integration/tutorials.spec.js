@@ -2,7 +2,7 @@
 
 import tutorials from '../../src/static/tutorials.json'
 
-// tutorials with standard coding challenges only (no file upload or multiple choice)
+// tutorials with standard coding challenges only (no file upload, multiple choice, or text only lessons)
 // NEED TO UPDATE WHEN ADDING NEW CONTENT
 const standardCodingTutorials = ['0002', '0003']
 
