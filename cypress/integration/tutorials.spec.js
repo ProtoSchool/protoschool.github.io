@@ -2,26 +2,24 @@
 
 import tutorials from '../../src/static/tutorials.json'
 
-describe('show 0001', function () {
-  renderAllLessonsInTutorial('0001')
+// ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
+describe(`RENDER ALL LESSONS/TUTORIALS`, function () {
+  Object.keys(tutorials).forEach(function (tutorial) {
+    describe(`render ${tutorial}`, function () {
+      renderAllLessonsInTutorial(tutorial)
+    })
+  })
 })
 
-describe('📝 0002', function () {
-  renderAllLessonsInTutorial('0002')
-  viewSolutionsAndSubmitAll({ tutorialId: '0002', lessonCount: 3 })
-})
+// for tutorials with standard code challenges, ensure solution code passes lessons
+describe(`PASS STANDARD CODE CHALLENGES`, function () {
+  describe('📝 0002', function () {
+    viewSolutionsAndSubmitAll({ tutorialId: '0002', lessonCount: 3 })
+  })
 
-describe('📝 0003', function () {
-  renderAllLessonsInTutorial('0003')
-  viewSolutionsAndSubmitAll({ tutorialId: '0003', lessonCount: 7 })
-})
-
-describe('show 0004', function () {
-  renderAllLessonsInTutorial('0004')
-})
-
-describe('show 0005', function () {
-  renderAllLessonsInTutorial('0005')
+  describe('📝 0003', function () {
+    viewSolutionsAndSubmitAll({ tutorialId: '0003', lessonCount: 7 })
+  })
 })
 
 function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = true }) {
@@ -54,12 +52,12 @@ function renderAllLessonsInTutorial (tutorialId) {
   const standardLessons = tutorials[tutorialId].lessons
   const standardLessonCount = standardLessons.length
 
-  console.log('standardLessonCount is ', standardLessonCount)
-  it(`should find the ${tutorialName} tutorial landing page with correct number of lesson links`, function () {
+  it(`should find ${tutorialName} landing page with correct lesson count`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[data-cy=lesson-link]`).should('have.length', standardLessonCount)
   })
-  it(`should render all standard lesson pages for ${tutorialName}`, function () {
+
+  it(`should find and render all standard lesson pages in ${tutorialName}`, function () {
     console.log('standardLessons: ', standardLessons)
     standardLessons.forEach((lessonName, index) => {
       console.log(lessonName)
@@ -69,7 +67,8 @@ function renderAllLessonsInTutorial (tutorialId) {
       cy.get(`[data-cy=tutorial-landing-link]`).click()
     })
   })
-  it(`should find and render a resources page for ${tutorialName}`, function () {
+
+  it(`should find and render resources page for ${tutorialName}`, function () {
     cy.get(`[data-cy=lesson-link-resources]`).click()
     cy.contains('h1', 'Resources')
     cy.get(`[data-cy=tutorial-landing-link]`).click()
