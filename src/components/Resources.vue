@@ -1,5 +1,5 @@
 <template>
-  <div class="lesson-text lh-copy">
+  <div data-cy="resources-content" class="lesson-text lh-copy">
     <p>Ready to learn more? There are plenty of additional resources to explore, both in ProtoSchool and beyond. <span v-if="data.length > 1">Here are some of our favorites:</span> <span v-else>Here's our top pick:</span></p>
     <div v-for="(item, idx) in data" :key="`resources-${idx}`" class="mb3">
       <p class="ma0 flex items-center">

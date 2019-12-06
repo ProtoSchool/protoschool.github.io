@@ -2,32 +2,37 @@
 
 import tutorials from '../../src/static/tutorials.json'
 
+// tutorials with standard coding challenges only (no file upload or multiple choice)
+// NEED TO UPDATE WHEN ADDING NEW CONTENT
+const standardCodingTutorials = ['0002', '0003']
+
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
 describe(`RENDER ALL LESSONS/TUTORIALS`, function () {
-  Object.keys(tutorials).forEach(function (tutorial) {
-    describe(`render ${tutorial}`, function () {
-      renderAllLessonsInTutorial(tutorial)
+  Object.keys(tutorials).forEach(function (tutorialId) {
+    describe(`render ${tutorialId}`, function () {
+      renderAllLessonsInTutorial(tutorialId)
     })
   })
 })
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`PASS STANDARD CODE CHALLENGES`, function () {
-  describe('📝 0002', function () {
-    viewSolutionsAndSubmitAll({ tutorialId: '0002', lessonCount: 3 })
-  })
-
-  describe('📝 0003', function () {
-    viewSolutionsAndSubmitAll({ tutorialId: '0003', lessonCount: 7 })
+  standardCodingTutorials.forEach( tutorialId => {
+    describe(`pass ${tutorialId}`, function () {
+      viewSolutionsAndSubmitAll(tutorialId)
+    })
   })
 })
 
-function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = true }) {
+function viewSolutionsAndSubmitAll (tutorialId) {
   const tutorialName = tutorials[tutorialId].url
+  const lessonCount = tutorials[tutorialId].lessons.length // count excludes resources page
+  // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
   it(`should find the ${tutorialName} tutorial`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
   })
+  // loop through standard lessons and attempt to pass challenges
   for (let i = 1; i <= lessonCount; i++) {
     let lessonNr = i.toString().padStart(2, 0)
     it(`should view the solution and pass test ${lessonNr}`, function () {
@@ -37,14 +42,15 @@ function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = tr
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=replace-with-solution]').click({ force: true })
       cy.get('[data-cy=submit-answer]').click()
-      if (i < lessonCount || hasResources) {
-        cy.get('[data-cy=next-lesson]').click()
-      } else {
-        cy.get('[data-cy=more-tutorials]').click()
-        cy.url().should('include', `#/tutorials/`)
-      }
+      cy.get('[data-cy=next-lesson]').click()  //leads to resources on last iteration
     })
   }
+  it(`should find resources and navigate to tutorials`, function () {
+    cy.contains('h1', 'Resources') // loads resources page
+    cy.contains('[data-cy=resources-content]') // loads meaningful content
+    cy.get('[data-cy=more-tutorials]').click()
+    cy.url().should('include', `#/tutorials/`)
+  })
 }
 
 function renderAllLessonsInTutorial (tutorialId) {
@@ -58,10 +64,7 @@ function renderAllLessonsInTutorial (tutorialId) {
   })
 
   it(`should find and render all standard lesson pages in ${tutorialName}`, function () {
-    console.log('standardLessons: ', standardLessons)
     standardLessons.forEach((lessonName, index) => {
-      console.log(lessonName)
-      console.log(index)
       cy.get(`[data-cy=lesson-link]`).contains(lessonName).click()
       cy.contains('h1', lessonName)
       cy.get(`[data-cy=tutorial-landing-link]`).click()
