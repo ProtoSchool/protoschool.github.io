@@ -2,12 +2,26 @@
 
 import tutorials from '../../src/static/tutorials.json'
 
+describe('show 0001', function () {
+  renderAllLessonsInTutorial('0001')
+})
+
 describe('📝 0002', function () {
+  renderAllLessonsInTutorial('0002')
   viewSolutionsAndSubmitAll({ tutorialId: '0002', lessonCount: 3 })
 })
 
 describe('📝 0003', function () {
+  renderAllLessonsInTutorial('0003')
   viewSolutionsAndSubmitAll({ tutorialId: '0003', lessonCount: 7 })
+})
+
+describe('show 0004', function () {
+  renderAllLessonsInTutorial('0004')
+})
+
+describe('show 0005', function () {
+  renderAllLessonsInTutorial('0005')
 })
 
 function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = true }) {
@@ -33,4 +47,31 @@ function viewSolutionsAndSubmitAll ({ tutorialId, lessonCount, hasResources = tr
       }
     })
   }
+}
+
+function renderAllLessonsInTutorial (tutorialId) {
+  const tutorialName = tutorials[tutorialId].url
+  const standardLessons = tutorials[tutorialId].lessons
+  const standardLessonCount = standardLessons.length
+
+  console.log('standardLessonCount is ', standardLessonCount)
+  it(`should find the ${tutorialName} tutorial landing page with correct number of lesson links`, function () {
+    cy.visit(`/#/${tutorialName}/`)
+    cy.get(`[data-cy=lesson-link]`).should('have.length', standardLessonCount)
+  })
+  it(`should render all standard lesson pages for ${tutorialName}`, function () {
+    console.log('standardLessons: ', standardLessons)
+    standardLessons.forEach((lessonName, index) => {
+      console.log(lessonName)
+      console.log(index)
+      cy.get(`[data-cy=lesson-link]`).contains(lessonName).click()
+      cy.contains('h1', lessonName)
+      cy.get(`[data-cy=tutorial-landing-link]`).click()
+    })
+  })
+  it(`should find and render a resources page for ${tutorialName}`, function () {
+    cy.get(`[data-cy=lesson-link-resources]`).click()
+    cy.contains('h1', 'Resources')
+    cy.get(`[data-cy=tutorial-landing-link]`).click()
+  })
 }
