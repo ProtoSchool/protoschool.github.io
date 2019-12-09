@@ -17,7 +17,7 @@ describe(`RENDER ALL LESSONS/TUTORIALS`, function () {
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`PASS STANDARD CODE CHALLENGES`, function () {
-  standardCodingTutorials.forEach( tutorialId => {
+  standardCodingTutorials.forEach(tutorialId => {
     describe(`pass ${tutorialId}`, function () {
       viewSolutionsAndSubmitAll(tutorialId)
     })
@@ -42,12 +42,12 @@ function viewSolutionsAndSubmitAll (tutorialId) {
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=replace-with-solution]').click({ force: true })
       cy.get('[data-cy=submit-answer]').click()
-      cy.get('[data-cy=next-lesson]').click()  //leads to resources on last iteration
+      cy.get('[data-cy=next-lesson]').click() // leads to resources on last iteration
     })
   }
   it(`should find resources and navigate to tutorials`, function () {
     cy.contains('h1', 'Resources') // loads resources page
-    cy.contains('[data-cy=resources-content]') // loads meaningful content
+    cy.get('[data-cy=resources-content]') // loads meaningful content
     cy.get('[data-cy=more-tutorials]').click()
     cy.url().should('include', `#/tutorials/`)
   })
