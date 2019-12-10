@@ -27,18 +27,9 @@ const validate = async (result, ipfs) => {
   }
 
   const correctHash = 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy'
-  console.log(`correctHash: `, correctHash)
-  console.log(typeof correctHash)
-  console.log(`result: `, result)
-  console.log(typeof result)
-  console.log(`loose equality: `, correctHash == result)
-  console.log(`strict equality: `, correctHash === result)
   if (result == correctHash) {
     return { success: 'Everything works!' }
   } else {
-    // const obj = await ipfs.dag.get(result)
-    // const expected = JSON.stringify({ bar: new CID(hash) })
-    // const got = JSON.stringify(obj.value)
     return { fail: `Was expecting \`${correctHash}\` but got \`${result}\`.` }
   }
 }
