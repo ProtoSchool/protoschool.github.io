@@ -42,7 +42,7 @@
     <!-- Text only lesson -->
     <div v-else class="mb3 ph2 tr">
       <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInTutorial) || isResources)">
-        <Button :click="tutorialMenu" class="bg-aqua white">More Tutorials</Button>
+        <Button :click="tutorialMenu" data-cy="more-tutorials" class="bg-aqua white">More Tutorials</Button>
       </div>
       <div v-else>
         <Button :click="next" class="bg-aqua white">Next</Button>

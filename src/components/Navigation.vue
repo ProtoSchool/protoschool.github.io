@@ -7,7 +7,7 @@
         <div v-if="isLesson && notFound !== true" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4">></span>
-          <router-link class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
+          <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
         </div>
         <!-- standard nav  -->
         <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">

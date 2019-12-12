@@ -23,12 +23,13 @@
           <template v-for="(lesson, index) in tutorial.lessons">
             <li :key="index">
               <LessonLink
+                data-cy="lesson-link"
                 :to="`/${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
                 :name="lesson"
                 :index="index + 1" />
             </li>
           </template>
-          <LessonLink v-if="tutorial.resources" :to="resourcesLink" name="More to explore" />
+          <LessonLink data-cy="lesson-link-resources" v-if="tutorial.resources" :to="resourcesLink" name="More to explore" />
         </ul>
       </div>
     </div>
