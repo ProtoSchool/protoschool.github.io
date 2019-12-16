@@ -31,7 +31,7 @@ const validate = async (result, ipfs) => {
     const expected = JSON.stringify({ test: 1 })
     const got = JSON.stringify(obj.value)
 
-    return { fail: `Was expecting \`${expected}\` but got \`${got}\`.` }
+    return { fail: `Your function returned a CID, but it doesn't have the right contents. It looks like you stored the data \`${got}\` instead of \`${expected}\`.` }
   }
 }
 
