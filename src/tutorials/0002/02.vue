@@ -27,7 +27,7 @@ const validate = async (result, ipfs) => {
   }
 
   const correctHash = 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy'
-  if (result == correctHash) {
+  if (result.toString() === correctHash) {
     return { success: 'Everything works!' }
   } else {
     return { fail: `Was expecting \`${correctHash}\` but got \`${result}\`.` }

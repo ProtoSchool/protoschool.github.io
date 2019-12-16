@@ -50,7 +50,7 @@ const validate = async (result, ipfs) => {
       return { fail: 'Your traversePosts function needs to return CIDs.' }
     }
     const expectedCids = [treePostCid, computerPostCid, dogPostCid]
-    const returnedCids = result.map(item => item.toBaseEncodedString())
+    const returnedCids = result.map(item => item.toString())
     if (!shallowEqualArrays(returnedCids.sort(), expectedCids.sort())) {
       return {
         fail: 'The CIDs returned by the traversePosts function did not match the expected CIDs.',

@@ -35,7 +35,7 @@ const validate = async (result, ipfs) => {
       return { fail: 'The value of `author` needs to be a link (`{"/": "some-cid"}`).' }
     }
     const nodeAuthor = node.author
-    if (![natCid, samCid].includes(nodeAuthor.toBaseEncodedString())) {
+    if (![natCid, samCid].includes(nodeAuthor.toString())) {
       return { fail: 'You need to link to the CID of an author (Nat or Sam).' }
     }
     let expectedAuthor
@@ -47,12 +47,12 @@ const validate = async (result, ipfs) => {
         expectedAuthor = natCid
         break
     }
-    if (nodeAuthor.toBaseEncodedString() !== expectedAuthor) {
+    if (nodeAuthor.toString() !== expectedAuthor) {
       return { fail: `The author of the \`${node.content}\` blog post (${nodeAuthor}) did not match the the expected author (${expectedAuthor}).` }
     }
   }
   const expectedCids = ['bafyreiaahxu4lot4ffzaxnz626kxipxt3lm43lsszcc4q6vydqrwnu7kpi', 'bafyreif24ddeqipektksc2jqhulgefwvhwhpylpkmjsdysxygllyeydwqq']
-  const resultCids = result.map((cid) => cid.toBaseEncodedString())
+  const resultCids = result.map((cid) => cid.toString())
   if (shallowEqualArrays(resultCids.sort(), expectedCids.sort())) {
     return { success: 'Everything works!' }
   } else {

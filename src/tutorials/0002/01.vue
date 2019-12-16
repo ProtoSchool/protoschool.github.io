@@ -24,7 +24,7 @@ const validate = async (result, ipfs) => {
   }
 
   const hash = 'bafyreicaoyussrycqolu4k2iaxleu2uakjlq57tuxq3djxn4wnyfp4yk3y'
-  if (result.toBaseEncodedString() === hash) {
+  if (result.toString() === hash) {
     return { success: 'Everything works!' }
   } else {
     const obj = await ipfs.dag.get(result)

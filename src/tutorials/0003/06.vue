@@ -65,17 +65,17 @@ const validate = async (result, ipfs) => {
     return { fail: 'The `trees` blog post shouldn\'t link to other blog posts.' }
   }
 
-  const computerNodePrevCid = computerNodePrev.toBaseEncodedString()
+  const computerNodePrevCid = computerNodePrev.toString()
   if (![treePostCid, treePostCidPrevNull].includes(computerNodePrevCid)) {
     return { fail: `The \`computers\` blog post should link to the \`trees\` blog post, but it links to ${computerNodePrevCid}.` }
   }
 
-  const nodePrevCid = nodePrev.toBaseEncodedString()
+  const nodePrevCid = nodePrev.toString()
   if (![computerPostCid, computerPostCidWhenTreePostCidPrevNull].includes(nodePrevCid)) {
     return { fail: `The "dogs" blog post should link to the "computers" blog post, but it links to ${nodePrevCid}.` }
   }
 
-  const nodeCid = result.toBaseEncodedString()
+  const nodeCid = result.toString()
   if (nodeCid === dogPostCid || dogPostCidWhenTreePostCidPrevNull) {
     return { success: 'Everything works!' }
   } else {
