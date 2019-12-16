@@ -30,7 +30,7 @@ const validate = async (result, ipfs) => {
   if (result.toString() === correctHash) {
     return { success: 'Everything works!' }
   } else {
-    return { fail: `Was expecting \`${correctHash}\` but got \`${result}\`.` }
+    return { fail: `Your function returned a CID, but it doesn't have the right contents. Be sure to \`put\` an object with \`bar\` as the named link and \`cid\` as its value.` }
   }
 }
 
