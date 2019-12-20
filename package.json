@@ -21,6 +21,7 @@
     "ipfs-css": "^0.6.0",
     "marked": "^0.4.0",
     "monaco-editor": "^0.6.1",
+    "new-github-issue-url": "^0.2.1",
     "p-timeout": "^3.2.0",
     "raw-loader": "^0.5.1",
     "shallow-equal": "^1.0.0",

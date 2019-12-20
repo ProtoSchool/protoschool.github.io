@@ -95,6 +95,7 @@
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
 import pTimeout from 'p-timeout'
+import newGithubIssueUrl from 'new-github-issue-url'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
@@ -255,9 +256,6 @@ export default {
     lessonIssueUrl: function () {
       return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`)
     },
-    validationIssueUrl: function () {
-      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback%2C+validation-error&template=validation-error.md&title=Validation+Error%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`)
-    },
     tutorialIssueUrl: function () {
       return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`)
     },
@@ -292,6 +290,15 @@ export default {
   //   runs on every keystroke in editor, NOT on page load, NOT on code submit
   // },
   methods: {
+    validationIssueUrl: function (code) {
+      return newGithubIssueUrl({
+        user: 'ProtoSchool',
+        repo: 'protoschool.github.io',
+        title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lessonTitle})`,
+        labels: ['lesson-feedback', 'validation-error'],
+        body: `If you submitted code for a lesson and received feedback indicating a "validation error", you may have uncovered a bug in our lesson validation code. Please use this template to help us diagnose the problem.\n\n\`\`\`javascript\n${code}\n\`\`\`\n\n**Any other feedback you'd like to share about this lesson?**\n\n**Any other feedback you'd like to share about ProtoSchool?**\n`
+      })
+    },
     run: async function (auto = false) {
       let args = []
       this.isSubmitting = true
@@ -346,7 +353,7 @@ export default {
       } catch (err) {
         // Something in our validation threw an error, it's probably a bug
         test = {
-          fail: 'Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click View Solution to see the approach we recommend for this challenge.'
+          fail: `Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click View Solution to see the approach we recommend for this challenge. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code)}) noting that you encountered a validation error.`
         }
       }
 
@@ -358,7 +365,7 @@ export default {
           }
         }
       } else if (test === undefined) {
-        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl}) noting that you encountered a validation error and pasting in the code you submitted.`
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code)}) noting that you encountered a validation error.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
