@@ -365,7 +365,7 @@ export default {
           }
         }
       } else if (test === undefined) {
-        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code)}) noting that you encountered a validation error.`
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code)}) noting that you encountered a validation error. If you wish to see our recommended approach for this challenge feel free to click the **View Solution** button bellow the editor.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
