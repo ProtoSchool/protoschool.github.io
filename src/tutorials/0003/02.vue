@@ -26,11 +26,11 @@ const validate = async (result, ipfs) => {
 
   const TREE_POST_CID = 'bafyreiaahxu4lot4ffzaxnz626kxipxt3lm43lsszcc4q6vydqrwnu7kpi'
   const COMPUTER_POST_CID = 'bafyreif24ddeqipektksc2jqhulgefwvhwhpylpkmjsdysxygllyeydwqq'
-  if (TREE_POST_CID === result[0].toBaseEncodedString() && COMPUTER_POST_CID === result[1].toBaseEncodedString()) {
+  if (TREE_POST_CID === result[0].toString() && COMPUTER_POST_CID === result[1].toString()) {
     return {
       log: {
-        treePostCid: result[0].toBaseEncodedString(),
-        computerPostCid: result[1].toBaseEncodedString()
+        treePostCid: result[0].toString(),
+        computerPostCid: result[1].toString()
       }
     }
   }
@@ -68,8 +68,8 @@ const validate = async (result, ipfs) => {
     success: 'Everything works!',
     logDesc: 'These are the CIDs of the blog posts. Notice how they change when the underlying data is altered.',
     log: {
-      treePostCid: result[0].toBaseEncodedString(),
-      computerPostCid: result[1].toBaseEncodedString()
+      treePostCid: result[0].toString(),
+      computerPostCid: result[1].toString()
     }
   }
 }

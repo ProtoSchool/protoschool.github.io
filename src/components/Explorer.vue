@@ -8,8 +8,7 @@
 <script>
 export default {
   data: self => {
-    let cid = self.$attrs.cid
-    cid = cid.toBaseEncodedString ? cid.toBaseEncodedString() : cid
+    let cid = self.$attrs.cid.toString()
     let src = `https://ipfs.io/ipfs/QmeznoNAoUcQdCFEEz4ktv4zLfYYyhVNin28Frsv8LLxCb/?embed=true#/explore/${cid}`
     return {src}
   }

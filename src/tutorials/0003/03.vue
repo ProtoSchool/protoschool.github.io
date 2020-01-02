@@ -56,7 +56,7 @@ const validate = async (result, ipfs) => {
       default:
         return { fail: `Wrong tag (${node.tag}). Did you mean \`hobby\` or \`outdoor\`?` }
     }
-    const nodePosts = node.posts.map(post => post.toBaseEncodedString())
+    const nodePosts = node.posts.map(post => post.toString())
     if (!shallowEqualArrays(nodePosts.sort(), expectedPosts.sort())) {
       return { fail: `The posts of the tag \`${node.tag}\` ${utils.stringify(nodePosts)} did not match the the expected posts ${utils.stringify(expectedPosts)}.` }
     }

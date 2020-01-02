@@ -17,6 +17,7 @@ import exercise from './02-exercise.md'
 import CID from 'cids'
 
 const validate = async (result, ipfs) => {
+
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
   }
@@ -25,15 +26,11 @@ const validate = async (result, ipfs) => {
     return { fail: 'Did not return a valid CID instance.' }
   }
 
-  const hash = 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy'
-  if (result.toBaseEncodedString() === hash) {
+  const correctHash = 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy'
+  if (result.toString() === correctHash) {
     return { success: 'Everything works!' }
   } else {
-    const obj = await ipfs.dag.get(result)
-    const expected = JSON.stringify({ bar: new CID(hash) })
-    const got = JSON.stringify(obj.value)
-
-    return { fail: `Was expecting \`${expected}\` but got \`${got}\`.` }
+    return { fail: `Your function returned a CID, but it doesn't have the right contents. Be sure to \`put\` an object with \`bar\` as the named link and \`cid\` as its value.` }
   }
 }
 

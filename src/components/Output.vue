@@ -38,12 +38,12 @@ export default {
   },
   computed: {
     exploreIpldUrl: function () {
-      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
+      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
       cid = cid || ''
       return `https://explore.ipld.io/#/explore/${cid}`
     },
     inspectCidUrl: function () {
-      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toBaseEncodedString()
+      let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
       cid = cid || ''
       return `https://cid.ipfs.io/#${cid}`
     }

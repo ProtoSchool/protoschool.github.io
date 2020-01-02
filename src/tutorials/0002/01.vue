@@ -24,14 +24,14 @@ const validate = async (result, ipfs) => {
   }
 
   const hash = 'bafyreicaoyussrycqolu4k2iaxleu2uakjlq57tuxq3djxn4wnyfp4yk3y'
-  if (result.toBaseEncodedString() === hash) {
+  if (result.toString() === hash) {
     return { success: 'Everything works!' }
   } else {
     const obj = await ipfs.dag.get(result)
     const expected = JSON.stringify({ test: 1 })
     const got = JSON.stringify(obj.value)
 
-    return { fail: `Was expecting \`${expected}\` but got \`${got}\`.` }
+    return { fail: `Your function returned a CID, but it doesn't have the right contents. It looks like you stored the data \`${got}\` instead of \`${expected}\`.` }
   }
 }
 
