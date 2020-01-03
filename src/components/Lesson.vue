@@ -290,13 +290,19 @@ export default {
   //   runs on every keystroke in editor, NOT on page load, NOT on code submit
   // },
   methods: {
-    validationIssueUrl: function (code) {
+    validationIssueUrl: function (code, validationTimeout) {
       return newGithubIssueUrl({
         user: 'ProtoSchool',
         repo: 'protoschool.github.io',
         title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lessonTitle})`,
         labels: ['lesson-feedback', 'validation-error'],
-        body: `If you submitted code for a lesson and received feedback indicating a "validation error", you may have uncovered a bug in our lesson validation code. Please use this template to help us diagnose the problem.\n\n\`\`\`javascript\n${code}\n\`\`\`\n\n**Any other feedback you'd like to share about this lesson?**\n\n**Any other feedback you'd like to share about ProtoSchool?**\n`
+        body: `If you submitted code for a lesson and received feedback indicating a "validation error", you may have uncovered a bug in our lesson validation code. ${
+          validationTimeout
+            ? 'In this case, the error experienced was caused by an issue that caused the validation function to hang.'
+            : 'This may be a result of a validation case we forgot to cover.'
+        } Please use this template to help us diagnose the problem.
+        \n\`\`\`javascript\n${code}\n\`\`\`\n\n**Any other feedback you'd like to share about this lesson?**
+        \n**Any other feedback you'd like to share about ProtoSchool?**\n`
       })
     },
     run: async function (auto = false) {
@@ -353,19 +359,19 @@ export default {
       } catch (err) {
         // Something in our validation threw an error, it's probably a bug
         test = {
-          fail: `Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click View Solution to see the approach we recommend for this challenge. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code)}) noting that you encountered a validation error.`
+          fail: `Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click View Solution to see the approach we recommend for this challenge. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, true)}) noting that you encountered a validation error.`
         }
       }
 
       if (result instanceof Error) {
-        if (test === undefined || !test.overrideError) {
+        if (test == null || !test.overrideError) {
           // In case of an error, if the author did not return anything or isn't sending an overriding error message, use the base error
           test = {
             fail: result.toString()
           }
         }
-      } else if (test === undefined) {
-        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code)}) noting that you encountered a validation error. If you wish to see our recommended approach for this challenge feel free to click the **View Solution** button bellow the editor.`
+      } else if (test == null) {
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, false)}) noting that you encountered a validation error. If you wish to see our recommended approach for this challenge feel free to click the **View Solution** button bellow the editor.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
