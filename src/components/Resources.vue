@@ -7,15 +7,28 @@
         <span class="ml2 ph2 bg-navy br-pill white f7">{{item.type}}</span>
         <span v-if="item.link.includes('/proto.school/')" class="ml2 ph2 bg-aqua br-pill white f7">ProtoSchool</span>
       </p>
-      <p v-if="item.description" class="ma0">{{item.description}}</p>
+      <div v-if="item.description" class="ma0 resource-desc" v-html="parse(item.description)"></div>
     </div>
   </div>
 </template>
 
 <script>
+import marked from 'marked'
+
 export default {
   props: {
     data: Array
+  },
+  methods: {
+    parse(description) {
+      return marked(description || '')
+    }
   }
 }
 </script>
+
+<style>
+.resource-desc p {
+  margin-top: 0;
+}
+</style>
