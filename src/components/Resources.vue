@@ -10,7 +10,7 @@
         <a class='b blue link' :href='item.link' target='_blank'>{{item.title}}</a>
         <span class='ml2 ph2 bg-navy br-pill white f7'>{{item.type}}</span>
         <span
-          v-if='item.link.includes('/proto.school/')'
+          v-if='item.link.includes("/proto.school/")'
           class='ml2 ph2 bg-aqua br-pill white f7'
         >ProtoSchool</span>
       </p>
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-.resource-desc > p {
+.resource-desc p {
   margin-top: 0;
 }
 </style>
