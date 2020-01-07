@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-.resource-desc p {
+.resource-desc > p {
   margin-top: 0;
 }
 </style>
