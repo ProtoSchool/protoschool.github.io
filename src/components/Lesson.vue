@@ -296,12 +296,15 @@ export default {
         repo: 'protoschool.github.io',
         title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lessonTitle})`,
         labels: ['lesson-feedback', 'validation-error'],
-        body: `If you submitted code for a lesson and received feedback indicating a "validation error", you may have uncovered a bug in our lesson validation code. ${
+        body: `If you submitted code for a lesson and received feedback indicating a validation error, you may have uncovered a bug in our lesson validation code. ${
           validationTimeout
             ? 'In this case, the error experienced was caused by an issue that caused the validation function to hang.'
             : 'This may be a result of a validation case we forgot to cover.'
-        } Please use this template to help us diagnose the problem.
-        \n\`\`\`javascript\n${code}\n\`\`\`\n\n**Any other feedback you'd like to share about this lesson?**
+        } Thank you for submitting your feedback to help us diagnose the problem.
+        \n**The code that caused the error:**
+        \n\`\`\`javascript\n${code}\n\`\`\`
+        \n**What was confusing about this lesson, if anything?**\n
+        \n**Any other feedback you'd like to share about this lesson?**\n
         \n**Any other feedback you'd like to share about ProtoSchool?**\n`
       })
     },
@@ -359,7 +362,7 @@ export default {
       } catch (err) {
         // Something in our validation threw an error, it's probably a bug
         test = {
-          fail: `Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click View Solution to see the approach we recommend for this challenge. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, true)}) noting that you encountered a validation error.`
+          fail: `Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click **View Solution** to see the approach we recommend for this challenge. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, true)}) noting that you encountered a validation error.`
         }
       }
 
@@ -371,7 +374,7 @@ export default {
           }
         }
       } else if (test == null) {
-        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, false)}) noting that you encountered a validation error. If you wish to see our recommended approach for this challenge feel free to click the **View Solution** button bellow the editor.`
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, false)}) noting that you encountered a validation error. To see our recommended approach for this challenge, you can click the **View Solution** button below the code editor.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
