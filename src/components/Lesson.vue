@@ -296,16 +296,19 @@ export default {
         repo: 'protoschool.github.io',
         title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lessonTitle})`,
         labels: ['lesson-feedback', 'validation-error'],
-        body: `If you submitted code for a lesson and received feedback indicating a validation error, you may have uncovered a bug in our lesson validation code. ${
-          validationTimeout
-            ? 'In this case, the error experienced was caused by an issue that caused the validation function to hang.'
-            : 'This may be a result of a validation case we forgot to cover.'
-        } Thank you for submitting your feedback to help us diagnose the problem.
+        body: `If you submitted code for a lesson and received feedback indicating a validation error, you may have uncovered a bug in our lesson validation code. We've prepopulated the error type and the last code you submitted below as diagnostic clues. Feel free to add additional feedback about the lesson below before clicking "Submit new issue."
+
+        \n**Before your code submission errored out, had you found anything about this lesson confusing?**\n
+        \n**Any other feedback you'd like to share about this lesson?**\n
+        \n**Any other feedback you'd like to share about ProtoSchool?**\n
+        \nThank you for submitting your feedback to help us diagnose the problem!
+        -----------------------------------------------------------------------
+        Please do not edit the diagnostic information below this line.
+        \n**Error type:**\n
+        ${ validationTimeout ? 'Validation timeout' : 'Missing validation case' }\n
         \n**The code that caused the error:**
         \n\`\`\`javascript\n${code}\n\`\`\`
-        \n**What was confusing about this lesson, if anything?**\n
-        \n**Any other feedback you'd like to share about this lesson?**\n
-        \n**Any other feedback you'd like to share about ProtoSchool?**\n`
+        `
       })
     },
     run: async function (auto = false) {
@@ -362,7 +365,7 @@ export default {
       } catch (err) {
         // Something in our validation threw an error, it's probably a bug
         test = {
-          fail: `Something went wrong in the validation. Please click Reset Code, review the instructions, and try again. Still having trouble? Click **View Solution** to see the approach we recommend for this challenge. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, true)}) noting that you encountered a validation error.`
+          fail: `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, true)}) noting that you encountered a validation timeout error. Then you can click **Reset Code** above the code editor, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
         }
       }
 
@@ -374,7 +377,7 @@ export default {
           }
         }
       } else if (test == null) {
-        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [opening an issue](${this.validationIssueUrl(code, false)}) noting that you encountered a validation error. To see our recommended approach for this challenge, you can click the **View Solution** button below the code editor.`
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, false)}) noting that you encountered a validation case error. Then you can click **Reset Code**, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
