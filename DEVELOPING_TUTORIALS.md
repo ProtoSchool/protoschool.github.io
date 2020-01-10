@@ -37,6 +37,7 @@ Ready to get started? Read on!
       - [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
       - [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
       - [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
+    - [Submit a pull request](#submit-a-pull-request)
   - [Troubleshooting](#troubleshooting)
     - [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
     - [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
@@ -71,9 +72,10 @@ Ready to get started? Read on!
 
 4. Check out the appropriate branch:
 
-If creating a new tutorial, create a new branch before making any changes:
+If creating a new tutorial, create a new branch before making any changes, starting with our current website code (the `code` branch):
 
 ```sh
+> git checkout code
 > git checkout -b new-branch-name
 ```
 If proofing a PR for someone else, check out their branch (you'll see its name listed in the PR):
@@ -596,6 +598,14 @@ the third lesson would display the following above the lesson title:
 
 `Data Structures | Lesson 3 of 4`
 
+### Submit a pull request
+
+Ready to submit your new tutorial for feedback? 
+
+Before submitting new content, please make sure to run `npm run lint`, as a pull request will be rejected if there are any linting errors reported. (New to linting? It's the technical equivalent of grammar- and spell-checking, and will flag any programming errors, bugs, or stylistic errors in your code.)
+
+Once you've addressed any linting errors, ensure all of your commits have been pushed to your branch, then [submit a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)  on GitHub to merge your branch into our default `code` branch. (If [creating a pull request from a fork](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork), please check the box to allow edits from maintainers.)
+
 ## Troubleshooting
 
 ### Clearing cached data from localStorage
@@ -653,10 +663,6 @@ const MIGRATIONS = [
 ```
 
 That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL.
-
-### Pull Request submission
-
-Before submitting your pull request with the new content, please make sure to run `npm run lint` as it will be rejected if there are any linting errors reported.
 
 ## License
 
