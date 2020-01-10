@@ -2,7 +2,7 @@
 	"0001": {
 		"url": "data-structures",
 		"project": "IPFS",
-		"title": "Decentralized data structures",
+		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
 		"lessons": [
 			"Data structures",
