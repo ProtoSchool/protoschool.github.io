@@ -570,8 +570,8 @@ Start by adding a route for your tutorial's landing page, which will display a t
 Then add routes for each of your lessons, matching the `path` to the `url` you defined in `src/tutorials.json` and the component name to the import statement you created:
 
 ```js
-{ path: '/short-tutorial-title/01', component: T0005L01 },
-{ path: '/short-tutorial-title/02', component: T0005L02 },
+{ path: '/short-tutorial-title/01', component: T0005L01, props: { tutorialId: '0005' } },
+{ path: '/short-tutorial-title/02', component: T0005L02, props: { tutorialId: '0005' } },
 ```
 
 When adding your lesson routes, it's important that you follow the existing naming
@@ -586,10 +586,10 @@ For example, if you added the routes indicated in the above examples, the second
 If you added 4 lessons with the following routes:
 
 ```js
-{ path: '/data-structures/01', component: T0001L01 },
-{ path: '/data-structures/02', component: T0001L02 },
-{ path: '/data-structures/03', component: T0001L03 },
-{ path: '/data-structures/04', component: T0001L04 },
+{ path: '/data-structures/01', component: T0001L01, props: { tutorialId: '0005' } },
+{ path: '/data-structures/02', component: T0001L02, props: { tutorialId: '0005' } },
+{ path: '/data-structures/03', component: T0001L03, props: { tutorialId: '0005' } },
+{ path: '/data-structures/04', component: T0001L04, props: { tutorialId: '0005' } },
 ```
 
 the third lesson would display the following above the lesson title:
@@ -629,9 +629,9 @@ Then in the `src/main.js` file, find the routes for your tutorial by its ID (whi
 ```js
 // Tutorial 0005
 { path: '/new-short-tutorial-title', component: Landing, props: { tutorialId: '0005' } },
-{ path: '/new-short-tutorial-title/01', component: T0002L01 },
-{ path: '/new-short-tutorial-title/02', component: T0002L02 },
-{ path: '/new-short-tutorial-title/03', component: T0002L03 },
+{ path: '/new-short-tutorial-title/01', component: T0002L01, props: { tutorialId: '0005' } },
+{ path: '/new-short-tutorial-title/02', component: T0002L02, props: { tutorialId: '0005' } },
+{ path: '/new-short-tutorial-title/03', component: T0002L03, props: { tutorialId: '0005' } },
 { path: '/new-short-tutorial-title/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
 ```
 

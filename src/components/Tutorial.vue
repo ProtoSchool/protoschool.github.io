@@ -38,6 +38,7 @@
 
 <script>
 import LessonLink from '../components/LessonLink.vue'
+import { isTutorialPassed } from '../utils/tutorials'
 import ipfsLogo from '../static/images/ipfs.svg'
 import libp2pLogo from '../static/images/libp2p.svg'
 
@@ -50,11 +51,10 @@ export default {
   components: {
     LessonLink
   },
-  data: self => {
+  data: () => {
     return {
       ipfsLogo: ipfsLogo,
-      libp2pLogo: libp2pLogo,
-      isTutorialPassed: !!localStorage[`passed/${self.tutorial.url}`]
+      libp2pLogo: libp2pLogo
     }
   },
   computed: {
@@ -63,6 +63,9 @@ export default {
     },
     resourcesLink: function () {
       return `/${this.tutorial.url}/resources`
+    },
+    isTutorialPassed: function () {
+      return isTutorialPassed(this.tutorial)
     }
   }
 }

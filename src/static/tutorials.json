@@ -2,7 +2,7 @@
 	"0001": {
 		"url": "data-structures",
 		"project": "IPFS",
-		"title": "Decentralized data structures",
+		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
 		"lessons": [
 			"Data structures",
@@ -71,7 +71,7 @@
 	"0002": {
 		"url": "basics",
 		"project": "IPFS",
-		"title": "P2P data links with content addressing",
+		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
 		"lessons": [
 			"Create a node and return a Content Identifier (CID)",
