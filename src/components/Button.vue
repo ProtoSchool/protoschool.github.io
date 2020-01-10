@@ -33,8 +33,10 @@ button:active {
 }
 
 button:disabled {
-  opacity: 0.8;
+  opacity: 0.95;
   box-shadow: initial;
   cursor: default;
+  color: #b9c4cd;
+  background-color: #8498a6;
 }
 </style>
