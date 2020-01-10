@@ -54,8 +54,6 @@ const validate = async (result, ipfs) => {
       logDesc: 'Take a look at the complete data returned by the `ls` method:',
       log: result
     }
-  } else {
-    return { fail: "Something we haven't anticipated is wrong. :(" }
   }
 }
 

@@ -47,9 +47,6 @@ const validate = async (result, ipfs) => {
       log: result
     }
   }
-
-  // Output the default error if we haven't caught any
-  return { error: result.error }
 }
 
 const code = `/* global ipfs */

@@ -95,6 +95,7 @@
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
 import pTimeout from 'p-timeout'
+import newGithubIssueUrl from 'new-github-issue-url'
 import Explorer from './Explorer.vue'
 import Button from './Button.vue'
 import Header from './Header.vue'
@@ -134,21 +135,32 @@ marked.setOptions({
   }
 })
 
+class SyntaxError extends Error {
+  toString () {
+    return `SyntaxError: ${this.message}`
+  }
+}
+
 const _eval = async (text, ipfs, modules = {}, args = []) => {
+  if (!text || typeof text !== 'string' || !text.trim()) {
+    return new Error('Please submit a solution.')
+  }
+
   let fn
-  let result
   try {
     // eslint-disable-next-line
     fn = new Function('ipfs', 'require', text)
-  } catch (e) {
-    result = {error: e}
-    return result
+  } catch (err) {
+    return new SyntaxError(err.message, err)
   }
 
   let require = name => {
     if (!modules[name]) throw new Error(`Cannot find modules: ${name}`)
     return modules[name]
   }
+
+  let result
+
   try {
     result = await pTimeout(fn(ipfs, require)(...args), MAX_EXEC_TIMEOUT).catch((err) => {
       if (err.name === 'TimeoutError') {
@@ -156,9 +168,10 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
       }
       throw err
     })
-  } catch (e) {
-    result = {error: e}
+  } catch (error) {
+    result = error
   }
+
   return result
 }
 
@@ -241,10 +254,10 @@ export default {
       return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
     },
     lessonIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`)
     },
     tutorialIssueUrl: function () {
-      return `https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`)
     },
     lessonsInTutorial: function () {
       const basePath = this.$route.path.slice(0, -2)
@@ -277,6 +290,27 @@ export default {
   //   runs on every keystroke in editor, NOT on page load, NOT on code submit
   // },
   methods: {
+    validationIssueUrl: function (code, validationTimeout) {
+      return newGithubIssueUrl({
+        user: 'ProtoSchool',
+        repo: 'protoschool.github.io',
+        title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lessonTitle})`,
+        labels: ['lesson-feedback', 'validation-error'],
+        body: `If you submitted code for a lesson and received feedback indicating a validation error, you may have uncovered a bug in our lesson validation code. We've prepopulated the error type and the last code you submitted below as diagnostic clues. Feel free to add additional feedback about the lesson below before clicking "Submit new issue."
+
+        \n**Before your code submission errored out, had you found anything about this lesson confusing?**\n
+        \n**Any other feedback you'd like to share about this lesson?**\n
+        \n**Any other feedback you'd like to share about ProtoSchool?**\n
+        \nThank you for submitting your feedback to help us diagnose the problem!
+        -----------------------------------------------------------------------
+        Please do not edit the diagnostic information below this line.
+        \n**Error type:**\n
+        ${ validationTimeout ? 'Validation timeout' : 'Missing validation case' }\n
+        \n**The code that caused the error:**
+        \n\`\`\`javascript\n${code}\n\`\`\`
+        `
+      })
+    },
     run: async function (auto = false) {
       let args = []
       this.isSubmitting = true
@@ -310,7 +344,7 @@ export default {
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
       let result = await _eval(code, ipfs, modules, args)
-      if (!this.$attrs.overrideErrors && result && result.error) {
+      if (!this.$attrs.overrideErrors && result instanceof Error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
@@ -322,8 +356,35 @@ export default {
       }
       // Hide the solution
       this.viewSolution = false
+
+      let test
+
       // Run the `validate` function in the lesson
-      let test = await this.$attrs.validate(result, ipfs, args)
+      try {
+        test = await this.$attrs.validate(result, ipfs, args)
+      } catch (err) {
+        // Something in our validation threw an error, it's probably a bug
+        test = {
+          fail: `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, true)}) noting that you encountered a validation timeout error. Then you can click **Reset Code** above the code editor, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
+        }
+      }
+
+      if (result instanceof Error) {
+        if (test == null || !test.overrideError) {
+          // In case of an error, if the author did not return anything or isn't sending an overriding error message, use the base error
+          test = {
+            fail: result.toString()
+          }
+        }
+      } else if (test == null) {
+        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, false)}) noting that you encountered a validation case error. Then you can click **Reset Code**, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
+        // Our validation did not return anything and the original result is also not an error.
+        // This may be the result of a missing validation case + not returning anything by default
+        test = {
+          fail: validationErrorMessage
+        }
+      }
+
       Vue.set(output, 'test', test)
       if (CID.isCID(result)) {
         oldIPFS = ipfs

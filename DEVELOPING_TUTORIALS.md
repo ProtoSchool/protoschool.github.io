@@ -14,32 +14,33 @@ Ready to get started? Read on!
 
 <!-- toc -->
 
-- [Developing Tutorials](#developing-tutorials)
-  * [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
-  * [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
-  * [Build your lessons (repeat for each lesson in the tutorial)](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial)
-    + [Create lesson files](#create-lesson-files)
-      - [Vue file](#vue-file)
-      - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
-      - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-and-multiple-choice-lessons)
-      - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
-    + [Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-vue-file-skip-for-coding-exercises-and-text-only-lessons)
-    + [Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-and-multiple-choice-lessons)
-      - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
-      - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
-      - [Validate the user's submitted code](#validate-the-users-submitted-code)
-        * [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
-        * [Create success and failure messages](#create-success-and-failure-messages)
-        * [Override external error messages (optional)](#override-external-error-messages-optional)
-        * [Display results to the user (optional)](#display-results-to-the-user-optional)
-  * [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
-    + [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
-    + [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
-    + [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
-- [Troubleshooting](#troubleshooting)
-  * [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
-  * [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
-- [License](#license)
+- [Developing ProtoSchool Tutorials](#developing-protoschool-tutorials)
+  - [Developing Tutorials](#developing-tutorials)
+    - [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
+    - [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
+    - [Build your lessons (repeat for each lesson in the tutorial)](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial)
+      - [Create lesson files](#create-lesson-files)
+        - [Vue file](#vue-file)
+        - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
+        - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-and-multiple-choice-lessons)
+        - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
+      - [Create multiple-choice quizzes in your Vue file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-vue-file-skip-for-coding-exercises-and-text-only-lessons)
+      - [Build code challenges and validation in your Vue file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-vue-file-skip-for-text-only-and-multiple-choice-lessons)
+        - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
+        - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
+        - [Validate the user's submitted code](#validate-the-users-submitted-code)
+          - [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
+          - [Create success and failure messages](#create-success-and-failure-messages)
+          - [Override external error messages (optional)](#override-external-error-messages-optional)
+          - [Display results to the user (optional)](#display-results-to-the-user-optional)
+    - [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
+      - [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+      - [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
+      - [Update routes and import statements in `src/main.js`](#update-routes-and-import-statements-in-srcmainjs)
+  - [Troubleshooting](#troubleshooting)
+    - [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
+    - [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
+  - [License](#license)
 
 <!-- tocstop -->
 
@@ -373,6 +374,18 @@ Be sure to include conditionals that will catch common mistakes and provide usef
 
 If the object returned by your `validate` function has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
 
+You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
+
+```js
+} else if (!!result & !result.hash) {
+  return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
+}
+```
+
+...would produce this user-facing message:
+
+![screenshot](public/markdown_error.png)
+
 If this is the last lesson in your tutorial, the user will see a "More Tutorials" button instead of a "Next" button. Please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
 
 ###### Override external error messages (optional)
@@ -389,43 +402,30 @@ If you'd like to replace a specific error message returned automatically with a 
 />
 ```
 
-Within the `validate` function, add cases for the specific error messages
+Then, within the `validate` function, add cases for the specific error messages
 you need to override, as in this example:
 
 ```js
-} else if (result.error && result.error.message === 'No child name passed to addLink') {
+} else if (result instanceof Error && result.message === 'No child name passed to addLink') {
   // Forgot the file name and just used a directory as the path
-  return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
+  return {
+    fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?',
+    overrideError: true
+  }
 }
 ```
 
-You may choose to use markdown formatting in your responses.
+The `overrideError` attribute lets us know that you don't want the original error to be shown. If it is missing (or is not set to `true`) and the result of the user code is an error, the result of your validation will be ignored in order to show the original error.
 
-Be sure to adapt your test case so that it works within the context of your other conditionals to meet your validation needs. What is required is that you return an object with the `fail` key and a string as its value; that string is what will be shown to the user.
+The value of the `fail` attribute must be the string you'd like displayed to the user instead of the built-in error message you're overriding. As is true for all other success and failure messages, you may (optionally) choose to use Markdown formatting in your message string.
 
-You'll also need to add the following lines below your custom validation so that
-external error messages you haven't specifically overridden will continue to be shown to the user to aid in troubleshooting:
-
-```js
-// Output the default error if we haven't caught any
-return { error: result.error }
-```
+Be sure to adapt your test case so that it works within the context of your other conditionals to meet your
+validation needs.
 
 Note that most tutorial lessons will _not_ require the overriding of external
 errors. If you have questions about whether to use this optional feature, please reach
 out to the project maintainers for guidance.
 
-You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
-
-```js
-} else if (!!result & !result.hash) {
-  return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
-}
-```
-
-...would produce this user-facing message:
-
-![screenshot](public/markdown_error.png)
 
 ###### Display results to the user (optional)
 
