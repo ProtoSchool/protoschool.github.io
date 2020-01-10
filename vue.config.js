@@ -18,5 +18,12 @@ module.exports = {
       test: /\.md$/,
       use: 'raw-loader'
     })
+  },
+  chainWebpack: config => {
+    config.module.rule('eslint').use('eslint-loader')
+      .tap(opts => ({
+        ...opts,
+        failOnError: process.env.NODE_ENV === 'production'
+      }))
   }
 }

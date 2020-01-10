@@ -44,7 +44,7 @@ export default {
     onFileClick: Function,
     onFileDrop: Function,
     resetFileUpload: Function,
-    uploadedFiles: Boolean | Array
+    uploadedFiles: [Boolean, Array]
   },
   data: self => {
     return {

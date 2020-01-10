@@ -654,6 +654,10 @@ const MIGRATIONS = [
 
 That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL.
 
+### Pull Request submission
+
+Before submitting your pull request with the new content, please make sure to run `npm run lint` as it will be rejected if there are any linting errors reported.
+
 ## License
 
 ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/master/LICENSE.md) for further detail.
