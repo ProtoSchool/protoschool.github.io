@@ -17,7 +17,6 @@ import exercise from './02-exercise.md'
 import CID from 'cids'
 
 const validate = async (result, ipfs) => {
-
   if (!result) {
     return { fail: 'You forgot to return a result :)' }
   }

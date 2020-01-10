@@ -20,18 +20,18 @@
 </template>
 
 <script>
-import marked from 'marked';
+import marked from 'marked'
 
 export default {
   props: {
     data: Array
   },
   methods: {
-    parse: function(description) {
-      return marked(description || '');
+    parse (description) {
+      return marked(description || '')
     }
   }
-};
+}
 </script>
 
 <style>

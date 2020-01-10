@@ -9,6 +9,11 @@
           :lessonNumber="lessonNumber"
           :lessonsInTutorial="lessonsInTutorial"
           :lessonPassed="lessonPassed" />
+        <CongratulationsCallout
+            v-if="isResources && isTutorialPassed"
+            :tutorial="tutorial"
+            class="mv4"
+        />
         <h1>{{isResources ? 'Resources' : lessonTitle}}</h1>
         <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
         <Resources v-if="isResources" :data="resources" />
@@ -94,10 +99,11 @@
 <script>
 import 'highlight.js/styles/github.css'
 import Vue from 'vue'
+import CID from 'cids'
+import marked from 'marked'
 import pTimeout from 'p-timeout'
 import newGithubIssueUrl from 'new-github-issue-url'
-import Explorer from './Explorer.vue'
-import Button from './Button.vue'
+
 import Header from './Header.vue'
 import Quiz from './Quiz.vue'
 import Resources from './Resources.vue'
@@ -109,10 +115,10 @@ import CodeEditor from './CodeEditor.vue'
 import Output from './Output.vue'
 import Info from './Info.vue'
 import Validator from './Validator.vue'
-import CID from 'cids'
-import marked from 'marked'
+import CongratulationsCallout from './CongratulationsCallout.vue'
 import { EVENTS } from '../static/countly'
 import { deriveShortname } from '../utils/paths'
+import { getCurrentTutorial, isTutorialPassed } from '../utils/tutorials'
 import tutorialsList from '../static/tutorials.json'
 
 const MAX_EXEC_TIMEOUT = 5000
@@ -154,7 +160,7 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
     return new SyntaxError(err.message, err)
   }
 
-  let require = name => {
+  const require = name => {
     if (!modules[name]) throw new Error(`Cannot find modules: ${name}`)
     return modules[name]
   }
@@ -188,8 +194,6 @@ let oldIPFS
 
 export default {
   components: {
-    Explorer,
-    Button,
     Header,
     Quiz,
     Resources,
@@ -200,9 +204,12 @@ export default {
     CodeEditor,
     Output,
     Info,
-    Validator
+    Validator,
+    CongratulationsCallout
   },
   data: self => {
+    const tutorial = getCurrentTutorial(self.$route.matched[0])
+
     return {
       isResources: self.$attrs.isResources,
       resources: self.$attrs.resources,
@@ -226,8 +233,10 @@ export default {
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
+      tutorial,
       tutorialPath: self.$route.path.split('/')[1],
       tutorialShortname: deriveShortname(self.$route.path),
+      isTutorialPassed: isTutorialPassed(tutorial),
       lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
       createTestFile: self.$attrs.createTestFile,
@@ -243,7 +252,7 @@ export default {
     lessonTitle: function () {
       const path = this.$route.path
       const split = this.$route.path.split('/')[1]
-      for (let t in tutorialsList) {
+      for (const t in tutorialsList) {
         if (tutorialsList[t].url === split) {
           return tutorialsList[t].lessons.find((e, idx) => (`/${tutorialsList[t].url}/${(idx + 1).toString().padStart(2, 0)}`) === path)
         }
@@ -305,21 +314,21 @@ export default {
         -----------------------------------------------------------------------
         Please do not edit the diagnostic information below this line.
         \n**Error type:**\n
-        ${ validationTimeout ? 'Validation timeout' : 'Missing validation case' }\n
+        ${validationTimeout ? 'Validation timeout' : 'Missing validation case'}\n
         \n**The code that caused the error:**
         \n\`\`\`javascript\n${code}\n\`\`\`
         `
       })
     },
     run: async function (auto = false) {
-      let args = []
+      const args = []
       this.isSubmitting = true
       if (oldIPFS) {
         oldIPFS.stop()
         oldIPFS = null
       }
-      let output = this.output
-      let ipfs = await this.createIPFS()
+      const output = this.output
+      const ipfs = await this.createIPFS()
 
       await ipfs.ready
       if (this.createTestFile) {
@@ -329,7 +338,7 @@ export default {
         await this.createTree(ipfs)
       }
 
-      let code = this.editor.getValue()
+      const code = this.editor.getValue()
       let modules = {}
 
       if (this.isFileLesson && this.uploadedFiles === false && auto === true) {
@@ -343,7 +352,7 @@ export default {
       if (this.$attrs.modules) modules = this.$attrs.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
-      let result = await _eval(code, ipfs, modules, args)
+      const result = await _eval(code, ipfs, modules, args)
       if (!this.$attrs.overrideErrors && result instanceof Error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
@@ -377,7 +386,7 @@ export default {
           }
         }
       } else if (test == null) {
-        let validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, false)}) noting that you encountered a validation case error. Then you can click **Reset Code**, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
+        const validationErrorMessage = `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, false)}) noting that you encountered a validation case error. Then you can click **Reset Code**, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
         // Our validation did not return anything and the original result is also not an error.
         // This may be the result of a missing validation case + not returning anything by default
         test = {
@@ -397,7 +406,7 @@ export default {
         if (auto !== true) {
           // track lesson passed if it has an exercise (incl file ones)
           this.trackEvent(EVENTS.LESSON_PASSED)
-          this.isTutorialPassed()
+          this.updateTutorialState()
         }
       } else {
         this.clearPassed()
@@ -412,7 +421,7 @@ export default {
       if (this.$attrs.createIPFS) {
         return this.$attrs.createIPFS()
       } else {
-        let ipfs = this.IPFSPromise.then(IPFS => {
+        const ipfs = this.IPFSPromise.then(IPFS => {
           this.ipfsConstructor = IPFS
           return new IPFS({ repo: Math.random().toString() })
         })
@@ -464,9 +473,9 @@ export default {
       this.code = localStorage[this.cacheKey]
       this.editor.setValue(this.code)
     },
-    isTutorialPassed: function () {
+    updateTutorialState: function () {
       for (let i = 1; i <= this.lessonsInTutorial; i++) {
-        let lessonNr = i.toString().padStart(2, 0)
+        const lessonNr = i.toString().padStart(2, 0)
         const lsKey = `passed/${this.tutorialPath}/${lessonNr}`
         if (localStorage[lsKey] !== 'passed') {
           return false
@@ -478,11 +487,11 @@ export default {
     },
     trackEvent: function (event, opts = {}) {
       window.Countly.q.push(['add_event', {
-        'key': event,
-        'segmentation': {
-          'tutorial': this.tutorialShortname,
-          'lessonNumber': this.lessonNumber,
-          'path': this.$route.path,
+        key: event,
+        segmentation: {
+          tutorial: this.tutorialShortname,
+          lessonNumber: this.lessonNumber,
+          path: this.$route.path,
           ...opts
         }
       }])
@@ -531,7 +540,7 @@ export default {
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
           this.trackEvent(EVENTS.LESSON_PASSED)
-          this.isTutorialPassed()
+          this.updateTutorialState()
         }
       } else {
         this.clearPassed()
@@ -549,12 +558,12 @@ export default {
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
           this.trackEvent(EVENTS.LESSON_PASSED)
-          this.isTutorialPassed()
+          this.updateTutorialState()
         }
       }
-      let current = this.lessonNumber
+      const current = this.lessonNumber
 
-      let next = this.nextLessonIsResources
+      const next = this.nextLessonIsResources
         ? 'resources'
         : (parseInt(current) + 1).toString().padStart(2, '0')
 
@@ -567,7 +576,7 @@ export default {
         localStorage[this.lessonKey] = 'passed'
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
-      this.$router.push({path: '/tutorials/'})
+      this.$router.push({ path: '/tutorials/' })
     },
     toggleExpandExercise: function () {
       this.expandExercise = !this.expandExercise
