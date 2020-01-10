@@ -71,7 +71,7 @@
 	"0002": {
 		"url": "basics",
 		"project": "IPFS",
-		"title": "P2P data links with content addressing",
+		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
 		"lessons": [
 			"Create a node and return a Content Identifier (CID)",
