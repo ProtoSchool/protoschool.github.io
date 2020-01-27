@@ -103,12 +103,12 @@ const validate = async (result, ipfs) => {
       fail: 'Could not get CID of top-level directory. Please make sure you are returning the result of the `add` method. The items of the array should be objects with a `hash` attribute whose value must be a valid CID.'
     }
   } else {
-    if (resultingFiles.length === 1) {
-      return {
-        fail: 'The last entry in your results correspond to a directory. Did you forget to use `wrapWithDirectory`?'
-      }
-    }
     if (resultingFiles.length !== uploadedFiles.length) {
+      if (resultingFiles.length === 1) {
+        return {
+          fail: 'The last entry in your results correspond to a directory. Did you forget to use `wrapWithDirectory`?'
+        }
+      }
       return {
         fail: "The number of uploaded files doesn't match the number of files on your IPFS node. Did you add every file you uploaded to IPFS? Did you make sure each file had a unique name when defining its path? Did you create any more directories than you needed to?"
       }
