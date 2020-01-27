@@ -1,0 +1,42 @@
+<template>
+    <div>
+        <MultipleChoiceLesson
+        :text="text"
+        :question="question"
+        :choices="choices" />
+    </div>
+</template>
+
+<script>
+import MultipleChoiceLesson from '../../components/MultipleChoiceLesson'
+import text from './06.md'
+
+const question = 'If we have two different CIDs pointing to the same content, doesn\'t that break the "uniqueness" rule specified from the first lesson?'
+
+const choices = [
+  {
+    answer: 'Yes, because v0 and v1 of the CID specs are not compatible',
+    correct: false,
+    feedback: 'That doesn\'t sound right: please check the information above.'
+  },
+  {
+    answer: 'No, because the two CIDs are just two different version representations of the same hash',
+    correct: true,
+    feedback: 'That\'s correct!'
+  },
+  {
+    answer: 'Yes, because the hashes are no longer unique',
+    correct: false,
+    feedback: 'Hm, that doesn\'s sound ok. Please check the lesson content again.'
+  }
+]
+
+export default {
+  components: {
+    MultipleChoiceLesson
+  },
+  data: () => {
+    return { text, question, choices }
+  }
+}
+</script>

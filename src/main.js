@@ -54,6 +54,12 @@ import T0005L05 from './tutorials/0005/05.vue'
 import T0005L06 from './tutorials/0005/06.vue'
 import T0005L07 from './tutorials/0005/07.vue'
 import T0005L08 from './tutorials/0005/08.vue'
+import T0006L01 from './tutorials/0006/01.vue'
+import T0006L02 from './tutorials/0006/02.vue'
+import T0006L03 from './tutorials/0006/03.vue'
+import T0006L04 from './tutorials/0006/04.vue'
+import T0006L05 from './tutorials/0006/05.vue'
+import T0006L06 from './tutorials/0006/06.vue'
 
 Vue
   .use(VueRouter)
@@ -116,6 +122,15 @@ const routes = [
   { path: '/regular-files-api/06', component: T0005L06, props: { tutorialId: '0005' } },
   { path: '/regular-files-api/07', component: T0005L07, props: { tutorialId: '0005' } },
   { path: '/regular-files-api/08', component: T0005L08, props: { tutorialId: '0005' } },
+  // Tutorial 0006
+  { path: '/anatomy-of-a-cid', component: Landing, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/resources', component: ResourcesLesson, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/01', component: T0006L01, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/02', component: T0006L02, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/03', component: T0006L03, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/04', component: T0006L04, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/05', component: T0006L05, props: { tutorialId: '0006' } },
+  { path: '/anatomy-of-a-cid/06', component: T0006L06, props: { tutorialId: '0006' } },
   // 404
   { path: '*', name: '404', component: NotFound, props: { notFound: true } }
 ]

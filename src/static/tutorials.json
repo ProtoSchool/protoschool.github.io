@@ -260,5 +260,57 @@
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
 			}
 		]
+	},
+	"0006": {
+		"url": "anatomy-of-a-cid",
+		"project": "IPFS",
+		"title": "Anatomy of a CID",
+		"description": "A content identifier, or CID, is a label used to point to material in IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+		"lessons": [
+			"What is a CID",
+			"Multihash",
+			"CIDv1: Multicodec prefix",
+			"CIDv1: Version prefix",
+			"CIDv1: Multibase prefix",
+			"Examples"
+		],
+		"resources": [
+			{
+				"title": "IPFS Docs: Hashes",
+				"link": "https://docs.ipfs.io/guides/concepts/hashes/",
+				"type": "docs",
+				"description": "Official IPFS docs on the requirements for the hashes used."
+			},
+			{
+				"title": "Multiformats",
+				"link": "https://multiformats.io/",
+				"type": "docs",
+				"description": "The Multiformats Project is a collection of protocols which aim to future-proof systems, today. It includes some of the projects discussed in this tutorial: cid, multihash, multibase and multicodec."
+			},
+			{
+				"title": "Multiformats: Multihash",
+				"link": "https://multiformats.io/multihash/",
+				"type": "docs",
+				"description": "Multiformats page on the multihash protocol."
+			},
+			{
+				"title": "Multiformats: CID Github repo",
+				"link": "https://github.com/multiformats/cid/",
+				"type": "docs",
+				"description": "Self-describing content-addressed identifiers for distributed systems."
+			},
+			{
+				"title": "CID Inspector",
+				"link": "https://cid.ipfs.io/",
+				"type": "tool",
+				"description": "Web app to inspect the details of a CID. See the Human readable CID, its multibase, multicodec, multihash and its version."
+			},
+			{
+				"title": "IPFS Camp 2019: Core Course A - How IPFS Deals With Files",
+				"link": "https://youtu.be/Z5zNPwMDYGg?t=320",
+				"type": "video",
+				"description": "In Part 2 of this Core course, Alan Shaw presents the Anatomy of a CID just like it was presented here in this tutorial."
+			}
+		]
 	}
 }
