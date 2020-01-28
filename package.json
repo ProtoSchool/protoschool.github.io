@@ -20,6 +20,7 @@
     "ipfs": "^0.39.0",
     "ipfs-css": "^0.6.0",
     "marked": "^0.4.0",
+    "moment": "^2.24.0",
     "monaco-editor": "^0.6.1",
     "new-github-issue-url": "^0.2.1",
     "p-timeout": "^3.2.0",

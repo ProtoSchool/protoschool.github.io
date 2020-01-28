@@ -63,6 +63,7 @@ export default {
       links: [
         { text: 'Home', path: '/' },
         { text: 'Tutorials', path: '/tutorials' },
+        { text: 'Events', path: '/events' },
         { text: 'Chapters', path: '/chapters' },
         { text: 'Contribute', path: '/contribute' },
         { text: 'Host', path: '/host' },

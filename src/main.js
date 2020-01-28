@@ -6,11 +6,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueHighlightJS from 'vue-highlight.js'
 import App from './App.vue'
+
 // Utils
 import { migrateCache } from './utils/paths'
 // Pages
 import Home from './pages/Home.vue'
 import Tutorials from './pages/Tutorials.vue'
+import Events from './pages/Events.vue'
 import Chapters from './pages/Chapters.vue'
 import Contribute from './pages/Contribute.vue'
 import Host from './pages/Host.vue'
@@ -63,6 +65,7 @@ const routes = [
   // Pages
   { path: '/', component: Home, name: 'Home' },
   { path: '/tutorials', component: Tutorials, name: 'Tutorials' },
+  { path: '/events', component: Events, name: 'Events' },
   { path: '/chapters', component: Chapters, name: 'Chapters' },
   { path: '/host', component: Host, name: 'Host' },
   { path: '/build', component: Build, name: 'Build' },
