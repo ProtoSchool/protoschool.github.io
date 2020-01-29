@@ -15,7 +15,6 @@
 
       <router-link to="/events" class="f5 link dim br-pill ph3 pv2 mb4 dib white bg-navy mr3">View all upcoming ProtoSchool events!</router-link>
 
-
       <h2>Archived Chapter Listings</h2>
 
       <ul>
