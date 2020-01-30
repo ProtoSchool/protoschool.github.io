@@ -11,8 +11,7 @@
     "url": "https://some.event",
     "type": "meetup",
     "groupName": "IPFS Boston",
-    "groupUrl": "https://some.group",
-    "title": "A more future event"
+    "groupUrl": "https://meetup.com"
   },
   {
     "city": "Toronto",
@@ -25,7 +24,7 @@
     "url": "https://some.event",
     "type": "meetup",
     "groupName": "IPFS Boston",
-    "groupUrl": "https://some.group"
+    "groupUrl": "https://meetup.com"
   },
   {
     "city": "Porto",
@@ -39,7 +38,7 @@
     "url": "https://some.event",
     "type": "conference",
     "groupName": "PortoConf",
-    "groupUrl": "https://some.group",
+    "groupUrl": "https://meetup.com",
     "title": "A near-future event"
   },
   {
@@ -54,8 +53,7 @@
     "url": "https://some.event",
     "type": "meetup",
     "groupName": "Decentralized Web NYC",
-    "groupUrl": "https://some.group",
-    "title": "Some past event"
+    "groupUrl": "https://meetup.com"
   },
   {
     "city": "New York",
@@ -69,8 +67,7 @@
     "url": "https://some.event",
     "type": "conference",
     "groupName": "PortoConf",
-    "groupUrl": "https://some.group",
-    "title": "An older past event"
+    "groupUrl": "https://meetup.com"
   },
   {
     "city": "New York",
@@ -84,8 +81,7 @@
     "url": "https://some.event",
     "type": "conference",
     "groupName": "PortoConf",
-    "groupUrl": "https://some.group",
-    "title": "A very recent past event that spanned multiple days"
+    "groupUrl": "https://meetup.com"
   }
 
 ]

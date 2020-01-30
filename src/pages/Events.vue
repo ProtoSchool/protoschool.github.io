@@ -9,9 +9,21 @@
         local mentors. Learn alongside fellow community members at a Meetup, conference, or independent event near you.
       </p>
       <h2>Upcoming Events</h2>
-      <Event v-for="(event, index) in futureEvents" v-bind="event" :key="`future${index}`" />
+      <div class="flex flex-wrap justify-between items-stretch events-list">
+        <Event v-for="(event, index) in futureEvents"
+        v-bind="event"
+        :key="`future${index}`"
+        class="event-tile"
+        :future="true" />
+      </div>
       <h2>Past Events</h2>
-      <Event v-for="(event, index) in pastEvents" v-bind="event" :key="`past${index}`" />
+      <div class="flex flex-wrap justify-between items-stretch events-list">
+        <Event v-for="(event, index) in pastEvents"
+        v-bind="event"
+        :key="`past${index}`"
+        class="event-tile"
+        :future="false" />
+      </div>
     </section>
   </div>
 </template>
@@ -54,4 +66,26 @@ export default {
 </script>
 
 <style>
+
+.events-list {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.event-tile {
+  max-width: 48%;
+  flex-grow: 1;
+  margin: 10px;
+}
+
+@media screen and (max-width: 750px) {
+  .events {
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+
+  .event-tile {
+    max-width: 100%;
+  }
+}
 </style>
