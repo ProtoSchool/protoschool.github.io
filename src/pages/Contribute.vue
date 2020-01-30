@@ -39,21 +39,21 @@
       and more.
       </p>
 
-      <h2>Chapter Events</h2>
+      <h2>Local Events</h2>
       <p class="f4 fw5 lh-copy ma0 pv3 ">
-      Community events around the world provide an opportunity for learners
-      to explore ProtoSchool tutorials with guidance from mentors in their
-      <router-link to="/chapters">local chapters</router-link>. Anyone can
-      <router-link to="/host">host a ProtoSchool chapter</router-link>, and we
-      provide tools and tips for managing local chapters and organizing events
-      that are fun and welcoming for everyone.
+      <router-link to="/events">Community events</router-link> around the world
+      provide an opportunity for learners to explore ProtoSchool tutorials with
+      guidance from mentors in a supportive environment. Anyone can
+      <router-link to="/host">host a ProtoSchool workshop</router-link>, and we
+      provide tools and tips for organizing local events that are fun and welcoming
+      for everyone.
       </p>
 
       <h2>Contributing</h2>
       <p class="f4 fw5 lh-copy ma0 pv3 ">
       ProtoSchool is a community-driven effort, and we depend on contributors
-      to <router-link to="/host">build tutorials</router-link>,
-      <router-link to="/host">organize chapter events</router-link>,
+      to <router-link to="/build">build tutorials</router-link>,
+      <router-link to="/host">organize local events</router-link>,
       improve our existing tutorials and documentation, and answer community
       questions. Learn more about
       <a href="https://github.com/ProtoSchool/organizing/blob/master/CONTRIBUTING.md" target="blank">
@@ -63,7 +63,7 @@
       <h2>Get in Touch</h2>
       <p class="f4 fw5 lh-copy ma0 pv3 ">
       We use GitHub to organize ProtoSchool. The best place to get in touch
-      with questions about chapter leadership and community engagement is our
+      with questions about event leadership and community engagement is our
       <a href="https://github.com/ProtoSchool/organizing" target="blank">organizing
       repository</a>, where you can open a new issue and our organizers will be
       notified and respond. If you have a new tutorial idea or suggestions for
@@ -76,17 +76,13 @@
       <h2>Code of Conduct</h2>
       <p class="f4 fw5 lh-copy ma0 pv3 ">
       We strive to make ProtoSchool a welcoming place for all community members.
-      All community members, including chapter organizers, must abide by the
+      All community members, including organizers of local events, must abide by the
       <a href="https://github.com/protoschool/organizing/blob/master/CODE_OF_CONDUCT.md">
-      Code of Conduct</a> outlined in our organizing repository.
+      Code of Conduct</a> outlined in our organizing repository. Each local ProtoSchool
+      workshop is also required to maintain its own Code of Conduct, which you'll
+      find linked from our <router-link to="/events">events page</router-link>.
       </p>
 
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
-      Additionally, each ProtoSchool chapter is responsible for maintaining
-      their own Code of Conduct for chapter events and repos. If you have questions about the
-      Code of Conduct for a specific chapter, you can open an issue in their
-      associated GitHub repository.
-      </p>
     </section>
   </div>
 </template>

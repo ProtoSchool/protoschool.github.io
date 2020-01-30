@@ -64,9 +64,9 @@ Vue
 const routes = [
   // Pages
   { path: '/', component: Home, name: 'Home' },
+  { path: '/chapters', component: Chapters, name: 'Chapters', props: { hidden: true } },
   { path: '/tutorials', component: Tutorials, name: 'Tutorials' },
   { path: '/events', component: Events, name: 'Events' },
-  { path: '/chapters', component: Chapters, name: 'Chapters' },
   { path: '/host', component: Host, name: 'Host' },
   { path: '/build', component: Build, name: 'Build' },
   { path: '/contribute', component: Contribute, name: 'Contribute' },

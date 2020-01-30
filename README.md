@@ -1,12 +1,12 @@
 # ProtoSchool
 
 ProtoSchool is an educational community that teaches decentralized web protocols and tools
-through online tutorials and local chapter events.
+through online tutorials and local events.
 
 This repository is for the main ProtoSchool website, hosted at https://proto.school, where you can
 explore our self-guided interactive tutorials.
 
-For information on local chapter organizing, please visit our [organizing repo](https://github.com/protoschool/organizing).
+For information on hosting local events, please visit our [organizing repo](https://github.com/protoschool/organizing).
 
 For the project roadmap, objectives, and archived meeting notes, please visit our [roadmap repo](https://github.com/protoschool/roadmap).
 

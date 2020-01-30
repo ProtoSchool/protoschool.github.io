@@ -1,16 +1,26 @@
 <template>
   <div>
-    <Header/>
+    <Header :hidden="hidden"/>
     <section class="mw7 center ph2">
       <h1 class="mt5">ProtoSchool Chapters</h1>
-      <p class="f4 fw5 lh-copy ma0 pv4  ">
-        Cities all over host ProtoSchool events regularly, offering you the
-        opportunity to complete our interactive tutorials with the support of
-        local mentors. Select a chapter below to learn more.
+        <p class="f4 fw5 lh-copy ma0 pv3  ">
+        We recently switched from a chapter-based community model to an event-based model to
+        create a more scalable system that encourages ProtoSchool content to be presented
+         either one-off or embedded in a variety of exiting educational groups,
+         with a lower barrier to entry for event leaders. If you previously attended
+         events through a ProtoSchool chapter, you'll now find their upcoming
+         ProtoSchool workshops listed on our <router-link to="/events">events page</router-link>,
+          including links to learn about other content the group might offer.
       </p>
+
+      <router-link to="/events" class="f5 link dim br-pill ph3 pv2 mb4 dib white bg-navy mr3">View all upcoming ProtoSchool events!</router-link>
+
+
+      <h2>Archived Chapter Listings</h2>
+
       <ul>
         <li v-for="(region, idx) in regions" :key="`region-${idx}`">
-          <h2>{{region}}</h2>
+          <h3>{{region}}</h3>
           <ul>
             <li v-for="(chapter, idx) in chaptersByRegion[region]" :key="`chapter-${idx}`">
               <span v-if="chapter.website">
@@ -26,9 +36,6 @@
           </ul>
         </li>
       </ul>
-      <p class="f4 fw5 lh-copy ma0 pv4  ">
-        Can't find a chapter near you? <router-link :to="'/host'">Start your own</router-link>!
-      </p>
     </section>
   </div>
 </template>
@@ -41,6 +48,9 @@ export default {
   name: 'Tutorials',
   components: {
     Header
+  },
+  props: {
+    hidden: Boolean
   },
   data: self => {
     return {

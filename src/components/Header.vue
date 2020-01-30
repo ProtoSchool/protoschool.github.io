@@ -19,7 +19,7 @@
             </div>
         </div>
       </section>
-      <Navigation :notFound="notFound"/>
+      <Navigation :notFound="notFound" :hidden="hidden"/>
     </header>
   </div>
 </template>
@@ -32,7 +32,8 @@ export default {
     Navigation
   },
   props: {
-    notFound: Boolean
+    notFound: Boolean,
+    hidden: Boolean
   }
 }
 </script>

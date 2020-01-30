@@ -23,14 +23,14 @@
           </div>
         </template>
       </div>
-      <h1>Chapter Events</h1>
+      <h1>Local Events</h1>
       <p class="f4 fw5 lh-copy ma0 pv3  ">
-      Chapters around the world host in-person events using our tutorials as
-      curriculum, with mentors available to help you work through the challenges.
+      Groups and individuals around the world host in-person events using our tutorials
+      as curriculum, with mentors available to help you work through the challenges.
       </p>
       <div class="mv3">
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/chapters">Find a Chapter Near You</router-link>
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/host">Start Your Own</router-link>
+        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/events">Find an Event Near You</router-link>
+        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/host">Host an Event</router-link>
       </div>
     </section>
   </div>

@@ -4,7 +4,7 @@
     <div class="dn db-ns bg-aqua pv3">
       <div class="center mw7">
         <!-- If in lesson (breadcrumbs) -->
-        <div v-if="isLesson && notFound !== true" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
+        <div v-if="isLesson && (notFound !== true) && (hidden !== true)" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4">></span>
           <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
@@ -52,7 +52,8 @@ import { deriveShortname } from '../utils/paths'
 export default {
   name: 'Navigation',
   props: {
-    notFound: Boolean
+    notFound: Boolean,
+    hidden: Boolean
   },
   data: (self) => {
     return {
@@ -64,7 +65,6 @@ export default {
         { text: 'Home', path: '/' },
         { text: 'Tutorials', path: '/tutorials' },
         { text: 'Events', path: '/events' },
-        { text: 'Chapters', path: '/chapters' },
         { text: 'Contribute', path: '/contribute' },
         { text: 'Host', path: '/host' },
         { text: 'Build', path: '/build' }

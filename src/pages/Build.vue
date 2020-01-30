@@ -57,7 +57,7 @@
       <p class="f4 fw5 lh-copy ma0 pv3  ">
       Not ready to build a tutorial quite yet? We'd love your help improving
       existing tutorials, answering technical questions, making our
-      documentation more clear, or leading a local ProtoSchool chapter.
+      documentation more clear, or leading a local ProtoSchool event.
       Learn more about the many
       <a href="https://github.com/ProtoSchool/organizing/blob/master/CONTRIBUTING.md#ways-to-contribute">
       ways to contribute</a>.
