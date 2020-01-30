@@ -1,26 +1,29 @@
 <template>
-  <div class="bg-white navy br4 pa3 border-outset">
-      <p class="f5 fw7 ma0 pt0 lh-copy ttu teal">{{displayStart}}</p>
-      <h3 class="ma0 f3 fw7">{{city}}</h3>
+  <div class="flex flex-column bg-white navy br3 pa4 ba b--light-gray event-tile shadow-4">
+      <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStart}}</p>
+      <h3 class="ma0 mb1 f3 fw9 ttu">{{city}}</h3>
       <p class="f5 fw5 ma0 pt0">
         <span class="fw7">{{country}}</span>
         <span v-if="region"> - {{region}}</span>
       </p>
-      <p v-if="groupUrl" class="f5 fw7 ma0 pt2 teal">Hosted by <a :href='groupUrl' target='_blank'>{{groupName}}</a></p>
-      <p v-else class="f5 fw7 ma0 pt0 teal">Hosted by {{groupName}}</p>
-      <p class="fw7 mb1">Featured Tutorial<span v-if="tutorials.length >1">s</span>:
+      <p v-if="groupUrl" class="f6 fw5 ma0 mt4 navy">
+          Hosted by <a class="navy" :href='groupUrl' target='_blank'>{{groupName}}</a>
       </p>
-      <ul class="pl4 mt0">
-        <li v-for="tutorialId in tutorials">
+      <p v-else class="f6 fw5 ma0 pt0 navy">Hosted by {{groupName}}</p>
+      <p class="fw5 f6 mb2">Featured Tutorial<span v-if="tutorials.length >1">s</span>:
+      </p>
+      <ul class="pl4 mt0 f6">
+        <li v-for="tutorialId in tutorials" v-bind:key="tutorialId" class="mb1">
           <router-link
+            class="navy event-tutorial-link"
             :to="`/${getTutorial(tutorialId).url}`">
             {{getTutorial(tutorialId).title}}
           </router-link>
         </li>
       </ul>
-      <p class="mb0"><a :href='cocUrl' target='_blank'>Code of Conduct</a></p>
-      <div class="button tr">
-        <a class="f5 link dim br-pill ph3 pv2 mb0 dib white bg-navy mr3" :href="url" target='_blank'>
+      <div class="event-footer flex-grow tr flex justify-between items-end">
+        <a class="event-coc gray f7 pv2" :href='cocUrl' target='_blank'>Code of Conduct</a>
+        <a class="event-cta f5 link dim br-pill ph3 pv2 mb0 dib white bg-navy mt3" :href="url" target='_blank'>
           <span v-if="isFuture">Attend</span>
           <span v-else>View</span>
         </a>
@@ -31,7 +34,7 @@
 <script>
 import moment from 'moment'
 import tutorialsList from '../static/tutorials.json'
-    // will use util instead after existing PR is merged with different functions there
+// will use util instead after existing PR is merged with different functions there
 
 export default {
   props: {
@@ -56,11 +59,9 @@ export default {
   },
   computed: {
     displayStart: function () {
-      return moment(this.startTime).format("ddd, MMM D, YYYY, h:mm a")
+      return moment(this.startTime).format('ddd, MMM D, YYYY, h:mm a')
     },
     isFuture: function () {
-      console.log(this.future)
-      console.log(this.date == 'future')
       return this.future
     }
     // displayEnd: function () {
@@ -110,11 +111,19 @@ export default {
     text-decoration: none;
   }
 
-  .button a,
-  .button a:hover,
-  .button a:focus,
-  .button a:visited {
+  .event-footer {
+    flex-grow: 3;
+  }
+
+  .event-cta,
+  .event-cta:hover,
+  .event-cta:focus,
+  .event-cta:visited {
     color: white;
+    text-decoration: none;
+  }
+
+  .event-footer .event-coc {
     text-decoration: none;
   }
 

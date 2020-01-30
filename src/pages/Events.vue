@@ -9,7 +9,7 @@
         local mentors. Learn alongside fellow community members at a Meetup, conference, or independent event near you.
       </p>
       <h2>Upcoming Events</h2>
-      <div class="flex flex-wrap justify-between items-stretch events-list">
+      <div class="flex flex-wrap justify-between events-list">
         <Event v-for="(event, index) in futureEvents"
         v-bind="event"
         :key="`future${index}`"
@@ -17,7 +17,7 @@
         :future="true" />
       </div>
       <h2>Past Events</h2>
-      <div class="flex flex-wrap justify-between items-stretch events-list">
+      <div class="flex flex-wrap justify-between events-list">
         <Event v-for="(event, index) in pastEvents"
         v-bind="event"
         :key="`past${index}`"
@@ -33,7 +33,6 @@ import Header from '../components/Header'
 import Event from '../components/Event'
 import eventsList from '../static/events.json'
 import moment from 'moment'
-
 
 export default {
   name: 'events',
@@ -73,8 +72,7 @@ export default {
 }
 
 .event-tile {
-  max-width: 48%;
-  flex-grow: 1;
+  flex-basis: calc(50% - 20px);
   margin: 10px;
 }
 
@@ -85,6 +83,7 @@ export default {
   }
 
   .event-tile {
+    flex-basis: 100%;
     max-width: 100%;
   }
 }
