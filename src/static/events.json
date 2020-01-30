@@ -38,8 +38,7 @@
     "url": "https://some.event",
     "type": "conference",
     "groupName": "PortoConf",
-    "groupUrl": "https://meetup.com",
-    "title": "A near-future event"
+    "groupUrl": "https://meetup.com"
   },
   {
     "city": "New York",
@@ -83,5 +82,4 @@
     "groupName": "PortoConf",
     "groupUrl": "https://meetup.com"
   }
-
 ]

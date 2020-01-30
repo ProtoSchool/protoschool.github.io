@@ -10,17 +10,20 @@
       </p>
       <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mv3" to="/host">Host an Event</router-link>
       <h2>Upcoming Events</h2>
-      <div class="flex flex-wrap justify-between events-list">
+      <div v-if="futureEvents.length" class="flex flex-wrap justify-between events-list">
         <Event v-for="(event, index) in futureEvents"
         v-bind="event"
         :key="`future${index}`"
         class="event-tile"
         :future="true" />
       </div>
-      <p class="f4 fw5 lh-copy ma0 pv3">Know of an upcoming workshop missing from this list? Ask the event organizer to <a href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">submit it</a>. </p>
+      <div v-else>
+        <p class="f4 fw5 lh-copy ma0 pv3">More events coming soon!</p>
+      </div>
+      <p class="f4 fw5 lh-copy ma0 pv3">Know of an upcoming workshop not listed here? Ask the event organizer to <a href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">submit it</a>. </p>
       <p class="f4 fw5 lh-copy ma0 pv3">Wish there were more workshops near you? Learn how to <a href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">host an event</a>!</p>
-      <h2>Past Events</h2>
-      <div class="flex flex-wrap justify-between events-list">
+      <h2 v-if="pastEvents.length">Past Events</h2>
+      <div class="flex flex-wrap justify-between events-list" v-if="pastEvents.length">
         <Event v-for="(event, index) in pastEvents"
         v-bind="event"
         :key="`past${index}`"
