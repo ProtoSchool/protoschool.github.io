@@ -10,8 +10,8 @@
     "cocUrl": "https://some.event/coc",
     "url": "https://some.event",
     "type": "meetup",
-    "groupName": "IPFS Boston",
-    "groupUrl": "https://meetup.com"
+    "hostedByName": "IPFS Boston",
+    "hostedByUrl": "https://meetup.com"
   },
   {
     "city": "Toronto",
@@ -23,8 +23,10 @@
     "cocUrl": "https://some.event/coc",
     "url": "https://some.event",
     "type": "meetup",
-    "groupName": "IPFS Boston",
-    "groupUrl": "https://meetup.com"
+    "hostedByName": "IPFS Boston",
+    "hostedByUrl": "https://meetup.com",
+    "hostedAtName": "AwesomeConf",
+    "hostedAtUrl": "https://conference.com"
   },
   {
     "city": "Porto",
@@ -37,8 +39,8 @@
     "cocUrl": "https://some.event/coc",
     "url": "https://some.event",
     "type": "conference",
-    "groupName": "PortoConf",
-    "groupUrl": "https://meetup.com"
+    "hostedAtName": "PortoConf",
+    "hostedAtUrl": "https://meetup.com"
   },
   {
     "city": "New York",
@@ -51,8 +53,10 @@
     "cocUrl": "https://some.event/coc",
     "url": "https://some.event",
     "type": "meetup",
-    "groupName": "Decentralized Web NYC",
-    "groupUrl": "https://meetup.com"
+    "hostedByName": "Decentralized Web NYC",
+    "hostedByUrl": "https://meetup.com",
+    "hostedAtName": "AwesomeConf",
+    "hostedAtUrl": "https://conference.com"
   },
   {
     "city": "New York",
@@ -65,8 +69,8 @@
     "cocUrl": "https://some.event/coc",
     "url": "https://some.event",
     "type": "conference",
-    "groupName": "PortoConf",
-    "groupUrl": "https://meetup.com"
+    "hostedAtName": "PortoConf",
+    "hostedAtUrl": "https://meetup.com"
   },
   {
     "city": "New York",
@@ -79,7 +83,7 @@
     "cocUrl": "https://some.event/coc",
     "url": "https://some.event",
     "type": "conference",
-    "groupName": "PortoConf",
-    "groupUrl": "https://meetup.com"
+    "hostedAtName": "PortoConf",
+    "hostedAtUrl": "https://meetup.com"
   }
 ]

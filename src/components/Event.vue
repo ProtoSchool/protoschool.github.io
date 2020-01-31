@@ -6,8 +6,16 @@
         <span class="fw7">{{country}}</span>
         <span v-if="region"> - {{region}}</span>
       </p>
-      <p v-if="groupUrl" class="f6 fw5 ma0 mt4 navy">
-          Hosted by <a class="navy" :href='groupUrl' target='_blank'>{{groupName}}</a>
+      <p class="f6 fw5 ma0 mt4 navy" v-if="hostedByName || hostedAtName">
+          Hosted
+          <span v-if="hostedByName"> by
+            <span v-if="hostedByUrl"><a class="navy" :href='hostedByUrl' target='_blank'>{{hostedByName}}</a></span>
+            <span v-else>{{hostedByName}}</span>
+          </span>
+          <span v-if="hostedAtName"> at
+            <span v-if="hostedAtUrl"><a class="navy" :href='hostedAtUrl' target='_blank'>{{hostedAtName}}</a></span>
+            <span v-else>{{hostedAtName}}</span>
+          </span>
       </p>
       <p v-else class="f6 fw5 ma0 pt0 navy">Hosted by {{groupName}}</p>
       <p class="fw5 f6 mb2">Featured Tutorial<span v-if="tutorials.length >1">s</span>:
@@ -48,8 +56,10 @@ export default {
     cocUrl: String,
     url: String,
     type: String,
-    groupName: String,
-    groupUrl: String,
+    hostedByName: String,
+    hostedByUrl: String,
+    hostedAtName: String,
+    hostedAtUrl: String,
     future: Boolean
   },
   data: self => {
@@ -91,8 +101,10 @@ export default {
 //   "cocUrl": "https://some.event/coc",
 //   "url": "https//some.event",
 //   "type": "meetup",
-//   "groupName": "IPFS Boston",
-//   "groupUrl": "https://some.group",
+//   "hostedByName": "IPFS Boston",
+//   "hostedByUrl": "https://some.group",
+//   "hostedAtName": "AwesomeConf",
+//   "hostedAtUrl": "https://some.conference",
 //   "title": "Are we letting you do this?"
 // },
 
