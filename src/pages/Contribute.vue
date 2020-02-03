@@ -9,63 +9,52 @@
       We accomplish this by <strong>creating interactive tutorials</strong>
       and <strong>hosting community learning events</strong>.
       </p>
-      <h2>Interactive Tutorials</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3">
-      Our <router-link to="/tutorials">interactive tutorials</router-link> are
-      the heart of our educational mission. Each browser-based tutorial
-      consists of lessons of increasing difficulty, in which a new
-      concept is explained and the learner is given a code challenge
-      to solve to apply their learning. The learner submits their solution
-      when ready, and receives contextual feedback if needed to try again.
-      If their code passes, they move on to the next lesson in the tutorial.
-      </p>
 
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
-      For contributors <router-link to="/build">building new tutorials,</router-link>
-      the process feels similar to creating a unit test suite
-      which the learner must pass by implementing the correct code.
-      </p>
-
-      <h2>Topics</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
-      ProtoSchool content is designed to introduce learners to the concepts,
-      protocols, and tools that support the decentralized web. We're excited
-      to add new tutorials to our collection, and we'd love your help building
-      content about projects such as
-      <a href="https://ipfs.io/" target="blank">IPFS</a>,
-      <a href="https://ipld.io/" target="blank">IPLD</a>,
-      <a href="https://libp2p.io/" target="blank">libp2p</a>,
-      <a href="https://multiformats.io/" target="blank">Multiformats</a>,
-      and more.
-      </p>
-
-      <h2>Local Events</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
-      <router-link to="/events">Community events</router-link> around the world
-      provide an opportunity for learners to explore ProtoSchool tutorials with
-      guidance from mentors in a supportive environment. Anyone can
-      <router-link to="/host">host a ProtoSchool workshop</router-link>, and we
-      provide tools and tips for organizing local events that are fun and welcoming
-      for everyone.
-      </p>
-
-      <h2>Contributing</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
-      ProtoSchool is a community-driven effort, and we depend on contributors
-      to <router-link to="/build">build tutorials</router-link>,
+      <h2>Ways to contribute</h2>
+      <p class="f4 fw5 lh-copy ma0 pv2 ">
+      ProtoSchool depends on contributors to <router-link to="/build">build tutorials</router-link>,
       <router-link to="/host">organize local events</router-link>,
       improve our existing tutorials and documentation, and answer community
-      questions. Learn more about
-      <a href="https://github.com/ProtoSchool/organizing/blob/master/CONTRIBUTING.md" target="blank">
-      ways to contribute</a>.
+      questions. Whether you're an experienced DApp developer or a curious learner just getting started with decentralized web concepts, there are plenty of ways for you to pitch in.
       </p>
 
+      <h3>Host local events</h3>
+      <p class="f4 fw5 lh-copy ma0 pv2 ">
+      <router-link to="/events">ProtoSchool events</router-link> around the world provide an opportunity for learners
+      to explore our tutorials with guidance from local mentors at a variety of conferences and Meetups. Anyone can host a ProtoSchool workshop, and we provide tools and tips for organizing events
+      that are fun and welcoming for everyone.
+      </p>
+
+      <p class="f4 fw5 lh-copy ma0 pv2 "><router-link to="/host">Learn more</router-link> about hosting local ProtoSchool events.</p>
+
+      <h3>Build interactive tutorials</h3>
+      <p class="f4 fw5 lh-copy ma0 pv2">
+      Our <router-link to="/tutorials">interactive tutorials</router-link> are
+      the heart of our educational mission. Each browser-based tutorial
+      consists of lessons of increasing difficulty, often presenting the learner with JavaScript coding challenges or multiple-choice quizzes to apply the learning. Our boilerplates make it easy to <router-link to="/build">build new tutorials</router-link>, and you can create text-based or multiple-choice lessons without any coding background. To build coding challenges, you'll need to use JavaScript to create validation code. </p>
+
+      <p class="f4 fw5 lh-copy ma0 pv3 "><router-link to="/build">Learn more</router-link> about how you can help to propose, build, and improve our interactive tutorials.</p>
+
+      <h3>Share your questions and feedback</h3>
+      <p  class="f4 fw5 lh-copy ma0 pv2 ">One of the most helpful things you can do to help, regardless of your coding background or experience with the decentralized web, is to let us know when a lesson or tutorial is confusing, or when the functionality of the website could be improved. There's a helpful link at the bottom of every lesson to make it easy to <a href="https://github.com/ProtoSchool/protoschool.github.io/issues/new/choose">log an issue</a> in our website repo.</p>
+
+      <h3>Answer learner questions</h3>
+      <p class="f4 fw5 lh-copy ma0 pv2 ">Our <a href="https://github.com/protoschool/protoschool.github.io/issues">issue queue</a> includes many questions raised by learners when they get stuck, ranging from beginner to advanced. In some cases, the best way to help will be to answer questions about the lesson content directly to help a user pass a lesson. In others, it will be to submit a pull request to make the explanations or instructions in a tutorial more clear.</p>
+
+      <h3>Improve our tutorials and user experience</h3>
+       <p class="f4 fw5 lh-copy ma0 pv2 "> Our <a href="https://github.com/protoschool/protoschool.github.io/issues">issue queue</a> highlights challenges with both tutorial content and learner experience (underlying website functionality). While our core team is focused on tackling the highest priority issues, we always welcome new contributors and pull requests. Before starting in on a small task, please make sure no one else is assigned to the issue in GitHub. For larger issues and those where multiple approaches to the problem are apparent, please add a comment to to the issue you'd like to tackle so we can share any helpful context before you get to work.</p>
+
+       <h3>Collaborating on GitHub</h3>
+       <p  class="f4 fw5 lh-copy ma0 pv2 ">Most of our work and communication uses GitHub, a collaborative tool for code-based projects. However, you don't need coding skills to contribute to the ProtoSchool community! When you ask questions or share feedback, you'll do it by <a href="https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue">creating an issue</a>. You can format the text in your issues using <a href="https://guides.github.com/features/mastering-markdown/">Markdown</a>, the same easy-to-use styling syntax that we use when building our tutorials. If you'd like to help out by fixing a typo or suggesting more beginner-friendly wording for a confusing lesson, you can do it by submitting a Pull Request. GitHub's <a href="https://guides.github.com/activities/hello-world/">Hello World</a> guide is a great place to learn about essentials like repositories, branches, commits, and Pull Requests with no code required. </p>
+
+       <p class="f4 fw5 lh-copy ma0 pv2 ">Feeling overwhelmed by GitHub while contributing to ProtoSchool? Send us a good old-fashioned <a href="mailto:protoschool@protocol.ai">email</a> and we'll do our best to help.</p>
+
       <h2>Get in Touch</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
+      <p class="f4 fw5 lh-copy ma0 pv2 ">
       We use GitHub to organize ProtoSchool. The best place to get in touch
       with questions about event leadership and community engagement is our
       <a href="https://github.com/ProtoSchool/organizing" target="blank">organizing
-      repository</a>, where you can open a new issue and our organizers will be
+      repository</a>, where you can open a new issue and our project maintainers will be
       notified and respond. If you have a new tutorial idea or suggestions for
       improving the ProtoSchool website or curriculum, please open an issue in the
       <a href="https://github.com/ProtoSchool/protoschool.github.io" target="blank">
@@ -74,7 +63,7 @@
       </p>
 
       <h2>Code of Conduct</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3 ">
+      <p class="f4 fw5 lh-copy ma0 pv2 ">
       We strive to make ProtoSchool a welcoming place for all community members.
       All community members, including organizers of local events, must abide by the
       <a href="https://github.com/protoschool/organizing/blob/master/CODE_OF_CONDUCT.md">
