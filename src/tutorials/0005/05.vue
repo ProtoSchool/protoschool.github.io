@@ -11,6 +11,7 @@
 
 <script>
 import pTimeout from 'p-timeout'
+import { errorCodes as ipfsErrorCodes } from '../../utils/ipfs'
 import FileLesson from '../../components/FileLesson'
 import text from './05.md'
 import exercise from './05-exercise.md'
@@ -75,6 +76,13 @@ const validate = async (result, ipfs) => {
     }
   }
 
+  if (result.code === ipfsErrorCodes.ERR_MORE_THAN_ONE_ROOT) {
+    return {
+      fail: "We can't find a directory in your results. Did you remember to set the `wrapWithDirectory` option to true?",
+      overrideError: true
+    }
+  }
+
   if (result.error) {
     return { error: result.error }
   }
@@ -114,7 +122,6 @@ const validate = async (result, ipfs) => {
       }
     }
   }
-
   if (JSON.stringify(result) === JSON.stringify(expectedResults)) {
     return {
       success: 'Success!',

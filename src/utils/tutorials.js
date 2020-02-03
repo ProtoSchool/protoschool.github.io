@@ -5,6 +5,6 @@ export const getCurrentTutorial = route => (
     tutorialsList[route.props.default.tutorialId]
 )
 
-export const getTutorialFullUrl = tutorial => `${window.location.origin}/${tutorial.url}`
+export const getTutorialFullUrl = tutorial => `${window.location.origin}/#/${tutorial.url}`
 
 export const isTutorialPassed = tutorial => !!localStorage[`passed/${tutorial.url}`]
