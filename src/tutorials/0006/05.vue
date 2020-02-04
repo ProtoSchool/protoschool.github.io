@@ -15,17 +15,17 @@ const question = 'How can we know the base encoding of the hash?'
 
 const choices = [
   {
-    answer: 'We have to guess it, but it\'s easy because most implementations of IPFS encode CIDs with "base32"',
+    answer: 'We have to guess it, but it\'s easy because most implementations of IPFS encode CIDs with "base32."',
     correct: false,
-    feedback: 'That doesn\'t sound right: please check the information above'
+    feedback: 'That doesn\'t sound right. Please review this lesson again.'
   },
   {
-    answer: 'We can check for the initial characters of the hash. If it starts with "Qm", it\'s "base58btc". If it starts with "b" it\'s "base32". In both cases the CID version is "CIDv1"',
+    answer: 'We can check the initial characters of the hash. If it starts with "Qm", it\'s "base58btc". If it starts with "b" it\'s "base32". In both cases the CID version is "CIDv1"',
     correct: false,
     feedback: 'Hm, not always - please check this lesson again'
   },
   {
-    answer: 'We can check for the initial characters of the hash. If it starts with "Qm", it\'s "base58btc". If it starts with "b" it\'s "base32". The first one is "CIDv0", the second is "CIDv1"',
+    answer: 'We can check the initial characters of the hash. If it starts with "Qm", it\'s "base58btc" and is "CIDv0." If it starts with "b" it\'s "base32" and is "CIDv1."',
     correct: true,
     feedback: 'That\'s correct!'
   }

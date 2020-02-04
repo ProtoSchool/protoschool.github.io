@@ -15,9 +15,9 @@ const question = 'How do CIDs support multiple cryptographic algorithms?'
 
 const choices = [
   {
-    answer: 'The length of the hash determines which cryptographic algorithm was used. If the length is "256" then the algorithm used was "sha2-256". If the length is "512" then the algorithm used was "sha2-512"',
+    answer: 'The length of the hash tells us which cryptographic algorithm was used. If the length is "256" then the algorithm used was "sha2-256". If the length is "512" then the algorithm used was "sha2-512."',
     correct: false,
-    feedback: 'This doesn\'t seem right. Check the information above again.'
+    feedback: "It's true that the length of a `sha-256` hash is 256, but this isn't enough information to tell us what hashing algorithm was used. Check the information above and try again."
   },
   {
     answer: 'By prefixing the hash with a unique identifier that flags which algorithm was used to generate the hash',
@@ -25,7 +25,7 @@ const choices = [
     feedback: 'You\'re almost there! There\'s something else that the hash gets prefixed with.'
   },
   {
-    answer: 'By prefixing the hash with a unique identifier that flags which algorithm was used to generate the hash and the length of the hash value',
+    answer: `By prefixing the hash with a unique identifier that flags both the algorithm used to generate the hash and the the length of the hash value`,
     correct: true,
     feedback: 'That\'s right!'
   }

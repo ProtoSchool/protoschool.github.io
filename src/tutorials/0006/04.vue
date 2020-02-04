@@ -15,17 +15,17 @@ const question = 'Which version of CIDs include the actual version number of the
 
 const choices = [
   {
-    answer: 'None: the version number is implicit by detecting if the multicodec prefix is part of the CID or not.',
+    answer: 'None. The version number is inferred by detecting whether the multicodec prefix is present.',
     correct: false,
-    feedback: 'That doesn\'t sound right: please go back to the previous lesson'
+    feedback: 'That doesn\'t sound right. Please review the previous lesson.'
   },
   {
-    answer: 'All of the CIDs contain the version prefix, otherwise there would not be a way to determine which version each CID is represented as',
+    answer: 'All CIDs contain the version prefix, otherwise there would be no way to determine which version was used.',
     correct: false,
-    feedback: 'Hm, not always - please check the previous lesson and this lesson as well'
+    feedback: 'Hmm, not always. Please review this lesson and the previous one.'
   },
   {
-    answer: 'Only version 1 of CIDs include the CID version number prefix since the previous version zero did not have it',
+    answer: 'Only CIDv1 includes the version prefix, since CIDv0 didn\'t have that specification.',
     correct: true,
     feedback: 'That\'s correct!'
   }
