@@ -55,6 +55,12 @@
 				"description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP)."
 			},
 			{
+				"title": "Anatomy of a CID",
+				"link": "https://proto.school/#/anatomy-of-a-cid",
+				"type": "tutorial",
+				"description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
+			},
+			{
 				"title": "IPFS: Mutable File System (MFS)",
 				"link": "https://proto.school/#/mutable-file-system",
 				"type": "tutorial",
@@ -267,7 +273,7 @@
 		"title": "Anatomy of a CID",
 		"description": "A content identifier, or CID, is a label used to point to material in IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
 		"lessons": [
-			"What is a CID",
+			"What is a CID?",
 			"Multihash",
 			"CIDv1: Multicodec prefix",
 			"CIDv1: Version prefix",
