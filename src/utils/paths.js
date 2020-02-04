@@ -6,7 +6,10 @@ import tutorials from '../static/tutorials.json'
 // This is to be used for single words, not full hyphenated paths. Capitalization of that
 // word will apply throughout all tutorial shortnames that include it.
 const correctedCases = {
-  api: 'API'
+  api: 'API',
+  cid: 'CID',
+  of: "of",
+  a: "a"
 }
 
 const fixCasing = function (word) {
