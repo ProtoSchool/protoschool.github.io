@@ -485,16 +485,29 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
   "title": "Your short tutorial title",
   "description": "Your tutorial description",
   "lessons": [
-    "Title of 1st lesson",
-    "Title of 2nd lesson",
-    "Title of 3rd lesson"
+    {
+      "title": "Title of a standard coding lesson (without file upload)",
+      "type": "code"
+    },
+    {
+      "title": "Title of a coding lesson with file upload",
+      "type": "file-upload"
+    },
+    {
+      "title": "Title of a multiple-choice lesson",
+      "type": "multiple-choice"
+    },
+    {
+      "title": "Title of a text-only lesson",
+      "type": "text"
+    }
   ],
   "resources": [
     {
-      "title": "Website 1",
-      "link": "https://domain.io",
-      "type": "website",
-      "description": "Sample description"
+      "title": "Video title",
+      "link": "https://youtu.be/videoid",
+      "type": "video",
+      "description": "Description of video"
     },
     {
       "title": "Documentation 1",
@@ -523,6 +536,11 @@ Pay special attention to the `resources` array shown above, which will be used t
 
 ![screenshot](public/resources.png)
 
+Examples of meaningful resource `type`s include: `docs`, `demo`, `tutorial`, `article`, `video`, and `website`.
+
+Be sure to include any ProtoSchool tutorials that would provide a nice follow-on to your own content. Be sure to use the type `tutorial` for these, and they will automagically receive an extra callout as ProtoSchool tutorials when the page renders, like so:
+
+![screenshot](public/protoschool_resource.png)
 
 #### Add your tutorial to `static/courses.json`
 
@@ -572,8 +590,8 @@ Start by adding a route for your tutorial's landing page, which will display a t
 Then add routes for each of your lessons, matching the `path` to the `url` you defined in `src/tutorials.json` and the component name to the import statement you created:
 
 ```js
-{ path: '/short-tutorial-title/01', component: T0005L01, props: { tutorialId: '0005' } },
-{ path: '/short-tutorial-title/02', component: T0005L02, props: { tutorialId: '0005' } },
+{ path: '/short-tutorial-title/01', component: T0005L01, props: { tutorialId: '0005', lessonId: '01' } },
+{ path: '/short-tutorial-title/02', component: T0005L02, props: { tutorialId: '0005', lessonId: '02' } },
 ```
 
 When adding your lesson routes, it's important that you follow the existing naming
@@ -588,10 +606,10 @@ For example, if you added the routes indicated in the above examples, the second
 If you added 4 lessons with the following routes:
 
 ```js
-{ path: '/data-structures/01', component: T0001L01, props: { tutorialId: '0005' } },
-{ path: '/data-structures/02', component: T0001L02, props: { tutorialId: '0005' } },
-{ path: '/data-structures/03', component: T0001L03, props: { tutorialId: '0005' } },
-{ path: '/data-structures/04', component: T0001L04, props: { tutorialId: '0005' } },
+{ path: '/data-structures/01', component: T0001L01, props: { tutorialId: '0005', lessonId: '01' } },
+{ path: '/data-structures/02', component: T0001L02, props: { tutorialId: '0005', lessonId: '02' } },
+{ path: '/data-structures/03', component: T0001L03, props: { tutorialId: '0005', lessonId: '03' } },
+{ path: '/data-structures/04', component: T0001L04, props: { tutorialId: '0005', lessonId: '04' } },
 ```
 
 the third lesson would display the following above the lesson title:
@@ -600,7 +618,7 @@ the third lesson would display the following above the lesson title:
 
 ### Submit a pull request
 
-Ready to submit your new tutorial for feedback? 
+Ready to submit your new tutorial for feedback?
 
 Before submitting new content, please make sure to run `npm run lint`, as a pull request will be rejected if there are any linting errors reported. (New to linting? It's the technical equivalent of grammar- and spell-checking, and will flag any programming errors, bugs, or stylistic errors in your code.)
 
@@ -639,10 +657,10 @@ Then in the `src/main.js` file, find the routes for your tutorial by its ID (whi
 ```js
 // Tutorial 0005
 { path: '/new-short-tutorial-title', component: Landing, props: { tutorialId: '0005' } },
-{ path: '/new-short-tutorial-title/01', component: T0002L01, props: { tutorialId: '0005' } },
-{ path: '/new-short-tutorial-title/02', component: T0002L02, props: { tutorialId: '0005' } },
-{ path: '/new-short-tutorial-title/03', component: T0002L03, props: { tutorialId: '0005' } },
 { path: '/new-short-tutorial-title/resources', component: ResourcesLesson, props: { tutorialId: '0005' } },
+{ path: '/new-short-tutorial-title/01', component: T0002L01, props: { tutorialId: '0005', lessonId: '01' } },
+{ path: '/new-short-tutorial-title/02', component: T0002L02, props: { tutorialId: '0005', lessonId: '02' } },
+{ path: '/new-short-tutorial-title/03', component: T0002L03, props: { tutorialId: '0005', lessonId: '03' } },
 ```
 
 In case someone uses an old link shared with them before the tutorial name and URL were changed, you'll also need to add two redirect objects as follows.

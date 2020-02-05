@@ -12,7 +12,7 @@
         title="Twitter"
       >
         <span class="f5 pr2">Share on Twitter</span>
-        <img src="../static/images/twitter.svg" class="dib h1 w1 navy-muted" alt="twitter" />
+        <img src="../static/images/icons/twitter.svg" class="dib h1 w1 navy-muted" alt="twitter" />
       </a>
     </div>
   </div>
@@ -22,13 +22,14 @@ import { getTutorialFullUrl } from '../utils/tutorials'
 
 export default {
   props: {
-    tutorial: Object
+    tutorial: Object,
+    tutorialId: String
   },
   computed: {
     twitterShareLink: function () {
       let href = 'https://twitter.com/intent/tweet?'
       href += `text=I just completed the ${this.tutorial.title} tutorial at @ProtoSchool!`
-      href += `&url=${encodeURIComponent(getTutorialFullUrl(this.tutorial))}`
+      href += `&url=${encodeURIComponent(getTutorialFullUrl(this.tutorialId))}`
       href += `&hashtags=${this.tutorial.project}`
 
       return href

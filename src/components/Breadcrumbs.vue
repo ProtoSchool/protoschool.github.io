@@ -1,5 +1,5 @@
 <template>
-  <div class="lh-solid v-mid f4 green">
+  <div class="lh-solid v-mid f4">
     <span class="b">{{tutorialShortname}}</span> |
     <span v-if="isResources">Resources</span>
     <span v-else>Lesson {{lessonNumber}} of {{lessonsInTutorial}}</span>
