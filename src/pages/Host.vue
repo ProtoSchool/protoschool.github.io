@@ -62,7 +62,6 @@
         including links to learn about other content the group might offer. You can find our archived
        <router-link to="/chapters">chapter listings</router-link> here. <p>
 
-
         <h2>Ready to get started?</h2>
         <p class="f4 fw5 lh-copy ma0 pv2"  >We're excited to have you join the ProtoSchool community as a local event leader!</p>
         <div class="mv3">

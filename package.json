@@ -11,11 +11,14 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome",
     "cy:serve": "serve -l 3000 dist",
-    "test": "start-server-and-test serve http://localhost:3000 cy:run"
+    "test": "start-server-and-test serve http://localhost:3000 cy:run",
+    "googleapis:generate-token": "node scripts/googleapis-generate-token.js",
+    "build:data": "node scripts/build-data.js"
   },
   "dependencies": {
     "async": "^2.6.1",
     "cids": "^0.7.1",
+    "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
     "ipfs": "^0.39.0",
     "ipfs-css": "^0.6.0",
@@ -39,6 +42,7 @@
     "babel-eslint": "^8.2.6",
     "copy-webpack-plugin": "^4.5.2",
     "cypress": "^3.2.0",
+    "dotenv": "^8.2.0",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-config-standard-babel": "0.0.2",
@@ -48,6 +52,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue": "^6.1.2",
+    "npmlog": "^4.1.2",
     "regenerator-runtime": "^0.12.0",
     "serve": "^11.0.0",
     "start-server-and-test": "^1.9.0",
