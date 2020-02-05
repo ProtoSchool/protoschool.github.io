@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <Tutorial :tutorial="tutorial" isLanding />
+    <Tutorial :tutorial="tutorial" isLanding :tutorialId="tutorialId"/>
   </div>
 </template>
 

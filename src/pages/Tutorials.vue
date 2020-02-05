@@ -4,34 +4,52 @@
     <section class="db">
       <h1 class="mw7 center ph2 mt5">Interactive Tutorials</h1>
       <p class="f4 fw5 lh-copy ma0 pv4 mw7 center ph2">
-        Our interactive tutorials help you learn about the
-        decentralized web by writing code and solving challenges.
-      </p>
+        Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
+      <div class="mw7 center w100 tr ph2">
+        <ToggleButton
+            v-model="showCoding"
+            color="#69c4cd"
+            :width="40"
+            :value="true"
+            :sync="true"
+            :name="'includeCodingTutorials'"
+            :id="'includeCodingTutorials'"
+            :label="'Include Coding Tutorials'"
+        />
+      </div>
     </section>
-    <template v-for="(tutorial, index) in allTutorials">
-      <Tutorial :tutorial="tutorial" :key="index" />
+
+    <template v-for="tutorial in (showCoding? allTutorials : codelessTutorials)">
+      <Tutorial :tutorial="tutorial" :key="tutorial.tutorialId" :tutorialId="tutorial.tutorialId" />
     </template>
   </div>
 </template>
 
 <script>
+import coursesList from '../static/courses.json' // array of 4-digit tutorial IDs (strings)
+import tutorialsList from '../static/tutorials.json' // object in which those 4-digit IDs are keys for tutorial objects
+import { getTutorialType } from '../utils/tutorials'
 import Header from '../components/Header.vue'
 import Tutorial from '../components/Tutorial.vue'
-import coursesList from '../static/courses.json'
-import tutorialsList from '../static/tutorials.json'
+import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
 
 export default {
   name: 'Tutorials',
   components: {
     Header,
-    Tutorial
+    Tutorial,
+    ToggleButton
   },
   computed: {
-    allTutorials: () => coursesList.all.map((e) => tutorialsList[e])
+    allTutorials: () => coursesList.all.map(tutorialId => ({ ...tutorialsList[tutorialId], tutorialId })),
+    codelessTutorials: function () {
+      return this.allTutorials.filter(tutorial => (getTutorialType(tutorial.tutorialId) !== 'code'))
+    }
   },
   data: self => {
     return {
-      tutorialsList
+      tutorialsList,
+      showCoding: true
     }
   }
 }

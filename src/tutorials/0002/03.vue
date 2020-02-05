@@ -1,11 +1,13 @@
 <template>
   <Lesson
+    :lessonId="lessonId"
+    :tutorialId="tutorialId"
     :text="text"
-    :code="code"
     :validate="validate"
     :modules="modules"
     :exercise="exercise"
-    :solution="solution" />
+    :solution="solution"
+    :code="code" />
 </template>
 
 <script>
@@ -62,8 +64,17 @@ export default {
   components: {
     Lesson
   },
-  data: () => {
-    return { code, text, validate, modules, exercise, solution }
+  data: self => {
+    return {
+      lessonId: self.$attrs.lessonId,
+      tutorialId: self.$attrs.tutorialId,
+      text,
+      exercise,
+      solution,
+      validate,
+      modules,
+      code
+    }
   }
 }
 </script>
