@@ -7,7 +7,7 @@
         <div v-if="isLesson && notFound !== true" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4">></span>
-          <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
+          <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialLanding">{{tutorial.shortTitle}}</router-link>
         </div>
         <!-- standard nav  -->
         <div v-else class="dn flex overflow-auto items-center bg-aqua white pv3 center tc mw7">
@@ -25,7 +25,7 @@
         <div v-if="isLesson && notFound !== true" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4"> > </span>
-          <router-link class="nav-link navy" :to="tutorialLanding">{{tutorialShortname}}</router-link>
+          <router-link class="nav-link navy" :to="tutorialLanding">{{tutorial.shortTitle}}</router-link>
         </div>
         <!-- standard nav  -->
         <div v-else class="flex-auto link pa2 fw5 f5 db bb border-aqua white">{{currentPage}}</div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { deriveShortname } from '../utils/paths'
+import { getTutorialByUrl } from '../utils/tutorials'
 
 export default {
   name: 'Navigation',
@@ -58,7 +58,6 @@ export default {
     return {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
-      tutorialShortname: deriveShortname(self.$route.path),
       tutorialLanding: '/' + self.$route.path.split('/')[1],
       links: [
         { text: 'Home', path: '/' },
@@ -71,6 +70,13 @@ export default {
     }
   },
   computed: {
+    tutorial: function () {
+      if (!this.$route.params.tutorialUrl) {
+        return null
+      }
+
+      return getTutorialByUrl(this.$route.params.tutorialUrl)
+    },
     isLesson: function () {
       let count = 0
       this.links.forEach(link => {

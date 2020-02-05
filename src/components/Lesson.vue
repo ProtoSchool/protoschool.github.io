@@ -5,19 +5,18 @@
       <section class="mw7 center mt3 pa3">
         <div class="flex flex-row justify-between green">
             <Breadcrumbs
-            :isResources="isResources"
-            :tutorialShortname="tutorialShortname"
-            :lessonNumber="lessonNumber"
-            :lessonsInTutorial="lessonsInTutorial"
-            :lessonPassed="lessonPassed" />
+              :isResources="isResources"
+              :tutorial="tutorial"
+              :lessonNumber="lessonId"
+              :lessonsInTutorial="lessonsInTutorial"
+              :lessonPassed="lessonPassed" />
             <TypeIcon
               :lessonId="isResources? 'resources' : lessonId"
-              :tutorialId="tutorialId"
+              :tutorialId="tutorial.formattedId"
               class="h2 ml3" />
-          </div>
+        </div>
         <CongratulationsCallout
             v-if="isResources && isTutorialPassed"
-            :tutorialId="tutorialId"
             :tutorial="tutorial"
             class="mv4"
         />
@@ -47,7 +46,7 @@
             v-if="exercise"
             :isFileLesson="isFileLesson"
             :editorReady="editorReady"
-            :code="code"
+            :code="editorCode"
             :solution="solution"
             :cachedCode="cachedCode"
             :onMounted="onMounted"
@@ -84,7 +83,7 @@
         :output="output.test"
         :isResources="isResources"
         :nextLessonIsResources="nextLessonIsResources"
-        :lessonNumber="lessonNumber"
+        :lessonNumber="lessonId"
         :lessonsInTutorial="lessonsInTutorial"
         :expandExercise="expandExercise"
         :isSubmitting="isSubmitting"
@@ -111,6 +110,8 @@ import marked from 'marked'
 import pTimeout from 'p-timeout'
 import newGithubIssueUrl from 'new-github-issue-url'
 
+import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
+import { EVENTS } from '../static/countly'
 import Header from './Header.vue'
 import Quiz from './Quiz.vue'
 import Resources from './Resources.vue'
@@ -123,9 +124,6 @@ import Output from './Output.vue'
 import Info from './Info.vue'
 import Validator from './Validator.vue'
 import CongratulationsCallout from './CongratulationsCallout.vue'
-import { EVENTS } from '../static/countly'
-import { deriveShortname } from '../utils/paths'
-import { getTutorial, isTutorialPassed, getLesson } from '../utils/tutorials'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = 5000
@@ -215,101 +213,98 @@ export default {
     CongratulationsCallout,
     TypeIcon
   },
+  props: {
+    lessonId: Number,
+    isResources: Boolean,
+    resources: Array,
+    text: String,
+    exercise: String,
+    concepts: String,
+    solution: String,
+    modules: Object,
+    validate: Function,
+    code: String,
+    overrideErrors: Boolean,
+    isMultipleChoiceLesson: Boolean,
+    question: String,
+    choices: Array,
+    createTestFile: Boolean,
+    createTestTree: Boolean
+  },
   data: self => {
-    const tutorial = getTutorial(self.$attrs.tutorialId)
-    const resourcesLesson = {
-      title: 'Resources',
-      type: 'resources'
-    }
-    const lesson = self.$attrs.isResources ? resourcesLesson : getLesson(self.$attrs.tutorialId, self.$attrs.lessonId)
-
     return {
-      lesson,
-      tutorial,
-      lessonId: self.$attrs.lessonId,
-      tutorialId: self.$attrs.tutorialId,
-      isResources: self.$attrs.isResources,
-      resources: self.$attrs.resources,
-      text: self.$attrs.text,
-      exercise: self.$attrs.exercise,
-      concepts: self.$attrs.concepts,
-      cachedChoice: !!localStorage['cached' + self.$route.path],
-      choice: localStorage[self.cacheKey] || '',
-      cachedCode: !!localStorage['cached' + self.$route.path],
-      code: localStorage[self.cacheKey] || self.$attrs.code || self.defaultCode,
-      solution: self.$attrs.solution,
       isSubmitting: false,
-      viewSolution: false,
-      overrideErrors: self.$attrs.overrideErrors,
-      isFileLesson: self.isFileLesson,
-      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
-      question: self.$attrs.question,
-      choices: self.$attrs.choices,
-      parsedText: marked(self.$attrs.text || ''),
-      parsedExercise: marked(self.$attrs.exercise || ''),
-      parsedConcepts: marked(self.$attrs.concepts || ''),
-      cacheKey: 'cached' + self.$route.path,
-      cachedStateMsg: '',
-      tutorialPath: tutorial.url,
-      tutorialShortname: deriveShortname(self.$route.path),
-      isTutorialPassed: isTutorialPassed(tutorial),
-      lessonKey: 'passed' + self.$route.path,
       lessonPassed: !!localStorage['passed' + self.$route.path],
-      createTestFile: self.$attrs.createTestFile,
-      createTestTree: self.$attrs.createTestTree,
-      output: self.output,
+      lessonKey: 'passed' + self.$route.path,
+      cacheKey: 'cached' + self.$route.path,
+      cachedCode: !!localStorage['cached' + self.$route.path],
+      viewSolution: false,
+      cachedStateMsg: '',
       showUploadInfo: false,
       expandExercise: false,
+      editorReady: false,
+      isFileLesson: self.isFileLesson,
       uploadedFiles: window.uploadedFiles || false,
-      editorReady: false
+      choice: localStorage[self.cacheKey] || '',
+      cachedChoice: !!localStorage['cached' + self.$route.path]
     }
   },
   computed: {
-    lessonNumber: function () {
-      return parseInt(this.lessonId, 10)
+    tutorial: function () {
+      return getTutorialByUrl(this.$route.params.tutorialUrl)
+    },
+    isTutorialPassed: function () {
+      return isTutorialPassed(this.tutorial)
+    },
+    parsedText: function () {
+      return marked(this.text || '')
+    },
+    parsedExercise: function () {
+      return marked(this.exercise || '')
+    },
+    parsedConcepts: function () {
+      return marked(this.concepts || '')
+    },
+    lesson: function () {
+      return getLesson(this.tutorial.formattedId, this.lessonId)
     },
     lessonIssueUrl: function () {
-      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lesson.title})`)
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorial.shortTitle}+-+Lesson+${this.lessonId}+(${this.lesson.title})`)
     },
     tutorialIssueUrl: function () {
-      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`)
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorial.shortTitle}`)
     },
     lessonsInTutorial: function () {
-      const basePath = this.$route.path.slice(0, -2)
-      let number = this.$route.path.slice(-2)
-      while (this.$router.resolve(basePath + number).route.name !== '404') {
-        number++
-        number = number.toString().padStart(2, '0')
-      }
-      return parseInt(number) - 1
+      return this.tutorial.lessons.length
     },
     nextLessonIsResources: function () {
       const basePath = this.$route.path.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
-      return this.lessonNumber === this.lessonsInTutorial && hasResources
+      return this.lessonId === this.lessonsInTutorial && hasResources
+    },
+    editorCode: {
+      get: function () {
+        return localStorage[this.cacheKey] || this.code || this.defaultCode
+      },
+      set: function (newCode) {
+        localStorage[this.cacheKey] = newCode
+      }
     }
   },
   beforeCreate: function () {
     this.output = {}
     this.defaultCode = defaultCode
     this.IPFSPromise = import('ipfs').then(m => m.default)
-    // doesn't work to set lessonPassed in here because it can't recognize lessonKey yet
   },
   beforeMount: function () {
     this.choice = localStorage[this.cacheKey] || ''
   },
-  // updated: function () {
-  //   runs on page load AND every keystroke in editor AND submit
-  // },
-  // beforeUpdate: function () {
-  //   runs on every keystroke in editor, NOT on page load, NOT on code submit
-  // },
   methods: {
     validationIssueUrl: function (code, validationTimeout) {
       return newGithubIssueUrl({
         user: 'ProtoSchool',
         repo: 'protoschool.github.io',
-        title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lesson.title})`,
+        title: `Validation Error: ${this.tutorial.shortTitle} - Lesson ${this.lessonId} (${this.lesson.title})`,
         labels: ['lesson-feedback', 'validation-error'],
         body: `If you submitted code for a lesson and received feedback indicating a validation error, you may have uncovered a bug in our lesson validation code. We've prepopulated the error type and the last code you submitted below as diagnostic clues. Feel free to add additional feedback about the lesson below before clicking "Submit new issue."
 
@@ -355,11 +350,11 @@ export default {
         this.showUploadInfo = false
       }
 
-      if (this.$attrs.modules) modules = this.$attrs.modules
+      if (this.modules) modules = this.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
       const result = await _eval(code, ipfs, modules, args)
-      if (!this.$attrs.overrideErrors && result instanceof Error) {
+      if (!this.overrideErrors && result instanceof Error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
         this.isSubmitting = false
@@ -376,8 +371,9 @@ export default {
 
       // Run the `validate` function in the lesson
       try {
-        test = await this.$attrs.validate(result, ipfs, args)
-      } catch (err) {
+        test = await this.validate(result, ipfs, args)
+      } catch (error) {
+        console.error(error)
         // Something in our validation threw an error, it's probably a bug
         test = {
           fail: `You may have uncovered a bug in our validation code. Please help us improve this lesson by [**opening an issue**](${this.validationIssueUrl(code, true)}) noting that you encountered a validation timeout error. Then you can click **Reset Code** above the code editor, review the instructions, and try again. Still having trouble? Click **View Solution** below the code editor to see the approach we recommend for this challenge.`
@@ -457,9 +453,9 @@ export default {
     },
     resetCode: function () {
       // TRACK? User chose to reset code
-      this.code = this.$attrs.code || defaultCode
+      this.editorCode = this.code || defaultCode
       // this ^ triggers onCodeChange which will clear cache
-      this.editor.setValue(this.code)
+      this.editor.setValue(this.editorCode)
       this.clearPassed()
       delete this.output.test
       this.showUploadInfo = false
@@ -472,22 +468,21 @@ export default {
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
-      this.lessonPassed = !!localStorage[this.lessonKey]
-      delete localStorage[`passed/${this.tutorialPath}`]
+      delete localStorage[`passed/${this.tutorial.url}`]
     },
     loadCodeFromCache: function () {
-      this.code = localStorage[this.cacheKey]
-      this.editor.setValue(this.code)
+      this.editorCode = localStorage[this.cacheKey]
+      this.editor.setValue(this.editorCode)
     },
     updateTutorialState: function () {
       for (let i = 1; i <= this.lessonsInTutorial; i++) {
         const lessonNr = i.toString().padStart(2, 0)
-        const lsKey = `passed/${this.tutorialPath}/${lessonNr}`
+        const lsKey = `passed/${this.tutorial.url}/${lessonNr}`
         if (localStorage[lsKey] !== 'passed') {
           return false
         }
       }
-      localStorage[`passed/${this.tutorialPath}`] = 'passed'
+      localStorage[`passed/${this.tutorial.url}`] = 'passed'
       this.trackEvent(EVENTS.TUTORIAL_PASSED)
       return true
     },
@@ -495,8 +490,8 @@ export default {
       window.Countly.q.push(['add_event', {
         key: event,
         segmentation: {
-          tutorial: this.tutorialShortname,
-          lessonNumber: this.lessonNumber,
+          tutorial: this.tutorial.shortTitle,
+          lessonNumber: this.lessonId,
           path: this.$route.path,
           ...opts
         }
@@ -522,14 +517,13 @@ export default {
         // TRACK? edited back to default state by chance or by 'reset code'
         delete localStorage[this.cacheKey]
         this.cachedCode = !!localStorage[this.cacheKey]
-      } else if (this.code === this.editor.getValue()) {
+      } else if (this.editorCode === this.editor.getValue()) {
         // TRACK? returned to cached lesson in progress
       } else {
-        localStorage[this.cacheKey] = this.editor.getValue()
-        this.code = this.editor.getValue()
+        this.editorCode = this.editor.getValue()
         this.cachedCode = !!localStorage[this.cacheKey]
         this.cachedStateMsg = "We're saving your code as you go."
-        if (this.code !== this.solution) {
+        if (this.editorCode !== this.solution) {
           this.clearPassed()
           delete this.output.test
         }
@@ -560,14 +554,13 @@ export default {
         Vue.set(this.output, 'test', null)
       } else {
         localStorage[this.lessonKey] = 'passed'
-        this.lessonPassed = !!localStorage[this.lessonKey]
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
           this.trackEvent(EVENTS.LESSON_PASSED)
           this.updateTutorialState()
         }
       }
-      const current = this.lessonNumber
+      const current = this.lessonId
 
       const next = this.nextLessonIsResources
         ? 'resources'
@@ -588,7 +581,7 @@ export default {
       this.expandExercise = !this.expandExercise
     },
     cyReplaceWithSolution: function () {
-      this.editor.setValue(this.$attrs.solution)
+      this.editor.setValue(this.solution)
     },
     parseData: (data) => marked(data)
   }
