@@ -8,8 +8,8 @@ import tutorials from '../static/tutorials.json'
 const correctedCases = {
   api: 'API',
   cid: 'CID',
-  of: "of",
-  a: "a"
+  of: 'of',
+  a: 'a'
 }
 
 const fixCasing = function (word) {
