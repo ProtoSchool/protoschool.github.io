@@ -1,0 +1,26 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 50 50">
+  <path
+    d="M12.92 35.38h26.66V42H12.92a2.5 2.5 0 01-2.5-2.5v-1.62a2.5 2.5 0 012.5-2.5z"
+    stroke-miterlimit="10"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-width="3px"
+  />
+  <path
+    d="M17.42 15.55h15M17.42 21.55h11"
+    stroke-linejoin="round"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-width="3px"
+  />
+  <path
+    d="M10.42 37.18V10.66A2.66 2.66 0 0113 8h26.58v29.18"
+    stroke-miterlimit="10"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-width="3px"
+  />
+</svg>
