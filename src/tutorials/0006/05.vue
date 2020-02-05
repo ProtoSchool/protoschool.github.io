@@ -22,7 +22,7 @@ const choices = [
   {
     answer: 'We can check the initial characters of the hash. If it starts with "Qm", it\'s "base58btc". If it starts with "b" it\'s "base32". In both cases the CID version is "CIDv1"',
     correct: false,
-    feedback: 'Hm, not always - please check this lesson again'
+    feedback: 'Hmm, not always. Please review this lesson again.'
   },
   {
     answer: 'We can check the initial characters of the hash. If it starts with "Qm", it\'s "base58btc" and is "CIDv0." If it starts with "b" it\'s "base32" and is "CIDv1."',

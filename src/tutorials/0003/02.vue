@@ -58,7 +58,7 @@ const validate = async (result, ipfs) => {
         break
     }
     if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
-      return { fail: `The tags of the \`${node.content}\` blog post \`${utils.stringify(node.tags)}\` did not match the the expected tags \`${utils.stringify(expectedTags)}\`.` }
+      return { fail: `The tags of the \`${node.content}\` blog post \`${utils.stringify(node.tags)}\` did not match the expected tags \`${utils.stringify(expectedTags)}\`.` }
     }
   }
 
