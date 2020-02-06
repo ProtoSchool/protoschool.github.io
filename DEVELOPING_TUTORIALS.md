@@ -153,12 +153,14 @@ You _might_ need to use some JavaScript, though, if you build your default code 
 
 ##### Lesson text file (with optional images)
 
-Create a `.md` file and add the markdown-formatted text of the lesson itself (your educational content). The name of this file should be the 2-digit lesson number.
+
+
+Create a `.md` file using the boilerplate and add the markdown-formatted text of the lesson itself (your educational content). The name of this file should be the 2-digit lesson number.
 
 For example (for Lesson 01 of Tutorial 0005):
 
-```
-src/tutorials/0005/01.md
+```sh
+> cp boilerplates/boilerplate.md 0005-tutorial-short-title/01.md
 ```
 
 If you want to add images to your markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention:
@@ -463,7 +465,7 @@ return {
 ![screenshot](public/markdown_error_logdesc_log.png)
 
 
-### Manage your tutorial's metadata and routing
+### Manage your tutorial's metadata
 
 There are a few administrative steps you need to take to ensure that all of your lessons appear on our site, along with a landing page and resources page.
 
@@ -477,24 +479,6 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
   "project": "IPFS",
   "title": "Your short tutorial title",
   "description": "Your tutorial description",
-  "lessons": [
-    {
-      "title": "Title of a standard coding lesson (without file upload)",
-      "type": "code"
-    },
-    {
-      "title": "Title of a coding lesson with file upload",
-      "type": "file-upload"
-    },
-    {
-      "title": "Title of a multiple-choice lesson",
-      "type": "multiple-choice"
-    },
-    {
-      "title": "Title of a text-only lesson",
-      "type": "text"
-    }
-  ],
   "resources": [
     {
       "title": "Video title",
@@ -522,8 +506,6 @@ The `title` of your tutorial will be seen in course listings on our tutorials pa
 The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
 
 ![screenshot](public/url-breadcrumb-header.png)
-
-`lessons` is an array of titles (strings) for each of the lessons in your tutorial. Be sure to list these in order. Each title will automatically appear at the top of the appropriate lesson.
 
 Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
 

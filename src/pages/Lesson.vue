@@ -12,6 +12,7 @@
         :createTestFile="logic.options.createTestFile"
         :createTestTree="logic.options.createTestTree"
         :lessonId="parseInt(lessonId, 10)"
+        :lessonTitle="lesson.title"
     />
     <FileLesson
         v-else-if="logic.options.type === 'file-upload'"
@@ -26,6 +27,7 @@
         :createTestFile="logic.options.createTestFile"
         :createTestTree="logic.options.createTestTree"
         :lessonId="parseInt(lessonId, 10)"
+        :lessonTitle="lesson.title"
     />
     <MultipleChoiceLesson
         v-else-if="logic.options.type === 'multiple-choice'"
@@ -37,13 +39,16 @@
         :createTestFile="logic.options.createTestFile"
         :createTestTree="logic.options.createTestTree"
         :lessonId="parseInt(lessonId, 10)"
+        :lessonTitle="lesson.title"
     />
 </template>
 
 <script>
+
 import router from '../router'
 import debug from '../utils/debug'
 import { getTutorialByUrl } from '../utils/tutorials'
+import marked from '../utils/marked'
 import Lesson from '../components/Lesson.vue'
 import FileLesson from '../components/FileLesson.vue'
 import MultipleChoiceLesson from '../components/MultipleChoiceLesson.vue'
@@ -107,14 +112,24 @@ export default {
     }
   },
   computed: {
+    textFileData: function () {
+      return marked(this.loadFile('md'))
+    },
+    lesson: function () {
+      return this.textFileData.meta
+    },
     text: function () {
-      return this.loadFile('md')
+      return this.textFileData.html
     },
     concepts: function () {
-      return this.loadFile('concepts', { failOnNotFound: false })
+      const concepts = this.loadFile('concepts', { failOnNotFound: false })
+
+      return concepts && marked(concepts).html
     },
     exercise: function () {
-      return this.loadFile('exercise', { failOnNotFound: false })
+      const exercise = this.loadFile('exercise', { failOnNotFound: false })
+
+      return exercise && marked(exercise).html
     },
     logic: function () {
       const logic = (this.loadFile('js', { failOnNotFound: false }) || {}).default || {}

@@ -1,13 +1,44 @@
+import marked from 'meta-marked'
+
 import tutorials from '../static/tutorials.json'
 import { deriveShortname } from './paths'
 
-/*
-  Preprocess the tutorials.json file with all the needed info
- */
+// Preprocess the tutorials.json file with all the needed info
 for (const tutorialId in tutorials) {
   tutorials[tutorialId].formattedId = tutorialId
   tutorials[tutorialId].id = parseInt(tutorialId, 10)
   tutorials[tutorialId].shortTitle = deriveShortname(tutorials[tutorialId].url)
+  tutorials[tutorialId].lessons = getTutorialLessons(tutorials[tutorialId])
+}
+
+// TODO move this to a build script in the future to avoid heavy processing on the client
+export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
+  const lessonfileName = `${tutorial.formattedId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}.md`
+  let lesson
+
+  try {
+    lesson = require(
+      `../tutorials/${lessonfileName}`
+    )
+
+    lessons.push(marked(lesson).meta)
+  } catch (error) {
+    // lesson not found, we reached the end
+    if (error.code === 'MODULE_NOT_FOUND') {
+      return lessons
+    }
+
+    // data not well formatted
+    if (error.name === 'YAMLException') {
+      console.error(
+        new Error(`Data not well formatted in the lesson markdown file "${lessonfileName}". Check the syntax is correct.`)
+      )
+    }
+
+    throw error
+  }
+
+  return getTutorialLessons(tutorial, lessons, lessonNumber + 1)
 }
 
 // returns lesson object

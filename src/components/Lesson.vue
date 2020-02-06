@@ -21,9 +21,9 @@
             class="mv4"
         />
         <h1>{{isResources ? 'Resources' : lesson.title}}</h1>
-        <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
+        <Concepts v-if="concepts" :concepts="concepts" />
         <Resources v-if="isResources" :data="resources" />
-        <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
+        <div v-else class="lesson-text lh-copy" v-html="text"></div>
       </section>
       <section v-if="exercise || isMultipleChoiceLesson" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
         <div class="flex-none">
@@ -35,7 +35,7 @@
             :cachedStateMsg="cachedStateMsg"
             :expandExercise="expandExercise"
             :toggleExpandExercise="toggleExpandExercise" />
-          <div v-html="parsedExercise" class='lh-copy' />
+          <div v-html="exercise" class='lh-copy' />
           <FileUpload
             v-if="isFileLesson"
             :onFileClick="onFileClick"
@@ -103,15 +103,14 @@
 </template>
 
 <script>
-import 'highlight.js/styles/github.css'
 import Vue from 'vue'
 import CID from 'cids'
-import marked from 'marked'
 import pTimeout from 'p-timeout'
 import newGithubIssueUrl from 'new-github-issue-url'
 
 import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
 import { EVENTS } from '../static/countly'
+import marked from '../utils/marked'
 import Header from './Header.vue'
 import Quiz from './Quiz.vue'
 import Resources from './Resources.vue'
@@ -127,24 +126,6 @@ import CongratulationsCallout from './CongratulationsCallout.vue'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = 5000
-
-const hljs = require('highlight.js/lib/highlight.js')
-hljs.registerLanguage('js', require('highlight.js/lib/languages/javascript'))
-hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
-hljs.registerLanguage('json', require('highlight.js/lib/languages/json'))
-
-const renderer = new marked.Renderer()
-renderer.link = function (href, title, text) {
-  const link = marked.Renderer.prototype.link.call(this, href, title, text)
-  return link.replace('<a', '<a target=\'_blank\' ')
-}
-
-marked.setOptions({
-  renderer: renderer,
-  highlight: code => {
-    return hljs.highlightAuto(code).value
-  }
-})
 
 class SyntaxError extends Error {
   toString () {
@@ -215,6 +196,7 @@ export default {
   },
   props: {
     lessonId: Number,
+    lessonTitle: String,
     isResources: Boolean,
     resources: Array,
     text: String,
@@ -255,15 +237,6 @@ export default {
     },
     isTutorialPassed: function () {
       return isTutorialPassed(this.tutorial)
-    },
-    parsedText: function () {
-      return marked(this.text || '')
-    },
-    parsedExercise: function () {
-      return marked(this.exercise || '')
-    },
-    parsedConcepts: function () {
-      return marked(this.concepts || '')
     },
     lesson: function () {
       return getLesson(this.tutorial.formattedId, this.lessonId)
@@ -583,7 +556,7 @@ export default {
     cyReplaceWithSolution: function () {
       this.editor.setValue(this.solution)
     },
-    parseData: (data) => marked(data)
+    parseData: (data) => marked(data).html
   }
 }
 </script>
