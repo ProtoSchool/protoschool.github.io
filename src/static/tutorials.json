@@ -282,40 +282,40 @@
 		],
 		"resources": [
 			{
-				"title": "IPFS Docs: Hashes",
-				"link": "https://docs.ipfs.io/guides/concepts/hashes/",
-				"type": "docs",
-				"description": "Official IPFS docs on the requirements for the hashes used."
-			},
-			{
-				"title": "Multiformats",
-				"link": "https://multiformats.io/",
-				"type": "docs",
-				"description": "The Multiformats Project is a collection of protocols which aim to future-proof systems, today. It includes some of the projects discussed in this tutorial: cid, multihash, multibase and multicodec."
-			},
-			{
-				"title": "Multiformats: Multihash",
-				"link": "https://multiformats.io/multihash/",
-				"type": "docs",
-				"description": "Multiformats page on the multihash protocol."
-			},
-			{
-				"title": "Multiformats: CID Github repo",
-				"link": "https://github.com/multiformats/cid/",
-				"type": "docs",
-				"description": "Self-describing content-addressed identifiers for distributed systems."
+				"title": "How IPFS Deals With Files: Anatomy of a CID",
+				"link": "https://youtu.be/Z5zNPwMDYGg?t=320",
+				"type": "video",
+				"description": "Watch the talk that inspired this tutorial! In Part 2 of this core course from IPFS Camp 2019, Alan Shaw explains the anatomy of a CID."
 			},
 			{
 				"title": "CID Inspector",
 				"link": "https://cid.ipfs.io/",
 				"type": "tool",
-				"description": "Web app to inspect the details of a CID. See the Human readable CID, its multibase, multicodec, multihash and its version."
+				"description": "Paste a CID into this handy web app for a human-readable breakdown of its multibase, multicodec, multihash and version."
 			},
 			{
-				"title": "IPFS Camp 2019: Core Course A - How IPFS Deals With Files",
-				"link": "https://youtu.be/Z5zNPwMDYGg?t=320",
-				"type": "video",
-				"description": "In Part 2 of this Core course, Alan Shaw presents the Anatomy of a CID just like it was presented here in this tutorial."
+				"title": "Hashes",
+				"link": "https://docs.ipfs.io/guides/concepts/hashes/",
+				"type": "docs",
+				"description": "Learn more about cryptographic hashes in the official IPFS docs."
+			},
+			{
+				"title": "Multiformats",
+				"link": "https://multiformats.io/",
+				"type": "docs",
+				"description": "Explore Multiformats, a collection of protocols that future-proof systems, including CID, multihash, multibase and multicodec."
+			},
+			{
+				"title": "Multihash",
+				"link": "https://multiformats.io/multihash/",
+				"type": "docs",
+				"description": "Learn more about the multihash protocol for differentiating outputs from various well-established hash functions, addressing size and encoding considerations."
+			},
+			{
+				"title": "Content Identifier (CID) Specification",
+				"link": "https://github.com/multiformats/cid/",
+				"type": "docs",
+				"description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
 			}
 		]
 	}
