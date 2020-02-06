@@ -6,19 +6,10 @@
 
 let log = require('npmlog')
 
-const events = require('./modules/data/events')
+const run = require('../modules/run')
+const events = require('../modules/data/events')
 
-// CLI Options
-const options = {
-  dryRun: process.argv.includes('--dry-run'), // do not make any changes
-  debug: process.argv.includes('--debug') // more detailed logging
-}
-
-if (options.debug) {
-  log.level = 'silly'
-}
-
-async function runEvents () {
+async function eventsData (options) {
   if (options.dryRun) {
     log.warn('events', `dry-run option enabled: will not write events to json file`)
   }
@@ -39,8 +30,8 @@ async function runEvents () {
   log.info('events', `spreadsheet has been processed successfully - ${fetchedEvents.length} events saved`)
 }
 
-async function run () {
-  await runEvents()
+async function command (options) {
+  await eventsData(options)
 }
 
-run()
+run(command)

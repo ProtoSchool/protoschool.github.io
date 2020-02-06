@@ -40,6 +40,10 @@ Clone the repo, install dependencies, check out the appropriate branch, and run 
 
 View the site on localhost at: http://localhost:3000/#/
 
+## Managing remote data
+
+Some data is pulled on build-time from remote sources using some node js scripts. Please check the documentation [here](scripts/README.md) for further details.
+
 ## License
 
 ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/master/LICENSE.md) for further detail.

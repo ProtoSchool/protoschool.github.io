@@ -37,12 +37,12 @@ const columns = [
   {
     // Start Time
     key: 'startTime',
-    transform: event => new Date(`${event.date} ${event.startTime}`).toISOString()
+    transform: event => event.date && new Date(`${event.date} ${event.startTime}`).toISOString()
   },
   {
     // End Time
     key: 'endTime',
-    transform: event => new Date(`${event.date} ${event.endTime}`).toISOString()
+    transform: event => event.date && new Date(`${event.date} ${event.endTime}`).toISOString()
   },
   {
     // How is this workshop being presented?

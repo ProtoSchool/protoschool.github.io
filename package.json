@@ -12,8 +12,8 @@
     "cy:run": "cypress run --browser chrome",
     "cy:serve": "serve -l 3000 dist",
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
-    "googleapis:generate-token": "node scripts/googleapis-generate-token.js",
-    "build:data": "node scripts/build-data.js"
+    "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token.js",
+    "scripts:build:data": "node scripts/commands/build-data.js"
   },
   "dependencies": {
     "async": "^2.6.1",
