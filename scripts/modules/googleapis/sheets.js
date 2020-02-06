@@ -47,7 +47,7 @@ exports.transformSpreadSheet = (rows, columns, extraColumns = []) => (
       }
 
       return {
-        id: index,
+        id: index + 1,
         ...transformedRowObject
       }
     })

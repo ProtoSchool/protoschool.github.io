@@ -1,50 +1,55 @@
 <template>
-  <div class="flex flex-column bg-white navy br3 pa4 ba b--light-gray event-tile shadow-4">
-      <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStart}}</p>
-      <h3 class="ma0 mb1 f3 fw9 ttu">{{city}}</h3>
-      <p class="f5 fw5 ma0 pt0">
-        <span class="fw7">{{country}}</span>
-        <span v-if="region"> - {{region}}</span>
-      </p>
-      <p class="f6 fw5 ma0 mt4 navy" v-if="hostedByName || hostedAtName">
-          Hosted
-          <span v-if="hostedByName"> by
-            <span v-if="hostedByUrl"><a class="navy" :href='hostedByUrl' target='_blank'>{{hostedByName}}</a></span>
-            <span v-else>{{hostedByName}}</span>
-          </span>
-          <span v-if="hostedAtName"> at
-            <span v-if="hostedAtUrl"><a class="navy" :href='hostedAtUrl' target='_blank'>{{hostedAtName}}</a></span>
-            <span v-else>{{hostedAtName}}</span>
-          </span>
-      </p>
-      <p v-else class="f6 fw5 ma0 pt0 navy">Hosted by {{groupName}}</p>
-      <p class="fw5 f6 mb2">Featured Tutorial<span v-if="tutorials.length >1">s</span>:
-      </p>
-      <ul class="pl4 mt0 f6">
-        <li v-for="tutorialId in tutorials" v-bind:key="tutorialId" class="mb1">
-          <router-link
-            class="navy event-tutorial-link"
-            :to="`/${getTutorial(tutorialId).url}`">
-            {{getTutorial(tutorialId).title}}
-          </router-link>
-        </li>
-      </ul>
-      <div class="event-footer flex-grow tr flex justify-between items-end">
-        <a class="event-coc gray f7 pv2" :href='cocUrl' target='_blank'>Code of Conduct</a>
-        <a class="event-cta f5 link dim br-pill ph3 pv2 mb0 dib white bg-navy mt3" :href="url" target='_blank'>
-          <span v-if="isFuture">Attend</span>
-          <span v-else>View</span>
-        </a>
-      </div>
+  <Card class="flex flex-column bg-white navy pa4">
+    <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStart}}</p>
+    <h3 class="ma0 mb1 f3 fw9 ttu">{{city}}</h3>
+    <p class="f5 fw5 ma0 pt0">
+      <span class="fw7">{{country}}</span>
+      <span v-if="region"> - {{region}}</span>
+    </p>
+    <p class="f6 fw5 ma0 mt4 navy" v-if="hostedByName || hostedAtName">
+      Hosted
+      <span v-if="hostedByName"> by
+        <span v-if="hostedByUrl"><a class="navy" :href='hostedByUrl' target='_blank'>{{hostedByName}}</a></span>
+        <span v-else>{{hostedByName}}</span>
+      </span>
+      <span v-if="hostedAtName"> at
+        <span v-if="hostedAtUrl"><a class="navy" :href='hostedAtUrl' target='_blank'>{{hostedAtName}}</a></span>
+        <span v-else>{{hostedAtName}}</span>
+      </span>
+    </p>
+    <p v-else class="f6 fw5 ma0 pt0 navy">Hosted by {{groupName}}</p>
+    <p class="fw5 f6 mb2">Featured Tutorial<span v-if="tutorials.length >1">s</span>:
+    </p>
+    <ul class="pl4 mt0 f6">
+      <li v-for="tutorialId in tutorials" v-bind:key="tutorialId" class="mb1">
+        <router-link
+          class="navy event-tutorial-link"
+          :to="`/${getTutorial(tutorialId).url}`"
+        >
+          {{getTutorial(tutorialId).title}}
+        </router-link>
+      </li>
+    </ul>
+    <div class="event-footer flex-grow tr flex justify-between items-end">
+      <a class="event-coc gray f7 pv2" :href='cocUrl' target='_blank'>Code of Conduct</a>
+      <a class="event-cta f5 link dim br-pill ph3 pv2 mb0 dib white bg-navy mt3" :href="url" target='_blank'>
+        <span v-if="isFuture">Attend</span>
+        <span v-else>View</span>
+      </a>
     </div>
-
+  </Card>
 </template>
 <script>
 import moment from 'moment'
+
+import Card from './Card.vue'
 import tutorialsList from '../static/tutorials.json'
 // will use util instead after existing PR is merged with different functions there
 
 export default {
+  components: {
+    Card
+  },
   props: {
     city: String,
     region: String,
