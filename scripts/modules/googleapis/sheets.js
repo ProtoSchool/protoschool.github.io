@@ -37,7 +37,7 @@ exports.transformSpreadSheet = (rows, columns, extraColumns = []) => (
     }), {}))
     // run the transform function on each property of each row, if any
     .map((rowObject, index) => {
-      const transformedRowObject = {}
+      let transformedRowObject = {}
 
       for (const key in rowObject) {
         const transformer = columns.find(column => column === key || column.key === key).transform ||
@@ -46,17 +46,18 @@ exports.transformSpreadSheet = (rows, columns, extraColumns = []) => (
         transformedRowObject[key] = transformer(rowObject, key)
       }
 
+      // add the extra columns
+      transformedRowObject = {
+        ...transformedRowObject,
+        ...extraColumns.reduce((rowObjectWithNewProperties, extraColumn) => ({
+          ...rowObjectWithNewProperties,
+          [extraColumn.key]: extraColumn.value(rowObject, transformedRowObject)
+        }), {})
+      }
+
       return {
         id: index + 1,
         ...transformedRowObject
       }
     })
-    // add the extra columns
-    .map(rowObject => ({
-      ...rowObject,
-      ...extraColumns.reduce((rowObjectWithNewProperties, extraColumn) => ({
-        ...rowObjectWithNewProperties,
-        [extraColumn.key]: extraColumn.value(rowObject)
-      }), {})
-    }))
 )

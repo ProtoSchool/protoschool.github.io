@@ -9,7 +9,7 @@ const googleSheets = require('../googleapis/sheets')
 
 const SPREADSHEET = {
   spreadsheetId: '12crFIs4Og35I0pdhutczDNPA1sx48ec4Zgm8fIjVbkM',
-  range: 'Form Responses 1!A2:U'
+  range: 'Form Responses 1!A2:X'
 }
 
 // Event properties ordered by the columns order in the spreadsheet
@@ -61,20 +61,40 @@ const columns = [
   'hostedByUrl', // What's the URL for your group's overarching website or Meetup page?
   'hostedAtName', // Conference Name
   'hostedAtUrl', // Conference Website
-  'name', // Name
+  'firstName', // Name
   'github', // GitHub Handle
   'twitter', // Twitter handle or hashtag for your workshop or group
+  'lastName',
+  {
+    key: 'nameOrder',
+    transform: event => event.nameOrder.split('(')[0].trim().replace(' ', '-').toLowerCase()
+  },
   {
     // Approved
     key: 'approved',
-    transform: event => event.approved === '1'
-  }
+    transform: event => event.approved === 'Yes'
+  },
+  'notes'
 ]
 
 const extraColumns = [
   {
+    key: 'fullName',
+    value: (event, transformedEvent) => (
+      transformedEvent.nameOrder === 'given-family'
+        ? `${transformedEvent.firstName} ${transformedEvent.lastName}`
+        : `${transformedEvent.lastName} ${transformedEvent.firstName}`
+    ).trim()
+  },
+  {
+    key: 'pendingApproval',
+    value: event => !event.approved
+  },
+  {
     key: 'duration',
-    value: event => moment(new Date(event.endTime)).diff(new Date(event.startTime), 'minutes')
+    value: (event, transformedEvent) => (
+      Math.abs(moment(new Date(transformedEvent.endTime)).diff(new Date(transformedEvent.startTime), 'minutes'))
+    )
   }
 ]
 
@@ -113,10 +133,12 @@ exports.fetch = async function () {
   // Transform google spreadsheet rows (array of arrays) to array of event objects
   let events = googleSheets.transformSpreadSheet(rows, columns, extraColumns)
   const approvedEvents = events.filter(event => event.approved)
+  const pendingApprovalEvents = events.filter(event => event.pendingApproval)
 
   log.info('data:events', `total events: ${events.length}`)
-  log.info('data:events', `events to approve: ${events.length - approvedEvents.length}`)
   log.info('data:events', `events approved: ${approvedEvents.length}`)
+  log.info('data:events', `events rejected: ${events.length - approvedEvents.length - pendingApprovalEvents.length}`)
+  log.info('data:events', `events pending approval: ${pendingApprovalEvents.length}`)
 
   return approvedEvents
 }
