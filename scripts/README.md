@@ -22,7 +22,10 @@ As part of the build process (see [travis config](../.travis.yml)), we fetch all
 To add new data sources:
 
 - Add a new function to the `scripts/commands/build-data.js` script to be ran in the build process.
-- Any new environment variables need to be save in your local `.env` file and in the secure vault in PL's `1Password` account.
+- Any new environment variables need to be saved:
+    -  in your local `.env` file
+    -  in the secure vault in PL's `1Password` account
+    -  added to [travis ci](https://travis-ci.org/ProtoSchool/protoschool.github.io/settings)
 
 #### `--debug`
 
