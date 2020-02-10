@@ -1,9 +1,9 @@
 <template>
   <div>
     <Header current="Home"/>
-    <section class="mw7 center ph2">
-      <h1 class="mt5">Interactive Tutorials</h1>
-      <p class="f4 fw5 lh-copy ma0 pv3  ">
+    <section class="mw7 center ph3">
+      <h1 class="mt4">Interactive Tutorials</h1>
+      <p class="f4 fw5 lh-copy ma0 pb3">
       Our self-guided interactive tutorials are designed to introduce you to
       decentralized web concepts, protocols, and tools. Select your topic and
       track your progress as you go, in a format that's right for you. Complete
