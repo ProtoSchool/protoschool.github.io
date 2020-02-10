@@ -397,7 +397,6 @@ If you'd like to replace a specific error message returned automatically with a 
 
 ```js
 const options = {
-    type: 'file-upload',
     overrideErrors: true
 }
 ```
@@ -593,7 +592,6 @@ Lesson files should be put in the folder `src/tutorials/xxxx-tutorials-short-tit
 - `code`: String - optional
 - `modules`: Object - optional
 - `options`: Object - optional
-    - `type`: String - one of `standard` (default), `file-upload` or `multiple-choice`
     - `overrideErrors`: Boolean - default is `false`
     - `createTestFile`: Boolean - default is `false`
     - `createTestTree`: Boolean - default is `false`

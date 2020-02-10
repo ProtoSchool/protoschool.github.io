@@ -25,7 +25,6 @@ const choices = [
 // for more on the available options:
 // https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
 const options = {
-  type: 'multiple-choice'
 }
 
 export default {

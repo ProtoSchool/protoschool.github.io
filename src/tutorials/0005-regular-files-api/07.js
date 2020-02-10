@@ -78,7 +78,6 @@ return run
 const modules = { cids: require('cids') }
 
 const options = {
-  type: 'file-upload',
   overrideErrors: true,
   createTestTree: true
 }

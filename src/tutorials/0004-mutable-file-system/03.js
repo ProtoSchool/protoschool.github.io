@@ -29,14 +29,9 @@ return run
 
 const modules = { cids: require('cids') }
 
-const options = {
-  type: 'file-upload'
-}
-
 export default {
   validate,
   code,
   solution,
-  modules,
-  options
+  modules
 }
