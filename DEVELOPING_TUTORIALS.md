@@ -183,7 +183,7 @@ Then in your lesson Markdown file, you can either add it with regular Markdown:
 
 Select the appropriate boilerplate JavaScript file for your lesson from the `src/tutorials/boilerplates` directory:
 
-- `boilerplate-standard.js` for a lesson with a coding exercise which does not require a file upload
+- `boilerplate-code.js` for a lesson with a coding exercise which does not require a file upload
 - `boilerplate-file-upload.js` for a lesson with a coding exercise that requires a file upload
 - `boilerplate-multiple-choice.js` for a lesson with a multiple-choice quiz
 
@@ -192,7 +192,7 @@ Copy that boilerplate into the tutorial directory you created earlier (e.g. `000
 For example, to create a Javascript file for a standard coding exercise as Lesson 01 of Tutorial 0005 (while still in `src/tutorials`):
 
 ```sh
-> cp boilerplates/boilerplate-standard.js 0005-tutorial-short-title/01.js
+> cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
 ```
 
 Use this file to set up your default code and validation, as described later in these instructions.

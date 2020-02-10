@@ -11,7 +11,8 @@ for (const tutorialId in tutorials) {
   tutorials[tutorialId].lessons = getTutorialLessons(tutorials[tutorialId])
 }
 
-// TODO move this to a build script in the future to avoid heavy processing on the client
+// TODO Move this to a build script in the future to avoid heavy processing on the client.
+// This will only become a problem when the number of tutorials and lessons increases
 export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
   const lessonfileName = `${tutorial.formattedId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}.md`
   let lesson
@@ -21,7 +22,11 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
       `../tutorials/${lessonfileName}`
     )
 
-    lessons.push(marked(lesson).meta)
+    lessons.push({
+      id: lessonNumber,
+      formattedId: lessonNumber.toString().padStart(2, 0),
+      ...marked(lesson).meta
+    })
   } catch (error) {
     // lesson not found, we reached the end
     if (error.code === 'MODULE_NOT_FOUND') {

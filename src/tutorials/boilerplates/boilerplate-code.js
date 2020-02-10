@@ -30,12 +30,16 @@ const solution = `/* global ipfs */
 return run
 `
 
+// Optional: Use the modules option if you need extra
+// modules available in the solution code
 const modules = { cids: require('cids') }
 
 // for more on the available options:
 // https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
 const options = {
-  type: 'standard'
+  overrideErrors: false,
+  createTestFile: false,
+  createTestTree: false
 }
 
 export default {

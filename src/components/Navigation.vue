@@ -3,8 +3,8 @@
     <!-- STANDARD NAV -->
     <div class="dn db-ns bg-aqua pv3">
       <div class="center mw7">
-        <!-- If in lesson (breadcrumbs) -->
-        <div v-if="isLesson && notFound !== true" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
+        <!-- If in tutorial (breadcrumbs) -->
+        <div v-if="tutorial" class="flex overflow-auto items-center bg-aqua navy f5 fw6 pv3 center tc mw7">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4">></span>
           <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialLanding">{{tutorial.shortTitle}}</router-link>
@@ -22,7 +22,7 @@
     <div class="db dn-ns">
       <div class="flex items-center bg-aqua pv3 w-100">
         <!-- If in lesson (breadcrumbs) -->
-        <div v-if="isLesson && notFound !== true" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
+        <div v-if="tutorial" class="flex-auto link pa2 fw5 f5 db bb border-aqua navy">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4"> > </span>
           <router-link class="nav-link navy" :to="tutorialLanding">{{tutorial.shortTitle}}</router-link>
@@ -38,7 +38,7 @@
       <div :class="{ dn: isHamburgerClosed }">
         <div class="tc bg-aqua-muted white">
           <div v-for="(link, idx) in links" :key="`mobile-${idx}`">
-            <router-link @click.native="toggleHamburger" :class="[isActive(link) || isActiveLesson(link) ? 'white' : 'navy', 'link pa3 fw5 f4 db bb border-aqua']" :to="`${link.path}`">{{link.text}}</router-link>
+            <router-link @click.native="toggleHamburger" :class="[isActive(link) ? 'white' : 'navy', 'link pa3 fw5 f4 db bb border-aqua']" :to="`${link.path}`">{{link.text}}</router-link>
           </div>
         </div>
       </div>
@@ -77,15 +77,6 @@ export default {
 
       return getTutorialByUrl(this.$route.params.tutorialUrl)
     },
-    isLesson: function () {
-      let count = 0
-      this.links.forEach(link => {
-        if (link.path === this.currentPath) {
-          count++
-        }
-      })
-      return count === 0
-    },
     currentPage: function () {
       let pageName
       this.links.forEach(link => {
@@ -102,9 +93,6 @@ export default {
     },
     isActive: function (link) {
       return link.path === this.$route.path
-    },
-    isActiveLesson: function (link) {
-      return this.isLesson && link.path === '/tutorials'
     }
   }
 }

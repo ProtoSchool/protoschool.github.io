@@ -1,6 +1,6 @@
 <template>
     <Lesson
-        v-if="logic.options.type === 'standard'"
+        v-if="!lesson.type || lesson.type === 'text' || lesson.type === 'code'"
         :text="text"
         :concepts="concepts"
         :exercise="exercise"
@@ -15,7 +15,7 @@
         :lessonTitle="lesson.title"
     />
     <FileLesson
-        v-else-if="logic.options.type === 'file-upload'"
+        v-else-if="lesson.type === 'file-upload'"
         :text="text"
         :concepts="concepts"
         :exercise="exercise"
@@ -30,7 +30,7 @@
         :lessonTitle="lesson.title"
     />
     <MultipleChoiceLesson
-        v-else-if="logic.options.type === 'multiple-choice'"
+        v-else-if="lesson.type === 'multiple-choice'"
         :text="text"
         :concepts="concepts"
         :question="logic.question"
@@ -44,10 +44,9 @@
 </template>
 
 <script>
-
 import router from '../router'
 import debug from '../utils/debug'
-import { getTutorialByUrl } from '../utils/tutorials'
+import tutorials, { getTutorialByUrl } from '../utils/tutorials'
 import marked from '../utils/marked'
 import Lesson from '../components/Lesson.vue'
 import FileLesson from '../components/FileLesson.vue'
@@ -118,28 +117,57 @@ export default {
     lesson: function () {
       return this.textFileData.meta
     },
+    lessonNeedsJsFile: function () {
+      console.log(this.lesson, !!this.lesson.type && this.lesson.type !== 'text')
+      return !!this.lesson.type && this.lesson.type !== 'text'
+    },
     text: function () {
       return this.textFileData.html
     },
     concepts: function () {
       const concepts = this.loadFile('concepts', { failOnNotFound: false })
 
-      return concepts && marked(concepts).html
+      return concepts ? marked(concepts).html : ''
     },
     exercise: function () {
-      const exercise = this.loadFile('exercise', { failOnNotFound: false })
+      const exercise = this.lessonNeedsJsFile && this.loadFile('exercise')
 
-      return exercise && marked(exercise).html
+      return exercise ? marked(exercise).html : ''
     },
     logic: function () {
-      const logic = (this.loadFile('js', { failOnNotFound: false }) || {}).default || {}
+      let logic = {
+        options: {
+          overrideErrors: false,
+          createTestFile: false,
+          createTestTree: false
+        }
+      }
 
-      logic.options = {
-        type: 'standard', // one of 'standard', 'file-upload' or 'multiple-choice'
-        overrideErrors: false,
-        createTestFile: false,
-        createTestTree: false,
-        ...logic.options
+      if (!this.lessonNeedsJsFile) {
+        return logic
+      }
+
+      let fileLogic = this.loadFile('js')
+
+      logic = {
+        ...logic,
+        ...fileLogic.default,
+        options: {
+          ...logic.options,
+          ...fileLogic.default.options
+        }
+      }
+
+      if (!logic.validate) {
+        console.warn(`No "validate" function found. Please export a "validate" function from the JavaScript file.`)
+      }
+
+      if (!logic.code) {
+        console.warn(`No "code" String found. Please export a "code" String from the JavaScript file.`)
+      }
+
+      if (!logic.solution) {
+        console.warn(`No "solution" String found. Please export a "solution" String from the JavaScript file.`)
       }
 
       return logic
