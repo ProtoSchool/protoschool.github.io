@@ -24,8 +24,8 @@ Ready to get started? Read on!
         - [JavaScript file](#javascript-file-skip-for-text-only-lessons)
         - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-and-multiple-choice-lessons)
         - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
-      - [Create multiple-choice quizzes in your Javascript file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons)
-      - [Build code challenges and validation in your Javascript file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-javascript-file-skip-for-text-only-and-multiple-choice-lessons)
+      - [Create multiple-choice quizzes in your JavaScript file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons)
+      - [Build code challenges and validation in your JavaScript file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-javascript-file-skip-for-text-only-and-multiple-choice-lessons)
         - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
         - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
         - [Validate the user's submitted code](#validate-the-users-submitted-code)
@@ -137,7 +137,7 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 
 | File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Multiple-Choice Lesson | Text-Only Lesson
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| A Javascript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
+| A JavaScript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required | Required |
 | A Markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.md`| Required | Required | Not Used | Not Used |
 | A Markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional | Optional |
@@ -189,7 +189,7 @@ Select the appropriate boilerplate JavaScript file for your lesson from the `src
 
 Copy that boilerplate into the tutorial directory you created earlier (e.g. `0005-tutorial-short-title`) and rename it to the 2-digit number of the lesson.
 
-For example, to create a Javascript file for a standard coding exercise as Lesson 01 of Tutorial 0005 (while still in `src/tutorials`):
+For example, to create a JavaScript file for a standard coding exercise as Lesson 01 of Tutorial 0005 (while still in `src/tutorials`):
 
 ```sh
 > cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
@@ -217,9 +217,9 @@ For example (for Lesson 01 of Tutorial 0005):
 src/tutorials/0005-tutorial-short-title/01-concepts.md
 ```
 
-#### Create multiple-choice quizzes in your Javascript file (skip for coding exercises and text-only lessons)
+#### Create multiple-choice quizzes in your JavaScript file (skip for coding exercises and text-only lessons)
 
-When creating a multiple-choice lesson, you'll use your Javascript file to define the question and its answer choices.
+When creating a multiple-choice lesson, you'll use your JavaScript file to define the question and its answer choices.
 
 The `question` value must be a string:
 
@@ -258,13 +258,13 @@ The answer choices will be presented in the order in which you list them. Be sur
 
 The `feedback` provided for each choice will be shown highlighted in red if incorrect or in green if correct, and the user will be able to advance to next lesson once they've made the right selection.
 
-#### Build code challenges and validation in your Javascript file (skip for text-only and multiple-choice lessons)
+#### Build code challenges and validation in your JavaScript file (skip for text-only and multiple-choice lessons)
 
-If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's Javascript file. The basic template you need to accomplish this is provided in the boilerplate file you selected earlier.
+If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's JavaScript file. The basic template you need to accomplish this is provided in the boilerplate file you selected earlier.
 
 ##### Provide the starting code for your exercise
 
-`code` is a string property. The value you set for `code` in your Javascript file will
+`code` is a string property. The value you set for `code` in your JavaScript file will
 be used to populate the code editor when the user first visits the page. (If you forget to set this, a default will be used, but your exercise won't be very useful!)
 
 ```js
@@ -300,7 +300,7 @@ Remember that you can add comments to your default code to orient the user, such
 
 ##### Provide the simplest solution to your exercise
 
-`solution` is a string property. The value you set for `solution` in your Javascript
+`solution` is a string property. The value you set for `solution` in your JavaScript
 file will be used to populate the code editor if the user clicks the "View
 Solution" option. (We hope you'll have provided enough clues that they won't need to do this!)
 
