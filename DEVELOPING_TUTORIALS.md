@@ -21,7 +21,7 @@ Ready to get started? Read on!
     - [Build your lessons (repeat for each lesson in the tutorial)](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial)
       - [Create lesson files](#create-lesson-files)
         - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
-        - [Javascript file](#javascript-file)
+        - [JavaScript file](#javascript-file-skip-for-text-only-lessons)
         - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-and-multiple-choice-lessons)
         - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
       - [Create multiple-choice quizzes in your Javascript file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons)
@@ -40,7 +40,7 @@ Ready to get started? Read on!
   - [Troubleshooting](#troubleshooting)
     - [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
     - [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
-    - [My files (.md, -exercise.md) content are not showing up in the lesson page](#my-files-md--exercisemd-content-are-not-showing-up-in-the-lesson-page)
+    - [Text of lesson or exercise not displayed](#text-of-lesson-or-exercise-not-displayed)
   - [Detailed Docs](#detailed-docs)
     - [Lesson File](#lesson-file)
   - [License](#license)
@@ -111,7 +111,7 @@ Each tutorial in ProtoSchool has a 4-digit ID and a corresponding directory. To 
 0004-mutable-file-system
 boilerplates
 ```
-The number used as your tutorial's ID and directory name should be one higher than the last numbered directory you see listed. (In the example above, seeing that `0004-*` is the last numbered directory, you would create a new directory called `0005-tutorial-short-title` - where the text after the id will be the identifier on the tutorial url, more on this ahead.)
+The number used as your tutorial's ID and directory name should be one higher than the last numbered directory you see listed. (In the example above, seeing that `0004-*` is the last numbered directory, you would create a new directory called `0005-tutorial-short-title`, where the text after the id will be the identifier on the tutorial URL. More on this ahead!)
 
 Create a directory with the appropriate ID, for example:
 
@@ -139,23 +139,23 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | A Javascript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required | Required |
-| A markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.md`| Required | Required | Not Used | Not Used |
-| A markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional | Optional |
+| A Markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.md`| Required | Required | Not Used | Not Used |
+| A Markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional | Optional |
 
 In the example below, four files stored in the `tutorials/0005-tutorial-short-title` directory work together to create the second lesson in that tutorial.
 
 ![screenshot](public/lesson_sources.png)
 
-Not familiar with markdown? It's a fairly simple way to style text on the web. [Learn more about markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
+Not familiar with Markdown? It's a fairly simple way to style text on the web. [Learn more about Markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
 
-You _might_ need to use some JavaScript, though, if you build your default code and validation.
+Not familiar with JavaScript? You won't need it to create text-only lessons, and you'll only need to do some simple text replacements to set up questions and answers for multiple-choice quizzes. However, if you want to create code challenges (with or without file upload), you _will_ need to use JavaScript extensively to set up your default and solution code and validation.
 
 
 ##### Lesson text file (with optional images)
 
 
 
-Create a `.md` file using the boilerplate and add the markdown-formatted text of the lesson itself (your educational content). The name of this file should be the 2-digit lesson number.
+Create a `.md` file using the boilerplate and add the Markdown-formatted text of the lesson itself (your educational content). The name of this file should be the 2-digit lesson number.
 
 For example (for Lesson 01 of Tutorial 0005):
 
@@ -163,11 +163,11 @@ For example (for Lesson 01 of Tutorial 0005):
 > cp boilerplates/boilerplate.md 0005-tutorial-short-title/01.md
 ```
 
-If you want to add images to your markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention:
+If you want to add images to your Markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention:
 
 `T<4-digit-tutorial-id>L<2-digit-lesson-number>-<imageName>`, such as `T0001L05-diagram.svg`.
 
-Then in your lesson markdown file, you can either add it with regular markdown:
+Then in your lesson Markdown file, you can either add it with regular Markdown:
 
 ```
 ![Description of the image](tutorial-assets/T0001L01-diagram.svg)
@@ -179,9 +179,9 @@ Then in your lesson markdown file, you can either add it with regular markdown:
 <img src="tutorial-assets/T0001L01-diagram.svg" width="300px" height="150px" />
 ```
 
-##### Javascript file
+##### JavaScript file (skip for text-only lessons)
 
-Select the appropriate boilerplate Javascript file for your lesson from the `src/tutorials/boilerplates` directory:
+Select the appropriate boilerplate JavaScript file for your lesson from the `src/tutorials/boilerplates` directory:
 
 - `boilerplate-standard.js` for a lesson with a coding exercise which does not require a file upload
 - `boilerplate-file-upload.js` for a lesson with a coding exercise that requires a file upload
@@ -386,14 +386,14 @@ You may (optionally) use [markdown formatting](https://guides.github.com/feature
 
 ![screenshot](public/markdown_error.png)
 
-If this is the last lesson in your tutorial, please create a success message for your last lesson that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
+If this is the last lesson in your tutorial, please create a success message that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
 
 ###### Override external error messages (optional)
 
 As you test your code, you may notice that you see error messages appear that are different from the ones you provided in your `validate` function. These might include syntax errors noted by our embedded code editor or errors returned by the IPFS API, both of which appear by default. Syntax errors can be very helpful for your user, and other errors might help you identify common errors you hadn't thought of.
 
 If you'd like to replace a specific error message returned automatically with a more user-friendly message created by you, use the option
-`overrideErrors: true` in the options object:
+`overrideErrors: true` in the `options` object:
 
 ```js
 const options = {
@@ -569,15 +569,15 @@ Note that your user history on the live website (https://proto.school) is differ
 
 That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL.
 
-### My files (.md, -exercise.md) content are not showing up in the lesson page
+### Text of lesson or exercise not displayed
 
-The file might not be loading correctly. You can use the `DEBUG=true` option to get warnings in the console. To enable it run:
+If you're unable to see the text of your lesson or exercise when previewing the website, one of your Markdown files (*.md or *-exercise.md) may not be loading correctly. You can use the `DEBUG=true` option to get warnings in the console. To enable it, run:
 
 ```sh
 DEBUG=true npm start
 ```
 
-Check the browser dev tools and check for warning logs.
+Check your browser dev tools for warning logs.
 
 ## Detailed Docs
 
@@ -592,7 +592,7 @@ Lesson files should be put in the folder `src/tutorials/xxxx-tutorials-short-tit
 - `code`: String - optional
 - `modules`: Object - optional
 - `options`: Object - optional
-    - `type`: String - one of `standard` (default), `file-upload` or `multiple-choice`.
+    - `type`: String - one of `standard` (default), `file-upload` or `multiple-choice`
     - `overrideErrors`: Boolean - default is `false`
     - `createTestFile`: Boolean - default is `false`
     - `createTestTree`: Boolean - default is `false`

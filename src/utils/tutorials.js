@@ -31,7 +31,7 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
     // data not well formatted
     if (error.name === 'YAMLException') {
       console.error(
-        new Error(`Data not well formatted in the lesson markdown file "${lessonfileName}". Check the syntax is correct.`)
+        new Error(`Data improperly formatted in the lesson markdown file "${lessonfileName}". Check that the syntax is correct.`)
       )
     }
 
