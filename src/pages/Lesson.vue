@@ -46,7 +46,7 @@
 <script>
 import router from '../router'
 import debug from '../utils/debug'
-import tutorials, { getTutorialByUrl } from '../utils/tutorials'
+import { getTutorialByUrl } from '../utils/tutorials'
 import marked from '../utils/marked'
 import Lesson from '../components/Lesson.vue'
 import FileLesson from '../components/FileLesson.vue'
@@ -118,7 +118,6 @@ export default {
       return this.textFileData.meta
     },
     lessonNeedsJsFile: function () {
-      console.log(this.lesson, !!this.lesson.type && this.lesson.type !== 'text')
       return !!this.lesson.type && this.lesson.type !== 'text'
     },
     text: function () {
