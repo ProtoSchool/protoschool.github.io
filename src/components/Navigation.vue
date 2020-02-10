@@ -51,9 +51,6 @@ import { getTutorialByUrl } from '../utils/tutorials'
 
 export default {
   name: 'Navigation',
-  props: {
-    notFound: Boolean
-  },
   data: (self) => {
     return {
       isHamburgerClosed: true,
