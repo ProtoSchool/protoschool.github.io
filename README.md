@@ -42,7 +42,7 @@ View the site on localhost at: http://localhost:3000/#/
 
 ## Managing remote data
 
-Some data is pulled on build-time from remote sources using some node js scripts. Please check the documentation [here](scripts/README.md) for further details.
+Some data, such as the events list, is pulled at build-time from remote sources using Node.js scripts. Please check the documentation [here](scripts/README.md) for further details.
 
 ## License
 

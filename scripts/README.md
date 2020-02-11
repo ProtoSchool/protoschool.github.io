@@ -29,6 +29,8 @@ In the output of this command you'll see the following statistics:
 - `events rejected`: Number of events in the Google Sheet manually marked as rejected (these will not be added to the JSON file or displayed on the website)
 - `events pending approval`: Number of events in the Google Sheet that have been submitted by event organizers but not yet manually marked as approved or rejected (these will _not_ be added to the JSON file or displayed on the website until they're reviewed)
 
+**Note: All changes to event data must be made directly in Google Sheets.** You _cannot_ make changes to the website by overwriting data in `events.json`. This is because the script referenced here will be run both at the time your PR is merged and at regular intervals via cron jobs, thereby overwriting any local changes made to the `events.json` file.
+
 To add new data sources:
 
 - Add a new function to the `scripts/commands/build-data.js` script to be run in the build process.
