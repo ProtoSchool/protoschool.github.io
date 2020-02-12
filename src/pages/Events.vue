@@ -10,8 +10,8 @@
       </p>
       <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mv3" to="/host">Host an Event</router-link>
       <h2>Upcoming Events</h2>
-      <div v-if="futureEvents.length" class="flex flex-wrap justify-between events-list">
-        <Event v-for="event in futureEvents"
+      <div v-if="futureEvents().length" class="flex flex-wrap justify-between events-list">
+        <Event v-for="event in futureEvents()"
           v-bind="event"
           class="event-tile"
           :key="event.id"
@@ -23,14 +23,23 @@
       </div>
       <p class="f4 fw5 lh-copy ma0 pv3">Know of an upcoming workshop not listed here? Ask the event organizer to <a href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">submit it</a>. </p>
       <p class="f4 fw5 lh-copy ma0 pv3">Wish there were more workshops near you? Learn how to <a href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">host an event</a>!</p>
-      <h2 v-if="pastEvents.length">Past Events</h2>
-      <div class="flex flex-wrap justify-between events-list" v-if="pastEvents.length">
-        <Event v-for="event in pastEvents"
-          v-bind="event"
-          class="event-tile"
-          :key="event.id"
-          :future="false"
-        />
+      <div v-if="pastEvents().length">
+        <h2>Past Events
+          <span v-if="viewAllPast || (pastEvents().length <= maxRedacted)">(All)</span>
+          <span v-else>(Most Recent)</span>
+        </h2>
+        <div class="flex flex-wrap justify-between events-list">
+          <Event v-for="event in pastEvents((viewAllPast ? null : maxRedacted))"
+            v-bind="event"
+            class="event-tile"
+            :key="event.id"
+            :future="false"
+          />
+        </div>
+        <div v-if="(pastEvents().length > maxRedacted)" class="mb2">
+          <span v-if="viewAllPast" @click="togglePastEvents" class="textLink chevron down">View Only Most Recent Events</span>
+          <span v-else @click="togglePastEvents" class="textLink chevron right" data-cy="view-solution">View Older Events</span>
+        </div>
       </div>
 
       <p class="f4 fw5 lh-copy ma0 pv3">View our archived <router-link to="/chapters">chapter listings</router-link>.</p>
@@ -41,8 +50,9 @@
 <script>
 import Header from '../components/Header'
 import Event from '../components/Event'
-import eventsList from '../static/events.json'
-import moment from 'moment'
+// import eventsList from '../static/events.json'
+// import moment from 'moment'
+import { pastEvents, futureEvents } from '../utils/events'
 
 export default {
   name: 'events',
@@ -52,24 +62,17 @@ export default {
   },
   data: self => {
     return {
-      eventsList,
-      today: moment()
-    }
-  },
-  computed: {
-    futureEvents: function () {
-      return eventsList.filter((event) => this.isFuture(event.startTime)).sort((a, b) => moment(a.startTime) - moment(b.startTime))
-    },
-    pastEvents: function () {
-      return eventsList.filter((event) => !this.isFuture(event.startTime)).sort((a, b) => moment(b.startTime) - moment(a.startTime))
+      pastEvents,
+      futureEvents,
+      viewAllPast: false,
+      maxRedacted: 4
     }
   },
   methods: {
-    isFuture: function (date) {
-      return (moment(date) >= this.today)
+    togglePastEvents: function () {
+      this.viewAllPast = !this.viewAllPast
     }
-
-  }
+  },
 }
 
 </script>
