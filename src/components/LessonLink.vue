@@ -55,7 +55,9 @@ export default {
   transition: background 400ms;
 }
 
-.link:hover {
+.link:focus-within,
+.link:hover,
+.link:focus {
   background: #bfe5e9;
 }
 
