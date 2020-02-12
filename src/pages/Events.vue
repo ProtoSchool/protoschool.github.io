@@ -69,7 +69,7 @@ export default {
     togglePastEvents: function () {
       this.viewAllPast = !this.viewAllPast
     }
-  },
+  }
 }
 
 </script>
