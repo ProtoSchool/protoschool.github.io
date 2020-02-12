@@ -1,8 +1,8 @@
 <template>
   <div :class="{'overflow-hidden': expandExercise}">
     <Header/>
-    <div class="container center-l mw7-l ph2">
-      <section class="mw7 center mt3 pa3">
+    <div class="container center-l mw7-l ph3">
+      <section class="mw7 center mt3 pt2">
         <div class="flex flex-row justify-between green">
             <Breadcrumbs
             :isResources="isResources"
@@ -92,11 +92,11 @@
         :next="next"
         :tutorialMenu="tutorialMenu" />
     </div>
-    <footer class="mt4 ph2 ph3-ns bg-navy white">
-      <div v-if="isResources" class="mw7 center">
+    <footer class="mt4 ph3-ns bg-navy white">
+      <div v-if="isResources" class="mw7 center ph3">
         <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
       </div>
-      <div v-else class="mw7 center">
+      <div v-else class="mw7 center ph3">
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </footer>

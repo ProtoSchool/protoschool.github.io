@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header/>
-    <section class="mw7 center ph2">
-      <h1 class="mt5">Organize Chapter Events</h1>
+    <section class="mw7 center ph3">
+      <h1 class="mt4">Organize Chapter Events</h1>
       <p class="f4 fw5 lh-copy ma0 pv2  ">
       ProtoSchool is a community-driven effort and is 100% open source. This
       means that anyone can use the ProtoSchool materials and/or host an event.
