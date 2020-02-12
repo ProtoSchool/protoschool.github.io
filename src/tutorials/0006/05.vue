@@ -11,11 +11,11 @@
 import MultipleChoiceLesson from '../../components/MultipleChoiceLesson'
 import text from './05.md'
 
-const question = 'How can we know the base encoding of the hash?'
+const question = 'How can we know the base encoding of a CID?'
 
 const choices = [
   {
-    answer: 'We have to guess it, but it\'s easy because most implementations of IPFS encode CIDs with "base32."',
+    answer: 'We have to guess it, but it\'s easy because most implementations of IPFS encode CIDs with "base32".',
     correct: false,
     feedback: 'That doesn\'t sound right. Please review this lesson again.'
   },

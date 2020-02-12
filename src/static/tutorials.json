@@ -271,7 +271,7 @@
 		"url": "anatomy-of-a-cid",
 		"project": "IPFS",
 		"title": "Anatomy of a CID",
-		"description": "A content identifier, or CID, is a label used to point to material in IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+		"description": "A content identifier, or CID, is a label used to point to data stored on IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
 		"lessons": [
 			"What is a CID?",
 			"Multihash",
