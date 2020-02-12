@@ -36,9 +36,8 @@
             :future="false"
           />
         </div>
-        <div v-if="(pastEvents().length > maxRedacted)" class="mb2">
-          <span v-if="viewAllPast" @click="togglePastEvents" class="textLink chevron down">View Only Most Recent Events</span>
-          <span v-else @click="togglePastEvents" class="textLink chevron right" data-cy="view-solution">View Older Events</span>
+        <div v-if="!viewAllPast && (pastEvents().length > maxRedacted)" class="mb2">
+          <span @click="togglePastEvents" tabindex="0" class="textLink chevron right" data-cy="view-solution">View Older Events</span>
         </div>
       </div>
 
@@ -70,7 +69,7 @@ export default {
     togglePastEvents: function () {
       this.viewAllPast = !this.viewAllPast
     }
-  }
+  },
 }
 
 </script>
@@ -85,6 +84,11 @@ export default {
 .event-tile {
   flex-basis: calc(50% - 20px);
   margin: 10px;
+}
+
+.textLink:hover, .textLink:focus {
+  font-weight: 700;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 750px) {
