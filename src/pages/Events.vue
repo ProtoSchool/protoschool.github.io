@@ -50,8 +50,6 @@
 <script>
 import Header from '../components/Header'
 import Event from '../components/Event'
-// import eventsList from '../static/events.json'
-// import moment from 'moment'
 import { pastEvents, futureEvents } from '../utils/events'
 
 export default {

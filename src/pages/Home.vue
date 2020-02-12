@@ -22,8 +22,19 @@
       Groups and individuals around the world host in-person events using our tutorials
       as curriculum, with mentors available to help you work through the challenges.
       </p>
+      <div v-if="futureEvents().length">
+        <h2>Coming Soon</h2>
+        <div class="flex flex-wrap justify-between events-list">
+          <Event v-for="event in futureEvents(4)"
+            v-bind="event"
+            class="event-tile"
+            :key="event.id"
+            :future="true"
+          />
+        </div>
+      </div>
       <div class="mv3">
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/events">Find an Event Near You</router-link>
+        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/events">View All Events</router-link>
         <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/host">Host an Event</router-link>
       </div>
     </section>
@@ -32,15 +43,23 @@
 
 <script>
 import Header from '../components/Header'
+import Event from '../components/Event'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
 import coursesList from '../static/courses.json'
 import tutorialsList from '../static/tutorials.json'
+import { futureEvents } from '../utils/events'
 
 export default {
   name: 'home',
   components: {
     Header,
-    TutorialsGrid
+    TutorialsGrid,
+    Event
+  },
+  data: self => {
+    return {
+      futureEvents
+    }
   },
   computed: {
     featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorialsList[tutorialId], tutorialId }))
