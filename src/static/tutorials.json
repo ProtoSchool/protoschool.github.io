@@ -1,7 +1,7 @@
 {
 	"0001": {
 		"url": "data-structures",
-		"redirects": [],
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
@@ -64,7 +64,7 @@
 	},
 	"0002": {
 		"url": "basics",
-		"redirects": [],
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
@@ -102,7 +102,7 @@
 	},
 	"0003": {
 		"url": "blog",
-		"redirects": [],
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
@@ -134,7 +134,7 @@
 	},
 	"0004": {
 		"url": "mutable-file-system",
-		"redirects": [],
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
@@ -185,7 +185,7 @@
 	},
 	"0005": {
 		"url": "regular-files-api",
-		"redirects": [],
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",

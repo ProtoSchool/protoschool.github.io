@@ -475,7 +475,7 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
 ```json
 "0005": {
   "url": "tutorial-short-title",
-  "redirects": [],
+  "redirectUrls": [],
   "project": "IPFS",
   "title": "Your short tutorial title",
   "description": "Your tutorial description",
@@ -563,7 +563,7 @@ Note that your user history on the live website (https://proto.school) is differ
 ### Renaming a tutorial after it has been published
 
 1. In the `src/static/tutorials.json` file, rename `title` to the new desired title.
-1. Add old tutorial `url` value to the `redirects` attribute. (e.g. `"redirects": ["old-tutorial-short-title"]`)
+1. Add old tutorial `url` value to the `redirectUrls` attribute. (e.g. `"redirectUrls": ["old-tutorial-short-title"]`)
 1. Update `url` with the new name.
 1. Rename folder `src/tutorials/xxxx-old-tutorial-short-title` to the new url. (e.g. `src/tutorials/xxxx-new-tutorial-short-title`)
 

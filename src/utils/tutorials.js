@@ -107,9 +107,9 @@ export function getTutorialByUrl (tutorialUrl) {
 // Get all redirects for each tutorial through the `redirects` attribute
 export function getRedirects () {
   return Object.values(tutorials).reduce((redirects, tutorial) => {
-    if (tutorial.redirects) {
+    if (tutorial.redirectUrls) {
       redirects = redirects.concat(
-        ...tutorial.redirects.map(redirect => [
+        ...tutorial.redirectUrls.map(redirect => [
           {
             path: `/${redirect}`,
             redirect: `/${tutorial.url}`

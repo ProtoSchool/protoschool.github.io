@@ -51,8 +51,8 @@ export function migrateCache () {
   for (const tutorialId in tutorials) {
     const tutorial = tutorials[tutorialId]
 
-    if (tutorial.redirects) {
-      tutorial.redirects.forEach(redirect => migrateCacheEntry(tutorialId, redirect))
+    if (tutorial.redirectUrls) {
+      tutorial.redirectUrls.forEach(redirect => migrateCacheEntry(tutorialId, redirect))
     }
   }
 }
