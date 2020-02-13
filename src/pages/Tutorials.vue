@@ -1,11 +1,11 @@
 <template>
   <div>
     <Header/>
-    <section class="db">
-      <h1 class="mw7 center ph2 mt5">Interactive Tutorials</h1>
-      <p class="f4 fw5 lh-copy ma0 pv4 mw7 center ph2">
+    <section class="center ph3 mw7">
+      <h1 class="mt4">Interactive Tutorials</h1>
+      <p class="f4 fw5 lh-copy ma0 pb4">
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
-      <div class="mw7 center w100 tr ph2">
+      <div class="mw7 center w100 tr">
         <ToggleButton
             v-model="showCoding"
             color="#69c4cd"

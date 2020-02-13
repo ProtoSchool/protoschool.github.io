@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header/>
-    <section class="mw7 center ph2">
-      <h1 class="mt5">Contribute to the Community</h1>
+    <section class="mw7 center ph3">
+      <h1 class="mt4">Contribute to the Community</h1>
       <p class="f4 fw5 lh-copy ma0 pv3">
       ProtoSchool is a community-driven open source project dedicated to
       making it easy to get started with decentralized web technologies.
