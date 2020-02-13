@@ -1,6 +1,7 @@
 const fs = require('fs')
 const promisify = require('util').promisify
 
+const _ = require('lodash')
 const log = require('npmlog')
 const moment = require('moment')
 const Table = require('cli-table')
@@ -100,6 +101,24 @@ const extraColumns = [
   }
 ]
 
+// Event properties to be saved on the events.json file
+const whitelist = [
+  'id',
+  'city',
+  'country',
+  'startTime',
+  'endTime',
+  'duration',
+  'tutorials',
+  'cocUrl',
+  'url',
+  'type',
+  'hostedByName',
+  'hostedByUrl',
+  'hostedAtName',
+  'hostedAtUrl'
+]
+
 function logEventsResults (events) {
   const approved = events.filter(event => event.approved)
   const rejected = events.filter(event => !event.approved)
@@ -179,10 +198,13 @@ exports.fetch = async function () {
 }
 
 /*
-    Save events to local static file to be used by the website
+  Save events to local static file to be used by the application
  */
 exports.save = events => {
   log.info('modules:data:events', `saving events to ${EVENTS_FILE}`)
 
-  return promisify(fs.writeFile)(EVENTS_FILE, JSON.stringify(events, null, 2))
+  return promisify(fs.writeFile)(
+    EVENTS_FILE,
+    JSON.stringify(events.map(event => _.pick(event, whitelist)), null, 2)
+  )
 }
