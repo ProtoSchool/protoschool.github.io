@@ -11,23 +11,23 @@ const events = require('../modules/data/events')
 
 async function eventsData (options) {
   if (options.dryRun) {
-    log.warn('events', `dry-run option enabled: will not write events to json file`)
+    log.warn('buid:data:events', `dry-run option enabled: will not write events to json file`)
   }
 
   const fetchedEvents = await events.fetch()
 
   if (!fetchedEvents.length) {
-    log.warn('events', 'no events to show - events page will be empty')
+    log.warn('buid:data:events', 'no events to show - events page will be empty')
     return
   }
 
   if (options.dryRun) {
-    log.info('events', `spreadsheet has been processed successfully - would save ${fetchedEvents.length} events (dry run)`)
+    log.info('build:data:events', `events has been processed successfully - would save ${fetchedEvents.length} events (dry run)`)
     return
   }
 
   await events.save(fetchedEvents)
-  log.info('events', `spreadsheet has been processed successfully - ${fetchedEvents.length} events saved`)
+  log.info('build:data:events', `events have been processed successfully - ${fetchedEvents.length} approved events saved`)
 }
 
 async function command (options) {

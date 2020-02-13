@@ -3,10 +3,12 @@ const promisify = require('util').promisify
 
 const log = require('npmlog')
 const moment = require('moment')
+const Table = require('cli-table')
 
 const allTutorials = require('../../../src/static/tutorials.json')
 const googleSheets = require('../googleapis/sheets')
 
+const EVENTS_FILE = 'src/static/events.json'
 const SPREADSHEET = {
   spreadsheetId: '12crFIs4Og35I0pdhutczDNPA1sx48ec4Zgm8fIjVbkM',
   range: 'Form Responses 1!A2:X'
@@ -98,23 +100,60 @@ const extraColumns = [
   }
 ]
 
+function logEventsResults (events) {
+  const approved = events.filter(event => event.approved)
+  const rejected = events.filter(event => !event.approved)
+  const pending = events.filter(event => event.pendingApproval)
+
+  const table = new Table({ head: ['', 'Pending', 'Approved', 'Rejected', 'All'] })
+  const isPastEvent = ({ date }) => !moment(new Date(date)).isAfter()
+  const isUpcommingEvent = ({ date }) => moment(new Date(date)).isAfter()
+
+  table.push(
+    { 'Past Events': [
+      pending.filter(isPastEvent).length,
+      approved.filter(isPastEvent).length,
+      rejected.filter(isPastEvent).length,
+      events.filter(isPastEvent).length
+    ]},
+    { 'Upcomming Events': [
+      pending.filter(isUpcommingEvent).length,
+      approved.filter(isUpcommingEvent).length,
+      rejected.filter(isUpcommingEvent).length,
+      events.filter(isUpcommingEvent).length
+    ]},
+    { 'All': [
+      pending.length,
+      approved.length,
+      rejected.length,
+      events.length
+    ]}
+  )
+
+  console.log()
+  console.log(table.toString())
+  console.log()
+
+  log.info('modules:data:events', `total events: ${events.length}`)
+}
+
 /*
     Fetch events from Google Sheets and return only the approved ones
  */
 exports.fetch = async function () {
   let spreadsheet
 
-  log.info('data:events', 'fetching spreadsheet from Google')
+  log.info('modules:data:events', 'fetching spreadsheet from Google')
 
   try {
-    log.verbose('data:events', 'sheets.spreadsheets.values.get() request initiated')
+    log.verbose('modules:data:events', 'sheets.spreadsheets.values.get() request initiated')
 
     spreadsheet = await googleSheets.getSpreadSheet(SPREADSHEET)
 
-    log.info('data:events', 'spreadsheet successfully fetched')
+    log.info('modules:data:events', 'spreadsheet successfully fetched')
   } catch (error) {
     if (error) {
-      log.error('data:events', `Failed to fetch spreadsheet from Google: ${error.message}`)
+      log.error('modules:data:events', `Failed to fetch spreadsheet from Google: ${error.message}`)
       console.error(error)
 
       return
@@ -124,21 +163,17 @@ exports.fetch = async function () {
   const rows = spreadsheet.data.values
 
   if (!rows.length) {
-    log.warn('data:events', 'spreadsheet has no data')
+    log.warn('modules:data:events', 'spreadsheet has no data')
     return
   }
 
-  log.verbose('data:events', `processing spreadsheet with ${rows.length} rows`)
+  log.verbose('modules:data:events', `processing spreadsheet with ${rows.length} rows`)
 
   // Transform google spreadsheet rows (array of arrays) to array of event objects
   let events = googleSheets.transformSpreadSheet(rows, columns, extraColumns)
   const approvedEvents = events.filter(event => event.approved)
-  const pendingApprovalEvents = events.filter(event => event.pendingApproval)
 
-  log.info('data:events', `total events: ${events.length}`)
-  log.info('data:events', `events approved: ${approvedEvents.length}`)
-  log.info('data:events', `events rejected: ${events.length - approvedEvents.length - pendingApprovalEvents.length}`)
-  log.info('data:events', `events pending approval: ${pendingApprovalEvents.length}`)
+  logEventsResults(events)
 
   return approvedEvents
 }
@@ -146,6 +181,8 @@ exports.fetch = async function () {
 /*
     Save events to local static file to be used by the website
  */
-exports.save = events => (
-  promisify(fs.writeFile)('src/static/events.json', JSON.stringify(events, null, 2))
-)
+exports.save = events => {
+  log.info('modules:data:events', `saving events to ${EVENTS_FILE}`)
+
+  return promisify(fs.writeFile)(EVENTS_FILE, JSON.stringify(events, null, 2))
+}
