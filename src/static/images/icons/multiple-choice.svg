@@ -1,19 +1,61 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-  <defs>
-    <style>
-      .cls-1{
-        fill: none;
-        stroke: currentColor;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 3px;
-      }
-    </style>
-  </defs>
-  <path class="cls-1" d="M39.63 14.2h-19.8"/>
-  <circle class="cls-1" cx="13.08" cy="14.2" r="2.7"/>
-  <path class="cls-1" d="M39.63 25h-19.8"/>
-  <circle cx="13.08" cy="25" r="2.7" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-  <path class="cls-1" d="M39.63 35.8h-19.8"/>
-  <circle class="cls-1" cx="13.08" cy="35.8" r="2.7"/>
+<svg id="Layer_1"
+  data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <path
+    class="cls-1"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
+    d="M39.63 14.2h-19.8"
+  />
+  <circle
+    class="cls-1"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
+    cx="13.08"
+    cy="14.2"
+    r="2.7"
+  />
+  <path
+    class="cls-1"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
+    d="M39.63 25h-19.8"
+  />
+  <circle cx="13.08"
+    cy="25"
+    r="2.7"
+    fill="currentColor"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
+  />
+  <path
+    class="cls-1"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
+    d="M39.63 35.8h-19.8"
+  />
+  <circle
+    class="cls-1"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="3"
+    cx="13.08"
+    cy="35.8"
+    r="2.7"
+  />
 </svg>
