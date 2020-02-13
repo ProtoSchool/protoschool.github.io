@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 import marked from 'marked'
 
 export default {
@@ -52,6 +51,7 @@ export default {
     },
     parse (answer) {
       return marked(answer || '')
+        .replace('<p>', '').replace('</p>', '') // remove unnecessary <p> tags
     }
   }
 }
@@ -80,11 +80,6 @@ label:before {
   background-color: #fff;
   border: 1px solid #0a3a52;
   border-radius: 50%;
-}
-
-label > p {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 input[type=radio]:checked + label:before {

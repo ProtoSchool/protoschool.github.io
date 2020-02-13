@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-aqua-muted navy pa4 flex f4">
+  <div class="bg-aqua-muted navy pa4 flex f4 br2">
     <img src="../static/images/complete.svg" class="w2 h2 mr3" alt="complete" />
     <div class="flex items-start flex-column">
       <div class="lh-title">
