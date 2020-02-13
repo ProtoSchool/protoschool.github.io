@@ -12,7 +12,7 @@
 import MultipleChoiceLesson from '../../components/MultipleChoiceLesson'
 import text from './01.md'
 
-const question = 'By default, what is the cryptographic algorithm used by IPFS to generate CIDs?'
+const question = 'What is the default cryptographic algorithm used by IPFS to generate CIDs?'
 
 const choices = [
   {

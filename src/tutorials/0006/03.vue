@@ -21,14 +21,14 @@ const choices = [
     feedback: 'That\'s right!'
   },
   {
-    answer: 'All encodings make it safe to try and check the first bytes of the data to figure out which encoding was used',
+    answer: 'All encodings make it safe to try and check the first bytes of the data to figure out which encoding was used.',
     correct: false,
     feedback: 'Hmm, not always. Please check the information above'
   },
   {
-    answer: 'We can\'t know for sure, but the multicodec prefix included in the CID is a hint that is not always guaranteed to be right.',
+    answer: 'The codec used on CIDv1 is always "base58btc".',
     correct: false,
-    feedback: 'Are you sure it\'s just a hint?'
+    feedback: 'Hmm, not always. Please review this lesson again.'
   }
 ]
 
