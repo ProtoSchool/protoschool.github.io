@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header/>
-    <section class="mw7 center ph2">
-      <h1 class="mt5">ProtoSchool Chapters</h1>
+    <section class="mw7 center ph3">
+      <h1 class="mt4">ProtoSchool Chapters</h1>
       <p class="f4 fw5 lh-copy ma0 pv4  ">
         Cities all over host ProtoSchool events regularly, offering you the
         opportunity to complete our interactive tutorials with the support of

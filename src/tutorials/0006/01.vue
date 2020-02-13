@@ -2,7 +2,10 @@
   <MultipleChoiceLesson
     :text="text"
     :question="question"
-    :choices="choices" />
+    :choices="choices"
+    :lessonId="lessonId"
+    :tutorialId="tutorialId"
+  />
 </template>
 
 <script>
@@ -33,8 +36,14 @@ export default {
   components: {
     MultipleChoiceLesson
   },
-  data: () => {
-    return { text, question, choices }
+  data: self => {
+    return {
+      lessonId: self.$attrs.lessonId,
+      tutorialId: self.$attrs.tutorialId,
+      text,
+      question,
+      choices
+    }
   }
 }
 </script>

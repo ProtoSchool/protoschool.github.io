@@ -1,20 +1,27 @@
 <template>
   <div :class="{'overflow-hidden': expandExercise}">
     <Header/>
-    <div class="container center-l mw7-l ph2">
-      <section class="mw7 center mt3 pa3">
-        <Breadcrumbs
-          :isResources="isResources"
-          :tutorialShortname="tutorialShortname"
-          :lessonNumber="lessonNumber"
-          :lessonsInTutorial="lessonsInTutorial"
-          :lessonPassed="lessonPassed" />
+    <div class="container center-l mw7-l ph3">
+      <section class="mw7 center mt3 pt2">
+        <div class="flex flex-row justify-between green">
+            <Breadcrumbs
+              :isResources="isResources"
+              :tutorialShortname="tutorialShortname"
+              :lessonNumber="lessonNumber"
+              :lessonsInTutorial="lessonsInTutorial"
+              :lessonPassed="lessonPassed" />
+            <TypeIcon
+              :lessonId="isResources? 'resources' : lessonId"
+              :tutorialId="tutorialId"
+              class="h2 ml3" />
+          </div>
         <CongratulationsCallout
             v-if="isResources && isTutorialPassed"
+            :tutorialId="tutorialId"
             :tutorial="tutorial"
             class="mv4"
         />
-        <h1>{{isResources ? 'Resources' : lessonTitle}}</h1>
+        <h1>{{isResources ? 'Resources' : lesson.title}}</h1>
         <Concepts v-if="concepts" :parsedConcepts="parsedConcepts" />
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="parsedText"></div>
@@ -85,11 +92,11 @@
         :next="next"
         :tutorialMenu="tutorialMenu" />
     </div>
-    <footer class="mt4 ph2 ph3-ns bg-navy white">
-      <div v-if="isResources" class="mw7 center">
+    <footer class="mt4 ph3-ns bg-navy white">
+      <div v-if="isResources" class="mw7 center ph3">
         <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
       </div>
-      <div v-else class="mw7 center">
+      <div v-else class="mw7 center ph3">
         <p>Feeling stuck? We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </footer>
@@ -118,8 +125,8 @@ import Validator from './Validator.vue'
 import CongratulationsCallout from './CongratulationsCallout.vue'
 import { EVENTS } from '../static/countly'
 import { deriveShortname } from '../utils/paths'
-import { getCurrentTutorial, isTutorialPassed } from '../utils/tutorials'
-import tutorialsList from '../static/tutorials.json'
+import { getTutorial, isTutorialPassed, getLesson } from '../utils/tutorials'
+import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = 5000
 
@@ -205,12 +212,22 @@ export default {
     Output,
     Info,
     Validator,
-    CongratulationsCallout
+    CongratulationsCallout,
+    TypeIcon
   },
   data: self => {
-    const tutorial = getCurrentTutorial(self.$route.matched[0])
+    const tutorial = getTutorial(self.$attrs.tutorialId)
+    const resourcesLesson = {
+      title: 'Resources',
+      type: 'resources'
+    }
+    const lesson = self.$attrs.isResources ? resourcesLesson : getLesson(self.$attrs.tutorialId, self.$attrs.lessonId)
 
     return {
+      lesson,
+      tutorial,
+      lessonId: self.$attrs.lessonId,
+      tutorialId: self.$attrs.tutorialId,
       isResources: self.$attrs.isResources,
       resources: self.$attrs.resources,
       text: self.$attrs.text,
@@ -233,8 +250,7 @@ export default {
       parsedConcepts: marked(self.$attrs.concepts || ''),
       cacheKey: 'cached' + self.$route.path,
       cachedStateMsg: '',
-      tutorial,
-      tutorialPath: self.$route.path.split('/')[1],
+      tutorialPath: tutorial.url,
       tutorialShortname: deriveShortname(self.$route.path),
       isTutorialPassed: isTutorialPassed(tutorial),
       lessonKey: 'passed' + self.$route.path,
@@ -249,21 +265,11 @@ export default {
     }
   },
   computed: {
-    lessonTitle: function () {
-      const path = this.$route.path
-      const split = this.$route.path.split('/')[1]
-      for (const t in tutorialsList) {
-        if (tutorialsList[t].url === split) {
-          return tutorialsList[t].lessons.find((e, idx) => (`/${tutorialsList[t].url}/${(idx + 1).toString().padStart(2, 0)}`) === path)
-        }
-      }
-      return ''
-    },
     lessonNumber: function () {
-      return parseInt(this.$route.path.slice(this.$route.path.lastIndexOf('/') + 1), 10)
+      return parseInt(this.lessonId, 10)
     },
     lessonIssueUrl: function () {
-      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lessonTitle})`)
+      return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=lesson-feedback&template=lesson-feedback.md&title=Lesson+Feedback%3A+${this.tutorialShortname}+-+Lesson+${this.lessonNumber}+(${this.lesson.title})`)
     },
     tutorialIssueUrl: function () {
       return encodeURI(`https://github.com/ProtoSchool/protoschool.github.io/issues/new?assignees=&labels=tutorial-feedback&template=tutorial-feedback.md&title=Tutorial+Feedback%3A+${this.tutorialShortname}`)
@@ -303,7 +309,7 @@ export default {
       return newGithubIssueUrl({
         user: 'ProtoSchool',
         repo: 'protoschool.github.io',
-        title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lessonTitle})`,
+        title: `Validation Error: ${this.tutorialShortname} - Lesson ${this.lessonNumber} (${this.lesson.title})`,
         labels: ['lesson-feedback', 'validation-error'],
         body: `If you submitted code for a lesson and received feedback indicating a validation error, you may have uncovered a bug in our lesson validation code. We've prepopulated the error type and the last code you submitted below as diagnostic clues. Feel free to add additional feedback about the lesson below before clicking "Submit new issue."
 

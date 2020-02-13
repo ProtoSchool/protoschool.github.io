@@ -64,9 +64,9 @@ function renderAllLessonsInTutorial (tutorialId) {
   })
 
   it(`should find and render all standard lesson pages in ${tutorialName}`, function () {
-    standardLessons.forEach((lessonName, index) => {
-      cy.get(`[data-cy=lesson-link]`).contains(lessonName).click()
-      cy.contains('h1', lessonName)
+    standardLessons.forEach((lesson, index) => {
+      cy.get(`[data-cy=lesson-link]`).contains(lesson.title).click()
+      cy.contains('h1', lesson.title)
       cy.get(`[data-cy=tutorial-landing-link]`).click()
     })
   })

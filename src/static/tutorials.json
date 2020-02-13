@@ -5,11 +5,26 @@
 		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
 		"lessons": [
-			"Data structures",
-			"The centralized web: Location-based addressing",
-			"The decentralized web: Content addressing",
-			"Cryptographic hashing and Content Identifiers (CIDs)",
-			"Merkle trees and directed acyclic graphs (DAG)"
+			{
+				"title": "Data structures",
+				"type": "text"
+			},
+			{
+				"title": "The centralized web: Location-based addressing",
+				"type": "text"
+			},
+			{
+				"title": "The decentralized web: Content addressing",
+				"type": "text"
+			},
+			{
+				"title": "Cryptographic hashing and Content Identifiers (CIDs)",
+				"type": "text"
+			},
+			{
+				"title": "Merkle trees and directed acyclic graphs (DAG)",
+				"type": "text"
+			}
 		],
 		"resources": [
 			{
@@ -80,9 +95,18 @@
 		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
 		"lessons": [
-			"Create a node and return a Content Identifier (CID)",
-			"Create a new node that's linked to an old one",
-			"Read nested data using link"
+			{
+				"title": "Create a node and return a Content Identifier (CID)",
+				"type": "code"
+			},
+			{
+				"title": "Create a new node that's linked to an old one",
+				"type": "code"
+			},
+			{
+				"title": "Read nested data using link",
+				"type": "code"
+			}
 		],
 		"resources": [
 			{
@@ -121,14 +145,36 @@
 		"project": "IPFS",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
+
 		"lessons": [
-			"Link an author to a blog post using its CID",
-			"Update posts with tags and watch their CIDs change",
-			"Build a tag cloud with arrays of links",
-			"Add a new blog post linked to an author and tags",
-			"Add a new tag linked to multiple blog posts",
-			"List posts chronologically with a chain of links",
-			"Traverse through all posts, starting with the most recent"
+			{
+				"title": "Link an author to a blog post using its CID",
+				"type": "code"
+			},
+			{
+				"title": "Update posts with tags and watch their CIDs change",
+				"type": "code"
+			},
+			{
+				"title": "Build a tag cloud with arrays of links",
+				"type": "code"
+			},
+			{
+				"title": "Add a new blog post linked to an author and tags",
+				"type": "code"
+			},
+			{
+				"title": "Add a new tag linked to multiple blog posts",
+				"type": "code"
+			},
+			{
+				"title": "List posts chronologically with a chain of links",
+				"type": "code"
+			},
+			{
+				"title": "Traverse through all posts, starting with the most recent",
+				"type": "code"
+			}
 		],
 		"resources": [
 			{
@@ -162,17 +208,50 @@
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
 		"lessons": [
-			"Introducing IPFS",
-			"Check the status of a directory",
-			"Working with files in ProtoSchool",
-			"Add a file to MFS",
-			"View the contents of a directory",
-			"See how CIDs change as data changes",
-			"Create a directory",
-			"Move a file or directory",
-			"Copy a file or directory",
-			"Read the contents of a file",
-			"Remove a file or directory"
+			{
+				"title": "Introducing IPFS",
+				"type": "text"
+			},
+			{
+				"title": "Check the status of a directory",
+				"type": "code"
+			},
+			{
+				"title": "Working with files in ProtoSchool",
+				"type": "file-upload"
+			},
+			{
+				"title": "Add a file to MFS",
+				"type": "file-upload"
+			},
+			{
+				"title": "View the contents of a directory",
+				"type": "file-upload"
+			},
+			{
+				"title": "See how CIDs change as data changes",
+				"type": "file-upload"
+			},
+			{
+				"title": "Create a directory",
+				"type": "file-upload"
+			},
+			{
+				"title": "Move a file or directory",
+				"type": "file-upload"
+			},
+			{
+				"title": "Copy a file or directory",
+				"type": "file-upload"
+			},
+			{
+				"title": "Read the contents of a file",
+				"type": "file-upload"
+			},
+			{
+				"title": "Remove a file or directory",
+				"type": "file-upload"
+			}
 		],
 		"resources": [
 			{
@@ -225,14 +304,38 @@
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
 		"lessons": [
-			"Introducing the Files API",
-			"Working with files in ProtoSchool",
-			"Add a file",
-			"Read the contents of a file",
-			"Add files in a directory",
-			"List the files in a directory",
-			"Read a file in a directory",
-			"Get all of the files in a directory"
+			{
+				"title": "Introducing the Files API",
+				"type": "text"
+			},
+			{
+				"title": "Working with files in ProtoSchool" ,
+				"type": "file-upload"
+			},
+			{
+				"title": "Add a file" ,
+				"type": "file-upload"
+			},
+			{
+				"title": "Read the contents of a file" ,
+				"type": "code"
+			},
+			{
+				"title": "Add files in a directory" ,
+				"type": "file-upload"
+			},
+			{
+				"title": "List the files in a directory" ,
+				"type": "file-upload"
+			},
+			{
+				"title": "Read a file in a directory" ,
+				"type": "code"
+			},
+			{
+				"title": "Get all of the files in a directory",
+				"type": "code"
+			}
 		],
 		"resources": [
 			{
@@ -273,12 +376,30 @@
 		"title": "Anatomy of a CID",
 		"description": "A content identifier, or CID, is a label used to point to data stored on IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
 		"lessons": [
-			"What is a CID?",
-			"Multihash",
-			"CIDv1: Multicodec prefix",
-			"CIDv1: Version prefix",
-			"CIDv1: Multibase prefix",
-			"Examples"
+			{
+				"title": "What is a CID?",
+				"type": "multiple-choice"
+			},
+			{
+				"title": "Multihash",
+				"type": "multiple-choice"
+			},
+			{
+				"title": "CIDv1: Multicodec prefix",
+				"type": "multiple-choice"
+			},
+			{
+				"title": "CIDv1: Version prefix",
+				"type": "multiple-choice"
+			},
+			{
+				"title": "CIDv1: Multibase prefix",
+				"type": "multiple-choice"
+			},
+			{
+				"title": "Examples",
+				"type": "multiple-choice"
+			}
 		],
 		"resources": [
 			{

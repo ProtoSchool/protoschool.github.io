@@ -1,5 +1,7 @@
 <template>
   <FileLesson
+    :lessonId="lessonId"
+    :tutorialId="tutorialId"
     :text="text"
     :code="code"
     :validate="validate"
@@ -58,8 +60,17 @@ export default {
   components: {
     FileLesson
   },
-  data: () => {
-    return { text, validate, code, modules, exercise, solution }
+  data: self => {
+    return {
+      lessonId: self.$attrs.lessonId,
+      tutorialId: self.$attrs.tutorialId,
+      text,
+      validate,
+      code,
+      modules,
+      exercise,
+      solution
+    }
   }
 }
 </script>

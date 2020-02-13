@@ -1,26 +1,40 @@
 <template>
-  <router-link :to="to" class="link db pa3 bb b--white green hover-bg-washed-yellow">
-    <div class="flex items-center">
-      <div v-if="isResources" class="tc green ttu f6" style="min-width: 93px">Resources</div>
-      <div v-else class="tc green ttu f6" style="min-width: 93px">Lesson {{index}}</div>
-      <div class="pr2" style="flexShrink: 0">
-        <img v-if="getLessonValue('passed' + to)" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
-        <img v-else-if="getLessonValue('cached' + to)" src="../static/images/in-progress.svg" alt="in progress" style="height: 1rem;"/>
-        <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 0.9rem;"/>
+  <router-link :to="to" class="link db pa3 green bb b--white">
+    <div class="flex items-start justify-between">
+      <div class="flex flex-row">
+        <div v-if="isResources" class="flex-ns items-center-ns dn tl green ttu f6" style="min-width: 93px">Resources</div>
+        <div v-else class="flex-ns items-center dn tl green ttu f6" style="min-width: 93px">Lesson {{lessonNumber}}</div>
+        <div class="flex-ns items-center-ns pr3" style="flexShrink: 0">
+          <img v-if="getLessonValue('passed' + to)" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
+          <img v-else-if="getLessonValue('cached' + to)" src="../static/images/in-progress.svg" alt="in progress" style="height: 1rem;"/>
+          <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 0.9rem;"/>
+        </div>
+        <div class="navy fw5 mw6">{{lesson.title}}</div>
       </div>
-      <div class="navy fw5 mw6">{{name}}</div>
+      <TypeIcon
+        :tutorialId="tutorialId"
+        :lessonId="isResources? 'resources' : lessonId"
+        class="link-icon ml3"/>
     </div>
   </router-link>
 </template>
 
 <script>
+
+import TypeIcon from '../components/TypeIcon.vue'
+
 export default {
   name: 'LessonLink',
-  props: [
-    'to',
-    'index',
-    'name'
-  ],
+  props: {
+    to: String,
+    lessonNumber: Number,
+    lesson: Object,
+    lessonId: String,
+    tutorialId: [String, undefined]
+  },
+  components: {
+    TypeIcon
+  },
   computed: {
     isResources: function () {
       return this.to.split('/')[2] === 'resources'
@@ -33,3 +47,22 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.link {
+  background: #f2f5f6;
+
+  transition: background 400ms;
+}
+
+.link:focus-within,
+.link:hover,
+.link:focus {
+  background: #bfe5e9;
+}
+
+.link-icon {
+    height: 1.3rem;
+    min-width: 1.3rem;
+}
+</style>
