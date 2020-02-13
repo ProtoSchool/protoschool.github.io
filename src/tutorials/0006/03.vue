@@ -15,7 +15,7 @@ const question = 'How can we identify the encoding used on specific data when us
 
 const choices = [
   {
-    answer: 'These CIDs have a multicodec prefix that specifies which encoding was used.',
+    answer: 'These CIDs have a multicodec prefix that specifies which encoding method was used.',
     correct: true,
     feedback: 'That\'s right!'
   },

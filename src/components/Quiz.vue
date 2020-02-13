@@ -3,12 +3,15 @@
     <h3>{{this.question}}</h3>
     <div v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
       <input type="radio" :id="idx" :value="idx" v-model="selected" @change="handleRadioClick">
-      <label :for="idx">{{choice.answer}}</label>
+      <label :for="idx" v-html='parse(choice.answer)'></label>
     </div>
   </div>
 </template>
 
 <script>
+
+import marked from 'marked'
+
 export default {
   name: 'Quiz',
   data: self => {
@@ -46,6 +49,9 @@ export default {
         }
         this.$emit('handleChoice', result)
       }
+    },
+    parse (answer) {
+      return marked(answer || '')
     }
   }
 }
@@ -76,6 +82,11 @@ label:before {
   border-radius: 50%;
 }
 
+label > p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 input[type=radio]:checked + label:before {
   content: "\2022";
   color: #0a3a52;
@@ -83,4 +94,5 @@ input[type=radio]:checked + label:before {
   text-align: center;
   line-height: 1.1rem;
 }
+
 </style>
