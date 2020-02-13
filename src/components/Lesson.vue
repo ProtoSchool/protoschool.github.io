@@ -220,6 +220,7 @@ export default {
       lessonKey: 'passed' + self.$route.path,
       cacheKey: 'cached' + self.$route.path,
       cachedCode: !!localStorage['cached' + self.$route.path],
+      editorCode: localStorage[self.cacheKey] || self.code || self.defaultCode,
       viewSolution: false,
       cachedStateMsg: '',
       showUploadInfo: false,
@@ -254,14 +255,6 @@ export default {
       const basePath = this.$route.path.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
       return this.lessonId === this.lessonsInTutorial && hasResources
-    },
-    editorCode: {
-      get: function () {
-        return localStorage[this.cacheKey] || this.code || this.defaultCode
-      },
-      set: function (newCode) {
-        localStorage[this.cacheKey] = newCode
-      }
     }
   },
   beforeCreate: function () {
@@ -273,6 +266,12 @@ export default {
     this.choice = localStorage[this.cacheKey] || ''
   },
   methods: {
+    setEditorCode (newCode) {
+      localStorage[this.cacheKey] = newCode
+      this.editorCode = newCode
+
+      return newCode
+    },
     validationIssueUrl: function (code, validationTimeout) {
       return newGithubIssueUrl({
         user: 'ProtoSchool',
@@ -426,7 +425,7 @@ export default {
     },
     resetCode: function () {
       // TRACK? User chose to reset code
-      this.editorCode = this.code || defaultCode
+      this.editorCode = this.setEditorCode(this.code || defaultCode)
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.editorCode)
       this.clearPassed()
@@ -486,14 +485,14 @@ export default {
       }
     },
     onCodeChange: function () {
-      if (this.editor.getValue() === (this.$attrs.code || defaultCode)) {
+      if (this.editor.getValue() === (this.code || defaultCode)) {
         // TRACK? edited back to default state by chance or by 'reset code'
         delete localStorage[this.cacheKey]
         this.cachedCode = !!localStorage[this.cacheKey]
       } else if (this.editorCode === this.editor.getValue()) {
         // TRACK? returned to cached lesson in progress
       } else {
-        this.editorCode = this.editor.getValue()
+        this.editorCode = this.setEditorCode(this.editor.getValue())
         this.cachedCode = !!localStorage[this.cacheKey]
         this.cachedStateMsg = "We're saving your code as you go."
         if (this.editorCode !== this.solution) {
