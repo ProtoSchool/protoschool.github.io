@@ -23,8 +23,9 @@
       <div v-if="solution" class="mb2 ml3">
         <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
         <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
-        <!-- Special button only to be used by Cypress for the E2E tests -->
+        <!-- Special hidden buttons only to be used by Cypress for the E2E tests -->
         <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
+        <span @click="cyClearDefaultCode" class="dn o-0 textLink fr" data-cy="clear-default-code">Clear Default Code</span>
       </div>
       <MonacoEditor
         v-show="viewSolution"
@@ -56,7 +57,8 @@ export default {
     onCodeChange: Function,
     resetCode: Function,
     expandExercise: Boolean,
-    cyReplaceWithSolution: Function
+    cyReplaceWithSolution: Function,
+    cyClearDefaultCode: Function
   },
   data: self => {
     return {

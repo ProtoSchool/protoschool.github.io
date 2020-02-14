@@ -7,10 +7,10 @@ import tutorials from '../../src/utils/tutorials'
 const standardCodingTutorials = ['0002', '0003']
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`RENDER ALL LESSONS/TUTORIALS`, function () {
+describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
   Object.keys(tutorials).forEach(function (tutorialId) {
     describe(`render ${tutorialId}`, function () {
-      renderAllLessonsInTutorial(tutorialId)
+      renderAllLessonsFromTutorialLandingPage(tutorialId)
     })
   })
 })
@@ -38,9 +38,15 @@ function viewSolutionsAndSubmitAll (tutorialId) {
     it(`should view the solution and pass test ${lessonNr}`, function () {
       cy.url().should('include', `#/${tutorialName}/${lessonNr}`)
       cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+      cy.get('[data-cy=reset-code]').should('not.exist')
+      cy.get('[data-cy=clear-default-code]').click({ force: true })
+      cy.get('[data-cy=reset-code]').click()
+      cy.get('[data-cy=reset-code]').should('not.exist')
       cy.get('[data-cy=view-solution]').click()
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=replace-with-solution]').click({ force: true })
+      cy.get('[data-cy=reset-code]').should('be.visible')
+
       cy.get('[data-cy=submit-answer]').click()
       cy.get('[data-cy=next-lesson]').click() // leads to resources on last iteration
     })
@@ -53,7 +59,7 @@ function viewSolutionsAndSubmitAll (tutorialId) {
   })
 }
 
-function renderAllLessonsInTutorial (tutorialId) {
+function renderAllLessonsFromTutorialLandingPage (tutorialId) {
   const tutorialName = tutorials[tutorialId].url
   const standardLessons = tutorials[tutorialId].lessons
   const standardLessonCount = standardLessons.length
