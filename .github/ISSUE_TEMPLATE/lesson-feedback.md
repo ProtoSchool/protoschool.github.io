@@ -10,7 +10,6 @@ assignees: ''
 Have a question or suggestion regarding a specific ProtoSchool lesson? Please use this template to share it!
 
 **URL of the lesson that's confusing:**
-eg https://proto.school/#/blog/01
 
 **What's confusing about this lesson?**
 

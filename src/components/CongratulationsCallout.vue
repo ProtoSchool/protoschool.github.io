@@ -22,14 +22,13 @@ import { getTutorialFullUrl } from '../utils/tutorials'
 
 export default {
   props: {
-    tutorial: Object,
-    tutorialId: String
+    tutorial: Object
   },
   computed: {
     twitterShareLink: function () {
       let href = 'https://twitter.com/intent/tweet?'
       href += `text=I just completed the ${this.tutorial.title} tutorial at @ProtoSchool!`
-      href += `&url=${encodeURIComponent(getTutorialFullUrl(this.tutorialId))}`
+      href += `&url=${encodeURIComponent(getTutorialFullUrl(this.tutorial.formattedId))}`
       href += `&hashtags=${this.tutorial.project}`
 
       return href

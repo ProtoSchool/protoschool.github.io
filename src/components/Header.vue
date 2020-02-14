@@ -1,25 +1,23 @@
 <template>
   <div class="home">
     <header>
-      <section class="flex items-center bg-navy white pv3">
-        <div class="flex-auto">
-          <div class="pseudo-logo center mw7">
-            <a href="/">
-              <img src="../static/images/ps_symbol_color.svg" alt="ProtoSchool" class="mr3" />
-            </a>
-            <div class="header-text">
-              <h1 class="ma0 fw4">
-                <span class="montserrat fw4">Proto</span>
-                <span class="montserrat fw2">School</span>
-              </h1>
-              <h2 class="ma0 montserrat fw3">
-                Interactive tutorials on decentralized web protocols
-              </h2>
-            </div>
-            </div>
+      <section class="bg-navy white pv3">
+        <div class="flex-auto flex items-center center mw7 ph3">
+          <a href="/">
+            <img src="../static/images/ps_symbol_color.svg" alt="ProtoSchool" class="w3" />
+          </a>
+          <div class="header-text ml3">
+            <h1 class="ma0 fw4">
+              <span class="montserrat fw4">Proto</span>
+              <span class="montserrat fw2">School</span>
+            </h1>
+            <h2 class="ma0 montserrat fw3">
+              Interactive tutorials on decentralized web protocols
+            </h2>
+          </div>
         </div>
       </section>
-      <Navigation :notFound="notFound" :hidden="hidden"/>
+      <Navigation :hidden="hidden"/>
     </header>
   </div>
 </template>
@@ -45,13 +43,6 @@ export default {
 .header-text h2 {
   font-size: 16px;
 }
-.pseudo-logo {
-  display: flex;
-  align-items: center;
-}
-.pseudo-logo img {
-  height: 80px;
-}
 
 @media screen and (min-width: 620px) {
   .header-text h1 {
@@ -59,9 +50,6 @@ export default {
   }
   .header-text h2 {
     font-size: 20px;
-  }
-  .pseudo-logo img {
-    height: 100px;
   }
 }
 
@@ -71,9 +59,6 @@ export default {
   }
   .header-text h2 {
     font-size: 12px;
-  }
-  .pseudo-logo img {
-    height: 60px;
   }
 }
 </style>

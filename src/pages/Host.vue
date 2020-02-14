@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header/>
-    <section class="mw7 center ph2">
-      <h1 class="mt5">Organize Local Events</h1>
+    <section class="mw7 center ph3">
+      <h1 class="mt4">Organize Local Events</h1>
       <p class="f4 fw5 lh-copy ma0 pv2  ">
         ProtoSchool workshops are run independently by groups and inviduals around the world who
         are excited about introducing others to decentralized web concepts and protocols.
