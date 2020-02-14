@@ -16,11 +16,11 @@ const fixCasing = function (word) {
   return correctedCases.hasOwnProperty(word) ? correctedCases[word] : (word.charAt(0).toUpperCase() + word.slice(1))
 }
 
-export const deriveShortname = function (path) {
-  return path.split('/')[1].split('-').map(word => fixCasing(word)).join(' ')
+export function deriveShortname (path) {
+  return path.split('-').map(word => fixCasing(word)).join(' ')
 }
 
-export const migrateCache = (tutorialId, pastUrl) => {
+function migrateCacheEntry (tutorialId, pastUrl) {
   const tutorial = tutorials[tutorialId]
   const newUrl = tutorial.url
   // Go through the lesson in the tutorial
@@ -44,5 +44,18 @@ export const migrateCache = (tutorialId, pastUrl) => {
   if (restItem) {
     localStorage.setItem(`passed/${newUrl}/resources`, restItem)
     localStorage.removeItem(`passed/${pastUrl}/resources`)
+  }
+}
+
+/*
+    Migrates cache entries to new urls based on the redirects specified on the tutorials.json file
+ */
+export function migrateCache () {
+  for (const tutorialId in tutorials) {
+    const tutorial = tutorials[tutorialId]
+
+    if (tutorial.redirectUrls) {
+      tutorial.redirectUrls.forEach(redirect => migrateCacheEntry(tutorialId, redirect))
+    }
   }
 }

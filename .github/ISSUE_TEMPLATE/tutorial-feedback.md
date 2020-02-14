@@ -12,7 +12,6 @@ Have you recently completed a ProtoSchool tutorial? Please share your feedback!
 **Tutorial name:**
 
 **Tutorial URL:**
-_eg https://proto.school/#/blog_
 
 **Would you recommend this tutorial to others?**
 

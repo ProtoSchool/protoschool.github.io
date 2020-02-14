@@ -26,7 +26,7 @@ export default {
       required: true
     },
     lessonId: {
-      type: String,
+      type: [String, Number],
       default: null
     }
   },

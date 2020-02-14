@@ -1,31 +1,10 @@
 {
 	"0001": {
 		"url": "data-structures",
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
-		"lessons": [
-			{
-				"title": "Data structures",
-				"type": "text"
-			},
-			{
-				"title": "The centralized web: Location-based addressing",
-				"type": "text"
-			},
-			{
-				"title": "The decentralized web: Content addressing",
-				"type": "text"
-			},
-			{
-				"title": "Cryptographic hashing and Content Identifiers (CIDs)",
-				"type": "text"
-			},
-			{
-				"title": "Merkle trees and directed acyclic graphs (DAG)",
-				"type": "text"
-			}
-		],
 		"resources": [
 			{
 				"title": "Understanding How IPFS Deals with Files",
@@ -91,23 +70,10 @@
 	},
 	"0002": {
 		"url": "basics",
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
-		"lessons": [
-			{
-				"title": "Create a node and return a Content Identifier (CID)",
-				"type": "code"
-			},
-			{
-				"title": "Create a new node that's linked to an old one",
-				"type": "code"
-			},
-			{
-				"title": "Read nested data using link",
-				"type": "code"
-			}
-		],
 		"resources": [
 			{
 				"title": "JS-IPFS DAG API",
@@ -142,40 +108,10 @@
 	},
 	"0003": {
 		"url": "blog",
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
-
-		"lessons": [
-			{
-				"title": "Link an author to a blog post using its CID",
-				"type": "code"
-			},
-			{
-				"title": "Update posts with tags and watch their CIDs change",
-				"type": "code"
-			},
-			{
-				"title": "Build a tag cloud with arrays of links",
-				"type": "code"
-			},
-			{
-				"title": "Add a new blog post linked to an author and tags",
-				"type": "code"
-			},
-			{
-				"title": "Add a new tag linked to multiple blog posts",
-				"type": "code"
-			},
-			{
-				"title": "List posts chronologically with a chain of links",
-				"type": "code"
-			},
-			{
-				"title": "Traverse through all posts, starting with the most recent",
-				"type": "code"
-			}
-		],
 		"resources": [
 			{
 				"title": "JS-IPFS DAG API",
@@ -204,55 +140,10 @@
 	},
 	"0004": {
 		"url": "mutable-file-system",
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
-		"lessons": [
-			{
-				"title": "Introducing IPFS",
-				"type": "text"
-			},
-			{
-				"title": "Check the status of a directory",
-				"type": "code"
-			},
-			{
-				"title": "Working with files in ProtoSchool",
-				"type": "file-upload"
-			},
-			{
-				"title": "Add a file to MFS",
-				"type": "file-upload"
-			},
-			{
-				"title": "View the contents of a directory",
-				"type": "file-upload"
-			},
-			{
-				"title": "See how CIDs change as data changes",
-				"type": "file-upload"
-			},
-			{
-				"title": "Create a directory",
-				"type": "file-upload"
-			},
-			{
-				"title": "Move a file or directory",
-				"type": "file-upload"
-			},
-			{
-				"title": "Copy a file or directory",
-				"type": "file-upload"
-			},
-			{
-				"title": "Read the contents of a file",
-				"type": "file-upload"
-			},
-			{
-				"title": "Remove a file or directory",
-				"type": "file-upload"
-			}
-		],
 		"resources": [
 			{
 				"title": "JS-IPFS Files API",
@@ -300,43 +191,10 @@
 	},
 	"0005": {
 		"url": "regular-files-api",
+		"redirectUrls": [],
 		"project": "IPFS",
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
-		"lessons": [
-			{
-				"title": "Introducing the Files API",
-				"type": "text"
-			},
-			{
-				"title": "Working with files in ProtoSchool" ,
-				"type": "file-upload"
-			},
-			{
-				"title": "Add a file" ,
-				"type": "file-upload"
-			},
-			{
-				"title": "Read the contents of a file" ,
-				"type": "code"
-			},
-			{
-				"title": "Add files in a directory" ,
-				"type": "file-upload"
-			},
-			{
-				"title": "List the files in a directory" ,
-				"type": "file-upload"
-			},
-			{
-				"title": "Read a file in a directory" ,
-				"type": "code"
-			},
-			{
-				"title": "Get all of the files in a directory",
-				"type": "code"
-			}
-		],
 		"resources": [
 			{
 				"title": "JS-IPFS Files API",
@@ -375,32 +233,6 @@
 		"project": "IPFS",
 		"title": "Anatomy of a CID",
 		"description": "A content identifier, or CID, is a label used to point to data stored on IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
-		"lessons": [
-			{
-				"title": "What is a CID?",
-				"type": "multiple-choice"
-			},
-			{
-				"title": "Multihash",
-				"type": "multiple-choice"
-			},
-			{
-				"title": "CIDv1: Multicodec prefix",
-				"type": "multiple-choice"
-			},
-			{
-				"title": "CIDv1: Version prefix",
-				"type": "multiple-choice"
-			},
-			{
-				"title": "CIDv1: Multibase prefix",
-				"type": "multiple-choice"
-			},
-			{
-				"title": "Examples",
-				"type": "multiple-choice"
-			}
-		],
 		"resources": [
 			{
 				"title": "How IPFS Deals With Files: Anatomy of a CID",

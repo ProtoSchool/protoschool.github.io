@@ -10,6 +10,7 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
+const webpack = require('@cypress/webpack-preprocessor')
 
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, args) => {
@@ -19,4 +20,19 @@ module.exports = (on, config) => {
       return args
     }
   })
+  on('file:preprocessor', webpack({
+    webpackOptions: {
+      module: {
+        rules: [
+          {
+            test: /\.md$/,
+            exclude: [/node_modules/],
+            use: [{
+              loader: 'raw-loader'
+            }]
+          }
+        ]
+      }
+    }
+  }))
 }
