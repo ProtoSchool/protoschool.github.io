@@ -1,10 +1,6 @@
 /* global describe, it, cy */
 
-import tutorials from '../../src/utils/tutorials'
-
-// tutorials with standard coding challenges only (no file upload, multiple choice, or text only lessons)
-// NEED TO UPDATE WHEN ADDING NEW CONTENT
-const standardCodingTutorials = ['0002', '0003']
+import { tutorials, getLessonType, getTutorialType } from '../../src/utils/tutorials'
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
 describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
@@ -16,41 +12,78 @@ describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
 })
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
-describe(`PASS STANDARD CODE CHALLENGES`, function () {
-  standardCodingTutorials.forEach(tutorialId => {
-    describe(`pass ${tutorialId}`, function () {
-      viewSolutionsAndSubmitAll(tutorialId)
+describe(`ADVANCE THROUGH LESSONS`, function () {
+  tutorials.forEach(tutorialId => {
+    describe(`ADVANCE THROUGH ${tutorialId}`, function () {
+      advanceThroughLessons(tutorialId)
     })
   })
 })
 
-function viewSolutionsAndSubmitAll (tutorialId) {
+function cheatToAdvance (lessonNr, tutorialName, lessonCount) {
+  if (parseInt(lessonNr) === lessonCount) {
+    cy.visit(`/#/${tutorialName}/resources`)
+  } else {
+    let nextLessonNr = (parseInt(lessonNr) + 1).toString().padStart(2, 0)
+    cy.visit(`/#/${tutorialName}/${nextLessonNr}`)
+  }
+}
+
+function advanceThroughLessons (tutorialId) {
   const tutorialName = tutorials[tutorialId].url
   const lessonCount = tutorials[tutorialId].lessons.length // count excludes resources page
+  const tutorialType = getTutorialType(tutorialId)
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
-  it(`should find the ${tutorialName} tutorial`, function () {
+  it(`should find the ${tutorialName} tutorial (${tutorialType})`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
   })
-  // loop through standard lessons and attempt to pass challenges
+
+  // ALL TUTORIAL TYPES - loop through all lessons
   for (let i = 1; i <= lessonCount; i++) {
     let lessonNr = i.toString().padStart(2, 0)
-    it(`should view the solution and pass test ${lessonNr}`, function () {
+    let lessonType = getLessonType(tutorialId, lessonNr)
+    it(`should find lesson ${lessonNr}`, function () {
       cy.url().should('include', `#/${tutorialName}/${lessonNr}`)
-      cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
-      cy.get('[data-cy=reset-code]').should('not.exist')
-      cy.get('[data-cy=clear-default-code]').click({ force: true })
-      cy.get('[data-cy=reset-code]').click()
-      cy.get('[data-cy=reset-code]').should('not.exist')
-      cy.get('[data-cy=view-solution]').click()
-      cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
-      cy.get('[data-cy=replace-with-solution]').click({ force: true })
-      cy.get('[data-cy=reset-code]').should('be.visible')
+    })
 
-      cy.get('[data-cy=submit-answer]').click()
-      cy.get('[data-cy=next-lesson]').click() // leads to resources on last iteration
+    // CODE CHALLENGES ONLY
+    if (lessonType === ('code' || 'file-upload')) {
+      // ALL CODE CHALLENGES: check reset code and view solution
+      it(`should use reset code and replace solution`, function () {
+        cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+        cy.get('[data-cy=reset-code]').should('not.exist')
+        cy.get('[data-cy=clear-default-code]').click({ force: true })
+        cy.get('[data-cy=reset-code]').click()
+        cy.get('[data-cy=reset-code]').should('not.exist')
+        cy.get('[data-cy=view-solution]').click()
+        cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
+        cy.get('[data-cy=replace-with-solution]').click({ force: true })
+        cy.get('[data-cy=reset-code]').should('be.visible')
+        // FILE UPLOAD ONLY: upload fake file
+        // TODO: Add conditional here for file-upload lessons only to add a fake file so that submit button will be enabled]
+
+        // ALL CODE CHALLENGES (EVENTUALLY): submit solution code (and fake file if relevant)
+        // TODO: Remove conditional when this will work for both file-upload and code
+        if (lessonType === 'code') {
+          cy.get('[data-cy=submit-answer]').click()
+        }
+      })
+    }
+
+    it(`should advance to next lesson`, function () {
+    // ALL LESSON TYPES advance to next lesson (leads to resources on last iteration)
+    // TODO: Remove conditional when we've taught Cypress to pass file-upload and multiple-choice lessons
+      if (lessonType === ('code' || 'text')) {
+        cy.get('[data-cy=next-lesson]').click()
+      } else if (lessonType === ('multiple-choice' || 'file-upload')) {
+        cy.log(`cannot fully test tutorial ${tutorialId}, lesson ${lessonNr} because it is of type ${lessonType}`)
+        cheatToAdvance(lessonNr, tutorialName, lessonCount)
+      }
     })
   }
+
+  // ALL TUTORIAL TYPES - find resources page after looping through lessons
   it(`should find resources and navigate to tutorials`, function () {
     cy.contains('h1', 'Resources') // loads resources page
     cy.get('[data-cy=resources-content]') // loads meaningful content
