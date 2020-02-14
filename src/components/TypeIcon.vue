@@ -39,6 +39,7 @@ export default {
 
       switch (type) {
         case 'code':
+        case 'file-upload':
           return { icon: 'code', alt: 'JavaScript code challenge' + (!isLesson ? 's' : '') }
         case 'multiple-choice':
           return { icon: 'multipe-choice', alt: 'Multiple-choice quiz' + (!isLesson ? 'zes' : '') }
