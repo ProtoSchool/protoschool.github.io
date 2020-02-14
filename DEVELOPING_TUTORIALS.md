@@ -587,11 +587,13 @@ Lesson files should be put in the folder `src/tutorials/xxxx-tutorials-short-tit
 
 **Exportable properties**:
 
-- `validate(result, ipfs)`: Function - mandatory
-- `solution`: String - mandatory
-- `code`: String - optional
-- `modules`: Object - optional
-- `options`: Object - optional
+- `validate(result, ipfs)`: Function - mandatory for code challenges
+- `solution`: String - mandatory for code challenges
+- `code`: String - optional (used in code challenges only)
+- `modules`: Object - optionalused in code challenge only
+- `question`: String - mandatory for multiple choice quizzes
+- `choices`: Array - mandatory for multiple choice quizzes
+- `options`: Object - optional (used in code challenge only)
     - `overrideErrors`: Boolean - default is `false`
     - `createTestFile`: Boolean - default is `false`
     - `createTestTree`: Boolean - default is `false`
