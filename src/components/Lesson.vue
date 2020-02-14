@@ -469,7 +469,7 @@ export default {
         key: event,
         segmentation: {
           tutorial: this.tutorial.shortTitle,
-          lessonNumber: this.lessonId,
+          lessonNumber: this.isResources ? 'resources' : this.lessonId,
           path: this.$route.path,
           ...opts
         }
