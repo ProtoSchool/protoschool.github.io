@@ -17,7 +17,7 @@
           </div>
         </div>
       </section>
-      <Navigation :notFound="notFound"/>
+      <Navigation />
     </header>
   </div>
 </template>

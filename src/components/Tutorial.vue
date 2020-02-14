@@ -103,7 +103,6 @@ h2 a:hover {
 .lessons-list {
   list-style-type: none;
   overflow: hidden;
-  padding: 0 1px;
 }
 
 .type-icon {

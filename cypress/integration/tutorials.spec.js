@@ -1,6 +1,6 @@
 /* global describe, it, cy */
 
-import tutorials from '../../src/static/tutorials.json'
+import tutorials from '../../src/utils/tutorials'
 
 // tutorials with standard coding challenges only (no file upload, multiple choice, or text only lessons)
 // NEED TO UPDATE WHEN ADDING NEW CONTENT
