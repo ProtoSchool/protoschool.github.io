@@ -265,6 +265,12 @@ export default {
   beforeMount: function () {
     this.choice = localStorage[this.cacheKey] || ''
   },
+  mounted: function () {
+    if (this.isResources) {
+      localStorage[this.lessonKey] = 'passed'
+      this.trackEvent(EVENTS.LESSON_PASSED)
+    }
+  },
   methods: {
     setEditorCode (newCode) {
       localStorage[this.cacheKey] = newCode
@@ -463,7 +469,7 @@ export default {
         key: event,
         segmentation: {
           tutorial: this.tutorial.shortTitle,
-          lessonNumber: this.lessonId,
+          lessonNumber: this.isResources ? 'resources' : this.lessonId,
           path: this.$route.path,
           ...opts
         }
