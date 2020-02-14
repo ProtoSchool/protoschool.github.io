@@ -46,6 +46,6 @@ export default {
   validate,
   code,
   solution,
-  modules,
+  // modules,
   options
 }

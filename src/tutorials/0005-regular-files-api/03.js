@@ -64,8 +64,6 @@ const run = async (files) => {
 return run
 `
 
-const modules = { cids: require('cids') }
-
 const options = {
   overrideErrors: true
 }
@@ -74,6 +72,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }
