@@ -9,8 +9,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Did not return a valid CID instance.' }
   }
 
-  const correctHash = 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy'
-  if (result.toString() === correctHash) {
+  if (result.toString() === 'bafyreibmdfd7c5db4kls4ty57zljfhqv36gi43l6txl44pi423wwmeskwy') {
     return { success: 'Everything works!' }
   } else {
     return { fail: `Your function returned a CID, but it doesn't have the right contents. Be sure to \`put\` an object with \`bar\` as the named link and \`cid\` as its value.` }

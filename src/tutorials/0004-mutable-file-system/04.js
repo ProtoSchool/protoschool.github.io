@@ -1,3 +1,7 @@
+import all from 'it-all'
+
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   // Validation will be done by matching filenames between the
   // uploadedFiles array and the files in IPFS and ensuring that the type of each
@@ -27,8 +31,7 @@ const validate = async (result, ipfs) => {
 
   let uploadedFiles = window.uploadedFiles || []
 
-  let ipfsFiles = await ipfs.files.ls('/', { long: true })
-  let log = JSON.stringify(ipfsFiles, null, 2)
+  let ipfsFiles = await all(ipfs.files.ls('/'))
 
   let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
   let ipfsFilenames = ipfsFiles.map(file => file.name.toString()).sort()
@@ -39,7 +42,7 @@ const validate = async (result, ipfs) => {
     return {
       success: 'Success! You did it!',
       logDesc: 'This is the data that is now in your root directory in IPFS:',
-      log: log
+      log: ipfsFiles.map(utils.format.ipfsObject)
     }
   }
 

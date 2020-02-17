@@ -1,3 +1,5 @@
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   if (!result) {
     return {
@@ -25,6 +27,12 @@ const validate = async (result, ipfs) => {
     }
   }
 
+  if (utils.validators.isAsyncIterable(result)) {
+    return {
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_CONCAT
+    }
+  }
+
   if (Object.prototype.toString.call(result) === '[object Uint8Array]') {
     let isEqual = (new TextEncoder()).encode('You did it!').every((elem, idx) => {
       return elem === result[idx]
@@ -48,6 +56,8 @@ const validate = async (result, ipfs) => {
 }
 
 const code = `/* global ipfs */
+const concat = require('it-concat')
+
 const run = async () => {
   const bufferedContents = // access the content of the file as a buffer
 
@@ -60,20 +70,24 @@ return run
 `
 
 const solution = `/* global ipfs */
+const concat = require('it-concat')
+
 const run = async () => {
 
   // You can access the file in two different ways with the CIDs we gave you
 
   // Using the CID of the top-level directory and file path relative to it:
-  const bufferedContents = await ipfs.cat("/ipfs/QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt")
+  const bufferedContents = await concat(ipfs.cat("/ipfs/QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt"))
 
   // Using the dir subdirectory CID and file path relative to it:
-  // const bufferedContents = await ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt")
+  // const bufferedContents = await concat(ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt"))
 
-  return bufferedContents.toString('utf-8')
+  return bufferedContents.toString()
 }
 return run
 `
+
+const modules = { 'it-concat': require('it-concat') }
 
 const options = {
   overrideErrors: true,
@@ -84,5 +98,6 @@ export default {
   validate,
   code,
   solution,
+  modules,
   options
 }

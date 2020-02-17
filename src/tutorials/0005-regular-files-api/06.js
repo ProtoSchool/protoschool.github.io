@@ -1,10 +1,14 @@
+import all from 'it-all'
+
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   let uploadedFiles = window.uploadedFiles || false
   const fileObjectsArray = window.uploadedFiles.map((file) => { return { path: file.name, content: file } })
-  const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const directoryCID = addedFiles[addedFiles.length - 1].hash
+  const addedFiles = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const directoryCID = addedFiles[addedFiles.length - 1].cid
 
-  const expectedResults = await ipfs.ls(directoryCID)
+  const expectedResults = await all(ipfs.ls(directoryCID))
 
   if (!result) {
     return {
@@ -24,6 +28,12 @@ const validate = async (result, ipfs) => {
     }
   }
 
+  if (utils.validators.isAsyncIterable(result)) {
+    return {
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
+    }
+  }
+
   if (!Array.isArray(result)) {
     return {
       fail: 'The return value should be an array, just like the `ls` function returns. Make sure you are returning the correct value.'
@@ -37,7 +47,7 @@ const validate = async (result, ipfs) => {
   }
 
   let isStructureValid = result.every((elem) => {
-    if (!elem.hash || typeof elem.hash !== 'string') return false
+    if (!elem.cid || typeof elem.cid !== 'object') return false
     if (!elem.path || typeof elem.path !== 'string') return false
     if (!elem.name || typeof elem.name !== 'string') return false
     if (!elem.depth || typeof elem.depth !== 'number') return false
@@ -53,7 +63,7 @@ const validate = async (result, ipfs) => {
   }
 
   let rootIsFile = result.every((elem) => {
-    if (elem.path === elem.name && elem.path === elem.hash) return true
+    if (elem.path === elem.name && elem.path === elem.cid.toString()) return true
     return false
   })
 
@@ -66,8 +76,8 @@ const validate = async (result, ipfs) => {
   if (JSON.stringify(expectedResults) === JSON.stringify(result)) {
     return {
       success: 'Success!',
-      logDesc: "Here are the results returned by the `ls` method for the top-level directory. Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `hash` and `path` values now differ. The `hash` for each file is the CID of the file itself, while the the `path` is the CID of the top-level directory followed by the filename.",
-      log: result
+      logDesc: "Here are the results returned by the `ls` method for the top-level directory. Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `cid` and `path` values now differ. The `cid` for each file is the CID of the file itself, while the the `path` is the CID of the top-level directory followed by the filename.",
+      log: result.map(utils.format.ipfsObject)
     }
   } else {
     return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
@@ -75,10 +85,12 @@ const validate = async (result, ipfs) => {
 }
 
 const code = `/* global ipfs */
+const all = require('it-all')
+
 const run = async (files) => {
   const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
-  const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const directoryCID = addedFiles[addedFiles.length - 1].hash
+  const addedFiles = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const directoryCID = addedFiles[addedFiles.length - 1].cid
 
   // only edit code below this point
 
@@ -88,15 +100,19 @@ return run
 `
 
 const solution = `/* global ipfs */
+const all = require('it-all')
+
 const run = async (files) => {
   const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
-  const addedFiles = await ipfs.add(fileObjectsArray, { wrapWithDirectory: true })
-  const directoryCID = addedFiles[addedFiles.length - 1].hash
+  const addedFiles = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const directoryCID = addedFiles[addedFiles.length - 1].cid
 
-  return await ipfs.ls(directoryCID)
+  return all(ipfs.ls(directoryCID))
 }
 return run
 `
+
+const modules = { 'it-all': require('it-all') }
 
 const options = {
   overrideErrors: true
@@ -106,5 +122,6 @@ export default {
   validate,
   code,
   solution,
+  modules,
   options
 }

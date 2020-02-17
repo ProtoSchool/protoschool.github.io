@@ -7,3 +7,5 @@ QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
 Using the `cat` function, retrieve the file's contents and return them as a string.
 
 **Hint:** The `CID` we provide is a string, and as such it be placed inside quotes. Also, don't forget to convert the buffered contents of the text file to a string using `.toString()` before returning your result.
+
+**Hint:** You need to concatenate all the chunks of data because the `ipfs.cat` method returns an `Async Iterable`. You can use the package `it-concat` to achieve this.

@@ -377,7 +377,7 @@ If the object returned by your `validate` function has the property `fail`, the 
 You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
 
 ```js
-} else if (result && !result.hash) {
+} else if (result && !result.cid) {
   return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
 }
 ```

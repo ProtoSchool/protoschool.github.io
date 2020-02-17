@@ -1,0 +1,6 @@
+export default {
+  NO_RESULT: 'Oops! You forgot to return a result :(',
+  VALUE_IS_ASYNC_ITERABLE_ALL: 'The returned value is an Async Iterable. Did you forget to put all the results together using either `for await...of` or with `it-all`?',
+  VALUE_IS_ASYNC_ITERABLE_CONCAT: 'The returned value is an Async Iterable. Did you forget to concatenate all the data using `it-concat`?',
+  ALL_IS_NOT_DEFINED: 'ReferenceError: all is not defined. Did you forget to require the `it-all` package?'
+}

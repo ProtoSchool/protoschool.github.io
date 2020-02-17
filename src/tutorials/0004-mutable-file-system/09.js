@@ -1,3 +1,7 @@
+import all from 'it-all'
+
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   if (!result) {
     return {
@@ -8,7 +12,7 @@ const validate = async (result, ipfs) => {
   let someStuffFiles
 
   try {
-    someStuffFiles = await await ipfs.files.ls('/some/stuff', { long: true })
+    someStuffFiles = await all(ipfs.files.ls('/some/stuff'))
   } catch (err) {
     if (err.code === 'ERR_NOT_FOUND') {
       return {
@@ -34,58 +38,65 @@ const validate = async (result, ipfs) => {
   incorrectFilenames.push('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
   incorrectFilenames.sort()
 
-  // check for a file with hash QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
-  const someStuffHashes = someStuffFiles.map(file => file.hash.toString())
-  const someFileHasRightHash = someStuffHashes.includes('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
+  // check for a file with CID QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
+  const someStuffCIDs = someStuffFiles.map(file => file.cid.toString())
+  const someFileHasRightCID = someStuffCIDs.includes('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
 
   const returnedCorrectFilenames = JSON.stringify(correctFilenames) === JSON.stringify(someStuffFilenames)
-  const returnedHashAsFilename = JSON.stringify(incorrectFilenames) === JSON.stringify(someStuffFilenames)
+  const returnedCIDAsFilename = JSON.stringify(incorrectFilenames) === JSON.stringify(someStuffFilenames)
+
+  const log = someStuffFiles.map(utils.format.ipfsObject)
 
   if (noNewFile) {
     return {
       fail: 'No new files have been copied into `/some/stuff`',
       logDesc: "Did you get the desination path wrong in your `files.cp` command? Here's what's in your `/some/stuff` directory now:",
-      log: someStuffFiles
+      log
     }
-  } else if (someFileHasRightHash && returnedHashAsFilename) {
+  } else if (someFileHasRightCID && returnedCIDAsFilename) {
     return {
       fail: 'You forgot to specify a filename.',
-      logDesc: 'Check out the contents of your `/some/stuff` directory. You successfully copied the file but forgot to give it a name, so IPFS set its name equal to its hash. Try adding a filename to your destination path.',
-      log: someStuffFiles
+      logDesc: 'Check out the contents of your `/some/stuff` directory. You successfully copied the file but forgot to give it a name, so IPFS set its name equal to its CID. Try adding a filename to your destination path.',
+      log
     }
   } else if (!returnedCorrectFilenames) {
     return {
       fail: 'Did you pick the right destination path `(/some/stuff)`',
       logDesc: "Here's what's in your `/some/stuff` directory:",
-      log: someStuffFiles
+      log
     }
-  } else if (returnedCorrectFilenames && !someFileHasRightHash) {
+  } else if (returnedCorrectFilenames && !someFileHasRightCID) {
     return {
-      fail: 'That new file has the wrong hash.',
-      logDesc: "Check out the contents of your `/some/stuff` directory. You created a file called `success.txt` but it doesn't have the hash we're looking for.",
-      log: someStuffFiles
+      fail: 'That new file has the wrong CID.',
+      logDesc: "Check out the contents of your `/some/stuff` directory. You created a file called `success.txt` but it doesn't have the CID we're looking for.",
+      log
     }
-  } else if (returnedCorrectFilenames && someFileHasRightHash) {
+  } else if (utils.validators.isAsyncIterable(result)) {
+    return {
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
+    }
+  } else if (returnedCorrectFilenames && someFileHasRightCID) {
     return {
       success: 'Success! You did it!',
       logDesc: 'This is the data that is now in your `/some/stuff` directory in IPFS:',
-      log: result
+      log: result.map(utils.format.ipfsObject)
     }
   }
 }
 
 const code = `/* global ipfs */
+const all = require('it-all')
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+  const rootDirectoryContents = await all(ipfs.files.ls('/'))
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
   // Your code goes here
 
-  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
+  let someStuffDirectoryContents = await all(ipfs.files.ls('/some/stuff'))
   return someStuffDirectoryContents
 }
 
@@ -93,22 +104,25 @@ return run
 `
 
 const solution = `/* global ipfs */
+const all = require('it-all')
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+  const rootDirectoryContents = await all(ipfs.files.ls('/'))
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
   await ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff/success.txt')
 
-  let someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
+  let someStuffDirectoryContents = await all(ipfs.files.ls('/some/stuff'))
   return someStuffDirectoryContents
 }
 
 return run
 `
+
+const modules = { 'it-all': require('it-all') }
 
 const options = {
   overrideErrors: true,
@@ -119,5 +133,6 @@ export default {
   validate,
   code,
   solution,
+  modules,
   options
 }

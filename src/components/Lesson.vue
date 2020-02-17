@@ -107,6 +107,7 @@
 import Vue from 'vue'
 import CID from 'cids'
 import pTimeout from 'p-timeout'
+import all from 'it-all'
 import newGithubIssueUrl from 'new-github-issue-url'
 
 import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
@@ -404,7 +405,7 @@ export default {
       } else {
         const ipfs = this.IPFSPromise.then(IPFS => {
           this.ipfsConstructor = IPFS
-          return new IPFS({ repo: Math.random().toString() })
+          return IPFS.create({ repo: Math.random().toString() })
         })
         return ipfs
       }
@@ -413,14 +414,14 @@ export default {
       // create a sample file for the user to read from, acessible at this CID:
       // QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
       /* eslint-disable no-new */
-      return ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
+      return all(ipfs.add(this.ipfsConstructor.Buffer.from('You did it!')))
     },
     createTree: function (ipfs) {
       // create a sample directory for the user to read from, acessible at these CIDs:
       // top-level directory: QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy
       // `fun` directory: QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r
       /* eslint-disable no-new */
-      return ipfs.add([
+      return all(ipfs.add([
         {
           content: this.ipfsConstructor.Buffer.from('¯\\_(ツ)_/¯'),
           path: 'shrug.txt'
@@ -433,7 +434,7 @@ export default {
           content: this.ipfsConstructor.Buffer.from('You did it!'),
           path: 'fun/success.txt'
         }
-      ], { wrapWithDirectory: true })
+      ], { wrapWithDirectory: true }))
     },
     resetCode: function () {
       // TRACK? User chose to reset code
