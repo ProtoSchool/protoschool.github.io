@@ -17,7 +17,7 @@
     "async": "^2.6.1",
     "cids": "^0.7.1",
     "highlight.js": "^9.12.0",
-    "ipfs": "^0.39.0",
+    "ipfs": "^0.41.0",
     "ipfs-css": "^0.6.0",
     "meta-marked": "^0.4.2",
     "monaco-editor": "^0.6.1",

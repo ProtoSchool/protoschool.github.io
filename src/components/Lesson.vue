@@ -403,7 +403,7 @@ export default {
       } else {
         const ipfs = this.IPFSPromise.then(IPFS => {
           this.ipfsConstructor = IPFS
-          return new IPFS({ repo: Math.random().toString() })
+          return IPFS.create({ repo: Math.random().toString() })
         })
         return ipfs
       }
