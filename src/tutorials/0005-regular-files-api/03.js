@@ -1,7 +1,10 @@
 const validate = async (result, ipfs) => {
   const uploadedFiles = window.uploadedFiles || false
+  const expectedResult = []
 
-  const expectedResult = await ipfs.add(window.uploadedFiles)
+  for await (const result of ipfs.add(window.uploadedFiles)) {
+    expectedResult.push(result)
+  }
 
   if (!result) {
     return {
@@ -48,7 +51,11 @@ const validate = async (result, ipfs) => {
 
 const code = `/* global ipfs */
 const run = async (files) => {
-  const result = // Place your code to add a file or files here
+  const result = []
+
+  for await (const resultPart of ) {
+    // Place your code to add a file or files here and on the for await of loop
+  }
 
   return result
 }
@@ -57,7 +64,11 @@ return run
 
 const solution = `/* global ipfs */
 const run = async (files) => {
-  const result = await ipfs.add(files)
+  const result = []
+
+  for await (const resultPart of ipfs.add(files)) {
+    result.push(resultPart)
+  }
 
   return result
 }
