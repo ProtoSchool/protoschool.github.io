@@ -1,7 +1,9 @@
+import all from 'it-all'
+
 const validate = async (result, ipfs) => {
   const uploadedFiles = window.uploadedFiles || false
 
-  const expectedResult = await ipfs.add(window.uploadedFiles)
+  const expectedResult = await all(ipfs.add(window.uploadedFiles))
 
   if (!result) {
     return {
@@ -47,8 +49,10 @@ const validate = async (result, ipfs) => {
 }
 
 const code = `/* global ipfs */
+const all = require('it-all')
+
 const run = async (files) => {
-  const result = // Place your code to add a file or files here
+  const result = all() // Place your code to add a file or files here
 
   return result
 }
@@ -56,15 +60,17 @@ return run
 `
 
 const solution = `/* global ipfs */
+const all = require('it-all')
+
 const run = async (files) => {
-  const result = await ipfs.add(files)
+  const result = await all(ipfs.add(files))
 
   return result
 }
 return run
 `
 
-const modules = { cids: require('cids') }
+const modules = { 'it-all': require('it-all') }
 
 const options = {
   overrideErrors: true

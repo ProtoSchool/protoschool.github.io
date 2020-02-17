@@ -19,6 +19,7 @@
     "highlight.js": "^9.12.0",
     "ipfs": "^0.41.0",
     "ipfs-css": "^0.6.0",
+    "it-all": "^1.0.1",
     "meta-marked": "^0.4.2",
     "monaco-editor": "^0.6.1",
     "new-github-issue-url": "^0.2.1",
