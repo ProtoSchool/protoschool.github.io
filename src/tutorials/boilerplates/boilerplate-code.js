@@ -31,7 +31,7 @@ return run
 `
 
 // Optional: Use the modules option if you need extra
-// modules available in the validation code
+// modules available in the solution code
 // const modules = { cids: require('cids') }
 
 // for more on the available options:
