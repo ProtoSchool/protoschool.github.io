@@ -1,5 +1,7 @@
 import all from 'it-all'
 
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   const uploadedFiles = window.uploadedFiles || false
 
@@ -40,8 +42,8 @@ const validate = async (result, ipfs) => {
   if (JSON.stringify(expectedResult) === JSON.stringify(result)) {
     return {
       success: 'Success! You did it!',
-      logDesc: 'Your `add` command returned the array of objects below. Notice in particular the `hash` ' + valueText + ", since we'll need " + thatText + ' to access ' + fileText + ' again later. The `path` matches the `hash` for ' + fileText + ", but we'll see in future lessons that that's not always true.",
-      log: result
+      logDesc: 'Your `add` command returned the array of objects below. Notice in particular the `cid` ' + valueText + ", since we'll need " + thatText + ' to access ' + fileText + ' again later. The `path` matches the `cid` for ' + fileText + ", but we'll see in future lessons that that's not always true.",
+      log: result.map(utils.format.ipfsObject)
     }
   } else {
     return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
