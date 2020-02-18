@@ -1,6 +1,6 @@
 /* global describe, it, cy */
 
-import { tutorials, getLessonType, getTutorialType } from '../../src/utils/tutorials'
+import tutorials, { getLessonType, getTutorialType } from '../../src/utils/tutorials'
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
 describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
