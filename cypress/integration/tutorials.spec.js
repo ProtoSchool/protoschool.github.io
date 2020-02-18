@@ -13,7 +13,7 @@ describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`ADVANCE THROUGH LESSONS`, function () {
-  tutorials.forEach(tutorialId => {
+  Object.keys(tutorials).forEach(tutorialId => {
     describe(`ADVANCE THROUGH ${tutorialId}`, function () {
       advanceThroughLessons(tutorialId)
     })
