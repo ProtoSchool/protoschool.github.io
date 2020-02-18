@@ -27,11 +27,8 @@ const solution = `const run = async (files) => {
 return run
 `
 
-const modules = { cids: require('cids') }
-
 export default {
   validate,
   code,
-  solution,
-  modules
+  solution
 }

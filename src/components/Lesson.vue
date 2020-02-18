@@ -409,10 +409,15 @@ export default {
       }
     },
     createFile: function (ipfs) {
+      // create a sample file for the user to read from, acessible at this CID:
+      // QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
       /* eslint-disable no-new */
       return ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
     },
     createTree: function (ipfs) {
+      // create a sample directory for the user to read from, acessible at these CIDs:
+      // top-level directory: QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy
+      // `fun` directory: QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r
       /* eslint-disable no-new */
       return ipfs.add([
         {
