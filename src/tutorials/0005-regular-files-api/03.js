@@ -54,7 +54,7 @@ const code = `/* global ipfs */
 const all = require('it-all')
 
 const run = async (files) => {
-  const result = all() // Place your code to add a file or files here
+  const result = await all() // Place your code to add a file or files here
 
   return result
 }
