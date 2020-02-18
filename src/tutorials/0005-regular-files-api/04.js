@@ -27,8 +27,10 @@ const validate = async (result, ipfs) => {
 }
 
 const code = `/* global ipfs */
+const concat = require('it-concat')
+
 const run = async () => {
-    const fileContents = // place your code here
+    const fileContents = await concat() // place your code here
 
     // don't forget to return the string value
 }
@@ -36,8 +38,10 @@ return run
 `
 
 const solution = `/* global ipfs */
+const concat = require('it-concat')
+
 const run = async () => {
-    const fileContents = await ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ')
+    const fileContents = await concat(ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ'))
     const message = fileContents.toString()
 
     return message
@@ -45,7 +49,7 @@ const run = async () => {
 return run
 `
 
-const modules = { cids: require('cids') }
+const modules = { 'it-concat': require('it-concat') }
 
 const options = {
   overrideErrors: true,

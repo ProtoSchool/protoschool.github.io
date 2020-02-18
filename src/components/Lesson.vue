@@ -106,6 +106,7 @@
 import Vue from 'vue'
 import CID from 'cids'
 import pTimeout from 'p-timeout'
+import all from 'it-all'
 import newGithubIssueUrl from 'new-github-issue-url'
 
 import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
@@ -410,11 +411,11 @@ export default {
     },
     createFile: function (ipfs) {
       /* eslint-disable no-new */
-      return ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
+      return all(ipfs.add(this.ipfsConstructor.Buffer.from('You did it!')))
     },
     createTree: function (ipfs) {
       /* eslint-disable no-new */
-      return ipfs.add([
+      return all(ipfs.add([
         {
           content: this.ipfsConstructor.Buffer.from('¯\\_(ツ)_/¯'),
           path: 'shrug.txt'
@@ -427,7 +428,7 @@ export default {
           content: this.ipfsConstructor.Buffer.from('You did it!'),
           path: 'fun/success.txt'
         }
-      ], { wrapWithDirectory: true })
+      ], { wrapWithDirectory: true }))
     },
     resetCode: function () {
       // TRACK? User chose to reset code
