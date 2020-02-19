@@ -583,18 +583,25 @@ Check your browser dev tools for warning logs.
 
 ### Lesson file
 
-Lesson files should be put in the folder `src/tutorials/xxxx-tutorials-short-title` with the appropriate number (e.g., `01.js`).
+Lesson files should be put in the folder `src/tutorials/xxxx-tutorial-short-title` with the appropriate lesson number used as the filename (e.g., `01.js`).
 
 **Exportable properties**:
 
-- `validate(result, ipfs)`: Function - mandatory
-- `solution`: String - mandatory
-- `code`: String - optional
-- `modules`: Object - optional
-- `options`: Object - optional
-    - `overrideErrors`: Boolean - default is `false`
-    - `createTestFile`: Boolean - default is `false`
-    - `createTestTree`: Boolean - default is `false`
+The properties exported from this file depend on the lesson type, as follows:
+
+- For **code challenges** only (with and without file upload):
+  - `validate(result, ipfs)`: Function - mandatory - _the validation code used to evaluate the user's code submission_ ([detailed docs](#validate-the-users-submitted-code))
+  - `solution`: String - mandatory - _the suggested solution to the code challenge, visible to the user on demand_ ([detailed docs](#provide-the-simplest-solution-to-your-exercise))
+  - `code`: String - optional - _the starting code for the challenge (though technically optional because a default is available, you will almost always need to provide this)_ ([detailed docs](#provide-the-starting-code-for-your-exercise))
+  - `modules`: Object - optional - _modules to be available to users through `require('module-name')` given that `modules = { module-name: require('module-name') }`_
+  - `options`: Object - optional
+      - `overrideErrors`: Boolean - default is `false` - _allows customized replacement of IPFS-generated errors with more user-friendly messages_ ([detailed docs](#override-external-error-messages-optional))
+      - `createTestFile`: Boolean - default is `false` - _before validation, runs `createFile` in `Lesson.vue` to create a sample file the user can read from (see function for details)_
+      - `createTestTree`: Boolean - default is `false` - _before validation, runs `createTree` in `Lesson.vue` to create a sample directory the user can read from - (see function for details)_
+
+- For **multiple-choice quizzes** only:
+  - `question`: String - mandatory - _the question to be answered by the user_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons))
+  - `choices`: Array - mandatory - _the potential answers between which the user must choose_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons))
 
 ## License
 
