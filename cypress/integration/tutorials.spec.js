@@ -29,15 +29,6 @@ describe(`TEST RESET CODE FUNCTIONALITY`, function () {
   testResetCode(testLessons.fileUpload.tutorialId, testLessons.fileUpload.lessonNr)
 })
 
-// ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
-  Object.keys(tutorials).forEach(function (tutorialId) {
-    describe(`render tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
-      renderAllLessonsFromTutorialLandingPage(tutorialId)
-    })
-  })
-})
-
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`ADVANCE THROUGH ALL LESSONS`, function () {
   Object.keys(tutorials).forEach(tutorialId => {
@@ -60,41 +51,28 @@ function testResetCode (tutorialId, lessonNr) {
   })
 }
 
-function renderAllLessonsFromTutorialLandingPage (tutorialId) {
-  const tutorialName = tutorials[tutorialId].url
-  const standardLessons = tutorials[tutorialId].lessons
-  const standardLessonCount = standardLessons.length
-
-  it(`should find ${tutorialName} landing page with correct lesson count`, function () {
-    cy.visit(`/#/${tutorialName}/`)
-    cy.get(`[data-cy=lesson-link]`).should('have.length', standardLessonCount)
-  })
-
-  it(`should find and render all standard lesson pages in ${tutorialName}`, function () {
-    standardLessons.forEach((lesson, index) => {
-      cy.get(`[data-cy=lesson-link]`).contains(lesson.title).click()
-      cy.contains('h1', lesson.title)
-      cy.get(`[data-cy=tutorial-landing-link]`).click()
-    })
-  })
-
-  it(`should find and render resources page for ${tutorialName}`, function () {
-    cy.get(`[data-cy=lesson-link-resources]`).click()
-    cy.contains('h1', 'Resources')
-    cy.get(`[data-cy=tutorial-landing-link]`).click()
-  })
-}
-
 function advanceThroughLessons (tutorialId) {
   const tutorialName = tutorials[tutorialId].url
+  const tutorialTitle = tutorials[tutorialId].title
   const lessonCount = tutorials[tutorialId].lessons.length // count excludes resources page
-  const tutorialType = getTutorialType(tutorialId)
+  const standardLessons = tutorials[tutorialId].lessons
+
+  it(`should find ${tutorialTitle} landing page with links to ${lessonCount} lessons plus resources`, function () {
+    cy.visit(`/#/${tutorialName}/`)
+    cy.contains('h2', tutorialTitle)
+    cy.get(`[data-cy=lesson-link-standard]`).should('have.length', lessonCount)
+    cy.get(`[data-cy=lesson-link-resources]`).should('have.length', 1)
+  })
 
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
-  it(`should find ${tutorialName} tutorial (${tutorialType}) landing page and load lesson 1 of ${lessonCount}`, function () {
+  it(`should use lesson links and nav links btw landing page and 1st lesson`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
     cy.url().should('include', `#/${tutorialName}/01`)
+    cy.get(`[data-cy=tutorial-landing-link]`).click() // test nav link back to tutorial landing page
+    cy.contains('h2', tutorialTitle)
+    cy.get(`[href="#/${tutorialName}/01"]`).click()
+    cy.contains('h1', standardLessons[0].title)
   })
 
   // ALL TUTORIAL TYPES - loop through all lessons
@@ -168,6 +146,9 @@ function advanceThroughLessons (tutorialId) {
         cy.get(`[data-cy=${advance.buttonData}]`).click()
       }
       cy.url().should('include', `#/${tutorialName}/${nextLessonNr}`)
+      if (nextLessonNr !== 'resources') {
+        cy.contains('h1', standardLessons[i].title) // i is index of lesson advanced to if not resources page
+      }
     })
   } // end loop through standard lessons, landing on resources page
 

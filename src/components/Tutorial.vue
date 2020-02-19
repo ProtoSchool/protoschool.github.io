@@ -29,7 +29,7 @@
         <template v-for="(lesson, index) in tutorial.lessons">
           <li :key="index">
             <LessonLink
-              data-cy="lesson-link"
+              data-cy="lesson-link-standard"
               :to="`/${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
               :lesson="lesson"
               :lessonNumber="index + 1"
