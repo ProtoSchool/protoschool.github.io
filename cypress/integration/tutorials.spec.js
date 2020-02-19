@@ -25,13 +25,20 @@ const testLessons = {
 }
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`TUTORIALS PAGE DISPLAYS CORRECT CONTENT`, function () {
-  it(`shows all tutorials in correct order`, function () {
+describe(`CORRECT TUTORIALS ARE DISPLAYED`, function () {
+  it(`tutorials page shows all tutorials in correct order`, function () {
     cy.visit(`/#/tutorials/`)
     cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
     cy.get('[data-cy=tutorial-title]').should('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < courses.all.length; i++) {
       cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
+    }
+  })
+  it(`homepage shows featured tutorials in correct order`, function () {
+    cy.visit(`/#/`)
+    cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.featured.length)
+    for (let i = 0; i < courses.featured.length; i++) {
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.featured[i]].title)
     }
   })
 })
