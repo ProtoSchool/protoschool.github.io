@@ -1,6 +1,7 @@
 /* global describe, it, cy */
 
 import tutorials, { getLessonType, getTutorialType } from '../../src/utils/tutorials'
+import courses from '../../src/static/courses.json'
 
 // lessons to use as samples when testing functionality only once per lesson type
 const testLessons = {
@@ -22,6 +23,18 @@ const testLessons = {
     lessonNr: '01'
   }
 }
+
+// ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
+describe(`TUTORIALS PAGE DISPLAYS CORRECT CONTENT`, function () {
+  it(`shows all tutorials in correct order`, function () {
+    cy.visit(`/#/tutorials/`)
+    cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
+    cy.get('[data-cy=tutorial-title]').should('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
+    for (let i = 0; i < courses.all.length; i++) {
+      cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
+    }
+  })
+})
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
 describe(`TEST RESET CODE FUNCTIONALITY`, function () {
