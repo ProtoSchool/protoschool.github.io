@@ -2,6 +2,33 @@
 
 import tutorials, { getLessonType, getTutorialType } from '../../src/utils/tutorials'
 
+// lessons to use as samples when testing functionality only once per lesson type
+const testLessons = {
+  code: {
+    tutorialId: '0002',
+    lessonNr: '02'
+  },
+  fileUpload: {
+    tutorialId: '0004',
+    lessonNr: '05'
+  },
+  // TODO: Uncomment when we have testing for multiple choice built and Anatomy of a CID is published
+  // multipleChoice: {
+  //   tutorialId: '0006',
+  //   lessonNr: '03'
+  // },
+  text: {
+    tutorialId: '0001',
+    lessonNr: '01'
+  }
+}
+
+// ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
+describe(`TEST RESET CODE FUNCTIONALITY`, function () {
+  testResetCode(testLessons.code.tutorialId, testLessons.code.lessonNr)
+  testResetCode(testLessons.fileUpload.tutorialId, testLessons.fileUpload.lessonNr)
+})
+
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
 describe(`RENDER ALL LESSONS FROM TUTORIAL LANDING PAGE`, function () {
   Object.keys(tutorials).forEach(function (tutorialId) {
@@ -19,6 +46,19 @@ describe(`ADVANCE THROUGH ALL LESSONS`, function () {
     })
   })
 })
+
+function testResetCode (tutorialId, lessonNr) {
+  const tutorialName = tutorials[tutorialId].url
+  const tutorialType = getTutorialType(tutorialId)
+  it(`should toggle resetCode in ${tutorialType} challenge (tutorial ${tutorialId} lesson ${lessonNr})`, function () {
+    cy.visit(`/#/${tutorialName}/${lessonNr}`)
+    cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+    cy.get('[data-cy=reset-code]').should('not.exist')
+    cy.get('[data-cy=clear-default-code]').click({ force: true })
+    cy.get('[data-cy=reset-code]').click()
+    cy.get('[data-cy=reset-code]').should('not.exist')
+  })
+}
 
 function renderAllLessonsFromTutorialLandingPage (tutorialId) {
   const tutorialName = tutorials[tutorialId].url
@@ -73,10 +113,6 @@ function advanceThroughLessons (tutorialId) {
       // ALL CODE CHALLENGES: check reset code and view solution
       it(`should use reset code and replace solution in ${lessonNr}`, function () {
         cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
-        cy.get('[data-cy=reset-code]').should('not.exist')
-        cy.get('[data-cy=clear-default-code]').click({ force: true })
-        cy.get('[data-cy=reset-code]').click()
-        cy.get('[data-cy=reset-code]').should('not.exist')
         cy.get('[data-cy=view-solution]').click()
         cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
         cy.get('[data-cy=replace-with-solution]').click({ force: true })
