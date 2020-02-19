@@ -207,7 +207,6 @@ export default {
     validate: Function,
     code: String,
     overrideErrors: Boolean,
-    isMultipleChoiceLesson: Boolean,
     question: String,
     choices: Array,
     createTestFile: Boolean,
@@ -227,6 +226,7 @@ export default {
       expandExercise: false,
       editorReady: false,
       isFileLesson: self.isFileLesson,
+      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
       uploadedFiles: window.uploadedFiles || false,
       choice: localStorage[self.cacheKey] || '',
       cachedChoice: !!localStorage['cached' + self.$route.path]
