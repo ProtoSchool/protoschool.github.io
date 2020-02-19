@@ -49,6 +49,12 @@
 				"description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP)."
 			},
 			{
+				"title": "Anatomy of a CID",
+				"link": "https://proto.school/#/anatomy-of-a-cid",
+				"type": "tutorial",
+				"description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
+			},
+			{
 				"title": "IPFS: Mutable File System (MFS)",
 				"link": "https://proto.school/#/mutable-file-system",
 				"type": "tutorial",
@@ -219,6 +225,50 @@
 				"link": "https://proto.school/#/basics/",
 				"type": "tutorial",
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
+			}
+		]
+	},
+	"0006": {
+		"url": "anatomy-of-a-cid",
+		"project": "IPFS",
+		"title": "Anatomy of a CID",
+		"description": "A content identifier, or CID, is a label used to point to data stored on IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+		"resources": [
+			{
+				"title": "How IPFS Deals With Files: Anatomy of a CID",
+				"link": "https://youtu.be/Z5zNPwMDYGg?t=320",
+				"type": "video",
+				"description": "Watch the talk that inspired this tutorial! In Part 2 of this core course from IPFS Camp 2019, Alan Shaw explains the anatomy of a CID."
+			},
+			{
+				"title": "CID Inspector",
+				"link": "https://cid.ipfs.io/",
+				"type": "tool",
+				"description": "Paste a CID into this handy web app for a human-readable breakdown of its multibase, multicodec, multihash and version."
+			},
+			{
+				"title": "Hashes",
+				"link": "https://docs.ipfs.io/guides/concepts/hashes/",
+				"type": "docs",
+				"description": "Learn more about cryptographic hashes in the official IPFS docs."
+			},
+			{
+				"title": "Multiformats",
+				"link": "https://multiformats.io/",
+				"type": "docs",
+				"description": "Explore Multiformats, a collection of protocols that future-proof systems, including CID, multihash, multibase and multicodec."
+			},
+			{
+				"title": "Multihash",
+				"link": "https://multiformats.io/multihash/",
+				"type": "docs",
+				"description": "Learn more about the multihash protocol for differentiating outputs from various well-established hash functions, addressing size and encoding considerations."
+			},
+			{
+				"title": "Content Identifier (CID) Specification",
+				"link": "https://github.com/multiformats/cid/",
+				"type": "docs",
+				"description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
 			}
 		]
 	}
