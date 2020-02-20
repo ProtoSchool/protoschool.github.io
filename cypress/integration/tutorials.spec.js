@@ -163,7 +163,6 @@ function advanceThroughLessons (tutorialId) {
 
       // TODO: MULTIPLE CHOICE LESSONS ONLY
 
-
       // CODE CHALLENGES ONLY (code and file upload)
 
       function pasteSolutionCode () {
