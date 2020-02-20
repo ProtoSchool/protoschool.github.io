@@ -105,14 +105,15 @@ function advanceThroughLessons (tutorialId) {
   })
 
   // ALL TUTORIAL TYPES - loop through all lessons
-  for (let i = 1; i <= lessonCount; i++) {
-    let lessonNr = i.toString().padStart(2, 0)
-    let lessonType = getLessonType(tutorialId, lessonNr)
+
+  standardLessons.forEach(function (lesson, index) {
+    let lessonNr = lesson.formattedId
+    let lessonType = lesson.type
     let nextLessonNr
     if (parseInt(lessonNr) === lessonCount) {
       nextLessonNr = 'resources'
     } else {
-      nextLessonNr = (parseInt(lessonNr) + 1).toString().padStart(2, 0)
+      nextLessonNr = standardLessons[index + 1].formattedId
     }
 
     // CODE CHALLENGES ONLY
@@ -176,10 +177,10 @@ function advanceThroughLessons (tutorialId) {
       }
       cy.url().should('include', `#/${tutorialName}/${nextLessonNr}`)
       if (nextLessonNr !== 'resources') {
-        cy.contains('h1', standardLessons[i].title) // i is index of lesson advanced to if not resources page
+        cy.contains('h1', standardLessons[index + 1].title)
       }
     })
-  } // end loop through standard lessons, landing on resources page
+  }) // end loop through standard lessons, landing on resources page
 
   // ALL TUTORIAL TYPES - find resources page after looping through lessons
   it(`VIEWS resources and advances to tutorials`, function () {
