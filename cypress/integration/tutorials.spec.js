@@ -39,9 +39,9 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
     cy.log('codelessTutorials', codelessTutorials)
     cy.get('[data-cy=toggle-coding-tutorials]').click()
     cy.get('[data-cy=tutorial-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
-    // for (let i = 0; i < codelessTutorials.length; i++) {
-    //   cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
-    // }
+    for (let i = 0; i < codelessTutorials.length; i++) {
+      cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
+    }
   })
   it(`homepage shows featured tutorials in correct order`, function () {
     cy.visit(`/#/`)
