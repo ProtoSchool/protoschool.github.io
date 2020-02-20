@@ -25,7 +25,7 @@ const testLessons = {
 }
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`CORRECT TUTORIALS ARE DISPLAYED`, function () {
+describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   it(`tutorials page shows all tutorials in correct order`, function () {
     cy.visit(`/#/tutorials/`)
     cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
@@ -53,15 +53,15 @@ describe(`CORRECT TUTORIALS ARE DISPLAYED`, function () {
 })
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`TEST RESET CODE FUNCTIONALITY`, function () {
+describe(`RESETS CODE SUCCESSFULLY`, function () {
   testResetCode(testLessons.code.tutorialId, testLessons.code.lessonNr)
   testResetCode(testLessons.fileUpload.tutorialId, testLessons.fileUpload.lessonNr)
 })
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
-describe(`ADVANCE THROUGH ALL LESSONS`, function () {
+describe(`ADVANCES THROUGH ALL LESSONS IN ALL TUTORIALS`, function () {
   Object.keys(tutorials).forEach(tutorialId => {
-    describe(`advance through tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
+    describe(`advances through tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
       advanceThroughLessons(tutorialId)
     })
   })
@@ -70,7 +70,7 @@ describe(`ADVANCE THROUGH ALL LESSONS`, function () {
 function testResetCode (tutorialId, lessonNr) {
   const tutorialName = tutorials[tutorialId].url
   const tutorialType = getTutorialType(tutorialId)
-  it(`should toggle resetCode in ${tutorialType} challenge (tutorial ${tutorialId} lesson ${lessonNr})`, function () {
+  it(`toggles resetCode in ${tutorialType} challenge (tutorial ${tutorialId} lesson ${lessonNr})`, function () {
     cy.visit(`/#/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
     cy.get('[data-cy=reset-code]').should('not.exist')
@@ -86,7 +86,7 @@ function advanceThroughLessons (tutorialId) {
   const lessonCount = tutorials[tutorialId].lessons.length // count excludes resources page
   const standardLessons = tutorials[tutorialId].lessons
 
-  it(`should find ${tutorialTitle} landing page with links to ${lessonCount} lessons plus resources`, function () {
+  it(`finds ${tutorialTitle} landing page with links to ${lessonCount} lessons plus resources`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.contains('h2', tutorialTitle)
     cy.get(`[data-cy=lesson-link-standard]`).should('have.length', lessonCount)
@@ -94,7 +94,7 @@ function advanceThroughLessons (tutorialId) {
   })
 
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
-  it(`should use lesson links and nav links btw landing page and 1st lesson`, function () {
+  it(`uses lesson links and nav links btw landing page and 1st lesson`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.get(`[href="#/${tutorialName}/01"]`).click()
     cy.url().should('include', `#/${tutorialName}/01`)
@@ -117,8 +117,8 @@ function advanceThroughLessons (tutorialId) {
 
     // CODE CHALLENGES ONLY
     if (lessonType === 'code' || lessonType === 'file-upload') {
-      // ALL CODE CHALLENGES: check reset code and view solution
-      it(`should use reset code and replace solution in ${lessonNr}`, function () {
+      // ALL CODE CHALLENGES: test view solution and paste correct answer
+      it(`views and pastes solution in ${lessonNr}`, function () {
         cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
         cy.get('[data-cy=view-solution]').click()
         cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
@@ -140,17 +140,17 @@ function advanceThroughLessons (tutorialId) {
 
     switch (lessonType) {
       case 'code':
-        advance.msg = `should PASS code challenge ${lessonNr} and advance to ${nextLessonNr}`
+        advance.msg = `PASSES code challenge ${lessonNr} and advances to ${nextLessonNr}`
         advance.method = 'click'
         advance.buttonData = 'next-lesson-code'
         break
       case 'text':
-        advance.msg = `should VIEW text lesson ${lessonNr} and advance to ${nextLessonNr}`
+        advance.msg = `VIEWS text lesson ${lessonNr} and advances to ${nextLessonNr}`
         advance.method = 'click'
         advance.buttonData = 'next-lesson-text'
         break
       case 'multiple-choice':
-        advance.msg = `should CHEAT multiple choice lesson ${lessonNr} to advance to ${nextLessonNr}`
+        advance.msg = `CHEATS multiple choice lesson ${lessonNr} to advance to ${nextLessonNr}`
         advance.method = 'cheat'
         // TODO: Replace with data below when mult choice testing is enabled
         // advance.msg = `should PASS multiple choice lesson and advance to lesson ${nextLessonNr}`
@@ -158,7 +158,7 @@ function advanceThroughLessons (tutorialId) {
         // advance.buttonData = 'next-lesson-mult-choice'
         break
       case 'file-upload':
-        advance.msg = `should CHEAT file upload lesson ${lessonNr} to advance to ${nextLessonNr}`
+        advance.msg = `CHEATS file upload lesson ${lessonNr} to advance to ${nextLessonNr}`
         advance.method = 'cheat'
         // TODO: Replace with lines below when file upload testing is enabled
         // advance.msg = `should PASS file upload code challenge ${lessonNr} and advance to lesson ${nextLessonNr}`
@@ -182,7 +182,7 @@ function advanceThroughLessons (tutorialId) {
   } // end loop through standard lessons, landing on resources page
 
   // ALL TUTORIAL TYPES - find resources page after looping through lessons
-  it(`should VIEW resources and advance to tutorials`, function () {
+  it(`VIEWS resources and advances to tutorials`, function () {
     cy.contains('h1', 'Resources') // loads resources page
     cy.get('[data-cy=resources-content]') // loads meaningful content
     cy.get('[data-cy=more-tutorials]').click()
