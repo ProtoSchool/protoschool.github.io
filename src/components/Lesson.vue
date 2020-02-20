@@ -230,7 +230,8 @@ export default {
       isMultipleChoiceLesson: self.isMultipleChoiceLesson,
       uploadedFiles: window.uploadedFiles || false,
       choice: localStorage[self.cacheKey] || '',
-      cachedChoice: !!localStorage['cached' + self.$route.path]
+      cachedChoice: !!localStorage['cached' + self.$route.path],
+      output: self.output
     }
   },
   computed: {
