@@ -21,7 +21,7 @@
     </div>
     <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
       <div v-if="solution" class="mb2 ml3">
-        <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down">Hide Solution</span>
+        <span v-if="viewSolution" @click="toggleSolution" class="textLink chevron down" data-cy="hide-solution">Hide Solution</span>
         <span v-else @click="toggleSolution" class="textLink chevron right" data-cy="view-solution">View Solution</span>
         <!-- Special hidden buttons only to be used by Cypress for the E2E tests -->
         <span @click="cyReplaceWithSolution" class="dn o-0 textLink fr" data-cy="replace-with-solution">Replace with Solution</span>
@@ -35,7 +35,8 @@
         :options="Object.assign({}, { readOnly: true }, options)"
         :code="solution"
         theme="vs-dark"
-        language="javascript" />
+        language="javascript"
+        data-cy="solution"/>
     </div>
   </div>
 </template>
