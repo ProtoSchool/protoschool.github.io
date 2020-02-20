@@ -2,7 +2,7 @@ const question = 'Which version of CIDs include the actual version number of the
 
 const choices = [
   {
-    answer: 'None. The version number is inferred by detecting whether the multicodec prefix is present.',
+    answer: 'None. The version number is inferred by detecting whether the IPLD format multicodec is present.',
     correct: false,
     feedback: 'That doesn\'t sound right. Please review the previous lesson.'
   },
