@@ -115,6 +115,13 @@ function advanceThroughLessons (tutorialId) {
       nextLessonNr = (parseInt(lessonNr) + 1).toString().padStart(2, 0)
     }
 
+  // MULTIPLE CHOICE LESSONS:
+    if (lessonType === 'multiple-choice') {
+      it(`should show the right number of choices for lesson ${lessonNr}`, function () {
+        cy.get('[data-cy=choice]').should('have.length', standardLessons[i].logic.choices)
+      })
+    }
+
     // CODE CHALLENGES ONLY
     if (lessonType === 'code' || lessonType === 'file-upload') {
       // ALL CODE CHALLENGES: check reset code and view solution

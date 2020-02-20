@@ -1,13 +1,18 @@
 <template>
   <div class="pt2">
-    <div v-if="output.test.error" class="lh-copy pv2 ph3 bg-red white" v-html="parseData(`Error: ${output.test.error.message}`)">
+    <div v-if="output.test.error"
+    class="lh-copy pv2 ph3 bg-red white"
+    v-html="parseData(`Error: ${output.test.error.message}`)">
     </div>
     <div
       v-if="output.test.fail"
       class="output-log lh-copy bg-red white"
-      v-html="parseData(output.test.fail)" />
+      v-html="parseData(output.test.fail)"
+      data-cy="output-mult-choice"/>
     <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
-      <span class="output-log" v-html="parseData(output.test.success)" />
+      <span class="output-log"
+      v-html="parseData(output.test.success)"
+      data-cy="output-mult-choice" />
       <span v-if="output.test.cid">
         <a
           class="link fw7 underline-hover dib ph2 mh2 white"

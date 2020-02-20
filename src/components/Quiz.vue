@@ -2,7 +2,11 @@
   <div>
     <h3>{{this.question}}</h3>
     <div v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
-      <input type="radio" :id="idx" :value="idx" v-model="selected" @change="handleRadioClick">
+      <input type="radio"
+      :id="idx" :value="idx"
+      v-model="selected"
+      @change="handleRadioClick"
+      data-cy="choice">
       <label :for="idx" v-html='parse(choice.answer)'></label>
     </div>
   </div>
