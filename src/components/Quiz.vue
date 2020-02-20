@@ -5,9 +5,8 @@
       <input type="radio"
       :id="idx" :value="idx"
       v-model="selected"
-      @change="handleRadioClick"
-      data-cy="choice">
-      <label :for="idx" v-html='parse(choice.answer)'></label>
+      @change="handleRadioClick">
+      <label :for="idx" v-html='parse(choice.answer)' data-cy="choice"></label>
     </div>
   </div>
 </template>

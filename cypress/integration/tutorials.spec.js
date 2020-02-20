@@ -2,6 +2,8 @@
 
 import tutorials, { getLessonType, getTutorialType } from '../../src/utils/tutorials'
 import courses from '../../src/static/courses.json'
+// THIS IMPORT DOESN'T SEEM TO WORK:
+// import marked from '../../src/utils/marked'
 
 // lessons to use as samples when testing functionality only once per lesson type
 const testLessons = {
@@ -13,7 +15,7 @@ const testLessons = {
     tutorialId: '0004',
     lessonNr: '05'
   },
-  // TODO: Uncomment when we have testing for multiple choice built and Anatomy of a CID is published
+  // TODO: Uncomment when we have testing for multiple choice built AND Anatomy of a CID is published
   // multipleChoice: {
   //   tutorialId: '0006',
   //   lessonNr: '03'
@@ -65,6 +67,8 @@ describe(`ADVANCES THROUGH ALL LESSONS IN ALL TUTORIALS`, function () {
       advanceThroughLessons(tutorialId)
     })
   })
+  // SWAP OUT ABOVE/BELOW TO MAKE MULT CHOICE TESTING FASTER BY SKIPPING OTHER TUTORIALS
+  // advanceThroughLessons('0006')
 })
 
 function testResetCode (tutorialId, lessonNr) {
@@ -117,8 +121,31 @@ function advanceThroughLessons (tutorialId) {
 
     // MULTIPLE CHOICE LESSONS:
     if (lessonType === 'multiple-choice') {
-      it(`should show the right number of choices for lesson ${lessonNr}`, function () {
-        cy.get('[data-cy=choice]').should('have.length', standardLessons[i - 1].logic.choices.length)
+      let choices = standardLessons[i - 1].logic.choices
+      let correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
+      it(`right number of choices displayed for lesson ${lessonNr}`, function () {
+        cy.get('[data-cy=choice]').should('have.length', choices.length)
+        cy.get('[data-cy=output-mult-choice]').should('not.exist')
+      })
+      it(`wrong answers produce correct feedback and disabled button ${lessonNr}`, function () {
+        choices.forEach(function (choice, index) {
+          if (index !== correctChoiceIndex) {
+            cy.get('[data-cy=choice]').eq(index).should('contain', choice.answer)
+            // cy.get('[data-cy=choice]').eq(index).should('contain', marked(choice.answer).html)
+            cy.get('[data-cy=choice]').eq(index).click()
+            cy.get('[data-cy=output-mult-choice]').should('contain', choice.feedback)
+            // cy.get('[data-cy=output-mult-choice]').should('contain', marked(choice.feedback).html)
+            cy.get('[data-cy=next-lesson-mult-choice]').should('be.disabled')
+          }
+        })
+      })
+      it(`right answer produces correct feedback and enabled button ${lessonNr}`, function () {
+        cy.get('[data-cy=choice]').eq(correctChoiceIndex).should('contain', choices[correctChoiceIndex].answer)
+        // cy.get('[data-cy=choice]').eq(correctChoiceIndex).should('contain', markedchoices([correctChoiceIndex].answer).html)
+        cy.get('[data-cy=choice]').eq(correctChoiceIndex).click()
+        cy.get('[data-cy=output-mult-choice]').should('contain', choices[correctChoiceIndex].feedback)
+        // cy.get('[data-cy=output-mult-choice]').should('contain', marked(choices[correctChoiceIndex].feedback).html)
+        cy.get('[data-cy=next-lesson-mult-choice]').should('not.be.disabled')
       })
     }
 
@@ -157,12 +184,12 @@ function advanceThroughLessons (tutorialId) {
         advance.buttonData = 'next-lesson-text'
         break
       case 'multiple-choice':
-        advance.msg = `CHEATS multiple choice lesson ${lessonNr} to advance to ${nextLessonNr}`
-        advance.method = 'cheat'
-        // TODO: Replace with data below when mult choice testing is enabled
-        // advance.msg = `should PASS multiple choice lesson and advance to lesson ${nextLessonNr}`
+        // TODO: Swap out comments once formatting issues for mult choice tests are resolved
+        // advance.msg = `PASSES multiple choice lesson and advances to lesson ${nextLessonNr}`
         // advance.method = 'click'
         // advance.buttonData = 'next-lesson-mult-choice'
+        advance.msg = `CHEATS multiple choice lesson ${lessonNr} to advance to ${nextLessonNr}`
+        advance.method = 'cheat'
         break
       case 'file-upload':
         advance.msg = `CHEATS file upload lesson ${lessonNr} to advance to ${nextLessonNr}`
