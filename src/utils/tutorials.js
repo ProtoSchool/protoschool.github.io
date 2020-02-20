@@ -43,7 +43,7 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
 
   if (lesson.type !== 'text') {
     try {
-      lesson.logic = require(`../tutorials/${lessonFilePrefix}.js`)
+      lesson.logic = require(`../tutorials/${lessonFilePrefix}.js`).default
     } catch (error) {
       if (error.code === 'MODULE_NOT_FOUND') {
         console.error(
