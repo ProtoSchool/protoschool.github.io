@@ -123,29 +123,37 @@ function advanceThroughLessons (tutorialId) {
     if (lessonType === 'multiple-choice') {
       let choices = standardLessons[i - 1].logic.choices
       let correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
-      it(`right number of choices displayed for lesson ${lessonNr}`, function () {
+      it(`displays right number of choices lesson ${lessonNr}`, function () {
         cy.get('[data-cy=choice]').should('have.length', choices.length)
         cy.get('[data-cy=output-mult-choice]').should('not.exist')
       })
-      it(`wrong answers produce correct feedback and disabled button ${lessonNr}`, function () {
-        choices.forEach(function (choice, index) {
-          if (index !== correctChoiceIndex) {
+      choices.forEach(function (choice, index) {
+        if (index !== correctChoiceIndex) {
+          it(`lesson ${lessonNr} wrong choice ${index} produces disabled button`, function () {
+            cy.get('[data-cy=choice]').eq(index).click()
+            cy.get('[data-cy=next-lesson-mult-choice]').should('be.disabled')
+          })
+          it(`lesson ${lessonNr} WRONG choice ${index} ANSWER displays correctly`, function () {
             cy.get('[data-cy=choice]').eq(index).should('contain', choice.answer)
             // cy.get('[data-cy=choice]').eq(index).should('contain', marked(choice.answer).html)
-            cy.get('[data-cy=choice]').eq(index).click()
+          })
+          it(`lesson ${lessonNr} WRONG choice ${index} FEEDBACK displays correctly`, function () {
             cy.get('[data-cy=output-mult-choice]').should('contain', choice.feedback)
             // cy.get('[data-cy=output-mult-choice]').should('contain', marked(choice.feedback).html)
-            cy.get('[data-cy=next-lesson-mult-choice]').should('be.disabled')
-          }
-        })
+          })
+        }
       })
-      it(`right answer produces correct feedback and enabled button ${lessonNr}`, function () {
+      it(`lesson ${lessonNr} right answer produces enabled button ${lessonNr}`, function () {
+        cy.get('[data-cy=choice]').eq(correctChoiceIndex).click()
+        cy.get('[data-cy=next-lesson-mult-choice]').should('not.be.disabled')
+      })
+      it(`lesson ${lessonNr} RIGHT choice ${correctChoiceIndex} ANSWER displays correctly`, function () {
         cy.get('[data-cy=choice]').eq(correctChoiceIndex).should('contain', choices[correctChoiceIndex].answer)
         // cy.get('[data-cy=choice]').eq(correctChoiceIndex).should('contain', markedchoices([correctChoiceIndex].answer).html)
-        cy.get('[data-cy=choice]').eq(correctChoiceIndex).click()
+      })
+      it(`lesson ${lessonNr} RIGHT choice ${correctChoiceIndex} FEEDBACK displays correctly`, function () {
         cy.get('[data-cy=output-mult-choice]').should('contain', choices[correctChoiceIndex].feedback)
         // cy.get('[data-cy=output-mult-choice]').should('contain', marked(choices[correctChoiceIndex].feedback).html)
-        cy.get('[data-cy=next-lesson-mult-choice]').should('not.be.disabled')
       })
     }
 
