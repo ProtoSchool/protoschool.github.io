@@ -115,10 +115,10 @@ function advanceThroughLessons (tutorialId) {
       nextLessonNr = (parseInt(lessonNr) + 1).toString().padStart(2, 0)
     }
 
-  // MULTIPLE CHOICE LESSONS:
+    // MULTIPLE CHOICE LESSONS:
     if (lessonType === 'multiple-choice') {
       it(`should show the right number of choices for lesson ${lessonNr}`, function () {
-        cy.get('[data-cy=choice]').should('have.length', standardLessons[i].logic.choices)
+        cy.get('[data-cy=choice]').should('have.length', standardLessons[i - 1].logic.choices.length)
       })
     }
 
