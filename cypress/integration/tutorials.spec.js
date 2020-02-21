@@ -11,7 +11,7 @@ const testLessons = {
     tutorialId: '0004',
     lessonNr: '05'
   },
-  // TODO: Uncomment when we have testing for multiple choice built and Anatomy of a CID is published
+  // TODO: Uncomment when Anatomy of a CID is published
   // multipleChoice: {
   //   tutorialId: '0006',
   //   lessonNr: '03'
@@ -34,7 +34,6 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   })
   it(`toggle hides coding tutorials`, function () {
     const codelessTutorials = courses.all.filter(tutorialId => (getTutorialType(tutorialId) !== 'code') && (getTutorialType(tutorialId) !== 'file-upload'))
-    cy.log('codelessTutorials', codelessTutorials)
     cy.get('[data-cy=toggle-coding-tutorials]').click()
     cy.get('[data-cy=tutorial-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < codelessTutorials.length; i++) {
