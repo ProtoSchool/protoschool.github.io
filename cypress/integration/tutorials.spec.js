@@ -1,5 +1,3 @@
-/* global describe, it, cy */
-
 import tutorials, { getLessonType, getTutorialType } from '../../src/utils/tutorials'
 import courses from '../../src/static/courses.json'
 // THIS IMPORT DOESN'T SEEM TO WORK:
