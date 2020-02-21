@@ -4,7 +4,7 @@ const choices = [
   {
     answer: '`sha1`',
     correct: false,
-    feedback: 'Try again'
+    feedback: 'Try again.'
   },
   {
     answer: '`sha2-256`',

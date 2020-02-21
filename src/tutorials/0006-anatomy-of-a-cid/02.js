@@ -7,12 +7,12 @@ const choices = [
     feedback: "It's true that the length of a `sha2-256` hash is `256`, but this isn't enough information to tell us what hashing algorithm was used. Check the information above and try again."
   },
   {
-    answer: 'By prefixing the hash with a unique identifier that flags which algorithm was used to generate the hash.',
+    answer: 'They prefix the hash with a unique identifier that flags which algorithm was used to generate the hash.',
     correct: false,
     feedback: 'You\'re almost there! There\'s something else that the hash gets prefixed with.'
   },
   {
-    answer: `By prefixing the hash with a unique identifier that flags both the algorithm used to generate the hash and the length of the hash value.`,
+    answer: `They prefix the hash with a unique identifier that flags both the algorithm used to generate the hash and the length of the hash value.`,
     correct: true,
     feedback: 'That\'s right!'
   }

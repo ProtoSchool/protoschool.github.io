@@ -9,12 +9,12 @@ const choices = [
   {
     answer: 'All encodings make it safe to try and check the first bytes of the data to figure out which encoding was used.',
     correct: false,
-    feedback: 'Hmm, not always. Please check the information above'
+    feedback: 'Hmm, not always. Please check the information above.'
   },
   {
-    answer: 'The codec used on CIDv1 is always "base58btc".',
+    answer: 'The codec used on CIDv1 is always `base58btc`.',
     correct: false,
-    feedback: 'Hmm, not always. Please review this lesson again.'
+    feedback: 'Nope! CIDv0 always used `base58btc` to convert binary data to a string, but in CIDv1 we have a more flexible way to determine the encoding method used.'
   }
 ]
 
