@@ -46,6 +46,14 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
   return getTutorialLessons(tutorial, lessons, lessonNumber + 1)
 }
 
+// SAMPLE LESSON OBJECT
+// {
+//   id: 1,
+//   formattedId: "01",
+//   title: "Data structures",
+//   type: "text"
+// }
+
 // returns lesson object
 export function getLesson (tutorialId, lessonId) {
   let lesson
@@ -77,7 +85,9 @@ export function isTutorialPassed (tutorial) {
 
 // returns string representing tutorial type
 export function getTutorialType (tutorialId) {
-  if (tutorials[tutorialId].lessons.some(lesson => lesson.type === ('code' || 'file-upload'))) {
+  if (tutorials[tutorialId].lessons.some(lesson => lesson.type === 'file-upload')) {
+    return 'file-upload'
+  } else if (tutorials[tutorialId].lessons.some(lesson => lesson.type === 'code')) {
     return 'code'
   } else if (tutorials[tutorialId].lessons.some(lesson => lesson.type === 'multiple-choice')) {
     return 'multiple-choice'
@@ -91,13 +101,7 @@ export function getLessonType (tutorialId, lessonId) {
   if (lessonId === 'resources') {
     return 'resources'
   }
-  const type = getLesson(tutorialId, lessonId).type
-
-  if (type === 'file-upload') {
-    return 'code'
-  } else {
-    return type
-  }
+  return getLesson(tutorialId, lessonId).type
 }
 
 export function getTutorialByUrl (tutorialUrl) {

@@ -53,7 +53,8 @@
             :onCodeChange="onCodeChange"
             :resetCode="resetCode"
             :expandExercise="expandExercise"
-            :cyReplaceWithSolution="cyReplaceWithSolution" />
+            :cyReplaceWithSolution="cyReplaceWithSolution"
+            :cyClearDefaultCode="cyClearDefaultCode" />
           <Quiz
             v-if="isMultipleChoiceLesson"
             :question="this.question"
@@ -565,6 +566,9 @@ export default {
     },
     cyReplaceWithSolution: function () {
       this.editor.setValue(this.solution)
+    },
+    cyClearDefaultCode: function () {
+      this.editor.setValue('  ')
     },
     parseData: (data) => marked(data).html
   }

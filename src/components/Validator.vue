@@ -12,7 +12,7 @@
           </span>
           <Button v-if="(isFileLesson && !output) || (isFileLesson && !uploadedFiles)" :disabled="!uploadedFiles" :click="run" class="mr2 bg-navy white" style="minWidth: 90px">Submit</Button>
         </span>
-        <Button :click="next" class="bg-navy white" data-cy="next-lesson">Next</Button>
+        <Button :click="next" class="bg-navy white" data-cy="next-lesson-code">Next</Button>
       </div>
       <div v-else>
         <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabled-btn-wrapper">
@@ -36,7 +36,7 @@
         <span v-if="!lessonPassed" class="mr2 red lh-copy o-0">
           Oops, you haven't selected the right answer yet!
         </span>
-        <Button :click="next" class="bg-navy white" :disabled="!lessonPassed" data-cy="next-lesson">Next</Button>
+        <Button :click="next" class="bg-navy white" :disabled="!lessonPassed" data-cy="next-lesson-mult-choice">Next</Button>
       </span>
     </div>
     <!-- Text only lesson -->
@@ -45,7 +45,7 @@
         <Button :click="tutorialMenu" data-cy="more-tutorials" class="bg-navy white">More Tutorials</Button>
       </div>
       <div v-else>
-        <Button :click="next" class="bg-navy white">Next</Button>
+        <Button :click="next" class="bg-navy white" data-cy="next-lesson-text">Next</Button>
       </div>
     </div>
   </div>
