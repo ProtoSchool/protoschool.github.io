@@ -57,6 +57,14 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
   return getTutorialLessons(tutorial, lessons, lessonNumber + 1)
 }
 
+// SAMPLE LESSON OBJECT
+// {
+//   id: 1,
+//   formattedId: "01",
+//   title: "Data structures",
+//   type: "text"
+// }
+
 // returns lesson object
 export function getLesson (tutorialId, lessonId) {
   let lesson
