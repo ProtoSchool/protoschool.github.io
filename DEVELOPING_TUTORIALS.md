@@ -92,7 +92,7 @@ If proofing a PR for someone else, check out their branch (you'll see its name l
 > npm run serve
 ```
 
-6. Open a web browser to the following address to preview your work: http://localhost:3000/#/
+6. Open a web browser to the following address to preview your work: http://localhost:3000/
 
 Vue will update your localhost preview automatically as you make changes. However, you won't be able to see any newly added lessons until you've updated the appropriate routes and import statements, as described below.
 
@@ -170,13 +170,13 @@ If you want to add images to your Markdown file, place them in the `public/tutor
 Then in your lesson Markdown file, you can either add it with regular Markdown:
 
 ```
-![Description of the image](tutorial-assets/T0001L01-diagram.svg)
+![Description of the image](/tutorial-assets/T0001L01-diagram.svg)
 ```
 
 ...or with regular HTML, if you need to set the image size:
 
 ```html
-<img src="tutorial-assets/T0001L01-diagram.svg" width="300px" height="150px" />
+<img src="/tutorial-assets/T0001L01-diagram.svg" width="300px" height="150px" />
 ```
 
 ##### JavaScript file (skip for text-only lessons)
@@ -503,7 +503,7 @@ The `title` of your tutorial will be seen in course listings on our tutorials pa
 
 ![screenshot](public/title-in-featured-tutorials.png)
 
-The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
+The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
 
 ![screenshot](public/url-breadcrumb-header.png)
 

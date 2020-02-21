@@ -10,7 +10,7 @@
       <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
       <MonacoEditor
         class="editor mt2"
-        srcPath="."
+        srcPath=""
         :height="editorHeight"
         :options="options"
         :code="code"
@@ -29,7 +29,7 @@
       <MonacoEditor
         v-show="viewSolution"
         class="editor"
-        srcPath="."
+        srcPath=""
         :height="editorHeight"
         :options="Object.assign({}, { readOnly: true }, options)"
         :code="solution"

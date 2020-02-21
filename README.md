@@ -38,7 +38,7 @@ Clone the repo, install dependencies, check out the appropriate branch, and run 
 > npm run serve
 ```
 
-View the site on localhost at: http://localhost:3000/#/
+View the site on localhost at: http://localhost:3000/
 
 ## License
 

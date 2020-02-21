@@ -1,7 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  publicPath: './',
+  publicPath: '/',
   devServer: {
     port: 3000,
     disableHostCheck: true

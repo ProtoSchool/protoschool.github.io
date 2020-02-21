@@ -6,7 +6,7 @@
       <div v-if="tutorial" class="link-list flex overflow-auto items-center bg-aqua navy f5 fw6 center tc mw7">
         <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
         <span class="fw4">></span>
-        <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialLanding">{{tutorial.shortTitle}}</router-link>
+        <router-link data-cy="tutorial-landing-link" class="nav-link navy" :to="tutorialUrl">{{tutorial.shortTitle}}</router-link>
       </div>
       <!-- standard nav  -->
       <div v-else class="link-list dn flex overflow-auto items-center bg-aqua white tc mw7">
@@ -26,7 +26,7 @@
         <div v-if="tutorial" class="flex-auto link fw5 f5 db bb border-aqua navy">
           <router-link class="nav-link navy" to="/tutorials">Tutorials</router-link>
           <span class="fw4"> > </span>
-          <router-link class="nav-link navy" :to="tutorialLanding">{{tutorial.shortTitle}}</router-link>
+          <router-link class="nav-link navy" :to="tutorialUrl">{{tutorial.shortTitle}}</router-link>
         </div>
         <!-- standard nav  -->
         <div v-else class="flex-auto link fw6 f5 db bb border-aqua">{{currentPage}}</div>
@@ -56,7 +56,6 @@ export default {
     return {
       isHamburgerClosed: true,
       currentPath: self.$route.path.toString(),
-      tutorialLanding: '/' + self.$route.path.split('/')[1],
       links: [
         { text: 'Home', path: '/' },
         { text: 'Tutorials', path: '/tutorials' },
@@ -74,6 +73,9 @@ export default {
       }
 
       return getTutorialByUrl(this.$route.params.tutorialUrl)
+    },
+    tutorialUrl: function () {
+      return `/${this.tutorial.url}`
     },
     currentPage: function () {
       let pageName

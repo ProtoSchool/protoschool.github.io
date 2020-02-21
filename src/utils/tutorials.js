@@ -67,7 +67,7 @@ export function getLesson (tutorialId, lessonId) {
 
 // returns URL for tutorial's landing page
 export function getTutorialFullUrl (tutorialId) {
-  return `${window.location.origin}/#/${tutorials[tutorialId].url}`
+  return `${window.location.origin}/${tutorials[tutorialId].url}`
 }
 
 // returns boolean - true if user has passed all lessons in the tutorial

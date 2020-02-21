@@ -29,14 +29,14 @@ function viewSolutionsAndSubmitAll (tutorialId) {
   const lessonCount = tutorials[tutorialId].lessons.length // count excludes resources page
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
   it(`should find the ${tutorialName} tutorial`, function () {
-    cy.visit(`/#/${tutorialName}/`)
-    cy.get(`[href="#/${tutorialName}/01"]`).click()
+    cy.visit(`/${tutorialName}/`)
+    cy.get(`[href="/${tutorialName}/01"]`).click()
   })
   // loop through standard lessons and attempt to pass challenges
   for (let i = 1; i <= lessonCount; i++) {
     let lessonNr = i.toString().padStart(2, 0)
     it(`should view the solution and pass test ${lessonNr}`, function () {
-      cy.url().should('include', `#/${tutorialName}/${lessonNr}`)
+      cy.url().should('include', `/${tutorialName}/${lessonNr}`)
       cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
       cy.get('[data-cy=view-solution]').click()
       cy.get('[data-cy=solution-editor-ready]').should('be.visible') // wait for editor to be updated
@@ -49,7 +49,7 @@ function viewSolutionsAndSubmitAll (tutorialId) {
     cy.contains('h1', 'Resources') // loads resources page
     cy.get('[data-cy=resources-content]') // loads meaningful content
     cy.get('[data-cy=more-tutorials]').click()
-    cy.url().should('include', `#/tutorials/`)
+    cy.url().should('include', `/tutorials/`)
   })
 }
 
@@ -59,7 +59,7 @@ function renderAllLessonsInTutorial (tutorialId) {
   const standardLessonCount = standardLessons.length
 
   it(`should find ${tutorialName} landing page with correct lesson count`, function () {
-    cy.visit(`/#/${tutorialName}/`)
+    cy.visit(`/${tutorialName}/`)
     cy.get(`[data-cy=lesson-link]`).should('have.length', standardLessonCount)
   })
 
