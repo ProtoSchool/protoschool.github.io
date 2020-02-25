@@ -11,11 +11,10 @@ const testLessons = {
     tutorialId: '0004',
     lessonNr: '05'
   },
-  // TODO: Uncomment when Anatomy of a CID is published
-  // multipleChoice: {
-  //   tutorialId: '0006',
-  //   lessonNr: '03'
-  // },
+  multipleChoice: {
+    tutorialId: '0006',
+    lessonNr: '03'
+  },
   text: {
     tutorialId: '0001',
     lessonNr: '01'
@@ -61,6 +60,11 @@ describe(`DISPLAYS SOLUTION SUCCESSFULLY`, function () {
   testViewSolution(testLessons.fileUpload.tutorialId, testLessons.fileUpload.lessonNr)
 })
 
+// ensures multiple choice options display correct content and passing status
+describe(`NAVIGATES MULTIPLE CHOICE OPTIONS SUCCESSFULLY`, function () {
+  testMultipleChoiceOptions(testLessons.multipleChoice.tutorialId, testLessons.multipleChoice.lessonNr)
+})
+
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`ADVANCES THROUGH ALL LESSONS IN ALL TUTORIALS`, function () {
   Object.keys(tutorials).forEach(tutorialId => {
@@ -100,6 +104,51 @@ function testViewSolution (tutorialId, lessonNr) {
     cy.get('[data-cy=view-solution]').should('be.visible')
     cy.get('[data-cy=solution]').should('not.be.visible')
   })
+}
+
+function testMultipleChoiceOptions (tutorialId, lessonNr) {
+  const tutorialName = tutorials[tutorialId].url
+  const lesson = tutorials[tutorialId].lessons[parseInt(lessonNr) - 1]
+  const choices = lesson.logic.choices
+  const correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
+  it(`displays right number of choices lesson ${lessonNr} and displays as not yet started`, function () {
+    cy.visit(`/#/${tutorialName}/${lessonNr}`)
+    cy.get('[data-cy=choice]').should('have.length', choices.length)
+    cy.get('[data-cy=output-success]').should('not.exist')
+    cy.get('[data-cy=output-fail]').should('not.exist')
+    cy.get(`[data-cy=progress-not-yet-started]`).should('exist')
+  })
+  function testChoice (choice, index) {
+    let choiceType = index === correctChoiceIndex ? 'RIGHT' : 'WRONG'
+    let correctOutput = index === correctChoiceIndex ? 'output-success' : 'output-fail'
+    let incorrectOutput = index === correctChoiceIndex ? 'output-fail' : 'output-success'
+    let correctButton = index === correctChoiceIndex ? 'not.be.disabled' : 'be.disabled'
+    let correctProgress = index === correctChoiceIndex ? 'passed' : 'in-progress'
+    describe(`${choiceType} choice ${index}`, function () {
+      it(`shows correct completion status and button state`, function () {
+        cy.get('[data-cy=choice]').eq(index).click()
+        cy.get(`[data-cy=progress-${correctProgress}]`).should('be.visible')
+        cy.get('[data-cy=next-lesson-mult-choice]').should(correctButton)
+      })
+      it(`displays answer correctly`, function () {
+        cy.get('[data-cy=choice]').eq(index).should('contain', parseTextForMarkdown(choice.answer))
+      })
+      it(`displays feedback correctly`, function () {
+        cy.get(`[data-cy=${incorrectOutput}]`).should('not.exist')
+        cy.get(`[data-cy=${correctOutput}]`).should('contain', parseTextForMarkdown(choice.feedback))
+      })
+    })
+  }
+  //  test correct answer first to ensure passed status will be cleared afterward
+  testChoice(choices[correctChoiceIndex], correctChoiceIndex)
+  //  test all incorrect answers
+  choices.forEach(function (choice, index) {
+    if (index !== correctChoiceIndex) {
+      testChoice(choice, index)
+    }
+  })
+  //  test correct answer again to ensure progress status flips back
+  testChoice(choices[correctChoiceIndex], correctChoiceIndex)
 }
 
 function parseTextForMarkdown (text) {
@@ -163,40 +212,19 @@ function advanceThroughLessons (tutorialId) {
       }
 
       // MULTIPLE CHOICE LESSONS
+
+      function passMultipleChoice (correctChoiceIndex) {
+        cy.get('[data-cy=choice]').eq(correctChoiceIndex).click()
+        cy.get('[data-cy=next-lesson-mult-choice]').should('be.visible')
+      }
+
       if (lessonType === 'multiple-choice') {
         let choices = lesson.logic.choices
         let correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
-        it(`displays right number of choices lesson ${lessonNr}`, function () {
-          cy.get('[data-cy=choice]').should('have.length', choices.length)
-          cy.get('[data-cy=output-success]').should('not.exist')
-          cy.get('[data-cy=output-fail]').should('not.exist')
-        })
-        choices.forEach(function (choice, index) {
-          if (index !== correctChoiceIndex) {
-            it(`WRONG choice ${index} produces disabled button`, function () {
-              cy.get('[data-cy=choice]').eq(index).click()
-              cy.get('[data-cy=next-lesson-mult-choice]').should('be.disabled')
-            })
-            it(`WRONG choice ${index} ANSWER displays correctly`, function () {
-              cy.get('[data-cy=choice]').eq(index).should('contain', parseTextForMarkdown(choice.answer))
-            })
-            it(`WRONG choice ${index} FEEDBACK displays correctly`, function () {
-              cy.get('[data-cy=output-fail]').should('contain', parseTextForMarkdown(choice.feedback))
-            })
-          }
-        })
-
-        it(`RIGHT choice ${correctChoiceIndex} ANSWER displays correctly`, function () {
-          cy.get('[data-cy=choice]').eq(correctChoiceIndex).click()
-          cy.get('[data-cy=choice]').eq(correctChoiceIndex).should('contain', parseTextForMarkdown(choices[correctChoiceIndex].answer))
-        })
-        it(`RIGHT choice ${correctChoiceIndex} FEEDBACK displays correctly`, function () {
-          cy.get('[data-cy=output-success]').should('contain', parseTextForMarkdown(choices[correctChoiceIndex].feedback))
-        })
         it(`passes multiple choice lesson and enables next button`, function () {
-          cy.get('[data-cy=next-lesson-mult-choice]').should('not.be.disabled')
+          passMultipleChoice(correctChoiceIndex)
         })
-      }
+      } // end mult choice
 
       // CODE CHALLENGES ONLY (code and file upload)
 

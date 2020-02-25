@@ -6,9 +6,9 @@
       <img v-else src="../static/images/not-started.svg" alt="not yet started" />
     </span>
     <span class="green ttu f6 pl2 pr1 fw7 v-mid">
-      <span v-if="lessonPassed">You did it!</span>
-      <span v-else-if="cachedCode || cachedChoice">{{ isMultipleChoiceLesson ? 'Try again.' : 'Keep working.' }}</span>
-      <span v-else>{{ isMultipleChoiceLesson ? 'Take the quiz!' : 'Try it!' }}</span>
+      <span v-if="lessonPassed" data-cy="progress-passed">You did it!</span>
+      <span v-else-if="cachedCode || cachedChoice" data-cy="progress-in-progress">{{ isMultipleChoiceLesson ? 'Try again.' : 'Keep working.' }}</span>
+      <span v-else data-cy="progress-not-yet-started">{{ isMultipleChoiceLesson ? 'Take the quiz!' : 'Try it!' }}</span>
     </span>
     <span class="green f6 fw5 v-mid">
       <span v-if="cachedCode && !lessonPassed">{{cachedStateMsg}}</span>
