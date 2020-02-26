@@ -454,6 +454,7 @@ export default {
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       delete localStorage[`passed/${this.tutorial.url}`]
+      this.lessonPassed = !!localStorage[this.lessonKey]
     },
     loadCodeFromCache: function () {
       this.editorCode = localStorage[this.cacheKey]
