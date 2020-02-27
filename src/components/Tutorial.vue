@@ -1,10 +1,10 @@
 <template>
   <section class="mw7 w-100 center ph3 flex items-start pv4">
     <div class="dn db-ns flex-none mr4">
-      <h1 class="ma0 mb2 f3 fw4">{{tutorial.project}}</h1>
+      <h1 class="ma0 mb2 f3 fw4">{{tutorial.project.name}}</h1>
       <img
-        :src="tutorial.project === 'libp2p' ? libp2pLogo : ipfsLogo"
-        :alt="tutorial.project"
+        :src="tutorial.project.logo"
+        :alt="tutorial.project.name"
         style="height: 54px" />
     </div>
     <div class="w-100">
@@ -47,8 +47,6 @@
 import LessonLink from '../components/LessonLink.vue'
 import TypeIcon from '../components/TypeIcon.vue'
 import { isTutorialPassed } from '../utils/tutorials'
-import ipfsLogo from '../static/images/ipfs.svg'
-import libp2pLogo from '../static/images/libp2p.svg'
 
 const resourcesLesson = {
   'title': 'More to explore',
@@ -68,8 +66,6 @@ export default {
   },
   data: () => {
     return {
-      ipfsLogo: ipfsLogo,
-      libp2pLogo: libp2pLogo,
       resourcesLesson: resourcesLesson
     }
   },

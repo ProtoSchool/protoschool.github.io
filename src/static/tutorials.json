@@ -2,7 +2,7 @@
 	"0001": {
 		"url": "data-structures",
 		"redirectUrls": [],
-		"project": "IPFS",
+		"project": "ipfs",
 		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
 		"resources": [
@@ -71,7 +71,7 @@
 	"0002": {
 		"url": "basics",
 		"redirectUrls": [],
-		"project": "IPFS",
+		"project": "ipfs",
 		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
 		"resources": [
@@ -109,7 +109,7 @@
 	"0003": {
 		"url": "blog",
 		"redirectUrls": [],
-		"project": "IPFS",
+		"project": "ipfs",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
 		"resources": [
@@ -141,7 +141,7 @@
 	"0004": {
 		"url": "mutable-file-system",
 		"redirectUrls": [],
-		"project": "IPFS",
+		"project": "ipfs",
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
 		"resources": [
@@ -192,7 +192,7 @@
 	"0005": {
 		"url": "regular-files-api",
 		"redirectUrls": [],
-		"project": "IPFS",
+		"project": "ipfs",
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
 		"resources": [
@@ -230,7 +230,7 @@
 	},
 	"0006": {
 		"url": "anatomy-of-a-cid",
-		"project": "IPFS",
+		"project": "multiformats",
 		"title": "Anatomy of a CID",
 		"description": "A content identifier, or CID, is a label used to point to data stored on IPFS. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
 		"resources": [

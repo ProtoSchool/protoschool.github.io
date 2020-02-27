@@ -2,6 +2,7 @@ import marked from 'meta-marked'
 
 import tutorials from '../static/tutorials.json'
 import { deriveShortname } from './paths'
+import projects from './projects'
 
 // Preprocess the tutorials.json file with all the needed info
 for (const tutorialId in tutorials) {
@@ -9,6 +10,7 @@ for (const tutorialId in tutorials) {
   tutorials[tutorialId].id = parseInt(tutorialId, 10)
   tutorials[tutorialId].shortTitle = deriveShortname(tutorials[tutorialId].url)
   tutorials[tutorialId].lessons = getTutorialLessons(tutorials[tutorialId])
+  tutorials[tutorialId].project = projects.get(tutorials[tutorialId].project)
 }
 
 // TODO Move this to a build script in the future to avoid heavy processing on the client.

@@ -476,7 +476,7 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
 "0005": {
   "url": "tutorial-short-title",
   "redirectUrls": [],
-  "project": "IPFS",
+  "project": "ipfs",
   "title": "Your short tutorial title",
   "description": "Your tutorial description",
   "resources": [
