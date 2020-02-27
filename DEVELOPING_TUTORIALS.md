@@ -56,40 +56,40 @@ Ready to get started? Read on!
 1. [Clone this repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) to your computer:
 
 ```sh
-> git clone https://github.com/ProtoSchool/protoschool.github.io.git
+$ git clone https://github.com/ProtoSchool/protoschool.github.io.git
 ```
 
 2. Change into the new directory created:
 
 ```sh
-> cd protoschool.github.io
+$ cd protoschool.github.io
 ```
 
-3. Install dependencies using NPM:
-
-```sh
-> npm install
-
-```
-
-4. Check out the appropriate branch:
+3. Check out the appropriate branch:
 
 If creating a new tutorial, create a new branch before making any changes, starting with our current website code (the `code` branch):
 
 ```sh
-> git checkout code
-> git checkout -b new-branch-name
+$ git checkout code
+$ git checkout -b new-branch-name
 ```
 If proofing a PR for someone else, check out their branch (you'll see its name listed in the PR):
 
 ```sh
-> git checkout existing-branch-name
+$ git checkout existing-branch-name
+```
+
+4. Install dependencies using NPM:
+
+```sh
+$ npm install
+
 ```
 
 5. Run the dev server locally:
 
 ```sh
-> npm run serve
+$ npm run serve
 ```
 
 6. Open a web browser to the following address to preview your work: http://localhost:3000/#/
@@ -103,8 +103,8 @@ Each tutorial in ProtoSchool has a 4-digit ID and a corresponding directory. To 
 
 
 ```sh
-> cd src/tutorials
-> ls
+$ cd src/tutorials
+$ ls
 0001-data-structures
 0002-basics
 0003-blog
@@ -116,7 +116,7 @@ The number used as your tutorial's ID and directory name should be one higher th
 Create a directory with the appropriate ID, for example:
 
 ```sh
-> mkdir 0005-tutorial-short-title
+$ mkdir 0005-tutorial-short-title
 ```
 
 ### Build your lessons (repeat for each lesson in the tutorial)
@@ -160,7 +160,7 @@ Create a `.md` file using the boilerplate and add the Markdown-formatted text of
 For example (for Lesson 01 of Tutorial 0005):
 
 ```sh
-> cp boilerplates/boilerplate.md 0005-tutorial-short-title/01.md
+$ cp boilerplates/boilerplate.md 0005-tutorial-short-title/01.md
 ```
 
 If you want to add images to your Markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention:
@@ -192,7 +192,7 @@ Copy that boilerplate into the tutorial directory you created earlier (e.g. `000
 For example, to create a JavaScript file for a standard coding exercise as Lesson 01 of Tutorial 0005 (while still in `src/tutorials`):
 
 ```sh
-> cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
+$ cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
 ```
 
 Use this file to set up your default code and validation, as described later in these instructions.
