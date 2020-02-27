@@ -13,22 +13,16 @@ const choices = [
   {
     answer: 'Some incorrect answer',
     correct: false,
-    feedback: 'Oops. Here\'s some clue about why that answer is wrong.'
+    feedback: "Oops. Here's some clue about why that answer is wrong."
   },
   {
     answer: 'Some incorrect answer',
     correct: false,
-    feedback: 'Sorry, here\'s some clue about why that answer is wrong.'
+    feedback: "Sorry, here's some clue about why that answer is wrong."
   }
 ]
 
-// for more on the available options:
-// https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
-const options = {
-}
-
 export default {
   question,
-  choices,
-  options
+  choices
 }

@@ -4,7 +4,7 @@
       <Card class="tutorial flex mb4" :key="tutorial.tutorialId" >
         <router-link :to="tutorial.url" class="flex flex-column pa4 no-underline">
           <div class="flex flex-row justify-between items-start navy">
-            <h3 class="ma0 f3 fw7">{{tutorial.title}}</h3>
+            <h3 class="ma0 f3 fw7" data-cy="tutorial-card-title">{{tutorial.title}}</h3>
             <TypeIcon
               :tutorialId="tutorial.tutorialId"
               class="h2 ml3 type-icon"

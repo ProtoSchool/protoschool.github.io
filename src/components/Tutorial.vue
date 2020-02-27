@@ -12,7 +12,7 @@
         <div class="flex flex-row items-center">
           <h2 class="ma0 f3 fw5">
             <template v-if="isLanding !== true">
-              <router-link :to="landingLink">{{tutorial.title}}</router-link>
+              <router-link :to="landingLink" data-cy="tutorial-title">{{tutorial.title}}</router-link>
             </template>
             <template v-else>
               {{tutorial.title}}
@@ -29,7 +29,7 @@
         <template v-for="(lesson, index) in tutorial.lessons">
           <li :key="index">
             <LessonLink
-              data-cy="lesson-link"
+              data-cy="lesson-link-standard"
               :to="`/${tutorial.url}/${(index + 1).toString().padStart(2, 0)}`"
               :lesson="lesson"
               :lessonNumber="index + 1"
