@@ -66,14 +66,10 @@ describe(`DISPLAYS SOLUTION SUCCESSFULLY`, function () {
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`ADVANCES THROUGH ALL LESSONS IN ALL TUTORIALS`, function () {
-  // Object.keys(tutorials).forEach(tutorialId => {
-  //   describe(`tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
-  //     advanceThroughLessons(tutorialId)
-  //   })
-  //
-  // })
-  describe(`tutorial 0004`, function () {
-    advanceThroughLessons('0004')
+  Object.keys(tutorials).forEach(tutorialId => {
+    describe(`tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
+      advanceThroughLessons(tutorialId)
+    })
   })
 })
 
@@ -84,12 +80,15 @@ function testResetCode (tutorialId, lessonNr) {
     cy.visit(`/#/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
     cy.get('[data-cy=reset-code]').should('not.exist')
-    // progress-not-yet-started should be visible
+    cy.get(`[data-cy=progress-not-yet-started]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-not-yet-started]`).should('be.visible')
     cy.get('[data-cy=clear-default-code]').click({ force: true })
-    // progress-in-progress should be visible
+    cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
     cy.get('[data-cy=reset-code]').click()
     cy.get('[data-cy=reset-code]').should('not.exist')
-    // progress-not-yet-started should be visible
+    cy.get(`[data-cy=progress-not-yet-started]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-not-yet-started]`).should('be.visible')
   })
 }
 
@@ -122,8 +121,6 @@ function advanceThroughLessons (tutorialId) {
     type: 'resources',
     formattedId: 'resources'
   }
-  // let previousFileUpload = false
-  // let filesUploaded = 0
   let firstFileUploadIndex = lessons.findIndex(lesson => lesson.type === 'file-upload')
   lessons.push(resourcesLesson) // index of resourcesLesson = lessonCount
 
@@ -185,25 +182,27 @@ function advanceThroughLessons (tutorialId) {
         cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
         cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
         cy.get('[data-cy=replace-with-solution]').click({ force: true })
-        // progress-in-progress should be visible
+        cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+        cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
       }
 
       function passCodeChallenge (prePassed) {
-        // progress-in-progress should be visible
         if (!prePassed) {
+          cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+          cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
           cy.get('[data-cy=submit-answer]').click()
         } else {
+          cy.get(`[data-cy=progress-passed]`).should('be.visible')
+          cy.get(`[data-cy=progress-icon-passed]`).should('be.visible')
           cy.get('[data-cy=submit-needs-new-files]').click()
         }
         cy.get('[data-cy=output-success]').should('be.visible')
-        // progress-passed should be visible
+        cy.get(`[data-cy=progress-passed]`).should('be.visible')
+        cy.get(`[data-cy=progress-icon-passed]`).should('be.visible')
         cy.get(`[data-cy=next-lesson-code]`).should('be.visible').and('not.be.disabled')
       }
 
       if (lessonType === 'code') {
-        it(`checks whether it's the first file upload lesson`, function () {
-          cy.log(`firstFileUpload`, firstFileUpload)
-        })
         it(`passes code challenge and enables next button`, function () {
           pasteSolutionCode()
           passCodeChallenge()
@@ -213,20 +212,14 @@ function advanceThroughLessons (tutorialId) {
 
       function uploadSingleFile () {
         it(`uploads a single file`, function () {
-          // cy.log(`filesUploaded`, filesUploaded)
-          // cy.log(`previousFileUpload`, previousFileUpload)
           const fileName = 'favicon.png'
           cy.fixture(fileName).then(fileContent => {
             cy.get('[data-cy=file-upload]').upload({ fileContent, fileName, mimeType: 'image/png' })
           })
-          // filesUploaded = 1
-          // previousFileUpload = true
         })
       }
       function uploadMultipleFiles () {
         it(`uploads 2 files`, function () {
-          // cy.log(`filesUploaded`, filesUploaded)
-          // cy.log(`previousFileUpload`, previousFileUpload)
           cy.fixture('example.json', 'base64').then(exampleJson => {
             cy.fixture('favicon.png', 'base64').then(faviconPng => {
               const files = [
@@ -236,8 +229,6 @@ function advanceThroughLessons (tutorialId) {
               cy.get('[data-cy=file-upload]').upload(files, { uploadType: 'input' })
             })
           })
-          // filesUploaded = 2
-          // previousFileUpload = true
         })
       }
       function confirmNoFilesUploaded (codePassed) {
@@ -261,8 +252,6 @@ function advanceThroughLessons (tutorialId) {
       }
       function confirmFilesUploaded (qty, codePassed) {
         it(`confirms ${qty} files are uploaded`, function () {
-          // cy.log(`filesUploaded`, filesUploaded)
-          // cy.log(`previousFileUpload`, previousFileUpload)
           cy.get(`[data-cy=submit-disabled]`).should('not.exist')
           if (codePassed) {
             cy.get(`[data-cy=submit-needs-new-files]`).should('be.visible').and('not.be.disabled').focus()
@@ -277,12 +266,7 @@ function advanceThroughLessons (tutorialId) {
       }
       function clearFiles () {
         it(`resets files`, function () {
-          // cy.log(`filesUploaded`, filesUploaded)
-          // cy.log(`previousFileUpload`, previousFileUpload)
           cy.get(`[data-cy=reset-files]`).click()
-          // filesUploaded = 0
-          // cy.log(`filesUploaded`, filesUploaded)
-          // cy.log(`previousFileUpload`, previousFileUpload)
         })
       }
 
