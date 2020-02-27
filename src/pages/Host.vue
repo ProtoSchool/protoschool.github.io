@@ -55,7 +55,7 @@
       <p class="f4 fw5 lh-copy ma0 pv2  ">
       We recently switched from a chapter-based community model to an event-based model to
       create a more scalable system that encourages ProtoSchool content to be presented
-       either one-off or embedded in a variety of exiting educational groups,
+       either one-off or embedded in a variety of existing educational groups,
        with a lower barrier to entry for event leaders. If you previously attended
        events through a ProtoSchool chapter, you'll now find their upcoming
        ProtoSchool workshops listed on our <router-link to="/events">events page</router-link>,
