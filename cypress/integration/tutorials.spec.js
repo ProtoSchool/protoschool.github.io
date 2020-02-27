@@ -66,10 +66,14 @@ describe(`DISPLAYS SOLUTION SUCCESSFULLY`, function () {
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`ADVANCES THROUGH ALL LESSONS IN ALL TUTORIALS`, function () {
-  Object.keys(tutorials).forEach(tutorialId => {
-    describe(`tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
-      advanceThroughLessons(tutorialId)
-    })
+  // Object.keys(tutorials).forEach(tutorialId => {
+  //   describe(`tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
+  //     advanceThroughLessons(tutorialId)
+  //   })
+  //
+  // })
+  describe(`tutorial 0004`, function () {
+    advanceThroughLessons('0004')
   })
 })
 
@@ -80,9 +84,12 @@ function testResetCode (tutorialId, lessonNr) {
     cy.visit(`/#/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
     cy.get('[data-cy=reset-code]').should('not.exist')
+    // progress-not-yet-started should be visible
     cy.get('[data-cy=clear-default-code]').click({ force: true })
+    // progress-in-progress should be visible
     cy.get('[data-cy=reset-code]').click()
     cy.get('[data-cy=reset-code]').should('not.exist')
+    // progress-not-yet-started should be visible
   })
 }
 
@@ -115,6 +122,9 @@ function advanceThroughLessons (tutorialId) {
     type: 'resources',
     formattedId: 'resources'
   }
+  // let previousFileUpload = false
+  // let filesUploaded = 0
+  let firstFileUploadIndex = lessons.findIndex(lesson => lesson.type === 'file-upload')
   lessons.push(resourcesLesson) // index of resourcesLesson = lessonCount
 
   it(`finds ${tutorialTitle} landing page with links to ${lessonCount} lessons plus resources`, function () {
@@ -139,6 +149,7 @@ function advanceThroughLessons (tutorialId) {
   lessons.forEach(function (lesson, index) {
     let lessonNr = lesson.formattedId
     let lessonType = lesson.type
+    let firstFileUpload = (index === firstFileUploadIndex)
 
     describe(`${lessonNr} (${lessonType})`, function () {
       // TEST RESOURCES
@@ -159,9 +170,14 @@ function advanceThroughLessons (tutorialId) {
         it(`shows enabled next button`, function () {
           cy.get(`[data-cy=next-lesson-text]`).should('be.visible').and('not.be.disabled')
         })
+        advanceToNextLesson()
       }
 
       // TODO: MULTIPLE CHOICE LESSONS ONLY
+
+      if (lessonType === 'multiple-choice') {
+        advanceToNextLesson()
+      }
 
       // CODE CHALLENGES ONLY (code and file upload)
 
@@ -169,79 +185,180 @@ function advanceThroughLessons (tutorialId) {
         cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
         cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
         cy.get('[data-cy=replace-with-solution]').click({ force: true })
+        // progress-in-progress should be visible
       }
 
-      function passCodeChallenge () {
-        cy.get('[data-cy=submit-answer]').click()
+      function passCodeChallenge (prePassed) {
+        // progress-in-progress should be visible
+        if (!prePassed) {
+          cy.get('[data-cy=submit-answer]').click()
+        } else {
+          cy.get('[data-cy=submit-needs-new-files]').click()
+        }
         cy.get('[data-cy=output-success]').should('be.visible')
+        // progress-passed should be visible
         cy.get(`[data-cy=next-lesson-code]`).should('be.visible').and('not.be.disabled')
       }
 
-      // function uploadFile () {
-      //   cy.log(`Can't yet test file upload`)
-      // }
-
       if (lessonType === 'code') {
+        it(`checks whether it's the first file upload lesson`, function () {
+          cy.log(`firstFileUpload`, firstFileUpload)
+        })
         it(`passes code challenge and enables next button`, function () {
           pasteSolutionCode()
           passCodeChallenge()
         })
+        advanceToNextLesson()
       }
 
-      if (lessonType === 'file-upload') {
-        it(`pastes solution`, function () {
-          pasteSolutionCode()
-          cy.log(`can't yet test file upload or submit code for file upload lesson`)
-          // uploadFile()
-          // passCodeChallenge()
+      function uploadSingleFile () {
+        it(`uploads a single file`, function () {
+          // cy.log(`filesUploaded`, filesUploaded)
+          // cy.log(`previousFileUpload`, previousFileUpload)
+          const fileName = 'favicon.png'
+          cy.fixture(fileName).then(fileContent => {
+            cy.get('[data-cy=file-upload]').upload({ fileContent, fileName, mimeType: 'image/png' })
+          })
+          // filesUploaded = 1
+          // previousFileUpload = true
+        })
+      }
+      function uploadMultipleFiles () {
+        it(`uploads 2 files`, function () {
+          // cy.log(`filesUploaded`, filesUploaded)
+          // cy.log(`previousFileUpload`, previousFileUpload)
+          cy.fixture('example.json', 'base64').then(exampleJson => {
+            cy.fixture('favicon.png', 'base64').then(faviconPng => {
+              const files = [
+                { fileName: 'example.json', fileContent: exampleJson, mimeType: 'application/json' },
+                { fileName: 'favicon.png', fileContent: faviconPng, mimeType: 'image/png' }
+              ]
+              cy.get('[data-cy=file-upload]').upload(files, { uploadType: 'input' })
+            })
+          })
+          // filesUploaded = 2
+          // previousFileUpload = true
+        })
+      }
+      function confirmNoFilesUploaded (codePassed) {
+        // codePassed = boolean whether to expect lessonPassed status
+        it(`confirms no files are uploaded`, function () {
+          cy.get(`[data-cy=reset-files]`).should('not.exist')
+          cy.get(`[data-cy=submit-answer]`).should('not.exist')
+          if (codePassed) {
+            // lessonPassed status but need to re-upload files
+            cy.get(`[data-cy=submit-needs-new-files]`).should('be.visible').and('be.disabled')
+            cy.get(`[data-cy=submit-needs-new-files]`).trigger('mouseover', { force: true })
+            cy.get(`[data-cy=need-new-files-msg]`).should('be.visible')
+          } else {
+            // lesson hasn't been passed before and needs file upload
+            cy.get(`[data-cy=submit-disabled]`).should('be.visible').and('be.disabled')
+            cy.get(`[data-cy=submit-disabled]`).trigger('mouseover', { force: true })
+            cy.get(`[data-cy=need-files-msg]`).should('be.visible')
+          }
+          cy.get(`[data-cy=uploaded-file]`).should('not.exist')
+        })
+      }
+      function confirmFilesUploaded (qty, codePassed) {
+        it(`confirms ${qty} files are uploaded`, function () {
+          // cy.log(`filesUploaded`, filesUploaded)
+          // cy.log(`previousFileUpload`, previousFileUpload)
+          cy.get(`[data-cy=submit-disabled]`).should('not.exist')
+          if (codePassed) {
+            cy.get(`[data-cy=submit-needs-new-files]`).should('be.visible').and('not.be.disabled').focus()
+          } else {
+            cy.get(`[data-cy=submit-answer]`).should('be.visible').and('not.be.disabled').focus()
+          }
+          cy.get(`[data-cy=need-files-msg]`).should('not.be.visible')
+          cy.get(`[data-cy=need-new-files-msg]`).should('not.be.visible')
+          cy.get(`[data-cy=reset-files]`).should('be.visible')
+          cy.get(`[data-cy=uploaded-file]`).should('have.length', qty)
+        })
+      }
+      function clearFiles () {
+        it(`resets files`, function () {
+          // cy.log(`filesUploaded`, filesUploaded)
+          // cy.log(`previousFileUpload`, previousFileUpload)
+          cy.get(`[data-cy=reset-files]`).click()
+          // filesUploaded = 0
+          // cy.log(`filesUploaded`, filesUploaded)
+          // cy.log(`previousFileUpload`, previousFileUpload)
         })
       }
 
-      // ADVANCE TO NEXT LESSON AS ABLE OR BY CHEATING, DEPENDING ON LESSON TYPE
-      let advance = {}
-
-      switch (lessonType) {
-        case 'code':
-          advance.msg = `advances to ${nextLessonNr}`
-          advance.method = 'click'
-          advance.buttonData = 'next-lesson-code'
-          break
-        case 'text':
-          advance.msg = `advances to ${nextLessonNr}`
-          advance.method = 'click'
-          advance.buttonData = 'next-lesson-text'
-          break
-        case 'multiple-choice':
-          advance.msg = `CHEATS to advance to ${nextLessonNr}`
-          advance.method = 'cheat'
-          // TODO: Replace with data below when mult choice testing is enabled
-          // advance.msg = `should PASS multiple choice lesson and advance to lesson ${nextLessonNr}`
-          // advance.method = 'click'
-          // advance.buttonData = 'next-lesson-mult-choice'
-          break
-        case 'file-upload':
-          advance.msg = `CHEATS to advance to ${nextLessonNr}`
-          advance.method = 'cheat'
-          // TODO: Replace with lines below when file upload testing is enabled
-          // advance.msg = `should PASS file upload code challenge ${lessonNr} and advance to lesson ${nextLessonNr}`
-          // advance.method = 'click'
-          // advance.buttonData = 'next-lesson-code'
-          break
+      if (lessonType === 'file-upload') {
+        if (!firstFileUpload) {
+          describe(`removes leftover files from previous lesson`, function () {
+            // confirm files carried over from previous file upload lesson
+            confirmFilesUploaded(2, false) // expect 2 files left from previous lesson and code not passed
+            clearFiles() // because we need to test the single file way
+          })
+        }
+        // pass lesson with single file but don't hit next button
+        describe(`passes with solution code and SINGLE file upload`, function () {
+          confirmNoFilesUploaded(false) // expect code not passed and no file uploaded
+          uploadSingleFile()
+          confirmFilesUploaded(1, false) // expect code not passed and 1 file uploaded
+          it(`pastes solution code and passes code challenge`, function () {
+            pasteSolutionCode()
+            passCodeChallenge(false) // not previously passed
+          })
+        })
+        // pass again with new files, leaving solution code as is
+        describe(`passes again with leftover solution code and new MULTIPLE file upload`, function () {
+          clearFiles()
+          confirmNoFilesUploaded(true) // expect code passed and no files uploaded
+          uploadMultipleFiles()
+          confirmFilesUploaded(2, true) // expect code passed and 2 files uploaded
+          it(`passes with pre-filled solution code and multiple file upload`, function () {
+            passCodeChallenge(true) // previously passed
+          })
+          advanceToNextLesson()
+        })
       }
 
-      it(`${advance.msg}`, function () {
-        if (advance.method === 'cheat') {
-          cy.log(`cannot fully test tutorial ${tutorialId}, lesson ${lessonNr} because it is of type ${lessonType}`)
-          cy.visit(`/#/${tutorialName}/${nextLessonNr}`)
-        } else if (advance.method === 'click') {
-          cy.get(`[data-cy=${advance.buttonData}]`).should('be.visible').and('not.be.disabled')
-          cy.get(`[data-cy=${advance.buttonData}]`).click()
+      function advanceToNextLesson () {
+        // ADVANCE TO NEXT LESSON AS ABLE OR BY CHEATING, DEPENDING ON LESSON TYPE
+        let advance = {}
+
+        switch (lessonType) {
+          case 'code':
+            advance.msg = `advances to ${nextLessonNr}`
+            advance.method = 'click'
+            advance.buttonData = 'next-lesson-code'
+            break
+          case 'text':
+            advance.msg = `advances to ${nextLessonNr}`
+            advance.method = 'click'
+            advance.buttonData = 'next-lesson-text'
+            break
+          case 'multiple-choice':
+            advance.msg = `CHEATS to advance to ${nextLessonNr}`
+            advance.method = 'cheat'
+            // TODO: Replace with data below when mult choice testing is enabled
+            // advance.msg = `should PASS multiple choice lesson and advance to lesson ${nextLessonNr}`
+            // advance.method = 'click'
+            // advance.buttonData = 'next-lesson-mult-choice'
+            break
+          case 'file-upload':
+            advance.msg = `advances to lesson ${nextLessonNr}`
+            advance.method = 'click'
+            advance.buttonData = 'next-lesson-code'
+            break
         }
-        cy.url().should('include', `#/${tutorialName}/${nextLessonNr}`)
-        cy.contains('h1', lessons[index + 1].title)
-      })
+
+        it(`${advance.msg}`, function () {
+          if (advance.method === 'cheat') {
+            cy.log(`cannot fully test tutorial ${tutorialId}, lesson ${lessonNr} because it is of type ${lessonType}`)
+            cy.visit(`/#/${tutorialName}/${nextLessonNr}`)
+          } else if (advance.method === 'click') {
+            cy.get(`[data-cy=${advance.buttonData}]`).should('be.visible').and('not.be.disabled')
+            cy.get(`[data-cy=${advance.buttonData}]`).click()
+          }
+          cy.url().should('include', `#/${tutorialName}/${nextLessonNr}`)
+          cy.contains('h1', lessons[index + 1].title)
+        })
+      }
     }) // end this lesson
   }) // end loop through standard lessons, landing on resources page
-
-  // ALL TUTORIAL TYPES - find resources page after looping through lessons
 }
