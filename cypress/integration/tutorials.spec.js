@@ -116,7 +116,8 @@ function testMultipleChoiceOptions (tutorialId, lessonNr) {
     cy.get('[data-cy=choice]').should('have.length', choices.length)
     cy.get('[data-cy=output-success]').should('not.exist')
     cy.get('[data-cy=output-fail]').should('not.exist')
-    cy.get(`[data-cy=progress-not-yet-started]`).should('exist')
+    cy.get(`[data-cy=progress-not-yet-started]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-not-yet-started]`).should('be.visible')
   })
   function testChoice (choice, index) {
     let choiceType = index === correctChoiceIndex ? 'RIGHT' : 'WRONG'
@@ -128,6 +129,7 @@ function testMultipleChoiceOptions (tutorialId, lessonNr) {
       it(`shows correct completion status and button state`, function () {
         cy.get('[data-cy=choice]').eq(index).click()
         cy.get(`[data-cy=progress-${correctProgress}]`).should('be.visible')
+        cy.get(`[data-cy=progress-icon-${correctProgress}]`).should('be.visible')
         cy.get('[data-cy=next-lesson-mult-choice]').should(correctButton)
       })
       it(`displays answer correctly`, function () {

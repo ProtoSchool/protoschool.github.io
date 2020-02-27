@@ -1,9 +1,9 @@
 <template>
   <h2 class="mt0 mb2 green fw4 fill-current">
     <span style="vertical-align:-1px">
-      <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" />
-      <img v-else-if="cachedCode || cachedChoice" src="../static/images/in-progress.svg" alt="in progress" />
-      <img v-else src="../static/images/not-started.svg" alt="not yet started" />
+      <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" data-cy="progress-icon-passed"/>
+      <img v-else-if="cachedCode || cachedChoice" src="../static/images/in-progress.svg" alt="in progress" data-cy="progress-icon-in-progress"/>
+      <img v-else src="../static/images/not-started.svg" alt="not yet started" data-cy="progress-icon-not-yet-started"/>
     </span>
     <span class="green ttu f6 pl2 pr1 fw7 v-mid">
       <span v-if="lessonPassed" data-cy="progress-passed">You did it!</span>
