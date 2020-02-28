@@ -1,5 +1,11 @@
 <template>
   <section class="mw7 w-100 center ph3 flex items-start pv4">
+    <img
+      class="dn db-ns mr3"
+      :src="tutorial.project.logo"
+      :alt="tutorial.project.name"
+      style="height: 53px"
+    />
     <div class="w-100">
       <div class="flex justify-between flex-row items-start mb1">
         <div class="flex flex-row items-center">
@@ -19,6 +25,7 @@
       </div>
       <div class="flex items-center">
         <img
+          class="dn-ns"
           :src="tutorial.project.logo"
           :alt="tutorial.project.name"
           style="height: 23px"
