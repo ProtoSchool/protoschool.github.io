@@ -82,8 +82,6 @@ const run = async () => {
 return run
 `
 
-const modules = { cids: require('cids') }
-
 const options = {
   overrideErrors: true,
   createTestTree: true
@@ -93,6 +91,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }
