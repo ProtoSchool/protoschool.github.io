@@ -25,6 +25,13 @@ module.exports = (on, config) => {
       module: {
         rules: [
           {
+            test: /\.svg$/,
+            exclude: [/node_modules/],
+            use: [{
+              loader: 'vue-svg-loader'
+            }]
+          },
+          {
             test: /\.md$/,
             exclude: [/node_modules/],
             use: [{

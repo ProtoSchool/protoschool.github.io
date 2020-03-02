@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ipfs",
+    "name": "IPFS",
+    "url": "https://ipfs.io"
+  },
+  {
+    "id": "ipld",
+    "name": "IPLD",
+    "url": "https://ipld.io"
+  },
+  {
+    "id": "libp2p",
+    "name": "libp2p",
+    "url": "https://libp2p.io"
+  },
+  {
+    "id": "multiformats",
+    "name": "Multiformats",
+    "url": "https://multiformats.io"
+  }
+]
