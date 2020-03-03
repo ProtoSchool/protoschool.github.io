@@ -1,15 +1,15 @@
-const question = 'How can we identify the encoding used on specific data when using CIDv1?'
+const question = 'How can we identify the encoding method used on specific data when using CIDv1?'
 
 const choices = [
   {
-    answer: 'These CIDs have a multicodec prefix that specifies which encoding method was used.',
+    answer: 'CIDv1 includes a multicodec prefix that specifies which encoding method was used.',
     correct: true,
     feedback: 'That\'s right!'
   },
   {
-    answer: 'All encodings make it safe to try and check the first bytes of the data to figure out which encoding was used.',
+    answer: 'CIDv1 always uses `dag-pb` as its encoding method.',
     correct: false,
-    feedback: 'Hmm, not always. Please check the information above.'
+    feedback: 'Nope! The `dag-pb` codec is used commonly in IPFS and IPLD, but not all CIDs use it.'
   },
   {
     answer: 'The codec used on CIDv1 is always `base58btc`.',

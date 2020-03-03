@@ -1,8 +1,8 @@
-const question = 'How can we know the base encoding of a CID?'
+const question = 'How can we determine the base encoding method used to represent a binary CID as a string?'
 
 const choices = [
   {
-    answer: 'We have to guess it, but it\'s easy because most implementations of IPFS encode CIDs with `base32`.',
+    answer: 'We have to guess, but it\'s easy because most implementations of IPFS encode CIDs with `base32`.',
     correct: false,
     feedback: 'Most current implementations of IPFS use `base32`, but CIDv0 didn\'t. Is there a helpful clue in the string version of the CID?'
   },

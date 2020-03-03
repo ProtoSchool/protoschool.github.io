@@ -2,9 +2,9 @@ const question = 'If we have two different CIDs pointing to the same content, do
 
 const choices = [
   {
-    answer: 'Yes, because v0 and v1 of the CID specs are not compatible.',
+    answer: 'Yes, because CIDv0 and CIDv1 are not compatible.',
     correct: false,
-    feedback: 'Actually, all CIDs in v0 can be converted to be represented in v1, and both versions would have something important in common.'
+    feedback: 'Actually, all CIDs in Version 0 can be converted to be represented in Version 1, and both versions would have something important in common.'
   },
   {
     answer: 'No, because the two CIDs are just two different version representations of the same hash. The hash is still unique to the data it represents.',
