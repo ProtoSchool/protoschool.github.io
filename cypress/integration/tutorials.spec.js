@@ -261,10 +261,10 @@ function advanceThroughLessons (tutorialId) {
           cy.get(`[data-cy=progress-icon-passed]`).should('be.visible')
           cy.get('[data-cy=submit-needs-new-files]').click()
         }
-        cy.get('[data-cy=output-success]').should('be.visible')
-        cy.get(`[data-cy=progress-passed]`).should('be.visible')
-        cy.get(`[data-cy=progress-icon-passed]`).should('be.visible')
-        cy.get(`[data-cy=next-lesson-code]`).should('be.visible').and('not.be.disabled')
+        cy.get('[data-cy=output-success]', {timeout: 30000}).should('be.visible')
+        cy.get(`[data-cy=progress-passed]`, {timeout: 30000}).should('be.visible')
+        cy.get(`[data-cy=progress-icon-passed]`, {timeout: 30000}).should('be.visible')
+        cy.get(`[data-cy=next-lesson-code]`, {timeout: 30000}).should('be.visible').and('not.be.disabled')
       }
 
       if (lessonType === 'code') {
