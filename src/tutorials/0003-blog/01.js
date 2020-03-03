@@ -36,7 +36,7 @@ const validate = async (result, ipfs) => {
         break
     }
     if (nodeAuthor.toString() !== expectedAuthor) {
-      return { fail: `The author of the \`${node.content}\` blog post (${nodeAuthor}) did not match the the expected author (${expectedAuthor}).` }
+      return { fail: `The author of the \`${node.content}\` blog post (${nodeAuthor}) did not match the expected author (${expectedAuthor}).` }
     }
   }
   const expectedCids = ['bafyreiaahxu4lot4ffzaxnz626kxipxt3lm43lsszcc4q6vydqrwnu7kpi', 'bafyreif24ddeqipektksc2jqhulgefwvhwhpylpkmjsdysxygllyeydwqq']

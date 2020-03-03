@@ -1,5 +1,3 @@
-/* global describe, it, cy */
-
 import tutorials, { getTutorialType } from '../../src/utils/tutorials'
 import courses from '../../src/static/courses.json'
 
@@ -13,11 +11,10 @@ const testLessons = {
     tutorialId: '0004',
     lessonNr: '05'
   },
-  // TODO: Uncomment when we have testing for multiple choice built and Anatomy of a CID is published
-  // multipleChoice: {
-  //   tutorialId: '0006',
-  //   lessonNr: '03'
-  // },
+  multipleChoice: {
+    tutorialId: '0006',
+    lessonNr: '03'
+  },
   text: {
     tutorialId: '0001',
     lessonNr: '01'
@@ -36,7 +33,6 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   })
   it(`toggle hides coding tutorials`, function () {
     const codelessTutorials = courses.all.filter(tutorialId => (getTutorialType(tutorialId) !== 'code') && (getTutorialType(tutorialId) !== 'file-upload'))
-    cy.log('codelessTutorials', codelessTutorials)
     cy.get('[data-cy=toggle-coding-tutorials]').click()
     cy.get('[data-cy=tutorial-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < codelessTutorials.length; i++) {
@@ -62,6 +58,11 @@ describe(`RESETS CODE SUCCESSFULLY`, function () {
 describe(`DISPLAYS SOLUTION SUCCESSFULLY`, function () {
   testViewSolution(testLessons.code.tutorialId, testLessons.code.lessonNr)
   testViewSolution(testLessons.fileUpload.tutorialId, testLessons.fileUpload.lessonNr)
+})
+
+// ensures multiple choice options display correct content and passing status
+describe(`NAVIGATES MULTIPLE CHOICE OPTIONS SUCCESSFULLY`, function () {
+  testMultipleChoiceOptions(testLessons.multipleChoice.tutorialId, testLessons.multipleChoice.lessonNr)
 })
 
 // for tutorials with standard code challenges, ensure solution code passes lessons
@@ -109,6 +110,57 @@ function testViewSolution (tutorialId, lessonNr) {
     cy.get('[data-cy=view-solution]').should('be.visible')
     cy.get('[data-cy=solution]').should('not.be.visible')
   })
+}
+
+function testMultipleChoiceOptions (tutorialId, lessonNr) {
+  const tutorialName = tutorials[tutorialId].url
+  const lesson = tutorials[tutorialId].lessons[parseInt(lessonNr) - 1]
+  const choices = lesson.logic.choices
+  const correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
+  it(`displays right number of choices lesson ${lessonNr} and displays as not yet started`, function () {
+    cy.visit(`/#/${tutorialName}/${lessonNr}`)
+    cy.get('[data-cy=choice]').should('have.length', choices.length)
+    cy.get('[data-cy=output-success]').should('not.exist')
+    cy.get('[data-cy=output-fail]').should('not.exist')
+    cy.get(`[data-cy=progress-not-yet-started]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-not-yet-started]`).should('be.visible')
+  })
+  function testChoice (choice, index) {
+    let choiceType = index === correctChoiceIndex ? 'RIGHT' : 'WRONG'
+    let correctOutput = index === correctChoiceIndex ? 'output-success' : 'output-fail'
+    let incorrectOutput = index === correctChoiceIndex ? 'output-fail' : 'output-success'
+    let correctButton = index === correctChoiceIndex ? 'not.be.disabled' : 'be.disabled'
+    let correctProgress = index === correctChoiceIndex ? 'passed' : 'in-progress'
+    describe(`${choiceType} choice ${index}`, function () {
+      it(`shows correct completion status and button state`, function () {
+        cy.get('[data-cy=choice]').eq(index).click()
+        cy.get(`[data-cy=progress-${correctProgress}]`).should('be.visible')
+        cy.get(`[data-cy=progress-icon-${correctProgress}]`).should('be.visible')
+        cy.get('[data-cy=next-lesson-mult-choice]').should(correctButton)
+      })
+      it(`displays answer correctly`, function () {
+        cy.get('[data-cy=choice]').eq(index).should('contain', parseTextForMarkdown(choice.answer))
+      })
+      it(`displays feedback correctly`, function () {
+        cy.get(`[data-cy=${incorrectOutput}]`).should('not.exist')
+        cy.get(`[data-cy=${correctOutput}]`).should('contain', parseTextForMarkdown(choice.feedback))
+      })
+    })
+  }
+  //  test correct answer first to ensure passed status will be cleared afterward
+  testChoice(choices[correctChoiceIndex], correctChoiceIndex)
+  //  test all incorrect answers
+  choices.forEach(function (choice, index) {
+    if (index !== correctChoiceIndex) {
+      testChoice(choice, index)
+    }
+  })
+  //  test correct answer again to ensure progress status flips back
+  testChoice(choices[correctChoiceIndex], correctChoiceIndex)
+}
+
+function parseTextForMarkdown (text) {
+  return text.replace(/`/g, '')
 }
 
 function advanceThroughLessons (tutorialId) {
@@ -170,7 +222,20 @@ function advanceThroughLessons (tutorialId) {
         advanceToNextLesson()
       }
 
-      // TODO: MULTIPLE CHOICE LESSONS ONLY
+      // MULTIPLE CHOICE LESSONS
+
+      function passMultipleChoice (correctChoiceIndex) {
+        cy.get('[data-cy=choice]').eq(correctChoiceIndex).click()
+        cy.get('[data-cy=next-lesson-mult-choice]').should('be.visible')
+      }
+
+      if (lessonType === 'multiple-choice') {
+        let choices = lesson.logic.choices
+        let correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
+        it(`passes multiple choice lesson and enables next button`, function () {
+          passMultipleChoice(correctChoiceIndex)
+        })
+      } // end mult choice
 
       if (lessonType === 'multiple-choice') {
         advanceToNextLesson()

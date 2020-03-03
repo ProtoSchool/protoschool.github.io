@@ -15,12 +15,13 @@
             :name="'includeCodingTutorials'"
             :id="'includeCodingTutorials'"
             :label="'Include Coding Tutorials'"
+            class="mb3"
             data-cy="toggle-coding-tutorials"
         />
       </div>
     </section>
 
-    <template v-for="tutorial in (showCoding? allTutorials : codelessTutorials)">
+    <template v-for="tutorial in (showCoding? allTutorials : codelessTutorials)" >
       <Tutorial :tutorial="tutorial" :key="tutorial.tutorialId" :tutorialId="tutorial.tutorialId" />
     </template>
   </div>
