@@ -68,7 +68,7 @@ describe(`NAVIGATES MULTIPLE CHOICE OPTIONS SUCCESSFULLY`, function () {
 // for tutorials with standard code challenges, ensure solution code passes lessons
 describe(`ADVANCES THROUGH ALL LESSONS IN ALL TUTORIALS`, function () {
   Object.keys(tutorials).forEach(tutorialId => {
-    describe(`tutorial ${tutorialId} (${tutorials[tutorialId].url})`, function () {
+    describe(`TUTORIAL ${tutorialId} (${tutorials[tutorialId].url})`, function () {
       advanceThroughLessons(tutorialId)
     })
   })
@@ -382,12 +382,9 @@ function advanceThroughLessons (tutorialId) {
             advance.buttonData = 'next-lesson-text'
             break
           case 'multiple-choice':
-            advance.msg = `CHEATS to advance to ${nextLessonNr}`
-            advance.method = 'cheat'
-            // TODO: Replace with data below when mult choice testing is enabled
-            // advance.msg = `should PASS multiple choice lesson and advance to lesson ${nextLessonNr}`
-            // advance.method = 'click'
-            // advance.buttonData = 'next-lesson-mult-choice'
+            advance.msg = `should PASS multiple choice lesson and advance to lesson ${nextLessonNr}`
+            advance.method = 'click'
+            advance.buttonData = 'next-lesson-mult-choice'
             break
           case 'file-upload':
             advance.msg = `advances to lesson ${nextLessonNr}`
