@@ -1,5 +1,5 @@
 <template>
-  <section class="mw7 w-100 center ph3 flex items-start pv3">
+  <section class="mw7 w-100 center ph3 flex items-start pv3 mt3">
     <img
       class="dn db-ns mr3"
       :src="tutorial.project.logo"
