@@ -235,11 +235,8 @@ function advanceThroughLessons (tutorialId) {
         it(`passes multiple choice lesson and enables next button`, function () {
           passMultipleChoice(correctChoiceIndex)
         })
-      } // end mult choice
-
-      if (lessonType === 'multiple-choice') {
         advanceToNextLesson()
-      }
+      } // end mult choice
 
       // CODE CHALLENGES ONLY (code and file upload)
 
