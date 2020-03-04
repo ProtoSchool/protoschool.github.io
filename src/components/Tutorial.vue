@@ -1,15 +1,23 @@
 <template>
-  <section class="mw7 w-100 center ph3 flex items-start pv4">
-    <div class="dn db-ns flex-none mr4">
-      <h1 class="ma0 mb2 f3 fw4">{{tutorial.project}}</h1>
-      <img
-        :src="tutorial.project === 'libp2p' ? libp2pLogo : ipfsLogo"
-        :alt="tutorial.project"
-        style="height: 54px" />
-    </div>
+  <section class="mw7 w-100 center ph3 flex items-start pv3 mt3">
+    <img
+      class="dn db-ns mr3"
+      :src="tutorial.project.logo"
+      :alt="tutorial.project.name"
+      style="height: 53px"
+    />
     <div class="w-100">
-      <div class="flex justify-between flex-row items-start">
-        <div class="flex flex-row items-center">
+      <div class="flex items-center">
+        <img
+          class="dn-ns mr1 mb1"
+          :src="tutorial.project.logo"
+          :alt="tutorial.project.name"
+          style="height: 23px"
+        />
+        <h1 class="f6 mv0 fw2">{{tutorial.project.name}}</h1>
+      </div>
+      <div class="flex justify-between flex-row items-start mb1">
+        <div class="flex flex-row items-center mt1">
           <h2 class="ma0 f3 fw5">
             <template v-if="isLanding !== true">
               <router-link :to="landingLink" data-cy="tutorial-title">{{tutorial.title}}</router-link>
@@ -24,8 +32,9 @@
           :tutorialId="tutorialId"
           class="h2 ml3 type-icon"/>
       </div>
-      <p class="f5 fw5 ma0 mt3 lh-copy charcoal-muted">{{tutorial.description}}</p>
-      <ul class="lessons-list mv4 pa0 f5 br3">
+
+      <p class="f5 fw5 mt2 mb3 lh-copy charcoal-muted">{{tutorial.description}}</p>
+      <ul class="lessons-list mv2 pa0 f5 br3">
         <template v-for="(lesson, index) in tutorial.lessons">
           <li :key="index">
             <LessonLink
@@ -47,8 +56,6 @@
 import LessonLink from '../components/LessonLink.vue'
 import TypeIcon from '../components/TypeIcon.vue'
 import { isTutorialPassed } from '../utils/tutorials'
-import ipfsLogo from '../static/images/ipfs.svg'
-import libp2pLogo from '../static/images/libp2p.svg'
 
 const resourcesLesson = {
   'title': 'More to explore',
@@ -68,8 +75,6 @@ export default {
   },
   data: () => {
     return {
-      ipfsLogo: ipfsLogo,
-      libp2pLogo: libp2pLogo,
       resourcesLesson: resourcesLesson
     }
   },

@@ -42,7 +42,7 @@ export default {
         case 'file-upload':
           return { icon: 'code', alt: 'JavaScript code challenge' + (!isLesson ? 's' : '') }
         case 'multiple-choice':
-          return { icon: 'multipe-choice', alt: 'Multiple-choice quiz' + (!isLesson ? 'zes' : '') }
+          return { icon: 'multiple-choice', alt: 'Multiple-choice quiz' + (!isLesson ? 'zes' : '') }
         case 'resources':
           return { icon: 'resources', alt: 'Resource links' }
         default:

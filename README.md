@@ -31,11 +31,11 @@ Just here to help someone proof a PR? Jump to our detailed [instructions for run
 
 Clone the repo, install dependencies, check out the appropriate branch, and run the site locally:
 ```sh
-> git clone https://github.com/ProtoSchool/protoschool.github.io.git
-> cd protoschool.github.io
-> npm install
-> git checkout existing-branch-name-from-PR
-> npm run serve
+$ git clone https://github.com/ProtoSchool/protoschool.github.io.git
+$ cd protoschool.github.io
+$ git checkout existing-branch-name-from-PR
+$ npm install
+$ npm run serve
 ```
 
 View the site on localhost at: http://localhost:3000/#/

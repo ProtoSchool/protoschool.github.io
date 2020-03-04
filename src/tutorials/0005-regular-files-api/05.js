@@ -54,7 +54,7 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  const resultingFiles = await pTimeout(all(ipfs.ls(result[result.length - 1].cid.toString())), 2000).catch(() => 'error')
+  const resultingFiles = await pTimeout(all(ipfs.ls(result[result.length - 1].cid.toString())), 5000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
       fail: 'Could not get CID of top-level directory. Please make sure you are returning the result of the `add` method. The items of the array should be objects with a `cid` attribute whose value must be a valid CID.'

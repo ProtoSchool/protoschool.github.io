@@ -127,7 +127,7 @@ import Validator from './Validator.vue'
 import CongratulationsCallout from './CongratulationsCallout.vue'
 import TypeIcon from './TypeIcon.vue'
 
-const MAX_EXEC_TIMEOUT = 5000
+const MAX_EXEC_TIMEOUT = 10000
 
 class SyntaxError extends Error {
   toString () {
@@ -209,7 +209,6 @@ export default {
     validate: Function,
     code: String,
     overrideErrors: Boolean,
-    isMultipleChoiceLesson: Boolean,
     question: String,
     choices: Array,
     createTestFile: Boolean,
@@ -229,9 +228,11 @@ export default {
       expandExercise: false,
       editorReady: false,
       isFileLesson: self.isFileLesson,
+      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
       uploadedFiles: window.uploadedFiles || false,
       choice: localStorage[self.cacheKey] || '',
-      cachedChoice: !!localStorage['cached' + self.$route.path]
+      cachedChoice: !!localStorage['cached' + self.$route.path],
+      output: self.output
     }
   },
   computed: {
@@ -449,11 +450,11 @@ export default {
     resetFileUpload: function () {
       this.uploadedFiles = false
       delete this.output.test
-      this.clearPassed()
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       delete localStorage[`passed/${this.tutorial.url}`]
+      this.lessonPassed = !!localStorage[this.lessonKey]
     },
     loadCodeFromCache: function () {
       this.editorCode = localStorage[this.cacheKey]
