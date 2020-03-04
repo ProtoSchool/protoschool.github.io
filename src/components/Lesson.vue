@@ -126,7 +126,7 @@ import Validator from './Validator.vue'
 import CongratulationsCallout from './CongratulationsCallout.vue'
 import TypeIcon from './TypeIcon.vue'
 
-const MAX_EXEC_TIMEOUT = 5000
+const MAX_EXEC_TIMEOUT = 10000
 
 class SyntaxError extends Error {
   toString () {
@@ -449,7 +449,6 @@ export default {
     resetFileUpload: function () {
       this.uploadedFiles = false
       delete this.output.test
-      this.clearPassed()
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
