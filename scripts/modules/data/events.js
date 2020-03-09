@@ -122,7 +122,7 @@ const whitelist = [
 
 function logEventsResults (events) {
   const approved = events.filter(event => event.approved)
-  const rejected = events.filter(event => !event.approved)
+  const rejected = events.filter(event => (!event.approved && !event.pendingApproval))
   const pending = events.filter(event => event.pendingApproval)
 
   const table = new Table({ head: ['', 'Pending', 'Approved', 'Rejected', 'All'] })
@@ -154,7 +154,7 @@ function logEventsResults (events) {
   console.log(table.toString())
   console.log()
 
-  log.info('modules:data:events', `total events: ${events.length}`)
+  log.info('modules:data:events', `total events submitted: ${events.length}`)
 }
 
 /*
@@ -202,7 +202,7 @@ exports.fetch = async function () {
   Save events to local static file to be used by the application
  */
 exports.save = events => {
-  log.info('modules:data:events', `saving events to ${EVENTS_FILE}`)
+  log.info('modules:data:events', `saving approved events to ${EVENTS_FILE}`)
 
   return promisify(fs.writeFile)(
     EVENTS_FILE,
