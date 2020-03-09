@@ -126,7 +126,7 @@ function logEventsResults (events) {
 
   const table = new Table({ head: ['', 'Pending', 'Approved', 'Rejected', 'All'] })
   const isPastEvent = ({ date }) => !moment(new Date(date)).isAfter()
-  const isUpcommingEvent = ({ date }) => moment(new Date(date)).isAfter()
+  const isUpcomingEvent = ({ date }) => moment(new Date(date)).isAfter()
 
   table.push(
     { 'Past Events': [
@@ -135,11 +135,11 @@ function logEventsResults (events) {
       rejected.filter(isPastEvent).length,
       events.filter(isPastEvent).length
     ]},
-    { 'Upcomming Events': [
-      pending.filter(isUpcommingEvent).length,
-      approved.filter(isUpcommingEvent).length,
-      rejected.filter(isUpcommingEvent).length,
-      events.filter(isUpcommingEvent).length
+    { 'Upcoming Events': [
+      pending.filter(isUpcomingEvent).length,
+      approved.filter(isUpcomingEvent).length,
+      rejected.filter(isUpcomingEvent).length,
+      events.filter(isUpcomingEvent).length
     ]},
     { 'All': [
       pending.length,
