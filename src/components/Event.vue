@@ -31,7 +31,8 @@
       </li>
     </ul>
     <div class="event-footer flex-grow tr flex justify-between items-end">
-      <a class="event-coc gray f7 pv2" :href='cocUrl' target='_blank'>Code of Conduct</a>
+      <a v-if="cocUrl" class="event-coc gray f7 pv2" :href='cocUrl' target='_blank'>Code of Conduct</a>
+      <a v-else></a>
       <a class="event-cta f5 link dim br-pill ph3 pv2 mb0 dib white bg-navy mt3" :href="url" target='_blank'>
         <span v-if="isFuture">Attend</span>
         <span v-else>View</span>

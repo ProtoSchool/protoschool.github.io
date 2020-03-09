@@ -105,6 +105,7 @@ const extraColumns = [
 const whitelist = [
   'id',
   'city',
+  'region',
   'country',
   'startTime',
   'endTime',
