@@ -1,7 +1,8 @@
 [
   {
-    "id": 11,
+    "id": 1,
     "city": "Denver",
+    "region": "Colorado",
     "country": "United States of America",
     "startTime": "2020-02-13T13:00:00.000Z",
     "endTime": "2020-02-13T05:00:00.000Z",
@@ -21,8 +22,27 @@
     "hostedAtUrl": "http://dnsummit.cryptorado.org/"
   },
   {
-    "id": 13,
+    "id": 3,
+    "city": "Lagos",
+    "region": "",
+    "country": "Nigeria",
+    "startTime": "2020-05-30T15:00:00.000Z",
+    "endTime": "2020-05-30T04:00:00.000Z",
+    "duration": 660,
+    "tutorials": [
+      "0001"
+    ],
+    "cocUrl": "https://blockchainnigeria.group/content/proto-school-coc",
+    "url": "https://www.eventbrite.com/e/blockchain-decentralized-finance-conference-exhibition-lagos-2020-tickets-91428251361",
+    "hostedByName": "Blockchain Nigeria User Group",
+    "hostedByUrl": "https://blockchainnigeria.group/",
+    "hostedAtName": "Blockchain & Decentralized Finance Conference / Exhibition Lagos 2020",
+    "hostedAtUrl": "https://blockchainnigeria.group/"
+  },
+  {
+    "id": 4,
     "city": "Seattle",
+    "region": "Washington",
     "country": "USA",
     "startTime": "2019-08-29T23:00:00.000Z",
     "endTime": "2019-08-29T04:00:00.000Z",
@@ -38,8 +58,9 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 14,
+    "id": 5,
     "city": "Shanghai",
+    "region": "",
     "country": "China",
     "startTime": "2019-12-29T19:00:00.000Z",
     "endTime": "2019-12-29T05:00:00.000Z",
@@ -55,8 +76,9 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 15,
+    "id": 6,
     "city": "Denver",
+    "region": "Colorado",
     "country": "USA",
     "startTime": "2019-02-12T17:00:00.000Z",
     "endTime": "2019-02-12T05:00:00.000Z",
@@ -74,8 +96,9 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 16,
+    "id": 7,
     "city": "Shanghai",
+    "region": "",
     "country": "China",
     "startTime": "2019-09-28T18:00:00.000Z",
     "endTime": "2019-09-28T04:00:00.000Z",
@@ -91,8 +114,9 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 17,
+    "id": 8,
     "city": "Shanghai",
+    "region": "",
     "country": "China",
     "startTime": "2019-08-31T17:30:00.000Z",
     "endTime": "2019-08-31T04:00:00.000Z",
@@ -108,8 +132,9 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 18,
+    "id": 9,
     "city": "Seattle",
+    "region": "Washington",
     "country": "USA",
     "startTime": "2019-04-25T22:00:00.000Z",
     "endTime": "2019-04-25T04:00:00.000Z",
@@ -127,8 +152,9 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 19,
+    "id": 10,
     "city": "Seattle",
+    "region": "Washington",
     "country": "USA",
     "startTime": "2019-06-27T23:00:00.000Z",
     "endTime": "2019-06-27T04:00:00.000Z",
@@ -142,5 +168,23 @@
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
     "hostedAtUrl": ""
+  },
+  {
+    "id": 11,
+    "city": "Berlin",
+    "region": "",
+    "country": "Germany",
+    "startTime": "2019-08-20T23:30:00.000Z",
+    "endTime": "2019-08-20T04:00:00.000Z",
+    "duration": 1170,
+    "tutorials": [
+      "0001"
+    ],
+    "cocUrl": "",
+    "url": "https://web3summit.com/",
+    "hostedByName": "",
+    "hostedByUrl": "",
+    "hostedAtName": "Web3 Summit",
+    "hostedAtUrl": "https://web3summit.com/"
   }
 ]
