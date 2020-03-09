@@ -66,7 +66,7 @@ const validate = async (result, ipfs) => {
   if (JSON.stringify(expectedResults) === JSON.stringify(result)) {
     return {
       success: 'Success!',
-      logDesc: "Here are the results returned by the `ls` method for the top-level directory. Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `hash` and `path` values now differ. The `hash` for each file is the CID of the file itself, while the the `path` is the CID of the top-level directory followed by the filename.",
+      logDesc: "Here are the results returned by the `ls` method for the top-level directory. Notice that there are new fields here that we didn't see in the data returned by the `add` method. Also, take a look at how the `hash` and `path` values now differ. The `hash` for each file is the CID of the file itself, while the `path` is the CID of the top-level directory followed by the filename.",
       log: result
     }
   } else {
@@ -98,8 +98,6 @@ const run = async (files) => {
 return run
 `
 
-const modules = { cids: require('cids') }
-
 const options = {
   overrideErrors: true
 }
@@ -108,6 +106,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }

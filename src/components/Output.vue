@@ -1,13 +1,17 @@
 <template>
   <div class="pt2">
-    <div v-if="output.test.error" class="lh-copy pv2 ph3 bg-red white" v-html="parseData(`Error: ${output.test.error.message}`)">
+    <div v-if="output.test.error"
+      class="lh-copy pv2 ph3 bg-red white"
+      v-html="parseData(`Error: ${output.test.error.message}`)"
+      >
     </div>
     <div
       v-if="output.test.fail"
       class="output-log lh-copy bg-red white"
-      v-html="parseData(output.test.fail)" />
+      v-html="parseData(output.test.fail)"
+      data-cy="output-fail"/>
     <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
-      <span class="output-log" v-html="parseData(output.test.success)" />
+      <span class="output-log" data-cy="output-success" v-html="parseData(output.test.success)" />
       <span v-if="output.test.cid">
         <a
           class="link fw7 underline-hover dib ph2 mh2 white"
@@ -23,7 +27,7 @@
       <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
       <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
       <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
-      <highlight-code lang="json" class="output-code">{{output.test.log}}</highlight-code>
+      <highlight-code lang="json" >{{output.test.log}}</highlight-code>
     </div>
   </div>
 </template>
@@ -39,13 +43,13 @@ export default {
   computed: {
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
-      cid = cid || ''
-      return `https://explore.ipld.io/#/explore/${cid}`
+
+      return `https://explore.ipld.io/#/explore/${cid || ''}`
     },
     inspectCidUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
-      cid = cid || ''
-      return `https://cid.ipfs.io/#${cid}`
+
+      return `https://cid.ipfs.io/#${cid || ''}`
     }
   }
 }

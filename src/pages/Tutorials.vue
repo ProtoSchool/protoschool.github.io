@@ -15,11 +15,13 @@
             :name="'includeCodingTutorials'"
             :id="'includeCodingTutorials'"
             :label="'Include Coding Tutorials'"
+            class="mb3"
+            data-cy="toggle-coding-tutorials"
         />
       </div>
     </section>
 
-    <template v-for="tutorial in (showCoding? allTutorials : codelessTutorials)">
+    <template v-for="tutorial in (showCoding? allTutorials : codelessTutorials)" >
       <Tutorial :tutorial="tutorial" :key="tutorial.tutorialId" :tutorialId="tutorial.tutorialId" />
     </template>
   </div>
@@ -43,7 +45,7 @@ export default {
   computed: {
     allTutorials: () => coursesList.all.map(tutorialId => ({ ...tutorialsList[tutorialId], tutorialId })),
     codelessTutorials: function () {
-      return this.allTutorials.filter(tutorial => (getTutorialType(tutorial.tutorialId) !== 'code'))
+      return this.allTutorials.filter(tutorial => (getTutorialType(tutorial.tutorialId) !== 'code') && (getTutorialType(tutorial.tutorialId) !== 'file-upload'))
     }
   },
   data: self => {

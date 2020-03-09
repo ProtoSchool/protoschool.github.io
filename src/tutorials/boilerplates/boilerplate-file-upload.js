@@ -42,6 +42,9 @@ const modules = { cids: require('cids') }
 // for more on the available options:
 // https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
 const options = {
+  overrideErrors: false,
+  createTestFile: false,
+  createTestTree: false
 }
 
 export default {

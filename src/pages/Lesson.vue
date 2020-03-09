@@ -157,16 +157,18 @@ export default {
         }
       }
 
-      if (!logic.validate) {
-        console.warn(`No "validate" function found. Please export a "validate" function from the JavaScript file.`)
-      }
+      if (this.lesson.type === 'code') {
+        if (!logic.validate) {
+          console.warn(`No "validate" function found. Please export a "validate" function from the JavaScript file.`)
+        }
 
-      if (!logic.code) {
-        console.warn(`No "code" String found. Please export a "code" String from the JavaScript file.`)
-      }
+        if (!logic.code) {
+          console.warn(`No "code" String found. Please export a "code" String from the JavaScript file.`)
+        }
 
-      if (!logic.solution) {
-        console.warn(`No "solution" String found. Please export a "solution" String from the JavaScript file.`)
+        if (!logic.solution) {
+          console.warn(`No "solution" String found. Please export a "solution" String from the JavaScript file.`)
+        }
       }
 
       return logic

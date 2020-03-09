@@ -53,7 +53,8 @@
             :onCodeChange="onCodeChange"
             :resetCode="resetCode"
             :expandExercise="expandExercise"
-            :cyReplaceWithSolution="cyReplaceWithSolution" />
+            :cyReplaceWithSolution="cyReplaceWithSolution"
+            :cyClearDefaultCode="cyClearDefaultCode" />
           <Quiz
             v-if="isMultipleChoiceLesson"
             :question="this.question"
@@ -125,7 +126,7 @@ import Validator from './Validator.vue'
 import CongratulationsCallout from './CongratulationsCallout.vue'
 import TypeIcon from './TypeIcon.vue'
 
-const MAX_EXEC_TIMEOUT = 5000
+const MAX_EXEC_TIMEOUT = 10000
 
 class SyntaxError extends Error {
   toString () {
@@ -207,7 +208,6 @@ export default {
     validate: Function,
     code: String,
     overrideErrors: Boolean,
-    isMultipleChoiceLesson: Boolean,
     question: String,
     choices: Array,
     createTestFile: Boolean,
@@ -227,9 +227,11 @@ export default {
       expandExercise: false,
       editorReady: false,
       isFileLesson: self.isFileLesson,
+      isMultipleChoiceLesson: self.isMultipleChoiceLesson,
       uploadedFiles: window.uploadedFiles || false,
       choice: localStorage[self.cacheKey] || '',
-      cachedChoice: !!localStorage['cached' + self.$route.path]
+      cachedChoice: !!localStorage['cached' + self.$route.path],
+      output: self.output
     }
   },
   computed: {
@@ -264,6 +266,12 @@ export default {
   },
   beforeMount: function () {
     this.choice = localStorage[this.cacheKey] || ''
+  },
+  mounted: function () {
+    if (this.isResources) {
+      localStorage[this.lessonKey] = 'passed'
+      this.trackEvent(EVENTS.LESSON_PASSED)
+    }
   },
   methods: {
     setEditorCode (newCode) {
@@ -403,10 +411,15 @@ export default {
       }
     },
     createFile: function (ipfs) {
+      // create a sample file for the user to read from, acessible at this CID:
+      // QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
       /* eslint-disable no-new */
       return ipfs.add(this.ipfsConstructor.Buffer.from('You did it!'))
     },
     createTree: function (ipfs) {
+      // create a sample directory for the user to read from, acessible at these CIDs:
+      // top-level directory: QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy
+      // `fun` directory: QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r
       /* eslint-disable no-new */
       return ipfs.add([
         {
@@ -436,11 +449,11 @@ export default {
     resetFileUpload: function () {
       this.uploadedFiles = false
       delete this.output.test
-      this.clearPassed()
     },
     clearPassed: function () {
       delete localStorage[this.lessonKey]
       delete localStorage[`passed/${this.tutorial.url}`]
+      this.lessonPassed = !!localStorage[this.lessonKey]
     },
     loadCodeFromCache: function () {
       this.editorCode = localStorage[this.cacheKey]
@@ -463,7 +476,7 @@ export default {
         key: event,
         segmentation: {
           tutorial: this.tutorial.shortTitle,
-          lessonNumber: this.lessonId,
+          lessonNumber: this.isResources ? 'resources' : this.lessonId,
           path: this.$route.path,
           ...opts
         }
@@ -554,6 +567,9 @@ export default {
     },
     cyReplaceWithSolution: function () {
       this.editor.setValue(this.solution)
+    },
+    cyClearDefaultCode: function () {
+      this.editor.setValue('  ')
     },
     parseData: (data) => marked(data).html
   }

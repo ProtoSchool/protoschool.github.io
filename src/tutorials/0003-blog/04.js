@@ -40,7 +40,7 @@ const validate = async (result, ipfs) => {
   }
   let expectedTags = ['funny', 'hobby']
   if (!shallowEqualArrays(node.tags.sort(), expectedTags.sort())) {
-    return { fail: `The tags of the \`${node.content}\` blog post ${utils.stringify(node.tags)} did not match the the expected tags ${utils.stringify(expectedTags)}.` }
+    return { fail: `The tags of the \`${node.content}\` blog post ${utils.stringify(node.tags)} did not match the expected tags ${utils.stringify(expectedTags)}.` }
   }
 
   // Don't check the CID as then the order of the links within the tags would

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-aqua-muted navy pa4 flex f4">
+  <div class="bg-aqua-muted navy pa4 flex f4 br2">
     <img src="../static/images/complete.svg" class="w2 h2 mr3" alt="complete" />
     <div class="flex items-start flex-column">
       <div class="lh-title">
@@ -29,7 +29,7 @@ export default {
       let href = 'https://twitter.com/intent/tweet?'
       href += `text=I just completed the ${this.tutorial.title} tutorial at @ProtoSchool!`
       href += `&url=${encodeURIComponent(getTutorialFullUrl(this.tutorial.formattedId))}`
-      href += `&hashtags=${this.tutorial.project}`
+      href += `&hashtags=${this.tutorial.project.name}`
 
       return href
     }
