@@ -47,17 +47,13 @@ exports.transformSpreadSheet = (rows, columns, extraColumns = []) => (
       }
 
       // add the extra columns
-      transformedRowObject = {
+      return {
+        id: index + 1,
         ...transformedRowObject,
         ...extraColumns.reduce((rowObjectWithNewProperties, extraColumn) => ({
           ...rowObjectWithNewProperties,
           [extraColumn.key]: extraColumn.value(rowObject, transformedRowObject)
         }), {})
-      }
-
-      return {
-        id: index + 1,
-        ...transformedRowObject
       }
     })
 )

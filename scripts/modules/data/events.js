@@ -40,25 +40,7 @@ const columns = [
   {
     // Start Time
     key: 'startTime',
-    transform: event => event.date && new Date(`${event.date} ${event.startTime}`).toISOString()
-  },
-  {
-    // End Time
-    key: 'endTime',
-    transform: event => event.date && new Date(`${event.date} ${event.endTime}`).toISOString()
-  },
-  {
-    // How is this workshop being presented?
-    key: 'type',
-    transform: event => {
-      if (event.type.includes('community')) {
-        return 'community'
-      } else if (event.type.includes('conference')) {
-        return 'conference'
-      } else if (event.type.includes('event')) {
-        return 'event'
-      }
-    }
+    transform: event => event.date && moment(new Date(`${event.date} ${event.startTime}`)).format('YYYY-MM-DDTHH:mm')
   },
   'hostedByName', // What is the name of your community group or Meetup?
   'hostedByUrl', // What's the URL for your group's overarching website or Meetup page?
@@ -92,12 +74,6 @@ const extraColumns = [
   {
     key: 'pendingApproval',
     value: event => !event.approved
-  },
-  {
-    key: 'duration',
-    value: (event, transformedEvent) => (
-      Math.abs(moment(new Date(transformedEvent.endTime)).diff(new Date(transformedEvent.startTime), 'minutes'))
-    )
   }
 ]
 
