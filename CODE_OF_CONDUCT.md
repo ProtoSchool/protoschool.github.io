@@ -52,9 +52,10 @@ address, posting via an official social media account, or acting as an appointed
 representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.
 
-Note that each ProtoSchool [chapter](https://proto.school/chapters) also maintains
-its own Code of Conduct. Please visit your chapter's website or repository to view
-additional policies that may apply to its events, website, and repos.
+Note that each ProtoSchool event also maintains its own Code of Conduct, which is
+linked from our [event listings](https://proto.school/#/events). Please refer to
+the local event organizer's Code of Conduct for additional policies that may apply
+to its events, website, and/or GitHub repos.
 
 ## Enforcement
 
@@ -69,12 +70,12 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
-Please note that each ProtoSchool [chapter](https://proto.school/chapters)
-maintains its own Code of Conduct with additional guidance for local events and
-chapter repositories. To report instances of abusive, harassing, or
-otherwise unacceptable behavior that have occured within chapter events or repos,
-please reach out to your local chapter leadership using the contact information
-provided in their chapter CoC. 
+Please note that the organizers of each local ProtoSchool [event](https://proto.school/#/events)
+maintain their own Code of Conduct with additional guidance for local events and
+any related websites or repositories. To report instances of abusive, harassing, or
+otherwise unacceptable behavior that have occured within local events or repos,
+please reach out to your local leadership team using the contact information
+provided in their CoC.
 
 ## Attribution
 

@@ -8,6 +8,7 @@ import Home from './pages/Home.vue'
 import Landing from './pages/Landing.vue'
 import Lesson from './pages/Lesson.vue'
 import ResourcesLesson from './pages/ResourcesLesson.vue'
+import Events from './pages/Events.vue'
 import Chapters from './pages/Chapters.vue'
 import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
@@ -25,7 +26,13 @@ const routes = [
   {
     path: '/chapters',
     component: Chapters,
-    name: 'Chapters'
+    name: 'Chapters',
+    props: { hidden: true }
+  },
+  {
+    path: '/events',
+    component: Events,
+    name: 'Events'
   },
   {
     path: '/host',

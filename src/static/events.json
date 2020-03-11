@@ -1,0 +1,171 @@
+[
+  {
+    "id": 1,
+    "city": "Denver",
+    "region": "Colorado",
+    "country": "United States of America",
+    "startTime": "2020-02-13T08:00",
+    "tutorials": [
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0005"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/Denver/blob/master/CODE_OF_CONDUCT.md",
+    "url": "http://dnsummit.cryptorado.org/",
+    "hostedByName": "Cryptorado",
+    "hostedByUrl": "https://cryptorado.org",
+    "hostedAtName": "Distributed Networks Summit",
+    "hostedAtUrl": "http://dnsummit.cryptorado.org/"
+  },
+  {
+    "id": 3,
+    "city": "Lagos",
+    "region": "",
+    "country": "Nigeria",
+    "startTime": "2020-05-30T11:00",
+    "tutorials": [
+      "0001"
+    ],
+    "cocUrl": "https://blockchainnigeria.group/content/proto-school-coc",
+    "url": "https://www.eventbrite.com/e/blockchain-decentralized-finance-conference-exhibition-lagos-2020-tickets-91428251361",
+    "hostedByName": "Blockchain Nigeria User Group",
+    "hostedByUrl": "https://blockchainnigeria.group/",
+    "hostedAtName": "Blockchain & Decentralized Finance Conference / Exhibition Lagos 2020",
+    "hostedAtUrl": "https://blockchainnigeria.group/"
+  },
+  {
+    "id": 4,
+    "city": "Seattle",
+    "region": "Washington",
+    "country": "USA",
+    "startTime": "2019-08-29T23:00",
+    "tutorials": [
+      "0004"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/seattle/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/events/262328555/",
+    "hostedByName": "Decentralized Web Seattle",
+    "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 5,
+    "city": "Shanghai",
+    "region": "",
+    "country": "China",
+    "startTime": "2019-12-29T14:00",
+    "tutorials": [
+      "0004"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/shanghai/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/events/267261859/",
+    "hostedByName": "Shanghai Decentralized Systems Meetup",
+    "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 6,
+    "city": "Denver",
+    "region": "Colorado",
+    "country": "USA",
+    "startTime": "2019-02-12T12:00",
+    "tutorials": [
+      "0001",
+      "0002",
+      "0003"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/Denver/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/IPFS-Colorado/events/258784085/",
+    "hostedByName": "IPFS Colorado",
+    "hostedByUrl": "https://www.meetup.com/IPFS-Colorado/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 7,
+    "city": "Shanghai",
+    "region": "",
+    "country": "China",
+    "startTime": "2019-09-28T14:00",
+    "tutorials": [
+      "0003"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/shanghai/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/events/264683729/",
+    "hostedByName": "Shanghai Decentralized Systems Meetup",
+    "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 8,
+    "city": "Shanghai",
+    "region": "",
+    "country": "China",
+    "startTime": "2019-08-31T13:30",
+    "tutorials": [
+      "0002"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/shanghai/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/events/263835810/",
+    "hostedByName": "Shanghai Decentralized Systems Meetup",
+    "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 9,
+    "city": "Seattle",
+    "region": "Washington",
+    "country": "USA",
+    "startTime": "2019-04-25T18:00",
+    "tutorials": [
+      "0001",
+      "0002",
+      "0003"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/seattle/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/events/259938521/",
+    "hostedByName": "Decentralized Web Seattle",
+    "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 10,
+    "city": "Seattle",
+    "region": "Washington",
+    "country": "USA",
+    "startTime": "2019-06-27T19:00",
+    "tutorials": [
+      "0004"
+    ],
+    "cocUrl": "https://github.com/ProtoSchool/seattle/blob/master/CODE_OF_CONDUCT.md",
+    "url": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/events/261536766/",
+    "hostedByName": "Decentralized Web Seattle",
+    "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 11,
+    "city": "Berlin",
+    "region": "",
+    "country": "Germany",
+    "startTime": "2019-08-20T19:30",
+    "tutorials": [
+      "0001",
+      "0004"
+    ],
+    "cocUrl": "",
+    "url": "https://web3summit.com/",
+    "hostedByName": "",
+    "hostedByUrl": "",
+    "hostedAtName": "Web3 Summit",
+    "hostedAtUrl": "https://web3summit.com/"
+  }
+]

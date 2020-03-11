@@ -17,7 +17,7 @@
           </div>
         </div>
       </section>
-      <Navigation />
+      <Navigation :hidden="hidden"/>
     </header>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
     Navigation
   },
   props: {
-    notFound: Boolean
+    notFound: Boolean,
+    hidden: Boolean
   }
 }
 </script>
