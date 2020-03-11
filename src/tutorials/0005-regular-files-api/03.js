@@ -14,13 +14,6 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  if (utils.validators.allIsNotDefined(result)) {
-    return {
-      overrideError: true,
-      fail: utils.validationMessages.ALL_IS_NOT_DEFINED
-    }
-  }
-
   if (result.error) {
     return { error: result.error }
   }
@@ -64,7 +57,8 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs */
+const code = `/* global ipfs, all */
+
 const run = async (files) => {
   const result = // Place your code to add a file or files here
 
@@ -73,8 +67,7 @@ const run = async (files) => {
 return run
 `
 
-const solution = `/* global ipfs */
-const all = require('it-all')
+const solution = `/* global ipfs, all */
 
 const run = async (files) => {
   const result = await all(ipfs.add(files))
@@ -91,8 +84,6 @@ const run = async (files) => {
 return run
 `
 
-const modules = { 'it-all': require('it-all') }
-
 const options = {
   overrideErrors: true
 }
@@ -101,6 +92,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }

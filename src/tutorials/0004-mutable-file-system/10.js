@@ -28,9 +28,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs */
-const all = require('it-all')
-const concat = require('it-concat')
+const code = `/* global ipfs, all, concat */
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
@@ -49,9 +47,7 @@ const run = async (files) => {
 return run
 `
 
-const solution = `/* global ipfs */
-const all = require('it-all')
-const concat = require('it-concat')
+const solution = `/* global ipfs, all, concat */
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
@@ -70,11 +66,6 @@ const run = async (files) => {
 return run
 `
 
-const modules = {
-  'it-all': require('it-all'),
-  'it-concat': require('it-concat')
-}
-
 const options = {
   overrideErrors: true,
   createTestFile: true
@@ -84,6 +75,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }

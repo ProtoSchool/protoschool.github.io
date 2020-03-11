@@ -74,8 +74,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs */
-const all = require('it-all')
+const code = `/* global ipfs, all */
 
 const run = async () => {
   let result = // your code here
@@ -85,8 +84,7 @@ const run = async () => {
 return run
 `
 
-const solution = `/* global ipfs */
-const all = require('it-all')
+const solution = `/* global ipfs, all */
 
 const run = async () => {
   let result = await all(ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy'))
@@ -95,8 +93,6 @@ const run = async () => {
 }
 return run
 `
-
-const modules = { 'it-all': require('it-all') }
 
 const options = {
   overrideErrors: true,
@@ -107,6 +103,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }

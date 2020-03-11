@@ -26,7 +26,8 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs */
+const code = `/* global ipfs, concat */
+
 const run = async () => {
     const fileContents = // place your code here
 
@@ -35,8 +36,7 @@ const run = async () => {
 return run
 `
 
-const solution = `/* global ipfs */
-const concat = require('it-concat')
+const solution = `/* global ipfs, concat */
 
 const run = async () => {
     const fileContents = await concat(ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ'))
@@ -47,8 +47,6 @@ const run = async () => {
 return run
 `
 
-const modules = { 'it-concat': require('it-concat') }
-
 const options = {
   overrideErrors: true,
   createTestFile: true
@@ -58,6 +56,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }

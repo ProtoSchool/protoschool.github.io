@@ -593,7 +593,6 @@ The properties exported from this file depend on the lesson type, as follows:
   - `validate(result, ipfs)`: Function - mandatory - _the validation code used to evaluate the user's code submission_ ([detailed docs](#validate-the-users-submitted-code))
   - `solution`: String - mandatory - _the suggested solution to the code challenge, visible to the user on demand_ ([detailed docs](#provide-the-simplest-solution-to-your-exercise))
   - `code`: String - optional - _the starting code for the challenge (though technically optional because a default is available, you will almost always need to provide this)_ ([detailed docs](#provide-the-starting-code-for-your-exercise))
-  - `modules`: Object - optional - _modules to be available to users through `require('module-name')` given that `modules = { module-name: require('module-name') }`_
   - `options`: Object - optional
       - `overrideErrors`: Boolean - default is `false` - _allows customized replacement of IPFS-generated errors with more user-friendly messages_ ([detailed docs](#override-external-error-messages-optional))
       - `createTestFile`: Boolean - default is `false` - _before validation, runs `createFile` in `Lesson.vue` to create a sample file the user can read from (see function for details)_

@@ -108,6 +108,7 @@ import Vue from 'vue'
 import CID from 'cids'
 import pTimeout from 'p-timeout'
 import all from 'it-all'
+import concat from 'it-concat'
 import newGithubIssueUrl from 'new-github-issue-url'
 
 import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
@@ -135,28 +136,27 @@ class SyntaxError extends Error {
   }
 }
 
-const _eval = async (text, ipfs, modules = {}, args = []) => {
+const _eval = async (text, ipfs, args = []) => {
   if (!text || typeof text !== 'string' || !text.trim()) {
     return new Error('Please submit a solution.')
+  }
+
+  const modules = {
+    ipfs, all, concat
   }
 
   let fn
   try {
     // eslint-disable-next-line
-    fn = new Function('ipfs', 'require', text)
+    fn = new Function(Object.keys(modules).join(','), text)
   } catch (err) {
     return new SyntaxError(err.message, err)
-  }
-
-  const require = name => {
-    if (!modules[name]) throw new Error(`Cannot find modules: ${name}`)
-    return modules[name]
   }
 
   let result
 
   try {
-    result = await pTimeout(fn(ipfs, require)(...args), MAX_EXEC_TIMEOUT).catch((err) => {
+    result = await pTimeout(fn.apply(null, Object.values(modules))(...args), MAX_EXEC_TIMEOUT).catch((err) => {
       if (err.name === 'TimeoutError') {
         err.message = 'Your code took too long to execute. This could be the result of trying to fetch data that\'s not available on the IPFS network. Take a close look at your code with this possiblity in mind. Still can\'t figure out what\'s wrong? Use the View Solution feature above to see our suggested approach to this challenge.'
       }
@@ -169,7 +169,7 @@ const _eval = async (text, ipfs, modules = {}, args = []) => {
   return result
 }
 
-const defaultCode = `/* globals ipfs */
+const defaultCode = `/* globals ipfs, all, concat */
 
 const run = async () => {
   // your code goes here!
@@ -205,7 +205,6 @@ export default {
     exercise: String,
     concepts: String,
     solution: String,
-    modules: Object,
     validate: Function,
     code: String,
     overrideErrors: Boolean,
@@ -321,7 +320,6 @@ export default {
       }
 
       const code = this.editor.getValue()
-      let modules = {}
 
       if (this.isFileLesson && this.uploadedFiles === false && auto === true) {
         this.showUploadInfo = true
@@ -331,10 +329,9 @@ export default {
         this.showUploadInfo = false
       }
 
-      if (this.modules) modules = this.modules
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
       // Output external errors or not depending on flag
-      const result = await _eval(code, ipfs, modules, args)
+      const result = await _eval(code, ipfs, args)
       if (!this.overrideErrors && result instanceof Error) {
         Vue.set(output, 'test', result)
         this.lessonPassed = !!localStorage[this.lessonKey]
@@ -415,7 +412,7 @@ export default {
       // create a sample file for the user to read from, acessible at this CID:
       // QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
       /* eslint-disable no-new */
-      return all(ipfs.add(this.ipfsConstructor.Buffer.from('You did it!')))
+      return all(ipfs.add('You did it!'))
     },
     createTree: function (ipfs) {
       // create a sample directory for the user to read from, acessible at these CIDs:
@@ -424,15 +421,15 @@ export default {
       /* eslint-disable no-new */
       return all(ipfs.add([
         {
-          content: this.ipfsConstructor.Buffer.from('¯\\_(ツ)_/¯'),
+          content: '¯\\_(ツ)_/¯',
           path: 'shrug.txt'
         },
         {
-          content: this.ipfsConstructor.Buffer.from(':)'),
+          content: ':)',
           path: 'smile.txt'
         },
         {
-          content: this.ipfsConstructor.Buffer.from('You did it!'),
+          content: 'You did it!',
           path: 'fun/success.txt'
         }
       ], { wrapWithDirectory: true }))

@@ -127,8 +127,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `
-const all = require('it-all')
+const code = `/* global ipfs, all */
 
 const run = async (files) => {
   // This code adds your uploaded files to your root directory in IPFS
@@ -143,8 +142,7 @@ const run = async (files) => {
 return run
 `
 
-const solution = `
-const all = require('it-all')
+const solution = `/* global ipfs, all */
 
 const run = async (files) => {
   // This code adds your uploaded files to your root directory in IPFS
@@ -159,8 +157,6 @@ const run = async (files) => {
 return run
 `
 
-const modules = { 'it-all': require('it-all') }
-
 const options = {
   overrideErrors: true
 }
@@ -169,6 +165,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }

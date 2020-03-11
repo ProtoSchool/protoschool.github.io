@@ -3,4 +3,4 @@ Add one or more files to your IPFS node, using `{ wrapWithDirectory: true }` to 
 **Hints:**
 - Be sure to reference the examples above for the object structure needed to indicate the desired path of each file, as well as how to pass in multiple files as an array.
 - Try the [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) or [`forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) array methods to loop through each file in the `files` array and access its name as `file.name`.
-- You need to concatenate all the results into an array because the `ipfs.add` method returns an `Async Iterable`. You can use either the `for await...of` loop or the package `it-all`.
+- You need to concatenate all the results into an array because the `ipfs.add` method returns an `Async Iterable`. You can use either the `for await...of` loop or the function `all`.

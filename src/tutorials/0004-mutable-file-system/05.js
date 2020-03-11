@@ -44,8 +44,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `
-const all = require('it-all')
+const code = `/* global ipfs, all */
 
 const run = async (files) => {
   // this code adds your uploaded files to IPFS
@@ -59,8 +58,7 @@ return run
 `
 
 // '/' in the solution code below is optional
-const solution = `
-const all = require('it-all')
+const solution = `/* global ipfs, all */
 
 const run = async (files) => {
   // this code adds your uploaded files to IPFS
@@ -74,11 +72,8 @@ const run = async (files) => {
 return run
 `
 
-const modules = { 'it-all': require('it-all') }
-
 export default {
   validate,
   code,
-  solution,
-  modules
+  solution
 }
