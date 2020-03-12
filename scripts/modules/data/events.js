@@ -9,6 +9,8 @@ const Table = require('cli-table')
 const allTutorials = require('../../../src/static/tutorials.json')
 const googleSheets = require('../googleapis/sheets')
 
+const logGroup = 'modules:data:events'
+
 const EVENTS_FILE = 'src/static/events.json'
 const SPREADSHEET = {
   spreadsheetId: '12crFIs4Og35I0pdhutczDNPA1sx48ec4Zgm8fIjVbkM',
@@ -130,7 +132,7 @@ function logEventsResults (events) {
   console.log(table.toString())
   console.log()
 
-  log.info('modules:data:events', `total events submitted: ${events.length}`)
+  log.info(logGroup, `total events submitted: ${events.length}`)
 }
 
 /*
@@ -139,17 +141,17 @@ function logEventsResults (events) {
 exports.fetch = async function () {
   let spreadsheet
 
-  log.info('modules:data:events', 'fetching spreadsheet from Google')
+  log.info(logGroup, 'fetch: fetching spreadsheet from Google')
 
   try {
-    log.verbose('modules:data:events', 'sheets.spreadsheets.values.get() request initiated')
+    log.verbose(logGroup, 'sheets.spreadsheets.values.get() request initiated')
 
     spreadsheet = await googleSheets.getSpreadSheet(SPREADSHEET)
 
-    log.info('modules:data:events', 'spreadsheet successfully fetched')
+    log.info(logGroup, 'spreadsheet successfully fetched')
   } catch (error) {
     if (error) {
-      log.error('modules:data:events', `Failed to fetch spreadsheet from Google: ${error.message}`)
+      log.error(logGroup, `Failed to fetch spreadsheet from Google: ${error.message}`)
       console.error(error)
 
       return
@@ -159,29 +161,44 @@ exports.fetch = async function () {
   const rows = spreadsheet.data.values
 
   if (!rows.length) {
-    log.warn('modules:data:events', 'spreadsheet has no data')
+    log.warn(logGroup, 'spreadsheet has no data')
     return
   }
 
-  log.verbose('modules:data:events', `processing spreadsheet with ${rows.length} rows`)
+  log.verbose(logGroup, `processing spreadsheet with ${rows.length} rows`)
 
   // Transform google spreadsheet rows (array of arrays) to array of event objects
   let events = googleSheets.transformSpreadSheet(rows, columns, extraColumns)
-  const approvedEvents = events.filter(event => event.approved)
 
   logEventsResults(events)
 
-  return approvedEvents
+  return events
 }
 
 /*
   Save events to local static file to be used by the application
  */
 exports.save = events => {
-  log.info('modules:data:events', `saving approved events to ${EVENTS_FILE}`)
+  log.info(logGroup, `save: saving approved events to ${EVENTS_FILE}`)
+
+  const approved = events.filter(event => event.approved)
 
   return promisify(fs.writeFile)(
     EVENTS_FILE,
-    JSON.stringify(events.map(event => _.pick(event, whitelist)), null, 2)
+    JSON.stringify(approved.map(event => _.pick(event, whitelist)), null, 2)
   )
+}
+
+exports.getOrganizers = async (events) => {
+  log.info(logGroup, `getOrganizers: computing organizers from events list.`)
+
+  const organizers = []
+
+  events.forEach(event => {
+    if (event.emailAddress && !organizers.find(organizer => event.emailAddress === organizer.emailAddress)) {
+      organizers.push(_.pick(event, ['fullName', 'emailAddress']))
+    }
+  })
+
+  return organizers
 }
