@@ -24,9 +24,9 @@
       <li v-for="tutorialId in tutorials" v-bind:key="tutorialId" class="mb1">
         <router-link
           class="navy event-tutorial-link"
-          :to="`/${getTutorial(tutorialId).url}`"
+          :to="`/${tutorialsData[tutorialId].url}`"
         >
-          {{getTutorial(tutorialId).title}}
+          {{tutorialsData[tutorialId].title}}
         </router-link>
       </li>
     </ul>
@@ -44,8 +44,7 @@
 import moment from 'moment'
 
 import Card from './Card.vue'
-import tutorialsList from '../static/tutorials.json'
-// will use util instead after existing PR is merged with different functions there
+import tutorialsData from '../utils/tutorials'
 
 export default {
   components: {
@@ -70,7 +69,7 @@ export default {
   },
   data: self => {
     return {
-      tutorialsList
+      tutorialsData
     }
   },
   computed: {
@@ -86,12 +85,6 @@ export default {
     // endsSameDay: function () {
     //   return moment(this.startTime).format("YYYY-DD-MMMM") === moment(this.endTime).format("YYYY-DD-MMMM")
     // }
-  },
-  methods: {
-    // will use util instead after existing PR is merged with different functions there
-    getTutorial: function (tutorialId) {
-      return this.tutorialsList[tutorialId]
-    }
   }
 }
 
