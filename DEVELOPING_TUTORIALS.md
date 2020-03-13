@@ -35,6 +35,7 @@ Ready to get started? Read on!
           - [Display results to the user (optional)](#display-results-to-the-user-optional)
     - [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
       - [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+        - [Add alert messages for new and updated tutorials (optional)](#add-alert-messages-for-new-and-updated-tutorials-optional)
       - [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
     - [Submit a pull request](#submit-a-pull-request)
   - [Troubleshooting](#troubleshooting)
@@ -508,7 +509,11 @@ In `static/tutorials.json`, add a new key for your tutorial and fill in the appr
       "link": "https://docs.domain.io",
       "type": "docs"
     }
-  ]
+  ],
+  "updateMessage": "",
+  "newMessage": "",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z"
 },
 ```
 
@@ -533,6 +538,21 @@ Examples of meaningful resource `type`s include: `docs`, `demo`, `tutorial`, `ar
 Be sure to include any ProtoSchool tutorials that would provide a nice follow-on to your own content. Be sure to use the type `tutorial` for these, and they will automagically receive an extra callout as ProtoSchool tutorials when the page renders, like so:
 
 ![screenshot](public/protoschool_resource.png)
+
+The properties `updateMessage`, `newMessage`, `createdAt` and `updatedAt` are used to alert users to new tutorials or tutorials that have been updated since they last visited them. When creating a new tutorial, both the `createdAt` and `updatedAt` fields should be set to the date you're submitting your pull request. Learn more about new and updated tutorial alerts below
+
+##### Add alert messages for new and updated tutorials (optional)
+
+**When a new tutorial is published**, a new tutorial alert will be displayed for one month. This message disappears when a user has completed the tutorial (or some of it) or when a month has passed since the `createdAt` date, whichever comes sooner. You can _optionally_ display a custom message within the new tutorial alert by updating the `newMessage` field in `tutorials.json`, using markdown formatting within the message as needed.
+
+![New Tutorial Message](public/tutorial_message_new.jpg)
+
+**When major updates are made to an existing tutorial**, an update alert will be displayed to users who have previously completed at least one lesson within the tutorial. Major changes include those that change solution code or fundamentally alter the concepts being taught. If a user were to return to a lesson in your tutorial and find that their old solution no longer passed the lesson, that would be an indicator that you've made a major change that requires an alert. Simple typo fixes, addition of graphics, etc., do not count as major updates.
+
+When submitting a PR that includes major tutorial updates, you should provide an `updateMessage` in `tutorials.json` that calls out what's changed, using markdown formatting as needed, and adjust the `updatedAt` field accordingly. This date will be compared to the date at which a user last completed a lesson to determine whether the message should be displayed. If displayed, the update message will disappear once a user has completed the updated version of the tutorial. Users who haven't visited a tutorial before its `updatedAt` date will never see the message.
+
+![Updated Tutorial Message](public/tutorial_message_update.jpg)
+
 
 #### Add your tutorial to `static/courses.json`
 

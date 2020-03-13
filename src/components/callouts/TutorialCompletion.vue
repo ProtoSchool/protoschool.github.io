@@ -1,6 +1,6 @@
 <template>
   <div class="bg-aqua-muted navy pa4 flex f4 br2">
-    <img src="../static/images/complete.svg" class="w2 h2 mr3" alt="complete" />
+    <img src="../../static/images/complete.svg" class="w2 h2 mr3" alt="complete" />
     <div class="flex items-start flex-column">
       <div class="lh-title">
         Congratulations on completing the <span class="b">{{tutorial.title}}</span> tutorial!
@@ -12,13 +12,13 @@
         title="Twitter"
       >
         <span class="f5 pr2">Share on Twitter</span>
-        <img src="../static/images/icons/twitter.svg" class="dib h1 w1 navy-muted" alt="twitter" />
+        <img src="../../static/images/icons/twitter.svg" class="dib h1 w1 navy-muted" alt="twitter" />
       </a>
     </div>
   </div>
 </template>
 <script>
-import { getTutorialFullUrl } from '../utils/tutorials'
+import { getTutorialFullUrl } from '../../utils/tutorials'
 
 export default {
   props: {

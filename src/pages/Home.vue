@@ -46,7 +46,7 @@ import Header from '../components/Header'
 import Event from '../components/Event'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
 import coursesList from '../static/courses.json'
-import tutorialsList from '../static/tutorials.json'
+import tutorials from '../utils/tutorials'
 import { futureEvents } from '../utils/events'
 
 export default {
@@ -62,7 +62,7 @@ export default {
     }
   },
   computed: {
-    featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorialsList[tutorialId], tutorialId }))
+    featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
   }
 }
 </script>

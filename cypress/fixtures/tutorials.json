@@ -1,0 +1,60 @@
+{
+	"0004": {
+		"url": "mutable-file-system",
+		"redirectUrls": [],
+		"project": "ipfs",
+		"title": "IPFS: Mutable File System",
+		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
+		"resources": [
+			{
+				"title": "Jeromy Coffee Talks: Files API",
+				"link": "https://youtu.be/FX_AXNDsZ9k",
+				"type": "video",
+				"description": "Wondering how the Mutable File System (MFS) can treat immutable data as though it's mutable? Jeromy Johnson of Protocol Labs explains the abstraction that makes it possible."
+			}
+		],
+		"updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-03-02T00:00:00.000Z"
+	},
+	"0005": {
+		"url": "regular-files-api",
+		"redirectUrls": [],
+		"project": "ipfs",
+		"title": "IPFS: Regular Files API",
+		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
+		"resources": [
+			{
+				"title": "P2P Data Links with Content Addressing",
+				"link": "https://proto.school/#/basics/",
+				"type": "tutorial",
+				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
+			}
+		],
+    "updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-03-02T00:00:00.000Z"
+	},
+	"0006": {
+		"url": "anatomy-of-a-cid",
+		"project": "multiformats",
+		"title": "Anatomy of a CID",
+		"description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+		"resources": [
+			{
+				"title": "Multihash",
+				"link": "https://multiformats.io/multihash/",
+				"type": "docs",
+				"description": "Learn more about the multihash protocol for differentiating outputs from various well-established hash functions, addressing size and encoding considerations."
+			},
+			{
+				"title": "Content Identifier (CID) Specification",
+				"link": "https://github.com/multiformats/cid/",
+				"type": "docs",
+				"description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
+			}
+		],
+    "createdAt": "2020-03-06T00:00:00.000Z",
+    "updatedAt": "2020-03-06T00:00:00.000Z"
+	}
+}

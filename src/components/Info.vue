@@ -1,14 +1,19 @@
 <template>
-  <div v-if="showUploadInfo" class="pt2 lh-copy">
-    You've passed this lesson previously, but the cached files are no longer available.
-    Upload files and
-    <strong>Submit</strong> to see the output again.
-  </div>
-  <div v-else class="pt2 lh-copy">
-    <span v-if="isFileLesson">Upload file(s) and update the code to complete the exercise.</span>
-    <span v-else>Update the code to complete the exercise.</span>
-    Click
-    <strong>Submit</strong> to check your answer.
+  <div class="pt2 lh-copy">
+    <span v-if="showUploadInfo">
+      You've passed this lesson previously, but the cached files are no longer available.
+      Upload files and
+      <strong>Submit</strong> to see the output again.
+    </span>
+    <span v-else-if="showLessonChangedInfo">
+      You've passed this lesson previously, but we've since updated the content of this tutorial. Check out the updated lesson content and give the code challenge another try... it might require a new solution!
+    </span>
+    <span v-else-if="isFileLesson">Upload file(s) and update the code to complete the exercise.</span>
+    <span v-else>
+      Update the code to complete the exercise.
+      Click
+      <strong>Submit</strong> to check your answer.
+    </span>
   </div>
 </template>
 
@@ -16,6 +21,7 @@
 export default {
   props: {
     showUploadInfo: Boolean,
+    showLessonChangedInfo: Boolean,
     isFileLesson: Boolean
   }
 }

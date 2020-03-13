@@ -5,6 +5,10 @@
 		"project": "ipfs",
 		"title": "Decentralized Data Structures",
 		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
+		"newMessage": "",
+		"updateMessage": "",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2019-01-01T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "Understanding How IPFS Deals with Files",
@@ -74,6 +78,10 @@
 		"project": "ipfs",
 		"title": "P2P Data Links with Content Addressing",
 		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
+		"newMessage": "",
+		"updateMessage": "",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2019-01-01T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "JS-IPFS DAG API",
@@ -112,6 +120,10 @@
 		"project": "ipfs",
 		"title": "Blogging on the Decentralized Web",
 		"description": "Cool content addresses don't change.",
+		"newMessage": "",
+		"updateMessage": "",
+		"createdAt": "2019-01-01T00:00:00.000Z",
+		"updatedAt": "2019-01-01T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "JS-IPFS DAG API",
@@ -144,6 +156,10 @@
 		"project": "ipfs",
 		"title": "IPFS: Mutable File System",
 		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
+		"newMessage": "",
+		"updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-04-08T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "JS-IPFS Files API",
@@ -195,6 +211,10 @@
 		"project": "ipfs",
 		"title": "IPFS: Regular Files API",
 		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
+		"newMessage": "",
+		"updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
+		"createdAt": "2019-01-01T00:00:00.000Z",
+		"updatedAt": "2020-04-08T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "JS-IPFS Files API",
@@ -233,6 +253,10 @@
 		"project": "multiformats",
 		"title": "Anatomy of a CID",
 		"description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+		"newMessage": "",
+		"updateMessage": "",
+		"createdAt": "2020-03-15T00:00:00.000Z",
+		"updatedAt": "2020-03-15T00:00:00.000Z",
 		"resources": [
 			{
 				"title": "How IPFS Deals With Files: Anatomy of a CID",
