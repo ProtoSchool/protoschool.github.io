@@ -30,8 +30,11 @@ exports.getListMembers = async (id) => {
     path: '/lists/{id}/members',
     path_params: {
       id
+    },
+    query: {
+      count: 10000000000
     }
-  })
+  }, { batch: true })
 
   return result
 }

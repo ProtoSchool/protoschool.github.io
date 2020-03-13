@@ -4,10 +4,12 @@
 
 let log = require('npmlog')
 
+require('dotenv').config()
+
 // CLI Options
 const options = {
-  dryRun: process.argv.includes('--dry-run') || !process.env.CI || false, // do not make any changes
-  debug: process.argv.includes('--debug') // more detailed logging
+  dryRun: process.argv.includes('--dry-run') || !process.env.CI, // do not make any changes
+  debug: process.argv.includes('--debug') || !!process.env.DEBUG // more detailed logging
 }
 
 if (options.debug) {

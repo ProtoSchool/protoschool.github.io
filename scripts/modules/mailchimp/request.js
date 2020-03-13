@@ -2,11 +2,11 @@ const log = require('npmlog')
 
 const mailchimp = require('./auth')
 
-module.exports = async function request (params) {
+module.exports = async function request (params, options = {}) {
   let result
 
   try {
-    result = await mailchimp.request(params)
+    result = await mailchimp[options.batch ? 'batch' : 'request'](params)
   } catch (error) {
     log.error('modules:mailchimp:request', `request failed`)
     log.error('modules:mailchimp:request', `mailchimp error: ${error.status} ${error.title} - ${error.detail}`)
@@ -16,7 +16,7 @@ module.exports = async function request (params) {
     throw error
   }
 
-  if (result.statusCode !== 200) {
+  if (result.statusCode && result.statusCode !== 200) {
     log.error('modules:mailchimp:request', `request failed with statusCode=${result.statusCode}`)
 
     throw new Error(`Mailchimp request failed with statusCode=${result.statusCode}`)

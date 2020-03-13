@@ -3,8 +3,6 @@
     All required information will be ready from env vars.
  */
 
-require('dotenv').config()
-
 const { google } = require('googleapis')
 
 if (!process.env.GOOGLE_CLIENT_ID) {
