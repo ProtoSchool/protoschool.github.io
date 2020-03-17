@@ -196,7 +196,7 @@ exports.getOrganizers = async (events) => {
 
   events.forEach(event => {
     if (event.emailAddress && !organizers.find(organizer => event.emailAddress === organizer.emailAddress)) {
-      organizers.push(_.pick(event, ['fullName', 'emailAddress']))
+      organizers.push(_.pick(event, ['firstName', 'lastName', 'emailAddress']))
     }
   })
 

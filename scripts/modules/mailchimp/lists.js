@@ -48,7 +48,11 @@ exports.addListMember = async (id, member) => {
     },
     body: {
       email_address: member.emailAddress,
-      status: 'subscribed'
+      status: 'subscribed',
+      merge_fields: {
+        FNAME: member.firstName,
+        LNAME: member.lastName
+      }
     }
   })
 }
