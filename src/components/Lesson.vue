@@ -435,7 +435,6 @@ export default {
       ], { wrapWithDirectory: true }))
     },
     resetCode: function () {
-      // TRACK? User chose to reset code
       this.editorCode = this.setEditorCode(this.code || defaultCode)
       // this ^ triggers onCodeChange which will clear cache
       this.editor.setValue(this.editorCode)

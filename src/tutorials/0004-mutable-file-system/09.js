@@ -45,19 +45,19 @@ const validate = async (result, ipfs) => {
   const returnedCorrectFilenames = JSON.stringify(correctFilenames) === JSON.stringify(someStuffFilenames)
   const returnedCIDAsFilename = JSON.stringify(incorrectFilenames) === JSON.stringify(someStuffFilenames)
 
-  const log = someStuffFiles.map(utils.format.ipfsObject)
+  const logOutput = someStuffFiles.map(utils.format.ipfsObject)
 
   if (noNewFile) {
     return {
       fail: 'No new files have been copied into `/some/stuff`',
       logDesc: "Did you get the desination path wrong in your `files.cp` command? Here's what's in your `/some/stuff` directory now:",
-      log
+      log: logOutput
     }
   } else if (someFileHasRightCID && returnedCIDAsFilename) {
     return {
       fail: 'You forgot to specify a filename.',
       logDesc: 'Check out the contents of your `/some/stuff` directory. You successfully copied the file but forgot to give it a name, so IPFS set its name equal to its CID. Try adding a filename to your destination path.',
-      log
+      log: logOutput
     }
   } else if (!returnedCorrectFilenames) {
     return {
@@ -69,7 +69,7 @@ const validate = async (result, ipfs) => {
     return {
       fail: 'That new file has the wrong CID.',
       logDesc: "Check out the contents of your `/some/stuff` directory. You created a file called `success.txt` but it doesn't have the CID we're looking for.",
-      log
+      log: logOutput
     }
   } else if (utils.validators.isAsyncIterable(result)) {
     return {
