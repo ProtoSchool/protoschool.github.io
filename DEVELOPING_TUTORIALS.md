@@ -396,7 +396,7 @@ There are some utils that you can use accross lesson code validations. For that 
 - `utils.validators`: common validators to be used throughout validation code
 - `utils.validationMessages`: common messages to show the user
 
-For a more detailed docs, see [here](#detailed-docs).
+For a more detailed docs, see [here](#utils-module-1).
 
 ###### Override external error messages (optional)
 
