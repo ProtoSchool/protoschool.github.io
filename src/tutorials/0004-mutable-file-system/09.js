@@ -63,7 +63,7 @@ const validate = async (result, ipfs) => {
     return {
       fail: 'Did you pick the right destination path `(/some/stuff)`',
       logDesc: "Here's what's in your `/some/stuff` directory:",
-      log
+      log: logOutput
     }
   } else if (returnedCorrectFilenames && !someFileHasRightCID) {
     return {

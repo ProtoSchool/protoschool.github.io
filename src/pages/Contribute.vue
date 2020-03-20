@@ -12,7 +12,7 @@
 
       <h2>Ways to contribute</h2>
       <p class="f4 fw5 lh-copy ma0 pv2 ">
-      ProtoSchool depends on contributors to <router-link to="/host">build tutorials</router-link>,
+      ProtoSchool depends on contributors to <router-link to="/build">build tutorials</router-link>,
       <router-link to="/host">organize local events</router-link>,
       improve our existing tutorials and documentation, and answer community
       questions. Whether you're an experienced DApp developer or a curious learner just getting started with decentralized web concepts, there are plenty of ways for you to pitch in.
@@ -20,9 +20,8 @@
 
       <h3>Host local events</h3>
       <p class="f4 fw5 lh-copy ma0 pv2 ">
-      Community events around the world provide an opportunity for learners
-      to explore ProtoSchool tutorials with guidance from mentors in their
-      <router-link to="/chapters">local ProtoSchool chapters</router-link> or at a variety of conferences and Meetups. Anyone can host a ProtoSchool event, and we provide tools and tips for organizing events
+      <router-link to="/events">ProtoSchool events</router-link> around the world provide an opportunity for learners
+      to explore our tutorials with guidance from local mentors at a variety of conferences and Meetups. Anyone can host a ProtoSchool workshop, and we provide tools and tips for organizing events
       that are fun and welcoming for everyone.
       </p>
 
@@ -66,17 +65,13 @@
       <h2>Code of Conduct</h2>
       <p class="f4 fw5 lh-copy ma0 pv2 ">
       We strive to make ProtoSchool a welcoming place for all community members.
-      All community members, including chapter organizers, must abide by our
-      <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/code/CODE_OF_CONDUCT.md">
-      Code of Conduct</a>.
+      All community members, including organizers of local events, must abide by the
+      <a href="https://github.com/protoschool/organizing/blob/master/CODE_OF_CONDUCT.md">
+      Code of Conduct</a> outlined in our organizing repository. Each local ProtoSchool
+      workshop is also required to maintain its own Code of Conduct, which you'll
+      find linked from our <router-link to="/events">events page</router-link>.
       </p>
 
-      <p class="f4 fw5 lh-copy ma0 pv2 ">
-      Additionally, each ProtoSchool chapter is responsible for maintaining
-      their own Code of Conduct for chapter events and repos. If you have questions about the
-      Code of Conduct for a specific chapter, you can open an issue in their
-      associated GitHub repository.
-      </p>
     </section>
   </div>
 </template>

@@ -64,7 +64,7 @@
 
       <h2>Other ways to contribute</h2>
       <p class="f4 fw5 lh-copy ma0 pv2  ">
-      Not ready to build a tutorial quite yet? Not ready to host a chapter quite yet? We'd love your help
+      Not ready to build a tutorial quite yet? We'd love your help
       improving existing tutorials, answering technical questions,
       making our documentation more clear, or <router-link to="/host">hosting local events</router-link>.
       Learn more about the many

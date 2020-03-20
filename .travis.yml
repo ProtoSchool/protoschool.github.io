@@ -16,6 +16,7 @@ cache:
 install:
   - npm ci
 script:
+  - npm run scripts:build:data
   - npm run build
   - npm run cy:serve &
   - npm run cy:run

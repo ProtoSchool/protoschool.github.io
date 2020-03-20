@@ -38,7 +38,7 @@ Before you build your tutorial, you'll need to have reviewed this guide and open
 
 ### ProtoSchool's guiding principles
 
-In our roadmap repo, we've documented the [guiding principles](https://github.com/protoschool/roadmap#guiding-principles) of the ProtoSchool project, which we apply to both our online tutorials and local chapter events. Here are some key highlights that apply directly to tutorial development:
+In our roadmap repo, we've documented the [guiding principles](https://github.com/protoschool/roadmap#guiding-principles) of the ProtoSchool project, which we apply to both our online tutorials and local events. Here are some key highlights that apply directly to tutorial development:
 
 - ProtoSchool’s self-paced online tutorials are **beginner-friendly**. (Advanced content is presented only when we have intermediate content in place to provide **scaffolding** that bridges the content gap.)
 - ProtoSchool offers a **cohesive** and **consistently-formatted** set of tutorials for learning about the decentralized web. (It doesn’t serve as a catch-all for all formats of educational content.)
