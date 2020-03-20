@@ -1,3 +1,6 @@
+/*
+  Error messages to show to the use on the output ui
+ */
 export default {
   NO_RESULT: 'Oops! You forgot to return a result :(',
   VALUE_IS_ASYNC_ITERABLE_ALL: 'The returned value is an Async Iterable. Did you forget to put all the results together using either `for await...of` or with `all`?',
