@@ -21,7 +21,9 @@ module.exports = async function mailchimp (params, options) {
 
   log.info(logGroup, `Found ${list.total_items} audience members.`)
 
-  const members = list.members.map(member => _.pick(member, ['id', 'status', 'email_address']))
+  const members = list.members.map(member => (
+    _.pick(member, ['id', 'status', 'email_address', 'merge_fields'])
+  ))
 
   log.info(logGroup, `Found ${members.length} mailchimp audience members.`)
 
@@ -35,30 +37,34 @@ module.exports = async function mailchimp (params, options) {
   options.debug &&
     console.log(JSON.stringify(eventOrganizers, null, 2))
 
-  const membersToAdd = eventOrganizers.filter(organizer => {
-    return !members.find(mailchimpMember => mailchimpMember.email_address === organizer.emailAddress)
+  const membersToUpdate = eventOrganizers.filter(organizer => {
+    const existsInMailchimp = members.find(mailchimpMember => mailchimpMember.email_address === organizer.emailAddress)
+
+    return !existsInMailchimp ||
+      !_.get(existsInMailchimp, 'merge_fields.FNAME') ||
+      !_.get(existsInMailchimp, 'merge_fields.LNAME')
   })
 
-  if (!membersToAdd.length) {
-    log.info(logGroup, `No new members to add.`)
+  if (!membersToUpdate.length) {
+    log.info(logGroup, `No members to update.`)
     return
   }
 
-  log.info(logGroup, `New members to add: ${membersToAdd.length}!`)
+  log.info(logGroup, `New members to update: ${membersToUpdate.length}!`)
 
   options.debug &&
-    console.log(JSON.stringify(membersToAdd, null, 2))
+    console.log(JSON.stringify(membersToUpdate, null, 2))
 
   if (options.dryRun) {
-    log.info(logGroup, `would subscribe ${membersToAdd.length} event organizers (dry run)`)
+    log.info(logGroup, `would update ${membersToUpdate.length} event organizers (dry run)`)
     return
   }
 
   let someFailed = false
 
   await Promise.all(
-    membersToAdd.map(member => (
-      mailchimpApi.lists.addListMember(list.list_id, member))
+    membersToUpdate.map(member => (
+      mailchimpApi.lists.updateListMember(list.list_id, member))
       .catch(error => {
         if (error.status === 400 && error.title === 'Member Exists') {
           someFailed = true
@@ -80,5 +86,5 @@ module.exports = async function mailchimp (params, options) {
     return
   }
 
-  log.info(logGroup, `Event organizers successfully added to mailchimp audience.`)
+  log.info(logGroup, `Event organizers successfully updated in mailchimp audience.`)
 }

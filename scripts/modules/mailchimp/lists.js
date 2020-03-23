@@ -1,3 +1,4 @@
+const crypto = require('crypto')
 const request = require('./request')
 
 exports.getAll = async () => {
@@ -39,10 +40,12 @@ exports.getListMembers = async (id) => {
   return result
 }
 
-exports.addListMember = async (id, member) => {
+exports.updateListMember = async (id, member) => {
+  const hash = crypto.createHash('md5').update(member.emailAddress).digest('hex')
+
   return request({
-    method: 'post',
-    path: '/lists/{id}/members',
+    method: 'put',
+    path: `/lists/{id}/members/${hash}`,
     path_params: {
       id
     },
