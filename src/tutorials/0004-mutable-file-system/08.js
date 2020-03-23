@@ -101,9 +101,7 @@ const run = async (files) => {
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   const rootDirectoryContents = await all(ipfs.files.ls('/'))
 
-  const filesToMove = // create an array of files to be moved (no directories)
-
-  const filepathsToMove = // create an array of the paths of those files
+  const filepathsToMove = // create an array of the paths of the files to be moved (exclude directories)
 
   // move all the files in filepathsToMove into /some/stuff
 
