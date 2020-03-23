@@ -66,6 +66,12 @@ const run = async (files) => {
 
   const rootDirectoryContents = await all(ipfs.files.ls('/'))
 
+  // alternatively, we can use a for await of loop
+  // const rootDirectoryContents = []
+  // for await (const item of ipfs.files.ls('/')) {
+  //   rootDirectoryContents.push(item)
+  // }
+
   return rootDirectoryContents
 }
 
