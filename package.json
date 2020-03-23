@@ -20,7 +20,7 @@
     "cids": "^0.7.1",
     "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
-    "ipfs": "^0.39.1",
+    "ipfs": "^0.41.2",
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.1",
     "it-concat": "^1.0.0",
