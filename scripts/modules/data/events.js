@@ -178,15 +178,22 @@ exports.fetch = async function () {
 /*
   Save events to local static file to be used by the application
  */
-exports.save = events => {
-  log.info(logGroup, `save: saving approved events to ${EVENTS_FILE}`)
-
+exports.save = async (events, options) => {
   const approved = events.filter(event => event.approved)
 
-  return promisify(fs.writeFile)(
+  if (options.dryRun) {
+    log.info(logGroup, `save({ dryRun: true }): would save ${approved.length} events`)
+    return []
+  }
+
+  log.info(logGroup, `save: saving ${approved.length} approved events to ${EVENTS_FILE}`)
+
+  await promisify(fs.writeFile)(
     EVENTS_FILE,
     JSON.stringify(approved.map(event => _.pick(event, whitelist)), null, 2)
   )
+
+  return approved
 }
 
 exports.getOrganizers = async (events) => {

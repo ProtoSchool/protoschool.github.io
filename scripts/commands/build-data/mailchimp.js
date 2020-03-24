@@ -8,7 +8,7 @@ const logGroup = 'buid:data:mailchimp'
 
 module.exports = async function mailchimp (params, options) {
   if (options.dryRun) {
-    log.warn(logGroup, `dry-run option enabled: will not add event organizers to mailchimp audience.`)
+    log.warn(logGroup, `{ dryRun: true }: will not add event organizers to mailchimp audience.`)
   }
 
   // Fetch mailchimp data
