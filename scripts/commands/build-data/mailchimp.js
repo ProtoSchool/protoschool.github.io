@@ -11,6 +11,7 @@ module.exports = async function mailchimp (params, options) {
     log.warn(logGroup, `dry-run option enabled: will not add event organizers to mailchimp audience.`)
   }
 
+  // Fetch mailchimp data
   const lists = await mailchimpApi.lists.getAll()
 
   if (lists.length > 1) {
@@ -30,6 +31,7 @@ module.exports = async function mailchimp (params, options) {
   options.debug &&
     console.log(JSON.stringify(members, null, 2))
 
+  // Compute event organizers list from list of events
   const eventOrganizers = await events.getOrganizers(params.data.events)
 
   log.info(logGroup, `Found ${eventOrganizers.length} event organizers.`)
@@ -37,9 +39,11 @@ module.exports = async function mailchimp (params, options) {
   options.debug &&
     console.log(JSON.stringify(eventOrganizers, null, 2))
 
+  // Match event organizers with mailchimp's data
   const membersToUpdate = eventOrganizers.filter(organizer => {
     const existsInMailchimp = members.find(mailchimpMember => mailchimpMember.email_address === organizer.emailAddress)
 
+    // Add new member or update their name
     return !existsInMailchimp ||
       !_.get(existsInMailchimp, 'merge_fields.FNAME') ||
       !_.get(existsInMailchimp, 'merge_fields.LNAME')
@@ -62,6 +66,7 @@ module.exports = async function mailchimp (params, options) {
 
   let someFailed = false
 
+  // Update mailchimp list members
   await Promise.all(
     membersToUpdate.map(member => (
       mailchimpApi.lists.updateListMember(list.list_id, member))
@@ -83,8 +88,7 @@ module.exports = async function mailchimp (params, options) {
 
   if (someFailed) {
     log.info(logGroup, `Adding some event organizers to mailchimp audience failed. Please check the above errors.`)
-    return
+  } else {
+    log.info(logGroup, `Event organizers successfully updated in mailchimp audience.`)
   }
-
-  log.info(logGroup, `Event organizers successfully updated in mailchimp audience.`)
 }
