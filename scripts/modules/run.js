@@ -8,8 +8,8 @@ require('dotenv').config()
 
 // CLI Options
 const options = {
-  dryRun: process.argv.includes('--dry-run') || !process.env.CI, // do not make any changes
-  debug: process.argv.includes('--debug') || !!process.env.DEBUG // more detailed logging
+  dryRun: !process.argv.includes('--dry-run=false'), // do not make any changes
+  debug: process.argv.includes('--debug') // more detailed logging
 }
 
 if (options.debug) {
