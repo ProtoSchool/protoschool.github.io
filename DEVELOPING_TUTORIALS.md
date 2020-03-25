@@ -620,11 +620,62 @@ This module is a set of utils designed to be re-used accross the validation code
 
 - `ipfsObject(object)`: formats an IPFS object to be ready to print in the output UI, for example, formatting a `cid` object into a string.
 
+Example:
+
 ```js
 return {
   success: 'Success! You did it!',
   logDesc: "Here is the result.",
   log: utils.format.ipfsObject(result)
+}
+```
+
+Original `result` object would show like this:
+
+```
+{
+  "path": "QmQNcG7yJPWGuAoM2jmF78t6GTdNSmcuXr2c18SfJ4tVJQ",
+  "cid": {
+    "codec": "dag-pb",
+    "version": 0,
+    "hash": {
+      "type": "Buffer",
+      "data": [
+        18,
+        32,
+        30,
+        55,
+        196,
+        121,
+        86,
+        111,
+        123,
+        58,
+        178,
+        22,
+        159,
+        46,
+        21,
+        223,
+        12,
+        1,
+        37
+      ]
+    }
+  },
+  "size": 40391,
+  "mode": 420
+}
+```
+
+While the formatted object would show like this:
+
+```json
+{
+  "path": "QmRz7dg5FcbESqbbzxMVksyHfqJwqibcKZULUoichwwmsu",
+  "cid": "CID('QmRz7dg5FcbESqbbzxMVksyHfqJwqibcKZULUoichwwmsu')",
+  "size": 778308,
+  "mode": 420
 }
 ```
 
@@ -645,10 +696,16 @@ if (result.code === utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
 
 #### `utils.validationMessages`
 
+These validation messages can be used to avoid writing the same message for the users across tutorials and lessons.
+
 - `SUCCESS`: when the user has successfully completed the code challenge
+  - Example: `Success! You did it!`
 - `NO_RESULT`: to show when the user forgets to return a result
+  - Example: `Oops! You forgot to return a result :(`
 - `VALUE_IS_ASYNC_ITERABLE_ALL`: when the user returned an AsyncIterable and forgot to use the `all` function on the result
+  - Example: `The returned value is an Async Iterable. Did you forget to put all the results together using either for await...of or with all?`
 - `VALUE_IS_ASYNC_ITERABLE_CONCAT`: when the user returned an AsyncIterable and forgot to use the `concat` function on the result
+  - Example: `The returned value is an Async Iterable. Did you forget to concatenate all the data using concat?`
 
 
 
@@ -667,6 +724,8 @@ const validate = async (result, ipfs) => {
 
 
 #### `utils.validators`
+
+Validators that can be re-used across tutorials and lessons.
 
 - `isAsyncIterable(result)`: tests whether the result is an AsyncIterable or not
 
