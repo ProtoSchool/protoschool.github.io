@@ -7,7 +7,7 @@ const validate = async (result, ipfs) => {
     return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
   } else if (!!result && result.cid.toString() === 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn') {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: "Here's the status of your root directory ( `/` ). Notice that it has a CID even though it doesn't have contents yet. Every empty IPFS node has this exact same CID, because their non-existent contents are identical!",
       log: utils.format.ipfsObject(result)
     }

@@ -40,7 +40,7 @@ const validate = async (result, ipfs) => {
 
   if (itemsMatch && itemsAreFiles) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: 'This is the data that is now in your root directory in IPFS:',
       log: ipfsFiles.map(utils.format.ipfsObject)
     }

@@ -48,7 +48,7 @@ const validate = async (result, ipfs) => {
 
   if (JSON.stringify(expectedResult) === JSON.stringify(result)) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: 'Your `add` command returned the array of objects below. Notice in particular the `cid` ' + valueText + ", since we'll need " + thatText + ' to access ' + fileText + ' again later. The `path` matches the `cid` for ' + fileText + ", but we'll see in future lessons that that's not always true.",
       log: result.map(utils.format.ipfsObject)
     }

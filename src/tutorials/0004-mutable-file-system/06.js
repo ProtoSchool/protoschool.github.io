@@ -25,7 +25,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Oops! It looks like your directory is empty. Did you delete some of the previous code?' }
   } else if (!!result && result.cid.toString() !== emptyDirectoryCID) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: "Here's the status of your updated root directory ( `/` ). Notice how this data compares to what you saw when the directory was empty. The `cid` has changed because of the new contents, as have the `cumulativeSize` and `blocks`. Because a directory is actually made up of links to content, rather than data itself, a directory's `size` is always `0`. `cumulativeSize` changes because it represents not just the file sizes of all the entries in that directory, but also the metadata that describes those entries: types, block sizes and so on.",
       log: utils.format.ipfsObject(result)
     }

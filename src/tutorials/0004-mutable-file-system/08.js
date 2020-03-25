@@ -87,7 +87,7 @@ const validate = async (result, ipfs) => {
     return { fail: "Uh oh. It looks the contents of your `/some/stuff` directory don't match your uploaded files." }
   } else if (itemsMatch && itemsAreFiles) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: 'This is the data that is now in your `/some/stuff` directory in IPFS:',
       log: someStuffFiles.map(utils.format.ipfsObject)
     }

@@ -645,6 +645,7 @@ if (result.code === utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
 
 #### `utils.validationMessages`
 
+- `SUCCESS`: when the user has successfully completed the code challenge
 - `NO_RESULT`: to show when the user forgets to return a result
 - `VALUE_IS_ASYNC_ITERABLE_ALL`: when the user returned an AsyncIterable and forgot to use the `all` function on the result
 - `VALUE_IS_ASYNC_ITERABLE_CONCAT`: when the user returned an AsyncIterable and forgot to use the `concat` function on the result

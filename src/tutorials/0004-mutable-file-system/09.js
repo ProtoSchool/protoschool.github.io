@@ -77,7 +77,7 @@ const validate = async (result, ipfs) => {
     }
   } else if (returnedCorrectFilenames && someFileHasRightCID) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: 'This is the data that is now in your `/some/stuff` directory in IPFS:',
       log: result.map(utils.format.ipfsObject)
     }
