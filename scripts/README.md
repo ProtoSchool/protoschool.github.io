@@ -22,7 +22,7 @@ A copy of the `.env` file is also stored in our Travis account and used to updat
 
 ### `npm run scripts:build:data`
 
-As part of the build process (see [travis config](../.travis.yml)), we fetch all the data and write it to specific `static/*.json` files so the UI can read these JSON files and render the content. Additionally, we also add event organizers to our mailchimp audience to subscribe them to our newsletter.
+As part of the build process (see [travis config](../.travis.yml)), we fetch all event data for submitted events and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. Additionally, we add new event organizers to our Mailchimp audience to subscribe them to our newsletter.
 
 Output example: `npm run scripts:build:data -- --dry-run=false`
 
@@ -69,9 +69,9 @@ Prints extra information when fetching and processing the data.
 
 Data is fetched and processed, allowing you to see the statistics noted above, but is not saved into the JSON files.
 
-By passing `--dry-run=false` will change to `false` and data will be fetched and saved (used in CI).
+Passing `--dry-run=false` will change this value to `false` and data will be fetched and saved (used in CI).
 
-The default value `true` means that the default command will not make any changes. In "production" we need to specify `--dry-run=false` to make the needed changes.
+The default value `true` means that the default command will not make any changes to event listings or newsletter subscriptions. In "production" we specify `--dry-run=false` to make the necessary changes.
 
 
 ### `npm run scripts:googleapis-generate-token`
