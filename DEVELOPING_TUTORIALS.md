@@ -616,68 +616,68 @@ The properties exported from this file depend on the lesson type, as follows:
 
 This module is a set of utils designed to be re-used accross the validation code of different tutorials.
 
-- `utils.format`
+#### `utils.format`
 
-  - `ipfsObject(object)`: formats an IPFS object to be ready to print in the output UI, for example, formatting a `cid` object into a string.
+- `ipfsObject(object)`: formats an IPFS object to be ready to print in the output UI, for example, formatting a `cid` object into a string.
 
-  ```js
+```js
+return {
+  success: 'Success! You did it!',
+  logDesc: "Here is the result.",
+  log: utils.format.ipfsObject(result)
+}
+```
+
+#### `utils.ipfs`
+
+- `errorCodes`: set of error codes from `js-ipfs`
+  - `ERR_MORE_THAN_ONE_ROOT`
+
+```js
+if (result.code === utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
   return {
-    success: 'Success! You did it!',
-    logDesc: "Here is the result.",
-    log: utils.format.ipfsObject(result)
+    fail: 'Some error message specific to this edge case.'
   }
-  ```
+}
+```
 
-- `utils.ipfs`
 
-  - `errorCodes`: set of error codes from `js-ipfs`
-    - `ERR_MORE_THAN_ONE_ROOT`
 
-  ```js
-  if (utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
+#### `utils.validationMessages`
+
+- `NO_RESULT`: to show when the user forgets to return a result
+- `VALUE_IS_ASYNC_ITERABLE_ALL`: when the user returned an AsyncIterable and forgot to use the `all` function on the result
+- `VALUE_IS_ASYNC_ITERABLE_CONCAT`: when the user returned an AsyncIterable and forgot to use the `concat` function on the result
+
+
+
+```js
+import utils from '../utils'
+
+const validate = async (result, ipfs) => {
+  if (!result) {
     return {
-      fail: 'Some error message specific to this edge case.'
+      fail: utils.validationMessages.NO_RESULT
     }
   }
-  ```
+}
+```
 
-  
 
-- `utils.validationMessages`
 
-  - `NO_RESULT`: to show when the user forgets to return a result
-  - `VALUE_IS_ASYNC_ITERABLE_ALL`: when the user returned an AsyncIterable and forgot to use the `all` function on the result
-  - `VALUE_IS_ASYNC_ITERABLE_CONCAT`: when the user returned an AsyncIterable and forgot to use the `concat` function on the result
+#### `utils.validators`
 
-  
+- `isAsyncIterable(result)`: tests whether the result is an AsyncIterable or not
 
-  ```js
-  import utils from '../utils'
-  
-  const validate = async (result, ipfs) => {
-    if (!result) {
-      return {
-        fail: utils.validationMessages.NO_RESULT
-      }
-    }
+```js
+if (utils.validators.isAsyncIterable(result)) {
+  return {
+    fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
   }
-  ```
+}
+```
 
-  
 
-- `utils.validators`
-
-  - `isAsyncIterable(result)`: tests whether the result is an AsyncIterable or not
-
-  ```js
-  if (utils.validators.isAsyncIterable(result)) {
-    return {
-      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
-    }
-  }
-  ```
-
-  
 
 ## License
 
