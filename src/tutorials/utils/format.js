@@ -1,5 +1,5 @@
 /*
-  Format an ipfs object. Changes applied ATM:
+  Format an IPFS object. Changes applied ATM:
 
   - `cid`: convert the cid object into a string representation
 */

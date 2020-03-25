@@ -136,7 +136,7 @@ Follow the steps below to create each lesson.
 Depending on which lesson format you've chosen, you'll need to create 2-4 files within your project directory. Check the table below to see which files you need, then read on for instructions on how to create them.
 
 | File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Multiple-Choice Lesson | Text-Only Lesson |
-| ---- | ---- | ---- | ---- | ---- | ---- |
+| :---  | ---- | ---- | ---- | ---- | ---- |
 | A JavaScript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required | Required |
 | A Markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.md`| Required | Required | Not Used | Not Used |
@@ -391,12 +391,12 @@ If this is the last lesson in your tutorial, please create a success message tha
 
 There are some utils that you can use accross lesson code validations. For that you can use the `utils` module:
 
-- `utils.format`: format specific objects like `ipfs` objects
-- `utils.ipfs`: ipfs specific helpers. At the moment includes the error codes that `js-ipfs` might return.
+- `utils.format`: format specific objects, such as `ipfs` objects
+- `utils.ipfs`: IPFS-specific helpers. Includes the error codes that `js-ipfs` might return.
 - `utils.validators`: common validators to be used throughout validation code
 - `utils.validationMessages`: common messages to show the user
 
-For a more detailed docs, see [here](#utils-module-1).
+For more detailed docs, see [here](#utils-module-1).
 
 ###### Override external error messages (optional)
 
@@ -618,7 +618,7 @@ This module is a set of utils designed to be re-used accross the validation code
 
 - `utils.format`
 
-  - `ipfsObject(object)`: formats an ipfs object to be ready to print in the output ui, for example, formatting a `cid` object into a string.
+  - `ipfsObject(object)`: formats an IPFS object to be ready to print in the output UI, for example, formatting a `cid` object into a string.
 
   ```js
   return {

@@ -1,5 +1,5 @@
 /*
-  Error messages to show to the use on the output ui
+  Error messages to show to the use on the output UI
  */
 export default {
   NO_RESULT: 'Oops! You forgot to return a result :(',

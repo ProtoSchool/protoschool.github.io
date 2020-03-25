@@ -1,8 +1,8 @@
 /*
   Set of utils to help build validation code
 
-  - format: format data for showing in the output ui
-  - ipfs: js-ipfs related helpers
+  - format: format data to display in the output UI
+  - ipfs: helpers related to js-ipfs
   - validators: set of common validators
   - validationMessages: set of common validation messages
  */
