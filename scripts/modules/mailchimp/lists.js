@@ -1,6 +1,8 @@
 const crypto = require('crypto')
 const request = require('./request')
 
+const AUDIENCE_INTEREST = '8589872a32' // event organizer newsletter
+
 exports.getAll = async () => {
   const result = await request({
     method: 'get',
@@ -55,6 +57,9 @@ exports.updateListMember = async (id, member) => {
       merge_fields: {
         FNAME: member.firstName,
         LNAME: member.lastName
+      },
+      interests: {
+        [AUDIENCE_INTEREST]: true
       }
     }
   })
