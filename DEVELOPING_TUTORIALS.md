@@ -430,6 +430,8 @@ The value of the `fail` attribute must be the string you'd like displayed to the
 
 Be sure to adapt your test case so that it works within the context of your other conditionals to meet your validation needs.
 
+In the use case of checking for IPFS errors, you can use `utils.ipfs.errorCodes` to make sure you are asserting for the correct error codes. For the complete docs please check [here](#utilsipfs). If the error codes you need are not available, you can add them to the file [tutorials/utils/ipfs.js](./src/tutorials/utils/ipfs.js).
+
 Note that most tutorial lessons will _not_ require the overriding of external
 errors. If you have questions about whether to use this optional feature, please reach
 out to the project maintainers for guidance.
