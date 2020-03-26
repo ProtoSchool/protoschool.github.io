@@ -3,8 +3,9 @@
 This project depends on some remote sources for data:
 
 - Events: Google Sheets, using [Google Sheets API](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/get)
+- Newsletter: [Mailchimp API](https://mailchimp.com/developer/)
 
-The scripts in this directory are used to fetch the data and make it available to the Vue application to render the new content.
+The scripts in this directory are used to fetch the data and make it available to the Vue application to render the new content, as well as some other side effects.
 
 ## Setup
 
@@ -21,13 +22,34 @@ A copy of the `.env` file is also stored in our Travis account and used to updat
 
 ### `npm run scripts:build:data`
 
-As part of the build process (see [travis config](../.travis.yml)), we fetch all the data and write it to specific `static/*.json` files so the UI can read these JSON files and render the content.
+As part of the build process (see [travis config](../.travis.yml)), we fetch all event data for submitted events and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. Additionally, we add new event organizers to our Mailchimp audience to subscribe them to our newsletter.
 
-In the output of this command you'll see the following statistics:
-- `total events`: Number of events listed on the Google Sheet
-- `events approved`: Number of events in the Google Sheet manually marked as approved (the ones that will be added to the JSON file and displayed on the website)
-- `events rejected`: Number of events in the Google Sheet manually marked as rejected (these will not be added to the JSON file or displayed on the website)
-- `events pending approval`: Number of events in the Google Sheet that have been submitted by event organizers but not yet manually marked as approved or rejected (these will _not_ be added to the JSON file or displayed on the website until they're reviewed)
+Output example: `npm run scripts:build:data -- --dry-run=false`
+
+```bash
+info run { dryRun: false, debug: false }
+info modules:data:events fetch: fetching spreadsheet from Google
+info modules:data:events spreadsheet successfully fetched
+
+┌─────────────────┬─────────┬──────────┬──────────┬─────┐
+│                 │ Pending │ Approved │ Rejected │ All │
+├─────────────────┼─────────┼──────────┼──────────┼─────┤
+│ Past Events     │ 0       │ 9        │ 1        │ 10  │
+├─────────────────┼─────────┼──────────┼──────────┼─────┤
+│ Upcoming Events │ 1       │ 1        │ 0        │ 2   │
+├─────────────────┼─────────┼──────────┼──────────┼─────┤
+│ All             │ 1       │ 10       │ 1        │ 12  │
+└─────────────────┴─────────┴──────────┴──────────┴─────┘
+
+info modules:data:events total events submitted: 12
+info modules:data:events save: saving 10 approved events to src/static/events.json
+info build:data:events events have been processed successfully - 10 events saved
+info buid:data:mailchimp Found 12 audience members.
+info buid:data:mailchimp Found 12 mailchimp audience members.
+info modules:data:events getOrganizers: computing organizers from events list.
+info buid:data:mailchimp Found 4 event organizers.
+info buid:data:mailchimp No members to update.
+```
 
 **Note: All changes to event data must be made directly in Google Sheets.** You _cannot_ make changes to the website by overwriting data in `events.json`. This is because the script referenced here will be run both at the time your PR is merged and at regular intervals via cron jobs, thereby overwriting any local changes made to the `events.json` file.
 
@@ -39,13 +61,18 @@ To add new data sources:
     -  in the `.env` record in the secure ProtoSchool vault in Protocol Labs' `1Password` account
     -  as environment variables in the [Travis CI settings](https://travis-ci.org/ProtoSchool/protoschool.github.io/settings)
 
-#### `--debug`
+#### `--debug` (default: false)
 
 Prints extra information when fetching and processing the data.
 
-#### `--dry-run`
+#### `--dry-run` (default: true)
 
 Data is fetched and processed, allowing you to see the statistics noted above, but is not saved into the JSON files.
+
+Passing `--dry-run=false` will change this value to `false` and data will be fetched and saved (used in CI).
+
+The default value `true` means that the default command will not make any changes to event listings or newsletter subscriptions. In "production" we specify `--dry-run=false` to make the necessary changes.
+
 
 ### `npm run scripts:googleapis-generate-token`
 

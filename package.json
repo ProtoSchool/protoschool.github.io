@@ -12,8 +12,8 @@
     "cy:run": "cypress run --browser chrome",
     "cy:serve": "serve -l 3000 dist",
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
-    "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token.js",
-    "scripts:build:data": "node scripts/commands/build-data.js"
+    "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
+    "scripts:build:data": "node scripts/commands/build-data"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -23,6 +23,7 @@
     "ipfs": "^0.39.1",
     "ipfs-css": "^0.6.0",
     "lodash": "^4.17.15",
+    "mailchimp-api-v3": "^1.13.1",
     "meta-marked": "^0.4.2",
     "moment": "^2.24.0",
     "monaco-editor": "^0.6.1",
