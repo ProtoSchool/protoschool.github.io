@@ -1,5 +1,6 @@
 <template>
-<label :class="className" class="flex flex-row justify-end items-center" :for="computedId" tabindex="0" @keydown.space.prevent="keyToggle" >
+<label
+ :class="className" class="flex flex-row justify-end items-center" :for="computedId" tabindex="0" @keydown.space.prevent="keyToggle" >
   <span class="external-label-left" v-if="label">{{label}}</span>
   <div class="dib">
     <input

@@ -52,7 +52,8 @@ const routes = [
   {
     path: '/tutorials',
     component: Tutorials,
-    name: 'Tutorials'
+    name: 'Tutorials',
+    props: (route) => ({ code: route.query.code })
   },
   {
     path: '/404',

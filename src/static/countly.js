@@ -3,5 +3,6 @@ export const EVENTS = {
   CODE_SUBMIT_WRONG: 'submitWrongCode',
   CHOICE_SUBMIT_WRONG: 'submitWrongChoice',
   LESSON_PASSED: 'lessonPassed',
-  TUTORIAL_PASSED: 'tutorialPassed'
+  TUTORIAL_PASSED: 'tutorialPassed',
+  FILTER: 'filter'
 }
