@@ -632,7 +632,7 @@ return {
 }
 ```
 
-Original `result` object would show like this:
+Without special formatting, the `result` object would be displayed like this:
 
 ```
 {
@@ -670,7 +670,7 @@ Original `result` object would show like this:
 }
 ```
 
-While the formatted object would show like this:
+By contrast, the formatted object is displayed like this:
 
 ```json
 {
@@ -685,6 +685,7 @@ While the formatted object would show like this:
 
 - `errorCodes`: set of error codes from `js-ipfs`
   - `ERR_MORE_THAN_ONE_ROOT`
+You can reference these error codes in your validation code when you'd like to override them with messages more specific to the context of your lesson. For example:
 
 ```js
 if (result.code === utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
@@ -693,12 +694,12 @@ if (result.code === utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
   }
 }
 ```
-
+IPFS error codes not listed above are not currently included in this feature, but can be added to our codebase as needed. If the error codes you need are not available, you can add them to the file [tutorials/utils/ipfs.js](./src/tutorials/utils/ipfs.js) and to this documentation.
 
 
 #### `utils.validationMessages`
 
-These validation messages can be used to avoid writing the same message for the users across tutorials and lessons.
+These validation messages can be used to avoid re-writing the same feedback messages across tutorials and lessons. 
 
 - `SUCCESS`: when the user has successfully completed the code challenge
   - Example: `Success! You did it!`
@@ -709,7 +710,7 @@ These validation messages can be used to avoid writing the same message for the 
 - `VALUE_IS_ASYNC_ITERABLE_CONCAT`: when the user returned an AsyncIterable and forgot to use the `concat` function on the result
   - Example: `The returned value is an Async Iterable. Did you forget to concatenate all the data using concat?`
 
-
+While these codes provide an easy shorthand, you'll still need to provide the logic that determines when a particular validation message should be displayed for each lesson. For example:
 
 ```js
 import utils from '../utils'
@@ -731,6 +732,7 @@ Validators that can be re-used across tutorials and lessons.
 
 - `isAsyncIterable(result)`: tests whether the result is an AsyncIterable or not
 
+While you can use these shorthands to test for certain conditions, you'll still need to specify what validation message should be displayed as a result. In the example below, a validator is used in combination with a validation message. 
 ```js
 if (utils.validators.isAsyncIterable(result)) {
   return {
