@@ -43,6 +43,7 @@ Ready to get started? Read on!
     - [Text of lesson or exercise not displayed](#text-of-lesson-or-exercise-not-displayed)
   - [Detailed Docs](#detailed-docs)
     - [Lesson File](#lesson-file)
+    - [`utils` module](#utils-module-1)
   - [License](#license)
 
 <!-- tocstop -->
@@ -371,6 +372,8 @@ const validate = async (result, ipfs) => {
 
 Be sure to include conditionals that will catch common mistakes and provide useful clues.
 
+The [`utils` module](#utils-module-1) has some pre-built validators ([`utils.valitors.*`](#utilsvalidators)) that you can re-use across lessons and tutorials. For more advanced cases related to IPFS errors, you can also use the [`utils.ipfs`](#utilsipfs) module where `utils.ipfs.errorCodes` might be useful.
+
 If the object returned by your `validate` function has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
 
 You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
@@ -386,6 +389,8 @@ You may (optionally) use [markdown formatting](https://guides.github.com/feature
 ![screenshot](public/markdown_error.png)
 
 If this is the last lesson in your tutorial, please create a success message that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
+
+There are some pre-built messages that you can use if you'd like by using the [`utils.validationMessages` module](#utilsvalidationmessages).
 
 ###### Utils module
 
@@ -699,7 +704,7 @@ IPFS error codes not listed above are not currently included in this feature, bu
 
 #### `utils.validationMessages`
 
-These validation messages can be used to avoid re-writing the same feedback messages across tutorials and lessons. 
+These validation messages can be used to avoid re-writing the same feedback messages across tutorials and lessons.
 
 - `SUCCESS`: when the user has successfully completed the code challenge
   - Example: `Success! You did it!`
@@ -732,7 +737,7 @@ Validators that can be re-used across tutorials and lessons.
 
 - `isAsyncIterable(result)`: tests whether the result is an AsyncIterable or not
 
-While you can use these shorthands to test for certain conditions, you'll still need to specify what validation message should be displayed as a result. In the example below, a validator is used in combination with a validation message. 
+While you can use these shorthands to test for certain conditions, you'll still need to specify what validation message should be displayed as a result. In the example below, a validator is used in combination with a validation message.
 ```js
 if (utils.validators.isAsyncIterable(result)) {
   return {
