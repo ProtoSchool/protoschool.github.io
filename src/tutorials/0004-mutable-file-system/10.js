@@ -28,7 +28,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs, all, concat */
+const code = `/* global ipfs, all, toBuffer */
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
@@ -47,7 +47,7 @@ const run = async (files) => {
 return run
 `
 
-const solution = `/* global ipfs, all, concat */
+const solution = `/* global ipfs, all, toBuffer */
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
@@ -58,7 +58,7 @@ const run = async (files) => {
   await ipfs.files.cp('/ipfs/QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ', '/some/stuff/success.txt')
   let someStuffDirectoryContents = await all(ipfs.files.ls('/some/stuff'))
 
-  let secretMessage = (await concat(ipfs.files.read('/some/stuff/success.txt'))).toString('utf8')
+  let secretMessage = (await toBuffer(ipfs.files.read('/some/stuff/success.txt'))).toString('utf8')
 
   return secretMessage
 }

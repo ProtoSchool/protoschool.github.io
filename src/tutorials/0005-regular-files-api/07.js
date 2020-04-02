@@ -29,7 +29,7 @@ const validate = async (result, ipfs) => {
 
   if (utils.validators.isAsyncIterable(result)) {
     return {
-      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_CONCAT
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_TOBUFFER
     }
   }
 
@@ -55,7 +55,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs, concat */
+const code = `/* global ipfs, toBuffer */
 
 const run = async () => {
   const bufferedContents = // access the content of the file as a buffer
@@ -68,17 +68,17 @@ const run = async () => {
 return run
 `
 
-const solution = `/* global ipfs, concat */
+const solution = `/* global ipfs, toBuffer */
 
 const run = async () => {
 
   // You can access the file in two different ways with the CIDs we gave you
 
   // Using the CID of the top-level directory and file path relative to it:
-  const bufferedContents = await concat(ipfs.cat("/ipfs/QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt"))
+  const bufferedContents = await toBuffer(ipfs.cat("/ipfs/QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy/fun/success.txt"))
 
   // Using the dir subdirectory CID and file path relative to it:
-  // const bufferedContents = await concat(ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt"))
+  // const bufferedContents = await toBuffer(ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt"))
 
   return bufferedContents.toString()
 }

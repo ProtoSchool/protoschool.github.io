@@ -712,8 +712,8 @@ These validation messages can be used to avoid re-writing the same feedback mess
   - Example: `Oops! You forgot to return a result :(`
 - `VALUE_IS_ASYNC_ITERABLE_ALL`: when the user returned an AsyncIterable and forgot to use the `all` function on the result
   - Example: `The returned value is an Async Iterable. Did you forget to put all the results together using either for await...of or with all?`
-- `VALUE_IS_ASYNC_ITERABLE_CONCAT`: when the user returned an AsyncIterable and forgot to use the `concat` function on the result
-  - Example: `The returned value is an Async Iterable. Did you forget to concatenate all the data using concat?`
+- `VALUE_IS_ASYNC_ITERABLE_TOBUFFER`: when the user returned an AsyncIterable and forgot to use the `toBuffer` function on the result
+  - Example: `The returned value is an Async Iterable. Did you forget to concatenate all the data using toBuffer?`
 
 While these codes provide an easy shorthand, you'll still need to provide the logic that determines when a particular validation message should be displayed for each lesson. For example:
 

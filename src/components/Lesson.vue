@@ -108,7 +108,7 @@ import Vue from 'vue'
 import CID from 'cids'
 import pTimeout from 'p-timeout'
 import all from 'it-all'
-import concat from 'it-concat'
+import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
 
 import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
@@ -142,7 +142,7 @@ const _eval = async (text, ipfs, args = []) => {
   }
 
   const modules = {
-    ipfs, all, concat
+    ipfs, all, toBuffer
   }
 
   let fn
@@ -169,7 +169,7 @@ const _eval = async (text, ipfs, args = []) => {
   return result
 }
 
-const defaultCode = `/* globals ipfs, all, concat */
+const defaultCode = `/* globals ipfs, all, toBuffer */
 
 const run = async () => {
   // your code goes here!

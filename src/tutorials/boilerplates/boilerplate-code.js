@@ -16,14 +16,14 @@ const validate = async (result, ipfs) => {
   */
 }
 
-const code = `/* global ipfs, all, concat */
+const code = `/* global ipfs, all, toBuffer */
   const run = async () => {
   // Your code here
 }
 return run
 `
 
-const solution = `/* global ipfs, all, concat */
+const solution = `/* global ipfs, all, toBuffer */
   const run = async () => {
   // Your solution here
 }

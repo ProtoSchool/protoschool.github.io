@@ -26,7 +26,7 @@ const validate = async (result, ipfs) => {
   }
 }
 
-const code = `/* global ipfs, concat */
+const code = `/* global ipfs, toBuffer */
 
 const run = async () => {
     const fileContents = // place your code here
@@ -36,10 +36,10 @@ const run = async () => {
 return run
 `
 
-const solution = `/* global ipfs, concat */
+const solution = `/* global ipfs, toBuffer */
 
 const run = async () => {
-    const fileContents = await concat(ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ'))
+    const fileContents = await toBuffer(ipfs.cat('QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ'))
     const message = fileContents.toString()
 
     return message

@@ -23,7 +23,7 @@
     "ipfs": "^0.41.2",
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.1",
-    "it-concat": "^1.0.0",
+    "it-to-buffer": "^1.0.1",
     "lodash": "^4.17.15",
     "meta-marked": "^0.4.2",
     "moment": "^2.24.0",
