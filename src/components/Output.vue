@@ -27,7 +27,7 @@
       <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">Step 3: Inspect results</div>
       <div v-else class="f5 fw7 mt4 mb2">Inspect results</div>
       <div v-if="output.test.logDesc" class="lh-copy" v-html="parseData(output.test.logDesc)" />
-      <highlight-code lang="json" >{{output.test.log}}</highlight-code>
+      <highlight-code class="code-highlight" lang="json" >{{output.test.log}}</highlight-code>
     </div>
   </div>
 </template>
@@ -74,5 +74,15 @@ export default {
   margin: 0;
   padding: 1rem;
   background: white;
+}
+
+pre.code-highlight {
+  border-radius: 3px;
+}
+
+pre.code-highlight,
+pre.code-highlight > code.hljs {
+  background: #ffffff;
+  padding: 0.6em;
 }
 </style>
