@@ -1,7 +1,6 @@
 [
   {
     "id": 1,
-    "virtual": false,
     "city": "Denver",
     "region": "Colorado",
     "country": "United States of America",
@@ -22,7 +21,6 @@
   },
   {
     "id": 3,
-    "virtual": false,
     "city": "Lagos",
     "region": "",
     "country": "Nigeria",
@@ -39,7 +37,6 @@
   },
   {
     "id": 5,
-    "virtual": false,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -56,7 +53,6 @@
   },
   {
     "id": 6,
-    "virtual": false,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -73,7 +69,6 @@
   },
   {
     "id": 7,
-    "virtual": false,
     "city": "Denver",
     "region": "Colorado",
     "country": "USA",
@@ -92,7 +87,6 @@
   },
   {
     "id": 8,
-    "virtual": false,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -126,7 +120,6 @@
   },
   {
     "id": 10,
-    "virtual": false,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -145,7 +138,7 @@
   },
   {
     "id": 11,
-    "virtual": false,
+    "virtual": "false",
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -162,7 +155,6 @@
   },
   {
     "id": 12,
-    "virtual": false,
     "city": "Berlin",
     "region": "",
     "country": "Germany",
@@ -180,8 +172,8 @@
   },
   {
     "id": 13,
-    "virtual": true,
-    "city": "",
+    "virtual": "true",
+    "city": "City",
     "region": "",
     "country": "",
     "startTime": "2020-05-20T19:30",
@@ -191,7 +183,78 @@
     ],
     "cocUrl": "http://fake.coc",
     "url": "https://web3summit.com/",
-    "hostedByName": "Some Group",
+    "hostedByName": "string true",
+    "hostedByUrl": "http://some.group",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 14,
+    "city": "City",
+    "region": "Region",
+    "country": "Country",
+    "startTime": "2020-05-21T19:30",
+    "tutorials": [
+      "0001",
+      "0004"
+    ],
+    "cocUrl": "http://fake.coc",
+    "url": "https://web3summit.com/",
+    "hostedByName": "missing virtual field",
+    "hostedByUrl": "http://some.group",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 15,
+    "virtual": "false",
+    "city": "City",
+    "region": "",
+    "country": "",
+    "startTime": "2020-05-22T19:30",
+    "tutorials": [
+      "0001",
+      "0004"
+    ],
+    "cocUrl": "http://fake.coc",
+    "url": "https://web3summit.com/",
+    "hostedByName": "string false",
+    "hostedByUrl": "http://some.group",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 16,
+    "virtual": true,
+    "city": "City",
+    "region": "Region",
+    "country": "Country",
+    "startTime": "2020-05-22T19:30",
+    "tutorials": [
+      "0001",
+      "0004"
+    ],
+    "cocUrl": "http://fake.coc",
+    "url": "https://web3summit.com/",
+    "hostedByName": "boolean true",
+    "hostedByUrl": "http://some.group",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
+  },
+  {
+    "id": 17,
+    "virtual": false,
+    "city": "City",
+    "region": "Region",
+    "country": "Country",
+    "startTime": "2020-05-22T19:30",
+    "tutorials": [
+      "0001",
+      "0004"
+    ],
+    "cocUrl": "http://fake.coc",
+    "url": "https://web3summit.com/",
+    "hostedByName": "boolean false",
     "hostedByUrl": "http://some.group",
     "hostedAtName": "",
     "hostedAtUrl": ""
