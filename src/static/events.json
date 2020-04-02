@@ -36,11 +36,11 @@
     "hostedAtUrl": "https://blockchainnigeria.group/"
   },
   {
-    "id": 4,
+    "id": 5,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
-    "startTime": "2019-08-29T23:00",
+    "startTime": "2019-08-29T19:00",
     "tutorials": [
       "0004"
     ],
@@ -52,7 +52,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 5,
+    "id": 6,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -68,7 +68,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 6,
+    "id": 7,
     "city": "Denver",
     "region": "Colorado",
     "country": "USA",
@@ -86,7 +86,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 7,
+    "id": 8,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -102,7 +102,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 8,
+    "id": 9,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -118,7 +118,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 9,
+    "id": 10,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -136,7 +136,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 10,
+    "id": 11,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -152,7 +152,7 @@
     "hostedAtUrl": ""
   },
   {
-    "id": 11,
+    "id": 12,
     "city": "Berlin",
     "region": "",
     "country": "Germany",
