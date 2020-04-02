@@ -50,7 +50,7 @@ const validate = async (result, ipfs) => {
     return {
       success: utils.validationMessages.SUCCESS,
       logDesc: [
-        'Your `add` command returned the array of objects below. The output is very long because the CID is represented as an `Object` internally, but if you scroll down we'll offer you a more condensed view.',
+        "Your `add` command returned the array of objects below. The output is very long because the CID is represented as an `Object` internally, but if you scroll down we'll offer you a more condensed view.",
         `<pre class="code-highlight"><code class="hljs json">${JSON.stringify(result, null, 2)}</code></pre>`,
         'To simplify the output, we can use the `toString()` method on the `cid` property to get the CID in string format: `QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn`. In future lessons we\'ll always show this simplified version to make it easier to read, as shown below. <br/> <br/>',
         'Your `add` command returned the array of objects below. Notice in particular the `cid` ' + valueText + ", since we'll need " + thatText + ' to access ' + fileText + ' again later. The `path` matches the `cid` for ' + fileText + ", but we'll see in future lessons that that's not always true."
