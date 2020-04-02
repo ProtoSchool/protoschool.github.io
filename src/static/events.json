@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "virtual": false,
     "city": "Denver",
     "region": "Colorado",
     "country": "United States of America",
@@ -21,6 +22,7 @@
   },
   {
     "id": 3,
+    "virtual": false,
     "city": "Lagos",
     "region": "",
     "country": "Nigeria",
@@ -37,6 +39,7 @@
   },
   {
     "id": 5,
+    "virtual": false,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -53,6 +56,7 @@
   },
   {
     "id": 6,
+    "virtual": false,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -69,6 +73,7 @@
   },
   {
     "id": 7,
+    "virtual": false,
     "city": "Denver",
     "region": "Colorado",
     "country": "USA",
@@ -87,6 +92,7 @@
   },
   {
     "id": 8,
+    "virtual": false,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -103,6 +109,7 @@
   },
   {
     "id": 9,
+    "virtual": false,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -119,6 +126,7 @@
   },
   {
     "id": 10,
+    "virtual": false,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -137,6 +145,7 @@
   },
   {
     "id": 11,
+    "virtual": false,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -153,6 +162,7 @@
   },
   {
     "id": 12,
+    "virtual": false,
     "city": "Berlin",
     "region": "",
     "country": "Germany",
@@ -167,5 +177,23 @@
     "hostedByUrl": "",
     "hostedAtName": "Web3 Summit",
     "hostedAtUrl": "https://web3summit.com/"
+  },
+  {
+    "id": 13,
+    "virtual": true,
+    "city": "",
+    "region": "",
+    "country": "",
+    "startTime": "2020-05-20T19:30",
+    "tutorials": [
+      "0001",
+      "0004"
+    ],
+    "cocUrl": "http://fake.coc",
+    "url": "https://web3summit.com/",
+    "hostedByName": "Some Group",
+    "hostedByUrl": "http://some.group",
+    "hostedAtName": "",
+    "hostedAtUrl": ""
   }
 ]

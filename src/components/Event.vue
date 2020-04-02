@@ -1,10 +1,10 @@
 <template>
   <Card class="flex flex-column bg-white navy pa4">
     <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStart}}</p>
-    <h3 class="ma0 mb1 f3 fw9 ttu">{{city}}</h3>
+    <h3 class="ma0 mb1 f3 fw9 ttu">{{ virtual ? "Virtual" : city }}</h3>
     <p class="f5 fw5 ma0 pt0">
-      <span class="fw7">{{country}}</span>
-      <span v-if="region"> - {{region}}</span>
+      <span v-if="!virtual && country" class="fw7">{{country}}</span>
+      <span v-if="!virtual && region"> - {{region}}</span>
     </p>
     <p class="f6 fw5 ma0 mt4 navy" v-if="hostedByName || hostedAtName">
       Hosted
@@ -52,6 +52,7 @@ export default {
     Card
   },
   props: {
+    virtual: Boolean,
     city: String,
     region: String,
     country: String,
