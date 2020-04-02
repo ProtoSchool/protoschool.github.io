@@ -9,7 +9,7 @@ const validate = async (result, ipfs) => {
     return {
       success: utils.validationMessages.SUCCESS,
       logDesc: [
-        "Here's the status of your root directory (`/`).",
+        "Here's the status of your root directory (`/`). The output is very long because the CID is represented as an `Object` internally, but if you scroll down we'll offer you a more condensed view.",
         `<pre class="code-highlight"><code class="hljs json">${JSON.stringify(result, null, 2)}</code></pre>`,
         'The output is very long because the CID is represented as an `Object` internally. To simplify, this we can use the `toString()` method on the `cid` property to get the CID in string format: `' + result.cid.toString() + '`. In future lessons we\'ll always show this simplified version to make it easier to read, as shown below. <br/> <br/>',
         "Notice that our node has a CID even though it doesn't have contents yet. Every empty IPFS node has this exact same CID, because their non-existent contents are identical!"
