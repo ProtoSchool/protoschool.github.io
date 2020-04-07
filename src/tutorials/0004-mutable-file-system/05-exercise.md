@@ -1,4 +1,6 @@
-Let's see `files.ls` in action! List the contents of your root directory ( `/` ). Be sure to use the `{ long: true }` option to ensure you can see all of the details about the files you've uploaded.
+Let's see `files.ls` in action! List the contents of your root directory ( `/` ).
 
 _Note: We've already included the code for adding your files to MFS, so you can
 focus on listing the contents of your directory._
+
+**Hint**: Don't forget that `files.ls` returns an Async Iterable, so you'll need to either use the `for await...of` loop or the `all` function to return the result.

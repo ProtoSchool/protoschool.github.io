@@ -1,8 +1,12 @@
+import all from 'it-all'
+
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   console.log('Here\'s what `files.ls` revealed in your directory:')
   console.log(result)
 
-  let expected = await ipfs.files.ls('/', {long: true})
+  let expected = await all(ipfs.files.ls('/'))
   let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
 
   // Confirm the right files were added to IPFS (should be unless they tweaked the default code)
@@ -27,22 +31,22 @@ const validate = async (result, ipfs) => {
     return { fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?' }
   } else if (!rightFilesUploaded) {
     return { fail: 'Uh oh. Your files weren\'t added to IPFS correctly. Did you accidentally edit the default `write` code?' }
-  } else if (result[0].hash.length === 0) {
+  } else if (utils.validators.isAsyncIterable(result)) {
     return {
-      fail: 'Oops! Looks like you forgot to use the { long: true } option!',
-      logDesc: 'When you forget to use the `{ long: true }` option, the `ls` method only returns filenames, not file types, sizes, or hashes (CIDs). Take a look at what happens without that option below, then try again.',
-      log: result
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
     }
   } else if (directoryContentsMatch) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: 'Take a look at the complete data returned by the `ls` method:',
-      log: result
+      log: result.map(utils.format.ipfsObject)
     }
   }
 }
 
-const code = `const run = async (files) => {
+const code = `/* global ipfs, all */
+
+const run = async (files) => {
   // this code adds your uploaded files to IPFS
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
 
@@ -54,10 +58,20 @@ return run
 `
 
 // '/' in the solution code below is optional
-const solution = `const run = async (files) => {
+const solution = `/* global ipfs, all */
+
+const run = async (files) => {
   // this code adds your uploaded files to IPFS
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
-  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+
+  const rootDirectoryContents = await all(ipfs.files.ls('/'))
+
+  // alternatively, we can use a for await of loop
+  // const rootDirectoryContents = []
+  // for await (const item of ipfs.files.ls('/')) {
+  //   rootDirectoryContents.push(item)
+  // }
+
   return rootDirectoryContents
 }
 

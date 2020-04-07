@@ -1,5 +1,9 @@
+import all from 'it-all'
+
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
-  const expectedResult = await ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy')
+  const expectedResult = await all(ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy'))
 
   if (!result) {
     return {
@@ -19,6 +23,12 @@ const validate = async (result, ipfs) => {
     }
   }
 
+  if (utils.validators.isAsyncIterable(result)) {
+    return {
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
+    }
+  }
+
   if (!Array.isArray(result)) {
     return {
       fail: 'The return value should be an array identical to the one returned by the `get` function.'
@@ -26,7 +36,7 @@ const validate = async (result, ipfs) => {
   }
 
   let isStructureValid = result.every((elem) => {
-    if (elem.hash === undefined || typeof elem.hash !== 'string') return false
+    if (elem.cid === undefined || typeof elem.cid !== 'object') return false
     if (elem.path === undefined || typeof elem.path !== 'string') return false
     if (elem.name === undefined || typeof elem.name !== 'string') return false
     if (elem.depth === undefined || typeof elem.depth !== 'number') return false
@@ -56,15 +66,16 @@ const validate = async (result, ipfs) => {
     return {
       success: "Congratulations! You've completed this series of lessons!",
       logDesc: 'Below is the result of calling the `get` method on the top-level directory. (Normally the results would be much more dense because of the buffered file contents included, but we intentionally created tiny text files to limit this effect.)' +
-              "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the top-level directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the top-level directory itself has a `path` value that matches its `hash` and `name`, all of which are identical CIDs.",
-      log: result
+              "\n\n Notice that because we created these files using `{ wrapWithDirectory: true }`, each item's `path` is defined here by the top-level directory's CID plus the item's relative path, and each file or subdirectory has a human-readable `name`. Only the top-level directory itself has a `path` value that matches its `cid` and `name`, all of which are identical CIDs.",
+      log: result.map(utils.format.ipfsObject)
     }
   } else {
     return { fail: `Something seems to be wrong. Please click "Reset Code" and try again, taking another look at the instructions and editing only the portion of code indicated. Feeling really stuck? You can click "View Solution" to see our suggested code.` }
   }
 }
 
-const code = `/* global ipfs */
+const code = `/* global ipfs, all */
+
 const run = async () => {
   let result = // your code here
 
@@ -73,9 +84,10 @@ const run = async () => {
 return run
 `
 
-const solution = `/* global ipfs */
+const solution = `/* global ipfs, all */
+
 const run = async () => {
-  let result = await ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy')
+  let result = await all(ipfs.get('QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy'))
 
   return result
 }

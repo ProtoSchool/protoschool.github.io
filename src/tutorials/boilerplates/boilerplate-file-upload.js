@@ -37,8 +37,6 @@ const solution = `/* global ipfs */
 return run
 `
 
-const modules = { cids: require('cids') }
-
 // for more on the available options:
 // https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
 const options = {
@@ -51,6 +49,5 @@ export default {
   validate,
   code,
   solution,
-  modules,
   options
 }
