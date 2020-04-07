@@ -17,7 +17,8 @@
     "hostedByName": "Cryptorado",
     "hostedByUrl": "https://cryptorado.org",
     "hostedAtName": "Distributed Networks Summit",
-    "hostedAtUrl": "http://dnsummit.cryptorado.org/"
+    "hostedAtUrl": "http://dnsummit.cryptorado.org/",
+    "isVirtual": false
   },
   {
     "id": 3,
@@ -33,10 +34,11 @@
     "hostedByName": "Blockchain Nigeria User Group",
     "hostedByUrl": "https://blockchainnigeria.group/",
     "hostedAtName": "Blockchain & Decentralized Finance Conference / Exhibition Lagos 2020",
-    "hostedAtUrl": "https://blockchainnigeria.group/"
+    "hostedAtUrl": "https://blockchainnigeria.group/",
+    "isVirtual": false
   },
   {
-    "id": 5,
+    "id": 8,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -49,10 +51,11 @@
     "hostedByName": "Decentralized Web Seattle",
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 6,
+    "id": 9,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -65,10 +68,11 @@
     "hostedByName": "Shanghai Decentralized Systems Meetup",
     "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 7,
+    "id": 10,
     "city": "Denver",
     "region": "Colorado",
     "country": "USA",
@@ -83,10 +87,11 @@
     "hostedByName": "IPFS Colorado",
     "hostedByUrl": "https://www.meetup.com/IPFS-Colorado/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 8,
+    "id": 11,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -99,11 +104,11 @@
     "hostedByName": "Shanghai Decentralized Systems Meetup",
     "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 9,
-    "virtual": false,
+    "id": 12,
     "city": "Shanghai",
     "region": "",
     "country": "China",
@@ -116,10 +121,11 @@
     "hostedByName": "Shanghai Decentralized Systems Meetup",
     "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 10,
+    "id": 13,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -134,11 +140,11 @@
     "hostedByName": "Decentralized Web Seattle",
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 11,
-    "virtual": "false",
+    "id": 14,
     "city": "Seattle",
     "region": "Washington",
     "country": "USA",
@@ -151,10 +157,11 @@
     "hostedByName": "Decentralized Web Seattle",
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false
   },
   {
-    "id": 12,
+    "id": 15,
     "city": "Berlin",
     "region": "",
     "country": "Germany",
@@ -168,95 +175,7 @@
     "hostedByName": "",
     "hostedByUrl": "",
     "hostedAtName": "Web3 Summit",
-    "hostedAtUrl": "https://web3summit.com/"
-  },
-  {
-    "id": 13,
-    "virtual": "true",
-    "city": "City",
-    "region": "",
-    "country": "",
-    "startTime": "2020-05-20T19:30",
-    "tutorials": [
-      "0001",
-      "0004"
-    ],
-    "cocUrl": "http://fake.coc",
-    "url": "https://web3summit.com/",
-    "hostedByName": "string true",
-    "hostedByUrl": "http://some.group",
-    "hostedAtName": "",
-    "hostedAtUrl": ""
-  },
-  {
-    "id": 14,
-    "city": "City",
-    "region": "Region",
-    "country": "Country",
-    "startTime": "2020-05-21T19:30",
-    "tutorials": [
-      "0001",
-      "0004"
-    ],
-    "cocUrl": "http://fake.coc",
-    "url": "https://web3summit.com/",
-    "hostedByName": "missing virtual field",
-    "hostedByUrl": "http://some.group",
-    "hostedAtName": "",
-    "hostedAtUrl": ""
-  },
-  {
-    "id": 15,
-    "virtual": "false",
-    "city": "City",
-    "region": "",
-    "country": "",
-    "startTime": "2020-05-22T19:30",
-    "tutorials": [
-      "0001",
-      "0004"
-    ],
-    "cocUrl": "http://fake.coc",
-    "url": "https://web3summit.com/",
-    "hostedByName": "string false",
-    "hostedByUrl": "http://some.group",
-    "hostedAtName": "",
-    "hostedAtUrl": ""
-  },
-  {
-    "id": 16,
-    "virtual": true,
-    "city": "City",
-    "region": "Region",
-    "country": "Country",
-    "startTime": "2020-05-22T19:30",
-    "tutorials": [
-      "0001",
-      "0004"
-    ],
-    "cocUrl": "http://fake.coc",
-    "url": "https://web3summit.com/",
-    "hostedByName": "boolean true",
-    "hostedByUrl": "http://some.group",
-    "hostedAtName": "",
-    "hostedAtUrl": ""
-  },
-  {
-    "id": 17,
-    "virtual": false,
-    "city": "City",
-    "region": "Region",
-    "country": "Country",
-    "startTime": "2020-05-22T19:30",
-    "tutorials": [
-      "0001",
-      "0004"
-    ],
-    "cocUrl": "http://fake.coc",
-    "url": "https://web3summit.com/",
-    "hostedByName": "boolean false",
-    "hostedByUrl": "http://some.group",
-    "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "https://web3summit.com/",
+    "isVirtual": false
   }
 ]

@@ -52,7 +52,7 @@ export default {
     Card
   },
   props: {
-    virtual: String,
+    isVirtual: Boolean,
     city: String,
     region: String,
     country: String,
@@ -80,9 +80,6 @@ export default {
     },
     isFuture: function () {
       return this.future
-    },
-    isVirtual: function () {
-      return this.virtual === 'true'
     }
     // displayEnd: function () {
     //   return this.endsSameDay ? moment(this.endTime).format("h:mm a") : moment(this.endTime).format("MMMM D, YYYY, h:mm a")

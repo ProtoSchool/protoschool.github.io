@@ -57,6 +57,10 @@ const columns = [
     transform: event => event.nameOrder.split('(')[0].trim().replace(' ', '-').toLowerCase()
   },
   {
+    key: 'isVirtual',
+    transform: event => event.isVirtual === 'Virtual'
+  },
+  {
     // Approved
     key: 'approved',
     transform: event => event.approved === 'Yes'
@@ -95,7 +99,8 @@ const whitelist = [
   'hostedByName',
   'hostedByUrl',
   'hostedAtName',
-  'hostedAtUrl'
+  'hostedAtUrl',
+  'isVirtual'
 ]
 
 function logEventsResults (events) {
