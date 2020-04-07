@@ -16,23 +16,19 @@ const validate = async (result, ipfs) => {
   */
 }
 
-const code = `/* global ipfs */
+const code = `/* global ipfs, all, toBuffer */
   const run = async () => {
   // Your code here
 }
 return run
 `
 
-const solution = `/* global ipfs */
+const solution = `/* global ipfs, all, toBuffer */
   const run = async () => {
   // Your solution here
 }
 return run
 `
-
-// Optional: Use the modules option if you need extra
-// modules available in the solution code
-// const modules = { cids: require('cids') }
 
 // for more on the available options:
 // https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
@@ -46,6 +42,5 @@ export default {
   validate,
   code,
   solution,
-  // modules,
   options
 }

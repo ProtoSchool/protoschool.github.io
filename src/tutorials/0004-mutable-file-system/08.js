@@ -1,13 +1,17 @@
+import all from 'it-all'
+
+import utils from '../utils'
+
 const validate = async (result, ipfs) => {
   // check that right directories are there with no loose files in root
-  let rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+  let rootDirectoryContents = await all(ipfs.files.ls('/'))
 
   let rootIsEmpty = rootDirectoryContents.length === 0
   let rootContainsOnlySome = rootDirectoryContents.length === 1 && rootDirectoryContents[0].name === 'some'
   let someContainsOnlyStuff = null
 
   if (rootContainsOnlySome) {
-    let someDirectoryContents = await ipfs.files.ls('/some', { long: true })
+    let someDirectoryContents = await all(ipfs.files.ls('/some'))
     someContainsOnlyStuff = someDirectoryContents.length === 1 && someDirectoryContents[0].name === 'stuff'
   }
 
@@ -17,16 +21,14 @@ const validate = async (result, ipfs) => {
 
   // check whether user returned the contents of /some/stuff
   let someStuffFiles = null
-  let logSomeStuff = null
   let returnedSomeStuffContents = null
   let someStuffFilenames = null
   let itemsMatch = null
   let itemsAreFiles = null
 
   if (!rootIsEmpty && rootContainsOnlySome && someContainsOnlyStuff) {
-    someStuffFiles = await ipfs.files.ls('/some/stuff', { long: true })
+    someStuffFiles = await all(ipfs.files.ls('/some/stuff'))
     someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
-    logSomeStuff = JSON.stringify(someStuffFiles, null, 2)
     returnedSomeStuffContents = JSON.stringify(result) === JSON.stringify(someStuffFiles)
 
     // check whether contents of /some/stuff are the right files
@@ -54,6 +56,10 @@ const validate = async (result, ipfs) => {
       fail: 'Oops! Did you type `ipfs.mv` instead of `ipfs.files.mv`?',
       overrideError: true
     }
+  } else if (utils.validators.isAsyncIterable(result)) {
+    return {
+      fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
+    }
   } else if (rootIsEmpty) {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result instanceof Error && result.message === 'paths must start with a leading /') {
@@ -67,13 +73,13 @@ const validate = async (result, ipfs) => {
     return {
       fail: 'Your root directory should now contain only your `/some` directory, but something else is there.',
       logDesc: "Here's what's in your root directory:",
-      log: rootDirectoryContents
+      log: rootDirectoryContents.map(utils.format.ipfsObject)
     }
   } else if (!someContainsOnlyStuff) {
     return {
       fail: 'Your `/some` directory should now contain only your `/stuff` directory, but something else is there.',
       logDesc: "Here's what's in your `/some` directory:",
-      log: JSON.stringify((await ipfs.files.ls('/some', { long: true })), null, 2)
+      log: (await all(ipfs.files.ls('/some'))).map(utils.format.ipfsObject)
     }
   } else if (!itemsAreFiles) {
     return { fail: 'Uh oh. It looks like your `/some/stuff` directory contains a directory. It should only include files.' }
@@ -81,39 +87,37 @@ const validate = async (result, ipfs) => {
     return { fail: "Uh oh. It looks the contents of your `/some/stuff` directory don't match your uploaded files." }
   } else if (itemsMatch && itemsAreFiles) {
     return {
-      success: 'Success! You did it!',
+      success: utils.validationMessages.SUCCESS,
       logDesc: 'This is the data that is now in your `/some/stuff` directory in IPFS:',
-      log: logSomeStuff
+      log: someStuffFiles.map(utils.format.ipfsObject)
     }
   }
 }
 
-const code = `/* global ipfs */
+const code = `/* global ipfs, all */
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+  const rootDirectoryContents = await all(ipfs.files.ls('/'))
 
-  const filesToMove = // create an array of files to be moved (no directories)
-
-  const filepathsToMove = // create an array of the paths of those files
+  const filepathsToMove = // create an array of the paths of the files to be moved (excluding directories)
 
   // move all the files in filepathsToMove into /some/stuff
 
-  const someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
+  const someStuffDirectoryContents = await all(ipfs.files.ls('/some/stuff'))
   return someStuffDirectoryContents
 }
 
 return run
 `
 
-const solution = `/* global ipfs */
+const solution = `/* global ipfs, all */
 
 const run = async (files) => {
   await Promise.all(files.map(f => ipfs.files.write('/' + f.name, f, { create: true })))
   await ipfs.files.mkdir('/some/stuff', { parents: true })
-  const rootDirectoryContents = await ipfs.files.ls('/', { long: true })
+  const rootDirectoryContents = await all(ipfs.files.ls('/'))
 
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
   await ipfs.files.mv(filepathsToMove, '/some/stuff')
@@ -124,7 +128,7 @@ const run = async (files) => {
   //    return ipfs.files.mv('/' + file.name, '/some/stuff')
   // }))
 
-  const someStuffDirectoryContents = await ipfs.files.ls('/some/stuff', { long: true })
+  const someStuffDirectoryContents = await all(ipfs.files.ls('/some/stuff'))
   return someStuffDirectoryContents
 }
 

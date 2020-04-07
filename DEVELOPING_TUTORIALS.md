@@ -43,6 +43,7 @@ Ready to get started? Read on!
     - [Text of lesson or exercise not displayed](#text-of-lesson-or-exercise-not-displayed)
   - [Detailed Docs](#detailed-docs)
     - [Lesson File](#lesson-file)
+    - [`utils` module](#utils-module-1)
   - [License](#license)
 
 <!-- tocstop -->
@@ -135,8 +136,8 @@ Follow the steps below to create each lesson.
 
 Depending on which lesson format you've chosen, you'll need to create 2-4 files within your project directory. Check the table below to see which files you need, then read on for instructions on how to create them.
 
-| File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Multiple-Choice Lesson | Text-Only Lesson
-| :--- | :---: | :---: | :---: | :---: | :---: |
+| File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Multiple-Choice Lesson | Text-Only Lesson |
+| :---  | ---- | ---- | ---- | ---- | ---- |
 | A JavaScript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required | Required |
 | A Markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.md`| Required | Required | Not Used | Not Used |
@@ -250,7 +251,7 @@ const question = "What's the meaning of life, the universe, and everything?"
      feedback: 'Sorry, here\'s some clue about why this choice is wrong.'
    }
  ]
- ```
+```
 
 Please provide 3-5 answer choices per question. **You may only provide _one_ correct choice.**
 
@@ -355,8 +356,7 @@ If the user proceeds to the next lesson without refreshing their browser, the sa
 ###### Create success and failure messages
 
 Your `validate` function must return an object with one of two properties: `fail` or
-`success`. Each property should be used to give a detailed message (as a string) either congratulating the user or explaining *why*
-the sample code failed in order to help the user along.
+`success`. Each property should be used to give a detailed message (as a string) either congratulating the user or explaining *why* the sample code failed in order to help the user along.
 
 ```js
 const validate = async (result, ipfs) => {
@@ -372,12 +372,14 @@ const validate = async (result, ipfs) => {
 
 Be sure to include conditionals that will catch common mistakes and provide useful clues.
 
+The [`utils` module](#utils-module-1) has some pre-built validators ([`utils.valitors.*`](#utilsvalidators)) that you can re-use across lessons and tutorials. For more advanced cases related to IPFS errors, you can also use the [`utils.ipfs`](#utilsipfs) module where `utils.ipfs.errorCodes` might be useful.
+
 If the object returned by your `validate` function has the property `fail`, the message string you've provided will be shown highlighted in red, and the user will have the opportunity to update and resubmit their code. If it has the property `success`, the user will see the success message highlighted in green, and the "Submit" button will change into a "Next" button allowing them to advance to the next lesson.
 
 You may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in your `fail` or `success` messages. For example, the following validation code:
 
 ```js
-} else if (result && !result.hash) {
+} else if (result && !result.cid) {
   return { fail: "That result doesn't look right. Are you sure you ran the `stat` method on your empty root directory?" }
 }
 ```
@@ -387,6 +389,19 @@ You may (optionally) use [markdown formatting](https://guides.github.com/feature
 ![screenshot](public/markdown_error.png)
 
 If this is the last lesson in your tutorial, please create a success message that notes that the user has completed the whole tutorial. For example, `Great job! You've completed this series of lessons!`)
+
+There are some pre-built messages that you can use if you'd like by using the [`utils.validationMessages` module](#utilsvalidationmessages).
+
+###### Utils module
+
+There are some utils that you can use accross lesson code validations. For that you can use the `utils` module:
+
+- `utils.format`: format specific objects, such as `ipfs` objects
+- `utils.ipfs`: IPFS-specific helpers. Includes the error codes that `js-ipfs` might return.
+- `utils.validators`: common validators to be used throughout validation code
+- `utils.validationMessages`: common messages to show the user
+
+For more detailed docs, see [here](#utils-module-1).
 
 ###### Override external error messages (optional)
 
@@ -419,6 +434,8 @@ The `overrideError` attribute lets us know that you don't want the original erro
 The value of the `fail` attribute must be the string you'd like displayed to the user instead of the built-in error message you're overriding. As is true for all other success and failure messages, you may (optionally) choose to use Markdown formatting in your message string.
 
 Be sure to adapt your test case so that it works within the context of your other conditionals to meet your validation needs.
+
+In the use case of checking for IPFS errors, you can use `utils.ipfs.errorCodes` to make sure you are asserting for the correct error codes. For the complete docs please check [here](#utilsipfs). If the error codes you need are not available, you can add them to the file [tutorials/utils/ipfs.js](./src/tutorials/utils/ipfs.js).
 
 Note that most tutorial lessons will _not_ require the overriding of external
 errors. If you have questions about whether to use this optional feature, please reach
@@ -593,7 +610,6 @@ The properties exported from this file depend on the lesson type, as follows:
   - `validate(result, ipfs)`: Function - mandatory - _the validation code used to evaluate the user's code submission_ ([detailed docs](#validate-the-users-submitted-code))
   - `solution`: String - mandatory - _the suggested solution to the code challenge, visible to the user on demand_ ([detailed docs](#provide-the-simplest-solution-to-your-exercise))
   - `code`: String - optional - _the starting code for the challenge (though technically optional because a default is available, you will almost always need to provide this)_ ([detailed docs](#provide-the-starting-code-for-your-exercise))
-  - `modules`: Object - optional - _modules to be available to users through `require('module-name')` given that `modules = { module-name: require('module-name') }`_
   - `options`: Object - optional
       - `overrideErrors`: Boolean - default is `false` - _allows customized replacement of IPFS-generated errors with more user-friendly messages_ ([detailed docs](#override-external-error-messages-optional))
       - `createTestFile`: Boolean - default is `false` - _before validation, runs `createFile` in `Lesson.vue` to create a sample file the user can read from (see function for details)_
@@ -602,6 +618,135 @@ The properties exported from this file depend on the lesson type, as follows:
 - For **multiple-choice quizzes** only:
   - `question`: String - mandatory - _the question to be answered by the user_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons))
   - `choices`: Array - mandatory - _the potential answers between which the user must choose_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons))
+
+### `utils` module
+
+This module is a set of utils designed to be re-used accross the validation code of different tutorials.
+
+#### `utils.format`
+
+- `ipfsObject(object)`: formats an IPFS object to be ready to print in the output UI, for example, formatting a `cid` object into a string.
+
+Example:
+
+```js
+return {
+  success: 'Success! You did it!',
+  logDesc: "Here is the result.",
+  log: utils.format.ipfsObject(result)
+}
+```
+
+Without special formatting, the `result` object would be displayed like this:
+
+```
+{
+  "path": "QmQNcG7yJPWGuAoM2jmF78t6GTdNSmcuXr2c18SfJ4tVJQ",
+  "cid": {
+    "codec": "dag-pb",
+    "version": 0,
+    "hash": {
+      "type": "Buffer",
+      "data": [
+        18,
+        32,
+        30,
+        55,
+        196,
+        121,
+        86,
+        111,
+        123,
+        58,
+        178,
+        22,
+        159,
+        46,
+        21,
+        223,
+        12,
+        1,
+        37
+      ]
+    }
+  },
+  "size": 40391,
+  "mode": 420
+}
+```
+
+By contrast, the formatted object is displayed like this:
+
+```json
+{
+  "path": "QmRz7dg5FcbESqbbzxMVksyHfqJwqibcKZULUoichwwmsu",
+  "cid": "CID('QmRz7dg5FcbESqbbzxMVksyHfqJwqibcKZULUoichwwmsu')",
+  "size": 778308,
+  "mode": 420
+}
+```
+
+#### `utils.ipfs`
+
+- `errorCodes`: set of error codes from `js-ipfs`
+  - `ERR_MORE_THAN_ONE_ROOT`
+You can reference these error codes in your validation code when you'd like to override them with messages more specific to the context of your lesson. For example:
+
+```js
+if (result.code === utils.ipfs.errorCodes.ERR_MORE_THAN_ONE_ROOT) {
+  return {
+    fail: 'Some error message specific to this edge case.'
+  }
+}
+```
+IPFS error codes not listed above are not currently included in this feature, but can be added to our codebase as needed. If the error codes you need are not available, you can add them to the file [tutorials/utils/ipfs.js](./src/tutorials/utils/ipfs.js) and to this documentation.
+
+
+#### `utils.validationMessages`
+
+These validation messages can be used to avoid re-writing the same feedback messages across tutorials and lessons.
+
+- `SUCCESS`: when the user has successfully completed the code challenge
+  - Example: `Success! You did it!`
+- `NO_RESULT`: to show when the user forgets to return a result
+  - Example: `Oops! You forgot to return a result :(`
+- `VALUE_IS_ASYNC_ITERABLE_ALL`: when the user returned an AsyncIterable and forgot to use the `all` function on the result
+  - Example: `The returned value is an Async Iterable. Did you forget to put all the results together using either for await...of or with all?`
+- `VALUE_IS_ASYNC_ITERABLE_TOBUFFER`: when the user returned an AsyncIterable and forgot to use the `toBuffer` function on the result
+  - Example: `The returned value is an Async Iterable. Did you forget to concatenate all the data using toBuffer?`
+
+While these codes provide an easy shorthand, you'll still need to provide the logic that determines when a particular validation message should be displayed for each lesson. For example:
+
+```js
+import utils from '../utils'
+
+const validate = async (result, ipfs) => {
+  if (!result) {
+    return {
+      fail: utils.validationMessages.NO_RESULT
+    }
+  }
+}
+```
+
+
+
+#### `utils.validators`
+
+Validators that can be re-used across tutorials and lessons.
+
+- `isAsyncIterable(result)`: tests whether the result is an AsyncIterable or not
+
+While you can use these shorthands to test for certain conditions, you'll still need to specify what validation message should be displayed as a result. In the example below, a validator is used in combination with a validation message.
+```js
+if (utils.validators.isAsyncIterable(result)) {
+  return {
+    fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
+  }
+}
+```
+
+
 
 ## License
 

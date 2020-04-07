@@ -9,8 +9,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Did not return a valid CID instance.' }
   }
 
-  const hash = 'bafyreicaoyussrycqolu4k2iaxleu2uakjlq57tuxq3djxn4wnyfp4yk3y'
-  if (result.toString() === hash) {
+  if (result.toString() === 'bafyreicaoyussrycqolu4k2iaxleu2uakjlq57tuxq3djxn4wnyfp4yk3y') {
     return { success: 'Everything works!' }
   } else {
     const obj = await ipfs.dag.get(result)
