@@ -94,7 +94,7 @@ export default {
       return moment(this.startTime).format('ddd, MMM D, YYYY')
     },
     displayTimeZone: function () {
-      return this.timeZoneOffset? `GMT${this.timeZoneOffset}` : ''
+      return this.timeZoneOffset ? `GMT${this.timeZoneOffset}` : ''
     },
     isFuture: function () {
       return this.future
