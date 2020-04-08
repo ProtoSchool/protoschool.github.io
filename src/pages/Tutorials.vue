@@ -7,17 +7,15 @@
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
       <div class="mw7 center w100 tr">
         <ToggleButton
-            v-model="showCoding"
+            :value="showCoding"
             color="#69c4cd"
             :width="40"
-            :value="true"
-            :sync="true"
             :name="'includeCodingTutorials'"
             :id="'includeCodingTutorials'"
             :label="'Include Coding Tutorials'"
             class="mb3"
             data-cy="toggle-coding-tutorials"
-            :click="processToggle()"
+            :onClick="processToggle"
         />
       </div>
     </section>
@@ -56,37 +54,31 @@ export default {
       showCoding: self.$route.query.code ? self.$route.query.code === 'true' : true
     }
   },
-  mounted: function () {
-    console.log('mounted')
-  },
-  beforeCreate: function () {
-    console.log('beforeCreate')
-  },
   created: function () {
-    console.log('created')
-    if (this.$attrs.code === 'false'){
-      console.log('tracking urlQuery ')
+    if (this.$attrs.code === 'false') {
       this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'urlQuery' })
     }
   },
   methods: {
     processToggle: function () {
-      console.log('processToggle')
-      if (!this.showCoding){
-        console.log('tracking toggle')
+      this.showCoding = !this.showCoding
+
+      if (!this.showCoding) {
         this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
       }
+
       if (this.showCoding) {
-        window.location.hash = window.location.hash.indexOf('?') === -1 ?
-            window.location.hash + '?code=true' :
-            window.location.hash.replace('code=false', 'code=true')
+        window.location.hash = window.location.hash.indexOf('?') === -1
+          ? window.location.hash + '?code=true'
+          : window.location.hash.replace('code=false', 'code=true')
       } else {
-        window.location.hash = window.location.hash.indexOf('?') === -1 ?
-            window.location.hash + '?code=false' :
-            window.location.hash.replace('code=true', 'code=false')
+        window.location.hash = window.location.hash.indexOf('?') === -1
+          ? window.location.hash + '?code=false'
+          : window.location.hash.replace('code=true', 'code=false')
       }
     },
     trackEvent: function (event, opts = {}) {
+      console.log('trackEvent.add_event', event, opts)
       window.Countly.q.push(['add_event', {
         key: event,
         segmentation: {

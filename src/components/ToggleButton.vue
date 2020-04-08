@@ -1,6 +1,12 @@
 <template>
 <label
- :class="className" class="flex flex-row justify-end items-center" :for="computedId" tabindex="0" @keydown.space.prevent="keyToggle" >
+  :class="className"
+  class="flex flex-row justify-end items-center"
+  :for="computedId"
+  tabindex="0"
+  @keydown.space.prevent="keyToggle"
+  v-on:click="onClick"
+>
   <span class="external-label-left" v-if="label">{{label}}</span>
   <div class="dib">
     <input
@@ -80,6 +86,7 @@ const DEFAULT_COLOR_UNCHECKED = '#bfcbd9'
 const DEFAULT_LABEL_CHECKED = 'on'
 const DEFAULT_LABEL_UNCHECKED = 'off'
 const DEFAULT_SWITCH_COLOR = '#fff'
+
 export default {
   name: 'ToggleButton',
 
@@ -156,6 +163,9 @@ export default {
     },
     fontSize: {
       type: Number
+    },
+    onClick: {
+      type: Function
     }
   },
   computed: {
