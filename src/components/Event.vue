@@ -1,17 +1,8 @@
 <template>
   <Card class="flex flex-column bg-white navy pa4">
     <p class="f5 fw7 ma0 pt0 lh-copy ttu teal">{{displayDate}} </p>
-    <!-- OPTION 1 -->
-    <!-- <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStartTime}} ({displayTimeZone}})</p> -->
-    <!-- OPTION 2 -->
-    <!-- <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStartTime}}<span class="fw5">
-        ({{displayTimeZone}})</span></p> -->
-    <!-- OPTION 3 -->
     <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStartTime}}<span class="fw5 f6">
-            ({{displayTimeZone}})</span></p>
-    <!-- OPTION 4 -->
-    <!-- <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStartTime}}<span class="fw5 f7">
-                    {{displayTimeZone}}</span></p> -->
+      ({{displayTimeZone}})</span></p>
     <h3 class="ma0 mb1 f3 fw9 ttu">{{ isVirtual ? "Virtual" : city }}</h3>
     <p v-if="!isVirtual" class="f5 fw5 ma0 pt0">
       <span v-if="country" class="fw7">{{country}}</span>
