@@ -19,7 +19,11 @@
     "hostedAtName": "Distributed Networks Summit",
     "hostedAtUrl": "http://dnsummit.cryptorado.org/",
     "isVirtual": false,
-    "timeZoneOffset": "-07:00"
+    "timezone": {
+      "abbreviation": "CST",
+      "name": "Central Standard Time, North America",
+      "offset": "UTC-06"
+    }
   },
   {
     "id": 3,
@@ -37,7 +41,11 @@
     "hostedAtName": "Blockchain & Decentralized Finance Conference / Exhibition Lagos 2020",
     "hostedAtUrl": "https://blockchainnigeria.group/",
     "isVirtual": false,
-    "timeZoneOffset": "+01:00"
+    "timezone": {
+      "abbreviation": "WAT",
+      "name": "West Africa Time",
+      "offset": "UTC+01"
+    }
   },
   {
     "id": 5,
@@ -55,7 +63,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "-07:00"
+    "timezone": {
+      "abbreviation": "PDT",
+      "name": "Pacific Daylight Time, North America",
+      "offset": "UTC-07"
+    }
   },
   {
     "id": 6,
@@ -73,7 +85,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "+08:00"
+    "timezone": {
+      "abbreviation": "CST China",
+      "name": "China Standard Time",
+      "offset": "UTC+08"
+    }
   },
   {
     "id": 7,
@@ -93,7 +109,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "-07:00"
+    "timezone": {
+      "abbreviation": "CST",
+      "name": "Central Standard Time, North America",
+      "offset": "UTC-06"
+    }
   },
   {
     "id": 8,
@@ -111,7 +131,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "+08:00"
+    "timezone": {
+      "abbreviation": "CST China",
+      "name": "China Standard Time",
+      "offset": "UTC+08"
+    }
   },
   {
     "id": 9,
@@ -129,7 +153,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "+08:00"
+    "timezone": {
+      "abbreviation": "CST China",
+      "name": "China Standard Time",
+      "offset": "UTC+08"
+    }
   },
   {
     "id": 10,
@@ -149,7 +177,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "-07:00"
+    "timezone": {
+      "abbreviation": "PDT",
+      "name": "Pacific Daylight Time, North America",
+      "offset": "UTC-07"
+    }
   },
   {
     "id": 11,
@@ -167,7 +199,11 @@
     "hostedAtName": "",
     "hostedAtUrl": "",
     "isVirtual": false,
-    "timeZoneOffset": "-07:00"
+    "timezone": {
+      "abbreviation": "PDT",
+      "name": "Pacific Daylight Time, North America",
+      "offset": "UTC-07"
+    }
   },
   {
     "id": 12,
@@ -186,6 +222,10 @@
     "hostedAtName": "Web3 Summit",
     "hostedAtUrl": "https://web3summit.com/",
     "isVirtual": false,
-    "timeZoneOffset": "+02:00"
+    "timezone": {
+      "abbreviation": "CEST",
+      "name": "Central European Summer Time",
+      "offset": "UTC+02"
+    }
   }
 ]

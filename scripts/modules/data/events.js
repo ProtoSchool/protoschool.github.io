@@ -61,8 +61,17 @@ const columns = [
     transform: event => event.isVirtual === 'Virtual'
   },
   {
-    key: 'timeZoneOffset',
-    transform: event => event.timeZoneOffset.substring(4, 10)
+    key: 'timezone',
+    transform: event => {
+      if (!event.timezone) {
+        return ''
+      }
+
+      const [abbreviation, rest] = event.timezone.replace(' (', '(').split('(')
+      const [name, offset] = rest.replace(')', '').split(' - ')
+
+      return { abbreviation, name, offset }
+    }
   },
   {
     // Approved
@@ -105,7 +114,7 @@ const whitelist = [
   'hostedAtName',
   'hostedAtUrl',
   'isVirtual',
-  'timeZoneOffset'
+  'timezone'
 ]
 
 function logEventsResults (events) {

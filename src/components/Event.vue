@@ -55,7 +55,7 @@ export default {
   },
   props: {
     isVirtual: Boolean,
-    timeZoneOffset: String,
+    timezone: Object,
     city: String,
     region: String,
     country: String,
@@ -85,7 +85,7 @@ export default {
       return moment(this.startTime).format('ddd, MMM D, YYYY')
     },
     displayTimeZone: function () {
-      return this.timeZoneOffset ? `GMT${this.timeZoneOffset}` : ''
+      return this.timezone ? `${this.timezone.abbreviation} ${this.timezone.offset}` : ''
     },
     isFuture: function () {
       return this.future
