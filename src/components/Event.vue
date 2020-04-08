@@ -1,9 +1,12 @@
 <template>
   <Card class="flex flex-column bg-white navy pa4">
-    <p class="f5 fw7 ma0 pt0 lh-copy ttu teal mb2">{{displayStart}}</p>
-    <h3 class="ma0 mb1 f3 fw9 ttu">{{city}}</h3>
-    <p class="f5 fw5 ma0 pt0">
-      <span class="fw7">{{country}}</span>
+    <p class="f5 fw7 ma0 pt0 lh-copy ttu teal">{{displayDate}} {{displayStartTime}}</p>
+    <p class="f7 fw5 ma0 pt0 lh-copy ttu teal mb3">
+      {{displayTimeZone}}
+    </p>
+    <h3 class="ma0 mb1 f3 fw9 ttu">{{ isVirtual ? "Virtual" : city }}</h3>
+    <p v-if="!isVirtual" class="f5 fw5 ma0 pt0">
+      <span v-if="country" class="fw7">{{country}}</span>
       <span v-if="region"> - {{region}}</span>
     </p>
     <p class="f6 fw5 ma0 mt4 navy" v-if="hostedByName || hostedAtName">
@@ -52,6 +55,8 @@ export default {
     Card
   },
   props: {
+    isVirtual: Boolean,
+    timezone: Object,
     city: String,
     region: String,
     country: String,
@@ -74,8 +79,14 @@ export default {
     }
   },
   computed: {
-    displayStart: function () {
-      return moment(this.startTime).format('ddd, MMM D, YYYY, h:mm a')
+    displayStartTime: function () {
+      return moment(this.startTime).format('h:mm a')
+    },
+    displayDate: function () {
+      return moment(this.startTime).format('ddd, MMM D, YYYY')
+    },
+    displayTimeZone: function () {
+      return this.timezone ? `${this.timezone.abbreviation} ${this.timezone.offset}` : ''
     },
     isFuture: function () {
       return this.future
