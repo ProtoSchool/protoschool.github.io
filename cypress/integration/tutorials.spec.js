@@ -22,22 +22,40 @@ const testLessons = {
 }
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`DISPLAYS CORRECT TUTORIALS`, function () {
-  it(`tutorials page shows all tutorials in correct order`, function () {
-    cy.visit(`/#/tutorials/`)
+describe.only(`DISPLAYS CORRECT TUTORIALS`, function () {
+  function assertTutorialsAreNotFiltered () {
     cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
     cy.get('[data-cy=tutorial-title]').should('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < courses.all.length; i++) {
       cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
     }
-  })
-  it(`toggle hides coding tutorials`, function () {
+  }
+  function assertTutorialsAreFiltered () {
     const codelessTutorials = courses.all.filter(tutorialId => (getTutorialType(tutorialId) !== 'code') && (getTutorialType(tutorialId) !== 'file-upload'))
-    cy.get('[data-cy=toggle-coding-tutorials]').click()
+
     cy.get('[data-cy=tutorial-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < codelessTutorials.length; i++) {
       cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
     }
+  }
+
+  it(`tutorials page shows all tutorials in correct order`, function () {
+    cy.visit(`/#/tutorials/`)
+    assertTutorialsAreNotFiltered()
+  })
+  it(`toggle hides coding tutorials`, function () {
+    cy.visit(`/#/tutorials/`)
+    assertTutorialsAreNotFiltered()
+    cy.get('[data-cy=toggle-coding-tutorials]').click()
+    assertTutorialsAreFiltered()
+    cy.reload()
+    assertTutorialsAreFiltered()
+    cy.visit(`/#/tutorials?code=true`)
+    cy.reload()
+    assertTutorialsAreNotFiltered()
+    cy.visit(`/#/tutorials?code=false`)
+    cy.reload()
+    assertTutorialsAreFiltered()
   })
   it(`homepage shows featured tutorials in correct order`, function () {
     cy.visit(`/#/`)
