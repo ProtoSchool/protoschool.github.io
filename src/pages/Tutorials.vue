@@ -8,6 +8,7 @@
       <div class="mw7 center w100 tr">
         <ToggleButton
             :value="showCoding"
+            sync
             color="#69c4cd"
             :width="40"
             :name="'includeCodingTutorials'"
@@ -67,18 +68,12 @@ export default {
         this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
       }
 
-      if (this.showCoding) {
-        window.location.hash = window.location.hash.indexOf('?') === -1
-          ? window.location.hash + '?code=true'
-          : window.location.hash.replace('code=false', 'code=true')
-      } else {
-        window.location.hash = window.location.hash.indexOf('?') === -1
-          ? window.location.hash + '?code=false'
-          : window.location.hash.replace('code=true', 'code=false')
-      }
+      // update query parameters
+      window.location.hash = window.location.hash.indexOf('?') === -1
+        ? window.location.hash + `?code=${this.showCoding}`
+        : window.location.hash.replace(`code=${!this.showCoding}`, `code=${this.showCoding}`)
     },
     trackEvent: function (event, opts = {}) {
-      console.log('trackEvent.add_event', event, opts)
       window.Countly.q.push(['add_event', {
         key: event,
         segmentation: {

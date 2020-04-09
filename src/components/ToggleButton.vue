@@ -5,7 +5,6 @@
   :for="computedId"
   tabindex="0"
   @keydown.space.prevent="keyToggle"
-  v-on:click="onClick"
 >
   <span class="external-label-left" v-if="label">{{label}}</span>
   <div class="dib">
@@ -277,6 +276,7 @@ export default {
       if (!this.sync) {
         this.toggled = toggled
       }
+      this.onClick()
       this.$emit('input', toggled)
       this.$emit('change', {
         value: toggled,
