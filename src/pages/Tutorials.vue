@@ -58,6 +58,10 @@ export default {
     let showCodingTutorials = self.$route.query.code || settings.filters.get(settings.filters.TUTORIALS.SHOW_CODING)
     showCodingTutorials = showCodingTutorials ? showCodingTutorials === 'true' : true
 
+    if (self.$route.query.code) {
+      settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, showCodingTutorials)
+    }
+
     return {
       tutorials,
       showCodingTutorials
