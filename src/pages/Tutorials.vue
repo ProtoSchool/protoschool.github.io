@@ -55,7 +55,7 @@ export default {
     }
   },
   data: self => {
-    let showCodingTutorials = self.$route.query.code || settings.filters.get('tutorials-show-coding')
+    let showCodingTutorials = self.$route.query.code || settings.filters.get(settings.filters.TUTORIALS.SHOW_CODING)
     showCodingTutorials = showCodingTutorials ? showCodingTutorials === 'true' : true
 
     return {
@@ -76,7 +76,7 @@ export default {
         this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
       }
 
-      settings.filters.set('tutorials-show-coding', this.showCodingTutorials)
+      settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, this.showCodingTutorials)
 
       // update query parameters
       // don't use this.$router.push/replace because it triggers a full re-render and does not preserve the scroll

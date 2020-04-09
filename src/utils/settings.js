@@ -7,6 +7,9 @@ function settingsKey (module, key) {
 }
 
 const filters = {
+  TUTORIALS: {
+    SHOW_CODING: 'tutorials-show-coding'
+  },
   set (key, value) {
     localStorage.setItem(settingsKey(FILTERS_KEY_PREFIX, key), value)
   },
