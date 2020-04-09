@@ -1,24 +1,4 @@
-import tutorials from '../static/tutorials.json'
-
-// SET CASING OVERRIDES HERE
-// If a word in a URL would not be appopriate if only the first letter were capitalized,
-// add that word here as a property with the correct capitalization (string) as its value.
-// This is to be used for single words, not full hyphenated paths. Capitalization of that
-// word will apply throughout all tutorial shortnames that include it.
-const correctedCases = {
-  api: 'API',
-  cid: 'CID',
-  of: 'of',
-  a: 'a'
-}
-
-const fixCasing = function (word) {
-  return correctedCases.hasOwnProperty(word) ? correctedCases[word] : (word.charAt(0).toUpperCase() + word.slice(1))
-}
-
-export function deriveShortname (path) {
-  return path.split('-').map(word => fixCasing(word)).join(' ')
-}
+import tutorials from './tutorials'
 
 function migrateCacheEntry (tutorialId, pastUrl) {
   const tutorial = tutorials[tutorialId]

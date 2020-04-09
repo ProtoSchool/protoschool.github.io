@@ -26,7 +26,7 @@
               {{tutorial.title}}
             </template>
           </h2>
-          <span v-if="isTutorialPassed" class="ml2 f3">🏆</span>
+          <span v-if="isTutorialPassed(tutorial)" class="ml2 f3">🏆</span>
         </div>
         <TypeIcon
           :tutorialId="tutorialId"
@@ -34,6 +34,7 @@
       </div>
 
       <p class="f5 fw5 mt2 mb3 lh-copy charcoal-muted">{{tutorial.description}}</p>
+      <TutorialMessage :tutorial="tutorial" class="mb4" />
       <ul class="lessons-list mv2 pa0 f5 br3">
         <template v-for="(lesson, index) in tutorial.lessons">
           <li :key="index">
@@ -55,6 +56,7 @@
 <script>
 import LessonLink from '../components/LessonLink.vue'
 import TypeIcon from '../components/TypeIcon.vue'
+import TutorialMessage from '../components/callouts/TutorialMessage.vue'
 import { isTutorialPassed } from '../utils/tutorials'
 
 const resourcesLesson = {
@@ -71,11 +73,13 @@ export default {
   },
   components: {
     LessonLink,
-    TypeIcon
+    TypeIcon,
+    TutorialMessage
   },
-  data: () => {
+  data: self => {
     return {
-      resourcesLesson: resourcesLesson
+      resourcesLesson,
+      isTutorialPassed
     }
   },
   computed: {
@@ -84,9 +88,6 @@ export default {
     },
     resourcesLink: function () {
       return `/${this.tutorial.url}/resources`
-    },
-    isTutorialPassed: function () {
-      return isTutorialPassed(this.tutorial)
     }
   }
 }

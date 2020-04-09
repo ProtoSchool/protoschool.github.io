@@ -27,9 +27,9 @@
 </template>
 
 <script>
-import coursesList from '../static/courses.json' // array of 4-digit tutorial IDs (strings)
-import tutorialsList from '../static/tutorials.json' // object in which those 4-digit IDs are keys for tutorial objects
-import { getTutorialType } from '../utils/tutorials'
+import coursesList from '../static/courses.json'
+import tutorials, { getTutorialType } from '../utils/tutorials'
+
 import Header from '../components/Header.vue'
 import Tutorial from '../components/Tutorial.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
@@ -43,14 +43,14 @@ export default {
     ToggleButton
   },
   computed: {
-    allTutorials: () => coursesList.all.map(tutorialId => ({ ...tutorialsList[tutorialId], tutorialId })),
+    allTutorials: () => coursesList.all.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId })),
     codelessTutorials: function () {
       return this.allTutorials.filter(tutorial => (getTutorialType(tutorial.tutorialId) !== 'code') && (getTutorialType(tutorial.tutorialId) !== 'file-upload'))
     }
   },
   data: self => {
     return {
-      tutorialsList,
+      tutorials,
       showCoding: self.$route.query.code ? self.$route.query.code === 'true' : true
     }
   },

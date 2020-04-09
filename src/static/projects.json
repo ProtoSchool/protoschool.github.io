@@ -18,5 +18,10 @@
     "id": "multiformats",
     "name": "Multiformats",
     "url": "https://multiformats.io"
+  },
+  {
+    "id": "filecoin",
+    "name": "Filecoin",
+    "url": "https://filecoin.io"
   }
 ]

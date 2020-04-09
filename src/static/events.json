@@ -17,7 +17,13 @@
     "hostedByName": "Cryptorado",
     "hostedByUrl": "https://cryptorado.org",
     "hostedAtName": "Distributed Networks Summit",
-    "hostedAtUrl": "http://dnsummit.cryptorado.org/"
+    "hostedAtUrl": "http://dnsummit.cryptorado.org/",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "CST",
+      "name": "Central Standard Time, North America",
+      "offset": "UTC-06"
+    }
   },
   {
     "id": 3,
@@ -33,7 +39,13 @@
     "hostedByName": "Blockchain Nigeria User Group",
     "hostedByUrl": "https://blockchainnigeria.group/",
     "hostedAtName": "Blockchain & Decentralized Finance Conference / Exhibition Lagos 2020",
-    "hostedAtUrl": "https://blockchainnigeria.group/"
+    "hostedAtUrl": "https://blockchainnigeria.group/",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "WAT",
+      "name": "West Africa Time",
+      "offset": "UTC+01"
+    }
   },
   {
     "id": 5,
@@ -49,7 +61,13 @@
     "hostedByName": "Decentralized Web Seattle",
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "PDT",
+      "name": "Pacific Daylight Time, North America",
+      "offset": "UTC-07"
+    }
   },
   {
     "id": 6,
@@ -65,7 +83,13 @@
     "hostedByName": "Shanghai Decentralized Systems Meetup",
     "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "CST China",
+      "name": "China Standard Time",
+      "offset": "UTC+08"
+    }
   },
   {
     "id": 7,
@@ -83,7 +107,13 @@
     "hostedByName": "IPFS Colorado",
     "hostedByUrl": "https://www.meetup.com/IPFS-Colorado/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "CST",
+      "name": "Central Standard Time, North America",
+      "offset": "UTC-06"
+    }
   },
   {
     "id": 8,
@@ -99,7 +129,13 @@
     "hostedByName": "Shanghai Decentralized Systems Meetup",
     "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "CST China",
+      "name": "China Standard Time",
+      "offset": "UTC+08"
+    }
   },
   {
     "id": 9,
@@ -115,7 +151,13 @@
     "hostedByName": "Shanghai Decentralized Systems Meetup",
     "hostedByUrl": "https://www.meetup.com/Shanghai-Decentralized-Systems-Meetup-Group/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "CST China",
+      "name": "China Standard Time",
+      "offset": "UTC+08"
+    }
   },
   {
     "id": 10,
@@ -133,7 +175,13 @@
     "hostedByName": "Decentralized Web Seattle",
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "PDT",
+      "name": "Pacific Daylight Time, North America",
+      "offset": "UTC-07"
+    }
   },
   {
     "id": 11,
@@ -149,7 +197,13 @@
     "hostedByName": "Decentralized Web Seattle",
     "hostedByUrl": "https://www.meetup.com/ProtoSchool-Seattle-Learn-to-Make-the-Decentralized-Web/",
     "hostedAtName": "",
-    "hostedAtUrl": ""
+    "hostedAtUrl": "",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "PDT",
+      "name": "Pacific Daylight Time, North America",
+      "offset": "UTC-07"
+    }
   },
   {
     "id": 12,
@@ -166,6 +220,12 @@
     "hostedByName": "",
     "hostedByUrl": "",
     "hostedAtName": "Web3 Summit",
-    "hostedAtUrl": "https://web3summit.com/"
+    "hostedAtUrl": "https://web3summit.com/",
+    "isVirtual": false,
+    "timezone": {
+      "abbreviation": "CEST",
+      "name": "Central European Summer Time",
+      "offset": "UTC+02"
+    }
   }
 ]

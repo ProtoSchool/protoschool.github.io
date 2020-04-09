@@ -15,7 +15,7 @@
               :tutorialId="tutorial.formattedId"
               class="h2 ml3" />
         </div>
-        <CongratulationsCallout
+        <TutorialCompletionCallout
             v-if="isResources && isTutorialPassed"
             :tutorial="tutorial"
             class="mv4"
@@ -70,9 +70,11 @@
             :lessonPassed="lessonPassed"
             :parseData="parseData" />
           <Info
-            v-else-if="exercise && !isSubmitting"
+            v-if="(exercise && !isSubmitting && !output.test) || (output.test && output.test.fail && showLessonChangedInfo)"
             :showUploadInfo="showUploadInfo"
-            :isFileLesson="isFileLesson" />
+            :showLessonChangedInfo="showLessonChangedInfo"
+            :isFileLesson="isFileLesson"
+          />
         </div>
       </section>
       <Validator
@@ -111,7 +113,14 @@ import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
 
-import { getTutorialByUrl, isTutorialPassed, getLesson } from '../utils/tutorials'
+import {
+  getTutorialByUrl,
+  isTutorialPassed,
+  setTutorialPassed,
+  setLessonPassed,
+  getLesson,
+  isLessonPassed
+} from '../utils/tutorials'
 import { EVENTS } from '../static/countly'
 import marked from '../utils/marked'
 import Header from './Header.vue'
@@ -125,7 +134,7 @@ import CodeEditor from './CodeEditor.vue'
 import Output from './Output.vue'
 import Info from './Info.vue'
 import Validator from './Validator.vue'
-import CongratulationsCallout from './CongratulationsCallout.vue'
+import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = 10000
@@ -193,7 +202,7 @@ export default {
     Output,
     Info,
     Validator,
-    CongratulationsCallout,
+    TutorialCompletionCallout,
     TypeIcon
   },
   props: {
@@ -224,6 +233,7 @@ export default {
       viewSolution: false,
       cachedStateMsg: '',
       showUploadInfo: false,
+      showLessonChangedInfo: false,
       expandExercise: false,
       editorReady: false,
       isFileLesson: self.isFileLesson,
@@ -269,7 +279,7 @@ export default {
   },
   mounted: function () {
     if (this.isResources) {
-      localStorage[this.lessonKey] = 'passed'
+      setLessonPassed(this.tutorial, this.lesson)
       this.trackEvent(EVENTS.LESSON_PASSED)
     }
   },
@@ -327,6 +337,7 @@ export default {
         return
       } else {
         this.showUploadInfo = false
+        this.showLessonChangedInfo = false
       }
 
       if (this.isFileLesson) args.unshift(this.uploadedFiles)
@@ -382,13 +393,16 @@ export default {
         ipfs.stop()
       }
       if (output.test.success) {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         if (auto !== true) {
           // track lesson passed if it has an exercise (incl file ones)
           this.trackEvent(EVENTS.LESSON_PASSED)
           this.updateTutorialState()
         }
       } else {
+        if (isLessonPassed(this.tutorial, this.lesson)) {
+          this.showLessonChangedInfo = true
+        }
         this.clearPassed()
         if (auto !== true) {
           this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
@@ -460,11 +474,13 @@ export default {
       for (let i = 1; i <= this.lessonsInTutorial; i++) {
         const lessonNr = i.toString().padStart(2, 0)
         const lsKey = `passed/${this.tutorial.url}/${lessonNr}`
-        if (localStorage[lsKey] !== 'passed') {
+
+        if (!localStorage[lsKey]) {
           return false
         }
       }
-      localStorage[`passed/${this.tutorial.url}`] = 'passed'
+
+      setTutorialPassed(this.tutorial)
       this.trackEvent(EVENTS.TUTORIAL_PASSED)
       return true
     },
@@ -517,7 +533,7 @@ export default {
       this.cachedChoice = !!localStorage[this.cacheKey]
       Vue.set(this.output, 'test', result)
       if (this.output.test.success) {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         this.lessonPassed = !!localStorage[this.lessonKey]
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
@@ -535,7 +551,7 @@ export default {
       if (this.exercise) {
         Vue.set(this.output, 'test', null)
       } else {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
           this.trackEvent(EVENTS.LESSON_PASSED)
@@ -554,7 +570,7 @@ export default {
       if (this.exercise) {
         Vue.set(this.output, 'test', null)
       } else {
-        localStorage[this.lessonKey] = 'passed'
+        setLessonPassed(this.tutorial, this.lesson)
         this.lessonPassed = !!localStorage[this.lessonKey]
       }
       this.$router.push({ path: '/tutorials/' })
