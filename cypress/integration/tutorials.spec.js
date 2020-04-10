@@ -22,7 +22,7 @@ const testLessons = {
 }
 
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe.only(`DISPLAYS CORRECT TUTORIALS`, function () {
+describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   function assertTutorialsAreNotFiltered () {
     cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
     cy.get('[data-cy=tutorial-title]').should('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
