@@ -62,4 +62,8 @@ pre code {
 .fill-current {
   fill: currentColor;
 }
+
+* {
+  outline-color: var(--color-teal-muted);
+}
 </style>

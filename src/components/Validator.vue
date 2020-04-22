@@ -3,56 +3,102 @@
     <!-- Coding lesson -->
     <div v-if="challenge" :class="{'fixed bottom-0 right-0': expandChallenge}" class="coding-challenge-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
-        <Button :click="tutorialMenu" class="bg-navy white" data-cy="more-tutorials">More Tutorials</Button>
+        <Button
+          :click="tutorialMenu"
+          class="bg-navy white"
+          data-cy="more-tutorials"
+          text="More Tutorials"
+        />
       </div>
       <div v-else-if="lessonPassed && !isSubmitting">
         <span class="disabled-btn-wrapper">
           <span v-if="isFileLesson && !uploadedFiles" class="mr2 red lh-copy o-0" data-cy="need-new-files-msg">
             You must upload a file before submitting.
           </span>
-          <Button v-if="(isFileLesson && !output) || (isFileLesson && !uploadedFiles)" :disabled="!uploadedFiles" :click="run" class="mr2 bg-navy white" style="minWidth: 90px" data-cy="submit-needs-new-files">Submit</Button>
+          <Button v-if="(isFileLesson && !output) || (isFileLesson && !uploadedFiles)"
+            :disabled="!uploadedFiles"
+            :click="run"
+            class="mr2 bg-navy white"
+            style="minWidth: 90px"
+            data-cy="submit-needs-new-files"
+            text="Submit"
+          />
         </span>
-        <Button :click="next" class="bg-navy white" data-cy="next-lesson-code">Next</Button>
+        <Button
+          :click="next"
+          class="bg-navy white"
+          data-cy="next-lesson-code"
+          text="Next"
+        />
       </div>
       <div v-else>
         <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabled-btn-wrapper">
           <span v-if="isFileLesson && !uploadedFiles" class="mr2 red lh-copy o-0" data-cy="need-files-msg">
             You must upload a file before submitting.
           </span>
-          <Button :click="next" class="bg-navy white" data-cy="submit-disabled" disabled>
-            <span v-if="isSubmitting" class="loader"></span>
-            <span v-else>Submit</span>
-          </Button>
+          <Button
+            :click="next"
+            :loading="isSubmitting"
+            class="bg-navy white"
+            data-cy="submit-disabled"
+            text="Submit"
+          />
         </span>
-        <Button v-else :click="run" class="bg-navy white" data-cy="submit-answer">Submit</Button>
+        <Button v-else
+          :click="run"
+          class="bg-navy white"
+          data-cy="submit-answer"
+          text="Submit"
+        />
       </div>
     </div>
     <!-- Multiple choice lesson -->
     <div v-else-if="isMultipleChoiceLesson" class="coding-challenge-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
-        <Button :click="tutorialMenu" class="bg-navy white" data-cy="more-tutorials">More Tutorials</Button>
+        <Button
+          :click="tutorialMenu"
+          class="bg-navy white"
+          data-cy="more-tutorials"
+          text="More Tuturials"
+        />
       </div>
       <span v-else class="disabled-btn-wrapper">
         <span v-if="!lessonPassed" class="mr2 red lh-copy o-0">
           Oops, you haven't selected the right answer yet!
         </span>
-        <Button :click="next" class="bg-navy white" :disabled="!lessonPassed" data-cy="next-lesson-mult-choice">Next</Button>
+        <Button
+          :click="next"
+          class="bg-navy white"
+          :disabled="!lessonPassed"
+          data-cy="next-lesson-mult-choice"
+          text="Next"
+        />
       </span>
     </div>
     <!-- Text only lesson -->
     <div v-else class="mb3 ph2 tr">
       <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInTutorial) || isResources)">
-        <Button :click="tutorialMenu" data-cy="more-tutorials" class="bg-navy white">More Tutorials</Button>
+        <Button
+          :click="tutorialMenu"
+          data-cy="more-tutorials"
+          class="bg-navy white"
+          text="More Tutorials"
+        />
       </div>
       <div v-else>
-        <Button :click="next" class="bg-navy white" data-cy="next-lesson-text">Next</Button>
+        <Button
+          :click="next"
+          class="bg-navy white"
+          data-cy="next-lesson-text"
+          text="Next"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue'
+import Button from './buttons/Button.vue'
 
 export default {
   components: {
@@ -88,50 +134,4 @@ export default {
   transition: opacity .2s ease-in;
 }
 
-button:disabled {
-  cursor: not-allowed;
-}
-
-.loader,
-.loader:before,
-.loader:after {
-  border-radius: 50%;
-  width: 2em;
-  height: 2em;
-  animation-fill-mode: both;
-  animation: loadAnim 1.5s infinite ease-in-out;
-}
-
-.loader {
-  display: block;
-  margin: 7px auto;
-  color: #ffffff;
-  font-size: 5px;
-  top: -10px;
-  position: relative;
-  animation-delay: -0.15s;
-  pointer-events: none;
-}
-
-.loader:before {
-  content: '';
-  position: absolute;
-  left: -3.5em;
-  animation-delay: -0.30s;
-}
-
-.loader:after {
-  content: '';
-  position: absolute;
-  left: 3.5em;
-}
-
-@keyframes loadAnim {
-  0%, 80%, 100% {
-    box-shadow: 0 2em 0 -1.3em;
-  }
-  40% {
-    box-shadow: 0 2em 0 0;
-  }
-}
 </style>

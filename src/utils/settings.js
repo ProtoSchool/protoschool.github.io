@@ -15,23 +15,44 @@
 const SETTINGS_KEY_PREFIX = 'settings'
 
 const FILTERS_KEY_PREFIX = 'filters'
+const NEWSLETTER_KEY_PREFIX = 'newsletter'
 
 function settingsKey (module, key) {
   return `${SETTINGS_KEY_PREFIX}/${module}/${key}`
+}
+
+function set (prefix, key, value) {
+  localStorage.setItem(settingsKey(prefix, key), value)
+}
+
+function get (prefix, key) {
+  return localStorage.getItem(settingsKey(prefix, key))
+}
+
+function makeOperations (prefix) {
+  return {
+    set (key, value) {
+      set(prefix, key, value)
+    },
+    get (key) {
+      return get(prefix, key)
+    }
+  }
 }
 
 const filters = {
   TUTORIALS: {
     SHOW_CODING: 'tutorials-show-coding'
   },
-  set (key, value) {
-    localStorage.setItem(settingsKey(FILTERS_KEY_PREFIX, key), value)
-  },
-  get (key) {
-    return localStorage.getItem(settingsKey(FILTERS_KEY_PREFIX, key))
-  }
+  ...makeOperations(FILTERS_KEY_PREFIX)
+}
+
+const newsletters = {
+  PROTOSCHOOL: 'protoschool',
+  ...makeOperations(NEWSLETTER_KEY_PREFIX)
 }
 
 export default {
-  filters
+  filters,
+  newsletters
 }

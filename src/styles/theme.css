@@ -1,0 +1,44 @@
+:root {
+    /* Colors */
+    --color-charcoal: #34373f;
+    --color-charcoal-muted: #7f8491;
+    --color-gray: #b7bbc8;
+    --color-gray-muted: #d9dbe2;
+    --color-snow: #edf0f4;
+    --color-snow-muted: #f7f8fa;
+    --color-navy: #0b3a53;
+    --color-navy-muted: #244e66;
+    --color-teal: #3e9096;
+    --color-teal-muted: #439a9d;
+    --color-aqua: #69c4cd;
+    --color-aqua-muted: #9ad4db;
+    --color-red: #ea5037;
+    --color-red-muted: #f36149;
+    --color-yellow: #f39021;
+    --color-yellow-muted: #f9a13e;
+    --color-green: #0cb892;
+    --color-green-muted: #0aca9f;
+
+    /* Borders */
+    --border-default: 1px solid var(--color-gray-muted);
+    --border-radius-default: 2px;
+
+    /* Shadows */
+    --shadow-default: 0px 2px 4px 0 rgba(0, 0, 0, .2);
+    --shadow-light: 0px 2px 2px 0 rgba(0, 0, 0, .1);
+    --shadow-focus: 0px 2px 8px 0 rgba(0, 0, 0, .2);
+
+    /* Transitions */
+    /* timings */
+    --transition-duration-default: 300ms;
+    --transition-duration-fast: 150ms;
+    --transition-duration-slow: 450ms;
+
+    /* functions */
+    --transition-function-default: ease;
+
+    /* presets */
+    --transition-default: var(--transition-duration-default) var(--transition-function-default);
+    --transition-fast: var(--transition-duration-fast) var(--transition-function-default);
+    --transition-slow: var(--transition-duration-slow) var(--transition-function-default);
+}

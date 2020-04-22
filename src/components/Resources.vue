@@ -1,5 +1,5 @@
 <template>
-  <div data-cy='resources-content' class='lesson-text lh-copy'>
+  <div data-cy='resources-content' class='lesson-text lh-copy mb4'>
     <p>
       Ready to learn more? There are plenty of additional resources to explore, both in ProtoSchool and beyond.
       <span v-if='data.length > 1'>Here are some of our favorites:</span>
@@ -16,13 +16,18 @@
       </p>
       <div v-if='item.description' class='ma0 resource-desc' v-html='parse(item.description)'></div>
     </div>
+    <NewsletterSubscription class="mv4" />
   </div>
 </template>
 
 <script>
 import marked from 'marked'
+import NewsletterSubscription from './forms/NewsletterSubscription.vue'
 
 export default {
+  components: {
+    NewsletterSubscription
+  },
   props: {
     data: Array
   },

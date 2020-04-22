@@ -1,0 +1,30 @@
+/*
+    Outline
+
+    Uses box-shadow on the ::after element to avoid clashing with
+    other current styles of the element.
+    The element needs to have position relative.
+ */
+.outline-focus {
+    position: relative;
+    outline: none;
+}
+
+.outline-focus::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 2px;
+
+  box-shadow: 0 0 0 .2rem var(--color-teal-muted);
+
+  transition: var(--transition-default);
+}
+
+.outline-focus:focus:not(:active):not(:disabled):not([data-disabled])::after {
+  opacity: 1;
+}
