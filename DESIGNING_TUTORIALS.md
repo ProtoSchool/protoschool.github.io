@@ -121,7 +121,7 @@ Whereas a usage example can help clarify the type of data needed and will be mor
 ```js
 await ipfs.files.write('/cat.jpg', catPic, { create: true })
 ```
-- In some cases, you may want to offer hints within the body of the exercise Markdown file as opposed to only providing feedback after certain mistakes have been made.
+- In some cases, you may want to offer hints within the body of the challenge Markdown file as opposed to only providing feedback after certain mistakes have been made.
 
 ##### Limit dependencies on complex JavaScript methods
 - Do everything you can to create code challenges focused on the protocol you're teaching (e.g. IPFS), not the language you're teaching it in (JavaScript). Many of our learners are either new to coding or new to JavaScript. Give them hints with links to documentation on specific JavaScript methods that might be needed, such as `Array.map()`.
