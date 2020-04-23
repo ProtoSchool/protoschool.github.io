@@ -1,0 +1,1 @@
+Use `ipfs.dag.get` to return the value of `test` by traversing the link from the object you `put` in the previous challenge. (Hint: Be sure to access the `value` property only after the promise completes.)

@@ -8,9 +8,9 @@
     <span v-else-if="showLessonChangedInfo">
       You've passed this lesson previously, but we've since updated the content of this tutorial. Check out the updated lesson content and give the code challenge another try... it might require a new solution!
     </span>
-    <span v-else-if="isFileLesson">Upload file(s) and update the code to complete the exercise.</span>
+    <span v-else-if="isFileLesson">Upload file(s) and update the code to complete the challenge.</span>
     <span v-else>
-      Update the code to complete the exercise.
+      Update the code to complete the challenge.
       Click
       <strong>Submit</strong> to check your answer.
     </span>

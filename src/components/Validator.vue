@@ -1,7 +1,7 @@
 <template>
   <div class="mw7 center">
     <!-- Coding lesson -->
-    <div v-if="exercise" :class="{'fixed bottom-0 right-0': expandExercise}" class="coding-exercise-container pr4 pb4 tr">
+    <div v-if="challenge" :class="{'fixed bottom-0 right-0': expandChallenge}" class="coding-challenge-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
         <Button :click="tutorialMenu" class="bg-navy white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <!-- Multiple choice lesson -->
-    <div v-else-if="isMultipleChoiceLesson" class="coding-exercise-container pr4 pb4 tr">
+    <div v-else-if="isMultipleChoiceLesson" class="coding-challenge-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
         <Button :click="tutorialMenu" class="bg-navy white" data-cy="more-tutorials">More Tutorials</Button>
       </div>
@@ -59,7 +59,7 @@ export default {
     Button
   },
   props: {
-    exercise: String,
+    challenge: String,
     isFileLesson: Boolean,
     isMultipleChoiceLesson: Boolean,
     uploadedFiles: [Boolean, Array],
@@ -73,13 +73,13 @@ export default {
     next: Function,
     run: Function,
     tutorialMenu: Function,
-    expandExercise: Boolean
+    expandChallenge: Boolean
   }
 }
 </script>
 
 <style scoped>
-.coding-exercise-container {
+.coding-challenge-container {
   background: #F6F7F9;
 }
 
