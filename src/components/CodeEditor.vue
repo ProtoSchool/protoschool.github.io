@@ -57,7 +57,7 @@ export default {
     onMounted: Function,
     onCodeChange: Function,
     resetCode: Function,
-    expandExercise: Boolean,
+    expandChallenge: Boolean,
     cyReplaceWithSolution: Function,
     cyClearDefaultCode: Function
   },
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     editorHeight: function () {
-      if (this.expandExercise) {
+      if (this.expandChallenge) {
         return undefined
       } else {
         const lineHeight = 18

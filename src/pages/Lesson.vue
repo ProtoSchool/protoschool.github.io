@@ -3,7 +3,7 @@
         v-if="!lesson.type || lesson.type === 'text' || lesson.type === 'code'"
         :text="text"
         :concepts="concepts"
-        :exercise="exercise"
+        :challenge="challenge"
         :validate="logic.validate"
         :code="logic.code"
         :solution="logic.solution"
@@ -17,7 +17,7 @@
         v-else-if="lesson.type === 'file-upload'"
         :text="text"
         :concepts="concepts"
-        :exercise="exercise"
+        :challenge="challenge"
         :validate="logic.validate"
         :code="logic.code"
         :solution="logic.solution"
@@ -70,8 +70,8 @@ export default {
         case 'concepts':
           filename = `${this.lessonId}-concepts.md`
           break
-        case 'exercise':
-          filename = `${this.lessonId}-exercise.md`
+        case 'challenge':
+          filename = `${this.lessonId}-challenge.md`
           break
         case 'js':
           filename = `${this.lessonId}.js`
@@ -126,10 +126,10 @@ export default {
 
       return concepts ? marked(concepts).html : ''
     },
-    exercise: function () {
-      const exercise = this.lessonNeedsJsFile && this.loadFile('exercise')
+    challenge: function () {
+      const challenge = this.lessonNeedsJsFile && this.loadFile('challenge')
 
-      return exercise ? marked(exercise).html : ''
+      return challenge ? marked(challenge).html : ''
     },
     logic: function () {
       let logic = {

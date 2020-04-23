@@ -1,4 +1,4 @@
-For this exercise, we've added a plain text file to your IPFS node for you, and its CID is the following string:
+For this challenge, we've added a plain text file to your IPFS node for you, and its CID is the following string:
 
 ```
 QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ

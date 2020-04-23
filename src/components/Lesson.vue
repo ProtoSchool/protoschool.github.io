@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'overflow-hidden': expandExercise}">
+  <div :class="{'overflow-hidden': expandChallenge}">
     <Header/>
     <div class="container center-l mw7-l ph3">
       <section class="mw7 center mt3 pt2">
@@ -25,7 +25,7 @@
         <Resources v-if="isResources" :data="resources" />
         <div v-else class="lesson-text lh-copy" v-html="text"></div>
       </section>
-      <section v-if="exercise || isMultipleChoiceLesson" :class="{expand: expandExercise}" class="exercise center pa3 ph4-l flex flex-column">
+      <section v-if="challenge || isMultipleChoiceLesson" :class="{expand: expandChallenge}" class="challenge center pa3 ph4-l flex flex-column">
         <div class="flex-none">
           <Progress
             :isMultipleChoiceLesson="isMultipleChoiceLesson"
@@ -33,9 +33,9 @@
             :cachedChoice="cachedChoice"
             :cachedCode="cachedCode"
             :cachedStateMsg="cachedStateMsg"
-            :expandExercise="expandExercise"
-            :toggleExpandExercise="toggleExpandExercise" />
-          <div v-html="exercise" class='lh-copy' />
+            :expandChallenge="expandChallenge"
+            :toggleExpandChallenge="toggleExpandChallenge" />
+          <div v-html="challenge" class='lh-copy' />
           <FileUpload
             v-if="isFileLesson"
             :onFileClick="onFileClick"
@@ -43,7 +43,7 @@
             :resetFileUpload="resetFileUpload"
             :uploadedFiles="uploadedFiles" />
           <CodeEditor
-            v-if="exercise"
+            v-if="challenge"
             :isFileLesson="isFileLesson"
             :editorReady="editorReady"
             :code="editorCode"
@@ -52,7 +52,7 @@
             :onMounted="onMounted"
             :onCodeChange="onCodeChange"
             :resetCode="resetCode"
-            :expandExercise="expandExercise"
+            :expandChallenge="expandChallenge"
             :cyReplaceWithSolution="cyReplaceWithSolution"
             :cyClearDefaultCode="cyClearDefaultCode" />
           <Quiz
@@ -70,7 +70,7 @@
             :lessonPassed="lessonPassed"
             :parseData="parseData" />
           <Info
-            v-if="(exercise && !isSubmitting && !output.test) || (output.test && output.test.fail && showLessonChangedInfo)"
+            v-if="(challenge && !isSubmitting && !output.test) || (output.test && output.test.fail && showLessonChangedInfo)"
             :showUploadInfo="showUploadInfo"
             :showLessonChangedInfo="showLessonChangedInfo"
             :isFileLesson="isFileLesson"
@@ -78,7 +78,7 @@
         </div>
       </section>
       <Validator
-        :exercise="exercise"
+        :challenge="challenge"
         :isFileLesson="isFileLesson"
         :isMultipleChoiceLesson="isMultipleChoiceLesson"
         :uploadedFiles="uploadedFiles"
@@ -88,7 +88,7 @@
         :nextLessonIsResources="nextLessonIsResources"
         :lessonNumber="lessonId"
         :lessonsInTutorial="lessonsInTutorial"
-        :expandExercise="expandExercise"
+        :expandChallenge="expandChallenge"
         :isSubmitting="isSubmitting"
         :run="run"
         :next="next"
@@ -211,7 +211,7 @@ export default {
     isResources: Boolean,
     resources: Array,
     text: String,
-    exercise: String,
+    challenge: String,
     concepts: String,
     solution: String,
     validate: Function,
@@ -234,7 +234,7 @@ export default {
       cachedStateMsg: '',
       showUploadInfo: false,
       showLessonChangedInfo: false,
-      expandExercise: false,
+      expandChallenge: false,
       editorReady: false,
       isFileLesson: self.isFileLesson,
       isMultipleChoiceLesson: self.isMultipleChoiceLesson,
@@ -395,7 +395,7 @@ export default {
       if (output.test.success) {
         setLessonPassed(this.tutorial, this.lesson)
         if (auto !== true) {
-          // track lesson passed if it has an exercise (incl file ones)
+          // track lesson passed if it has a challenge (incl file ones)
           this.trackEvent(EVENTS.LESSON_PASSED)
           this.updateTutorialState()
         }
@@ -548,7 +548,7 @@ export default {
       }
     },
     next: function () {
-      if (this.exercise) {
+      if (this.challenge) {
         Vue.set(this.output, 'test', null)
       } else {
         setLessonPassed(this.tutorial, this.lesson)
@@ -567,7 +567,7 @@ export default {
       this.$router.push({ path: next })
     },
     tutorialMenu: function () {
-      if (this.exercise) {
+      if (this.challenge) {
         Vue.set(this.output, 'test', null)
       } else {
         setLessonPassed(this.tutorial, this.lesson)
@@ -575,8 +575,8 @@ export default {
       }
       this.$router.push({ path: '/tutorials/' })
     },
-    toggleExpandExercise: function () {
-      this.expandExercise = !this.expandExercise
+    toggleExpandChallenge: function () {
+      this.expandChallenge = !this.expandChallenge
     },
     cyReplaceWithSolution: function () {
       this.editor.setValue(this.solution)
@@ -594,13 +594,13 @@ export default {
   flex-grow: 1;
 }
 
-.exercise {
+.challenge {
   overflow: hidden;
   background: #F6F7F9;
   max-width: 48rem;
 }
 
-.exercise.expand {
+.challenge.expand {
   height: 100vh;
   width: 100%;
   max-width: 100%;

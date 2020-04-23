@@ -22,12 +22,12 @@ Ready to get started? Read on!
       - [Create lesson files](#create-lesson-files)
         - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
         - [JavaScript file](#javascript-file-skip-for-text-only-lessons)
-        - [Exercise text file (skip for text-only and multiple-choice lessons)](#exercise-text-file-skip-for-text-only-and-multiple-choice-lessons)
+        - [Challenge text file (skip for text-only and multiple-choice lessons)](#challenge-text-file-skip-for-text-only-and-multiple-choice-lessons)
         - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
-      - [Create multiple-choice quizzes in your JavaScript file (skip for coding exercises and text-only lessons)](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons)
+      - [Create multiple-choice quizzes in your JavaScript file (skip for coding challenges and text-only lessons)](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-challenges-and-text-only-lessons)
       - [Build code challenges and validation in your JavaScript file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-javascript-file-skip-for-text-only-and-multiple-choice-lessons)
-        - [Provide the starting code for your exercise](#provide-the-starting-code-for-your-exercise)
-        - [Provide the simplest solution to your exercise](#provide-the-simplest-solution-to-your-exercise)
+        - [Provide the starting code for your challenge](#provide-the-starting-code-for-your-challenge)
+        - [Provide the simplest solution to your challenge](#provide-the-simplest-solution-to-your-challenge)
         - [Validate the user's submitted code](#validate-the-users-submitted-code)
           - [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
           - [Create success and failure messages](#create-success-and-failure-messages)
@@ -41,7 +41,7 @@ Ready to get started? Read on!
   - [Troubleshooting](#troubleshooting)
     - [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
     - [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
-    - [Text of lesson or exercise not displayed](#text-of-lesson-or-exercise-not-displayed)
+    - [Text of lesson or challenge not displayed](#text-of-lesson-or-challenge-not-displayed)
   - [Detailed Docs](#detailed-docs)
     - [Lesson File](#lesson-file)
     - [`utils` module](#utils-module-1)
@@ -126,8 +126,8 @@ $ mkdir 0005-tutorial-short-title
 Each **tutorial** in ProtoSchool is made up of multiple **lessons**.
 
 Currently there are three lesson formats available, which you may mix and match within your tutorial:
-- A standard lesson with a coding exercise (the most common)
-- A lesson with a coding exercise that requires a file upload
+- A standard lesson with a coding challenge (the most common)
+- A lesson with a coding challenge that requires a file upload
 - A text-only lesson with no code challenge
 - A lesson that concludes with a multiple-choice quiz
 
@@ -137,11 +137,11 @@ Follow the steps below to create each lesson.
 
 Depending on which lesson format you've chosen, you'll need to create 2-4 files within your project directory. Check the table below to see which files you need, then read on for instructions on how to create them.
 
-| File | Sample Filename | Standard Lesson with Coding Exercise | Lesson with Coding Exercise and File Upload | Multiple-Choice Lesson | Text-Only Lesson |
+| File | Sample Filename | Standard Lesson with Coding Challenge | Lesson with Coding Challenge and File Upload | Multiple-Choice Lesson | Text-Only Lesson |
 | :---  | ---- | ---- | ---- | ---- | ---- |
-| A JavaScript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding exercise** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
+| A JavaScript file that provides **required metadata** (e.g. code) for your lesson and, when relevant, the **default code and validation for a coding challenge** or **answer selections for multiple-choice quizzes** |`01.js`| Required | Required | Required | Not Used |
 | A markdown file containing the **text of the lesson** (your educational content)|`01.md`| Required | Required | Required | Required |
-| A Markdown file containing the **text of the assignment shown in the exercise box**|`01-exercise.md`| Required | Required | Not Used | Not Used |
+| A Markdown file containing the **text of the assignment shown in the challenge box**|`01-challenge.md`| Required | Required | Not Used | Not Used |
 | A Markdown file containing the **text of the optional useful concepts box**|`01-concepts.md`| Optional | Optional | Optional | Optional |
 
 In the example below, four files stored in the `tutorials/0005-tutorial-short-title` directory work together to create the second lesson in that tutorial.
@@ -185,13 +185,13 @@ Then in your lesson Markdown file, you can either add it with regular Markdown:
 
 Select the appropriate boilerplate JavaScript file for your lesson from the `src/tutorials/boilerplates` directory:
 
-- `boilerplate-code.js` for a lesson with a coding exercise which does not require a file upload
-- `boilerplate-file-upload.js` for a lesson with a coding exercise that requires a file upload
+- `boilerplate-code.js` for a lesson with a coding challenge which does not require a file upload
+- `boilerplate-file-upload.js` for a lesson with a coding challenge that requires a file upload
 - `boilerplate-multiple-choice.js` for a lesson with a multiple-choice quiz
 
 Copy that boilerplate into the tutorial directory you created earlier (e.g. `0005-tutorial-short-title`) and rename it to the 2-digit number of the lesson.
 
-For example, to create a JavaScript file for a standard coding exercise as Lesson 01 of Tutorial 0005 (while still in `src/tutorials`):
+For example, to create a JavaScript file for a standard coding challenge as Lesson 01 of Tutorial 0005 (while still in `src/tutorials`):
 
 ```sh
 $ cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
@@ -199,14 +199,14 @@ $ cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
 
 Use this file to set up your default code and validation, as described later in these instructions.
 
-##### Exercise text file (skip for text-only and multiple-choice lessons)
+##### Challenge text file (skip for text-only and multiple-choice lessons)
 
-If your lesson includes a coding exercise, create a second `.md` file and add the markdown-formatted text that provides the assignment text for the exercise box. The name of this file should match the 2-digit lesson number used previously, with `-exercise` appended.
+If your lesson includes a coding challenge, create a second `.md` file and add the markdown-formatted text that provides the assignment text for the challenge box. The name of this file should match the 2-digit lesson number used previously, with `-challenge` appended.
 
 For example (for Lesson 01 of Tutorial 0005):
 
 ```
-src/tutorials/0005-tutorial-short-title/01-exercise.md
+src/tutorials/0005-tutorial-short-title/01-challenge.md
 ```
 
 ##### Useful concepts text file (optional)
@@ -219,7 +219,7 @@ For example (for Lesson 01 of Tutorial 0005):
 src/tutorials/0005-tutorial-short-title/01-concepts.md
 ```
 
-#### Create multiple-choice quizzes in your JavaScript file (skip for coding exercises and text-only lessons)
+#### Create multiple-choice quizzes in your JavaScript file (skip for coding challenges and text-only lessons)
 
 When creating a multiple-choice lesson, you'll use your JavaScript file to define the question and its answer choices.
 
@@ -264,10 +264,10 @@ The `feedback` provided for each choice will be shown highlighted in red if inco
 
 If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's JavaScript file. The basic template you need to accomplish this is provided in the boilerplate file you selected earlier.
 
-##### Provide the starting code for your exercise
+##### Provide the starting code for your challenge
 
 `code` is a string property. The value you set for `code` in your JavaScript file will
-be used to populate the code editor when the user first visits the page. (If you forget to set this, a default will be used, but your exercise won't be very useful!)
+be used to populate the code editor when the user first visits the page. (If you forget to set this, a default will be used, but your challenge won't be very useful!)
 
 ```js
 const code = `const run = async () => {
@@ -286,8 +286,8 @@ can isolate the action the user needs to take to a single step, representing the
 concept they've learned in this particular lesson.
 
 In practice, most lessons build off of previous ones, and code is repeated and
-built on between exercises. You will often need to pre-populate in your lesson the
-correct solution to a previous lesson or lessons, so that the current exercise can
+built on between challenges. You will often need to pre-populate in your lesson the
+correct solution to a previous lesson or lessons, so that the current challenge can
 test adding only the most recent method taught.
 
 You should also think about how you might provide support for programming language
@@ -300,7 +300,7 @@ Remember that you can add comments to your default code to orient the user, such
 // your code goes here
 ```
 
-##### Provide the simplest solution to your exercise
+##### Provide the simplest solution to your challenge
 
 `solution` is a string property. The value you set for `solution` in your JavaScript
 file will be used to populate the code editor if the user clicks the "View
@@ -465,7 +465,7 @@ if (result === 'foo') {
 }
 ```
 
-When you use this option, a new section will appear below the exercise box, showing your `logDesc` message followed by the `log` data.
+When you use this option, a new section will appear below the challenge box, showing your `logDesc` message followed by the `log` data.
 
 Note that you may (optionally) use [markdown formatting](https://guides.github.com/features/mastering-markdown/) in both your `fail` or `success` values and your `logDesc` value. For example, the following validation code:
 
@@ -606,9 +606,9 @@ Note that your user history on the live website (https://proto.school) is differ
 
 That's it! Next time you run ProtoSchool the tutorial should be renamed and users will still have access to the status of their lesson progress. If a user tries to access the old URL for your tutorial or one of its lessons, they'll be redirected to the tutorial landing page at its new URL.
 
-### Text of lesson or exercise not displayed
+### Text of lesson or challenge not displayed
 
-If you're unable to see the text of your lesson or exercise when previewing the website, one of your Markdown files (*.md or *-exercise.md) may not be loading correctly. You can use the `DEBUG=true` option to get warnings in the console. To enable it, run:
+If you're unable to see the text of your lesson or challenge when previewing the website, one of your Markdown files (*.md or *-challenge.md) may not be loading correctly. You can use the `DEBUG=true` option to get warnings in the console. To enable it, run:
 
 ```sh
 DEBUG=true npm start
@@ -628,16 +628,16 @@ The properties exported from this file depend on the lesson type, as follows:
 
 - For **code challenges** only (with and without file upload):
   - `validate(result, ipfs)`: Function - mandatory - _the validation code used to evaluate the user's code submission_ ([detailed docs](#validate-the-users-submitted-code))
-  - `solution`: String - mandatory - _the suggested solution to the code challenge, visible to the user on demand_ ([detailed docs](#provide-the-simplest-solution-to-your-exercise))
-  - `code`: String - optional - _the starting code for the challenge (though technically optional because a default is available, you will almost always need to provide this)_ ([detailed docs](#provide-the-starting-code-for-your-exercise))
+  - `solution`: String - mandatory - _the suggested solution to the code challenge, visible to the user on demand_ ([detailed docs](#provide-the-simplest-solution-to-your-challenge))
+  - `code`: String - optional - _the starting code for the challenge (though technically optional because a default is available, you will almost always need to provide this)_ ([detailed docs](#provide-the-starting-code-for-your-challenge))
   - `options`: Object - optional
       - `overrideErrors`: Boolean - default is `false` - _allows customized replacement of IPFS-generated errors with more user-friendly messages_ ([detailed docs](#override-external-error-messages-optional))
       - `createTestFile`: Boolean - default is `false` - _before validation, runs `createFile` in `Lesson.vue` to create a sample file the user can read from (see function for details)_
       - `createTestTree`: Boolean - default is `false` - _before validation, runs `createTree` in `Lesson.vue` to create a sample directory the user can read from - (see function for details)_
 
 - For **multiple-choice quizzes** only:
-  - `question`: String - mandatory - _the question to be answered by the user_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons))
-  - `choices`: Array - mandatory - _the potential answers between which the user must choose_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-exercises-and-text-only-lessons))
+  - `question`: String - mandatory - _the question to be answered by the user_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-challenges-and-text-only-lessons))
+  - `choices`: Array - mandatory - _the potential answers between which the user must choose_ ([detailed docs](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-challenges-and-text-only-lessons))
 
 ### `utils` module
 
