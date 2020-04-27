@@ -66,7 +66,8 @@ export default {
         { text: 'Events', path: '/events' },
         { text: 'Contribute', path: '/contribute' },
         { text: 'Host', path: '/host' },
-        { text: 'Build', path: '/build' }
+        { text: 'Build', path: '/build' },
+        { text: 'News', path: '/news' }
       ]
     }
   },

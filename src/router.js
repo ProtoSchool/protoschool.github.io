@@ -14,6 +14,7 @@ import Host from './pages/Host.vue'
 import Build from './pages/Build.vue'
 import Contribute from './pages/Contribute.vue'
 import Tutorials from './pages/Tutorials.vue'
+import News from './pages/News.vue'
 import NotFound from './pages/NotFound.vue'
 
 const routes = [
@@ -54,6 +55,11 @@ const routes = [
     component: Tutorials,
     name: 'Tutorials',
     props: (route) => ({ code: route.query.code })
+  },
+  {
+    path: '/news',
+    component: News,
+    name: 'News'
   },
   {
     path: '/404',

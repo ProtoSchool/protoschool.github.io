@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!hasUserAlreadySubscribed"
+    v-if="hideIfAlreadySubscribed ? !hasUserAlreadySubscribed : true"
     class="newsletter-subscription flex flex-column items-center pa4 br1 navy"
     :data-state="state.type"
   >
@@ -11,7 +11,7 @@
         :aria-hidden="stateViewAriaHidden(`${states.IDLE} ${states.PENDING} ${states.ERROR}`)"
       >
         <h2 class="tc lh-title">Subscribe to our Newsletter</h2>
-        <p class="subscribe-message tc f7 mb4">We'll let you know when more tutorials like these are available</p>
+        <p class="subscribe-message tc f7 mb4">We'll let you know when more tutorials are available</p>
         <form
           class="flex flex-column flex-row-ns"
           novalidate
@@ -109,6 +109,12 @@ export default {
     Button,
     TextInput,
     CheckboxInput
+  },
+  props: {
+    hideIfAlreadySubscribed: {
+      type: Boolean,
+      default: true
+    }
   },
   data: (self) => {
     return {
