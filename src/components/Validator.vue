@@ -39,6 +39,7 @@
           <Button
             :click="next"
             :loading="isSubmitting"
+            :disabled="isFileLesson && !uploadedFiles"
             class="bg-navy white"
             data-cy="submit-disabled"
             text="Submit"

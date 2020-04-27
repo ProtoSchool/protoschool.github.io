@@ -82,7 +82,7 @@ button:active {
 button:disabled {
   opacity: 0.95;
   box-shadow: initial;
-  cursor: default;
+  cursor: not-allowed;
   color: #b9c4cd;
   background-color: #8498a6;
 }
