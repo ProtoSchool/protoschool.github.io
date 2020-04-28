@@ -1,0 +1,31 @@
+.state-view {
+  --translate-transition: 10px;
+}
+
+.state-view {
+  max-width: 100%;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--translate-transition));
+
+  transition:
+    opacity var(--transition-slow),
+    visibility var(--transition-slow),
+    transform var(--transition-slow);
+}
+
+.state-view[data-state-view-active="true"],
+.state-view.state-view-transition-enter-to,
+.state-view.state-view-transition-leave {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.state-view.state-view-transition-enter,
+.state-view.state-view-transition-leave-to {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--translate-transition));
+}

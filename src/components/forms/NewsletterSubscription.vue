@@ -1,21 +1,23 @@
 <template>
-  <div
-    v-if="hideIfAlreadySubscribed ? !hasUserAlreadySubscribed : true"
-    class="newsletter-subscription flex flex-column items-center pa4 br1 navy"
-    :data-state="state.type"
-  >
-    <div class="state-views">
+  <div v-if="hideIfAlreadySubscribed ? !hasUserAlreadySubscribed : true">
+    <transition
+      name="state-view-transition"
+      mode="out-in"
+    >
       <div
-        class="state-view flex flex-column items-center"
-        :data-state-view="`${states.IDLE} ${states.PENDING} ${states.ERROR}`"
-        :aria-hidden="stateViewAriaHidden(`${states.IDLE} ${states.PENDING} ${states.ERROR}`)"
+        v-if="stateViewActive(viewStates.form)"
+        key="form"
+        class="newsletter-subscription state-view flex flex-column items-center pa4 br1 navy"
+        :data-state="state.type"
+        :data-state-view-active="stateViewActive(viewStates.form)"
+        :aria-hidden="!stateViewActive(viewStates.form)"
       >
         <h2 class="tc lh-title">Subscribe to our Newsletter</h2>
         <p class="subscribe-message tc f7 mb4">We'll let you know when more tutorials are available</p>
         <form
-          class="flex flex-column flex-row-ns"
+          class="flex flex-column flex-row-ns justify-center"
           novalidate
-          @submit.prevent="submit"
+          @submit.prevent="submitSuccess"
         >
           <div class="flex flex-column">
             <TextInput
@@ -63,15 +65,17 @@
         </form>
       </div>
       <div
-        class="state-view"
-        :data-state-view="states.SUCCESS"
-        :aria-hidden="stateViewAriaHidden(states.SUCCESS)"
+        v-if="stateViewActive(viewStates.thankYouMessage)"
+        key="thankYouMessage"
+        class="newsletter-subscription state-view flex flex-column items-center justify-center pa4 br1 navy"
+        :data-state-view-active="stateViewActive(viewStates.thankYouMessage)"
+        :aria-hidden="!stateViewActive(viewStates.thankYouMessage)"
       >
         <h2 class="tc">Thank you for subscribing!</h2>
         <p class="tc f7 mt4 mb0">We just sent you an email confirmation.</p>
         <p class="tc f7 mt0">We promise we will only send you important updates, no spam!</p>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -132,6 +136,10 @@ export default {
   },
   computed: {
     states: () => states,
+    viewStates: () => ({
+      form: [states.IDLE, states.PENDING, states.ERROR],
+      thankYouMessage: [states.SUCCESS]
+    }),
     hasUserAlreadySubscribed: () => {
       return !!settings.newsletters.get(settings.newsletters.PROTOSCHOOL)
     }
@@ -151,6 +159,10 @@ export default {
       }
 
       return params
+    },
+    submitSuccess () {
+      this.$v.$touch()
+      this.setState(states.SUCCESS)
     },
     async submit () {
       this.$v.$touch()
@@ -182,7 +194,7 @@ export default {
       this.setState(states.SUCCESS)
       settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
     },
-    setState (state, data) {
+    setState (state, data = {}) {
       switch (state) {
         case states.ERROR:
           console.log(data.error)
@@ -193,8 +205,8 @@ export default {
           break
       }
     },
-    stateViewAriaHidden (stateViewStates) {
-      return !stateViewStates.includes(this.state.type)
+    stateViewActive (stateViewStates) {
+      return stateViewStates.includes(this.state.type)
     },
     onBlur () {
       this.$v.$reset()
@@ -230,6 +242,10 @@ export default {
   }
 }
 
+form {
+  width: 100%;
+}
+
 form .submit-button,
 form .email-input {
   height: 40px;
@@ -245,56 +261,8 @@ form .email-input {
     visibility var(--transition-slow);
 }
 
-/* State view changes */
-.state-views {
-  position: relative;
-  min-width: 100%;
-}
-
-.state-view {
-  width: 100%;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity var(--transition-slow),
-    visibility var(--transition-slow),
-    transform var(--transition-slow);
-}
-
-.state-view[data-state-view~="idle"],
-.state-view[data-state-view~="pending"] {
-  position: relative;
-
-  transform: translateY(10px);
-}
-
-.state-view[data-state-view~="success"] {
-  position: absolute;
-  top: calc(50%);
-  left: calc(50%);
-
-  transform:
-    translate(-50%, calc(10px - 50%));
-}
-
-.newsletter-subscription[data-state="idle"] .state-view[data-state-view~="idle"],
-.newsletter-subscription[data-state="pending"] .state-view[data-state-view~="pending"],
-.newsletter-subscription[data-state="success"] .state-view[data-state-view~="success"],
-.newsletter-subscription[data-state="error"] .state-view[data-state-view~="error"] {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-
-  transition-delay: var(--transition-slow);
-}
-
-.newsletter-subscription[data-state="success"] .state-view[data-state-view~="success"] {
-  transform: translate(-50%, -50%);
-}
-
-.newsletter-subscription[data-state="error"] .state-view[data-state-view~="error"] .error-message {
+.newsletter-subscription[data-state="error"].state-view[data-state-view-active="true"] .error-message {
   opacity: 1;
   visibility: visible;
 }
-
 </style>
