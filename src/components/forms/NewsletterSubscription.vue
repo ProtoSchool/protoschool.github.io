@@ -17,7 +17,7 @@
         <form
           class="flex flex-column flex-row-ns justify-center"
           novalidate
-          @submit.prevent="submitSuccess"
+          @submit.prevent="submit"
         >
           <div class="flex flex-column">
             <TextInput
@@ -161,11 +161,6 @@ export default {
       }
 
       return params
-    },
-    submitSuccess () {
-      this.$v.$touch()
-      this.trackEvent(EVENTS.NEWSLETTER)
-      this.setState(states.SUCCESS)
     },
     async submit () {
       this.$v.$touch()
