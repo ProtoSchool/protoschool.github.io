@@ -72,7 +72,7 @@
         :aria-hidden="!stateViewActive(viewStates.thankYouMessage)"
       >
         <h2 class="tc">Thank you for subscribing!</h2>
-        <p class="tc f7 mt4 mb0">We just sent you an email confirmation.</p>
+        <p class="tc f7 mt4 mb1">We just sent you an email confirmation.</p>
         <p class="tc f7 mt0">We promise we will only send you important updates, no spam!</p>
       </div>
     </transition>
@@ -239,16 +239,6 @@ export default {
 
 .newsletter-subscription h2 {
   margin: 0;
-}
-
-.newsletter-subscription p.subscribe-message {
-  padding: 0 30%;
-
-}
-@media screen and (max-width: 500px) {
-  .newsletter-subscription p.subscribe-message {
-    padding: 0 10%;
-  }
 }
 
 form {
