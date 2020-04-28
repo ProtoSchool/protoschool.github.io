@@ -16,17 +16,21 @@
       </p>
       <div v-if='item.description' class='ma0 resource-desc' v-html='parse(item.description)'></div>
     </div>
+    <FeedbackSurvey class="mv4" />
     <NewsletterSubscription class="mv4" tracking="Resources Page" />
   </div>
 </template>
 
 <script>
 import marked from 'marked'
+
 import NewsletterSubscription from './forms/NewsletterSubscription.vue'
+import FeedbackSurvey from './forms/feedback-survey/FeedbackSurvey.vue'
 
 export default {
   components: {
-    NewsletterSubscription
+    NewsletterSubscription,
+    FeedbackSurvey
   },
   props: {
     data: Array

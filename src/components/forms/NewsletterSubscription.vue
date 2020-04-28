@@ -7,7 +7,7 @@
       <div
         v-if="stateViewActive(viewStates.form)"
         key="form"
-        class="newsletter-subscription state-view flex flex-column items-center br1 navy"
+        class="newsletter-subscription content-banner state-view flex flex-column items-center navy"
         :data-state="state.type"
         :data-state-view-active="stateViewActive(viewStates.form)"
         :aria-hidden="!stateViewActive(viewStates.form)"
@@ -65,7 +65,7 @@
       <div
         v-if="stateViewActive(viewStates.thankYouMessage)"
         key="thankYouMessage"
-        class="newsletter-subscription state-view flex flex-column items-center justify-center pa4 br1 navy"
+        class="newsletter-subscription content-banner state-view flex flex-column items-center justify-center pa4 navy"
         :data-state-view-active="stateViewActive(viewStates.thankYouMessage)"
         :aria-hidden="!stateViewActive(viewStates.thankYouMessage)"
       >
@@ -232,9 +232,6 @@ export default {
 <style scoped>
 .newsletter-subscription {
   --spacing-horizontal: 11rem;
-
-  background-color: #F2F5F6;
-  box-shadow: var(--shadow-default);
 
   padding: 2rem var(--spacing-horizontal);
 }

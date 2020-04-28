@@ -1,0 +1,8 @@
+.content-banner {
+  width: 100%;
+  padding: 1.5rem;
+
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-snow-muted);
+  box-shadow: var(--shadow-default);
+}

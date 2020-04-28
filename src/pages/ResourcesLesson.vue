@@ -3,7 +3,7 @@
     :isResources="true"
     :tutorialId="tutorial && tutorial.tutorialId"
     :resources="resources"
-    />
+  />
 </template>
 
 <script>
