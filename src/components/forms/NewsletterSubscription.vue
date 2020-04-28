@@ -12,7 +12,7 @@
         :data-state-view-active="stateViewActive(viewStates.form)"
         :aria-hidden="!stateViewActive(viewStates.form)"
       >
-        <h2 class="tc lh-title">Subscribe to our Newsletter</h2>
+        <h2 class="tc lh-title">Subscribe to Our Newsletter</h2>
         <p class="subscribe-message tc f7 mb4">We'll let you know when we release new tutorials or site features.</p>
         <form
           class="flex flex-column flex-row-ns justify-center"
