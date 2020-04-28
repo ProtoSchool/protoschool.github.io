@@ -13,7 +13,7 @@
         :aria-hidden="!stateViewActive(viewStates.form)"
       >
         <h2 class="tc lh-title">Subscribe to our Newsletter</h2>
-        <p class="subscribe-message tc f7 mb4">We'll let you know when more tutorials are available</p>
+        <p class="subscribe-message tc f7 mb4">We'll let you know when we release new tutorials or site features.</p>
         <form
           class="flex flex-column flex-row-ns justify-center"
           novalidate
@@ -36,7 +36,7 @@
             <CheckboxInput
               v-model="data.leadersUpdates"
               class="leaders-updates-input w5"
-              label="Send me news and guidance for local event leaders"
+              label="Send me additional news and guidance for local event leaders."
               :disabled="state.type === states.PENDING"
             />
             <!-- bot spam mitigation -->
@@ -59,7 +59,7 @@
               :loading="state.type === states.PENDING"
             />
             <span class="error-message f7 mt2 mw4-ns">
-              Ops, something went wrong. Please try again later.
+              Oops, something went wrong. Please try again later.
             </span>
           </div>
         </form>
@@ -72,8 +72,8 @@
         :aria-hidden="!stateViewActive(viewStates.thankYouMessage)"
       >
         <h2 class="tc">Thank you for subscribing!</h2>
-        <p class="tc f7 mt4 mb1">We just sent you an email confirmation.</p>
-        <p class="tc f7 mt0">We promise we will only send you important updates, no spam!</p>
+        <p class="tc f7 mt4 mb1">You'll receive a welcome email from us shortly.</p>
+        <p class="tc f7 mt0">We promise we'll only send you important updates, no spam! You can opt out at any time using the unsubscribe link at the bottom of each email.</p>
       </div>
     </transition>
   </div>
