@@ -58,7 +58,7 @@ export default {
 
   transition:
     opacity var(--transition-default),
-    border var(--transition-default),
+    border-color var(--transition-default),
     background-color var(--transition-default),
     box-shadow var(--transition-default),
     color var(--transition-default);
@@ -90,19 +90,21 @@ export default {
 
 /* Error message: ::before -> triangle, ::after -> message box */
 .form-input {
-  --arrow-size: 8px;
+  --arrow-size: 0.5rem;
+  --arrow-left-spacing: 0.8rem;
   --animation-translate: 3px;
 }
 
+/* Error message box triangle */
 .form-input::before {
   content: '';
   position: absolute;
   z-index: 1;
 
-  top: calc(100% + 0.5rem + 1px);
+  top: calc(100% + var(--arrow-size) + 1px);
   left: 0;
   transform-origin: 0 0;
-  transform: translateY(var(--animation-translate)) rotateZ(-45deg) translate(0.5rem, 0.5rem);
+  transform: translate(var(--arrow-left-spacing), calc(var(--animation-translate))) rotateZ(-45deg);
 
   height: var(--arrow-size);
   width: var(--arrow-size);
@@ -118,12 +120,13 @@ export default {
     transform var(--transition-fast);
 }
 
+/* Error message box */
 .form-input::after {
   content: attr(data-error-message);
   position: absolute;
   z-index: 1;
 
-  top: calc(100% + 0.5rem);
+  top: calc(100% + var(--arrow-size));
   left: 0;
   transform: translateY(var(--animation-translate));
 
@@ -156,7 +159,7 @@ export default {
 }
 
 .form-input[data-error]::before {
-  transform: rotateZ(-45deg) translate(0.5rem, 0.5rem);
+  transform: translate(var(--arrow-left-spacing), 0) rotateZ(-45deg);
 }
 
 .form-input[data-error]::after {

@@ -40,17 +40,20 @@ export default {
 
 <style scoped>
 .form-checkbox {
+  user-select: none;
+
   transition:
     color var(--transition-fast),
     opacity var(--transition-fast);
-  user-select: none;
 }
 
 .form-checkbox input {
+  /* more input reset styles */
+  padding: 0;
+  margin: 0 .5rem 0 0;
+
   min-height: 1rem;
-  max-height: 1rem;
   min-width: 1rem;
-  max-width: 1rem;
 
   background: white;
   border: var(--border-default);
@@ -59,11 +62,9 @@ export default {
   transition:
     background var(--transition-fast),
     border var(--transition-fast);
-
-  /* more input reset styles */
-  padding: 0;
-  margin: 0 .5rem 0 0;
 }
+
+/* states */
 
 .form-checkbox[data-error] {
   color: var(--color-red);
@@ -72,8 +73,6 @@ export default {
 .form-checkbox[data-error] input {
   border-color: var(--color-red);
 }
-
-/* states */
 
 .form-checkbox input:checked  {
   background: var(--color-navy);
