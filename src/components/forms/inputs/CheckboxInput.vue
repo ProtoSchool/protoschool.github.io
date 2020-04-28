@@ -41,6 +41,7 @@ export default {
 <style scoped>
 .form-checkbox {
   user-select: none;
+  line-height: 1rem;
 
   transition:
     color var(--transition-fast),
