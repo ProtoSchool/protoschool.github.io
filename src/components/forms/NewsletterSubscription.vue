@@ -20,7 +20,7 @@
           <div class="flex flex-column">
             <TextInput
               v-model="data.emailAddress"
-              class="email-input w5-ns mr3-ns mb2"
+              class="email-input w5-ns mr3-ns mb3-ns mb2"
               placeholder="Email Address"
               required
               type="email"
@@ -170,6 +170,7 @@ export default {
         )
       } catch (error) {
         this.setState(states.ERROR, { error })
+        return
       }
 
       // ignore the error if the user is already subscribed
