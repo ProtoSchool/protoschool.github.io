@@ -4,5 +4,6 @@ export const EVENTS = {
   CHOICE_SUBMIT_WRONG: 'submitWrongChoice',
   LESSON_PASSED: 'lessonPassed',
   TUTORIAL_PASSED: 'tutorialPassed',
-  FILTER: 'filter'
+  FILTER: 'filter',
+  NEWSLETTER: 'newsletterSubscribed'
 }

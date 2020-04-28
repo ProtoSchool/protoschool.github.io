@@ -92,6 +92,7 @@ import {
   MAILCHIMP_LIST_ID
 } from '../../config'
 import settings from '../../utils/settings'
+import { EVENTS } from '../../static/countly'
 import Button from '../buttons/Button.vue'
 import CheckboxInput from './inputs/CheckboxInput.vue'
 import TextInput from './inputs/TextInput.vue'
@@ -118,7 +119,8 @@ export default {
     hideIfAlreadySubscribed: {
       type: Boolean,
       default: true
-    }
+    },
+    tracking: String
   },
   data: (self) => {
     return {
@@ -162,6 +164,7 @@ export default {
     },
     submitSuccess () {
       this.$v.$touch()
+      this.trackEvent(EVENTS.NEWSLETTER)
       this.setState(states.SUCCESS)
     },
     async submit () {
@@ -193,6 +196,17 @@ export default {
 
       this.setState(states.SUCCESS)
       settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
+      this.trackEvent(EVENTS.NEWSLETTER)
+    },
+    trackEvent: function (event, opts = {}) {
+      window.Countly.q.push(['add_event', {
+        key: event,
+        segmentation: {
+          path: this.$route.path,
+          source: this.tracking,
+          ...opts
+        }
+      }])
     },
     setState (state, data = {}) {
       switch (state) {

@@ -16,7 +16,7 @@
       </p>
       <div v-if='item.description' class='ma0 resource-desc' v-html='parse(item.description)'></div>
     </div>
-    <NewsletterSubscription class="mv4" />
+    <NewsletterSubscription class="mv4" tracking="Resources Page" />
   </div>
 </template>
 
