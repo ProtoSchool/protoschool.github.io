@@ -28,7 +28,7 @@
               type="email"
               name="email"
               :error="$v.$error && $v.data.emailAddress.$invalid"
-              customErrorMessage="Please input a valid email address."
+              customErrorMessage="Please enter a valid email address."
               :input="$v.data.emailAddress"
               :onBlur="onBlur"
               :disabled="state.type === states.PENDING"
