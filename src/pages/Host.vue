@@ -63,7 +63,7 @@
        <router-link to="/chapters">chapter listings</router-link> here. <p>
 
         <h2>Ready to get started?</h2>
-        <p class="f4 fw5 lh-copy ma0 pv2"  >We're excited to have you join the ProtoSchool community as a local event leader! Please <router-link to="/news">subscribe to our newsletter</router-link> to stay up-to-date on helpful resources.</p>
+        <p class="f4 fw5 lh-copy ma0 pv2"  >We're excited to have you join the ProtoSchool community as a local event leader! Please <router-link to="/news">subscribe to our newsletter</router-link> to stay up to date on helpful resources.</p>
         <div class="mv3">
           <a
             class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" href="https://github.com/ProtoSchool/organizing/blob/master/RESOURCES.md"
