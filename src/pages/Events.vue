@@ -40,8 +40,6 @@
           <span @click="togglePastEvents" tabindex="0" class="textLink chevron right" data-cy="view-solution">View Older Events</span>
         </div>
       </div>
-
-      <p class="f4 fw5 lh-copy ma0 pv3">View our archived <router-link to="/chapters">chapter listings</router-link>.</p>
     </section>
   </div>
 </template>
