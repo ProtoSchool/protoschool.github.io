@@ -62,6 +62,8 @@
       please <a href="mailto:protoschool@protocol.ai">email the project maintainers</a>.
       </p>
 
+      <p  class="f4 fw5 lh-copy ma0 pv2 "><router-link to="/news">Subscribe to our newsletter</router-link> for updates on new tutorials and site features, with an option to receive additional news and guidance for local event leaders.</p>
+
       <h2>Code of Conduct</h2>
       <p class="f4 fw5 lh-copy ma0 pv2 ">
       We strive to make ProtoSchool a welcoming place for all community members.

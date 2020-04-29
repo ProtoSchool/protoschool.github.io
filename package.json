@@ -24,6 +24,7 @@
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.1",
     "it-to-buffer": "^1.0.1",
+    "jsonp": "^0.2.1",
     "lodash": "^4.17.15",
     "mailchimp-api-v3": "^1.13.1",
     "meta-marked": "^0.4.2",
@@ -31,6 +32,8 @@
     "monaco-editor": "^0.6.1",
     "new-github-issue-url": "^0.2.1",
     "p-timeout": "^3.2.0",
+    "pify": "^5.0.0",
+    "querystringify": "^2.1.1",
     "raw-loader": "^0.5.1",
     "shallow-equal": "^1.0.0",
     "tachyons": "^4.11.1",
@@ -38,7 +41,8 @@
     "vue": "^2.5.16",
     "vue-highlight.js": "^3.1.0",
     "vue-monaco-editor": "0.0.19",
-    "vue-router": "^3.1.6"
+    "vue-router": "^3.1.6",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^4.1.1",

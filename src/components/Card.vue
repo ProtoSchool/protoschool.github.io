@@ -6,17 +6,17 @@
 
 <style scoped>
 .card {
-  box-shadow: 0px 2px 8px 0 rgba( 0, 0, 0, .2 );
+  box-shadow: var(--shadow-default);
   transform: translateY(0);
 
   transition:
-    box-shadow 400ms,
-    transform 400ms;
+    box-shadow var(--transition-slow),
+    transform var(--transition-slow);
 }
 
 .card:hover,
 .card:focus-within {
-  box-shadow: 0px 2px 16px 0 rgba( 0, 0, 0, .2 );
+  box-shadow: var(--shadow-focus);
   transform: translateY(-3px);
 }
 </style>

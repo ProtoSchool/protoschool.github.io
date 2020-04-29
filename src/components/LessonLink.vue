@@ -14,7 +14,8 @@
       <TypeIcon
         :tutorialId="tutorialId"
         :lessonId="isResources? 'resources' : lessonId"
-        class="link-icon ml3"/>
+        class="link-icon ml3"
+      />
     </div>
   </router-link>
 </template>
