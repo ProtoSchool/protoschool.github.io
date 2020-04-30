@@ -19,7 +19,7 @@ html {
 }
 
 html, body {
-  height: 100%;
+  min-height: 100%;
 }
 
 #app {
@@ -32,7 +32,7 @@ html, body {
 }
 
 #app > div {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 }
