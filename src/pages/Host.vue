@@ -59,8 +59,7 @@
        with a lower barrier to entry for event leaders. If you previously attended
        events through a ProtoSchool chapter, you'll now find their upcoming
        ProtoSchool workshops listed on our <router-link to="/events">events page</router-link>,
-        including links to learn about other content the group might offer. You can find our archived
-       <router-link to="/chapters">chapter listings</router-link> here. <p>
+        including links to learn about other content the group might offer.<p>
 
         <h2>Ready to get started?</h2>
         <p class="f4 fw5 lh-copy ma0 pv2"  >We're excited to have you join the ProtoSchool community as a local event leader! Please <router-link to="/news">subscribe to our newsletter</router-link> to stay up to date on helpful resources.</p>
