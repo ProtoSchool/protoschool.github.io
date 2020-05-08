@@ -7,23 +7,26 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  if (result.error) {
-    if (result.error.toString().includes('file does not exist')) {
+  if (result instanceof Error) {
+    if (result.code === utils.ipfs.errorCodes.ERR_NOT_FOUND) {
       return {
-        fail: "Oops, we could not find a file with that IPFS path. Are you sure you're using the correct path with the correct CID? Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID', you need to append `/success.txt`."
+        fail: "Oops, we could not find a file with that IPFS path. Are you sure you're using the correct path with the correct CID? Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID', you need to append `/success.txt`.",
+        overrideError: true
       }
     }
-    if (result.error.toString().includes('this dag node is a directory')) {
+    if (result.toString().includes('this dag node is a directory')) {
       return {
-        fail: 'The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path?'
+        fail: 'The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path?',
+        overrideError: true
       }
     }
-    if (result.error.toString().includes('multihash unknown function code')) {
+    if (result.toString().includes('multihash unknown function code')) {
       return {
-        fail: 'The CID you used in the IPFS path for the `cat` method is not valid. Make sure you are using one of the CIDs we provided.'
+        fail: 'The CID you used in the IPFS path for the `cat` method is not valid. Make sure you are using one of the CIDs we provided.',
+        overrideError: true
       }
     } else {
-      return { error: result.error }
+      return { error: result }
     }
   }
 
@@ -33,7 +36,7 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  if (Object.prototype.toString.call(result) === '[object Uint8Array]') {
+  if (result instanceof Uint8Array) {
     let isEqual = (new TextEncoder()).encode('You did it!').every((elem, idx) => {
       return elem === result[idx]
     })

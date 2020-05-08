@@ -13,14 +13,15 @@ const validate = async (result, ipfs) => {
 
   try {
     someStuffFiles = await all(ipfs.files.ls('/some/stuff'))
-  } catch (err) {
-    if (err.code === 'ERR_NOT_FOUND') {
+  } catch (error) {
+    if (error.code === utils.ipfs.errorCodes.ERR_NOT_FOUND) {
       return {
-        fail: 'The directory `/some/stuff` did not exist - try resetting the code and starting again'
+        fail: 'The directory `/some/stuff` does not exist - try resetting the code and starting again',
+        overrideError: true
       }
     }
 
-    throw err
+    throw error
   }
 
   const someStuffFilenames = someStuffFiles.map(file => file.name.toString()).sort()
