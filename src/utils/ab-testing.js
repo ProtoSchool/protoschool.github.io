@@ -6,7 +6,7 @@ function testComponent (event) {
     (Math.random() > 0.5 ? 'optionA' : 'optionB')
 
   window.Countly.q.push(['add_event', {
-    key: EVENTS.AB_TESTING.TUTORIAL_FEEDBACK_SURVEY,
+    key: EVENTS.TUTORIAL_FEEDBACK_SURVEY_AB_TESTING,
     segmentation: {
       path: this.$route.path,
       option

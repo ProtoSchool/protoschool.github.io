@@ -9,7 +9,5 @@ export const EVENTS = {
   TUTORIAL_FEEDBACK_SURVEY_ANSWER: 'tutorialFeedbackSurveyAnswer',
   TUTORIAL_FEEDBACK_SURVEY_COMPLETED: 'tutorialFeedbackSurveyCompleted',
   TUTORIAL_FEEDBACK_SURVEY_DISMISSED: 'tutorialFeedbackSurveyDismissed',
-  AB_TESTING: {
-    TUTORIAL_FEEDBACK_SURVEY: 'abTestingTutorialFeedbackSurvey'
-  }
+  TUTORIAL_FEEDBACK_SURVEY_AB_TESTING: 'tutorialFeedbackSurveyABTesting'
 }
