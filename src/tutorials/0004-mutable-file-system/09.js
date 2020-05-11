@@ -16,7 +16,7 @@ const validate = async (result, ipfs) => {
   } catch (error) {
     if (error.code === utils.ipfs.errorCodes.ERR_NOT_FOUND) {
       return {
-        fail: 'The directory `/some/stuff` doesn't exist. Try resetting the code and starting again.',
+        fail: "The directory `/some/stuff` doesn't exist. Try resetting the code and starting again.",
         overrideError: true
       }
     }
