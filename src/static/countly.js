@@ -5,5 +5,9 @@ export const EVENTS = {
   LESSON_PASSED: 'lessonPassed',
   TUTORIAL_PASSED: 'tutorialPassed',
   FILTER: 'filter',
-  NEWSLETTER: 'newsletterSubscribed'
+  NEWSLETTER: 'newsletterSubscribed',
+  TUTORIAL_FEEDBACK_SURVEY_ANSWER: 'tutorialFeedbackSurveyAnswer',
+  TUTORIAL_FEEDBACK_SURVEY_COMPLETED: 'tutorialFeedbackSurveyCompleted',
+  TUTORIAL_FEEDBACK_SURVEY_DISMISSED: 'tutorialFeedbackSurveyDismissed',
+  TUTORIAL_FEEDBACK_SURVEY_AB_TESTING: 'tutorialFeedbackSurveyABTesting'
 }

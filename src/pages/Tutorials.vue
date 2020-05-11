@@ -56,15 +56,15 @@ export default {
   },
   data: self => {
     let showCodingTutorials = self.$route.query.code || settings.filters.get(settings.filters.TUTORIALS.SHOW_CODING)
-    showCodingTutorials = showCodingTutorials ? showCodingTutorials === 'true' : true
 
     if (self.$route.query.code) {
+      showCodingTutorials = showCodingTutorials ? showCodingTutorials === 'true' : true
       settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, showCodingTutorials)
     }
 
     return {
       tutorials,
-      showCodingTutorials
+      showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
   created: function () {
