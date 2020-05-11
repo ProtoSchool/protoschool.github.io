@@ -18,7 +18,6 @@ const validate = async (result, ipfs) => {
     someIsEmpty = someDirectoryContents.length === 0
   }
 
-  console.log(result, result.code)
   if (!result) {
     return { fail: utils.validationMessages.NO_RESULT }
   } else if (result instanceof Error && result.code === utils.ipfs.errorCodes.ERR_WAS_DIR) {

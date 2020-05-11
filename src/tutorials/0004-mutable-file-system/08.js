@@ -36,7 +36,6 @@ const validate = async (result, ipfs) => {
     itemsAreFiles = someStuffFiles.every(file => file.type === 0)
   }
 
-  result instanceof Error && console.log(result, result.code)
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
   } else if (uploadedFiles === false) {
