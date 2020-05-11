@@ -119,7 +119,6 @@ export default {
     isSubmitting: Boolean,
     next: Function,
     run: Function,
-    tutorialMenu: Function,
     expandChallenge: Boolean
   }
 }
