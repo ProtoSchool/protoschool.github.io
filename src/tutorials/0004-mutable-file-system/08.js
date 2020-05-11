@@ -64,7 +64,7 @@ const validate = async (result, ipfs) => {
     return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
   } else if (result instanceof Error && result.code === utils.ipfs.errorCodes.ERR_INVALID_PATH) {
     return {
-      fail: 'Invalid path. Did you use just the file name when attempting to move each file? Remember to start the path with a leading `/`',
+      fail: 'Invalid path. Did you use just the file name when attempting to move each file? Remember to start the path with a leading `/`.',
       overrideError: true
     }
   } else if (!returnedSomeStuffContents) {

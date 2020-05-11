@@ -10,13 +10,13 @@ const validate = async (result, ipfs) => {
   if (result instanceof Error) {
     if (result.code === utils.ipfs.errorCodes.ERR_NOT_FOUND) {
       return {
-        fail: "Oops, we could not find a file with that IPFS path. Are you sure you're using the correct path with the correct CID? Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID', you need to append `/success.txt`.",
+        fail: "Oops, we could not find a file with that IPFS path. Are you sure you're using the correct path with the correct CID? Try checking for typos. Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID, you need to append `/success.txt`.",
         overrideError: true
       }
     }
     if (result.toString().includes('this dag node is a directory')) {
       return {
-        fail: 'The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path?',
+        fail: 'The `cat` method only works on files, but you tried to use it on a directory. Did you forget to include the relative file path? Remember, if you use the wrapping directory's CID, you need to append `/fun/success.txt` to the path name. Otherwise, if you're using the `fun` subdirectory's CID, you need to append `/success.txt`.',
         overrideError: true
       }
     }
