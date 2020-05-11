@@ -1,7 +1,10 @@
 import { EVENTS } from '../static/countly'
+import { getTutorialByUrl } from './tutorials'
 import settings from './settings'
 
 function testComponent (event) {
+  const tutorial = getTutorialByUrl(this.$route.params.tutorialUrl)
+
   const option = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY) ||
     (Math.random() > 0.5 ? 'optionA' : 'optionB')
 
@@ -9,6 +12,7 @@ function testComponent (event) {
     key: EVENTS.TUTORIAL_FEEDBACK_SURVEY_AB_TESTING,
     segmentation: {
       path: this.$route.path,
+      tutorial: tutorial.shortTitle,
       option
     }
   }])
