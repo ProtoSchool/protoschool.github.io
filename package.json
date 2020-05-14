@@ -13,13 +13,15 @@
     "cy:serve": "serve -l 3000 dist",
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
-    "scripts:build:data": "node scripts/commands/build-data"
+    "scripts:build:data": "node scripts/commands/build-data",
+    "scripts:create:tutorial": "node scripts/commands/create/tutorial"
   },
   "dependencies": {
     "async": "^2.6.1",
     "cids": "^0.7.1",
     "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
+    "inquirer": "^7.1.0",
     "ipfs": "^0.41.2",
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.1",
