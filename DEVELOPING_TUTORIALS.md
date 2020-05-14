@@ -155,8 +155,6 @@ Not familiar with JavaScript? You won't need it to create text-only lessons, and
 
 ##### Lesson text file (with optional images)
 
-
-
 Create a `.md` file using the boilerplate and add the Markdown-formatted text of the lesson itself (your educational content). The name of this file should be the 2-digit lesson number.
 
 For example (for Lesson 01 of Tutorial 0005):
@@ -201,12 +199,12 @@ Use this file to set up your default code and validation, as described later in 
 
 ##### Challenge text file (skip for text-only and multiple-choice lessons)
 
-If your lesson includes a coding challenge, create a second `.md` file and add the markdown-formatted text that provides the assignment text for the challenge box. The name of this file should match the 2-digit lesson number used previously, with `-challenge` appended.
+If your lesson includes a coding challenge, create a second `.md` file using the `boilerplate-challenge.md` file and add the markdown-formatted text that provides the assignment text for the challenge box. The name of this file should match the 2-digit lesson number used previously, with `-challenge` appended.
 
 For example (for Lesson 01 of Tutorial 0005):
 
-```
-src/tutorials/0005-tutorial-short-title/01-challenge.md
+```sh
+$ cp boilerplates/boilerplate-challenge.md 0005-tutorial-short-title/01-challenge.md
 ```
 
 ##### Useful concepts text file (optional)
