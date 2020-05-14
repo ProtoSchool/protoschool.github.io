@@ -14,7 +14,8 @@
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
     "scripts:build:data": "node scripts/commands/build-data",
-    "scripts:create:tutorial": "node scripts/commands/create/tutorial"
+    "scripts:create:tutorial": "node scripts/commands/create/tutorial",
+    "scripts:create:lesson": "node scripts/commands/create/lesson"
   },
   "dependencies": {
     "async": "^2.6.1",
