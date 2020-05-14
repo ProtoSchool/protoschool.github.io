@@ -9,8 +9,11 @@ const projects = require('../../../src/static/projects.json')
 const tutorials = require('../../../src/static/tutorials.json')
 const courses = require('../../../src/static/courses.json')
 
+// customize log styling
+log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizard')
+
 async function command (options) {
-  log.info('tutorial-creation', "Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
+  log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
   const responses = await inquirer
     .prompt([
       {
@@ -67,8 +70,10 @@ async function command (options) {
   await promisify(fs.writeFile)('src/static/tutorials.json', JSON.stringify(tutorials, null, 4))
 
   // log success
-  log.info('tutorial-creation', `Thanks! We've created a directory for your tutorial at src/tutorials/${tutorialNumber}-${responses.url}/}.`)
-  log.info('tutorial-creation', `Preview your tutorial by visiting: http://localhost:3000/#/${responses.url}`)
+  log.info(`Thanks! We've created a directory for your tutorial at src/tutorials/${tutorialNumber}-${responses.url}/}.`)
+  log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${responses.url}`)
+  log.info(`Ready to add your first lesson? \`npm run scripts:create:lesson\`.`)
+  // TODO: Confirm they want to add a lesson and launch into other script
 }
 
 run(command)
