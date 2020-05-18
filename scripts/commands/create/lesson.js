@@ -15,52 +15,6 @@ log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizar
 // determine new tutorial number
 log.info("Let's add lessons to your tutorial.")
 async function command (options) {
-  // const latestTutorialId = Object.keys(tutorials).sort().reverse()[0]
-  // const latestTutorial = tutorials[latestTutorialId]
-  // let tutorial
-  // let tutorialId
-  // let lessons
-  //
-  // log.info("Let's add lessons to your tutorial.")
-  // const tutorialResponses1 = await inquirer
-  //   .prompt([
-  //     {
-  //       type: 'confirm',
-  //       name: 'latestTutorial',
-  //       message: `Should we add your lesson to the "${latestTutorial.title}" tutorial?`
-  //     }
-  //   ])
-  // if (tutorialResponses1.latestTutorial) {
-  //   tutorial = latestTutorial
-  //   tutorialId = latestTutorialId
-  //   lessons = await getTutorialLessons(tutorial, tutorialId)
-  // } else {
-  //   // list existing tutorials + option to create new one
-  //   let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
-  //   Object.keys(tutorials).sort().forEach(tutorialId => {
-  //     tutorialsList.push({ name: tutorials[tutorialId].title, value: tutorialId })
-  //   })
-  //
-  //   const tutorialResponses2 = await inquirer
-  //     .prompt([
-  //       {
-  //         type: 'list',
-  //         name: 'tutorialId',
-  //         message: `Which of these existing tutorials should we add your lesson to?`,
-  //         choices: tutorialsList.reverse()
-  //       }
-  //     ])
-  //   if (tutorialResponses2.tutorialId !== 'new') {
-  //     tutorial = tutorials[tutorialResponses2.tutorialId]
-  //     tutorialId = tutorialResponses2.tutorialId
-  //     lessons = await getTutorialLessons(tutorial, tutorialId)
-  //   } else {
-  //     log.info("I see that you want to create a new tutorial. Someday I'll figure out how to help with that. For now, you'll need to run the command `npm run scripts:create:tutorial` .")
-  //     // TODO: launch into creating new tutorial
-  //     return
-  //   }
-  // }
-
   const { tutorial, tutorialId, lessons } = await selectTutorial('lesson')
 
   // figure out next lesson lessonNumber
