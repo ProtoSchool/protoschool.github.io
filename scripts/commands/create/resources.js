@@ -1,9 +1,9 @@
-const { selectTutorial } = require('./utils.js')
+const { selectTutorial, logResources, createResource } = require('./utils.js')
 
-const fs = require('fs')
-const promisify = require('util').promisify
+// const fs = require('fs')
+// const promisify = require('util').promisify
 
-const inquirer = require('inquirer')
+// const inquirer = require('inquirer')
 const log = require('npmlog')
 
 const run = require('../../modules/run')
@@ -23,52 +23,13 @@ async function command (options) {
     log.info("Let's create your first resource!")
   } else {
     log.info("Here are the resources you've created so far:")
-    console.group()
-    resources.forEach(resource => {
-      log.info(`${resource.title} (${resource.type})`)
-    })
-    console.groupEnd()
-    log.info("Let's create your next resource!")
+    logResources(resources)
   }
 
-  const responses = await inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'title',
-        message: "What's the title of this resource?"
-      },
-      {
-        type: 'input',
-        name: 'link',
-        message: "What's the URL of this resource?"
-      },
-      {
-        type: 'input',
-        name: 'description',
-        message: 'Add a description of this resource.'
-      },
-      {
-        type: 'list',
-        name: 'type',
-        message: "What's the format of this resource?",
-        choices: [ 'article', 'demo', 'docs', 'tool', 'tutorial', 'video' ]
-      }
-    ])
+  await createResource(tutorial, tutorialId) // loops until user declines to repeat
 
-  // create resource in tutorials.json
-  const newResource = {
-    title: responses.title,
-    link: responses.link,
-    type: responses.type,
-    description: responses.description
-  }
-
-  tutorials[tutorialId].resources.push(newResource)
-  await promisify(fs.writeFile)('src/static/tutorials.json', JSON.stringify(tutorials, null, 4))
-  // log success
-  log.info(`We've added that new resource. You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
-  log.info(`Someday we'll offer to let you add another resource here!`)
+  log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
+  log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
 }
 
 run(command)

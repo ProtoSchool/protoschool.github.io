@@ -11,10 +11,12 @@ const tutorialKeys = Object.keys(tutorials)
 const latestTutorialId = tutorialKeys.sort().reverse()[0]
 const latestTutorial = tutorials[latestTutorialId]
 
+// used by TUTORIAL
 function nextTutorialNumber () {
   return (parseInt(tutorialKeys.sort()[tutorialKeys.length - 1]) + 1).toString().padStart(4, 0)
 }
 
+// used by utils accessed from LESSONS
 function nextLessonNumber (lessons) {
   let lessonNumber = '01'
   if (lessons.length > 0) {
@@ -23,7 +25,7 @@ function nextLessonNumber (lessons) {
   return lessonNumber
 }
 
-// used by lesson, resources
+// used by LESSON, RESOURCES
 async function selectTutorial (newItemType) {
   let tutorial
   let tutorialId
@@ -68,7 +70,7 @@ async function selectTutorial (newItemType) {
   return { tutorial, tutorialId, lessons }
 }
 
-// used by other utils from lessons, resources
+// used by other utils accessed from LESSONS, RESOURCES
 async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNumber = 1) {
   const lessonFilePrefix = `${tutorialId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}`
 
@@ -99,15 +101,81 @@ async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNum
   return getTutorialLessons(tutorial, tutorialId, lessons, lessonNumber + 1)
 }
 
+// used by other utils via RESOURCES
+function validateUrl (url) {
+  if (url.startsWith('http')) { // TODO better validation
+    return true
+  } else {
+    return `That URL doesn't look right. Please be sure to start with \`http://\` or \`https://\`.`
+  }
+}
+
+// used by TUTORIAL and by other utils via RESOURCES and LESSONS
+function validateStringPresent (string) {
+  if (string !== '') { // TODO: improve validation so it only returns true if there are non-space characters present - maybe first and last characters have to be non-spaces?
+    return true
+  } else {
+    return `Oops! You can't leave this blank, but you'll have a chance to edit it later.`
+  }
+}
+
+async function createResource (tutorial, tutorialId) {
+  const responses = await inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'title',
+        message: "What's the title of this resource?",
+        validate: validateStringPresent
+      },
+      {
+        type: 'input',
+        name: 'link',
+        message: "What's the URL of this resource?",
+        validate: validateUrl
+      },
+      {
+        type: 'input',
+        name: 'description',
+        message: 'Add a description of this resource.',
+        validate: validateStringPresent
+      },
+      {
+        type: 'list',
+        name: 'type',
+        message: "What's the format of this resource?",
+        choices: [ 'article', 'demo', 'docs', 'tool', 'tutorial', 'video' ]
+      }
+    ])
+
+  // create resource in tutorials.json
+  const newResource = {
+    title: responses.title,
+    link: responses.link,
+    type: responses.type,
+    description: responses.description
+  }
+
+  tutorials[tutorialId].resources.push(newResource)
+  await promisify(fs.writeFile)('src/static/tutorials.json', JSON.stringify(tutorials, null, 4))
+  console.log(tutorials)
+  console.log(newResource)
+  // log success
+  log.info(`We've added "${responses.title}" to your resources list.`)
+
+  await offerRepeat(tutorial, tutorialId, 'resource') // loops until user declines to repeat
+}
+
+// used by LESSONS
 async function createLesson (tutorial, tutorialId) {
   let lessons = await getTutorialLessons(tutorial, tutorialId)
-  console.log(lessons)
   const lessonResponses = await inquirer
     .prompt([
       {
         type: 'input',
         name: 'title',
-        message: "What's the title of this lesson?"
+        message: "What's the title of this lesson?",
+        validate: validateStringPresent
       },
       {
         type: 'list',
@@ -160,30 +228,54 @@ async function createLesson (tutorial, tutorialId) {
   console.groupEnd()
   log.info(`Preview your lesson by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/${lessonNumber}`)
 
+  await offerRepeat(tutorial, tutorialId, 'lesson') // loops until done, then returns back to where function was called
+}
+
+// used by RESOURCES and utils accessed from RESOURCES
+function logResources (resources) {
+  console.group()
+  resources.forEach(resource => {
+    log.info(`> ${resource.title} (${resource.type})`)
+  })
+  console.groupEnd()
+}
+
+// used by LESSONS and utils accessed from LESSONS
+function logLessons (lessons) {
+  console.group()
+  lessons.forEach(lesson => {
+    log.info(`> ${lesson.id} - ${lesson.title} (${lesson.type})`)
+  })
+  console.groupEnd()
+}
+
+// used by utils called by LESSONS and RESOURCES
+async function offerRepeat (tutorial, tutorialId, type) {
+  console.log(type)
   const another = await inquirer
     .prompt([
       {
         type: 'confirm',
-        name: 'lesson',
-        message: `Would you like to add another lesson?`
+        name: type,
+        message: `Would you like to add another ${type}?`
       }
     ])
 
   if (another.lesson) {
     await createLesson(tutorial, tutorialId)
+  } else if (another.resource) {
+    await createResource(tutorial, tutorialId)
   } else {
-    log.info(`Okay, sounds like we're done. Here are all the lessons now included in the "${tutorial.title}" tutorial:`)
-    logLessons(await getTutorialLessons(tutorial, tutorialId))
+    console.log('you said no to adding another')
+    log.info(`Okay, sounds like we're done. Here are all the ${type}s now included in the "${tutorial.title}" tutorial:`)
+    if (type === 'lesson') {
+      console.log('done adding lessons')
+      logLessons(await getTutorialLessons(tutorial, tutorialId))
+    } else if (type === 'resource') {
+      console.log('done adding resources')
+      logResources(tutorials[tutorialId].resources)
+    }
   }
 }
 
-function logLessons (lessons) {
-  console.log(lessons)
-  console.group()
-  lessons.forEach(lesson => {
-    log.info(`${lesson.id} - ${lesson.title} (${lesson.type})`)
-  })
-  console.groupEnd()
-}
-
-module.exports = { getTutorialLessons, nextTutorialNumber, selectTutorial, nextLessonNumber, createLesson, logLessons }
+module.exports = { getTutorialLessons, nextTutorialNumber, offerRepeat, selectTutorial, validateStringPresent, nextLessonNumber, createLesson, createResource, logLessons, logResources }

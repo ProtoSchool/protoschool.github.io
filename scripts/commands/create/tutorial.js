@@ -1,6 +1,6 @@
 const fs = require('fs')
 const promisify = require('util').promisify
-const { nextTutorialNumber } = require('./utils.js')
+const { nextTutorialNumber, validateStringPresent } = require('./utils.js')
 
 const inquirer = require('inquirer')
 const log = require('npmlog')
@@ -20,7 +20,8 @@ async function command (options) {
       {
         type: 'input',
         name: 'title',
-        message: 'What is the name of your new tutorial?'
+        message: 'What is the name of your new tutorial?',
+        validate: validateStringPresent
       },
       {
         type: 'input',
@@ -28,7 +29,8 @@ async function command (options) {
         message: 'What is the URL for your tutorial? (Hit return to accept our suggestion.)',
         default: function (responses) {
           return responses.title.toLowerCase().split(' ').join('-')
-        }
+        },
+        validate: validateStringPresent
       },
       {
         type: 'list',
@@ -39,7 +41,8 @@ async function command (options) {
       {
         type: 'input',
         name: 'description',
-        message: 'Please provide a short description for your tutorial to be displayed in tutorial listings.'
+        message: 'Please provide a short description for your tutorial to be displayed in tutorial listings.',
+        validate: validateStringPresent
       }
     ])
 
