@@ -1,5 +1,6 @@
 const fs = require('fs')
 const promisify = require('util').promisify
+const { nextTutorialNumber } = require('./utils.js')
 
 const inquirer = require('inquirer')
 const log = require('npmlog')
@@ -43,8 +44,7 @@ async function command (options) {
     ])
 
   // determine new tutorial number
-  const tutorialKeys = Object.keys(tutorials)
-  const tutorialNumber = (parseInt(tutorialKeys.sort()[tutorialKeys.length - 1]) + 1).toString().padStart(4, 0)
+  const tutorialNumber = nextTutorialNumber()
 
   // create new directory
   await promisify(fs.mkdir)(`src/tutorials/${tutorialNumber}-${responses.url}`)

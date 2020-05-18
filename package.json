@@ -15,7 +15,9 @@
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
     "scripts:build:data": "node scripts/commands/build-data",
     "scripts:create:tutorial": "node scripts/commands/create/tutorial",
-    "scripts:create:lesson": "node scripts/commands/create/lesson"
+    "scripts:create:lesson": "node scripts/commands/create/lesson",
+    "scripts:create:resources": "node scripts/commands/create/resources"
+
   },
   "dependencies": {
     "async": "^2.6.1",

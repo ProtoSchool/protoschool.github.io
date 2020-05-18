@@ -1,64 +1,67 @@
+const { selectTutorial } = require('./utils.js')
+
 const fs = require('fs')
 const promisify = require('util').promisify
 
 const inquirer = require('inquirer')
 const log = require('npmlog')
-const marked = require('meta-marked')
 
 const run = require('../../modules/run')
-const tutorials = require('../../../src/static/tutorials.json')
+// const tutorials = require('../../../src/static/tutorials.json')
 
 // customize log styling
 log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizard')
 
 // determine new tutorial number
-
+log.info("Let's add lessons to your tutorial.")
 async function command (options) {
-  const latestTutorialId = Object.keys(tutorials).sort().reverse()[0]
-  const latestTutorial = tutorials[latestTutorialId]
-  let tutorial
-  let tutorialId
-  let lessons
+  // const latestTutorialId = Object.keys(tutorials).sort().reverse()[0]
+  // const latestTutorial = tutorials[latestTutorialId]
+  // let tutorial
+  // let tutorialId
+  // let lessons
+  //
+  // log.info("Let's add lessons to your tutorial.")
+  // const tutorialResponses1 = await inquirer
+  //   .prompt([
+  //     {
+  //       type: 'confirm',
+  //       name: 'latestTutorial',
+  //       message: `Should we add your lesson to the "${latestTutorial.title}" tutorial?`
+  //     }
+  //   ])
+  // if (tutorialResponses1.latestTutorial) {
+  //   tutorial = latestTutorial
+  //   tutorialId = latestTutorialId
+  //   lessons = await getTutorialLessons(tutorial, tutorialId)
+  // } else {
+  //   // list existing tutorials + option to create new one
+  //   let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
+  //   Object.keys(tutorials).sort().forEach(tutorialId => {
+  //     tutorialsList.push({ name: tutorials[tutorialId].title, value: tutorialId })
+  //   })
+  //
+  //   const tutorialResponses2 = await inquirer
+  //     .prompt([
+  //       {
+  //         type: 'list',
+  //         name: 'tutorialId',
+  //         message: `Which of these existing tutorials should we add your lesson to?`,
+  //         choices: tutorialsList.reverse()
+  //       }
+  //     ])
+  //   if (tutorialResponses2.tutorialId !== 'new') {
+  //     tutorial = tutorials[tutorialResponses2.tutorialId]
+  //     tutorialId = tutorialResponses2.tutorialId
+  //     lessons = await getTutorialLessons(tutorial, tutorialId)
+  //   } else {
+  //     log.info("I see that you want to create a new tutorial. Someday I'll figure out how to help with that. For now, you'll need to run the command `npm run scripts:create:tutorial` .")
+  //     // TODO: launch into creating new tutorial
+  //     return
+  //   }
+  // }
 
-  log.info("Let's add lessons to your tutorial.")
-  const tutorialResponses1 = await inquirer
-    .prompt([
-      {
-        type: 'confirm',
-        name: 'latestTutorial',
-        message: `Should we add your lesson to the "${latestTutorial.title}" tutorial?`
-      }
-    ])
-  if (tutorialResponses1.latestTutorial) {
-    tutorial = latestTutorial
-    tutorialId = latestTutorialId
-    lessons = await getTutorialLessons(tutorial, tutorialId)
-  } else {
-    // list existing tutorials + option to create new one
-    let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
-    Object.keys(tutorials).sort().forEach(tutorialId => {
-      tutorialsList.push({ name: tutorials[tutorialId].title, value: tutorialId })
-    })
-
-    const tutorialResponses2 = await inquirer
-      .prompt([
-        {
-          type: 'list',
-          name: 'tutorialId',
-          message: `Which of these existing tutorials should we add your lesson to?`,
-          choices: tutorialsList.reverse()
-        }
-      ])
-    if (tutorialResponses2.tutorialId !== 'new') {
-      tutorial = tutorials[tutorialResponses2.tutorialId]
-      tutorialId = tutorialResponses2.tutorialId
-      lessons = await getTutorialLessons(tutorial, tutorialId)
-    } else {
-      log.info("I see that you want to create a new tutorial. Someday I'll figure out how to help with that. For now, you'll need to run the command `npm run scripts:create:tutorial` .")
-      // TODO: launch into creating new tutorial
-      return
-    }
-  }
+  const { tutorial, tutorialId, lessons } = await selectTutorial('lesson')
 
   // figure out next lesson lessonNumber
   let lessonNumber = '01'
@@ -135,36 +138,6 @@ async function command (options) {
   newFileDetails.forEach(file => log.info(file))
   console.groupEnd()
   log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/${lessonNumber}`)
-}
-
-async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNumber = 1) {
-  const lessonFilePrefix = `${tutorialId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}`
-
-  let lessonMd
-  let lesson
-  try {
-    lessonMd = await promisify(fs.readFile)(`src/tutorials/${lessonFilePrefix}.md`, 'utf8')
-    lesson = {
-      id: lessonNumber,
-      formattedId: lessonNumber.toString().padStart(2, 0),
-      ...marked(lessonMd).meta
-    }
-  } catch (error) {
-    // lesson not found, we reached the end
-    if (error.code === 'ENOENT') {
-      return lessons
-    }
-
-    // data not well formatted
-    if (error.name === 'YAMLException') {
-      console.error(
-        new Error(`Data improperly formatted in the lesson markdown file "${lessonFilePrefix}.md". Check that the YAML syntax is correct.`)
-      )
-    }
-    throw error
-  }
-  lessons.push(lesson)
-  return getTutorialLessons(tutorial, tutorialId, lessons, lessonNumber + 1)
 }
 
 run(command)
