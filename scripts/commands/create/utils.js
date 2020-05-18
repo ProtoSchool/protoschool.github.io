@@ -15,6 +15,14 @@ function nextTutorialNumber () {
   return (parseInt(tutorialKeys.sort()[tutorialKeys.length - 1]) + 1).toString().padStart(4, 0)
 }
 
+function nextLessonNumber (lessons) {
+  let lessonNumber = '01'
+  if (lessons.length > 0) {
+    lessonNumber = (parseInt(lessons.map(lesson => lesson.formattedId).sort().reverse()[0]) + 1).toString().padStart(2, 0)
+  }
+  return lessonNumber
+}
+
 // used by lesson, resources
 async function selectTutorial (newItemType) {
   let tutorial
@@ -60,7 +68,6 @@ async function selectTutorial (newItemType) {
   return { tutorial, tutorialId, lessons }
 }
 
-
 // used by other utils from lessons, resources
 async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNumber = 1) {
   const lessonFilePrefix = `${tutorialId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}`
@@ -92,4 +99,91 @@ async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNum
   return getTutorialLessons(tutorial, tutorialId, lessons, lessonNumber + 1)
 }
 
-module.exports = { getTutorialLessons, nextTutorialNumber, selectTutorial }
+async function createLesson (tutorial, tutorialId) {
+  let lessons = await getTutorialLessons(tutorial, tutorialId)
+  console.log(lessons)
+  const lessonResponses = await inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'title',
+        message: "What's the title of this lesson?"
+      },
+      {
+        type: 'list',
+        name: 'type',
+        message: "What's the format of this lesson?",
+        choices: [
+          {
+            name: 'Text only',
+            value: 'text'
+          },
+          {
+            name: 'Multiple-choice quiz',
+            value: 'multiple-choice'
+          },
+          {
+            name: 'Code challenge',
+            value: 'code'
+          },
+          {
+            name: 'Code challenge with file upload',
+            value: 'file-upload'
+          }
+        ]
+      }
+    ])
+
+  // create lesson
+  let lessonNumber = nextLessonNumber(lessons)
+  let newFileDetails = [`${lessonNumber}.md (for writing the text of your lesson)`]
+  await promisify(fs.copyFile)('src/tutorials/boilerplates/boilerplate.md', `src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`)
+  let markdown = await promisify(fs.readFile)(`src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`, 'utf8')
+  let newMarkdown = markdown.replace(`title: "Lesson title"`, `title: "${lessonResponses.title}"`)
+  if (lessonResponses.type !== 'text') {
+    newMarkdown = newMarkdown.replace(`type: "text"`, `type: "${lessonResponses.type}"`)
+    await promisify(fs.copyFile)(`src/tutorials/boilerplates/boilerplate-${lessonResponses.type}.js`, `src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.js`)
+    if (lessonResponses.type !== 'multiple-choice') {
+      await promisify(fs.copyFile)(`src/tutorials/boilerplates/boilerplate-challenge.md`, `src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}-challenge.md`)
+      newFileDetails.push(`${lessonNumber}-challenge.md (for describing your code challenge)`)
+      newFileDetails.push(`${lessonNumber}.js (for building your code challenge)`)
+    } else {
+      newFileDetails.push(`${lessonNumber}.js (for building your multiple-choice quiz)`)
+    }
+  }
+  await promisify(fs.writeFile)(`src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`, newMarkdown)
+
+  // log success
+  log.info("Tada! We've created the following files that you'll need for this lesson:")
+  console.group()
+  newFileDetails.forEach(file => log.info(file))
+  console.groupEnd()
+  log.info(`Preview your lesson by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/${lessonNumber}`)
+
+  const another = await inquirer
+    .prompt([
+      {
+        type: 'confirm',
+        name: 'lesson',
+        message: `Would you like to add another lesson?`
+      }
+    ])
+
+  if (another.lesson) {
+    await createLesson(tutorial, tutorialId)
+  } else {
+    log.info(`Okay, sounds like we're done. Here are all the lessons now included in the "${tutorial.title}" tutorial:`)
+    logLessons(await getTutorialLessons(tutorial, tutorialId))
+  }
+}
+
+function logLessons (lessons) {
+  console.log(lessons)
+  console.group()
+  lessons.forEach(lesson => {
+    log.info(`${lesson.id} - ${lesson.title} (${lesson.type})`)
+  })
+  console.groupEnd()
+}
+
+module.exports = { getTutorialLessons, nextTutorialNumber, selectTutorial, nextLessonNumber, createLesson, logLessons }
