@@ -15,7 +15,7 @@
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
     "scripts:build:data": "node scripts/commands/build-data",
     "scripts:wizard": "node scripts/commands/wizard/index.js",
-    "install-cli": "npm i ./ -g"
+    "install-protowizard": "npm i ./ -g"
   },
   "bin": {
     "protowizard": "./scripts/commands/wizard/index.js"
