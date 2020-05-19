@@ -14,10 +14,11 @@
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
     "scripts:build:data": "node scripts/commands/build-data",
-    "scripts:create:tutorial": "node scripts/commands/create/tutorial",
-    "scripts:create:lesson": "node scripts/commands/create/lesson",
-    "scripts:create:resource": "node scripts/commands/create/resource"
-
+    "scripts:wizard": "node scripts/commands/wizard/index.js",
+    "install-cli": "npm i ./ -g"
+  },
+  "bin": {
+    "protowizard": "./scripts/commands/wizard/index.js"
   },
   "dependencies": {
     "async": "^2.6.1",
