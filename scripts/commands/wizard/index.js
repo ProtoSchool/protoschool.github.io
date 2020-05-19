@@ -2,7 +2,9 @@
 
 const run = require('../../modules/run')
 
-const { createTutorial, createLessonIntro, createResourceIntro } = require('./utils.js')
+const { createLessonIntro } = require('./lesson.js')
+const { createTutorial } = require('./tutorial.js')
+const { createResourceIntro } = require('./resource.js')
 
 const inquirer = require('inquirer')
 const log = require('npmlog')
@@ -12,7 +14,7 @@ log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizar
 
 async function command (options) {
   log.info(`Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial.`)
-  const wizard = await inquirer
+  const item = await inquirer
     .prompt([
       {
         type: 'list',
@@ -34,11 +36,11 @@ async function command (options) {
         ]
       }
     ])
-  if (wizard.type === 'tutorial') {
+  if (item.type === 'tutorial') {
     await createTutorial()
-  } else if (wizard.type === 'lesson') {
+  } else if (item.type === 'lesson') {
     await createLessonIntro()
-  } else if (wizard.type === 'resource') {
+  } else if (item.type === 'resource') {
     await createResourceIntro()
   }
 }
