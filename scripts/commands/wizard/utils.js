@@ -21,16 +21,16 @@ async function createTutorial () {
         type: 'input',
         name: 'title',
         message: 'What is the name of your new tutorial?',
-        validate: validateStringPresent
+        validate: validateUniqueTitle
       },
       {
         type: 'input',
         name: 'url',
-        message: 'What is the URL for your tutorial? (Hit return to accept our suggestion.)',
+        message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/#/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept our suggestion.)',
         default: function (responses) {
           return responses.title.toLowerCase().split(' ').join('-')
         },
-        validate: validateStringPresent
+        validate: validateUniqueUrl
       },
       {
         type: 'list',
@@ -187,24 +187,43 @@ function validateStringPresent (string) {
   }
 }
 
+function validateUniqueTitle (string) {
+  if (!string.trim()) {
+    return `Oops! You can't leave this blank, but you'll have a chance to edit it later.`
+  } else if (Object.values(tutorials).some(tutorial => tutorial.title.toLowerCase() === string.toLowerCase())) {
+    return `That tutorial already exists. Please pick another title.`
+  } else {
+    return true
+  }
+}
+
+function validateUniqueUrl (string) {
+  if (!string.trim()) {
+    return `Oops! You can't leave this blank, but you'll have a chance to edit it later.`
+  } else if (Object.values(tutorials).some(tutorial => tutorial.url.toLowerCase() === string.toLowerCase())) {
+    return `That path already exists. Please pick another.`
+  } else {
+    return true
+  }
+}
+
 async function createResourceIntro () {
   // determine new tutorial number
   log.info("Let's add resources to your tutorial.")
-  async function command (options) {
-    const { tutorial, tutorialId } = await selectTutorial('resources')
-    const resources = tutorials[tutorialId].resources
+  const { tutorial, tutorialId } = await selectTutorial('resources')
+  const resources = tutorials[tutorialId].resources
 
-    // print existing resources if present
-    if (resources.length === 0) {
-      log.info("Let's create your first resource!")
-    } else {
-      log.info("Here are the resources you've created so far:")
-      logResources(resources)
-    }
-
-    await createResource(tutorial, tutorialId) // loops until user declines to repeat, then offers closing statements
+  // print existing resources if present
+  if (resources.length === 0) {
+    log.info("Let's create your first resource!")
+  } else {
+    log.info("Here are the resources you've created so far:")
+    logResources(resources)
   }
+
+  await createResource(tutorial, tutorialId) // loops until user declines to repeat, then offers closing statements
 }
+
 async function createResource (tutorial, tutorialId) {
   const responses = await inquirer
     .prompt([
@@ -237,7 +256,7 @@ async function createResource (tutorial, tutorialId) {
   // create resource in tutorials.json
   const newResource = {
     title: responses.title,
-    link: responses.link,
+    link: responses.link.toLowerCase(),
     type: responses.type,
     description: responses.description
   }
