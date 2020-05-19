@@ -22,19 +22,8 @@ async function command (options) {
     log.info("Let's create your next lesson!")
   }
 
-  // runs until you say you don't want more lessons
+  // loops until you say you don't want more lessons, then offers closing statements
   await createLesson(tutorial, tutorialId, lessons)
-
-  log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
-
-  if (tutorial.resources.length === 0) {
-    log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
-    log.info(`Ready to add your first resource? Run \`npm run scripts:create:resources\` to get started.`)
-    // TODO: Actually ask and launch them into resources script
-  } else {
-    log.info(`Hey, you have lessons AND resources. You're super cool and you might be done with all this.`)
-    log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}`)
-  }
 }
 
 run(command)

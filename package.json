@@ -16,7 +16,7 @@
     "scripts:build:data": "node scripts/commands/build-data",
     "scripts:create:tutorial": "node scripts/commands/create/tutorial",
     "scripts:create:lesson": "node scripts/commands/create/lesson",
-    "scripts:create:resources": "node scripts/commands/create/resources"
+    "scripts:create:resource": "node scripts/commands/create/resource"
 
   },
   "dependencies": {

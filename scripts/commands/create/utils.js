@@ -103,7 +103,7 @@ async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNum
 
 // used by other utils via RESOURCES
 function validateUrl (url) {
-  if (url.startsWith('http')) { // TODO better validation
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('ipfs://')) {
     return true
   } else {
     return `That URL doesn't look right. Please be sure to start with \`http://\` or \`https://\`.`
@@ -112,7 +112,7 @@ function validateUrl (url) {
 
 // used by TUTORIAL and by other utils via RESOURCES and LESSONS
 function validateStringPresent (string) {
-  if (string !== '') { // TODO: improve validation so it only returns true if there are non-space characters present - maybe first and last characters have to be non-spaces?
+  if (string.trim()) {
     return true
   } else {
     return `Oops! You can't leave this blank, but you'll have a chance to edit it later.`
@@ -158,8 +158,6 @@ async function createResource (tutorial, tutorialId) {
 
   tutorials[tutorialId].resources.push(newResource)
   await promisify(fs.writeFile)('src/static/tutorials.json', JSON.stringify(tutorials, null, 4))
-  console.log(tutorials)
-  console.log(newResource)
   // log success
   log.info(`We've added "${responses.title}" to your resources list.`)
 
@@ -251,7 +249,6 @@ function logLessons (lessons) {
 
 // used by utils called by LESSONS and RESOURCES
 async function offerRepeat (tutorial, tutorialId, type) {
-  console.log(type)
   const another = await inquirer
     .prompt([
       {
@@ -266,16 +263,65 @@ async function offerRepeat (tutorial, tutorialId, type) {
   } else if (another.resource) {
     await createResource(tutorial, tutorialId)
   } else {
-    console.log('you said no to adding another')
     log.info(`Okay, sounds like we're done. Here are all the ${type}s now included in the "${tutorial.title}" tutorial:`)
     if (type === 'lesson') {
-      console.log('done adding lessons')
       logLessons(await getTutorialLessons(tutorial, tutorialId))
+      afterLessonCreate(tutorial, tutorialId)
     } else if (type === 'resource') {
-      console.log('done adding resources')
       logResources(tutorials[tutorialId].resources)
+      afterResourceCreate(tutorial, tutorialId)
     }
   }
 }
 
-module.exports = { getTutorialLessons, nextTutorialNumber, offerRepeat, selectTutorial, validateStringPresent, nextLessonNumber, createLesson, createResource, logLessons, logResources }
+async function afterLessonCreate (tutorial, tutorialId) {
+  log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
+
+  // prompt to create resources if not yet done
+  if (tutorial.resources.length === 0) {
+    log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
+    await promptCreateFirst('resource', tutorialId)
+  } else {
+    logEverythingDone(tutorial)
+  }
+}
+
+async function afterResourceCreate (tutorial, tutorialId) {
+  log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
+  log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
+  // prompt to create lessons if not yet done
+  if ((await getTutorialLessons(tutorial, tutorialId)).length === 0) {
+    log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
+    await promptCreateFirst('resource', tutorialId)
+  } else {
+    logEverythingDone(tutorial)
+  }
+}
+
+function logEverythingDone (tutorial) {
+  log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
+  log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}`)
+  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory.`)
+  log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
+}
+
+async function promptCreateFirst (itemType, tutorialId) {
+  const start = await inquirer
+    .prompt([
+      {
+        type: 'confirm',
+        name: itemType,
+        message: `Are you ready to add your first ${itemType} to the "${tutorials[tutorialId].title}" tutorial?`
+      }
+    ])
+
+  if (start.lesson) {
+    await createLesson(tutorials[tutorialId], tutorialId)
+  } else if (start.resource) {
+    await createResource(tutorials[tutorialId], tutorialId)
+  } else {
+    log.info(`Okay, no problem. You can create a ${itemType} later using this command: \`npm run scripts:create:${itemType}\``)
+  }
+}
+
+module.exports = { getTutorialLessons, nextTutorialNumber, promptCreateFirst, offerRepeat, selectTutorial, validateStringPresent, nextLessonNumber, createLesson, createResource, logLessons, logResources }

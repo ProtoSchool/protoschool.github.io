@@ -26,10 +26,7 @@ async function command (options) {
     logResources(resources)
   }
 
-  await createResource(tutorial, tutorialId) // loops until user declines to repeat
-
-  log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
-  log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
+  await createResource(tutorial, tutorialId) // loops until user declines to repeat, then offers closing statements
 }
 
 run(command)
