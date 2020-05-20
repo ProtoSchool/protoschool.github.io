@@ -16,7 +16,7 @@ if (options.debug) {
   log.level = 'silly'
 }
 
-log.info('run', options)
+log.verbose('run', options)
 
 module.exports = async function run (command) {
   await command(options)
