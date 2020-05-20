@@ -10,8 +10,6 @@ const projects = require('../../../src/static/projects.json')
 
 const { validateStringPresent, promptCreateFirst, saveStaticJsonFile } = require('./utils.js')
 
-const { createLesson } = require('./lesson.js')
-
 const tutorialKeys = Object.keys(tutorials)
 
 // *** HELPER FUNCTIONS ***
@@ -40,38 +38,37 @@ function validateUniqueUrl (url) {
 
 // *** TUTORIAL CREATION ***
 
-async function createTutorial () {
+async function createTutorial ({ onAddLesson, onAddResource }) {
   log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
-  const responses = await inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'title',
-        message: 'What is the name of your new tutorial?',
-        validate: validateUniqueTitle
+  const responses = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: 'What is the name of your new tutorial?',
+      validate: validateUniqueTitle
+    },
+    {
+      type: 'input',
+      name: 'url',
+      message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/#/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept our suggestion.)',
+      default: function (responses) {
+        return responses.title.toLowerCase().split(' ').join('-')
       },
-      {
-        type: 'input',
-        name: 'url',
-        message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/#/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept our suggestion.)',
-        default: function (responses) {
-          return responses.title.toLowerCase().split(' ').join('-')
-        },
-        validate: validateUniqueUrl
-      },
-      {
-        type: 'list',
-        name: 'project',
-        message: 'Which project is your tutorial about?',
-        choices: projects.map(project => ({name: project.name, value: project.id}))
-      },
-      {
-        type: 'input',
-        name: 'description',
-        message: 'Please provide a short description for your tutorial to be displayed in tutorial listings.',
-        validate: validateStringPresent
-      }
-    ])
+      validate: validateUniqueUrl
+    },
+    {
+      type: 'list',
+      name: 'project',
+      message: 'Which project is your tutorial about?',
+      choices: projects.map(project => ({name: project.name, value: project.id}))
+    },
+    {
+      type: 'input',
+      name: 'description',
+      message: 'Please provide a short description for your tutorial to be displayed in tutorial listings.',
+      validate: validateStringPresent
+    }
+  ])
 
   // determine new tutorial number
   const tutorialNumber = nextTutorialNumber()
@@ -105,9 +102,9 @@ async function createTutorial () {
 
   // suggest creating a lesson
   if (await promptCreateFirst('lesson', tutorialNumber)) {
-    await createLesson(tutorials[tutorialNumber], tutorialNumber)
+    await onAddLesson(tutorials[tutorialNumber], tutorialNumber, { onAddResource })
   } else {
-    log.info(`Okay, no problem. You can create run the ProtoWizard later to add lessons.`)
+    log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
   }
 }
 

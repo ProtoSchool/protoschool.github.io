@@ -64,14 +64,13 @@ async function selectTutorial (newItemType) {
   let tutorialId
   let lessons
 
-  const tutorialResponses1 = await inquirer
-    .prompt([
-      {
-        type: 'confirm',
-        name: 'latestTutorial',
-        message: `Should we add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
-      }
-    ])
+  const tutorialResponses1 = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'latestTutorial',
+      message: `Should we add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
+    }
+  ])
 
   if (tutorialResponses1.latestTutorial) {
     tutorial = latestTutorial
@@ -108,50 +107,48 @@ async function selectTutorial (newItemType) {
 }
 
 async function promptRepeat (tutorial, tutorialId, type) {
-  const another = await inquirer
-    .prompt([
-      {
-        type: 'confirm',
-        name: 'confirm',
-        message: `Would you like to add another ${type}?`
-      }
-    ])
+  const { confirm } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: `Would you like to add another ${type}?`
+    }
+  ])
 
-  if (another.confirm) {
-    return true
-  } else {
-    return false
-  }
+  return confirm
 }
 
 async function promptCreateFirst (itemType, tutorialId) {
-  const start = await inquirer
-    .prompt([
-      {
-        type: 'confirm',
-        name: 'confirm',
-        message: `Are you ready to add your first ${itemType} to the "${tutorials[tutorialId].title}" tutorial?`
-      }
-    ])
+  const { confirm } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: `Are you ready to add your first ${itemType} to the "${tutorials[tutorialId].title}" tutorial?`
+    }
+  ])
 
-  if (start.confirm) {
-    return true
-  } else {
-    return false
-  }
+  return confirm
 }
 
-function logEverythingDone (tutorial) {
+function logEverythingDone (tutorial, tutorialId) {
   log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
   log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}`)
-  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory.`)
+  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
   log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
+}
+
+function logList (title, items) {
+  log.info(`${title}:
+
+ ‣ ${items.join('\n ‣ ')}
+`)
 }
 
 module.exports = {
   getTutorialLessons,
   saveStaticJsonFile,
   logEverythingDone,
+  logList,
   promptCreateFirst,
   promptRepeat,
   selectTutorial,

@@ -12,10 +12,9 @@ const {
   selectTutorial,
   getTutorialLessons,
   promptCreateFirst,
-  logEverythingDone
+  logEverythingDone,
+  logList
 } = require('./utils.js')
-
-const { createResource } = require('./resource.js')
 
 // *** HELPER FUNCTIONS ***
 
@@ -29,17 +28,13 @@ function nextLessonNumber (lessons) {
   return lessonNumber
 }
 
-function logLessons (lessons) {
-  console.group()
-  lessons.forEach(lesson => {
-    log.info(`> ${lesson.id} - ${lesson.title} (${lesson.type})`)
-  })
-  console.groupEnd()
+function logLessons (title, lessons) {
+  logList(title, lessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
 }
 
 // *** LESSON CREATION ***
 
-async function createLessonIntro () {
+async function createLessonIntro ({ onAddResource }) {
   // determine new tutorial number
   log.info("Let's add lessons to your tutorial.")
   const { tutorial, tutorialId, lessons } = await selectTutorial('lesson')
@@ -48,50 +43,48 @@ async function createLessonIntro () {
   if (lessons.length === 0) {
     log.info("Let's create your first lesson!")
   } else {
-    log.info("Here are the lessons you've created so far:")
-    logLessons(lessons)
+    logLessons("Here are the lessons you've created so far", lessons)
     log.info("Let's create your next lesson!")
   }
 
   // loops until you say you don't want more lessons, then offers closing statements
-  await createLesson(tutorial, tutorialId, lessons)
+  await createLesson(tutorial, tutorialId, { onAddResource })
 }
 
 // used by LESSONS
-async function createLesson (tutorial, tutorialId) {
+async function createLesson (tutorial, tutorialId, { onAddResource }) {
   let lessons = await getTutorialLessons(tutorial, tutorialId)
-  const lessonResponses = await inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'title',
-        message: "What's the title of this lesson?",
-        validate: validateStringPresent
-      },
-      {
-        type: 'list',
-        name: 'type',
-        message: "What's the format of this lesson?",
-        choices: [
-          {
-            name: 'Text only',
-            value: 'text'
-          },
-          {
-            name: 'Multiple-choice quiz',
-            value: 'multiple-choice'
-          },
-          {
-            name: 'Code challenge',
-            value: 'code'
-          },
-          {
-            name: 'Code challenge with file upload',
-            value: 'file-upload'
-          }
-        ]
-      }
-    ])
+  const lessonResponses = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: "What's the title of this lesson?",
+      validate: validateStringPresent
+    },
+    {
+      type: 'list',
+      name: 'type',
+      message: "What's the format of this lesson?",
+      choices: [
+        {
+          name: 'Text only',
+          value: 'text'
+        },
+        {
+          name: 'Multiple-choice quiz',
+          value: 'multiple-choice'
+        },
+        {
+          name: 'Code challenge',
+          value: 'code'
+        },
+        {
+          name: 'Code challenge with file upload',
+          value: 'file-upload'
+        }
+      ]
+    }
+  ])
 
   // create lesson
   let lessonNumber = nextLessonNumber(lessons)
@@ -119,23 +112,22 @@ async function createLesson (tutorial, tutorialId) {
   await promisify(fs.writeFile)(`src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`, newMarkdown)
 
   // log success
-  log.info("Tada! We've created the following files that you'll need for this lesson:")
-  console.group()
-  newFileDetails.forEach(file => log.info(file))
-  console.groupEnd()
+  logList(`Tada! We've created the following files that you'll need for this lesson`, newFileDetails)
   log.info(`Preview your lesson by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/${lessonNumber}`)
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat(tutorial, tutorialId, 'lesson')) {
-    await createLesson(tutorial, tutorialId)
+    await createLesson(tutorial, tutorialId, { onAddResource })
   } else {
-    log.info(`Okay, sounds like we're done. Here are all the lessons now included in "${tutorial.title}":`)
-    logLessons(await getTutorialLessons(tutorial, tutorialId))
-    afterLessonCreate(tutorial, tutorialId)
+    logLessons(
+      `Okay, sounds like we're done. Here are all the lessons now included in "${tutorial.title}"`,
+      await getTutorialLessons(tutorial, tutorialId)
+    )
+    await afterLessonCreate(tutorial, tutorialId, { onAddResource })
   }
 }
 
-async function afterLessonCreate (tutorial, tutorialId) {
+async function afterLessonCreate (tutorial, tutorialId, { onAddResource }) {
   log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
 
   // prompt to create resources if not yet done
@@ -143,13 +135,13 @@ async function afterLessonCreate (tutorial, tutorialId) {
     log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
 
     if (await promptCreateFirst('resource', tutorialId)) {
-      createResource(tutorials[tutorialId], tutorialId)
+      await onAddResource(tutorials[tutorialId], tutorialId, { onAddLesson: createLesson })
     } else {
-      log.info(`Okay, no problem. You can create run the ProtoWizard later to add resources.`)
+      log.info(`Okay, no problem. You can run the ProtoWizard later to add resources.`)
     }
   } else {
-    logEverythingDone(tutorial)
+    logEverythingDone(tutorial, tutorialId)
   }
 }
 
-module.exports = { createLessonIntro, createLesson, afterLessonCreate }
+module.exports = { createLessonIntro, createLesson }
