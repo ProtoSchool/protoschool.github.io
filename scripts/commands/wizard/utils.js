@@ -7,9 +7,6 @@ const marked = require('meta-marked')
 
 const tutorials = require('../../../src/static/tutorials.json')
 
-const { createLesson, afterLessonCreate, logLessons } = require('./lesson.js')
-const { createResource, afterResourceCreate, logResources } = require('./resource.js')
-
 const tutorialKeys = Object.keys(tutorials)
 const latestTutorialId = tutorialKeys.sort().reverse()[0]
 const latestTutorial = tutorials[latestTutorialId]
@@ -80,6 +77,7 @@ async function selectTutorial (newItemType) {
     tutorial = latestTutorial
     tutorialId = latestTutorialId
     lessons = await getTutorialLessons(tutorial, tutorialId)
+    return { tutorial, tutorialId, lessons }
   } else {
     // list existing tutorials + option to create new one
     let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
@@ -101,39 +99,28 @@ async function selectTutorial (newItemType) {
       tutorial = tutorials[tutorialResponses2.tutorialId]
       tutorialId = tutorialResponses2.tutorialId
       lessons = await getTutorialLessons(tutorial, tutorialId)
+      return { tutorial, tutorialId, lessons }
     } else {
       log.info("I see that you want to create a new tutorial. Someday I'll figure out how to help with that. For now, you'll need to run the command `npm run scripts:create:tutorial` .")
       // TODO: launch into creating new tutorial
     }
   }
-
-  return { tutorial, tutorialId, lessons }
 }
 
-async function offerRepeat (tutorial, tutorialId, type) {
+async function promptRepeat (tutorial, tutorialId, type) {
   const another = await inquirer
     .prompt([
       {
         type: 'confirm',
-        name: type,
+        name: 'confirm',
         message: `Would you like to add another ${type}?`
       }
     ])
 
-  if (another.lesson) {
-    // BUG: says createLesson is not a function
-    await createLesson(tutorial, tutorialId)
-  } else if (another.resource) {
-    await createResource(tutorial, tutorialId)
+  if (another.confirm) {
+    return true
   } else {
-    log.info(`Okay, sounds like we're done. Here are all the ${type}s now included in the "${tutorial.title}" tutorial:`)
-    if (type === 'lesson') {
-      logLessons(await getTutorialLessons(tutorial, tutorialId))
-      afterLessonCreate(tutorial, tutorialId)
-    } else if (type === 'resource') {
-      logResources(tutorials[tutorialId].resources)
-      afterResourceCreate(tutorial, tutorialId)
-    }
+    return false
   }
 }
 
@@ -142,18 +129,15 @@ async function promptCreateFirst (itemType, tutorialId) {
     .prompt([
       {
         type: 'confirm',
-        name: itemType,
+        name: 'confirm',
         message: `Are you ready to add your first ${itemType} to the "${tutorials[tutorialId].title}" tutorial?`
       }
     ])
 
-  if (start.lesson) {
-    // BUG: Says createLesson is not a function
-    await createLesson(tutorials[tutorialId], tutorialId)
-  } else if (start.resource) {
-    await createResource(tutorials[tutorialId], tutorialId)
+  if (start.confirm) {
+    return true
   } else {
-    log.info(`Okay, no problem. You can create a ${itemType} later using this command: \`npm run scripts:create:${itemType}\``)
+    return false
   }
 }
 
@@ -169,7 +153,7 @@ module.exports = {
   saveStaticJsonFile,
   logEverythingDone,
   promptCreateFirst,
-  offerRepeat,
+  promptRepeat,
   selectTutorial,
   validateStringPresent
 }

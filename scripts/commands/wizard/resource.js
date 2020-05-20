@@ -2,7 +2,7 @@ const inquirer = require('inquirer')
 const log = require('npmlog')
 
 const {
-  offerRepeat,
+  promptRepeat,
   validateStringPresent,
   selectTutorial,
   getTutorialLessons,
@@ -10,6 +10,8 @@ const {
   promptCreateFirst,
   logEverythingDone
 } = require('./utils.js')
+
+const { createLesson } = require('./lesson.js')
 
 const tutorials = require('../../../src/static/tutorials.json')
 
@@ -98,7 +100,14 @@ async function createResource (tutorial, tutorialId) {
   // log success
   log.info(`We've added "${responses.title}" to your resources list.`)
 
-  await offerRepeat(tutorial, tutorialId, 'resource') // loops until user declines to repeat
+  // prompt to repeat process until user declines, then log results
+  if (await promptRepeat(tutorial, tutorialId, 'resource')) {
+    await createResource(tutorial, tutorialId)
+  } else {
+    log.info(`Okay, sounds like we're done. Here are all the resources now included in "${tutorial.title}":`)
+    logResources(tutorials[tutorialId].resources)
+    afterResourceCreate(tutorial, tutorialId)
+  }
 }
 
 async function afterResourceCreate (tutorial, tutorialId) {
@@ -108,8 +117,11 @@ async function afterResourceCreate (tutorial, tutorialId) {
   // prompt to create lessons if not yet done
   if ((await getTutorialLessons(tutorial, tutorialId)).length === 0) {
     log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
-
-    await promptCreateFirst('resource', tutorialId)
+    if (await promptCreateFirst('lesson', tutorialId)) {
+      createLesson(tutorials[tutorialId], tutorialId)
+    } else {
+      log.info(`Okay, no problem. You can create run the ProtoWizard later to add lessons.`)
+    }
   } else {
     logEverythingDone(tutorial)
   }

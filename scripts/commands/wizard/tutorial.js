@@ -10,6 +10,8 @@ const projects = require('../../../src/static/projects.json')
 
 const { validateStringPresent, promptCreateFirst, saveStaticJsonFile } = require('./utils.js')
 
+const { createLesson } = require('./lesson.js')
+
 const tutorialKeys = Object.keys(tutorials)
 
 // *** HELPER FUNCTIONS ***
@@ -102,7 +104,11 @@ async function createTutorial () {
   log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${responses.url}`)
 
   // suggest creating a lesson
-  await promptCreateFirst('lesson', tutorialNumber)
+  if (await promptCreateFirst('lesson', tutorialNumber)) {
+    await createLesson(tutorials[tutorialNumber], tutorialNumber)
+  } else {
+    log.info(`Okay, no problem. You can create run the ProtoWizard later to add lessons.`)
+  }
 }
 
 module.exports = { createTutorial }

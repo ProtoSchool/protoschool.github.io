@@ -4,14 +4,18 @@ const fs = require('fs')
 const inquirer = require('inquirer')
 const log = require('npmlog')
 
+const tutorials = require('../../../src/static/tutorials.json')
+
 const {
-  offerRepeat,
+  promptRepeat,
   validateStringPresent,
   selectTutorial,
   getTutorialLessons,
   promptCreateFirst,
   logEverythingDone
 } = require('./utils.js')
+
+const { createResource } = require('./resource.js')
 
 // *** HELPER FUNCTIONS ***
 
@@ -121,7 +125,14 @@ async function createLesson (tutorial, tutorialId) {
   console.groupEnd()
   log.info(`Preview your lesson by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/${lessonNumber}`)
 
-  await offerRepeat(tutorial, tutorialId, 'lesson') // loops until done, then returns back to where function was called
+  // prompt to repeat process until user declines, then log results
+  if (await promptRepeat(tutorial, tutorialId, 'lesson')) {
+    await createLesson(tutorial, tutorialId)
+  } else {
+    log.info(`Okay, sounds like we're done. Here are all the lessons now included in "${tutorial.title}":`)
+    logLessons(await getTutorialLessons(tutorial, tutorialId))
+    afterLessonCreate(tutorial, tutorialId)
+  }
 }
 
 async function afterLessonCreate (tutorial, tutorialId) {
@@ -131,7 +142,11 @@ async function afterLessonCreate (tutorial, tutorialId) {
   if (tutorial.resources.length === 0) {
     log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
 
-    await promptCreateFirst('resource', tutorialId)
+    if (await promptCreateFirst('resource', tutorialId)) {
+      createResource(tutorials[tutorialId], tutorialId)
+    } else {
+      log.info(`Okay, no problem. You can create run the ProtoWizard later to add resources.`)
+    }
   } else {
     logEverythingDone(tutorial)
   }
