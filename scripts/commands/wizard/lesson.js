@@ -4,15 +4,24 @@ const fs = require('fs')
 const inquirer = require('inquirer')
 const log = require('npmlog')
 
-const { offerRepeat, validateStringPresent, selectTutorial, getTutorialLessons, promptCreateFirst, logEverythingDone } = require('./utils.js')
+const {
+  offerRepeat,
+  validateStringPresent,
+  selectTutorial,
+  getTutorialLessons,
+  promptCreateFirst,
+  logEverythingDone
+} = require('./utils.js')
 
 // *** HELPER FUNCTIONS ***
 
 function nextLessonNumber (lessons) {
   let lessonNumber = '01'
+
   if (lessons.length > 0) {
     lessonNumber = (parseInt(lessons.map(lesson => lesson.formattedId).sort().reverse()[0]) + 1).toString().padStart(2, 0)
   }
+
   return lessonNumber
 }
 
@@ -43,6 +52,7 @@ async function createLessonIntro () {
   // loops until you say you don't want more lessons, then offers closing statements
   await createLesson(tutorial, tutorialId, lessons)
 }
+
 // used by LESSONS
 async function createLesson (tutorial, tutorialId) {
   let lessons = await getTutorialLessons(tutorial, tutorialId)
@@ -82,20 +92,26 @@ async function createLesson (tutorial, tutorialId) {
   // create lesson
   let lessonNumber = nextLessonNumber(lessons)
   let newFileDetails = [`${lessonNumber}.md (for writing the text of your lesson)`]
+
   await promisify(fs.copyFile)('src/tutorials/boilerplates/boilerplate.md', `src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`)
+
   let markdown = await promisify(fs.readFile)(`src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`, 'utf8')
   let newMarkdown = markdown.replace(`title: "Lesson title"`, `title: "${lessonResponses.title}"`)
+
   if (lessonResponses.type !== 'text') {
     newMarkdown = newMarkdown.replace(`type: "text"`, `type: "${lessonResponses.type}"`)
     await promisify(fs.copyFile)(`src/tutorials/boilerplates/boilerplate-${lessonResponses.type}.js`, `src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.js`)
+
     if (lessonResponses.type !== 'multiple-choice') {
       await promisify(fs.copyFile)(`src/tutorials/boilerplates/boilerplate-challenge.md`, `src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}-challenge.md`)
+
       newFileDetails.push(`${lessonNumber}-challenge.md (for describing your code challenge)`)
       newFileDetails.push(`${lessonNumber}.js (for building your code challenge)`)
     } else {
       newFileDetails.push(`${lessonNumber}.js (for building your multiple-choice quiz)`)
     }
   }
+
   await promisify(fs.writeFile)(`src/tutorials/${tutorialId}-${tutorial.url}/${lessonNumber}.md`, newMarkdown)
 
   // log success
@@ -114,6 +130,7 @@ async function afterLessonCreate (tutorial, tutorialId) {
   // prompt to create resources if not yet done
   if (tutorial.resources.length === 0) {
     log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
+
     await promptCreateFirst('resource', tutorialId)
   } else {
     logEverythingDone(tutorial)

@@ -1,10 +1,15 @@
-const promisify = require('util').promisify
-
-const fs = require('fs')
 const inquirer = require('inquirer')
 const log = require('npmlog')
 
-const { offerRepeat, validateStringPresent, selectTutorial, getTutorialLessons, promptCreateFirst, logEverythingDone } = require('./utils.js')
+const {
+  offerRepeat,
+  validateStringPresent,
+  selectTutorial,
+  getTutorialLessons,
+  saveStaticJsonFile,
+  promptCreateFirst,
+  logEverythingDone
+} = require('./utils.js')
 
 const tutorials = require('../../../src/static/tutorials.json')
 
@@ -33,6 +38,7 @@ function validateUrl (url) {
 async function createResourceIntro () {
   // determine new tutorial number
   log.info("Let's add resources to your tutorial.")
+
   // BUG: says selectTutorial is not a function (but it works when called from lesson.js)
   const { tutorial, tutorialId } = await selectTutorial('resources')
   const resources = tutorials[tutorialId].resources
@@ -42,6 +48,7 @@ async function createResourceIntro () {
     log.info("Let's create your first resource!")
   } else {
     log.info("Here are the resources you've created so far:")
+
     logResources(resources)
   }
 
@@ -86,7 +93,8 @@ async function createResource (tutorial, tutorialId) {
   }
 
   tutorials[tutorialId].resources.push(newResource)
-  await promisify(fs.writeFile)('src/static/tutorials.json', JSON.stringify(tutorials, null, 4))
+  await saveStaticJsonFile('tutorials.json', tutorials)
+
   // log success
   log.info(`We've added "${responses.title}" to your resources list.`)
 
@@ -96,9 +104,11 @@ async function createResource (tutorial, tutorialId) {
 async function afterResourceCreate (tutorial, tutorialId) {
   log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
   log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
+
   // prompt to create lessons if not yet done
   if ((await getTutorialLessons(tutorial, tutorialId)).length === 0) {
     log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
+
     await promptCreateFirst('resource', tutorialId)
   } else {
     logEverythingDone(tutorial)

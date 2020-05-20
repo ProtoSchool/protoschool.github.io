@@ -46,6 +46,10 @@ async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNum
   return getTutorialLessons(tutorial, tutorialId, lessons, lessonNumber + 1)
 }
 
+async function saveStaticJsonFile (file, data) {
+  return promisify(fs.writeFile)(`src/static/${file.replace('.json', '')}.json`, JSON.stringify(data, null, 2))
+}
+
 // *** SHARED INPUT VALIDATION ***
 
 function validateStringPresent (string) {
@@ -71,6 +75,7 @@ async function selectTutorial (newItemType) {
         message: `Should we add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
       }
     ])
+
   if (tutorialResponses1.latestTutorial) {
     tutorial = latestTutorial
     tutorialId = latestTutorialId
@@ -78,9 +83,11 @@ async function selectTutorial (newItemType) {
   } else {
     // list existing tutorials + option to create new one
     let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
+
     Object.keys(tutorials).sort().forEach(tutorialId => {
       tutorialsList.push({ name: tutorials[tutorialId].title, value: tutorialId })
     })
+
     const tutorialResponses2 = await inquirer
       .prompt([
         {
@@ -99,6 +106,7 @@ async function selectTutorial (newItemType) {
       // TODO: launch into creating new tutorial
     }
   }
+
   return { tutorial, tutorialId, lessons }
 }
 
@@ -156,4 +164,12 @@ function logEverythingDone (tutorial) {
   log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
 }
 
-module.exports = { getTutorialLessons, logEverythingDone, promptCreateFirst, offerRepeat, selectTutorial, validateStringPresent }
+module.exports = {
+  getTutorialLessons,
+  saveStaticJsonFile,
+  logEverythingDone,
+  promptCreateFirst,
+  offerRepeat,
+  selectTutorial,
+  validateStringPresent
+}

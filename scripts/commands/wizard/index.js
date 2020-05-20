@@ -14,6 +14,7 @@ log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizar
 
 async function command (options) {
   log.info(`Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial.`)
+
   const item = await inquirer
     .prompt([
       {
@@ -36,6 +37,7 @@ async function command (options) {
         ]
       }
     ])
+
   if (item.type === 'tutorial') {
     await createTutorial()
   } else if (item.type === 'lesson') {

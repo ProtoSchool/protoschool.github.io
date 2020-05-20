@@ -8,7 +8,7 @@ const tutorials = require('../../../src/static/tutorials.json')
 const courses = require('../../../src/static/courses.json')
 const projects = require('../../../src/static/projects.json')
 
-const { validateStringPresent, promptCreateFirst } = require('./utils.js')
+const { validateStringPresent, promptCreateFirst, saveStaticJsonFile } = require('./utils.js')
 
 const tutorialKeys = Object.keys(tutorials)
 
@@ -20,23 +20,19 @@ function nextTutorialNumber () {
 
 // *** INPUT VALIDATION ***
 
-function validateUniqueTitle (string) {
-  if (!string.trim()) {
-    return `Oops! You can't leave this blank, but you'll have a chance to edit it later.`
-  } else if (Object.values(tutorials).some(tutorial => tutorial.title.toLowerCase() === string.toLowerCase())) {
+function validateUniqueTitle (title) {
+  if (Object.values(tutorials).some(tutorial => tutorial.title.toLowerCase() === title.toLowerCase())) {
     return `That tutorial already exists. Please pick another title.`
   } else {
-    return true
+    return validateStringPresent(title)
   }
 }
 
-function validateUniqueUrl (string) {
-  if (!string.trim()) {
-    return `Oops! You can't leave this blank, but you'll have a chance to edit it later.`
-  } else if (Object.values(tutorials).some(tutorial => tutorial.url.toLowerCase() === string.toLowerCase())) {
+function validateUniqueUrl (url) {
+  if (Object.values(tutorials).some(tutorial => tutorial.url.toLowerCase() === url.toLowerCase())) {
     return `That path already exists. Please pick another.`
   } else {
-    return true
+    return validateStringPresent(url)
   }
 }
 
@@ -83,7 +79,7 @@ async function createTutorial () {
 
   // update all array in courses.json
   courses.all.push(tutorialNumber)
-  await promisify(fs.writeFile)('src/static/courses.json', JSON.stringify(courses, null, 4))
+  await saveStaticJsonFile('courses.json', courses)
 
   // add entry to tutorials.json
   const newTutorial = {
@@ -99,11 +95,12 @@ async function createTutorial () {
   }
 
   tutorials[tutorialNumber] = newTutorial
-  await promisify(fs.writeFile)('src/static/tutorials.json', JSON.stringify(tutorials, null, 4))
+  await saveStaticJsonFile('tutorials.json', tutorials)
 
   // log success
   log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorialNumber}-${responses.url}/\`.`)
   log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${responses.url}`)
+
   // suggest creating a lesson
   await promptCreateFirst('lesson', tutorialNumber)
 }
