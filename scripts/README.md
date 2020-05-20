@@ -8,7 +8,7 @@ You can start the wizard with the command:
 `npm run scripts:wizard`
 
 For a quicker shorthand, first install the wizard:
-`npm install-protowizard`
+`npm run install-protowizard`
 Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
 `protowizard`
 
