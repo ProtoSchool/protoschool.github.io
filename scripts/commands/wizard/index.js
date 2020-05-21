@@ -44,11 +44,15 @@ async function command (options) {
     })
   } else if (item.type === 'lesson') {
     await lessons.createLessonIntro({
-      createResource: resources.createResource
+      createResource: resources.createResource,
+      createTutorial: tutorials.createTutorial,
+      createLesson: lessons.createLesson
     })
   } else if (item.type === 'resource') {
     await resources.createResourceIntro({
-      createLesson: lessons.createLesson
+      createLesson: lessons.createLesson,
+      createTutorial: tutorials.createTutorial,
+      createResource: resources.createResource
     })
   }
 }

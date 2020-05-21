@@ -34,10 +34,10 @@ function logLessons (message, lessons) {
 
 // *** LESSON CREATION ***
 
-async function createLessonIntro ({ createResource }) {
+async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
   // determine new tutorial number
   log.info("Let's add lessons to your tutorial.")
-  const { tutorial, tutorialId, lessons } = await selectTutorial('lesson')
+  const { tutorial, tutorialId, lessons } = await selectTutorial('lesson', { createTutorial, createResource, createLesson })
 
   // print existing lessons if present
   if (lessons.length === 0) {

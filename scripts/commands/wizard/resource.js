@@ -32,11 +32,11 @@ function validateUrl (url) {
 
 // *** RESOURCE CREATION ***
 
-async function createResourceIntro ({ createLesson }) {
+async function createResourceIntro ({ createLesson, createTutorial }) {
   // determine new tutorial number
   log.info("Let's add resources to your tutorial.")
 
-  const { tutorial, tutorialId } = await selectTutorial('resources')
+  const { tutorial, tutorialId } = await selectTutorial('resources', { createTutorial, createResource, createLesson })
   const resources = tutorials[tutorialId].resources
 
   // print existing resources if present

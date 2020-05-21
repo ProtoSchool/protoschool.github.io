@@ -14,7 +14,7 @@ const tutorialKeys = Object.keys(tutorials)
 
 // *** HELPER FUNCTIONS ***
 
-function nextTutorialNumber () {
+function nexttutorialId () {
   return (parseInt(tutorialKeys.sort()[tutorialKeys.length - 1]) + 1).toString().padStart(4, 0)
 }
 
@@ -38,7 +38,7 @@ function validateUniqueUrl (url) {
 
 // *** TUTORIAL CREATION ***
 
-async function createTutorial ({ createLesson, createResource }) {
+async function createTutorial ({ createLesson, createResource }, { skipPromptLesson } = {}) {
   log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
   const responses = await inquirer.prompt([
     {
@@ -71,13 +71,13 @@ async function createTutorial ({ createLesson, createResource }) {
   ])
 
   // determine new tutorial number
-  const tutorialNumber = nextTutorialNumber()
+  const tutorialId = nexttutorialId()
 
   // create new directory
-  await promisify(fs.mkdir)(`src/tutorials/${tutorialNumber}-${responses.url}`)
+  await promisify(fs.mkdir)(`src/tutorials/${tutorialId}-${responses.url}`)
 
   // update all array in courses.json
-  courses.all.push(tutorialNumber)
+  courses.all.push(tutorialId)
   await saveStaticJsonFile('courses.json', courses)
 
   // add entry to tutorials.json
@@ -93,19 +93,22 @@ async function createTutorial ({ createLesson, createResource }) {
     resources: []
   }
 
-  tutorials[tutorialNumber] = newTutorial
+  tutorials[tutorialId] = newTutorial
   await saveStaticJsonFile('tutorials.json', tutorials)
 
   // log success
-  log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorialNumber}-${responses.url}/\`.`)
+  log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorialId}-${responses.url}/\`.`)
   log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${responses.url}`)
 
-  // suggest creating a lesson
-  if (await promptCreateFirst('lesson', tutorialNumber)) {
-    await createLesson(tutorials[tutorialNumber], tutorialNumber, { createResource })
-  } else {
-    log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
+  if (!skipPromptLesson) {
+    // suggest creating a lesson unless noPrompt: true was passed in
+    if (await promptCreateFirst('lesson', tutorialId)) {
+      await createLesson(tutorials[tutorialId], tutorialId, { createResource })
+    } else {
+      log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
+    }
   }
+  return { tutorial: tutorials[tutorialId], tutorialId: tutorialId }
 }
 
 module.exports = { createTutorial }

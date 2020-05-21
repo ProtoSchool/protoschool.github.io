@@ -59,7 +59,7 @@ function validateStringPresent (string) {
 
 // *** TRANSITIONAL DIALOGS (INQUIRER) ***
 
-async function selectTutorial (newItemType) {
+async function selectTutorial (newItemType, { createTutorial, createResource, createLesson }) {
   let tutorial
   let tutorialId
   let lessons
@@ -71,14 +71,14 @@ async function selectTutorial (newItemType) {
       message: `Should we add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
     }
   ])
-
+  // set data to latest tutorial
   if (tutorialResponses1.latestTutorial) {
     tutorial = latestTutorial
     tutorialId = latestTutorialId
     lessons = await getTutorialLessons(tutorial, tutorialId)
-    return { tutorial, tutorialId, lessons }
+
+  // offer selection of existing tutorials or creating a new one
   } else {
-    // list existing tutorials + option to create new one
     let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
 
     Object.keys(tutorials).sort().forEach(tutorialId => {
@@ -94,16 +94,20 @@ async function selectTutorial (newItemType) {
           choices: tutorialsList.reverse()
         }
       ])
+    // set data based on other selected tutorial
     if (tutorialResponses2.tutorialId !== 'new') {
       tutorial = tutorials[tutorialResponses2.tutorialId]
       tutorialId = tutorialResponses2.tutorialId
       lessons = await getTutorialLessons(tutorial, tutorialId)
-      return { tutorial, tutorialId, lessons }
+    // create new tutorial and set data accordingly
     } else {
-      log.info("I see that you want to create a new tutorial. Someday I'll figure out how to help with that. For now, you'll need to run the command `npm run scripts:create:tutorial` .")
-      // TODO: launch into creating new tutorial
+      const tutorialData = await createTutorial({ createLesson, createResource }, { skipPromptLesson: true })
+      tutorial = tutorialData.tutorial
+      tutorialId = tutorialData.tutorialId
+      lessons = await getTutorialLessons(tutorial, tutorialId)
     }
   }
+  return { tutorial, tutorialId, lessons }
 }
 
 async function promptRepeat (tutorial, tutorialId, type) {
@@ -139,9 +143,7 @@ function logEverythingDone (tutorial, tutorialId) {
 
 function logList (message, items) {
   log.info(`${message}:
-
- ‣ ${items.join('\n ‣ ')}
-`)
+ ‣ ${items.join('\n ‣ ')}`)
 }
 
 module.exports = {
