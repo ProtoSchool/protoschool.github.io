@@ -24,8 +24,10 @@ function logResources (message, resources) {
 
 // *** INPUT VALIDATION ***
 
-function validateUrl (url) {
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('ipfs://')) {
+function validateUrl (tutorial, link) {
+  if (tutorial.resources.some(resource => resource.link.toLowerCase() === link.toLowerCase())) {
+    return `Looks like you've already added a resource with that URL. Please pick another.`
+  } else if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('ipfs://')) {
     return true
   } else {
     return `That URL doesn't look right. Please be sure to start with \`http://\` or \`https://\`.`
@@ -83,7 +85,7 @@ async function createResource (tutorial, tutorialId, { createLesson }) {
       type: 'input',
       name: 'link',
       message: "What's the URL of this resource?",
-      validate: validateUrl
+      validate: (link) => validateUrl(tutorial, link)
     },
     {
       type: 'input',
