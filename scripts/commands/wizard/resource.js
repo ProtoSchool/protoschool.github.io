@@ -36,7 +36,6 @@ async function createResourceIntro ({ createLesson }) {
   // determine new tutorial number
   log.info("Let's add resources to your tutorial.")
 
-  // BUG: says selectTutorial is not a function (but it works when called from lesson.js)
   const { tutorial, tutorialId } = await selectTutorial('resources')
   const resources = tutorials[tutorialId].resources
 
