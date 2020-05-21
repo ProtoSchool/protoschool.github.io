@@ -8,7 +8,13 @@ const tutorials = require('../../../src/static/tutorials.json')
 const courses = require('../../../src/static/courses.json')
 const projects = require('../../../src/static/projects.json')
 
-const { validateStringPresent, promptCreateFirst, saveStaticJsonFile } = require('./utils.js')
+const {
+  validateStringPresent,
+  promptCreateFirst,
+  saveStaticJsonFile,
+  logPreview,
+  logCreateLater
+} = require('./utils.js')
 
 const tutorialKeys = Object.keys(tutorials)
 
@@ -98,14 +104,14 @@ async function createTutorial ({ createLesson, createResource }, { skipPromptLes
 
   // log success
   log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorialId}-${responses.url}/\`.`)
-  log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${responses.url}`)
+  logPreview('your tutorial', responses.url)
 
   if (!skipPromptLesson) {
     // suggest creating a lesson unless noPrompt: true was passed in
     if (await promptCreateFirst('lesson', tutorialId)) {
       await createLesson(tutorials[tutorialId], tutorialId, { createResource })
     } else {
-      log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
+      logCreateLater('lessons')
     }
   }
   return { tutorial: tutorials[tutorialId], tutorialId: tutorialId }

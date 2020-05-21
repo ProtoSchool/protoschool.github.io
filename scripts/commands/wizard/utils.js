@@ -138,14 +138,28 @@ async function promptCreateFirst (itemType, tutorialId) {
 
 function logEverythingDone (tutorial, tutorialId) {
   log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
-  log.info(`Preview your tutorial by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}`)
+  logPreview('your tutorial', tutorial.url)
   log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
   log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
+  logGuide()
 }
 
 function logList (message, items) {
   log.info(`${message}:
  ‣ ${items.join('\n ‣ ')}`)
+}
+
+function logPreview (item, tutorialUrl, pageUrl = '') {
+  log.info(`To preview ${item}, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/${tutorialUrl}/${pageUrl}`)
+}
+
+function logCreateLater (items) {
+  log.info(`Okay, no problem. You can run the ProtoWizard later to add ${items}.`)
+  logGuide()
+}
+
+function logGuide () {
+  log.info(`View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md`)
 }
 
 module.exports = {
@@ -156,5 +170,8 @@ module.exports = {
   promptCreateFirst,
   promptRepeat,
   selectTutorial,
-  validateStringPresent
+  validateStringPresent,
+  logPreview,
+  logGuide,
+  logCreateLater
 }

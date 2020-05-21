@@ -11,7 +11,9 @@ const {
   saveStaticJsonFile,
   promptCreateFirst,
   logEverythingDone,
-  logList
+  logList,
+  logPreview,
+  logCreateLater
 } = require('./utils.js')
 
 // *** LOGGING ***
@@ -50,7 +52,7 @@ async function createResourceIntro ({ createLesson, createTutorial }) {
 }
 
 async function afterResourceCreate (tutorial, tutorialId, { createLesson }) {
-  log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
+  logPreview('your resources page', tutorial.url, 'resources')
   log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
 
   // prompt to create lessons if not yet done
@@ -60,7 +62,7 @@ async function afterResourceCreate (tutorial, tutorialId, { createLesson }) {
     if (await promptCreateFirst('lesson', tutorialId)) {
       await createLesson(tutorials[tutorialId], tutorialId, { createResource })
     } else {
-      log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
+      logCreateLater('lessons')
     }
   } else {
     logEverythingDone(tutorial, tutorialId)

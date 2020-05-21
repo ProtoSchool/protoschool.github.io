@@ -13,7 +13,9 @@ const {
   getTutorialLessons,
   promptCreateFirst,
   logEverythingDone,
-  logList
+  logList,
+  logPreview,
+  logCreateLater
 } = require('./utils.js')
 
 // *** DATA FETCHING ***
@@ -63,7 +65,7 @@ async function afterLessonCreate (tutorial, tutorialId, { createResource }) {
     if (await promptCreateFirst('resource', tutorialId)) {
       await createResource(tutorials[tutorialId], tutorialId, { createLesson })
     } else {
-      log.info(`Okay, no problem. You can run the ProtoWizard later to add resources.`)
+      logCreateLater('resources')
     }
   } else {
     logEverythingDone(tutorial, tutorialId)
@@ -133,7 +135,7 @@ async function createLesson (tutorial, tutorialId, { createResource }) {
 
   // log success
   logList(`Tada! We've created the following files that you'll need for this lesson`, newFileDetails)
-  log.info(`Preview your lesson by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/${lessonNumber}`)
+  logPreview('this lesson', tutorial.url, lessonNumber)
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat(tutorial, tutorialId, 'lesson')) {
