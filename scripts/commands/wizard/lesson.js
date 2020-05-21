@@ -34,7 +34,7 @@ function logLessons (message, lessons) {
 
 // *** LESSON CREATION ***
 
-async function createLessonIntro ({ onAddResource }) {
+async function createLessonIntro ({ createResource }) {
   // determine new tutorial number
   log.info("Let's add lessons to your tutorial.")
   const { tutorial, tutorialId, lessons } = await selectTutorial('lesson')
@@ -48,11 +48,11 @@ async function createLessonIntro ({ onAddResource }) {
   }
 
   // loops until you say you don't want more lessons, then offers closing statements
-  await createLesson(tutorial, tutorialId, { onAddResource })
+  await createLesson(tutorial, tutorialId, { createResource })
 }
 
 // used by LESSONS
-async function createLesson (tutorial, tutorialId, { onAddResource }) {
+async function createLesson (tutorial, tutorialId, { createResource }) {
   let lessons = await getTutorialLessons(tutorial, tutorialId)
   const lessonResponses = await inquirer.prompt([
     {
@@ -117,17 +117,17 @@ async function createLesson (tutorial, tutorialId, { onAddResource }) {
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat(tutorial, tutorialId, 'lesson')) {
-    await createLesson(tutorial, tutorialId, { onAddResource })
+    await createLesson(tutorial, tutorialId, { createResource })
   } else {
     logLessons(
       `Okay, sounds like we're done. Here are all the lessons now included in "${tutorial.title}"`,
       await getTutorialLessons(tutorial, tutorialId)
     )
-    await afterLessonCreate(tutorial, tutorialId, { onAddResource })
+    await afterLessonCreate(tutorial, tutorialId, { createResource })
   }
 }
 
-async function afterLessonCreate (tutorial, tutorialId, { onAddResource }) {
+async function afterLessonCreate (tutorial, tutorialId, { createResource }) {
   log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
 
   // prompt to create resources if not yet done
@@ -135,7 +135,7 @@ async function afterLessonCreate (tutorial, tutorialId, { onAddResource }) {
     log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
 
     if (await promptCreateFirst('resource', tutorialId)) {
-      await onAddResource(tutorials[tutorialId], tutorialId, { onAddLesson: createLesson })
+      await createResource(tutorials[tutorialId], tutorialId, { createLesson })
     } else {
       log.info(`Okay, no problem. You can run the ProtoWizard later to add resources.`)
     }

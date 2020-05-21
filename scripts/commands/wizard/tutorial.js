@@ -38,7 +38,7 @@ function validateUniqueUrl (url) {
 
 // *** TUTORIAL CREATION ***
 
-async function createTutorial ({ onAddLesson, onAddResource }) {
+async function createTutorial ({ createLesson, createResource }) {
   log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
   const responses = await inquirer.prompt([
     {
@@ -102,7 +102,7 @@ async function createTutorial ({ onAddLesson, onAddResource }) {
 
   // suggest creating a lesson
   if (await promptCreateFirst('lesson', tutorialNumber)) {
-    await onAddLesson(tutorials[tutorialNumber], tutorialNumber, { onAddResource })
+    await createLesson(tutorials[tutorialNumber], tutorialNumber, { createResource })
   } else {
     log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
   }

@@ -38,11 +38,18 @@ async function command (options) {
   ])
 
   if (item.type === 'tutorial') {
-    await tutorials.createTutorial({ onAddLesson: lessons.createLesson, onAddResource: resources.createResource })
+    await tutorials.createTutorial({
+      createLesson: lessons.createLesson,
+      createResource: resources.createResource
+    })
   } else if (item.type === 'lesson') {
-    await lessons.createLessonIntro({ onAddResource: resources.createResource })
+    await lessons.createLessonIntro({
+      createResource: resources.createResource
+    })
   } else if (item.type === 'resource') {
-    await resources.createResourceIntro({ onAddLesson: lessons.createLesson })
+    await resources.createResourceIntro({
+      createLesson: lessons.createLesson
+    })
   }
 }
 
