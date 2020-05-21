@@ -1,32 +1,18 @@
-const promisify = require('util').promisify
-
-const fs = require('fs')
 const inquirer = require('inquirer')
 const log = require('npmlog')
 
-const tutorials = require('../../../src/static/tutorials.json')
-const courses = require('../../../src/static/courses.json')
-const projects = require('../../../src/static/projects.json')
+const api = require('../../../src/api')
 
 const {
   validateStringPresent,
   promptCreateFirst,
-  saveStaticJsonFile,
   logPreview,
   logCreateLater
 } = require('./utils.js')
 
-const tutorialKeys = Object.keys(tutorials)
-
-// *** DATA FETCHING ***
-
-function nexttutorialId () {
-  return (parseInt(tutorialKeys.sort()[tutorialKeys.length - 1]) + 1).toString().padStart(4, 0)
-}
-
 // *** INPUT VALIDATION ***
 
-function validateUniqueTitle (title) {
+async function validateUniqueTitle (title, tutorials) {
   if (Object.values(tutorials).some(tutorial => tutorial.title.toLowerCase() === title.toLowerCase())) {
     return `That tutorial already exists. Please pick another title.`
   } else {
@@ -34,7 +20,7 @@ function validateUniqueTitle (title) {
   }
 }
 
-function validateUniqueUrl (url) {
+function validateUniqueUrl (url, tutorials) {
   if (Object.values(tutorials).some(tutorial => tutorial.url.toLowerCase() === url.toLowerCase())) {
     return `That path already exists. Please pick another.`
   } else {
@@ -46,12 +32,15 @@ function validateUniqueUrl (url) {
 
 async function createTutorial ({ createLesson, createResource }, { skipPromptLesson } = {}) {
   log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
+
+  const tutorials = api.tutorials.list.get()
+
   const responses = await inquirer.prompt([
     {
       type: 'input',
       name: 'title',
       message: 'What is the name of your new tutorial?',
-      validate: validateUniqueTitle
+      validate: title => validateUniqueTitle(title, tutorials)
     },
     {
       type: 'input',
@@ -60,13 +49,13 @@ async function createTutorial ({ createLesson, createResource }, { skipPromptLes
       default: function (responses) {
         return responses.title.toLowerCase().split(' ').join('-')
       },
-      validate: validateUniqueUrl
+      validate: url => validateUniqueUrl(url, tutorials)
     },
     {
       type: 'list',
       name: 'project',
       message: 'Which project is your tutorial about?',
-      choices: projects.map(project => ({name: project.name, value: project.id}))
+      choices: api.projects.list.get().map(project => ({name: project.name, value: project.id}))
     },
     {
       type: 'input',
@@ -76,45 +65,24 @@ async function createTutorial ({ createLesson, createResource }, { skipPromptLes
     }
   ])
 
-  // determine new tutorial number
-  const tutorialId = nexttutorialId()
+  const tutorial = await api.tutorials.create(responses)
 
-  // create new directory
-  await promisify(fs.mkdir)(`src/tutorials/${tutorialId}-${responses.url}`)
-
-  // update all array in courses.json
-  courses.all.push(tutorialId)
-  await saveStaticJsonFile('courses.json', courses)
-
-  // add entry to tutorials.json
-  const newTutorial = {
-    url: responses.url,
-    project: responses.project,
-    title: responses.title,
-    description: responses.description,
-    newMessage: '',
-    updateMessage: '',
-    createdAt: new Date(),
-    updatedAt: '',
-    resources: []
-  }
-
-  tutorials[tutorialId] = newTutorial
-  await saveStaticJsonFile('tutorials.json', tutorials)
+  await api.courses.add(tutorial.id)
 
   // log success
-  log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorialId}-${responses.url}/\`.`)
+  log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorial.formattedId}-${responses.url}/\`.`)
   logPreview('your tutorial', responses.url)
 
   if (!skipPromptLesson) {
     // suggest creating a lesson unless noPrompt: true was passed in
-    if (await promptCreateFirst('lesson', tutorialId)) {
-      await createLesson(tutorials[tutorialId], tutorialId, { createResource })
+    if (await promptCreateFirst('lesson', tutorial.id)) {
+      await createLesson(tutorial.id, { createResource })
     } else {
       logCreateLater('lessons')
     }
   }
-  return { tutorial: tutorials[tutorialId], tutorialId: tutorialId }
+
+  return tutorial
 }
 
 module.exports = { createTutorial }

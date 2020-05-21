@@ -1,14 +1,11 @@
 const inquirer = require('inquirer')
 const log = require('npmlog')
 
-const tutorials = require('../../../src/static/tutorials.json')
-
+const api = require('../../../src/api')
 const {
   promptRepeat,
   validateStringPresent,
   selectTutorial,
-  getTutorialLessons,
-  saveStaticJsonFile,
   promptCreateFirst,
   logEverythingDone,
   logList,
@@ -40,40 +37,43 @@ async function createResourceIntro ({ createLesson, createTutorial }) {
   // determine new tutorial number
   log.info("Let's add resources to your tutorial.")
 
-  const { tutorial, tutorialId } = await selectTutorial('resources', { createTutorial, createResource, createLesson })
-  const resources = tutorials[tutorialId].resources
+  const tutorial = await selectTutorial('resources', { createTutorial, createResource, createLesson })
 
   // print existing resources if present
-  if (resources.length === 0) {
+  if (tutorial.resources.length === 0) {
     log.info("Let's create your first resource!")
   } else {
-    logResources("Here are the resources you've created so far", resources)
+    logResources("Here are the resources you've created so far", tutorial.resources)
   }
 
-  return createResource(tutorial, tutorialId, { createLesson }) // loops until user declines to repeat, then offers closing statements
+  return createResource(tutorial.id, { createLesson }) // loops until user declines to repeat, then offers closing statements
 }
 
-async function afterResourceCreate (tutorial, tutorialId, { createLesson }) {
+async function afterResourceCreate (tutorialId, { createLesson }) {
+  const tutorial = await api.tutorials.get(tutorialId)
+
   logPreview('your resources page', tutorial.url, 'resources')
   log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
 
   // prompt to create lessons if not yet done
-  if ((await getTutorialLessons(tutorial, tutorialId)).length === 0) {
+  if (tutorial.lessons.length === 0) {
     log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
 
-    if (await promptCreateFirst('lesson', tutorialId)) {
-      await createLesson(tutorials[tutorialId], tutorialId, { createResource })
+    if (await promptCreateFirst('lesson', tutorial.id)) {
+      await createLesson(tutorial, { createResource })
     } else {
       logCreateLater('lessons')
     }
   } else {
-    logEverythingDone(tutorial, tutorialId)
+    logEverythingDone(tutorial)
   }
 }
 
 // *** RESOURCE CREATION ***
 
-async function createResource (tutorial, tutorialId, { createLesson }) {
+async function createResource (tutorialId, { createLesson }) {
+  const tutorial = await api.tutorials.get(tutorialId)
+
   const responses = await inquirer.prompt([
     {
       type: 'input',
@@ -109,22 +109,21 @@ async function createResource (tutorial, tutorialId, { createLesson }) {
     description: responses.description
   }
 
-  tutorials[tutorialId].resources.push(newResource)
-  await saveStaticJsonFile('tutorials.json', tutorials)
+  await api.resources.add(tutorial.id, newResource)
 
   // log success
   log.info(`We've added "${responses.title}" to your resources list.`)
 
   // prompt to repeat process until user declines, then log results
-  if (await promptRepeat(tutorial, tutorialId, 'resource')) {
-    return createResource(tutorial, tutorialId, { createLesson })
+  if (await promptRepeat('resource')) {
+    return createResource(tutorial.id, { createLesson })
   } else {
     logResources(
       `Okay, sounds like we're done. Here are all the resources now included in "${tutorial.title}"`,
-      tutorials[tutorialId].resources
+      await api.resources.get(tutorial.id)
     )
 
-    await afterResourceCreate(tutorial, tutorialId, { createLesson })
+    await afterResourceCreate(tutorial.id, { createLesson })
   }
 }
 

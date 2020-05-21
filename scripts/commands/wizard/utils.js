@@ -3,45 +3,10 @@ const promisify = require('util').promisify
 const fs = require('fs')
 const inquirer = require('inquirer')
 const log = require('npmlog')
-const marked = require('meta-marked')
 
-const tutorials = require('../../../src/static/tutorials.json')
-
-const tutorialKeys = Object.keys(tutorials)
-const latestTutorialId = tutorialKeys.sort().reverse()[0]
-const latestTutorial = tutorials[latestTutorialId]
+const api = require('../../../src/api')
 
 // *** DATA FETCHING & MANIPULATION ***
-
-async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNumber = 1) {
-  const lessonFilePrefix = `${tutorialId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}`
-
-  let lessonMd
-  let lesson
-  try {
-    lessonMd = await promisify(fs.readFile)(`src/tutorials/${lessonFilePrefix}.md`, 'utf8')
-    lesson = {
-      id: lessonNumber,
-      formattedId: lessonNumber.toString().padStart(2, 0),
-      ...marked(lessonMd).meta
-    }
-  } catch (error) {
-    // lesson not found, we reached the end
-    if (error.code === 'ENOENT') {
-      return lessons
-    }
-
-    // data not well formatted
-    if (error.name === 'YAMLException') {
-      console.error(
-        new Error(`Data improperly formatted in the lesson markdown file "${lessonFilePrefix}.md". Check that the YAML syntax is correct.`)
-      )
-    }
-    throw error
-  }
-  lessons.push(lesson)
-  return getTutorialLessons(tutorial, tutorialId, lessons, lessonNumber + 1)
-}
 
 async function saveStaticJsonFile (file, data) {
   return promisify(fs.writeFile)(`src/static/${file.replace('.json', '')}.json`, JSON.stringify(data, null, 2))
@@ -61,8 +26,8 @@ function validateStringPresent (string) {
 
 async function selectTutorial (newItemType, { createTutorial, createResource, createLesson }) {
   let tutorial
-  let tutorialId
-  let lessons
+  let tutorials = await api.tutorials.list.get()
+  let latestTutorial = await api.tutorials.list.getLatest()
 
   const tutorialResponses1 = await inquirer.prompt([
     {
@@ -74,15 +39,13 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
   // set data to latest tutorial
   if (tutorialResponses1.latestTutorial) {
     tutorial = latestTutorial
-    tutorialId = latestTutorialId
-    lessons = await getTutorialLessons(tutorial, tutorialId)
 
   // offer selection of existing tutorials or creating a new one
   } else {
-    let tutorialsList = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
+    let tutorialChoices = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
 
     Object.keys(tutorials).sort().forEach(tutorialId => {
-      tutorialsList.push({ name: tutorials[tutorialId].title, value: tutorialId })
+      tutorialChoices.push({ name: tutorials[tutorialId].title, value: tutorialId })
     })
 
     const tutorialResponses2 = await inquirer
@@ -91,26 +54,22 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
           type: 'list',
           name: 'tutorialId',
           message: `Which of these existing tutorials should we add your ${newItemType} to?`,
-          choices: tutorialsList.reverse()
+          choices: tutorialChoices.reverse()
         }
       ])
     // set data based on other selected tutorial
     if (tutorialResponses2.tutorialId !== 'new') {
       tutorial = tutorials[tutorialResponses2.tutorialId]
-      tutorialId = tutorialResponses2.tutorialId
-      lessons = await getTutorialLessons(tutorial, tutorialId)
     // create new tutorial and set data accordingly
     } else {
-      const tutorialData = await createTutorial({ createLesson, createResource }, { skipPromptLesson: true })
-      tutorial = tutorialData.tutorial
-      tutorialId = tutorialData.tutorialId
-      lessons = await getTutorialLessons(tutorial, tutorialId)
+      tutorial = await createTutorial({ createLesson, createResource }, { skipPromptLesson: true })
     }
   }
-  return { tutorial, tutorialId, lessons }
+
+  return tutorial
 }
 
-async function promptRepeat (tutorial, tutorialId, type) {
+async function promptRepeat (type) {
   const { confirm } = await inquirer.prompt([
     {
       type: 'confirm',
@@ -123,11 +82,13 @@ async function promptRepeat (tutorial, tutorialId, type) {
 }
 
 async function promptCreateFirst (itemType, tutorialId) {
+  let tutorial = await api.tutorials.get(tutorialId)
+
   const { confirm } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'confirm',
-      message: `Are you ready to add your first ${itemType} to the "${tutorials[tutorialId].title}" tutorial?`
+      message: `Are you ready to add your first ${itemType} to the "${tutorial.title}" tutorial?`
     }
   ])
 
@@ -136,10 +97,10 @@ async function promptCreateFirst (itemType, tutorialId) {
 
 // *** LOGGING ***
 
-function logEverythingDone (tutorial, tutorialId) {
+function logEverythingDone (tutorial) {
   log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
   logPreview('your tutorial', tutorial.url)
-  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
+  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory.`)
   log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
   logGuide()
 }
@@ -163,7 +124,6 @@ function logGuide () {
 }
 
 module.exports = {
-  getTutorialLessons,
   saveStaticJsonFile,
   logEverythingDone,
   logList,

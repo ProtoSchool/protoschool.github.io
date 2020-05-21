@@ -57,4 +57,8 @@ async function command (options) {
   }
 }
 
-run(command)
+if (process.env.NODE_ENV !== 'test') {
+  run(command)
+}
+
+module.exports = command
