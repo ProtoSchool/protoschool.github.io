@@ -137,8 +137,8 @@ function logEverythingDone (tutorial, tutorialId) {
   log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
 }
 
-function logList (title, items) {
-  log.info(`${title}:
+function logList (message, items) {
+  log.info(`${message}:
 
  ‣ ${items.join('\n ‣ ')}
 `)

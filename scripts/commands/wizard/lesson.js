@@ -28,8 +28,8 @@ function nextLessonNumber (lessons) {
   return lessonNumber
 }
 
-function logLessons (title, lessons) {
-  logList(title, lessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
+function logLessons (message, lessons) {
+  logList(message, lessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
 }
 
 // *** LESSON CREATION ***

@@ -16,8 +16,8 @@ const {
 
 // *** HELPER FUNCTIONS ***
 
-function logResources (title, resources) {
-  logList(title, resources.map(resource => `${resource.title} (${resource.type})`))
+function logResources (message, resources) {
+  logList(message, resources.map(resource => `${resource.title} (${resource.type})`))
 }
 
 // *** INPUT VALIDATION ***
