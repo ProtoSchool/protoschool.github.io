@@ -11,7 +11,7 @@ const tutorialKeys = Object.keys(tutorials)
 const latestTutorialId = tutorialKeys.sort().reverse()[0]
 const latestTutorial = tutorials[latestTutorialId]
 
-// *** HELPER FUNCTIONS ***
+// *** DATA FETCHING & MANIPULATION ***
 
 async function getTutorialLessons (tutorial, tutorialId, lessons = [], lessonNumber = 1) {
   const lessonFilePrefix = `${tutorialId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}`
@@ -57,7 +57,7 @@ function validateStringPresent (string) {
   }
 }
 
-// *** TRANSITIONAL DIALOGS (INQUIRER) ***
+// *** TRANSITIONAL DIALOGS & PROMPTS (INQUIRER) ***
 
 async function selectTutorial (newItemType, { createTutorial, createResource, createLesson }) {
   let tutorial
@@ -133,6 +133,8 @@ async function promptCreateFirst (itemType, tutorialId) {
 
   return confirm
 }
+
+// *** LOGGING ***
 
 function logEverythingDone (tutorial, tutorialId) {
   log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)

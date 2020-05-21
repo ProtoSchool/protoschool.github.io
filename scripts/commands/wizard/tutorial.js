@@ -12,7 +12,7 @@ const { validateStringPresent, promptCreateFirst, saveStaticJsonFile } = require
 
 const tutorialKeys = Object.keys(tutorials)
 
-// *** HELPER FUNCTIONS ***
+// *** DATA FETCHING ***
 
 function nexttutorialId () {
   return (parseInt(tutorialKeys.sort()[tutorialKeys.length - 1]) + 1).toString().padStart(4, 0)

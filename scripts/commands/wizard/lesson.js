@@ -16,7 +16,7 @@ const {
   logList
 } = require('./utils.js')
 
-// *** HELPER FUNCTIONS ***
+// *** DATA FETCHING ***
 
 function nextLessonNumber (lessons) {
   let lessonNumber = '01'
@@ -28,11 +28,13 @@ function nextLessonNumber (lessons) {
   return lessonNumber
 }
 
+// *** LOGGING ***
+
 function logLessons (message, lessons) {
   logList(message, lessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
 }
 
-// *** LESSON CREATION ***
+// *** TRANSITIONAL DIALOGS & PROMPTS ***
 
 async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
   // determine new tutorial number
@@ -51,7 +53,25 @@ async function createLessonIntro ({ createResource, createTutorial, createLesson
   await createLesson(tutorial, tutorialId, { createResource })
 }
 
-// used by LESSONS
+async function afterLessonCreate (tutorial, tutorialId, { createResource }) {
+  log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
+
+  // prompt to create resources if not yet done
+  if (tutorial.resources.length === 0) {
+    log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
+
+    if (await promptCreateFirst('resource', tutorialId)) {
+      await createResource(tutorials[tutorialId], tutorialId, { createLesson })
+    } else {
+      log.info(`Okay, no problem. You can run the ProtoWizard later to add resources.`)
+    }
+  } else {
+    logEverythingDone(tutorial, tutorialId)
+  }
+}
+
+// *** LESSON CREATION ***
+
 async function createLesson (tutorial, tutorialId, { createResource }) {
   let lessons = await getTutorialLessons(tutorial, tutorialId)
   const lessonResponses = await inquirer.prompt([
@@ -124,23 +144,6 @@ async function createLesson (tutorial, tutorialId, { createResource }) {
       await getTutorialLessons(tutorial, tutorialId)
     )
     await afterLessonCreate(tutorial, tutorialId, { createResource })
-  }
-}
-
-async function afterLessonCreate (tutorial, tutorialId, { createResource }) {
-  log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorialId}-${tutorial.url}/\` directory.`)
-
-  // prompt to create resources if not yet done
-  if (tutorial.resources.length === 0) {
-    log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
-
-    if (await promptCreateFirst('resource', tutorialId)) {
-      await createResource(tutorials[tutorialId], tutorialId, { createLesson })
-    } else {
-      log.info(`Okay, no problem. You can run the ProtoWizard later to add resources.`)
-    }
-  } else {
-    logEverythingDone(tutorial, tutorialId)
   }
 }
 

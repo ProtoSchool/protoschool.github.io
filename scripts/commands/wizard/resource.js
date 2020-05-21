@@ -14,7 +14,7 @@ const {
   logList
 } = require('./utils.js')
 
-// *** HELPER FUNCTIONS ***
+// *** LOGGING ***
 
 function logResources (message, resources) {
   logList(message, resources.map(resource => `${resource.title} (${resource.type})`))
@@ -30,7 +30,7 @@ function validateUrl (url) {
   }
 }
 
-// *** RESOURCE CREATION ***
+// *** TRANSITIONAL DIALOGS & PROMPTS ***
 
 async function createResourceIntro ({ createLesson, createTutorial }) {
   // determine new tutorial number
@@ -48,6 +48,26 @@ async function createResourceIntro ({ createLesson, createTutorial }) {
 
   return createResource(tutorial, tutorialId, { createLesson }) // loops until user declines to repeat, then offers closing statements
 }
+
+async function afterResourceCreate (tutorial, tutorialId, { createLesson }) {
+  log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
+  log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
+
+  // prompt to create lessons if not yet done
+  if ((await getTutorialLessons(tutorial, tutorialId)).length === 0) {
+    log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
+
+    if (await promptCreateFirst('lesson', tutorialId)) {
+      await createLesson(tutorials[tutorialId], tutorialId, { createResource })
+    } else {
+      log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
+    }
+  } else {
+    logEverythingDone(tutorial, tutorialId)
+  }
+}
+
+// *** RESOURCE CREATION ***
 
 async function createResource (tutorial, tutorialId, { createLesson }) {
   const responses = await inquirer.prompt([
@@ -101,24 +121,6 @@ async function createResource (tutorial, tutorialId, { createLesson }) {
     )
 
     await afterResourceCreate(tutorial, tutorialId, { createLesson })
-  }
-}
-
-async function afterResourceCreate (tutorial, tutorialId, { createLesson }) {
-  log.info(`You can preview your resources page by running \`npm start\` and visiting: http://localhost:3000/#/${tutorial.url}/resources`)
-  log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
-
-  // prompt to create lessons if not yet done
-  if ((await getTutorialLessons(tutorial, tutorialId)).length === 0) {
-    log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
-
-    if (await promptCreateFirst('lesson', tutorialId)) {
-      await createLesson(tutorials[tutorialId], tutorialId, { createResource })
-    } else {
-      log.info(`Okay, no problem. You can run the ProtoWizard later to add lessons.`)
-    }
-  } else {
-    logEverythingDone(tutorial, tutorialId)
   }
 }
 
