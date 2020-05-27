@@ -12,46 +12,76 @@ Ready to get started? Read on!
 
 **Table of Contents**
 
+<!-- To update table of contents, run `markdown-toc -i DEVELOPING_TUTORIALS.md` -->
+
 <!-- toc -->
 
-- [Developing ProtoSchool Tutorials](#developing-protoschool-tutorials)
-  - [Developing Tutorials](#developing-tutorials)
-    - [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
-    - [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
-    - [Build your lessons (repeat for each lesson in the tutorial)](#build-your-lessons-repeat-for-each-lesson-in-the-tutorial)
+- [Developing Tutorials](#developing-tutorials)
+  * [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
+  * [Create files and metadata](#create-files-and-metadata)
+    + [Using the ProtoWizard CLI (recommended)](#using-the-protowizard-cli-recommended)
+      - [Install and run the ProtoWizard](#install-and-run-the-protowizard)
+    + [Manually](#manually)
+      - [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
       - [Create lesson files](#create-lesson-files)
-        - [Lesson text file (with optional images)](#lesson-text-file-with-optional-images)
-        - [JavaScript file](#javascript-file-skip-for-text-only-lessons)
-        - [Challenge text file (skip for text-only and multiple-choice lessons)](#challenge-text-file-skip-for-text-only-and-multiple-choice-lessons)
-        - [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
-      - [Create multiple-choice quizzes in your JavaScript file (skip for coding challenges and text-only lessons)](#create-multiple-choice-quizzes-in-your-javascript-file-skip-for-coding-challenges-and-text-only-lessons)
-      - [Build code challenges and validation in your JavaScript file (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-in-your-javascript-file-skip-for-text-only-and-multiple-choice-lessons)
-        - [Provide the starting code for your challenge](#provide-the-starting-code-for-your-challenge)
-        - [Provide the simplest solution to your challenge](#provide-the-simplest-solution-to-your-challenge)
-        - [Validate the user's submitted code](#validate-the-users-submitted-code)
-          - [Work with uploaded files (for file upload lessons only)](#work-with-uploaded-files-for-file-upload-lessons-only)
-          - [Create success and failure messages](#create-success-and-failure-messages)
-          - [Override external error messages (optional)](#override-external-error-messages-optional)
-          - [Display results to the user (optional)](#display-results-to-the-user-optional)
-    - [Manage your tutorial's metadata and routing](#manage-your-tutorials-metadata-and-routing)
-      - [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
-        - [Add alert messages for new and updated tutorials (optional)](#add-alert-messages-for-new-and-updated-tutorials-optional)
-      - [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
-    - [Submit a pull request](#submit-a-pull-request)
-  - [Troubleshooting](#troubleshooting)
-    - [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
-    - [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
-    - [Text of lesson or challenge not displayed](#text-of-lesson-or-challenge-not-displayed)
-  - [Detailed Docs](#detailed-docs)
-    - [Lesson File](#lesson-file)
-    - [`utils` module](#utils-module-1)
-  - [License](#license)
+        * [Lesson text file (all lesson types)](#lesson-text-file-all-lesson-types)
+        * [JavaScript file (skip for text-only lessons)](#javascript-file-skip-for-text-only-lessons)
+        * [Challenge text file (skip for text-only and multiple-choice lessons)](#challenge-text-file-skip-for-text-only-and-multiple-choice-lessons)
+        * [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
+      - [Manage your tutorial's metadata](#manage-your-tutorials-metadata)
+        * [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+        * [Add alert messages for new and updated tutorials (optional)](#add-alert-messages-for-new-and-updated-tutorials-optional)
+        * [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
+  * [Create your lesson content](#create-your-lesson-content)
+    + [Write the text of your lesson (all lesson types)](#write-the-text-of-your-lesson-all-lesson-types)
+      - [Add images to your lesson (optional)](#add-images-to-your-lesson-optional)
+    + [Create multiple-choice quizzes (skip for coding challenges and text-only lessons)](#create-multiple-choice-quizzes-skip-for-coding-challenges-and-text-only-lessons)
+    + [Build code challenges and validation (skip for text-only and multiple-choice lessons)](#build-code-challenges-and-validation-skip-for-text-only-and-multiple-choice-lessons)
+      - [Describe the challenge](#describe-the-challenge)
+      - [Provide the starting code for your challenge](#provide-the-starting-code-for-your-challenge)
+      - [Provide the simplest solution to your challenge](#provide-the-simplest-solution-to-your-challenge)
+      - [Validate the user's submitted code](#validate-the-users-submitted-code)
+        * [Work with uploaded files (for code challenges with file upload only)](#work-with-uploaded-files-for-code-challenges-with-file-upload-only)
+        * [Create success and failure messages](#create-success-and-failure-messages)
+        * [Utils module](#utils-module)
+        * [Override external error messages (optional)](#override-external-error-messages-optional)
+        * [Display results to the user (optional)](#display-results-to-the-user-optional)
+  * [Submit a pull request](#submit-a-pull-request)
+- [Troubleshooting](#troubleshooting)
+  * [Clearing cached data from localStorage](#clearing-cached-data-from-localstorage)
+  * [Renaming a tutorial after it has been published](#renaming-a-tutorial-after-it-has-been-published)
+  * [Text of lesson or challenge not displayed](#text-of-lesson-or-challenge-not-displayed)
+- [Detailed Docs](#detailed-docs)
+  * [Lesson file](#lesson-file)
+  * [`utils` module](#utils-module)
+    + [`utils.format`](#utilsformat)
+    + [`utils.ipfs`](#utilsipfs)
+    + [`utils.validationMessages`](#utilsvalidationmessages)
+    + [`utils.validators`](#utilsvalidators)
+- [License](#license)
 
 <!-- tocstop -->
 
 ---
 
 ## Developing Tutorials
+
+Each **tutorial** in ProtoSchool is made up of multiple **lessons**. Before you get started, think about the type of lessons you'd like to include.
+
+There are four lesson formats available, which you may mix and match within your tutorial:
+- A standard lesson with a JavaScript coding challenge (the most common)
+- A lesson with a JavaScript coding challenge that requires a file upload
+- A text-only lesson with no code challenge
+- A lesson that concludes with a multiple-choice quiz
+
+To build any of these lesson types, you'll need to use Markdown, a fairly simple way to style text on the web. [Learn more about Markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
+
+To create text-based or multiple-choice lessons, no prior coding knowledge is required. Our text-only lessons are written exclusively in Markdown, and you'll only need to do some simple text replacements in our JavaScript boilerplate to set up questions and answers for multiple-choice quizzes.
+
+However, if you want to create code challenges (with or without file upload), you'll need to use JavaScript extensively to set up your default and solution code and validation. JavaScript is a scripting language for building interactive web pages, and you should have a solid understanding of JavaScript before building a code challenge for ProtoSchool.
+
+Ready to get started? Let's create a tutorial!
+
 
 ### Run the server locally to preview your work
 
@@ -99,7 +129,50 @@ $ npm run serve
 Vue will update your localhost preview automatically as you make changes. However, you won't be able to see any newly added lessons until you've updated the appropriate routes and import statements, as described below.
 
 
-### Create a directory for your tutorial
+### Create files and metadata
+
+Before you create the content of your tutorial, you'll need to set up a directory, lesson files, and metadata. You can do this quickly and intuitively with the help of our user-friendly ProtoWizard.
+
+We've included instructions in this guide for doing all of this grunt work manually (in case you're curious or ambitious or need to make some changes after the fact), but we strongly recommend that you use the ProtoWizard to skip all of that manual grunt work. This approach will let you focus on the most important stuff, which is creating the content of your tutorial -- explaining concepts, creating code challenges or multiple-choice quizzes, etc.
+
+#### Using the ProtoWizard CLI (recommended)
+
+The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lesson files, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready.
+
+It's easy to use the ProtoWizard even if you're not familiar with the command line. It will ask you a few questions and let you type your answers or select options using arrow keys. Based on your answers, the ProtoWizard will build the directory, files, and metadata you'll need to create your tutorial.
+
+##### Install and launch the ProtoWizard
+
+After following the steps above to create a new branch and run the server locally, open a new terminal window or tab displaying the same directory. You'll use the ProtoWizard in this tab while the other keeps your server running.
+
+Because you're likely to want to run the ProtoWizard multiple times, we recommend installing it so you can use a more memorable shortcut command to run it whenever you'd like.
+
+First, install the wizard:
+```sh
+npm run install-protowizard
+```
+
+Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
+```sh
+protowizard
+```
+
+If you choose not to install it, you'll need to use this longer command to run the ProtoWizard:
+```sh
+npm run scripts:wizard
+```
+
+When you run either of these commands to start the CLI, our friendly little ProtoWizard will appear to help you:
+
+![screenshot](public/protowizard.png)
+
+TODO: Add more when keyboard is working.
+
+#### Manually
+
+This section describes how to build the directory, lesson files, and metadata for your tutorial manually if you've chosen not to use the recommended ProtoWizard. If you've used the [ProtoWizard](#), you can skip to TODO: Section to skip to
+
+##### Create a directory for your tutorial
 
 Each tutorial in ProtoSchool has a 4-digit ID and a corresponding directory. To determine the right ID for your new tutorial, first navigate to the `src/tutorials` directory and list its contents:
 
@@ -121,19 +194,15 @@ Create a directory with the appropriate ID, for example:
 $ mkdir 0005-tutorial-short-title
 ```
 
-### Build your lessons (repeat for each lesson in the tutorial)
+##### Create lesson files
 
 Each **tutorial** in ProtoSchool is made up of multiple **lessons**.
 
-Currently there are three lesson formats available, which you may mix and match within your tutorial:
+Currently there are four lesson formats available, which you may mix and match within your tutorial:
 - A standard lesson with a coding challenge (the most common)
 - A lesson with a coding challenge that requires a file upload
 - A text-only lesson with no code challenge
 - A lesson that concludes with a multiple-choice quiz
-
-Follow the steps below to create each lesson.
-
-#### Create lesson files
 
 Depending on which lesson format you've chosen, you'll need to create 2-4 files within your project directory. Check the table below to see which files you need, then read on for instructions on how to create them.
 
@@ -153,9 +222,9 @@ Not familiar with Markdown? It's a fairly simple way to style text on the web. [
 Not familiar with JavaScript? You won't need it to create text-only lessons, and you'll only need to do some simple text replacements to set up questions and answers for multiple-choice quizzes. However, if you want to create code challenges (with or without file upload), you _will_ need to use JavaScript extensively to set up your default and solution code and validation.
 
 
-##### Lesson text file (with optional images)
+###### Lesson text file (all lesson types)
 
-Create a `.md` file using the boilerplate and add the Markdown-formatted text of the lesson itself (your educational content). The name of this file should be the 2-digit lesson number.
+Create a Markdown file by copying the `boilerplate.md` file provided. The name of this file should be the 2-digit lesson number.
 
 For example (for Lesson 01 of Tutorial 0005):
 
@@ -163,23 +232,9 @@ For example (for Lesson 01 of Tutorial 0005):
 $ cp boilerplates/boilerplate.md 0005-tutorial-short-title/01.md
 ```
 
-If you want to add images to your Markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention:
+Use this file to draft the text of your lesson (the educational content), as described later in these instructions. TODO: LINK
 
-`T<4-digit-tutorial-id>L<2-digit-lesson-number>-<imageName>`, such as `T0001L05-diagram.svg`.
-
-Then in your lesson Markdown file, you can either add it with regular Markdown:
-
-```
-![Description of the image](tutorial-assets/T0001L01-diagram.svg)
-```
-
-...or with regular HTML, if you need to set the image size:
-
-```html
-<img src="tutorial-assets/T0001L01-diagram.svg" width="300px" height="150px" />
-```
-
-##### JavaScript file (skip for text-only lessons)
+###### JavaScript file (skip for text-only lessons)
 
 Select the appropriate boilerplate JavaScript file for your lesson from the `src/tutorials/boilerplates` directory:
 
@@ -195,11 +250,11 @@ For example, to create a JavaScript file for a standard coding challenge as Less
 $ cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
 ```
 
-Use this file to set up your default code and validation, as described later in these instructions.
+Use this file to set up your default code and validation or your multiple-choice quiz, as described later in these instructions. TODO: LINK
 
-##### Challenge text file (skip for text-only and multiple-choice lessons)
+###### Challenge text file (skip for text-only and multiple-choice lessons)
 
-If your lesson includes a coding challenge, create a second `.md` file using the `boilerplate-challenge.md` file and add the markdown-formatted text that provides the assignment text for the challenge box. The name of this file should match the 2-digit lesson number used previously, with `-challenge` appended.
+If your lesson includes a coding challenge, create a second `.md` file using the `boilerplate-challenge.md` file. The name of this file should match the 2-digit lesson number used previously, with `-challenge` appended.
 
 For example (for Lesson 01 of Tutorial 0005):
 
@@ -207,7 +262,7 @@ For example (for Lesson 01 of Tutorial 0005):
 $ cp boilerplates/boilerplate-challenge.md 0005-tutorial-short-title/01-challenge.md
 ```
 
-##### Useful concepts text file (optional)
+###### Useful concepts text file (optional)
 
 Occasionally you may want to add a _useful concepts_ box defining key terminology, if this can't easily be done in-line. If you'd like to do this, create another `.md` file that provides the text for that _useful concepts_ box. The name of this file should match the 2-digit lesson number used previously, with `-concepts` appended. (This step is optional.)
 
@@ -217,9 +272,139 @@ For example (for Lesson 01 of Tutorial 0005):
 src/tutorials/0005-tutorial-short-title/01-concepts.md
 ```
 
-#### Create multiple-choice quizzes in your JavaScript file (skip for coding challenges and text-only lessons)
+##### Manage your tutorial's metadata
 
-When creating a multiple-choice lesson, you'll use your JavaScript file to define the question and its answer choices.
+There are a few administrative steps you need to take to ensure that all of your lessons appear on our site, along with a landing page and resources page.
+
+###### Add your tutorial to `static/tutorials.json`
+
+In `static/tutorials.json`, add a new key for your tutorial and fill in the appropriate values, as in the example below.
+
+```json
+"0005": {
+  "url": "tutorial-short-title",
+  "redirectUrls": [],
+  "project": "ipfs",
+  "title": "Your short tutorial title",
+  "description": "Your tutorial description",
+  "resources": [
+    {
+      "title": "Video title",
+      "link": "https://youtu.be/videoid",
+      "type": "video",
+      "description": "Description of video"
+    },
+    {
+      "title": "Documentation 1",
+      "link": "https://docs.domain.io",
+      "type": "docs"
+    }
+  ],
+  "updateMessage": "",
+  "newMessage": "",
+  "createdAt": "2020-01-01T00:00:00.000Z",
+  "updatedAt": "2020-01-01T00:00:00.000Z"
+},
+```
+
+The _key_ must match your tutorial's ID and the name of the directory where you've been creating your files.
+
+The `title` of your tutorial will be seen in course listings on our tutorials page, your tutorial's table of contents, and anywhere else your tutorial is featured.
+
+![screenshot](public/title-in-toc.png)
+
+![screenshot](public/title-in-featured-tutorials.png)
+
+The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
+
+![screenshot](public/url-breadcrumb-header.png)
+
+TODO: Add header for resrouces section
+Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
+
+![screenshot](public/resources.png)
+
+Examples of meaningful resource `type`s include: `docs`, `demo`, `tutorial`, `article`, `video`, and `website`.
+
+Be sure to include any ProtoSchool tutorials that would provide a nice follow-on to your own content. Be sure to use the type `tutorial` for these, and they will automagically receive an extra callout as ProtoSchool tutorials when the page renders, like so:
+
+![screenshot](public/protoschool_resource.png)
+
+The properties `updateMessage`, `newMessage`, `createdAt` and `updatedAt` are used to alert users to new tutorials or tutorials that have been updated since they last visited them. When creating a new tutorial, both the `createdAt` and `updatedAt` fields should be set to the date you're submitting your pull request. (This step will be taken care of automatically if you create your tutorial using the ProtoWizard.) Learn more about new and updated tutorial alerts below
+
+###### Add alert messages for new and updated tutorials (optional)
+
+TODO: Really needs to happen even if you used ProtoWizard
+
+**When a new tutorial is published**, a new tutorial alert will be displayed for one month. This message disappears when a user has completed the tutorial (or some of it) or when a month has passed since the `createdAt` date, whichever comes sooner. You can _optionally_ display a custom message within the new tutorial alert by updating the `newMessage` field in `tutorials.json`, using markdown formatting within the message as needed.
+
+![New Tutorial Message](public/tutorial_message_new.jpg)
+
+**When major updates are made to an existing tutorial**, an update alert will be displayed to users who have previously completed at least one lesson within the tutorial. Major changes include those that change solution code or fundamentally alter the concepts being taught. If a user were to return to a lesson in your tutorial and find that their old solution no longer passed the lesson, that would be an indicator that you've made a major change that requires an alert. Simple typo fixes, addition of graphics, etc., do not count as major updates.
+
+When submitting a PR that includes major tutorial updates, you should provide an `updateMessage` in `tutorials.json` that calls out what's changed, using markdown formatting as needed, and adjust the `updatedAt` field accordingly. This date will be compared to the date at which a user last completed a lesson to determine whether the message should be displayed. If displayed, the update message will disappear once a user has completed the updated version of the tutorial. Users who haven't visited a tutorial before its `updatedAt` date will never see the message.
+
+![Updated Tutorial Message](public/tutorial_message_update.jpg)
+
+###### Add your tutorial to `static/courses.json`
+
+_This step is completed automatically if you create your tutorial using the ProtoWizard._
+
+In `static/courses.json`, add the tutorial key that you used in `static/tutorials.json` to the `all` array so it will appear in the Tutorials page. For example, to continue with the same example shown above, you would change this:
+
+```json
+{
+  "all": ["0001", "0002", "0003"],
+  "featured": ["0001", "0002", "0003"]
+}
+```
+
+...to this:
+
+```json
+{
+  "all": ["0001", "0002", "0003", "0005"],
+  "featured": ["0001", "0002", "0003"]
+}
+```
+
+The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings elsewhere on our site.
+
+
+### Create your lesson content
+
+Once you've created the boilerplate files and metadata needed to build your tutorial, you can start customizing your lesson content. The steps you take will depend on your lesson type
+
+#### Write the text of your lesson (all lesson types)
+
+Use your lesson Markdown file (e.g. `01.md`) to type the text of your lesson in Markdown format.
+
+Not familiar with Markdown? It's a fairly simple way to style text on the web. [Learn more about Markdown formatting here.](https://guides.github.com/features/mastering-markdown/) There are some formatting hints provided for you in the boilerplate, including how to create section headers or links if needed.
+
+Note that your lesson title will appear on its own. You should not repeat it at the top of this file.
+
+##### Add images to your lesson (optional)
+
+If you want to add images to your Markdown file, place them in the `public/tutorial-assets` directory, with the following naming convention:
+
+`T<4-digit-tutorial-id>L<2-digit-lesson-number>-<imageName>`, such as `T0001L05-diagram.svg`.
+
+Then in your lesson Markdown file, you can either add the image with regular Markdown:
+
+```
+![Description of the image](tutorial-assets/T0001L01-diagram.svg)
+```
+
+...or with regular HTML, if you need to set the image size:
+
+```html
+<img src="tutorial-assets/T0001L01-diagram.svg" width="300px" height="150px" />
+```
+
+
+#### Create multiple-choice quizzes (skip for coding challenges and text-only lessons)
+
+When creating a multiple-choice lesson, you'll use your JavaScript (eg `01.js`) file to define the question and its answer choices.
 
 The `question` value must be a string:
 
@@ -258,11 +443,29 @@ The answer choices will be presented in the order in which you list them. Be sur
 
 The `feedback` provided for each choice will be shown highlighted in red if incorrect or in green if correct, and the user will be able to advance to next lesson once they've made the right selection.
 
-#### Build code challenges and validation in your JavaScript file (skip for text-only and multiple-choice lessons)
+#### Build code challenges and validation (skip for text-only and multiple-choice lessons)
 
-If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's JavaScript file. The basic template you need to accomplish this is provided in the boilerplate file you selected earlier.
+If you are creating a lesson with a code challenge (whether or not it requires file upload), you'll need to provide default code and set up validation in the lesson's JavaScript file (eg `01.js`). The basic template you need to accomplish this is provided in the boilerplate file you created earlier. You'll also need to provide instructions for the challenge in your challenge Markdown file (eg `01-challenge.md`).
+
+##### Describe the challenge
+
+In your challenge Markdown file (eg `01-challenge.md`) add the markdown-formatted text that provides the assignment text for the challenge box. ([Learn more about Markdown formatting here.](https://guides.github.com/features/mastering-markdown/))
+
+Be sure to describe the challenge clearly and concisely. For example:
+
+```md
+Use `ipfs.dag.put` to create a node for the data `{ test: 1 }`. Return the CID of your new node.
+```
+
+Be sure that the challenge tests the learner's understanding of the concept you're teaching, not of JavaScript itself. If they'll need to use a specific JavaScript method that might be unfamiliar to newer coders, consider adding a hint with links to learn more about the method. For example:
+
+```md
+**Hint**: Try the [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) or [`forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) array methods to loop through each file in the `files` array and access its name as `file.name`.
+```
 
 ##### Provide the starting code for your challenge
+
+You'll use your JavaScript file (eg `01.js`) to build the code challenge and validation using JavaScript.
 
 `code` is a string property. The value you set for `code` in your JavaScript file will
 be used to populate the code editor when the user first visits the page. (If you forget to set this, a default will be used, but your challenge won't be very useful!)
@@ -328,7 +531,7 @@ That instance is passed as the second argument, `ipfs`.
 
 You may want to use both the `result` and `ipfs` values when building conditional statements to evaluate the success or failure of the user's code submission. If needed, check out this primer on [using conditionals in JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals).
 
-###### Work with uploaded files (for file upload lessons only)
+###### Work with uploaded files (for code challenges with file upload only)
 
 By using the lesson type `file-upload`, which comes included in the `boilerplate-file-upload.js` template, you can create a lesson which requires the user to upload files before completing a code challenge.
 
@@ -393,7 +596,7 @@ There are some pre-built messages that you can use if you'd like by using the [`
 
 ###### Utils module
 
-There are some utils that you can use accross lesson code validations. For that you can use the `utils` module:
+There are some utils that you can use across lesson code validations. For that you can use the `utils` module:
 
 - `utils.format`: format specific objects, such as `ipfs` objects
 - `utils.ipfs`: IPFS-specific helpers. Includes the error codes that `js-ipfs` might return.
@@ -480,99 +683,6 @@ return {
 ![screenshot](public/markdown_error_logdesc_log.png)
 
 
-### Manage your tutorial's metadata
-
-There are a few administrative steps you need to take to ensure that all of your lessons appear on our site, along with a landing page and resources page.
-
-#### Add your tutorial to `static/tutorials.json`
-
-In `static/tutorials.json`, add a new key for your tutorial and fill in the appropriate values, as in the example below.
-
-```json
-"0005": {
-  "url": "tutorial-short-title",
-  "redirectUrls": [],
-  "project": "ipfs",
-  "title": "Your short tutorial title",
-  "description": "Your tutorial description",
-  "resources": [
-    {
-      "title": "Video title",
-      "link": "https://youtu.be/videoid",
-      "type": "video",
-      "description": "Description of video"
-    },
-    {
-      "title": "Documentation 1",
-      "link": "https://docs.domain.io",
-      "type": "docs"
-    }
-  ],
-  "updateMessage": "",
-  "newMessage": "",
-  "createdAt": "2020-01-01T00:00:00.000Z",
-  "updatedAt": "2020-01-01T00:00:00.000Z"
-},
-```
-
-The _key_ must match your tutorial's ID and the name of the directory where you've been creating your files.
-
-The `title` of your tutorial will be seen in course listings on our tutorials page, your tutorial's table of contents, and anywhere else your tutorial is featured.
-
-![screenshot](public/title-in-toc.png)
-
-![screenshot](public/title-in-featured-tutorials.png)
-
-The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
-
-![screenshot](public/url-breadcrumb-header.png)
-
-Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
-
-![screenshot](public/resources.png)
-
-Examples of meaningful resource `type`s include: `docs`, `demo`, `tutorial`, `article`, `video`, and `website`.
-
-Be sure to include any ProtoSchool tutorials that would provide a nice follow-on to your own content. Be sure to use the type `tutorial` for these, and they will automagically receive an extra callout as ProtoSchool tutorials when the page renders, like so:
-
-![screenshot](public/protoschool_resource.png)
-
-The properties `updateMessage`, `newMessage`, `createdAt` and `updatedAt` are used to alert users to new tutorials or tutorials that have been updated since they last visited them. When creating a new tutorial, both the `createdAt` and `updatedAt` fields should be set to the date you're submitting your pull request. Learn more about new and updated tutorial alerts below
-
-##### Add alert messages for new and updated tutorials (optional)
-
-**When a new tutorial is published**, a new tutorial alert will be displayed for one month. This message disappears when a user has completed the tutorial (or some of it) or when a month has passed since the `createdAt` date, whichever comes sooner. You can _optionally_ display a custom message within the new tutorial alert by updating the `newMessage` field in `tutorials.json`, using markdown formatting within the message as needed.
-
-![New Tutorial Message](public/tutorial_message_new.jpg)
-
-**When major updates are made to an existing tutorial**, an update alert will be displayed to users who have previously completed at least one lesson within the tutorial. Major changes include those that change solution code or fundamentally alter the concepts being taught. If a user were to return to a lesson in your tutorial and find that their old solution no longer passed the lesson, that would be an indicator that you've made a major change that requires an alert. Simple typo fixes, addition of graphics, etc., do not count as major updates.
-
-When submitting a PR that includes major tutorial updates, you should provide an `updateMessage` in `tutorials.json` that calls out what's changed, using markdown formatting as needed, and adjust the `updatedAt` field accordingly. This date will be compared to the date at which a user last completed a lesson to determine whether the message should be displayed. If displayed, the update message will disappear once a user has completed the updated version of the tutorial. Users who haven't visited a tutorial before its `updatedAt` date will never see the message.
-
-![Updated Tutorial Message](public/tutorial_message_update.jpg)
-
-
-#### Add your tutorial to `static/courses.json`
-
-In `static/courses.json`, add the tutorial key that you used in `static/tutorials.json` to the `all` array so it will appear in the Tutorials page. For example, to continue with the same example shown above, you would change this:
-
-```json
-{
-  "all": ["0001", "0002", "0003"],
-  "featured": ["0001", "0002", "0003"]
-}
-```
-
-...to this:
-
-```json
-{
-  "all": ["0001", "0002", "0003", "0005"],
-  "featured": ["0001", "0002", "0003"]
-}
-```
-
-The project maintainers will take care of making any updates needed to ensure your project is featured in any relevant course listings elsewhere on our site.
 
 ### Submit a pull request
 
