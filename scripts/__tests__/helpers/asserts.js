@@ -6,14 +6,17 @@ function assertNewTutorial ({ context, result, expected }) {
   expect(result.project.id).toBe(expected.project)
   expect(result.description).toBe(expected.description)
 
-  if (result.lessons) {
-    for (let i in result.lessons) {
-      expect(result.lessons[i]).toMatchObject({
-        id: parseInt(i, 10) + 1,
-        formattedId: (parseInt(i, 10) + 1).toString().padStart(2, 0),
+  if (result.lessons.length) {
+    result.lessons.forEach((lesson, i) => {
+      const id = i + 1
+
+      expect(lesson).toMatchObject({
+        id,
+        formattedId: (id).toString().padStart(2, 0),
+        title: `Lesson ${id}`,
         ...expected.lessons[i]
       })
-    }
+    })
   } else {
     expect(result.lessons).toHaveLength(0)
   }

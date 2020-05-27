@@ -1,7 +1,7 @@
 const api = require('../../../src/api')
 const setup = require('../../../jest/helpers/setup')
+const fixtures = require('../../../jest/helpers/fixtures')
 const asserts = require('../helpers/asserts')
-const fixtures = require('../helpers/fixtures')
 const runners = require('../helpers/runners')
 
 describe('protowizard', () => {
@@ -11,11 +11,11 @@ describe('protowizard', () => {
     lastTutorialId = (await api.tutorials.list.getLatest()).id
   })
 
-  describe('1. create tutorial', () => {
-    afterEach(async () => {
-      await setup.restoreData(lastTutorialId)
-    })
+  afterEach(async () => {
+    await setup.restoreData(lastTutorialId)
+  })
 
+  describe('1. create tutorial', () => {
     test('1.1. should create tutorial (skips lesson creation)', async () => {
       const { tutorial, expected } = await fixtures.generateTutorial()
 
@@ -124,6 +124,24 @@ describe('protowizard', () => {
         expected,
         result: await api.tutorials.getByUrl(tutorial.url)
       })
+    })
+
+    test('1.6. should not allow to create two tutorials with the same title or url', async () => {
+      const { tutorial } = await fixtures.generateTutorial()
+
+      await runners.protowizard([
+        { type: 'tutorial' },
+        tutorial,
+        { confirm: false } // no to create first lesson
+      ])
+
+      await expect(
+        runners.protowizard([
+          { type: 'tutorial' },
+          tutorial,
+          { confirm: false } // no to create first lesson
+        ])
+      ).rejects.toThrow('INQUIRER VALIDATION FAILED')
     })
   })
 })

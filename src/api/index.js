@@ -5,11 +5,13 @@
  *  - make all scripts use this API
  *  - change it to be universal so the website can also use it
  *   - ATM we have deps on fs.readFile etc
+ *
+ * @module api
  */
-
 module.exports = {
-  tutorials: require('./modules/tutorials'),
-  resources: require('./modules/resources'),
+  projects: require('./modules/projects'),
+  lessons: require('./modules/lessons'),
   courses: require('./modules/courses'),
-  projects: require('./modules/projects')
+  resources: require('./modules/resources'),
+  tutorials: require('./modules/tutorials')
 }

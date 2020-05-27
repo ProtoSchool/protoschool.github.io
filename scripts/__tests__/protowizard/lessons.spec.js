@@ -1,7 +1,7 @@
 const api = require('../../../src/api')
 const setup = require('../../../jest/helpers/setup')
+const fixtures = require('../../../jest/helpers/fixtures')
 const asserts = require('../helpers/asserts')
-const fixtures = require('../helpers/fixtures')
 const runners = require('../helpers/runners')
 
 describe('protowizard', () => {
@@ -11,11 +11,11 @@ describe('protowizard', () => {
     lastTutorialId = (await api.tutorials.list.getLatest()).id
   })
 
-  describe('2. create lesson', () => {
-    afterEach(async () => {
-      await setup.restoreData(lastTutorialId)
-    })
+  afterEach(async () => {
+    await setup.restoreData(lastTutorialId)
+  })
 
+  describe('2. create lesson', () => {
     test('2.1. should create lesson after creating a new tutorial (skips resource creation)', async () => {
       const { tutorial, lessons, expected } = await fixtures.generateTutorial({
         lessons: 1

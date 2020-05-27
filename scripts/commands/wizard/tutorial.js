@@ -12,7 +12,7 @@ const {
 
 // *** INPUT VALIDATION ***
 
-async function validateUniqueTitle (title, tutorials) {
+function validateUniqueTitle (title, tutorials) {
   if (Object.values(tutorials).some(tutorial => tutorial.title.toLowerCase() === title.toLowerCase())) {
     return `That tutorial already exists. Please pick another title.`
   } else {
@@ -33,7 +33,7 @@ function validateUniqueUrl (url, tutorials) {
 async function createTutorial ({ createLesson, createResource }, { skipPromptLesson } = {}) {
   log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
 
-  const tutorials = api.tutorials.list.get()
+  const tutorials = await api.tutorials.list.get()
 
   const responses = await inquirer.prompt([
     {

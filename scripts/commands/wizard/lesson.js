@@ -16,18 +16,6 @@ const {
   logCreateLater
 } = require('./utils.js')
 
-// *** DATA FETCHING ***
-
-function nextLessonNumber (lessons) {
-  let lessonNumber = '01'
-
-  if (lessons.length > 0) {
-    lessonNumber = (parseInt(lessons.map(lesson => lesson.formattedId).sort().reverse()[0]) + 1).toString().padStart(2, 0)
-  }
-
-  return lessonNumber
-}
-
 // *** LOGGING ***
 
 function logLessons (message, lessons) {
@@ -110,33 +98,20 @@ async function createLesson (tutorialId, { createResource }) {
   ])
 
   // create lesson
-  let lessonNumber = nextLessonNumber(tutorial.lessons)
-  let newFileDetails = [`${lessonNumber}.md (for writing the text of your lesson)`]
+  const lesson = await api.lessons.create(tutorial, lessonResponses)
 
-  await promisify(fs.copyFile)('src/tutorials/boilerplates/boilerplate.md', `src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lessonNumber}.md`)
+  let newFileDetails = [`${lesson.formattedId}.md (for writing the text of your lesson)`]
 
-  let markdown = await promisify(fs.readFile)(`src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lessonNumber}.md`, 'utf8')
-  let newMarkdown = markdown.replace(`title: "Lesson title"`, `title: "${lessonResponses.title}"`)
-
-  if (lessonResponses.type !== 'text') {
-    newMarkdown = newMarkdown.replace(`type: "text"`, `type: "${lessonResponses.type}"`)
-    await promisify(fs.copyFile)(`src/tutorials/boilerplates/boilerplate-${lessonResponses.type}.js`, `src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lessonNumber}.js`)
-
-    if (lessonResponses.type !== 'multiple-choice') {
-      await promisify(fs.copyFile)(`src/tutorials/boilerplates/boilerplate-challenge.md`, `src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lessonNumber}-challenge.md`)
-
-      newFileDetails.push(`${lessonNumber}-challenge.md (for describing your code challenge)`)
-      newFileDetails.push(`${lessonNumber}.js (for building your code challenge)`)
-    } else {
-      newFileDetails.push(`${lessonNumber}.js (for building your multiple-choice quiz)`)
-    }
+  if (lessonResponses.type === 'code' || lessonResponses.type === 'file-upload') {
+    newFileDetails.push(`${lesson.formattedId}-challenge.md (for describing your code challenge)`)
+    newFileDetails.push(`${lesson.formattedId}.js (for building your code challenge)`)
+  } else {
+    newFileDetails.push(`${lesson.formattedId}.js (for building your multiple-choice quiz)`)
   }
-
-  await promisify(fs.writeFile)(`src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lessonNumber}.md`, newMarkdown)
 
   // log success
   logList(`Tada! We've created the following files that you'll need for this lesson`, newFileDetails)
-  logPreview('this lesson', tutorial.url, lessonNumber)
+  logPreview('this lesson', tutorial.url, lesson.formattedId)
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat('lesson')) {
@@ -144,7 +119,7 @@ async function createLesson (tutorialId, { createResource }) {
   } else {
     logLessons(
       `Okay, sounds like we're done. Here are all the lessons now included in "${tutorial.title}"`,
-      tutorial.lessons
+      await api.tutorials.getLessons(tutorial)
     )
     await afterLessonCreate(tutorial.id, { createResource })
   }

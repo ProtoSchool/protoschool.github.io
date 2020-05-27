@@ -58,9 +58,13 @@
       "pre-commit": "npm run build:docs && git add DEVELOPING_TUTORIALS.md DESIGNING_TUTORIALS.md"
     }
   },
+  "engines": {
+    "node": ">=10"
+  },
   "dependencies": {
     "async": "^2.6.1",
     "cids": "^0.7.1",
+    "err-code": "^2.0.0",
     "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
     "inquirer": "^7.1.0",

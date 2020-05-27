@@ -1,14 +1,22 @@
+/**
+ * Tutorials module which includes all CRUD operations for tutorials.
+ *
+ * @module api/tutorials
+ */
+
 const fs = require('fs').promises
 const path = require('path')
 
-const marked = require('meta-marked')
+const errorCode = require('err-code')
+const _ = require('lodash')
 const del = require('del')
 
 const log = require('../logger')
 const debug = require('../../utils/debug')
 const config = require('../config')
 const utils = require('../utils')
-const projects = require('./projects')
+const lessonsApi = require('./lessons')
+const projectsApi = require('./projects')
 
 const STATIC_FILE = 'tutorials.json'
 
@@ -26,61 +34,72 @@ function getId (formattedId) {
   return parseInt(formattedId, 10)
 }
 
+/**
+ * Fetches Tutorial data
+ *
+ * @param {String|Object} id Tutorial id or simple tutorial object from static JSON file with at least a `url` property
+ *
+ * @returns Final tutorial data
+ */
 async function get (id) {
-  const tutorial = (await list.get())[getFormattedId(id)]
-  debug && log.debug(logGroup('get'), id, tutorial)
+  const tutorialsJson = await list.getJson()
+  let tutorialId = id
 
-  if (!tutorial) {
-    throw new Error(`ERROR NOT FOUND: Tutorial with id ${id} not found.`)
+  if (typeof id === 'object') {
+    tutorialId = _.findKey(tutorialsJson, tutorial => tutorial.url === id.url)
   }
+
+  if (!tutorialId) {
+    throw errorCode(new Error(`NOT FOUND: Tutorial with id ${id} not found.`), 'NOT_FOUND')
+  }
+
+  const formattedId = getFormattedId(tutorialId)
+  const tutorial = { ...tutorialsJson[formattedId] }
+
+  // populate object with more data
+  tutorial.id = getId(tutorialId)
+  tutorial.formattedId = formattedId
+  tutorial.shortTitle = utils.deriveShortname(tutorial.url)
+  tutorial.folderName = `${tutorial.formattedId}-${tutorial.url}`
+  tutorial.fullPath = path.resolve(`${config.tutorialsPath}/${tutorial.folderName}`)
+  tutorial.lessons = await getLessons(tutorial)
+  tutorial.project = await projectsApi.get(tutorial.project)
+
+  debug && log.debug(logGroup('get'), tutorial)
 
   return tutorial
 }
 
 async function getByUrl (url) {
-  const tutorialsList = await list.get()
+  const tutorialsList = await list.getJson()
 
-  const tutorial = Object.values(tutorialsList).find(tutorial => tutorial.url === url)
+  const tutorial = await get(Object.values(tutorialsList).find(tutorial => tutorial.url === url))
   debug && log.debug(logGroup('getByUrl'), url, tutorial)
 
   if (!tutorial) {
-    throw new Error(`ERROR NOT FOUND: Tutorial with url ${url} not found.`)
+    throw new Error(`NOT FOUND: Tutorial with url ${url} not found.`)
   }
 
   return tutorial
 }
 
-async function getLessons (id, lessons = [], lessonNumber = 1) {
-  const lessonFilePrefix = `${(await getFolderName(id))}/${lessonNumber.toString().padStart(2, 0)}`
-
-  let lessonMd
+async function getLessons (tutorial, lessons = [], lessonId = 1) {
   let lesson
 
   try {
-    lessonMd = await fs.readFile(path.resolve(config.tutorialsPath, `${lessonFilePrefix}.md`), 'utf8')
-    lesson = {
-      id: lessonNumber,
-      formattedId: lessonNumber.toString().padStart(2, 0),
-      ...marked(lessonMd).meta
-    }
+    lesson = await lessonsApi.get(tutorial, lessonId)
   } catch (error) {
     // lesson not found, we reached the end
-    if (error.code === 'ENOENT') {
+    if (error.code === 'NOT_FOUND') {
       return lessons
     }
 
-    // data not well formatted
-    if (error.name === 'YAMLException') {
-      console.error(
-        new Error(`Data improperly formatted in the lesson markdown file "${lessonFilePrefix}.md". Check that the YAML syntax is correct.`)
-      )
-    }
     throw error
   }
 
   lessons.push(lesson)
 
-  return getLessons(id, lessons, lessonNumber + 1)
+  return getLessons(tutorial, lessons, lessonId + 1)
 }
 
 async function getFolderName (id, url) {
@@ -93,6 +112,23 @@ async function getFullPath (id, url) {
   return path.resolve(`${config.tutorialsPath}/${(await getFolderName(id, url))}`)
 }
 
+/**
+ * Creates a new tutorial.
+ *
+ * 1. Creates tutorial folder in tutorials directory
+ * 2. Adds a new entry to the tutorials static file
+ *
+ * @param {Object} data Tutorial data (mandatory: `title`, `url`, `project`  and `description`)
+ * @returns New Tutorial object
+ *
+ * @example
+ * await api.tutorials.create({
+ *    title: 'libp2p Peers',
+ *    url: 'libp2p-peers',
+ *    project: 'libp2p',
+ *    description: 'Learn how peers interact with each other in libp2p.'
+ * })
+ */
 async function create (data) {
   const newTutorialId = await getNextTutorialId()
 
@@ -117,7 +153,7 @@ async function create (data) {
 
   await list.add(tutorial)
 
-  return getByUrl(data.url)
+  return get(newTutorialId)
 }
 
 async function remove (id) {
@@ -149,13 +185,8 @@ list.get = async function listGet () {
   const tutorialsJson = await list.getJson()
   const tutorials = {}
 
-  for (const formattedId in tutorialsJson) {
-    tutorials[formattedId] = { ...tutorialsJson[formattedId] }
-    tutorials[formattedId].formattedId = formattedId
-    tutorials[formattedId].id = parseInt(formattedId, 10)
-    tutorials[formattedId].shortTitle = utils.deriveShortname(tutorials[formattedId].url)
-    tutorials[formattedId].lessons = await getLessons(tutorials[formattedId].id)
-    tutorials[formattedId].project = await projects.get(tutorials[formattedId].project)
+  for (let id in tutorialsJson) {
+    tutorials[id] = await get(tutorialsJson[id])
   }
 
   return tutorials
@@ -176,20 +207,6 @@ list.add = async function listAdd (data) {
   await utils.writeStaticFile(STATIC_FILE, tutorials)
 }
 
-const json = {}
-
-json.get = async function getJson () {
-  const tutorialsJson = await fs.readFile(list.getStaticPath(), 'utf8')
-
-  return JSON.parse(tutorialsJson)
-}
-
-json.update = async function updateJson (update) {
-  const tutorials = await list.getJson()
-
-  await utils.writeStaticFile(STATIC_FILE, update(tutorials))
-}
-
 module.exports = {
   STATIC_FILE,
 
@@ -204,6 +221,5 @@ module.exports = {
   getNextTutorialId,
   create,
   remove,
-  list,
-  json
+  list
 }
