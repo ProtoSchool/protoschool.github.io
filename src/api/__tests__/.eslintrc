@@ -1,0 +1,14 @@
+{
+    "env": {
+        "jest": true
+    },
+    "globals": {
+        "expect": true,
+        "assert": true,
+        "beforeEach": true,
+        "afterEach": true,
+        "beforeAll": true,
+        "afterAll": true,
+        "jest": true
+    }
+}

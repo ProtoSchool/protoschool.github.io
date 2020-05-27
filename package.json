@@ -12,7 +12,7 @@
     "cy:run": "cypress run --browser chrome",
     "cy:serve": "serve -l 3000 dist",
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
-    "test:scripts": "jest scripts --maxWorkers=1 --verbose",
+    "test:jest": "jest --maxWorkers=1 --verbose",
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
     "scripts:build:data": "node scripts/commands/build-data",
     "scripts:wizard": "node scripts/commands/wizard/index.js",

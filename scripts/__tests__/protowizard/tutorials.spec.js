@@ -1,7 +1,7 @@
 const api = require('../../../src/api')
+const setup = require('../../../jest/helpers/setup')
 const asserts = require('../helpers/asserts')
 const fixtures = require('../helpers/fixtures')
-const setup = require('../helpers/setup')
 const runners = require('../helpers/runners')
 
 describe('protowizard', () => {
@@ -16,7 +16,7 @@ describe('protowizard', () => {
       await setup.restoreData(lastTutorialId)
     })
 
-    it('1.1. should create tutorial (skips lesson creation)', async () => {
+    test('1.1. should create tutorial (skips lesson creation)', async () => {
       const { tutorial, expected } = await fixtures.generateTutorial()
 
       await runners.protowizard([
@@ -32,7 +32,7 @@ describe('protowizard', () => {
       })
     })
 
-    it('1.2. should create tutorial with one text lesson', async () => {
+    test('1.2. should create tutorial with one text lesson', async () => {
       const { tutorial, lessons, expected } = await fixtures.generateTutorial({
         lessons: 1
       })
@@ -53,7 +53,7 @@ describe('protowizard', () => {
       })
     })
 
-    it('1.3. should create tutorial with two text lessons', async () => {
+    test('1.3. should create tutorial with two text lessons', async () => {
       const { tutorial, lessons, expected } = await fixtures.generateTutorial({
         lessons: 2
       })
@@ -76,7 +76,7 @@ describe('protowizard', () => {
       })
     })
 
-    it('1.4. should create tutorial with one lesson and one resource', async () => {
+    test('1.4. should create tutorial with one lesson and one resource', async () => {
       const { tutorial, lessons, resources, expected } = await fixtures.generateTutorial({
         lessons: 1,
         resources: 1
@@ -100,7 +100,7 @@ describe('protowizard', () => {
       })
     })
 
-    it('1.5. should create tutorial with one lesson and two resources', async () => {
+    test('1.5. should create tutorial with one lesson and two resources', async () => {
       const { tutorial, lessons, resources, expected } = await fixtures.generateTutorial({
         lessons: 1,
         resources: 2

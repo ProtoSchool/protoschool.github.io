@@ -1,4 +1,4 @@
-const api = require('../../../src/api')
+const api = require('../../src/api')
 
 async function restoreData (lastTutorialId) {
   const newLastTutorialId = (await api.tutorials.list.getLatest()).id
