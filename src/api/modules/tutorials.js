@@ -111,7 +111,7 @@ async function create (data) {
     newMessage: '',
     updateMessage: '',
     createdAt: new Date(),
-    updatedAt: '',
+    updatedAt: new Date(),
     resources: []
   }
 
