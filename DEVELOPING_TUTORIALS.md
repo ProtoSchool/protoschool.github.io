@@ -22,6 +22,7 @@ Ready to get started? Read on!
   * [Create files and metadata](#create-files-and-metadata)
     + [Using the ProtoWizard CLI (recommended)](#using-the-protowizard-cli-recommended)
       - [Install and launch the ProtoWizard](#install-and-launch-the-protowizard)
+      - [Use the ProtoWizard to create starter files and metadata](#use-the-protowizard-to-create-starter-files-and-metadata)
     + [Manually](#manually)
       - [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
       - [Create lesson files](#create-lesson-files)
@@ -31,6 +32,7 @@ Ready to get started? Read on!
         * [Useful concepts text file (optional)](#useful-concepts-text-file-optional)
       - [Manage your tutorial's metadata](#manage-your-tutorials-metadata)
         * [Add your tutorial to `static/tutorials.json`](#add-your-tutorial-to-statictutorialsjson)
+        * [Add resources](#add-resources)
         * [Add alert messages for new and updated tutorials (optional)](#add-alert-messages-for-new-and-updated-tutorials-optional)
         * [Add your tutorial to `static/courses.json`](#add-your-tutorial-to-staticcoursesjson)
   * [Create your lesson content](#create-your-lesson-content)
@@ -142,6 +144,8 @@ The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create t
 
 It's easy to use the ProtoWizard even if you're not familiar with the command line. It will ask you a few questions and let you type your answers or select options using arrow keys. Based on your answers, the ProtoWizard will build the directory, files, and metadata you'll need to create your tutorial.
 
+_Note: ProtoWizard requires Node.js version 10 or higher. You can acquire the latest LTS (long-term support) version on the [Node download page](https://nodejs.org/en/download/)._
+
 ##### Install and launch the ProtoWizard
 
 After following the steps above to create a new branch and run the server locally, open a new terminal window or tab displaying the same directory. You'll use the ProtoWizard in this tab while the other keeps your server running.
@@ -163,15 +167,40 @@ If you choose not to install it, you'll need to use this longer command to run t
 npm run scripts:wizard
 ```
 
-When you run either of these commands to start the CLI, our friendly little ProtoWizard will appear to help you:
+_Note: The ProtoWizard terminates automatically when you're done responding to its questions. You can exit the ProtoWizard prematurely using `Ctrl-C`._
+
+
+##### Use the ProtoWizard to create starter files and metadata
+
+When you run either of the commands above to start the CLI, our friendly little ProtoWizard will appear to help you:
 
 ![screenshot](public/protowizard.png)
 
-TODO: Add more when keyboard is working.
+If you're creating a new tutorial from scratch, you'll need to create a tutorial before adding lessons or resources to it. You can either add your lessons and resources immediately after creating the tutorial or exit the ProtoWizard and run it again later to create those items.
+
+**Tutorial**
+
+The ProtoWizard can ask you a few quick questions about your tutorial and use your responses to set up both a directory for your tutorial (eg `src/tutorials/0007-my-new-tutorial`) and the necessary metadata (title, description, etc.) to display the tutorial on our website.
+
+While the ProtoWizard only supports the intial creation of this data, you can edit the details later in `src/static/tutorials.json`. If you need to do this, please read [Managing Your Tutorial's Metadata](#managing-your-tutorials-metadata) for more information.
+
+**Lessons**
+
+Tell the ProtoWizard the name of your lesson and its type (text-only, multiple-choice, coding challenge with or without file upload) and it will create all the starter files you need inside your tutorial's directory. ([Learn more about the files required for each lesson type.](#create-lesson-files)) The ProtoWizard will provide you with the names of the files it's created so you'll know where to go to make your edits.
+
+If you have a solid outline, you can create these files all at once before editing them to create your content. Alternatively, you can set up just the files for your first lesson, build out that content to get familiar with the process, and return to the ProtoWizard later to create your next set of files. It's up to you.
+
+This guide includes detailed instructions on how to work within those files to [create your lesson content](#create-your-lesson-content) when you're ready.
+
+**Resources**
+
+Each ProtoSchool tutorial ends with a resources page where you can share suggestions of other learning materials relevant to your learners. The ProtoWizard will ask you a few quick questions about each resource in order to add the necessary details your tutorial's metadata. You can add all of your entries in the ProtoWizard at once or come back to it as you think of more resources.
+
+If you'd like to make edits to the resources you've created through the ProtoWizard, you can edit the details later in `src/static/tutorials.json`. [Learn how to create or edit resources manually.](#managing-your-tutorials-metadata)
 
 #### Manually
 
-This section describes how to build the directory, lesson files, and metadata for your tutorial manually if you've chosen not to use the recommended ProtoWizard. If you've used the [ProtoWizard](#), you can skip to TODO: Section to skip to
+This section describes how to build the directory, lesson files, and metadata for your tutorial manually if you've chosen not to use the recommended ProtoWizard. If you've used the [ProtoWizard](#using-the-protowizard-cli-recommended) to create your tutorial, lesson files, and resources, please skip to [Create Your Lesson Content](#create-your-lesson-content).
 
 ##### Create a directory for your tutorial
 
@@ -320,8 +349,14 @@ The `url` will appear in the URL of your tutorial landing page and lessons. For 
 
 ![screenshot](public/url-breadcrumb-header.png)
 
-TODO: Add header for resrouces section
-Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
+Pay special attention to the `resources` array shown above, which will be used to create a pre-styled `Resources` page at the end of your tutorial. [Learn more about adding these mandatory resources.](#add-resources)
+
+The properties `updateMessage`, `newMessage`, `createdAt` and `updatedAt` are used to alert users to new tutorials or tutorials that have been updated since they last visited them. When creating a new tutorial, both the `createdAt` and `updatedAt` fields should be set to the date you're submitting your pull request. [Learn more about new and updated tutorial alerts and how you can customize them.](#add-alert-messages-for-new-and-updated-tutorials-optional)
+
+
+###### Add resources
+
+The `resources` array in your tutorial's metadata is used to create a pre-styled `Resources` page at the end of your tutorial. Each object in this array represents one recommended resource, and should include a `title`, `link`, `type` (which appears as a tag), and optional `description` of that resource. The details you provide will be automatically populated into your `Resources` lesson, as in the example below:
 
 ![screenshot](public/resources.png)
 
@@ -331,7 +366,6 @@ Be sure to include any ProtoSchool tutorials that would provide a nice follow-on
 
 ![screenshot](public/protoschool_resource.png)
 
-The properties `updateMessage`, `newMessage`, `createdAt` and `updatedAt` are used to alert users to new tutorials or tutorials that have been updated since they last visited them. When creating a new tutorial, both the `createdAt` and `updatedAt` fields should be set to the date you're submitting your pull request. (This step will be taken care of automatically if you create your tutorial using the ProtoWizard.) Learn more about new and updated tutorial alerts below
 
 ###### Add alert messages for new and updated tutorials (optional)
 
@@ -374,7 +408,7 @@ The project maintainers will take care of making any updates needed to ensure yo
 
 ### Create your lesson content
 
-Once you've created the boilerplate files and metadata needed to build your tutorial, you can start customizing your lesson content. The steps you take will depend on your lesson type
+Once you've created the boilerplate files and metadata needed to build your tutorial, you can start customizing your lesson content. The steps you take will depend on your lesson type.
 
 #### Write the text of your lesson (all lesson types)
 

@@ -4,6 +4,8 @@
 
 The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lessons, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready.
 
+ProtoWizard requires Node.js version 10 or higher. You can acquire the latest LTS (long-term support) version on the [Node download page](https://nodejs.org/en/download/).
+
 You can start the wizard with the command:
 `npm run scripts:wizard`
 
