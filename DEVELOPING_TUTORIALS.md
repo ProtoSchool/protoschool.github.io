@@ -20,7 +20,7 @@ Ready to get started? Read on!
   * [Run the server locally to preview your work](#run-the-server-locally-to-preview-your-work)
   * [Create files and metadata](#create-files-and-metadata)
     + [Using the ProtoWizard CLI (recommended)](#using-the-protowizard-cli-recommended)
-      - [Install and run the ProtoWizard](#install-and-run-the-protowizard)
+      - [Install and launch the ProtoWizard](#install-and-launch-the-protowizard)
     + [Manually](#manually)
       - [Create a directory for your tutorial](#create-a-directory-for-your-tutorial)
       - [Create lesson files](#create-lesson-files)
