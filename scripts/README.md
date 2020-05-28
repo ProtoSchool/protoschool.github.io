@@ -14,6 +14,15 @@ Once the wizard is installed, you'll be able to launch it repeatedly with the sh
 
 Learn more in our [Developing Tutorials](../../DEVELOPING_TUTORIALS.md) guide.
 
+## Table of Contents Updates for Docs
+
+The [Developing Tutorials](../../DEVELOPING_TUTORIALS.md) and [Designing Tutorials](../../DESIGNING_TUTORIALS.md) guides use [`markdown-toc`](https://www.npmjs.com/package/markdown-toc) to create their table of contents from Markdown headers of levels 2 - 6, replacing the content between the `<!-- toc -->` and `<!-- tocstop -->` comments. The script to update the ToCs on both files will be run automatically before any commit, so if you've changed one of these files and the ToC is updated by the script, those changes will be saved with your own.
+
+To update one or more ToCs on demand (without automatically saving), you can run one of these commands:
+  - `npm run build:docs:design` - update TOC in DESIGNING_TUTORIALS.md
+  - `npm run build:docs:develop` - update TOC in DEVELOPING_TUTORIALS.md
+  - `npm run build:docs` - update ToC in both files
+
 ## Event and Newsletter Data Import
 
 This project depends on some remote sources for data:

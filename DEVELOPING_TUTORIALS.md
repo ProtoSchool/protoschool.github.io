@@ -12,7 +12,8 @@ Ready to get started? Read on!
 
 **Table of Contents**
 
-<!-- To update table of contents, run `markdown-toc -i DEVELOPING_TUTORIALS.md` -->
+<!-- To update this table of contents to match level 2-6 headings, run `npm run build:docs:develop` -->
+<!-- This command will be run and updates saved automatically before any commit. -->
 
 <!-- toc -->
 

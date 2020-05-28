@@ -8,7 +8,8 @@ Before you build your tutorial, you'll need to have reviewed this guide and open
 
 **Table of Contents**
 
-<!-- To update table of contents, run `markdown-toc -i DESIGNING_TUTORIALS.md` -->
+<!-- To update this table of contents to match level 2-6 headings, run `npm run build:docs:design` -->
+<!-- This command will be run and updates saved automatically before any commit. -->
 
 <!-- toc -->
 
