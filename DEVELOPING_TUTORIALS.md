@@ -262,7 +262,7 @@ For example (for Lesson 01 of Tutorial 0005):
 $ cp boilerplates/boilerplate.md 0005-tutorial-short-title/01.md
 ```
 
-Use this file to draft the text of your lesson (the educational content), as described later in these instructions. TODO: LINK
+Use this file to draft the text of your lesson (the educational content), as described later in [these instructions](#write-the-text-of-your-lesson-all-lesson-types).
 
 ###### JavaScript file (skip for text-only lessons)
 
@@ -280,7 +280,7 @@ For example, to create a JavaScript file for a standard coding challenge as Less
 $ cp boilerplates/boilerplate-code.js 0005-tutorial-short-title/01.js
 ```
 
-Use this file to set up your default code and validation or your multiple-choice quiz, as described later in these instructions. TODO: LINK
+Use this file to set up your default code and validation or your multiple-choice quiz, as described later in [these instructions](#create-multiple-choice-quizzes-skip-for-coding-challenges-and-text-only-lessons).
 
 ###### Challenge text file (skip for text-only and multiple-choice lessons)
 
