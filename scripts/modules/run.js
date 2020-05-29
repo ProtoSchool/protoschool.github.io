@@ -18,6 +18,11 @@ if (options.debug) {
 
 log.verbose('run', options)
 
+if (parseInt(process.version.replace('v', ''), 10) < 10) {
+  log.error('error', 'at least nodejs version 10 is required. please update nodejs to the current LTS at https://nodejs.org before running this program.')
+  process.exit(1)
+}
+
 module.exports = async function run (command) {
   await command(options)
 }
