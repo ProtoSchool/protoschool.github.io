@@ -18,7 +18,7 @@ install:
 script:
   - npm run scripts:build:data -- --dry-run=false
   - npm run build
-  - npm run test:scripts
+  - npm run test:jest
   - npm run cy:serve &
   - npm run cy:run
   - kill $(jobs -p) || true
