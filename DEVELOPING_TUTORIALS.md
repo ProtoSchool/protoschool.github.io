@@ -129,7 +129,7 @@ $ npm run serve
 
 6. Open a web browser to the following address to preview your work: http://localhost:3000/#/
 
-Vue will update your localhost preview automatically as you make changes. However, you won't be able to see any newly added lessons until you've updated the appropriate routes and import statements, as described below.
+Vue will update your localhost preview automatically as you make changes.
 
 
 ### Create files and metadata
@@ -154,17 +154,17 @@ Because you're likely to want to run the ProtoWizard multiple times, we recommen
 
 First, install the wizard:
 ```sh
-npm run install-protowizard
+$ npm run install-protowizard
 ```
 
 Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
 ```sh
-protowizard
+$ protowizard
 ```
 
 If you choose not to install it, you'll need to use this longer command to run the ProtoWizard:
 ```sh
-npm run scripts:wizard
+$ npm run scripts:wizard
 ```
 
 _Note: The ProtoWizard terminates automatically when you're done responding to its questions. You can exit the ProtoWizard prematurely using `Ctrl-C`._
@@ -182,7 +182,7 @@ If you're creating a new tutorial from scratch, you'll need to create a tutorial
 
 The ProtoWizard can ask you a few quick questions about your tutorial and use your responses to set up both a directory for your tutorial (eg `src/tutorials/0007-my-new-tutorial`) and the necessary metadata (title, description, etc.) to display the tutorial on our website.
 
-While the ProtoWizard only supports the intial creation of this data, you can edit the details later in `src/static/tutorials.json`. If you need to do this, please read [Managing Your Tutorial's Metadata](#managing-your-tutorials-metadata) for more information.
+While the ProtoWizard only supports the intial creation of this data, you can edit the details later in `src/static/tutorials.json`. If you need to do this, please read [Manage Your Tutorial's Metadata](#manage-your-tutorials-metadata) for more information.
 
 **Lessons**
 
@@ -196,7 +196,7 @@ This guide includes detailed instructions on how to work within those files to [
 
 Each ProtoSchool tutorial ends with a resources page where you can share suggestions of other learning materials relevant to your learners. The ProtoWizard will ask you a few quick questions about each resource in order to add the necessary details your tutorial's metadata. You can add all of your entries in the ProtoWizard at once or come back to it as you think of more resources.
 
-If you'd like to make edits to the resources you've created through the ProtoWizard, you can edit the details later in `src/static/tutorials.json`. [Learn how to create or edit resources manually.](#managing-your-tutorials-metadata)
+If you'd like to make edits to the resources you've created through the ProtoWizard, you can edit the details later in `src/static/tutorials.json`. [Learn how to create or edit resources manually.](#manage-your-tutorials-metadata)
 
 #### Manually
 
@@ -385,21 +385,21 @@ When submitting a PR that includes major tutorial updates, you should provide an
 
 _This step is completed automatically if you create your tutorial using the ProtoWizard._
 
-In `static/courses.json`, add the tutorial key that you used in `static/tutorials.json` to the `all` array so it will appear in the Tutorials page. For example, to continue with the same example shown above, you would change this:
+In `static/courses.json`, add the tutorial key that you used in `static/tutorials.json` to the `all` array so it will appear in the Tutorials page. For example, to continue with the same example shown above, you would make this change:
 
-```json
+```diff
 {
-  "all": ["0001", "0002", "0003"],
-  "featured": ["0001", "0002", "0003"]
-}
-```
-
-...to this:
-
-```json
-{
-  "all": ["0001", "0002", "0003", "0005"],
-  "featured": ["0001", "0002", "0003"]
+  "all": [
+    "0001",
+    "0002",
+    "0003",
++   "0005"
+  ],
+  "featured": [
+    "0001",
+    "0002",
+    "0003"
+  ]
 }
 ```
 
