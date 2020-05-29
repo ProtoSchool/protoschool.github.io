@@ -17,7 +17,10 @@
         <form
           class="flex flex-row-ns flex-column justify-center flex-wrap"
           novalidate
-          @submit.prevent="submit"
+          method="POST"
+          target="_blank"
+          @submit="submit"
+          :action="`${config.MAILCHIMP_API_URL}/subscribe/post?${formValuesInQueryString}`"
         >
           <!-- bot spam mitigation -->
           <div style="position: absolute; left: -5000px;" aria-hidden="true">
@@ -54,12 +57,6 @@
             label="Send me additional news and guidance for local event leaders."
             :disabled="state.type === states.PENDING"
           />
-          <div
-            v-if="state.type === states.ERROR && stateViewActive(viewStates.form)"
-            class="error-message f7 mt3 w-100 order-4"
-          >
-            Oops, something went wrong. Please try again later.
-          </div>
         </form>
       </div>
       <div
@@ -70,7 +67,6 @@
         :aria-hidden="!stateViewActive(viewStates.thankYouMessage)"
       >
         <h2 class="tc">Thank you for subscribing!</h2>
-        <p class="tc f7 mt4 mb1">You'll receive a welcome email from us shortly.</p>
         <p class="tc f7 mt0">We promise we'll only send you important updates, no spam! You can opt out at any time using the unsubscribe link at the bottom of each email.</p>
       </div>
     </transition>
@@ -80,15 +76,9 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email } from 'vuelidate/lib/validators'
-import jsonp from 'jsonp'
-import pify from 'pify'
 import qs from 'querystringify'
 
-import {
-  MAILCHIMP_API_URL,
-  MAILCHIMP_USER_ID,
-  MAILCHIMP_LIST_ID
-} from '../../config'
+import config from '../../config'
 import settings from '../../utils/settings'
 import { EVENTS } from '../../static/countly'
 import Button from '../buttons/Button.vue'
@@ -98,7 +88,6 @@ import TextInput from './inputs/TextInput.vue'
 const states = {
   IDLE: 'idle',
   PENDING: 'pending',
-  ERROR: 'error',
   SUCCESS: 'success'
 }
 
@@ -122,33 +111,31 @@ export default {
   },
   data: (self) => {
     return {
-      BOT_INPUT_MITIGATION_NAME: BOT_INPUT_MITIGATION_NAME,
+      config,
+      BOT_INPUT_MITIGATION_NAME,
       data: {
         emailAddress: '',
         leadersUpdates: false,
         [BOT_INPUT_MITIGATION_NAME]: ''
       },
       state: {
-        type: states.IDLE,
-        error: null
+        type: states.IDLE
       }
     }
   },
   computed: {
     states: () => states,
     viewStates: () => ({
-      form: [states.IDLE, states.PENDING, states.ERROR],
+      form: [states.IDLE, states.PENDING],
       thankYouMessage: [states.SUCCESS]
     }),
     hasUserAlreadySubscribed: () => {
       return !!settings.newsletters.get(settings.newsletters.PROTOSCHOOL)
-    }
-  },
-  methods: {
-    getFormValues () {
+    },
+    formValuesInQueryString: function () {
       const params = {
-        u: MAILCHIMP_USER_ID,
-        id: MAILCHIMP_LIST_ID,
+        u: config.MAILCHIMP_USER_ID,
+        id: config.MAILCHIMP_LIST_ID,
         EMAIL: this.data.emailAddress,
         subscribe: 'Subscribe'
       }
@@ -158,38 +145,22 @@ export default {
         params[MAILCHIMP_AUDIENCE_INTEREST_QUERY_KEY] = 1
       }
 
-      return params
-    },
-    async submit () {
+      return qs.stringify(params)
+    }
+  },
+  methods: {
+    async submit (event) {
       this.$v.$touch()
 
       if (this.$v.$error || this.data[BOT_INPUT_MITIGATION_NAME]) {
+        event.preventDefault()
         return
       }
 
       this.setState(states.PENDING)
-
-      let result
-
-      try {
-        result = await pify(jsonp)(
-          `${MAILCHIMP_API_URL}/subscribe/post-json?${qs.stringify(this.getFormValues())}`,
-          { param: 'c' } // callback function name
-        )
-      } catch (error) {
-        this.setState(states.ERROR, { error })
-        return
-      }
-
-      // ignore the error if the user is already subscribed
-      if (result.result === 'error' && !result.msg.includes('already subscribed')) {
-        this.setState(states.ERROR, { error: new Error(result.msg) })
-        return
-      }
-
-      this.setState(states.SUCCESS)
-      settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
+      setTimeout(() => this.setState(states.SUCCESS), 1000)
       this.trackEvent(EVENTS.NEWSLETTER)
+      settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
     },
     trackEvent: function (event, opts = {}) {
       window.Countly.q.push(['add_event', {
@@ -202,15 +173,7 @@ export default {
       }])
     },
     setState (state, data = {}) {
-      switch (state) {
-        case states.ERROR:
-          console.log(data.error)
-          this.state = { type: state, error: data.error }
-          break
-        default:
-          this.state = { type: state, error: null }
-          break
-      }
+      this.state = { type: state }
     },
     stateViewActive (stateViewStates) {
       return stateViewStates.includes(this.state.type)
