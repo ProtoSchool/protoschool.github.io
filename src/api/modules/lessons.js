@@ -1,10 +1,13 @@
 const fs = require('fs').promises
-const path = require('path')
 
 const errorCode = require('err-code')
 const marked = require('meta-marked')
 
+const log = require('../logger')
+const debug = require('../../utils/debug')
 const config = require('../config')
+
+const logGroup = log.createLogGroup('lessons')
 
 function getFormattedId (id) {
   return id.toString().padStart(2, 0)
@@ -16,8 +19,8 @@ function getId (formattedId) {
 
 function getNextLessonId (tutorial) {
   return tutorial.lessons.length > 0
-    ? (parseInt(tutorial.lessons.map(lesson => lesson.formattedId).sort().reverse()[0]) + 1).toString().padStart(2, 0)
-    : '01'
+    ? tutorial.lessons.map(lesson => lesson.id).sort().reverse()[0] + 1
+    : 1
 }
 
 async function get (tutorial, lessonId) {
@@ -26,6 +29,8 @@ async function get (tutorial, lessonId) {
 
   let lessonMd
   let lesson
+
+  debug && log.debug(logGroup('get'), tutorial.id, lessonId, formattedId)
 
   try {
     lessonMd = await fs.readFile(files.getMarkdownPath(tutorial, lessonId), 'utf8')

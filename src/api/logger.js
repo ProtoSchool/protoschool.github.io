@@ -4,4 +4,6 @@ const log = {
   }
 }
 
+log.createLogGroup = module => functionMethod => `[${module}.${functionMethod}()]`
+
 module.exports = log

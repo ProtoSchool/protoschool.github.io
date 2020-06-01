@@ -20,7 +20,7 @@ const projectsApi = require('./projects')
 
 const STATIC_FILE = 'tutorials.json'
 
-const logGroup = functionMethod => `[tutorials.${functionMethod}()]`
+const logGroup = log.createLogGroup('tutorials')
 
 async function getNextTutorialId () {
   return (await list.getLatest()).id + 1
@@ -49,11 +49,12 @@ async function get (id) {
     tutorialId = _.findKey(tutorialsJson, tutorial => tutorial.url === id.url)
   }
 
-  if (!tutorialId) {
+  const formattedId = getFormattedId(tutorialId)
+
+  if (!tutorialsJson[formattedId]) {
     throw errorCode(new Error(`NOT FOUND: Tutorial with id ${id} not found.`), 'NOT_FOUND')
   }
 
-  const formattedId = getFormattedId(tutorialId)
   const tutorial = { ...tutorialsJson[formattedId] }
 
   // populate object with more data
