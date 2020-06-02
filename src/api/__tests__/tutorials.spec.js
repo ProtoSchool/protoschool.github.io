@@ -47,6 +47,14 @@ describe('api', () => {
       expect(result).toEqual(createResult)
 
       await expect(api.tutorials.get(0)).rejects.toThrow('not found')
+
+      try {
+        await api.tutorials.get(0)
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error)
+        expect(error.message).toEqual(expect.stringContaining('not found'))
+        expect(error.code).toEqual('NOT_FOUND')
+      }
     })
 
     test('1.5 api.tutorials.getByUrl(url)', async () => {
@@ -77,27 +85,55 @@ describe('api', () => {
       expect(lessonsResult).toEqual(expectedLessons)
     })
 
-    test.todo('1.7 api.tutorials.getFolderName(id)')
-    test.todo('1.8 api.tutorials.getFolderName(id, url)')
-    test.todo('1.9 api.tutorials.getFullPath(id)')
-    test.todo('1.10 api.tutorials.getFullPath(id, url)')
+    test('1.7 api.tutorials.getFolderName(id, url)', async () => {
+      const { tutorial } = await fixtures.generateTutorial()
+      const result = await api.tutorials.create(tutorial)
 
-    test('1.11 api.tutorials.create(data)', async () => {
-      const tutorialDetails = {
-        title: 'New Tutorial',
-        url: `new-tut-${Math.random()}`,
-        project: 'libp2p',
-        description: 'New tutorial description'
-      }
-
-      const result = await api.tutorials.create(tutorialDetails)
-
-      await assertTutorial(result, tutorialDetails)
+      expect(await api.tutorials.getFolderName(result.id)).toEqual(result.folderName)
+      expect(result.folderName).toEqual(
+        `${api.tutorials.getFormattedId(result.id)}-${tutorial.url}`
+      )
+      expect(await api.tutorials.getFolderName(result.id)).toEqual(
+        `${api.tutorials.getFormattedId(result.id)}-${tutorial.url}`
+      )
+      expect(await api.tutorials.getFolderName(result.id, tutorial.url)).toEqual(
+        `${api.tutorials.getFormattedId(result.id)}-${tutorial.url}`
+      )
     })
 
-    test.todo('1.12 api.tutorials.remove(id)')
+    test('1.8 api.tutorials.getFullPath(id, url)', async () => {
+      const { tutorial } = await fixtures.generateTutorial()
+      const result = await api.tutorials.create(tutorial)
 
-    describe('1.13 api.tutorials.list', () => {
+      expect(result.fullPath).toEqual(
+        expect.stringContaining(`${api._config.tutorialsPath}/${await api.tutorials.getFolderName(result.id)}`)
+      )
+      expect(await api.tutorials.getFullPath(result.id)).toEqual(result.fullPath)
+      expect(await api.tutorials.getFullPath(result.id)).toEqual(
+        expect.stringContaining(`${api._config.tutorialsPath}/${await api.tutorials.getFolderName(result.id)}`)
+      )
+      expect(await api.tutorials.getFullPath(result.id, tutorial.url)).toEqual(
+        expect.stringContaining(`${api._config.tutorialsPath}/${await api.tutorials.getFolderName(result.id)}`)
+      )
+    })
+
+    test('1.9 api.tutorials.create(data)', async () => {
+      const { tutorial } = await fixtures.generateTutorial()
+      const result = await api.tutorials.create(tutorial)
+
+      await assertTutorial(result, tutorial)
+    })
+
+    test('1.10 api.tutorials.remove(id)', async () => {
+      const { tutorial } = await fixtures.generateTutorial()
+      const result = await api.tutorials.create(tutorial)
+
+      await api.tutorials.remove(result.id)
+
+      await expect(api.tutorials.get(result.id)).rejects.toThrow('not found')
+    })
+
+    describe('1.11 api.tutorials.list', () => {
       test.todo('1.13.1 api.tutorials.list.getStaticPath()')
       test.todo('1.13.2 api.tutorials.list.getJson()')
       test.todo('1.13.3 api.tutorials.list.get()')

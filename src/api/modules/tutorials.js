@@ -110,7 +110,7 @@ async function getFolderName (id, url) {
 }
 
 async function getFullPath (id, url) {
-  return path.resolve(`${config.tutorialsPath}/${(await getFolderName(id, url))}`)
+  return path.resolve(config.tutorialsPath, await getFolderName(id, url))
 }
 
 /**

@@ -15,45 +15,47 @@ describe('api', () => {
   })
 
   describe('2 api.lessons', () => {
-    test('2.1 api.lessons.create(tutorial, data) - text', async () => {
-      const { lesson, tutorial } = await fixtures.generateLesson({ createTutorial: true })
-      const result = await api.lessons.create(tutorial, lesson)
+    describe('2.1 api.lessons.create(tutorial, data)', () => {
+      test('2.1.1 create text lesson', async () => {
+        const { lesson, tutorial } = await fixtures.generateLesson({ createTutorial: true })
+        const result = await api.lessons.create(tutorial, lesson)
 
-      expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
-      await asserts.assertLesson(result, lesson)
-    })
-
-    test('2.2 api.lessons.create(tutorial, data) - multiple-choice', async () => {
-      const { lesson, tutorial } = await fixtures.generateLesson({
-        override: { type: 'multiple-choice' },
-        createTutorial: true
+        expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
+        await asserts.assertLesson(result, lesson)
       })
-      const result = await api.lessons.create(tutorial, lesson)
 
-      expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
-      await asserts.assertLesson(result, lesson)
-    })
+      test('2.1.2 create multiple-choice lesson', async () => {
+        const { lesson, tutorial } = await fixtures.generateLesson({
+          override: { type: 'multiple-choice' },
+          createTutorial: true
+        })
+        const result = await api.lessons.create(tutorial, lesson)
 
-    test('2.3 api.lessons.create(tutorial, data) - code', async () => {
-      const { lesson, tutorial } = await fixtures.generateLesson({
-        override: { type: 'code' },
-        createTutorial: true
+        expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
+        await asserts.assertLesson(result, lesson)
       })
-      const result = await api.lessons.create(tutorial, lesson)
 
-      expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
-      await asserts.assertLesson(result, lesson)
-    })
+      test('2.1.3 create code lesson', async () => {
+        const { lesson, tutorial } = await fixtures.generateLesson({
+          override: { type: 'code' },
+          createTutorial: true
+        })
+        const result = await api.lessons.create(tutorial, lesson)
 
-    test('2.4 api.lessons.create(tutorial, data) - file-upload', async () => {
-      const { lesson, tutorial } = await fixtures.generateLesson({
-        override: { type: 'file-upload' },
-        createTutorial: true
+        expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
+        await asserts.assertLesson(result, lesson)
       })
-      const result = await api.lessons.create(tutorial, lesson)
 
-      expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
-      await asserts.assertLesson(result, lesson)
+      test('2.1.4 create file-upload lesson', async () => {
+        const { lesson, tutorial } = await fixtures.generateLesson({
+          override: { type: 'file-upload' },
+          createTutorial: true
+        })
+        const result = await api.lessons.create(tutorial, lesson)
+
+        expect((await api.tutorials.get(tutorial.id)).lessons).toHaveLength(1)
+        await asserts.assertLesson(result, lesson)
+      })
     })
   })
 })

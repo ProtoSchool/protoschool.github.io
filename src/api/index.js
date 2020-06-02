@@ -13,5 +13,6 @@ module.exports = {
   lessons: require('./modules/lessons'),
   courses: require('./modules/courses'),
   resources: require('./modules/resources'),
-  tutorials: require('./modules/tutorials')
+  tutorials: require('./modules/tutorials'),
+  _config: require('./config')
 }
