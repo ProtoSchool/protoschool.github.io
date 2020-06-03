@@ -119,7 +119,7 @@
     "redirectUrls": [],
     "project": "ipfs",
     "title": "Blogging on the Decentralized Web",
-    "description": "Cool content addresses don't change.",
+    "description": "Cool content addresses don't change. Create a chain of links from one CID to another with the IPFS DAG API.",
     "newMessage": "",
     "updateMessage": "",
     "createdAt": "2019-01-01T00:00:00.000Z",
