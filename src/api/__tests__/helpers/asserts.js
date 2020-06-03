@@ -14,6 +14,10 @@ async function assertIsDirectory (directory) {
   expect((await fs.lstat(directory)).isDirectory()).toBeTruthy()
 }
 
+async function assertIsNotAFile (filePath) {
+  await expect(fs.lstat(filePath)).rejects.toThrow('no such file or directory')
+}
+
 /**
  *
  * @param {Object} result Resulting tutorial to be tested
@@ -55,6 +59,10 @@ async function assertLesson (result, expected) {
   expect(lessonMarkdownMetadata).toMatchObject(expected)
 
   switch (expected.type) {
+    case 'text':
+      await assertIsNotAFile(api.lessons.files.getJsPath(await api.tutorials.get(result.tutorialId), result.id))
+      await assertIsNotAFile(api.lessons.files.getChallengeMarkdownPath(await api.tutorials.get(result.tutorialId), result.id))
+      break
     case 'code':
     case 'file-upload':
       await assertIsFile(result.files.js)
@@ -62,6 +70,7 @@ async function assertLesson (result, expected) {
       break
     case 'multiple-choice':
       await assertIsFile(result.files.js)
+      await assertIsNotAFile(api.lessons.files.getChallengeMarkdownPath(await api.tutorials.get(result.tutorialId), result.id))
   }
 }
 
