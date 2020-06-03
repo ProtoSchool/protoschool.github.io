@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 1`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 2`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 3`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 4`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
+
+exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 5`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 5`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 01.md (for writing the text of your lesson)
+ ‣ 01.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 7`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson 1 (text)"
+`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 8`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 9`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 10`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
+
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 11`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 5`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 01.md (for writing the text of your lesson)
+ ‣ 01.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 7`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 02.md (for writing the text of your lesson)
+ ‣ 02.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 8`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/02"`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 9`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson 1 (text)
+ ‣ 2 - Lesson 2 (text)"
+`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 10`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 11`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 12`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
+
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 13`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 5`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 01.md (for writing the text of your lesson)
+ ‣ 01.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 7`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson 1 (text)"
+`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 8`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 9`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 10`] = `"We've added \\"Resource 1\\" to your resources list."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 11`] = `
+"Okay, sounds like we're done. Here are all the resources now included in \\"New Tutorial (7)\\":
+ ‣ Resource 1 (demo)"
+`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 12`] = `"To preview your resources page, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/resources"`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 13`] = `"Need to change something? You can edit your resources in the file \`src/static/tutorials.json\`."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 14`] = `"Awesome work! \\"New Tutorial (7)\\" has both lesson files and resources!"`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 15`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 16`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 17`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file."`;
+
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 18`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 5`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 01.md (for writing the text of your lesson)
+ ‣ 01.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 7`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson 1 (text)"
+`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 8`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 9`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 10`] = `"We've added \\"Resource 1\\" to your resources list."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 11`] = `"We've added \\"Resource 2\\" to your resources list."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 12`] = `
+"Okay, sounds like we're done. Here are all the resources now included in \\"New Tutorial (7)\\":
+ ‣ Resource 1 (demo)
+ ‣ Resource 2 (demo)"
+`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 13`] = `"To preview your resources page, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/resources"`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 14`] = `"Need to change something? You can edit your resources in the file \`src/static/tutorials.json\`."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 15`] = `"Awesome work! \\"New Tutorial (7)\\" has both lesson files and resources!"`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 16`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 17`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 18`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file."`;
+
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 19`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 5`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 6`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 7`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 8`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;

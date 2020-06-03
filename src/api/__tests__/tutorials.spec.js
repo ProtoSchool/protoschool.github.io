@@ -70,19 +70,12 @@ describe('api', () => {
     })
 
     test('1.6 api.tutorials.getLessons(id)', async () => {
-      const { tutorial, lessons } = await fixtures.generateTutorial({ lessons: 4 })
-      const result = await api.tutorials.create(tutorial)
-      const expectedLessons = []
+      const tutorial = await fixtures.createTutorial({ lessons: 4 })
 
-      expectedLessons.push(await api.lessons.create(await api.tutorials.get(result.id), lessons[0]))
-      expectedLessons.push(await api.lessons.create(await api.tutorials.get(result.id), lessons[1]))
-      expectedLessons.push(await api.lessons.create(await api.tutorials.get(result.id), lessons[2]))
-      expectedLessons.push(await api.lessons.create(await api.tutorials.get(result.id), lessons[3]))
-
-      const lessonsResult = await api.tutorials.getLessons(await api.tutorials.get(result.id))
+      const lessonsResult = await api.tutorials.getLessons(await api.tutorials.get(tutorial.id))
 
       expect(lessonsResult).toHaveLength(4)
-      expect(lessonsResult).toEqual(expectedLessons)
+      expect(lessonsResult).toEqual(tutorial.lessons)
     })
 
     test('1.7 api.tutorials.getFolderName(id, url)', async () => {

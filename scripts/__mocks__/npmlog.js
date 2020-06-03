@@ -1,6 +1,8 @@
 const npmlog = jest.genMockFromModule('npmlog')
 
-npmlog.info = () => {}
+npmlog.info = (log) => {
+  npmlog._onLog && npmlog._onLog(log)
+}
 npmlog.debug = () => {}
 npmlog.error = () => {}
 npmlog.warn = () => {}

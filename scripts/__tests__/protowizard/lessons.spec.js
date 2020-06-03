@@ -58,5 +58,19 @@ describe('protowizard', () => {
         result: await api.tutorials.getByUrl(tutorial.url)
       })
     })
+
+    test('2.3. should list the lessons created so far', async () => {
+      const tutorial = await fixtures.createTutorial({ lessons: 4 })
+
+      expect(tutorial.lessons).toHaveLength(4)
+
+      await runners.protowizard([
+        { type: 'lesson' },
+        { latestTutorial: true }, // yes add to latest tutorial
+        (await fixtures.generateLesson()).lesson,
+        { confirm: false }, // no to create another lesson
+        { confirm: false } // no to create first resource
+      ])
+    })
   })
 })

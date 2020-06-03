@@ -1,11 +1,29 @@
 const api = require('../../src/api')
 
+// Creators: create data (tutorials, lessons)
+async function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
+  const { tutorial, lessons, resources } = await generateTutorial(config)
+  const createdTutorial = await api.tutorials.create(tutorial)
+
+  for (let i = 0; i < lessons.length; ++i) {
+    await api.lessons.create(await api.tutorials.get(createdTutorial.id), lessons[i])
+  }
+
+  resources.forEach(async resource => {
+    await api.resources.add(createdTutorial.id, resource)
+  })
+
+  return api.tutorials.get(createdTutorial.id)
+}
+
+// Generators: generate data to be used
+
 async function generateTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
-  const randomSuffix = Math.random()
+  const suffix = await api.tutorials.getNextTutorialId()
 
   const tutorial = {
-    title: `New Tutorial (${randomSuffix})`,
-    url: `new-tut-${randomSuffix}`,
+    title: `New Tutorial (${suffix})`,
+    url: `new-tut-${suffix}`,
     project: 'libp2p',
     description: 'New tutorial description',
     ...config.override
@@ -75,6 +93,7 @@ async function generateResource ({ createTutorial, override = {} } = {}) {
 }
 
 module.exports = {
+  createTutorial,
   generateTutorial,
   generateLesson,
   generateResource

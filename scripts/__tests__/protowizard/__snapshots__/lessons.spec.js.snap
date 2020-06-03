@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 1`] = `"Let's add lessons to your tutorial."`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0007-new-tut-7/\`."`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 5`] = `"Let's create your first lesson!"`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 6`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 01.md (for writing the text of your lesson)
+ ‣ 01.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 7`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 8`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson 1 (text)"
+`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 9`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 10`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 11`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
+
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 12`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 2`] = `"Let's add lessons to your tutorial."`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 3`] = `"Let's create your first lesson!"`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 4`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 01.md (for writing the text of your lesson)
+ ‣ 01.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 5`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 6`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson (text)"
+`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 7`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 8`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 9`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
+
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 10`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 2`] = `"Let's add lessons to your tutorial."`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 3`] = `
+"Here are the lessons you've created so far:
+ ‣ 1 - Lesson 1 (text)
+ ‣ 2 - Lesson 2 (text)
+ ‣ 3 - Lesson 3 (text)
+ ‣ 4 - Lesson 4 (text)"
+`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 4`] = `"Let's create your next lesson!"`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 5`] = `
+"Tada! We've created the following files that you'll need for this lesson:
+ ‣ 05.md (for writing the text of your lesson)
+ ‣ 05.js (for building your multiple-choice quiz)"
+`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/05"`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 7`] = `
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (7)\\":
+ ‣ 1 - Lesson 1 (text)
+ ‣ 2 - Lesson 2 (text)
+ ‣ 3 - Lesson 3 (text)
+ ‣ 4 - Lesson 4 (text)
+ ‣ 5 - Lesson (text)"
+`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 8`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 9`] = `"Awesome work! \\"New Tutorial (7)\\" has both lesson files and resources!"`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 10`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 11`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 12`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file."`;
+
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 13`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
