@@ -28,7 +28,7 @@ exports[`protowizard 2. create lesson 2.1. should create lesson after creating a
 
 exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 11`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
 
-exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 12`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 12`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -54,7 +54,7 @@ exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to 
 
 exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 9`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
 
-exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 10`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 10`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -92,8 +92,8 @@ exports[`protowizard 2. create lesson 2.3. should list the lessons created so fa
 
 exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 10`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 11`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 11`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory. (Learn more at https://bit.ly/protoschool-content.)"`;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 12`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file."`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 12`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)"`;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 13`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 13`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;

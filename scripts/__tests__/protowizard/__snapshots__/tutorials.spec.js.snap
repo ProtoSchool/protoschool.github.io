@@ -8,7 +8,7 @@ exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesso
 
 exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 4`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
 
-exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 5`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 1. create tutorial 1.1. should create tutorial (skips lesson creation) 5`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -36,7 +36,7 @@ exports[`protowizard 1. create tutorial 1.2. should create tutorial with one tex
 
 exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 10`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
 
-exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 11`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 11`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -72,7 +72,7 @@ exports[`protowizard 1. create tutorial 1.3. should create tutorial with two tex
 
 exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 12`] = `"Okay, no problem. You can run the ProtoWizard later to add resources."`;
 
-exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 13`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 13`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -113,11 +113,11 @@ exports[`protowizard 1. create tutorial 1.4. should create tutorial with one les
 
 exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 15`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
 
-exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 16`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 16`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory. (Learn more at https://bit.ly/protoschool-content.)"`;
 
-exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 17`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file."`;
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 17`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)"`;
 
-exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 18`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 18`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -161,11 +161,11 @@ exports[`protowizard 1. create tutorial 1.5. should create tutorial with one les
 
 exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 16`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/"`;
 
-exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 17`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory."`;
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 17`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0007-new-tut-7/\` directory. (Learn more at https://bit.ly/protoschool-content.)"`;
 
-exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 18`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file."`;
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 18`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)"`;
 
-exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 19`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 19`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -177,7 +177,7 @@ exports[`protowizard 1. create tutorial 1.6. should not allow to create two tuto
 
 exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 5`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
 
-exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 6`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 6`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 1. create tutorial 1.6. should not allow to create two tutorials with the same title or url 7`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 

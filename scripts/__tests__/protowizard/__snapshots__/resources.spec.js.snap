@@ -25,7 +25,7 @@ exports[`protowizard 3. create resource 3.1. should create resource after creati
 
 exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 11`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
 
-exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 12`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 12`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
@@ -48,4 +48,4 @@ exports[`protowizard 3. create resource 3.2. should create a resource and add it
 
 exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 9`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
 
-exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 10`] = `"View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md"`;
+exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 10`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
