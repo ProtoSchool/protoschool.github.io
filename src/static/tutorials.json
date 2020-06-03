@@ -295,5 +295,31 @@
         "description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
       }
     ]
+  },
+  "0007": {
+    "id": 7,
+    "formattedId": "0007",
+    "url": "verified-storage-on-filecoin",
+    "project": "filecoin",
+    "title": "Verified Storage on Filecoin",
+    "description": "Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2020-06-03T18:30:18.971Z",
+    "updatedAt": "2020-06-03T18:30:18.971Z",
+    "resources": [
+      {
+        "title": "What Sets Us Apart: Filecoin’s Proof System",
+        "link": "https://filecoin.io/blog/filecoin-proof-system/",
+        "type": "article",
+        "description": "Explore what sets Filecoin apart from other blockchains in this blog post from founder Juan Benet."
+      },
+      {
+        "title": "Filecoin Spec",
+        "link": "https://filecoin-project.github.io/specs/",
+        "type": "docs",
+        "description": "Take a deep-dive into the technical side of Filecoin in the spec for the protocol."
+      }
+    ]
   }
 }
