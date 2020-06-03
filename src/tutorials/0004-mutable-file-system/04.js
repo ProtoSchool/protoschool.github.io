@@ -10,13 +10,13 @@ const validate = async (result, ipfs) => {
   // not possible, the error from IPFS will be the output.
 
   if (result instanceof Error) {
-    if (result.message === 'No child name passed to addLink') {
+    if (result.code === utils.ipfs.errorCodes.EINVALIDCHILDNAME) {
       // Forgot the file name and just used a directory as the path
       return {
         fail: 'Uh oh. It looks like you created a directory instead of a file. Did you forget to include a filename in your path?',
         overrideError: true
       }
-    } else if (result.message === 'file does not exist') {
+    } else if (result.code === utils.ipfs.errorCodes.ERR_NO_EXIST) {
       // Forgot the `{ create: true }` option
       return {
         fail: "The file doesn't exist yet, so you need to create it. Did you forget an option?",

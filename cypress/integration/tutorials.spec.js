@@ -225,7 +225,7 @@ function advanceThroughLessons (tutorialId) {
           cy.contains('h1', 'Resources') // loads resources page
           cy.get('[data-cy=resources-content]') // loads meaningful content
           cy.get('[data-cy=more-tutorials]').click()
-          cy.url().should('include', `#/tutorials/`)
+          cy.url().should('include', `#/tutorials`)
         })
         return
       }

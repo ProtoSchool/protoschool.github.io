@@ -91,8 +91,7 @@
         :expandChallenge="expandChallenge"
         :isSubmitting="isSubmitting"
         :run="run"
-        :next="next"
-        :tutorialMenu="tutorialMenu" />
+        :next="next" />
     </div>
     <footer class="mt4 ph3-ns bg-navy white">
       <div v-if="isResources" class="mw7 center ph3">
@@ -565,15 +564,6 @@ export default {
         : (parseInt(current) + 1).toString().padStart(2, '0')
 
       this.$router.push({ path: next })
-    },
-    tutorialMenu: function () {
-      if (this.challenge) {
-        Vue.set(this.output, 'test', null)
-      } else {
-        setLessonPassed(this.tutorial, this.lesson)
-        this.lessonPassed = !!localStorage[this.lessonKey]
-      }
-      this.$router.push({ path: '/tutorials/' })
     },
     toggleExpandChallenge: function () {
       this.expandChallenge = !this.expandChallenge

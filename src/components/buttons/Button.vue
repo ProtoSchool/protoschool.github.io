@@ -1,18 +1,24 @@
 <template>
   <button
-    class="avenir dib v-mid fw7 nowrap lh-copy bn br1 pv2 ph3 pointer bg-navy white outline-focus"
+    class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus"
     @click="click"
     @blur="blur"
     :data-type="type"
     :data-loading="loading"
     :type="type"
     :disabled="loading || disabled"
+    :tabindex="link ? -1 : 0"
+  >
+    <router-link
+      v-if="link"
+      :to="{ name: link }"
+      class="link text pv2 ph3"
+      :tabindex="link ? 0 : -1"
     >
-    <router-link v-if="link" :to="{ name: link }">
       <slot>{{text}}</slot>
     </router-link>
     <span v-if="!link" class="loader"></span>
-    <span v-if="!link" class="text">{{text}}</span>
+    <span v-if="!link" class="text pv2 ph3">{{text}}</span>
   </button>
 </template>
 
@@ -55,6 +61,7 @@ button {
   min-width: 120px;
   box-shadow: inset 0 0 8px rgb(0 0 0 / 0%);
   outline: none;
+  padding: 0;
 
   transition:
     box-shadow var(--transition-default),
@@ -63,9 +70,16 @@ button {
 }
 
 button .text {
+  user-select: none;
+
   transition:
     opacity var(--transition-default),
     visibility var(--transition-default);
+}
+
+button > a {
+  color: white;
+  text-decoration: none;
 }
 
 /* States */

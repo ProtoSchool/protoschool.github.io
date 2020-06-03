@@ -21,7 +21,7 @@
 
     /* Borders */
     --border-default: 1px solid var(--color-gray-muted);
-    --border-radius-default: 2px;
+    --border-radius-default: .125rem;
 
     /* Shadows */
     --shadow-default: 0px 2px 4px 0 rgba(0, 0, 0, .2);
@@ -33,6 +33,7 @@
     --transition-duration-default: 300ms;
     --transition-duration-fast: 150ms;
     --transition-duration-slow: 450ms;
+    --transition-duration-slower: 1.2s;
 
     /* functions */
     --transition-function-default: ease;

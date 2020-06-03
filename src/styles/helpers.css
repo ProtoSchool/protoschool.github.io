@@ -10,7 +10,7 @@
     outline: none;
 }
 
-.outline-focus::after {
+.outline-focus::before {
   content: "";
   position: absolute;
   top: 0;
@@ -19,12 +19,13 @@
   left: 0;
   opacity: 0;
   border-radius: 2px;
+  z-index: -1;
 
   box-shadow: 0 0 0 .2rem var(--color-teal-muted);
 
   transition: var(--transition-default);
 }
 
-.outline-focus:focus:not(:active):not(:disabled):not([data-disabled])::after {
+.outline-focus:focus:not(:active):not(:disabled):not([data-disabled])::before {
   opacity: 1;
 }

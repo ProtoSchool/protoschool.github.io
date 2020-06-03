@@ -7,6 +7,7 @@
 
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: translateY(var(--translate-transition));
 
   transition:
@@ -21,6 +22,7 @@
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  pointer-events: all;
 }
 
 .state-view.state-view-transition-enter,
@@ -28,4 +30,20 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(var(--translate-transition));
+  pointer-events: none;
+}
+
+.state-view[data-state-view-transition-function="slide"].state-view-transition-leave-to {
+  transform: translateX(calc(var(--translate-transition) * -1));
+}
+
+.state-view[data-state-view-transition-function="slide"].state-view-transition-enter {
+  transform: translateX(var(--translate-transition));
+}
+
+.state-view[data-state-view-transition-delay-leave="default"].state-view-transition-leave-to {
+  transition-delay: var(--transition-duration-default);
+}
+.state-view[data-state-view-transition-delay-leave="slow"].state-view-transition-leave-to {
+  transition-delay: var(--transition-duration-slower);
 }
