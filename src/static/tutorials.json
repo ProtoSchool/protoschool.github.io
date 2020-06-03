@@ -272,7 +272,7 @@
       },
       {
         "title": "Hashes",
-        "link": "https://docs.ipfs.io/guides/concepts/hashes/",
+        "link": "https://docs.ipfs.io/concepts/hashing/",
         "type": "docs",
         "description": "Learn more about cryptographic hashes in the official IPFS docs."
       },
