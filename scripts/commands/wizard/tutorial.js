@@ -66,7 +66,7 @@ async function createTutorial ({ createLesson, createResource }, { skipPromptLes
     {
       type: 'confirm',
       name: 'addNewMessage',
-      message: `When your tutorial is first published, we'll alert users that it's new. Would you like to add a custom message to that alert?`
+      message: `When your tutorial is first published, we'll alert users that it's new. Would you like to add a custom message to that alert? (See an example at https://bit.ly/protoschool-alerts.)`
     },
     {
       type: 'input',

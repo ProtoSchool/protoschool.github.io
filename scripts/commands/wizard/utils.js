@@ -100,8 +100,8 @@ async function promptCreateFirst (itemType, tutorialId) {
 function logEverythingDone (tutorial) {
   log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
   logPreview('your tutorial', tutorial.url)
-  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory.`)
-  log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file.`)
+  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory. (Learn more at https://bit.ly/protoschool-content.)`)
+  log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)`)
   logGuide()
 }
 
@@ -120,7 +120,7 @@ function logCreateLater (items) {
 }
 
 function logGuide () {
-  log.info(`View our detailed guide to developing tutorials at: https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md`)
+  log.info(`View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
 }
 
 module.exports = {
