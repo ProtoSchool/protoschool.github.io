@@ -20,8 +20,7 @@ exports[`protowizard 1. create tutorial 1.2. should create tutorial with one tex
 
 exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 5`] = `
 "Tada! We've created the following files that you'll need for this lesson:
- ‣ 01.md (for writing the text of your lesson)
- ‣ 01.js (for building your multiple-choice quiz)"
+ ‣ 01.md (for writing the text of your lesson)"
 `;
 
 exports[`protowizard 1. create tutorial 1.2. should create tutorial with one text lesson 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
@@ -49,16 +48,14 @@ exports[`protowizard 1. create tutorial 1.3. should create tutorial with two tex
 
 exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 5`] = `
 "Tada! We've created the following files that you'll need for this lesson:
- ‣ 01.md (for writing the text of your lesson)
- ‣ 01.js (for building your multiple-choice quiz)"
+ ‣ 01.md (for writing the text of your lesson)"
 `;
 
 exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
 
 exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 7`] = `
 "Tada! We've created the following files that you'll need for this lesson:
- ‣ 02.md (for writing the text of your lesson)
- ‣ 02.js (for building your multiple-choice quiz)"
+ ‣ 02.md (for writing the text of your lesson)"
 `;
 
 exports[`protowizard 1. create tutorial 1.3. should create tutorial with two text lessons 8`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/02"`;
@@ -87,8 +84,7 @@ exports[`protowizard 1. create tutorial 1.4. should create tutorial with one les
 
 exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 5`] = `
 "Tada! We've created the following files that you'll need for this lesson:
- ‣ 01.md (for writing the text of your lesson)
- ‣ 01.js (for building your multiple-choice quiz)"
+ ‣ 01.md (for writing the text of your lesson)"
 `;
 
 exports[`protowizard 1. create tutorial 1.4. should create tutorial with one lesson and one resource 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;
@@ -133,8 +129,7 @@ exports[`protowizard 1. create tutorial 1.5. should create tutorial with one les
 
 exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 5`] = `
 "Tada! We've created the following files that you'll need for this lesson:
- ‣ 01.md (for writing the text of your lesson)
- ‣ 01.js (for building your multiple-choice quiz)"
+ ‣ 01.md (for writing the text of your lesson)"
 `;
 
 exports[`protowizard 1. create tutorial 1.5. should create tutorial with one lesson and two resources 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/#/new-tut-7/01"`;

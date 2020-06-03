@@ -105,7 +105,7 @@ async function createLesson (tutorialId, { createResource }) {
   if (lessonResponses.type === 'code' || lessonResponses.type === 'file-upload') {
     newFileDetails.push(`${lesson.formattedId}-challenge.md (for describing your code challenge)`)
     newFileDetails.push(`${lesson.formattedId}.js (for building your code challenge)`)
-  } else {
+  } else if (lessonResponses.type === 'multiple-choice') {
     newFileDetails.push(`${lesson.formattedId}.js (for building your multiple-choice quiz)`)
   }
 
