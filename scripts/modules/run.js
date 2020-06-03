@@ -19,7 +19,7 @@ if (options.debug) {
 log.verbose('run', options)
 
 if (parseInt(process.version.replace('v', ''), 10) < 10) {
-  log.error('error', 'at least nodejs version 10 is required. please update nodejs to the current LTS at https://nodejs.org before running this program.')
+  log.error('error', 'NodeJS Version 10 or higher is required. Please update NodeJS to the current LTS (long-term support) version at https://nodejs.org before running this program.')
   process.exit(1)
 }
 
