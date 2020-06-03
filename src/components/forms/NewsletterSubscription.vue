@@ -67,7 +67,7 @@
         :aria-hidden="!stateViewActive(viewStates.thankYouMessage)"
       >
         <h2 class="tc">Thank you for subscribing!</h2>
-        <p class="tc f7 mt0">We promise we'll only send you important updates, no spam! You can opt out at any time using the unsubscribe link at the bottom of each email.</p>
+        <p class="tc f7 mt3">We promise we'll only send you important updates, no spam! You can opt out at any time using the unsubscribe link at the bottom of each email.</p>
       </div>
     </transition>
   </div>
