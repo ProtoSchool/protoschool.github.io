@@ -136,7 +136,7 @@ Vue will update your localhost preview automatically as you make changes.
 
 Before you create the content of your tutorial, you'll need to set up a directory, lesson files, and metadata. You can do this quickly and intuitively with the help of our user-friendly ProtoWizard.
 
-We've included instructions in this guide for doing all of this grunt work manually (in case you're curious or ambitious or need to make some changes after the fact), but we strongly recommend that you use the ProtoWizard to skip all of that manual grunt work. This approach will let you focus on the most important stuff, which is creating the content of your tutorial -- explaining concepts, creating code challenges or multiple-choice quizzes, etc.
+We've included instructions in this guide for doing all of this manually (in case you're curious or ambitious or need to make some changes after the fact), but we strongly recommend that you use the ProtoWizard to skip all of that manual grunt work. This approach will let you focus on the most important stuff, which is creating the content of your tutorial -- explaining concepts, creating code challenges or multiple-choice quizzes, etc.
 
 #### Using the ProtoWizard CLI (recommended)
 
@@ -178,9 +178,11 @@ When you run either of the commands above to start the CLI, our friendly little 
 
 If you're creating a new tutorial from scratch, you'll need to create a tutorial before adding lessons or resources to it. You can either add your lessons and resources immediately after creating the tutorial or exit the ProtoWizard and run it again later to create those items.
 
+By keeping your server running, you can preview your new tutorial in a web browser while using the ProtoWizard to add content.
+
 **Tutorial**
 
-The ProtoWizard can ask you a few quick questions about your tutorial and use your responses to set up both a directory for your tutorial (eg `src/tutorials/0007-my-new-tutorial`) and the necessary metadata (title, description, etc.) to display the tutorial on our website.
+Answer a few quick questions about your tutorial and the ProtoWizard will use your responses to set up both a directory for your tutorial (eg `src/tutorials/0007-my-new-tutorial`) and the necessary metadata (title, description, etc.) to display the tutorial on our website. When finished, the ProtoWizard will let you know where to go to preview your new tutorial in your web browser.
 
 While the ProtoWizard only supports the intial creation of this data, you can edit the details later in `src/static/tutorials.json`. If you need to do this, please read [Manage Your Tutorial's Metadata](#manage-your-tutorials-metadata) for more information.
 
@@ -246,11 +248,6 @@ Depending on which lesson format you've chosen, you'll need to create 2-4 files 
 In the example below, four files stored in the `tutorials/0005-tutorial-short-title` directory work together to create the second lesson in that tutorial.
 
 ![screenshot](public/lesson_sources.png)
-
-Not familiar with Markdown? It's a fairly simple way to style text on the web. [Learn more about Markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
-
-Not familiar with JavaScript? You won't need it to create text-only lessons, and you'll only need to do some simple text replacements to set up questions and answers for multiple-choice quizzes. However, if you want to create code challenges (with or without file upload), you _will_ need to use JavaScript extensively to set up your default and solution code and validation.
-
 
 ###### Lesson text file (all lesson types)
 
@@ -369,8 +366,6 @@ Be sure to include any ProtoSchool tutorials that would provide a nice follow-on
 
 ###### Add alert messages for new and updated tutorials (optional)
 
-TODO: Really needs to happen even if you used ProtoWizard
-
 **When a new tutorial is published**, a new tutorial alert will be displayed for one month. This message disappears when a user has completed the tutorial (or some of it) or when a month has passed since the `createdAt` date, whichever comes sooner. You can _optionally_ display a custom message within the new tutorial alert by updating the `newMessage` field in `tutorials.json`, using markdown formatting within the message as needed.
 
 ![New Tutorial Message](public/tutorial_message_new.jpg)
@@ -382,8 +377,6 @@ When submitting a PR that includes major tutorial updates, you should provide an
 ![Updated Tutorial Message](public/tutorial_message_update.jpg)
 
 ###### Add your tutorial to `static/courses.json`
-
-_This step is completed automatically if you create your tutorial using the ProtoWizard._
 
 In `static/courses.json`, add the tutorial key that you used in `static/tutorials.json` to the `all` array so it will appear in the Tutorials page. For example, to continue with the same example shown above, you would make this change:
 
