@@ -62,6 +62,19 @@ async function createTutorial ({ createLesson, createResource }, { skipPromptLes
       name: 'description',
       message: 'Please provide a short description for your tutorial to be displayed in tutorial listings.',
       validate: validateStringPresent
+    },
+    {
+      type: 'confirm',
+      name: 'addNewMessage',
+      message: `When your tutorial is first published, we'll alert users that it's new. Would you like to add a custom message to that alert?`
+    },
+    {
+      type: 'input',
+      name: 'newMessage',
+      message: 'What message should we share about the new tutorial?',
+      when: function (responses) {
+        return responses.addNewMessage
+      }
     }
   ])
 
