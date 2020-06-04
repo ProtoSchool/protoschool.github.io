@@ -42,7 +42,11 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
 
   // offer selection of existing tutorials or creating a new one
   } else {
-    let tutorialChoices = [{name: 'CREATE NEW TUTORIAL', value: 'new'}]
+    let tutorialChoices = [
+      new inquirer.Separator(),
+      { name: '+ Create new tutorial', value: 'new' },
+      new inquirer.Separator()
+    ]
 
     Object.keys(tutorials).sort().forEach(tutorialId => {
       tutorialChoices.push({ name: tutorials[tutorialId].title, value: tutorialId })
