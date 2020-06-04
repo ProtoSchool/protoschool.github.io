@@ -1,299 +1,299 @@
 {
-	"0001": {
-		"url": "data-structures",
-		"redirectUrls": [],
-		"project": "ipfs",
-		"title": "Decentralized Data Structures",
-		"description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
-		"newMessage": "",
-		"updateMessage": "",
+  "0001": {
+    "url": "data-structures",
+    "redirectUrls": [],
+    "project": "ipfs",
+    "title": "Decentralized Data Structures",
+    "description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
+    "newMessage": "",
+    "updateMessage": "",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2019-01-01T00:00:00.000Z",
-		"resources": [
-			{
-				"title": "Understanding How IPFS Deals with Files",
-				"link": "https://youtu.be/Z5zNPwMDYGg",
-				"type": "video",
-				"description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
-			},
-			{
-				"title": "The Lifecycle of Data in the DWeb",
-				"link": "https://youtu.be/fLUq0RkiTBA",
-				"type": "video",
-				"description": "This course from IPFS Camp 2019 explores how users share files on IPFS, from providing to getting to pinning to deleting."
-			},
-			{
-				"title": "Decentralized Web Primer: The Power of Content-Addressing",
-				"link": "https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/avenues-for-access/lessons/power-of-content-addressing.html",
-				"type": "article",
-				"description": "A beginner-friendly primer on content addressing from Matt Zumwalt."
-			},
-			{
-				"title": "The Next Internet Revolution",
-				"link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847",
-				"type": "video",
-				"description": "In this excerpt from his TedX Talk, Juan Benet explains how the InterPlanetary File System (IPFS) uses content addressing to reframe our model for sharing knowledge."
-			},
-			{
-				"title": "Why is Decentralized and Distributed File Storage Critical for a Better Web?",
-				"link": "https://coincenter.org/entry/why-is-decentralized-and-distributed-file-storage-critical-for-a-better-web",
-				"type": "article",
-				"description": "Juan Benet, Jesse Clayburgh, and Matt Zumwalt of Protocol Labs explain how advances in distributed data storage and strong alignment of market incentives are combining to create a more secure and efficient web."
-			},
-			{
-				"title": "Instructions for Saving Endangered Data",
-				"link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html",
-				"type": "article",
-				"description": "Matt Zumwalt of IPFS explains why data isn't safe on the centralized web and how IPFS can be used to protect it."
-			},
-			{
-				"title": "HTTP is Obsolete. It's Time for the Distributed, Permanent Web.",
-				"link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html",
-				"type": "article",
-				"description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP)."
-			},
-			{
-				"title": "Anatomy of a CID",
-				"link": "https://proto.school/#/anatomy-of-a-cid",
-				"type": "tutorial",
-				"description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
-			},
-			{
-				"title": "IPFS: Mutable File System (MFS)",
-				"link": "https://proto.school/#/mutable-file-system",
-				"type": "tutorial",
-				"description": "Explore the Mutable File System (MFS), which lets you work with files and directories in IPFS as if you were using a traditional name-based file system. (This tutorial includes JavaScript code challenges.)"
-			},
-			{
-				"title": "P2P Data Links with Content Addressing",
-				"link": "https://proto.school/#/basics/",
-				"type": "tutorial",
-				"description": "Use the IPFS DAG API to create create verifiable links between dataset with Content Identifiers (CIDs). (This tutorial includes JavaScript code challenges.)"
-			}
-		]
-	},
-	"0002": {
-		"url": "basics",
-		"redirectUrls": [],
-		"project": "ipfs",
-		"title": "P2P Data Links with Content Addressing",
-		"description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
-		"newMessage": "",
-		"updateMessage": "",
+    "resources": [
+      {
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
+      },
+      {
+        "title": "The Lifecycle of Data in the DWeb",
+        "link": "https://youtu.be/fLUq0RkiTBA",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 explores how users share files on IPFS, from providing to getting to pinning to deleting."
+      },
+      {
+        "title": "Decentralized Web Primer: The Power of Content-Addressing",
+        "link": "https://flyingzumwalt.gitbooks.io/decentralized-web-primer/content/avenues-for-access/lessons/power-of-content-addressing.html",
+        "type": "article",
+        "description": "A beginner-friendly primer on content addressing from Matt Zumwalt."
+      },
+      {
+        "title": "The Next Internet Revolution",
+        "link": "https://www.youtube.com/watch?v=2RCwZDRwk48&feature=youtu.be&t=847",
+        "type": "video",
+        "description": "In this excerpt from his TedX Talk, Juan Benet explains how the InterPlanetary File System (IPFS) uses content addressing to reframe our model for sharing knowledge."
+      },
+      {
+        "title": "Why is Decentralized and Distributed File Storage Critical for a Better Web?",
+        "link": "https://coincenter.org/entry/why-is-decentralized-and-distributed-file-storage-critical-for-a-better-web",
+        "type": "article",
+        "description": "Juan Benet, Jesse Clayburgh, and Matt Zumwalt of Protocol Labs explain how advances in distributed data storage and strong alignment of market incentives are combining to create a more secure and efficient web."
+      },
+      {
+        "title": "Instructions for Saving Endangered Data",
+        "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html",
+        "type": "article",
+        "description": "Matt Zumwalt of IPFS explains why data isn't safe on the centralized web and how IPFS can be used to protect it."
+      },
+      {
+        "title": "HTTP is Obsolete. It's Time for the Distributed, Permanent Web.",
+        "link": "https://ipfs.io/ipfs/QmNhFJjGcMPqpuYfxL62VVB9528NXqDNMFXiqN5bgFYiZ1/its-time-for-the-permanent-web.html",
+        "type": "article",
+        "description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP)."
+      },
+      {
+        "title": "Anatomy of a CID",
+        "link": "https://proto.school/#/anatomy-of-a-cid",
+        "type": "tutorial",
+        "description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
+      },
+      {
+        "title": "IPFS: Mutable File System (MFS)",
+        "link": "https://proto.school/#/mutable-file-system",
+        "type": "tutorial",
+        "description": "Explore the Mutable File System (MFS), which lets you work with files and directories in IPFS as if you were using a traditional name-based file system. (This tutorial includes JavaScript code challenges.)"
+      },
+      {
+        "title": "P2P Data Links with Content Addressing",
+        "link": "https://proto.school/#/basics/",
+        "type": "tutorial",
+        "description": "Use the IPFS DAG API to create create verifiable links between dataset with Content Identifiers (CIDs). (This tutorial includes JavaScript code challenges.)"
+      }
+    ]
+  },
+  "0002": {
+    "url": "basics",
+    "redirectUrls": [],
+    "project": "ipfs",
+    "title": "P2P Data Links with Content Addressing",
+    "description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
+    "newMessage": "",
+    "updateMessage": "",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2019-01-01T00:00:00.000Z",
-		"resources": [
-			{
-				"title": "JS-IPFS DAG API",
-				"link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md",
-				"type": "docs"
-			},
-			{
-				"title": "Blogging on the Decentralized Web",
-				"link": "https://proto.school/#/blog/",
-				"type": "tutorial",
-				"description": "Ready for a bigger challenge with the IPFS DAG API? Use CIDs to build and update a complex web of data."
-			},
-			{
-				"title": "Understanding How IPFS Deals with Files",
-				"link": "https://youtu.be/Z5zNPwMDYGg",
-				"type": "video",
-				"description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
-			},
-			{
-				"title": "The Lifecycle of Data in the DWeb",
-				"link": "https://youtu.be/fLUq0RkiTBA",
-				"type": "video",
-				"description": "Curious about what happens _after_ you've added data to IPFS? This IPFS Camp 2019 course explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
-			},
-			{
-				"title": "IPFS: Regular Files API",
-				"link": "https://proto.school/#/regular-files-api",
-				"type": "tutorial",
-				"description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
-			}
-		]
-	},
-	"0003": {
-		"url": "blog",
-		"redirectUrls": [],
-		"project": "ipfs",
-		"title": "Blogging on the Decentralized Web",
-		"description": "Cool content addresses don't change.",
-		"newMessage": "",
-		"updateMessage": "",
-		"createdAt": "2019-01-01T00:00:00.000Z",
-		"updatedAt": "2019-01-01T00:00:00.000Z",
-		"resources": [
-			{
-				"title": "JS-IPFS DAG API",
-				"link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md",
-				"type": "docs"
-			},
-			{
-				"title": "Understanding How IPFS Deals with Files",
-				"link": "https://youtu.be/Z5zNPwMDYGg",
-				"type": "video",
-				"description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
-			},
-			{
-				"title": "The Lifecycle of Data in the DWeb",
-				"link": "https://youtu.be/fLUq0RkiTBA",
-				"type": "video",
-				"description": "Curious about what happens _after_ you've added data to IPFS? This IPFS Camp 2019 course explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
-			},
-			{
-				"title": "IPFS: Regular Files API",
-				"link": "https://proto.school/#/regular-files-api",
-				"type": "tutorial",
-				"description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
-			}
-		]
-	},
-	"0004": {
-		"url": "mutable-file-system",
-		"redirectUrls": [],
-		"project": "ipfs",
-		"title": "IPFS: Mutable File System",
-		"description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
-		"newMessage": "",
-		"updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
+    "resources": [
+      {
+        "title": "JS-IPFS DAG API",
+        "link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md",
+        "type": "docs"
+      },
+      {
+        "title": "Blogging on the Decentralized Web",
+        "link": "https://proto.school/#/blog/",
+        "type": "tutorial",
+        "description": "Ready for a bigger challenge with the IPFS DAG API? Use CIDs to build and update a complex web of data."
+      },
+      {
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
+      },
+      {
+        "title": "The Lifecycle of Data in the DWeb",
+        "link": "https://youtu.be/fLUq0RkiTBA",
+        "type": "video",
+        "description": "Curious about what happens _after_ you've added data to IPFS? This IPFS Camp 2019 course explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
+      },
+      {
+        "title": "IPFS: Regular Files API",
+        "link": "https://proto.school/#/regular-files-api",
+        "type": "tutorial",
+        "description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
+      }
+    ]
+  },
+  "0003": {
+    "url": "blog",
+    "redirectUrls": [],
+    "project": "ipfs",
+    "title": "Blogging on the Decentralized Web",
+    "description": "Cool content addresses don't change. Create a chain of links from one CID to another with the IPFS DAG API.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2019-01-01T00:00:00.000Z",
+    "resources": [
+      {
+        "title": "JS-IPFS DAG API",
+        "link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md",
+        "type": "docs"
+      },
+      {
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
+      },
+      {
+        "title": "The Lifecycle of Data in the DWeb",
+        "link": "https://youtu.be/fLUq0RkiTBA",
+        "type": "video",
+        "description": "Curious about what happens _after_ you've added data to IPFS? This IPFS Camp 2019 course explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
+      },
+      {
+        "title": "IPFS: Regular Files API",
+        "link": "https://proto.school/#/regular-files-api",
+        "type": "tutorial",
+        "description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
+      }
+    ]
+  },
+  "0004": {
+    "url": "mutable-file-system",
+    "redirectUrls": [],
+    "project": "ipfs",
+    "title": "IPFS: Mutable File System",
+    "description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
+    "newMessage": "",
+    "updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-04-08T00:00:00.000Z",
-		"resources": [
-			{
-				"title": "JS-IPFS Files API",
-				"link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/FILES.md",
-				"type": "docs",
-				"description": "Notice that these docs contain two sections, one for top-level methods relevant to files and one for the Mutable File System (MFS) you learned about in this tutorial."
-			},
-			{
-				"title": "Understanding How IPFS Deals with Files",
-				"link": "https://youtu.be/Z5zNPwMDYGg",
-				"type": "video",
-				"description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports. It also introduces some the joys and pitfalls of the Mutable File System (MFS)."
-			},
-			{
-				"title": "The Lifecycle of Data in the DWeb",
-				"link": "https://youtu.be/fLUq0RkiTBA",
-				"type": "video",
-				"description": "Curious about what happens _after_ you've added files to IPFS? This course from IPFS Camp 2019 explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
-			},
-			{
-				"title": "IPFS: Regular Files API",
-				"link": "https://proto.school/#/regular-files-api",
-				"type": "tutorial",
-				"description": "Explore the other half of the IPFS Files API, where you'll add and retrieve files and read their contents without the abstraction layer of the Mutable File System."
-			},
-			{
-				"title": "Browser MFS Demo",
-				"link": "https://github.com/ipfs/js-ipfs/tree/master/examples/browser-mfs",
-				"type": "demo",
-				"description": "Try out MFS methods in your broswer and watch your file directory change as you go."
-			},
-			{
-				"title": "Jeromy Coffee Talks: Files API",
-				"link": "https://youtu.be/FX_AXNDsZ9k",
-				"type": "video",
-				"description": "Wondering how the Mutable File System (MFS) can treat immutable data as though it's mutable? Jeromy Johnson of Protocol Labs explains the abstraction that makes it possible."
-			},
-			{
-				"title": "P2P Data Links with Content Addressing",
-				"link": "https://proto.school/#/basics/",
-				"type": "tutorial",
-				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
-			}
-		]
-	},
-	"0005": {
-		"url": "regular-files-api",
-		"redirectUrls": [],
-		"project": "ipfs",
-		"title": "IPFS: Regular Files API",
-		"description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
-		"newMessage": "",
-		"updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
-		"createdAt": "2019-01-01T00:00:00.000Z",
-		"updatedAt": "2020-04-08T00:00:00.000Z",
-		"resources": [
-			{
-				"title": "JS-IPFS Files API",
-				"link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/FILES.md",
-				"type": "docs",
-				"description": "Notice that these docs contain two sections, one for top-level methods relevant to files, which we learned about in this tutorial, and one for the Mutable File System (MFS)."
-			},
-			{
-				"title": "Understanding How IPFS Deals with Files",
-				"link": "https://youtu.be/Z5zNPwMDYGg",
-				"type": "video",
-				"description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports. It also introduces some the joys and pitfalls of the Mutable File System (MFS)."
-			},
-			{
-				"title": "The Lifecycle of Data in the DWeb",
-				"link": "https://youtu.be/fLUq0RkiTBA",
-				"type": "video",
-				"description": "Curious about what happens _after_ you've added files to IPFS? This course from IPFS Camp 2019 explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
-			},
-			{
-				"title": "IPFS: Mutable File System (MFS)",
-				"link": "https://proto.school/#/mutable-file-system",
-				"type": "tutorial",
-				"description": "Wish adding files to IPFS felt more like using a traditional name-based file system? Explore the Mutable File System (MFS)."
-			},
-			{
-				"title": "P2P Data Links with Content Addressing",
-				"link": "https://proto.school/#/basics/",
-				"type": "tutorial",
-				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
-			}
-		]
-	},
-	"0006": {
-		"url": "anatomy-of-a-cid",
-		"project": "multiformats",
-		"title": "Anatomy of a CID",
-		"description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
-		"newMessage": "",
-		"updateMessage": "",
-		"createdAt": "2020-03-15T00:00:00.000Z",
-		"updatedAt": "2020-03-15T00:00:00.000Z",
-		"resources": [
-			{
-				"title": "How IPFS Deals With Files: Anatomy of a CID",
-				"link": "https://youtu.be/Z5zNPwMDYGg?t=320",
-				"type": "video",
-				"description": "Watch the talk that inspired this tutorial! In Part 2 of this core course from IPFS Camp 2019, Alan Shaw explains the anatomy of a CID."
-			},
-			{
-				"title": "CID Inspector",
-				"link": "https://cid.ipfs.io/",
-				"type": "tool",
-				"description": "Paste a CID into this handy web app for a human-readable breakdown of its multibase, multicodec, multihash and version."
-			},
-			{
-				"title": "Hashes",
-				"link": "https://docs.ipfs.io/concepts/hashing/",
-				"type": "docs",
-				"description": "Learn more about cryptographic hashes in the official IPFS docs."
-			},
-			{
-				"title": "Multiformats",
-				"link": "https://multiformats.io/",
-				"type": "docs",
-				"description": "Explore Multiformats, a collection of protocols that future-proof systems, including CID, multihash, multibase and multicodec."
-			},
-			{
-				"title": "Multihash",
-				"link": "https://multiformats.io/multihash/",
-				"type": "docs",
-				"description": "Learn more about the multihash protocol for differentiating outputs from various well-established hash functions, addressing size and encoding considerations."
-			},
-			{
-				"title": "Content Identifier (CID) Specification",
-				"link": "https://github.com/multiformats/cid/",
-				"type": "docs",
-				"description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
-			}
-		]
-	}
+    "resources": [
+      {
+        "title": "JS-IPFS Files API",
+        "link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/FILES.md",
+        "type": "docs",
+        "description": "Notice that these docs contain two sections, one for top-level methods relevant to files and one for the Mutable File System (MFS) you learned about in this tutorial."
+      },
+      {
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports. It also introduces some the joys and pitfalls of the Mutable File System (MFS)."
+      },
+      {
+        "title": "The Lifecycle of Data in the DWeb",
+        "link": "https://youtu.be/fLUq0RkiTBA",
+        "type": "video",
+        "description": "Curious about what happens _after_ you've added files to IPFS? This course from IPFS Camp 2019 explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
+      },
+      {
+        "title": "IPFS: Regular Files API",
+        "link": "https://proto.school/#/regular-files-api",
+        "type": "tutorial",
+        "description": "Explore the other half of the IPFS Files API, where you'll add and retrieve files and read their contents without the abstraction layer of the Mutable File System."
+      },
+      {
+        "title": "Browser MFS Demo",
+        "link": "https://github.com/ipfs/js-ipfs/tree/master/examples/browser-mfs",
+        "type": "demo",
+        "description": "Try out MFS methods in your broswer and watch your file directory change as you go."
+      },
+      {
+        "title": "Jeromy Coffee Talks: Files API",
+        "link": "https://youtu.be/FX_AXNDsZ9k",
+        "type": "video",
+        "description": "Wondering how the Mutable File System (MFS) can treat immutable data as though it's mutable? Jeromy Johnson of Protocol Labs explains the abstraction that makes it possible."
+      },
+      {
+        "title": "P2P Data Links with Content Addressing",
+        "link": "https://proto.school/#/basics/",
+        "type": "tutorial",
+        "description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
+      }
+    ]
+  },
+  "0005": {
+    "url": "regular-files-api",
+    "redirectUrls": [],
+    "project": "ipfs",
+    "title": "IPFS: Regular Files API",
+    "description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
+    "newMessage": "",
+    "updateMessage": "Version `0.41` of `js-ipfs` has introduced some major changes, most notably by introducing Async Iterables. You can learn more about the updates here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
+    "createdAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-04-08T00:00:00.000Z",
+    "resources": [
+      {
+        "title": "JS-IPFS Files API",
+        "link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/FILES.md",
+        "type": "docs",
+        "description": "Notice that these docs contain two sections, one for top-level methods relevant to files, which we learned about in this tutorial, and one for the Mutable File System (MFS)."
+      },
+      {
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports. It also introduces some the joys and pitfalls of the Mutable File System (MFS)."
+      },
+      {
+        "title": "The Lifecycle of Data in the DWeb",
+        "link": "https://youtu.be/fLUq0RkiTBA",
+        "type": "video",
+        "description": "Curious about what happens _after_ you've added files to IPFS? This course from IPFS Camp 2019 explores how peers discover and share files on the network, from providing to getting to pinning to deleting."
+      },
+      {
+        "title": "IPFS: Mutable File System (MFS)",
+        "link": "https://proto.school/#/mutable-file-system",
+        "type": "tutorial",
+        "description": "Wish adding files to IPFS felt more like using a traditional name-based file system? Explore the Mutable File System (MFS)."
+      },
+      {
+        "title": "P2P Data Links with Content Addressing",
+        "link": "https://proto.school/#/basics/",
+        "type": "tutorial",
+        "description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
+      }
+    ]
+  },
+  "0006": {
+    "url": "anatomy-of-a-cid",
+    "project": "multiformats",
+    "title": "Anatomy of a CID",
+    "description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2020-03-15T00:00:00.000Z",
+    "updatedAt": "2020-03-15T00:00:00.000Z",
+    "resources": [
+      {
+        "title": "How IPFS Deals With Files: Anatomy of a CID",
+        "link": "https://youtu.be/Z5zNPwMDYGg?t=320",
+        "type": "video",
+        "description": "Watch the talk that inspired this tutorial! In Part 2 of this core course from IPFS Camp 2019, Alan Shaw explains the anatomy of a CID."
+      },
+      {
+        "title": "CID Inspector",
+        "link": "https://cid.ipfs.io/",
+        "type": "tool",
+        "description": "Paste a CID into this handy web app for a human-readable breakdown of its multibase, multicodec, multihash and version."
+      },
+      {
+        "title": "Hashes",
+        "link": "https://docs.ipfs.io/concepts/hashing/",
+        "type": "docs",
+        "description": "Learn more about cryptographic hashes in the official IPFS docs."
+      },
+      {
+        "title": "Multiformats",
+        "link": "https://multiformats.io/",
+        "type": "docs",
+        "description": "Explore Multiformats, a collection of protocols that future-proof systems, including CID, multihash, multibase and multicodec."
+      },
+      {
+        "title": "Multihash",
+        "link": "https://multiformats.io/multihash/",
+        "type": "docs",
+        "description": "Learn more about the multihash protocol for differentiating outputs from various well-established hash functions, addressing size and encoding considerations."
+      },
+      {
+        "title": "Content Identifier (CID) Specification",
+        "link": "https://github.com/multiformats/cid/",
+        "type": "docs",
+        "description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
+      }
+    ]
+  }
 }

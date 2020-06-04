@@ -1,13 +1,40 @@
 # ProtoSchool Scripts
 
+## ProtoWizard (Tutorial Builder)
+
+The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lessons, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready.
+
+ProtoWizard requires Node.js version 10 or higher. You can acquire the latest LTS (long-term support) version on the [Node download page](https://nodejs.org/en/download/).
+
+You can start the wizard with the command:
+`npm run scripts:wizard`
+
+For a quicker shorthand, first install the wizard:
+`npm run install-protowizard`
+Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
+`protowizard`
+
+Learn more in our [Developing Tutorials](../../DEVELOPING_TUTORIALS.md) guide.
+
+## Table of Contents Updates for Docs
+
+The [Developing Tutorials](../../DEVELOPING_TUTORIALS.md) and [Designing Tutorials](../../DESIGNING_TUTORIALS.md) guides use [`markdown-toc`](https://www.npmjs.com/package/markdown-toc) to create their table of contents from Markdown headers of levels 2 - 6, replacing the content between the `<!-- toc -->` and `<!-- tocstop -->` comments. The script to update the ToCs on both files will be run automatically before any commit, so if you've changed one of these files and the ToC is updated by the script, those changes will be saved with your own.
+
+To update one or more ToCs on demand (without automatically saving), you can run one of these commands:
+  - `npm run build:docs:design` - update TOC in DESIGNING_TUTORIALS.md
+  - `npm run build:docs:develop` - update TOC in DEVELOPING_TUTORIALS.md
+  - `npm run build:docs` - update ToC in both files
+
+## Event and Newsletter Data Import
+
 This project depends on some remote sources for data:
 
 - Events: Google Sheets, using [Google Sheets API](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/get)
 - Newsletter: [Mailchimp API](https://mailchimp.com/developer/)
 
-The scripts in this directory are used to fetch the data and make it available to the Vue application to render the new content, as well as some other side effects.
+The scripts in the `build-data` directory are used to fetch the data and make it available to the Vue application to render the new content, as well as some other side effects.
 
-## Setup
+### Setup
 
 To run the commands, some environment variables are needed on your local machine:
 
@@ -18,9 +45,9 @@ Note that because `.env` is included in `.gitignore`, your local copy of the fil
 
 A copy of the `.env` file is also stored in our Travis account and used to update event listings both when PRs are merged and when regularly scheduled cron jobs are run.
 
-## Commands
+### Commands
 
-### `npm run scripts:build:data`
+#### `npm run scripts:build:data`
 
 As part of the build process (see [travis config](../.travis.yml)), we fetch all event data for submitted events and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. Additionally, we add new event organizers to our Mailchimp audience to subscribe them to our newsletter.
 
@@ -61,11 +88,11 @@ To add new data sources:
     -  in the `.env` record in the secure ProtoSchool vault in Protocol Labs' `1Password` account
     -  as environment variables in the [Travis CI settings](https://travis-ci.org/ProtoSchool/protoschool.github.io/settings)
 
-#### `--debug` (default: false)
+##### `--debug` (default: false)
 
 Prints extra information when fetching and processing the data.
 
-#### `--dry-run` (default: true)
+##### `--dry-run` (default: true)
 
 Data is fetched and processed, allowing you to see the statistics noted above, but is not saved into the JSON files.
 
@@ -74,7 +101,7 @@ Passing `--dry-run=false` will change this value to `false` and data will be fet
 The default value `true` means that the default command will not make any changes to event listings or newsletter subscriptions. In "production" we specify `--dry-run=false` to make the necessary changes.
 
 
-### `npm run scripts:googleapis-generate-token`
+#### `npm run scripts:googleapis-generate-token`
 
 Google APIs need authentication information in the form of a token that we need to generate, store and use.
 This only needs to be done once when the Google API Project is setup.
