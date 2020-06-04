@@ -17,7 +17,8 @@ const correctedCases = {
   api: 'API',
   cid: 'CID',
   of: 'of',
-  a: 'a'
+  a: 'a',
+  on: 'on'
 }
 
 function deriveShortname (path) {
