@@ -1,24 +1,29 @@
 // Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
+const question = 'Why does Filecoin use zk-SNARKs?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'Some correct answer.',
+    answer: 'To increase the sarcasm factor of proofs',
+    correct: false,
+    feedback: 'Nope! Snark and SNARK are sadly unrelated. But this is our favorite wrong answer!'
+  },
+  {
+    answer: 'To make it so a single peer can serve as a source of truth',
+    correct: false,
+    feedback: 'No, Filecoin requires multiple nodes to keep copies of the chain for verification purposes. But zk-SNARKs affect the size of the data that each verifier needs to store.'
+  },
+  {
+    answer: 'To compress proofs to keep the chain smaller',
     correct: true,
-    feedback: 'Great job!'
+    feedback: "That's right! zk-SNARKs keep the chain smaller and reduce the time needed for verification."
   },
   {
-    answer: 'Some incorrect answer',
+    answer: 'To make it more secure',
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
-  },
-  {
-    answer: 'Some incorrect answer',
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: 'Nope, zk-SNARKs affect efficiency, not security.'
   }
 ]
 

@@ -1,24 +1,24 @@
 // Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
+const question = 'When are Proofs of Replication run?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'Some correct answer.',
+    answer: 'On a recurring basis over time, at regular intervals.',
     correct: true,
-    feedback: 'Great job!'
+    feedback: "Nope! We'll learn about other proofs that run multiple times, but a Proof of Replication only needs to run when the data is replicated."
   },
   {
-    answer: 'Some incorrect answer',
+    answer: 'On demand, whenever a challenge is requested to verify the data.',
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
+    feedback: 'Oops! Try again. A Proof of Replication only needs to run when the data is replicated.'
   },
   {
-    answer: 'Some incorrect answer',
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    answer: 'Only once, at the time you make the storage deal.',
+    correct: true,
+    feedback: "That's right!"
   }
 ]
 
