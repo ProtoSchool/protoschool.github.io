@@ -1,5 +1,5 @@
 // Question must be a string
-const question = 'Of the three storage deals listed above, which is the oldest that is still active (meaning the miner is still storing the data as promised)?'
+const question = 'Of the three storage deals listed above, which is the oldest deal that is still active (meaning the miner is still storing the data as promised)?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
