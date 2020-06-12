@@ -1,24 +1,29 @@
 // Question must be a string
-const question = 'Of the three storage deals listed above, which is the oldest deal that is still active (meaning the miner is still storing the data as promised)?'
+const question = 'Why does Filecoin use zk-SNARKs?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'Deal 3',
+    answer: 'To increase the sarcasm factor of proofs',
     correct: false,
-    feedback: "Nope! Although Deal 3 is still active, it's not the oldest. Take a closer look at the `epoch` for each deal."
+    feedback: 'Nope! Snark and SNARK are sadly unrelated. But this is our favorite wrong answer!'
   },
   {
-    answer: 'Deal 4',
+    answer: 'To make it so a single peer can serve as a source of truth',
     correct: false,
-    feedback: "Nope! Deal 4 is indeed the oldest, but its storage miner has failed to prove that they're still storing the data. Take a closer look at the `Slashed ?` values for each deal."
+    feedback: 'No, Filecoin requires multiple nodes to keep copies of the chain for verification purposes. But zk-SNARKs affect the size of the data that each verifier needs to store.'
   },
   {
-    answer: 'Deal 5',
+    answer: 'To compress proofs to keep the chain smaller',
     correct: true,
-    feedback: "That's right! Although Deal 5 wasn't negotiated first (it has a higher epoch than Deal 4), it's the oldest one for which the miner is still storing the data. We know this because the value for `Slashed ?` is still `N`."
+    feedback: "That's right! zk-SNARKs keep the chain smaller and reduce the time needed for verification."
+  },
+  {
+    answer: 'To make it more secure',
+    correct: false,
+    feedback: 'Nope, zk-SNARKs affect efficiency, not security.'
   }
 ]
 

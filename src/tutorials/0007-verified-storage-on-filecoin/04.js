@@ -1,30 +1,31 @@
 // Question must be a string
-const question = 'Why does Filecoin use zk-SNARKs?'
+const question = 'How does the Proof of Storage confirm that given data is stored over time?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'To increase the sarcasm factor of proofs',
+    answer: 'It checks whether data with the right CommD is present on the Filecoin network.',
     correct: false,
-    feedback: 'Nope! Snark and SNARK are sadly unrelated. But this is our favorite wrong answer!'
+    feedback: "Nope. Since a CommD is based only on the data and not on its location, a CommD can't help to confirm that a specific miner is honoring their agreement."
   },
   {
-    answer: 'To make it so a single peer can serve as a source of truth',
+    answer: "It re-runs the Proof of Replication at regular intervals to ensure the miner's encoded data still matches the client's original data.",
     correct: false,
-    feedback: 'No, Filecoin requires multiple nodes to keep copies of the chain for verification purposes. But zk-SNARKs affect the size of the data that each verifier needs to store.'
+    feedback: "No. Once the Proof of Replication is complete, we've proven that the encoding is correct, allowing the Proof of Spacetime to rely only on encoded data."
   },
   {
-    answer: 'To compress proofs to keep the chain smaller',
+    answer: 'It regularly checks that all encoded data in the CommR is still present on the Filecoin network.',
+    correct: false,
+    feedback: 'While the Proof of Storage does reference the CommR, it only samples a subset of the encoded data.'
+  },
+  {
+    answer: 'It regularly checks to ensure that a random section of encoded data from the CommR is present in the right location.',
     correct: true,
-    feedback: "That's right! zk-SNARKs keep the chain smaller and reduce the time needed for verification."
-  },
-  {
-    answer: 'To make it more secure',
-    correct: false,
-    feedback: 'Nope, zk-SNARKs affect efficiency, not security.'
+    feedback: 'You got it!'
   }
+
 ]
 
 export default {
