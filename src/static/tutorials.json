@@ -299,9 +299,9 @@
   "0007": {
     "id": 7,
     "formattedId": "0007",
-    "url": "verified-storage-on-filecoin",
+    "url": "verifying-storage-on-filecoin",
     "project": "filecoin",
-    "title": "Verified Storage on Filecoin",
+    "title": "Verifying Storage on Filecoin",
     "description": "Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
     "newMessage": "",
     "updateMessage": "",
