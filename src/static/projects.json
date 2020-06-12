@@ -23,5 +23,10 @@
     "id": "filecoin",
     "name": "Filecoin",
     "url": "https://filecoin.io"
+  },
+  {
+    "id": "dweb",
+    "name": "DWeb Basics",
+    "url": "https://proto.school"
   }
 ]
