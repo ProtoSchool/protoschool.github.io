@@ -1,24 +1,29 @@
 // Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
+const question = 'At what point are a storage client and storage miner committed to a deal proposal?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'Some correct answer.',
+    answer: 'When the client accepts the price offered by the miner.',
+    correct: false,
+    feedback: 'Nope! The process of negotiating the storage price happens early in the process, but the deal is not yet confirmed at this stage.'
+  },
+  {
+    answer: 'As soon as the deal proposal is created.',
+    correct: false,
+    feedback: "No, the deal proposal is created before data transfer, and the miner can't commit to storing data they haven't received."
+  },
+  {
+    answer: "When the deal proposal is published to Filecoin's blockchain, after confirmation that the correct data has been transferred.",
     correct: true,
-    feedback: 'Great job!'
+    feedback: "That's right!"
   },
   {
-    answer: 'Some incorrect answer',
+    answer: 'As soon as the data is prepared and transferred.',
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
-  },
-  {
-    answer: 'Some incorrect answer',
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: 'Nope, first the parties need to check that the CID of the transferred data matches the piece CID noted in the deal proposal.'
   }
 ]
 

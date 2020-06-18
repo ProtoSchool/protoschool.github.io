@@ -6,19 +6,19 @@ const question = 'Of the three storage deals listed above, which is the oldest d
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'Deal 3',
+    answer: 'Deal 32',
     correct: false,
-    feedback: "Nope! Although Deal 3 is still active, it's not the oldest. Take a closer look at the `epoch` for each deal."
+    feedback: "Nope! Although Deal 32 is still active, it's not the oldest. Take a closer look at the `epoch` for each deal."
   },
   {
-    answer: 'Deal 4',
+    answer: 'Deal 45',
     correct: false,
-    feedback: "Nope! Deal 4 is indeed the oldest, but its storage miner has failed to prove that they're still storing the data. Take a closer look at the `Slashed ?` values for each deal."
+    feedback: "Nope! Deal 45 is indeed the oldest, but its storage miner has failed to prove that they're still storing the data. Take a closer look at the `Slashed ?` values for each deal."
   },
   {
-    answer: 'Deal 5',
+    answer: 'Deal 57',
     correct: true,
-    feedback: "That's right! Although Deal 5 wasn't negotiated first (it has a higher epoch than Deal 4), it's the oldest one for which the miner is still storing the data. We know this because the value for `Slashed ?` is still `N`."
+    feedback: "That's right! Although Deal 57 wasn't negotiated first (it has a higher epoch than Deal 45), it's the oldest one for which the miner is still storing the data. We know this because the value for `Slashed ?` is still `N`."
   }
 ]
 

@@ -1,24 +1,24 @@
 // Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
+const question = "Where does trust come from in Filecoin's storage network?"
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'Some correct answer.',
+    answer: 'We place our trust in the specific entity storing the data.',
+    correct: false,
+    feedback: "No, Filecoin's decentralized network doesn't require placing trust in a single, centralized storage provider."
+  },
+  {
+    answer: "Storage miners undergo background checks to prove they're trustworthy before joining the network.",
+    correct: false,
+    feedback: "No, we don't need to know anything about the storage miner themselves to prove that they're storing data as promised."
+  },
+  {
+    answer: 'We place our trust in the protocol design and consensus mechanisms, in which all participants work together to verify activity.',
     correct: true,
-    feedback: 'Great job!'
-  },
-  {
-    answer: 'Some incorrect answer',
-    correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
-  },
-  {
-    answer: 'Some incorrect answer',
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: "That's right! We'll learn more about how storage deals are verified in upcoming lessons."
   }
 ]
 
