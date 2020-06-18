@@ -8,7 +8,7 @@ const choices = [
   {
     answer: 'We place our trust in the specific entity storing the data.',
     correct: false,
-    feedback: "No, Filecoin's decentralized network doesn't require placing trust in a single, centralized storage provider."
+    feedback: "No, Filecoin's decentralized protocol doesn't require placing trust in a single, centralized storage provider."
   },
   {
     answer: "Storage miners undergo background checks to prove they're trustworthy before joining the network.",
