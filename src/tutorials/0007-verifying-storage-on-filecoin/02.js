@@ -6,9 +6,9 @@ const question = 'At what point are a storage client and storage miner committed
 // Only one answer can be correct.
 const choices = [
   {
-    answer: 'When the client accepts the price offered by the miner.',
+    answer: "When the client selects a miner based on the storage price they're offering.",
     correct: false,
-    feedback: 'Nope! The process of negotiating the storage price happens early in the process, but the deal is not yet confirmed at this stage.'
+    feedback: "Nope! The process of negotiating the storage price happens early in the process, but the deal hasn't yet been made."
   },
   {
     answer: 'As soon as the deal proposal is created.',

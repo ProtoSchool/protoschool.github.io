@@ -1,5 +1,5 @@
 // Question must be a string
-const question = "Where does trust come from in Filecoin's storage network?"
+const question = 'How can we trust that data is being stored correctly on the Filecoin network?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
