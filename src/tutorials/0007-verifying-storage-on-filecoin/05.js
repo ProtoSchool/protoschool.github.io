@@ -21,9 +21,9 @@ const choices = [
     feedback: "That's right! zk-SNARKs keep the chain smaller and reduce the time needed for verification."
   },
   {
-    answer: 'To make it more secure',
+    answer: 'To encrypt the stored data',
     correct: false,
-    feedback: 'Nope, zk-SNARKs affect efficiency, not security.'
+    feedback: "Nope, zk-SNARKs affect the chain's efficiency, but they don't encrypt the data stored on the network."
   }
 ]
 
