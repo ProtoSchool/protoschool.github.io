@@ -23,8 +23,8 @@
     },
     "thankYouMessage": {
       "title": "Thank you!",
-      "text": "<p>Your feedback is very much appreciated!",
-      "text-complete": "<p>Your feedback is very much appreciated!<br />Would you like to help us out a bit more?</p><p>  If you want, you can fill up this quick survey to helps us improve our content.</p>"
+      "text": "<p class='b mt2 mb0'>Have a few more minutes to help us out?</p><p style='margin-top: 0;'>We've created a two-minute survey to learn more about our users so we can better meet your needs.</p>",
+      "surveyLink": "https://google.com"
     }
   }
 }
