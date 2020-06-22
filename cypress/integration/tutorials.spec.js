@@ -1,5 +1,9 @@
-import tutorials, { getTutorialType } from '../../src/utils/tutorials'
+import _ from 'lodash'
+
+import tutorialsList, { getTutorialType } from '../../src/utils/tutorials'
 import courses from '../../src/static/courses.json'
+
+const tutorials = _.omitBy(tutorialsList, tutorial => tutorial.hidden)
 
 // lessons to use as samples when testing functionality only once per lesson type
 const testLessons = {

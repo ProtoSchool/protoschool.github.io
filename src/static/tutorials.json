@@ -307,6 +307,7 @@
     "updateMessage": "",
     "createdAt": "2020-06-03T18:30:18.971Z",
     "updatedAt": "2020-06-03T18:30:18.971Z",
+    "hidden": true,
     "resources": [
       {
         "title": "What Sets Us Apart: Filecoin’s Proof System",
