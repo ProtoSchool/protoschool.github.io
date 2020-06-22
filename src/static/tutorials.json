@@ -303,10 +303,10 @@
     "project": "filecoin",
     "title": "Verifying Storage on Filecoin",
     "description": "Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
-    "newMessage": "",
+    "newMessage": "Interested in Filecoin but feeling a little wary about storing your data with someone you don't know? Our first-ever Filecoin tutorial explains how the protocol uses proofs and consensus mechanisms to incentivize good behavior on the part of storage providers.",
     "updateMessage": "",
-    "createdAt": "2020-06-03T18:30:18.971Z",
-    "updatedAt": "2020-06-03T18:30:18.971Z",
+    "createdAt": "2020-06-22T00:30:18.971Z",
+    "updatedAt": "2020-06-22T00:30:18.971Z",
     "hidden": true,
     "resources": [
       {
