@@ -295,5 +295,44 @@
         "description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
       }
     ]
+  },
+  "0007": {
+    "id": 7,
+    "formattedId": "0007",
+    "url": "verifying-storage-on-filecoin",
+    "project": "filecoin",
+    "title": "Verifying Storage on Filecoin",
+    "description": "Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
+    "newMessage": "Interested in Filecoin but feeling a little wary about storing your data with someone you don't know? Our first-ever Filecoin tutorial explains how the protocol uses proofs and consensus mechanisms to incentivize good behavior on the part of storage providers.",
+    "updateMessage": "",
+    "createdAt": "2020-06-22T00:30:18.971Z",
+    "updatedAt": "2020-06-22T00:30:18.971Z",
+    "hidden": true,
+    "resources": [
+      {
+        "title": "What Sets Us Apart: Filecoin’s Proof System",
+        "link": "https://filecoin.io/blog/filecoin-proof-system/",
+        "type": "article",
+        "description": "Explore what sets Filecoin apart from other blockchains in this blog post from founder Juan Benet."
+      },
+      {
+        "title": "Scaling Proof of Replication for Filecoin Mining",
+        "link": "https://research.protocol.ai/publications/scaling-proof-of-replication-for-filecoin-mining/",
+        "type": "paper",
+        "description": "Learn more about the powers of Proof of Replication (PoRep) in this academic paper from Ben Fisch, Joseph Bonneau, Nicola Greco, and Juan Benet."
+      },
+      {
+        "title": "Good SNARKs are Here Needed",
+        "link": "https://youtu.be/qii1xq9j7ny",
+        "type": "video",
+        "description": "Explore ZK SNARKs in this Zcon0 talk from Nicola Greco of Protocol Labs."
+      },
+      {
+        "title": "Filecoin Spec",
+        "link": "https://filecoin-project.github.io/specs/",
+        "type": "spec",
+        "description": "Take a deep dive into the technical side of Filecoin in the spec for the protocol."
+      }
+    ]
   }
 }
