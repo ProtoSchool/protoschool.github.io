@@ -6,6 +6,10 @@
       <p class="f4 fw5 lh-copy ma0 pb4">
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
       <div class="mw7 center w100 tr">
+        <label for="course-select">Course</label>
+        <select name="course" id="course-select" v-model="courseFilter">
+          <option v-for="(course, courseName) in courses" :value="courseName">{{course.name}} ({{course.tutorialCount}})</option>
+        </select>
         <ToggleButton
             :value="showCodingTutorials"
             sync
@@ -21,15 +25,16 @@
       </div>
     </section>
 
-    <template v-for="tutorial in (showCodingTutorials? allTutorials : codelessTutorials)" >
+    <template v-for="tutorial in (showCodingTutorials? filteredTutorials : codelessTutorials)" >
       <Tutorial :tutorial="tutorial" :key="tutorial.tutorialId" :tutorialId="tutorial.tutorialId" />
     </template>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import coursesList from '../static/courses.json'
-import tutorials, { getTutorialType } from '../utils/tutorials'
+import tutorials, { getTutorialType, correctedCases } from '../utils/tutorials'
 import settings from '../utils/settings'
 
 import Header from '../components/Header.vue'
@@ -45,9 +50,23 @@ export default {
     ToggleButton
   },
   computed: {
-    allTutorials: () => coursesList.all.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId })),
+    courses: function () {
+      console.log(correctedCases)
+      let courses = {}
+      let standardCourses = _.omit(coursesList, ['featured'])
+      for (const course in standardCourses) {
+        courses[course] = {
+          name: correctedCases[course] || _.capitalize(course),
+          tutorialCount: coursesList[course].length
+        }
+      }
+      return courses
+    },
+    filteredTutorials: function () {
+      return coursesList[this.courseFilter].map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
+    },
     codelessTutorials: function () {
-      return this.allTutorials.filter(tutorial => {
+      return this.filteredTutorials.filter(tutorial => {
         const tutorialType = getTutorialType(tutorial.tutorialId)
 
         return tutorialType !== 'code' && tutorialType !== 'file-upload'
@@ -64,6 +83,7 @@ export default {
 
     return {
       tutorials,
+      courseFilter: 'all',
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
@@ -73,6 +93,7 @@ export default {
     }
   },
   methods: {
+    capitalize: _.capitalize,
     processToggle: function () {
       this.showCodingTutorials = !this.showCodingTutorials
 

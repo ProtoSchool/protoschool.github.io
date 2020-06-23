@@ -13,12 +13,14 @@ const tutorials = (window.__DATA__ && window.__DATA__.tutorials) || tutorialsJso
 // add that word here as a property with the correct capitalization (string) as its value.
 // This is to be used for single words, not full hyphenated paths. Capitalization of that
 // word will apply throughout all tutorial shortnames that include it.
-const correctedCases = {
+export const correctedCases = {
   api: 'API',
   cid: 'CID',
   of: 'of',
   a: 'a',
-  on: 'on'
+  on: 'on',
+  ipfs: 'IPFS',
+  libp2p: 'libp2p'
 }
 
 function deriveShortname (path) {
