@@ -33,6 +33,7 @@
 
 <script>
 import _ from 'lodash'
+import qs from 'querystringify'
 import coursesList from '../static/courses.json'
 import tutorials, { getTutorialType, correctedCases } from '../utils/tutorials'
 import settings from '../utils/settings'
@@ -51,7 +52,6 @@ export default {
   },
   computed: {
     courses: function () {
-      console.log(correctedCases)
       let courses = {}
       let standardCourses = _.omit(coursesList, ['featured'])
       for (const course in standardCourses) {
@@ -83,7 +83,7 @@ export default {
 
     return {
       tutorials,
-      courseFilter: 'all',
+      courseFilter: coursesList[self.$route.query.course] ? self.$route.query.course : 'all',
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
@@ -91,8 +91,31 @@ export default {
     if (this.$attrs.code === 'false') {
       this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'urlQuery' })
     }
+    if (this.$attrs.course !== 'all') {
+      this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${this.$attrs.course}`, method: 'urlQuery' })
+    }
   },
+  watch: {
+    courseFilter: function (value) {
+      if (value !== 'all') {
+        this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${value}`, method: 'select' })
+      }
+      this.setQueryParameter('course', value)
+    }
+},
   methods: {
+    setQueryParameter: function (name, value) {
+        const queries = {
+          ...this.$route.query,
+          [name]: value
+        }
+        const queryString = qs.stringify(queries)
+        // update query parameters
+        // don't use this.$router.push/replace because it triggers a full re-render and does not preserve the scroll
+        window.location.hash = window.location.hash.indexOf('?') === -1
+          ? window.location.hash + '?' + queryString
+          : window.location.hash.replace(window.location.hash.split('?')[1], queryString)
+    },
     capitalize: _.capitalize,
     processToggle: function () {
       this.showCodingTutorials = !this.showCodingTutorials
@@ -100,14 +123,8 @@ export default {
       if (!this.showCodingTutorials) {
         this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
       }
-
       settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, this.showCodingTutorials)
-
-      // update query parameters
-      // don't use this.$router.push/replace because it triggers a full re-render and does not preserve the scroll
-      window.location.hash = window.location.hash.indexOf('?') === -1
-        ? window.location.hash + `?code=${this.showCodingTutorials}`
-        : window.location.hash.replace(`code=${!this.showCodingTutorials}`, `code=${this.showCodingTutorials}`)
+      this.setQueryParameter('code', this.showCodingTutorials)
     },
     trackEvent: function (event, opts = {}) {
       window.Countly.q.push(['add_event', {
