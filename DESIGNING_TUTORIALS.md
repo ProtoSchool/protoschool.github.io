@@ -96,7 +96,7 @@ We're currently focused on improving our platform and growing our curriculum on 
 ### Creating an effective learner experience
 
 #### Know your audience
-- Your tutorial should be aimed at a specific audience level, typically beginner and ocassionally intermediate given our current curriculum.
+- Your tutorial should be aimed at a specific audience level, typically beginner and occasionally intermediate given our current curriculum.
 - Do your users need to already be familiar with certain concepts before starting your tutorial? Use the first lesson as a place to set out your expectations, linking to other tutorials or beginner-friendly learning materials they should review before starting your tutorial.
 - Don't go into detail on advanced concepts in a tutorial aimed at beginners. If you think of a related, more advanced topic that users might be interested to learn more about, consider including an aside in your text with a link to where they can learn more.
 - Use the resources page at the end of your tutorial to suggest next steps for further learning, linking to specific tutorials, videos or articles that build on the concepts you've just taught.

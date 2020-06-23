@@ -184,7 +184,7 @@ By keeping your server running, you can preview your new tutorial in a web brows
 
 Answer a few quick questions about your tutorial and the ProtoWizard will use your responses to set up both a directory for your tutorial (eg `src/tutorials/0007-my-new-tutorial`) and the necessary metadata (title, description, etc.) to display the tutorial on our website. When finished, the ProtoWizard will let you know where to go to preview your new tutorial in your web browser.
 
-While the ProtoWizard only supports the intial creation of this data, you can edit the details later in `src/static/tutorials.json`. If you need to do this, please read [Manage Your Tutorial's Metadata](#manage-your-tutorials-metadata) for more information.
+While the ProtoWizard only supports the initial creation of this data, you can edit the details later in `src/static/tutorials.json`. If you need to do this, please read [Manage Your Tutorial's Metadata](#manage-your-tutorials-metadata) for more information.
 
 **Lessons**
 
@@ -777,7 +777,7 @@ The properties exported from this file depend on the lesson type, as follows:
 
 ### `utils` module
 
-This module is a set of utils designed to be re-used accross the validation code of different tutorials.
+This module is a set of utils designed to be re-used across the validation code of different tutorials.
 
 #### `utils.format`
 

@@ -73,7 +73,7 @@ members of the project's leadership.
 Please note that the organizers of each local ProtoSchool [event](https://proto.school/#/events)
 maintain their own Code of Conduct with additional guidance for local events and
 any related websites or repositories. To report instances of abusive, harassing, or
-otherwise unacceptable behavior that have occured within local events or repos,
+otherwise unacceptable behavior that have occurred within local events or repos,
 please reach out to your local leadership team using the contact information
 provided in their CoC.
 
