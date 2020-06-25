@@ -1,3 +1,6 @@
+os:
+  - linux
+dist: xenial
 language: node_js
 node_js:
   - lts/*
@@ -26,11 +29,11 @@ notifications:
   email: false
 deploy:
   provider: pages
-  local-dir: dist
-  target-branch: master
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep-history: true
+  local_dir: dist
+  target_branch: master
+  cleanup: true
+  token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
   fqdn: proto.school
   on:
     branch: code
