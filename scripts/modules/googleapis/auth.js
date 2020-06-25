@@ -6,7 +6,7 @@
 const { google } = require('googleapis')
 
 if (!process.env.GOOGLE_CLIENT_ID) {
-  throw new Error('No config available. Add a .env file or make all the config available through env variables. Please check the docs at https://github.com/ProtoSchool/protoschool.github.io/tree/feat/events/scripts')
+  throw new Error('No config available. Add a .env file or make all the config available through env variables. Please check the docs at https://github.com/ProtoSchool/protoschool.github.io/tree/code/scripts')
 }
 
 const credentials = {
