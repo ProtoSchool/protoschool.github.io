@@ -16,12 +16,12 @@ const choices = [
     feedback: "No. Once the Proof of Replication is complete, we've proven that the encoding is correct, allowing the Proof of Spacetime to rely only on encoded data."
   },
   {
-    answer: 'It regularly checks that all encoded data in the CommR is still present on the Filecoin network.',
+    answer: 'It regularly checks that all encoded data is still present on the Filecoin network.',
     correct: false,
-    feedback: 'While the Proof of Storage does reference the CommR, it only samples a subset of the encoded data.'
+    feedback: 'While the Proof of Storage does rely on the encoded data, it only samples a subset of it.'
   },
   {
-    answer: 'It regularly checks to ensure that a random section of encoded data from the CommR is present in the right location.',
+    answer: 'It regularly checks to ensure that a random selection of encoded data is present in the right location.',
     correct: true,
     feedback: 'You got it!'
   }
