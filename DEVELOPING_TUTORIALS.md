@@ -906,4 +906,4 @@ if (utils.validators.isAsyncIterable(result)) {
 
 ## License
 
-ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/master/LICENSE.md) for further detail.
+ProtoSchool is licensed under the Apache-2.0 and MIT licenses. See [LICENSE.md](https://github.com/protoschool/protoschool.github.io/blob/code/LICENSE.md) for further detail.
