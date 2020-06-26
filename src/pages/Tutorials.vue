@@ -6,10 +6,13 @@
       <p class="f4 fw5 lh-copy ma0 pb4">
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
       <div class="mw7 center w100 tr">
-        <label for="course-select">Course</label>
-        <select name="course" id="course-select" v-model="courseFilter">
-          <option v-for="(course, courseName) in courses" :value="courseName">{{course.name}} ({{course.tutorialCount}})</option>
-        </select>
+        <SelectInput
+          id="course-select"
+          name="course"
+          v-model="courseFilter"
+          :options="courses"
+          label="Courses"
+        />
         <ToggleButton
             :value="showCodingTutorials"
             sync
@@ -39,6 +42,7 @@ import tutorials, { getTutorialType, correctedCases } from '../utils/tutorials'
 import settings from '../utils/settings'
 
 import Header from '../components/Header.vue'
+import SelectInput from '../components/forms/inputs/SelectInput.vue'
 import Tutorial from '../components/Tutorial.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
 import { EVENTS } from '../static/countly'
@@ -48,7 +52,8 @@ export default {
   components: {
     Header,
     Tutorial,
-    ToggleButton
+    ToggleButton,
+    SelectInput
   },
   computed: {
     courses: function () {
@@ -57,7 +62,7 @@ export default {
       for (const course in standardCourses) {
         courses[course] = {
           name: correctedCases[course] || _.capitalize(course),
-          tutorialCount: coursesList[course].length
+          count: coursesList[course].length
         }
       }
       return courses
@@ -97,6 +102,7 @@ export default {
   },
   watch: {
     courseFilter: function (value) {
+      console.log(value)
       if (value !== 'all') {
         this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${value}`, method: 'select' })
       }
