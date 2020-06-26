@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="wrapper" class="mw5">
     <label for="id">{{label}}</label>
     <select
       name="name"
@@ -23,3 +23,24 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+label {
+  display: none;
+}
+
+select {
+  background-color: lightgray;
+  border: none;
+}
+
+
+</style>
