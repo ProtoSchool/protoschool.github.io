@@ -252,7 +252,7 @@
     "url": "anatomy-of-a-cid",
     "project": "multiformats",
     "title": "Anatomy of a CID",
-    "description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+    "description": "Explore the ins and outs of CIDs (Content Identifiers), the unique labels used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin.",
     "newMessage": "",
     "updateMessage": "",
     "createdAt": "2020-03-15T00:00:00.000Z",
@@ -302,12 +302,11 @@
     "url": "verifying-storage-on-filecoin",
     "project": "filecoin",
     "title": "Verifying Storage on Filecoin",
-    "description": "Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
-    "newMessage": "Interested in Filecoin but feeling a little wary about storing your data with someone you don't know? Our first-ever Filecoin tutorial explains how the protocol uses proofs and consensus mechanisms to incentivize good behavior on the part of storage providers.",
+    "description": "Learn how Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
+    "newMessage": "Interested in Filecoin but want to know more about its core concepts? Our first-ever Filecoin tutorial explains how the protocol uses proofs and consensus mechanisms to incentivize good behavior on the part of storage providers.",
     "updateMessage": "",
     "createdAt": "2020-06-22T00:30:18.971Z",
     "updatedAt": "2020-06-22T00:30:18.971Z",
-    "hidden": true,
     "resources": [
       {
         "title": "What Sets Us Apart: Filecoin’s Proof System",
@@ -332,6 +331,12 @@
         "link": "https://filecoin-project.github.io/specs/",
         "type": "spec",
         "description": "Take a deep dive into the technical side of Filecoin in the spec for the protocol."
+      },
+      {
+        "title": "Anatomy of a CID",
+        "link": "https://proto.school/#/anatomy-of-a-cid",
+        "type": "tutorial",
+        "description": "Explore how CIDs are constructed in Filecoin, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       }
     ]
   }
