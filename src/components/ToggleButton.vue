@@ -1,7 +1,7 @@
 <template>
 <label
   :class="className"
-  class="flex flex-row justify-end items-center"
+  class="flex flex-row items-center"
   :for="computedId"
   tabindex="0"
   @keydown.space.prevent="keyToggle"

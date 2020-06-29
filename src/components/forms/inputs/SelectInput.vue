@@ -2,11 +2,17 @@
   <div id="wrapper" class="mw5">
     <label for="id">{{label}}</label>
     <select
-      name="name"
-      id="id"
+      :name="name"
+      :id="id"
       v-bind:value="value"
       v-on:input="$emit('input', $event.target.value)">
-      <option v-for="(option, optionName) in options" :value="optionName">{{option.name}} ({{option.count}})</option>
+      <option
+        v-for="(option, optionName) in options"
+        :value="optionName"
+        v-bind:key="option.name"
+      >
+        {{option.name}} ({{option.count}})
+      </option>
     </select>
   </div>
 </template>
@@ -20,7 +26,7 @@ export default {
     value: String,
     options: Object,
     label: String
-  },
+  }
 }
 </script>
 
@@ -41,6 +47,5 @@ select {
   background-color: lightgray;
   border: none;
 }
-
 
 </style>

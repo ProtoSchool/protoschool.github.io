@@ -5,13 +5,14 @@
       <h1 class="mt4">Interactive Tutorials</h1>
       <p class="f4 fw5 lh-copy ma0 pb4">
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
-      <div class="mw7 center w100 tr">
+      <div class="mw7 center w100 tr mb3 flex items-center">
         <SelectInput
           id="course-select"
           name="course"
           v-model="courseFilter"
           :options="courses"
           label="Courses"
+          class="mr3"
         />
         <ToggleButton
             :value="showCodingTutorials"
@@ -21,7 +22,6 @@
             :name="'includeCodingTutorials'"
             :id="'includeCodingTutorials'"
             :label="'Include Coding Tutorials'"
-            class="mb3"
             data-cy="toggle-coding-tutorials"
             :onClick="processToggle"
         />
@@ -108,19 +108,20 @@ export default {
       }
       this.setQueryParameter('course', value)
     }
-},
+  },
   methods: {
     setQueryParameter: function (name, value) {
-        const queries = {
-          ...this.$route.query,
-          [name]: value
-        }
-        const queryString = qs.stringify(queries)
-        // update query parameters
-        // don't use this.$router.push/replace because it triggers a full re-render and does not preserve the scroll
-        window.location.hash = window.location.hash.indexOf('?') === -1
-          ? window.location.hash + '?' + queryString
-          : window.location.hash.replace(window.location.hash.split('?')[1], queryString)
+      const queries = {
+        ...this.$route.query,
+        [name]: value
+      }
+      const queryString = qs.stringify(queries)
+
+      // update query parameters
+      // don't use this.$router.push/replace because it triggers a full re-render and does not preserve the scroll
+      window.location.hash = window.location.hash.indexOf('?') === -1
+        ? window.location.hash + '?' + queryString
+        : window.location.hash.replace(window.location.hash.split('?')[1], queryString)
     },
     capitalize: _.capitalize,
     processToggle: function () {
