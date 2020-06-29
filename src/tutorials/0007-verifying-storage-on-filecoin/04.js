@@ -1,5 +1,5 @@
 // Question must be a string
-const question = 'How does the Proof of Storage confirm that given data is stored over time?'
+const question = 'How does the Proof of Spacetime confirm that given data is stored over time?'
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
@@ -18,7 +18,7 @@ const choices = [
   {
     answer: 'It regularly checks that all encoded data is still present on the Filecoin network.',
     correct: false,
-    feedback: 'While the Proof of Storage does rely on the encoded data, it only samples a subset of it.'
+    feedback: 'While the Proof of Spacetime does rely on the encoded data, it only samples a subset of it.'
   },
   {
     answer: 'It regularly checks to ensure that a random selection of encoded data is present in the right location.',
