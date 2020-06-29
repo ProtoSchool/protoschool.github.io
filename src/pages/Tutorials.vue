@@ -12,7 +12,7 @@
           v-model="courseFilter"
           :options="courses"
           label="Courses"
-          class="mr3"
+          class="mr4"
         />
         <ToggleButton
             :value="showCodingTutorials"
@@ -47,6 +47,16 @@ import Tutorial from '../components/Tutorial.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
 import { EVENTS } from '../static/countly'
 
+let courses = {}
+let standardCourses = _.omit(coursesList, ['featured'])
+for (const course in standardCourses) {
+  courses[course] = {
+    key: course,
+    name: correctedCases[course] || _.capitalize(course),
+    count: coursesList[course].length
+  }
+}
+
 export default {
   name: 'Tutorials',
   components: {
@@ -56,19 +66,8 @@ export default {
     SelectInput
   },
   computed: {
-    courses: function () {
-      let courses = {}
-      let standardCourses = _.omit(coursesList, ['featured'])
-      for (const course in standardCourses) {
-        courses[course] = {
-          name: correctedCases[course] || _.capitalize(course),
-          count: coursesList[course].length
-        }
-      }
-      return courses
-    },
     filteredTutorials: function () {
-      return coursesList[this.courseFilter].map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
+      return coursesList[this.courseFilter.key].map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
     },
     codelessTutorials: function () {
       return this.filteredTutorials.filter(tutorial => {
@@ -88,7 +87,8 @@ export default {
 
     return {
       tutorials,
-      courseFilter: coursesList[self.$route.query.course] ? self.$route.query.course : 'all',
+      courses,
+      courseFilter: coursesList[self.$route.query.course] ? courses[self.$route.query.course] : courses.all,
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
@@ -102,11 +102,10 @@ export default {
   },
   watch: {
     courseFilter: function (value) {
-      console.log(value)
-      if (value !== 'all') {
-        this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${value}`, method: 'select' })
+      if (value.key !== 'all') {
+        this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${value.key}`, method: 'select' })
       }
-      this.setQueryParameter('course', value)
+      this.setQueryParameter('course', value.key)
     }
   },
   methods: {

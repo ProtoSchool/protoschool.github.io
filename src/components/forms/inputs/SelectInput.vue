@@ -1,19 +1,24 @@
 <template>
   <div id="wrapper" class="mw5">
-    <label for="id">{{label}}</label>
-    <select
+    <label for="id" class="mr3">{{label}}</label>
+    <v-select
       :name="name"
       :id="id"
-      v-bind:value="value"
-      v-on:input="$emit('input', $event.target.value)">
-      <option
-        v-for="(option, optionName) in options"
-        :value="optionName"
-        v-bind:key="option.name"
-      >
-        {{option.name}} ({{option.count}})
-      </option>
-    </select>
+      :options="selectOptions"
+      :value="value"
+      @input="value => $emit('input', value)"
+      label="name"
+      :searchable="false"
+    />
+      <!-- <template v-slot:option="option">
+        <option
+          :value="option.name"
+          v-bind:key="option.name"
+        >
+          {{option.name}} ({{option.count}})
+        </option>
+      </template>
+    </v-select> -->
   </div>
 </template>
 
@@ -23,9 +28,18 @@ export default {
   props: {
     id: String,
     name: String,
-    value: String,
+    value: Object,
     options: Object,
     label: String
+  },
+  computed: {
+    selectOptions: function () {
+      return Object.values(this.options).map(option => ({
+        key: option.key,
+        name: `${option.name} (${option.count})`,
+        count: option.count
+      }))
+    }
   }
 }
 </script>
@@ -34,18 +48,22 @@ export default {
 
 #wrapper {
   display: flex;
-  flex-direction: column;
   border-radius: 10px;
-  overflow: hidden;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 label {
-  display: none;
+  text-align: left;
 }
 
 select {
   background-color: lightgray;
   border: none;
+}
+
+.v-select {
+  min-width: 180px;
 }
 
 </style>
