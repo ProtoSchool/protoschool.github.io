@@ -57,6 +57,7 @@
           v-if="currentStep === maximumStep"
           :data-state-view-active="currentStep === maximumStep"
           key="thank-you"
+          :isProfileSurveyComplete="isProfileSurveyComplete"
         />
       </transition>
       <button
@@ -141,6 +142,13 @@ export default {
           ...opts
         }
       }])
+    },
+    isProfileSurveyComplete: function () {
+      console.log('in isProfileSurveyComplete (FormOptionB)')
+      // does this need to be computed instead?
+      // return settings.profileSurvey.get("profile-survey", "complete")
+      return localStorage.getItem('settings/profile-survey/complete')
+      // may be getting a string true if true or a false boolean if missing ??
     }
   }
 }

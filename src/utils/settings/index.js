@@ -12,11 +12,14 @@
   `settings/feedbackSurveys/*`
  */
 
+// TODO: More documentation about what prefix / key / value / module mean in this context
+
 import translations from '../../static/translations'
 import {
   FILTERS_KEY_PREFIX,
   NEWSLETTER_KEY_PREFIX,
   FEEDBACK_SURVEY_KEY_PREFIX,
+  PROFILE_SURVEY_KEY_PREFIX,
   AB_TESTING_PREFIX
 } from './prefixes'
 import { makeOperations } from './helpers'
@@ -69,6 +72,19 @@ tutorialFeedbackSurvey.saveProgress = function (tutorialId, questionNumber, answ
     completed: questionNumber === totalNumberOfQuestions,
     answers
   })
+}
+
+/*
+  Profile Survey
+ */
+
+const profileSurvey = {
+  ...makeOperations(PROFILE_SURVEY_KEY_PREFIX)
+}
+
+profileSurvey.markComplete = function () {
+  console.log('in markComplete')
+  profileSurvey.set(PROFILE_SURVEY_KEY_PREFIX, 'complete', true)
 }
 
 /*
