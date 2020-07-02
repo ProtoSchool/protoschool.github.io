@@ -6,7 +6,7 @@
   tabindex="0"
   @keydown.space.prevent="keyToggle"
 >
-  <span class="external-label-left" v-if="label">{{label}}</span>
+  <span class="external-label-left fw5" v-if="label">{{label}}</span>
   <div class="dib">
     <input
       type="checkbox"

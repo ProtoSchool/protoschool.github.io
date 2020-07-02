@@ -1,6 +1,6 @@
 <template>
   <div class="select-input mw5">
-    <label for="id" class="mr3">{{label}}</label>
+    <label for="id" class="mr3 fw5">{{label}}</label>
     <v-select
       :name="name"
       :id="id"
@@ -41,29 +41,56 @@ export default {
   align-items: center;
 }
 
-.select-input label {
+label {
   text-align: left;
 }
-/*
-.select-input select {
-  background-color: lightgray;
-  border: none;
-} */
 
-.select-input .v-select {
+.v-select {
   min-width: 180px;
-}
 
-.select-input .vs__search::placeholder,
-.select-input .vs__dropdown-toggle,
-.select-input .vs__dropdown-menu {
-  background: var(--color-snow);
-  border: none;
+  font-weight: 500;
   color: var(--color-navy-muted);
 }
 
-.select-input .vs__clear,
-.select-input .vs__open-indicator {
+.vs__dropdown-toggle {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
+
+.vs__search::placeholder,
+.vs__dropdown-toggle,
+.vs__dropdown-menu {
+  background: var(--color-snow);
+  border: none;
+}
+
+.vs__selected {
+  color: var(--color-navy-muted);
+
+  transition:
+    opacity var(--transition-fast);
+}
+
+.vs__open-indicator {
   fill: var(--color-navy);
+}
+
+.vs__dropdown-menu {
+  padding: 0;
+}
+
+.vs__dropdown-option {
+  padding: 0.6rem 1rem;
+  background: var(--color-snow-muted);
+  color: var(--color-navy-muted);
+
+  transition:
+    background var(--transition-default),
+    color var(--transition-default);
+}
+
+.vs__dropdown-option--highlight {
+  background: var(--color-snow);
+  color: var(--color-navy);
 }
 </style>

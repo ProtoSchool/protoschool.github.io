@@ -5,7 +5,7 @@
       <h1 class="mt4">Interactive Tutorials</h1>
       <p class="f4 fw5 lh-copy ma0 pb4">
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
-      <div class="mw7 center w100 tr mb3 flex items-center-ns flex-row-ns flex-column justify-between items-start">
+      <div class="mw7 center w100 tr mb4 flex items-center-ns flex-row-ns flex-column justify-between items-start">
         <SelectInput
           id="course-select"
           name="course"
@@ -26,11 +26,10 @@
             :onClick="processToggle"
         />
       </div>
+      <TutorialsGrid
+        :tutorials="showCodingTutorials ? filteredTutorials : codelessTutorials"
+      />
     </section>
-
-    <template v-for="tutorial in (showCodingTutorials? filteredTutorials : codelessTutorials)" >
-      <Tutorial :tutorial="tutorial" :key="tutorial.tutorialId" :tutorialId="tutorial.tutorialId" />
-    </template>
   </div>
 </template>
 
@@ -43,7 +42,7 @@ import settings from '../utils/settings'
 
 import Header from '../components/Header.vue'
 import SelectInput from '../components/forms/inputs/SelectInput.vue'
-import Tutorial from '../components/Tutorial.vue'
+import TutorialsGrid from '../components/TutorialsGrid.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
 import { EVENTS } from '../static/countly'
 
@@ -61,7 +60,7 @@ export default {
   name: 'Tutorials',
   components: {
     Header,
-    Tutorial,
+    TutorialsGrid,
     ToggleButton,
     SelectInput
   },
