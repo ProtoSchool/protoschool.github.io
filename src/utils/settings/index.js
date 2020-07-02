@@ -86,6 +86,10 @@ profileSurvey.markComplete = function () {
   profileSurvey.set('complete', true)
 }
 
+profileSurvey.isCompleted = function () {
+  return profileSurvey.get('complete')
+}
+
 /*
   A/B Testing
  */

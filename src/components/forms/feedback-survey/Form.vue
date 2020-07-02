@@ -141,7 +141,7 @@ export default {
       }])
     },
     isProfileSurveyComplete: function () {
-      return settings.profileSurvey.get('complete')
+      return settings.profileSurvey.isCompleted()
     }
   }
 }
