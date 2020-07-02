@@ -29,7 +29,7 @@ export default {
       let href = 'https://twitter.com/intent/tweet?'
       href += `text=I just completed the ${this.tutorial.title} tutorial at @ProtoSchool!`
       href += `&url=${encodeURIComponent(getTutorialFullUrl(this.tutorial.formattedId))}`
-      href += `&hashtags=${this.tutorial.project.name}`
+      href += `&hashtags=${this.tutorial.project.twitterHashtag}`
 
       return href
     }
