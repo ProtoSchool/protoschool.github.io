@@ -84,7 +84,7 @@ const profileSurvey = {
 
 profileSurvey.markComplete = function () {
   console.log('in markComplete')
-  profileSurvey.set(PROFILE_SURVEY_KEY_PREFIX, 'complete', true)
+  profileSurvey.set('complete', true)
 }
 
 /*
@@ -99,5 +99,6 @@ export default {
   filters,
   newsletters,
   tutorialFeedbackSurvey,
+  profileSurvey,
   abTesting
 }

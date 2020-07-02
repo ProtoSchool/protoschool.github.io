@@ -1,10 +1,10 @@
 <template>
   <div class="thank-you-message">
-    <div v-if="isProfileSurveyComplete()" class="text" v-html="translations.thankYouMessage.textWithoutPrompt">
+    <div v-if="showProfileSurveyLink" class="text" v-html="translations.thankYouMessage.textWithoutPrompt">
     </div>
     <div v-else class="text" v-html="translations.thankYouMessage.textWithPrompt">
     </div>
-    <div v-if="!isProfileSurveyComplete()"
+    <div v-if="!showProfileSurveyLink"
       class="flex justify-end mt4"
     >
         <div v-on:click="onClickToProfileSurvey()">
@@ -28,9 +28,9 @@ export default {
     ButtonLink
   },
   props: {
-    isProfileSurveyComplete: {
-      type: Function,
-      required: true
+    showProfileSurveyLink: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
@@ -38,13 +38,7 @@ export default {
   }),
   methods: {
     onClickToProfileSurvey: function () {
-      console.log('in onClickToProfileSurvey')
-      // return settings.profileSurvey.markComplete()
-      localStorage.setItem('settings/profile-survey/complete', 'true')
-      // this is working to set local storage but we currently have no mechanism
-      // to make the ThankYouMessage go away afterward
-      // if the page reloads itself it's there with the message w/o the prompt
-      // and then if I refresh myself it's gone
+      settings.profileSurvey.markComplete()
     }
   }
 }
