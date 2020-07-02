@@ -31,7 +31,7 @@ deploy:
   provider: pages
   local_dir: dist
   target_branch: master
-  cleanup: true
+  skip_cleanup: true
   token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep_history: true
   fqdn: proto.school
