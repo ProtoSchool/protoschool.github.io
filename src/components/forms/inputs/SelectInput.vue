@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper" class="mw5">
+  <div class="select-input mw5">
     <label for="id" class="mr3">{{label}}</label>
     <v-select
       :name="name"
@@ -11,15 +11,6 @@
       :searchable="false"
       :clearable="false"
     />
-      <!-- <template v-slot:option="option">
-        <option
-          :value="option.name"
-          v-bind:key="option.name"
-        >
-          {{option.name}} ({{option.count}})
-        </option>
-      </template>
-    </v-select> -->
   </div>
 </template>
 
@@ -35,36 +26,44 @@ export default {
   },
   computed: {
     selectOptions: function () {
-      return Object.values(this.options).map(option => ({
-        key: option.key,
-        name: `${option.name} (${option.count})`,
-        count: option.count
-      }))
+      return Object.values(this.options)
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 
-#wrapper {
+.select-input {
   display: flex;
   border-radius: 10px;
   justify-content: flex-start;
   align-items: center;
 }
 
-label {
+.select-input label {
   text-align: left;
 }
-
-select {
+/*
+.select-input select {
   background-color: lightgray;
   border: none;
-}
+} */
 
-.v-select {
+.select-input .v-select {
   min-width: 180px;
 }
 
+.select-input .vs__search::placeholder,
+.select-input .vs__dropdown-toggle,
+.select-input .vs__dropdown-menu {
+  background: var(--color-snow);
+  border: none;
+  color: var(--color-navy-muted);
+}
+
+.select-input .vs__clear,
+.select-input .vs__open-indicator {
+  fill: var(--color-navy);
+}
 </style>
