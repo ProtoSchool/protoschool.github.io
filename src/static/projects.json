@@ -2,31 +2,42 @@
   {
     "id": "ipfs",
     "name": "IPFS",
-    "url": "https://ipfs.io"
+    "url": "https://ipfs.io",
+    "twitterHashtag": "IPFS",
+    "twitterHandle": "IPFS"
   },
   {
     "id": "ipld",
     "name": "IPLD",
-    "url": "https://ipld.io"
+    "url": "https://ipld.io",
+    "twitterHashtag": "IPLD",
+    "twitterHandle": "IPLDbot"
   },
   {
     "id": "libp2p",
     "name": "libp2p",
-    "url": "https://libp2p.io"
+    "url": "https://libp2p.io",
+    "twitterHashtag": "libp2p",
+    "twitterHandle": "libp2p"
   },
   {
     "id": "multiformats",
     "name": "Multiformats",
-    "url": "https://multiformats.io"
+    "url": "https://multiformats.io",
+    "twitterHashtag": "Multiformats",
+    "twitterHandle": "Multiformats"
   },
   {
     "id": "filecoin",
     "name": "Filecoin",
-    "url": "https://filecoin.io"
+    "url": "https://filecoin.io",
+    "twitterHashtag": "Filecoin",
+    "twitterHandle": "Filecoin"
   },
   {
     "id": "dweb",
     "name": "DWeb Concepts",
-    "url": "https://proto.school"
+    "url": "https://proto.school",
+    "twitterHashtag": "DWeb"
   }
 ]
