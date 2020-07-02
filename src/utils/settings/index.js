@@ -18,6 +18,12 @@
   3. Define additional methods as needed
   4. Spread `makeOperations` to the module so we have access to the `get` and `set` operations
   5. Export the new module in the bottom default export
+
+  TODO: make docs more clear:
+    - Rethink about the `module` naming
+    - think about a simplified API
+    - be more explicit about the reason for this module and use cases
+    - show clear examples explaning
  */
 
 import translations from '../../static/translations'
