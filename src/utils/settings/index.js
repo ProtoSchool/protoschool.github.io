@@ -10,9 +10,15 @@
   `settings/filters/*`
   `settings/newsletters/*`
   `settings/feedbackSurveys/*`
- */
 
-// TODO: More documentation about what prefix / key / value / module mean in this context
+  How to add a new module:
+
+  1. Create a new module object
+  2. Add specific constants to it if needed
+  3. Define additional methods as needed
+  4. Spread `makeOperations` to the module so we have access to the `get` and `set` operations
+  5. Export the new module in the bottom default export
+ */
 
 import translations from '../../static/translations'
 import {
@@ -79,15 +85,16 @@ tutorialFeedbackSurvey.saveProgress = function (tutorialId, questionNumber, answ
  */
 
 const profileSurvey = {
+  COMPLETED: 'completed',
   ...makeOperations(PROFILE_SURVEY_KEY_PREFIX)
 }
 
 profileSurvey.markComplete = function () {
-  profileSurvey.set('complete', true)
+  profileSurvey.set(profileSurvey.COMPLETED, true)
 }
 
 profileSurvey.isCompleted = function () {
-  return profileSurvey.get('complete')
+  return profileSurvey.get(profileSurvey.COMPLETED)
 }
 
 /*
