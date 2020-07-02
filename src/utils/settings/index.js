@@ -83,7 +83,6 @@ const profileSurvey = {
 }
 
 profileSurvey.markComplete = function () {
-  console.log('in markComplete')
   profileSurvey.set('complete', true)
 }
 
