@@ -9,6 +9,7 @@
       @input="value => $emit('input', value)"
       label="name"
       :searchable="false"
+      :clearable="false"
     />
       <!-- <template v-slot:option="option">
         <option

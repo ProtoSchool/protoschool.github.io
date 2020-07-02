@@ -5,14 +5,14 @@
       <h1 class="mt4">Interactive Tutorials</h1>
       <p class="f4 fw5 lh-copy ma0 pb4">
         Our self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools. Select your topic and track your progress as you go, in a format that's right for you. Complete JavaScript code challenges right in your web browser or stick to our text-based or multiple-choice tutorials for a code-free experience. Our handy little icons will guide you to the content that fits your needs.</p>
-      <div class="mw7 center w100 tr mb3 flex items-center">
+      <div class="mw7 center w100 tr mb3 flex items-center-ns flex-row-ns flex-column justify-left items-start">
         <SelectInput
           id="course-select"
           name="course"
           v-model="courseFilter"
           :options="courses"
           label="Courses"
-          class="mr4"
+          class="mr4 mb0-ns mb3"
         />
         <ToggleButton
             :value="showCodingTutorials"
