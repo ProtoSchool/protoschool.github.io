@@ -4,6 +4,7 @@
     :to="{ name: link }"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
     :disabled="disabled"
+    @click="onClick"
   >
     <slot>{{text}}</slot>
   </router-link>
@@ -11,6 +12,7 @@
     v-else
     :href="link"
     target="__blank"
+    @click="onClick"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3 link"
   >
     {{text}}
@@ -34,6 +36,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    onClick: {
+      type: Function,
+      default: () => {}
     }
   }
 }
