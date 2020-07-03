@@ -95,15 +95,16 @@ export default {
     if (this.$attrs.code === 'false') {
       this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'urlQuery' })
     }
-    if (this.$attrs.course !== 'all') {
-      this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${this.$attrs.course}`, method: 'urlQuery' })
+    if (this.$attrs.course && this.$attrs.course !== 'all') {
+      this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: this.$attrs.course, method: 'urlQuery' })
     }
   },
   watch: {
     courseFilter: function (value) {
       if (value.key !== 'all') {
-        this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: `${value.key}`, method: 'select' })
+        this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: value.key, method: 'select' })
       }
+
       this.setQueryParameter('course', value.key)
     }
   },
