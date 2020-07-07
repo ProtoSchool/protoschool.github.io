@@ -25,21 +25,23 @@ const testLessons = {
   }
 }
 
+// ensure every tutorial in tutorials.json is renderable, including resources pages, from tutorials page
+
 // ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
 describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   function assertTutorialsAreNotFiltered () {
-    cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
-    cy.get('[data-cy=tutorial-title]').should('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
+    cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
+      .and('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < courses.all.length; i++) {
-      cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
     }
   }
   function assertTutorialsAreFiltered () {
     const codelessTutorials = courses.all.filter(tutorialId => (getTutorialType(tutorialId) !== 'code') && (getTutorialType(tutorialId) !== 'file-upload'))
 
-    cy.get('[data-cy=tutorial-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
+    cy.get('[data-cy=tutorial-card-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < codelessTutorials.length; i++) {
-      cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
     }
   }
 
@@ -198,11 +200,22 @@ function advanceThroughLessons (tutorialId) {
   let firstFileUploadIndex = lessons.findIndex(lesson => lesson.type === 'file-upload')
   lessons.push(resourcesLesson) // index of resourcesLesson = lessonCount
 
-  it(`finds ${tutorialTitle} landing page with links to ${lessonCount} lessons plus resources`, function () {
+  it(`finds ${tutorialTitle} landing page with links to correct ${lessonCount} lessons plus resources`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.contains('h2', tutorialTitle)
     cy.get(`[data-cy=lesson-link-standard]`).should('have.length', lessonCount)
     cy.get(`[data-cy=lesson-link-resources]`).should('have.length', 1)
+    // show that correct links are in correct order, but don't click through to test them
+    // (instead test a single case of linking below and test render when clicking through lessons in order)
+    for (let i = 0; i < lessonCount; i++) {
+      cy.get('[data-cy=lesson-link-standard]').eq(i)
+        .should('contain', lessons[i].title)
+        .and('have.attr', 'href', `#/${tutorialName}/${lessons[i].formattedId}`)
+    }
+
+    cy.get(`[data-cy=lesson-link-resources]`).eq(0)
+      .should('contain', 'More to explore')
+      .and('have.attr', 'href', `#/${tutorialName}/resources`)
   })
 
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
@@ -216,7 +229,7 @@ function advanceThroughLessons (tutorialId) {
     cy.contains('h1', lessons[0].title)
   })
 
-  // ALL TUTORIAL TYPES - loop through all lessons incl resources
+  // ALL TUTORIAL TYPES - loop through all lessons incl resources by clicking through lessons
   lessons.forEach(function (lesson, index) {
     let lessonNr = lesson.formattedId
     let lessonType = lesson.type
@@ -426,4 +439,4 @@ function advanceThroughLessons (tutorialId) {
       }
     }) // end this lesson
   }) // end loop through standard lessons, landing on resources page
-}
+} // end advanceThroughLessons
