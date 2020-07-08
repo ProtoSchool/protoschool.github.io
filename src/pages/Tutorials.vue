@@ -13,6 +13,7 @@
           :options="courseList"
           label="Courses"
           class="mr4 mb0-ns mb3"
+          data-cy="course-select"
         />
         <ToggleButton
             :value="showCodingTutorials"

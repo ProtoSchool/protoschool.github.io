@@ -10,6 +10,7 @@
       label="name"
       :searchable="false"
       :clearable="false"
+      :data-cy="dataCy"
     />
   </div>
 </template>
@@ -22,7 +23,8 @@ export default {
     name: String,
     value: Object,
     options: Object,
-    label: String
+    label: String,
+    dataCy: String
   },
   computed: {
     selectOptions: function () {
