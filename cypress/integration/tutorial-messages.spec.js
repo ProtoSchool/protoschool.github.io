@@ -1,5 +1,8 @@
 import moment from 'moment'
 
+// TODO: Fix existing tests to check against a tutorial landing page, not the tutorials page
+// TODO: Add test for appropriate icon on card on tutorials page
+
 describe(`DISPLAY TUTORIAL MESSAGES`, function () {
   const mockTutorial = {
     formattedId: '0001',
@@ -31,7 +34,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
     passedAt,
     lessons = []
   }) {
-    cy.visit('/#/tutorials', {
+    cy.visit('#/tutorials', { // CHANGE TO LANDING PAGE OF MOCK? BUT IT 404s THAT WAY
       onBeforeLoad (window) {
         window.__DATA__ = {
           tutorials: {
