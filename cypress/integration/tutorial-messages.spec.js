@@ -34,7 +34,7 @@ describe(`DISPLAY TUTORIAL MESSAGES`, function () {
     passedAt,
     lessons = []
   }) {
-    cy.visit('#/tutorials', { // CHANGE TO LANDING PAGE OF MOCK? BUT IT 404s THAT WAY
+    cy.visit('/#/data-structures', {
       onBeforeLoad (window) {
         window.__DATA__ = {
           tutorials: {
