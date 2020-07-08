@@ -45,7 +45,7 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     cy.get('[data-cy=tutorial-card-title]').should('have.length', expectedTutorials.length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < expectedTutorials.length; i++) {
       // cy.log(`in loop where i = ${0} and tutorials[expectedTutorials[i]] is ${tutorials[expectedTutorials[i]]}`)
-      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[expectedTutorials[i]].title)
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[expectedTutorials[i].formattedId].title)
     }
   }
 
@@ -65,13 +65,13 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
   it(`course filter displays correct tutorials with and without code`, function () {
     // starts with coding ones displayed
     for (const course in courseList) {
-      cy.get('select').select(course.name).should('have.value', 'course.key')
-      assertTutorialsAreFiltered(course.key, true)
+      cy.get('select').select(courseList[course].name).should('have.value', 'course.key')
+      assertTutorialsAreFiltered(courseList[course].key, true)
     }
     cy.get('[data-cy=toggle-coding-tutorials]').click() // hide coding tutorials
     for (const course in courseList) {
-      cy.get('select').select(course.name).should('have.value', 'course.key')
-      assertTutorialsAreFiltered(course.key, false)
+      cy.get('select').select(courseList[course].name).should('have.value', 'course.key')
+      assertTutorialsAreFiltered(courseList[course].key, false)
     }
     cy.get('[data-cy=toggle-coding-tutorials]').click() // show coding tutorials
   })
