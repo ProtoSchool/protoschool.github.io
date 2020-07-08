@@ -1,7 +1,26 @@
 import _ from 'lodash'
 
 import tutorialsList, { getTutorialType } from '../../src/utils/tutorials'
+import { listCourses } from '../../src/utils/filters'
 import courses from '../../src/static/courses.json'
+
+const courseOptions = listCourses() // includes all, excludes featured
+console.log(courseOptions)
+// sample output
+//
+// {
+//   "all": {
+//     count: 7,
+//     key: "all",
+//     name: "All"
+//   },
+//   "filecoin": {
+//     count: 3,
+//     key: "filecoin",
+//     name: "Filecoin"
+//   },
+//   etc.
+// }
 
 const tutorials = _.omitBy(tutorialsList, tutorial => tutorial.hidden)
 
@@ -25,9 +44,18 @@ const testLessons = {
   }
 }
 
-// ensure every tutorial in tutorials.json is renderable, including resources pages, from tutorials page
+// TODO: Loop through the course filter list and
+// leave toggle showing coding
+// for (const course in courseOptions) {
+// click on select option shown as course.name
+// check that it displays course.count tutorials
+// check that it has the right tutorials in the right order as listed in courses[course.key] (adapt homepage test sinc these are also cards)
+// }
+// flip toggle to no coding
+// loop again but ensure each only lists non-coding tutorials
+// alternatively, add to the original list whether or not the courses including coding options and only check those ones both ways
 
-// ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
+// ensure correct tutorial cards appear on tutorials page and landing page (matching tutorials.json & courses.json)
 describe(`DISPLAYS CORRECT TUTORIALS`, function () {
   function assertTutorialsAreNotFiltered () {
     cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
@@ -36,6 +64,9 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
       cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
     }
   }
+
+  // TODO: Change function to take a course.name (matching select option) as an argument and pass it in to replace "all" below
+  // or to take two arguments (select list and true/false for including code)
   function assertTutorialsAreFiltered () {
     const codelessTutorials = courses.all.filter(tutorialId => (getTutorialType(tutorialId) !== 'code') && (getTutorialType(tutorialId) !== 'file-upload'))
 
@@ -44,6 +75,14 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
       cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
     }
   }
+
+  it(`homepage shows featured tutorials in correct order`, function () {
+    cy.visit(`/#/`)
+    cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.featured.length)
+    for (let i = 0; i < courses.featured.length; i++) {
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.featured[i]].title)
+    }
+  })
 
   it(`tutorials page shows all tutorials in correct order`, function () {
     cy.visit(`/#/tutorials/`)
@@ -62,13 +101,6 @@ describe(`DISPLAYS CORRECT TUTORIALS`, function () {
     cy.visit(`/#/tutorials?code=false`)
     cy.reload()
     assertTutorialsAreFiltered()
-  })
-  it(`homepage shows featured tutorials in correct order`, function () {
-    cy.visit(`/#/`)
-    cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.featured.length)
-    for (let i = 0; i < courses.featured.length; i++) {
-      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.featured[i]].title)
-    }
   })
 })
 
