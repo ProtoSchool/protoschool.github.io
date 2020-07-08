@@ -46,8 +46,8 @@
 <script>
 import moment from 'moment'
 
-import Card from './Card.vue'
-import tutorialsData from '../utils/tutorials'
+import Card from './SimpleCard.vue'
+import tutorialsData from '../../utils/tutorials'
 
 export default {
   components: {
@@ -119,7 +119,6 @@ export default {
 // },
 
 </script>
-<style scoped>
 
 <style scoped>
   a,

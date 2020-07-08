@@ -36,6 +36,12 @@ for (const tutorialId in tutorials) {
   tutorials[tutorialId].shortTitle = deriveShortname(tutorials[tutorialId].url)
   tutorials[tutorialId].lessons = getTutorialLessons(tutorials[tutorialId])
   tutorials[tutorialId].project = projects.get(tutorials[tutorialId].project)
+  tutorials[tutorialId].newMessage = tutorials[tutorialId].newMessage
+    ? marked(tutorials[tutorialId].newMessage).html.replace('<p>', '').replace('</p>', '')
+    : tutorials[tutorialId].newMessage
+  tutorials[tutorialId].updateMessage = tutorials[tutorialId].updateMessage
+    ? marked(tutorials[tutorialId].updateMessage).html.replace('<p>', '').replace('</p>', '')
+    : tutorials[tutorialId].updateMessage
 }
 
 // TODO Move this to a build script in the future to avoid heavy processing on the client.
@@ -127,12 +133,20 @@ export const state = {
   isTutorialNew,
   get: function get (tutorial) {
     if (isTutorialNew(tutorial)) {
-      return states.NEW
+      return {
+        type: states.NEW,
+        title: 'New',
+        message: tutorial.newMessage
+      }
     } else if (hasTutorialBeenUpdatedRecently(tutorial)) {
-      return states.UPDATED
+      return {
+        type: states.UPDATED,
+        title: 'Updated',
+        message: tutorial.updateMessage
+      }
     }
 
-    return ''
+    return null
   }
 }
 
