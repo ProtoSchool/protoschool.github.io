@@ -2,7 +2,7 @@
   <div
     v-if="tutorialState.type"
     class="container ph3 pt2 pb2 ba b--light-gray br3 flex-row tutorial-message flex"
-    :class="'tutorial-message--' + tutorialState.type"
+    :data-tutorial-state="tutorialState.type"
   >
     <InfoIcon class="mr1" />
     <div>
@@ -49,10 +49,10 @@ export default {
 
     margin-left: var(--padding);
 }
-.tutorial-message--new svg path {
+.tutorial-message[data-tutorial-state="new"] svg path {
     color: var(--color-green);
 }
-.tutorial-message--updated svg path {
+.tutorial-message[data-tutorial-state="updated"] svg path {
     color: var(--color-yellow-muted);
 }
 </style>
