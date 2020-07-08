@@ -10,7 +10,7 @@
           id="course-select"
           name="course"
           v-model="courseFilter"
-          :options="courses"
+          :options="courseList"
           label="Courses"
           class="mr4 mb0-ns mb3"
         />
@@ -36,9 +36,10 @@
 <script>
 import _ from 'lodash'
 import qs from 'querystringify'
-import coursesList from '../static/courses.json'
-import tutorials, { getTutorialType, correctedCases } from '../utils/tutorials'
+import courses from '../static/courses.json'
+import tutorials, { getTutorialType } from '../utils/tutorials'
 import settings from '../utils/settings'
+import { listCourses } from '../utils/filters' // NEW UTIL
 
 import Header from '../components/Header.vue'
 import SelectInput from '../components/forms/inputs/SelectInput.vue'
@@ -46,15 +47,7 @@ import TutorialsGrid from '../components/TutorialsGrid.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
 import { EVENTS } from '../static/countly'
 
-let courses = {}
-let standardCourses = _.omit(coursesList, ['featured'])
-for (const course in standardCourses) {
-  courses[course] = {
-    key: course,
-    name: correctedCases[course] || _.capitalize(course),
-    count: coursesList[course].length
-  }
-}
+const courseList = listCourses() // is there a better way to do this from within the util?
 
 export default {
   name: 'Tutorials',
@@ -66,7 +59,7 @@ export default {
   },
   computed: {
     filteredTutorials: function () {
-      return coursesList[this.courseFilter.key].map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
+      return courses[this.courseFilter.key].map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
     },
     codelessTutorials: function () {
       return this.filteredTutorials.filter(tutorial => {
@@ -86,8 +79,8 @@ export default {
 
     return {
       tutorials,
-      courses,
-      courseFilter: coursesList[self.$route.query.course] ? courses[self.$route.query.course] : courses.all,
+      courseList,
+      courseFilter: courseList[self.$route.query.course] ? courseList[self.$route.query.course] : courseList.all,
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
