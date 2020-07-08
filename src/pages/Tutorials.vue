@@ -27,7 +27,7 @@
         />
       </div>
       <TutorialsGrid
-        :tutorials="showCodingTutorials ? filteredTutorials : codelessTutorials"
+        :tutorials="filteredTutorials"
       />
     </section>
   </div>
@@ -36,7 +36,7 @@
 <script>
 import _ from 'lodash'
 import qs from 'querystringify'
-import tutorials, { getTutorialType } from '../utils/tutorials'
+import tutorials from '../utils/tutorials'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
 

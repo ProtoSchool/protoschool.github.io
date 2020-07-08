@@ -18,8 +18,8 @@ function listCourses () {
 
 export const courseList = listCourses()
 
-export function filterTutorials (course, includeCodingTutorials) {
-  const courseTutorials = courseList[course].tutorials.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
+export function filterTutorials (courseKey, includeCodingTutorials) {
+  const courseTutorials = courseList[courseKey].tutorials.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
   if (!includeCodingTutorials) {
     return courseTutorials.filter(tutorial => {
       const tutorialType = getTutorialType(tutorial.tutorialId)
