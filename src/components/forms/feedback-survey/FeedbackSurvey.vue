@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { EVENTS } from '../../../static/countly'
+import countly from '../../../utils/countly'
 import { getTutorialByUrl } from '../../../utils/tutorials'
 import settings from '../../../utils/settings'
 import abTesting from '../../../utils/ab-testing'
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     option: function () {
-      return abTesting.testComponent.apply(this, EVENTS.AB_TESTING_TUTORIAL_FEEDBACK_SURVEY)
+      return abTesting.testComponent.apply(this, countly.events.AB_TESTING_TUTORIAL_FEEDBACK_SURVEY)
     },
     tutorial: function () {
       return getTutorialByUrl(this.$route.params.tutorialUrl)
@@ -48,12 +48,12 @@ export default {
   },
   methods: {
     done: function () {
-      this.trackEvent(EVENTS.TUTORIAL_FEEDBACK_SURVEY_COMPLETED, {
+      this.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_COMPLETED, {
         tutorial: this.tutorial.shortTitle
       })
     },
     onAnswer: function (question, answer) {
-      this.trackEvent(EVENTS.TUTORIAL_FEEDBACK_SURVEY_ANSWER, {
+      this.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_ANSWER, {
         tutorial: this.tutorial.shortTitle,
         question: question.trackingId,
         answer
@@ -61,17 +61,14 @@ export default {
 
       settings.tutorialFeedbackSurvey.saveProgress(this.tutorial.id, question.number, answer)
     },
-    trackEvent: function (event, opts = {}) {
+    trackEvent: function (event, data) {
       const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
 
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          path: this.$route.path,
-          option: tutorialFeedbackSurveyOption,
-          ...opts
-        }
-      }])
+      countly.trackEvent(event, {
+        path: this.$route.path,
+        option: tutorialFeedbackSurveyOption,
+        ...data
+      })
     }
   }
 }

@@ -45,7 +45,7 @@ import Header from '../components/Header.vue'
 import SelectInput from '../components/forms/inputs/SelectInput.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
-import { EVENTS } from '../static/countly'
+import countly from '../utils/countly'
 
 export default {
   name: 'Tutorials',
@@ -77,7 +77,7 @@ export default {
   },
   created: function () {
     if (this.$attrs.code === 'false') {
-      this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'urlQuery' })
+      this.trackEvent(countly.events.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'urlQuery' })
     }
     if (this.$attrs.course && this.$attrs.course !== 'all') {
       this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: this.$attrs.course, method: 'urlQuery' })
@@ -111,19 +111,16 @@ export default {
       this.showCodingTutorials = !this.showCodingTutorials
 
       if (!this.showCodingTutorials) {
-        this.trackEvent(EVENTS.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
+        this.trackEvent(countly.events.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
       }
       settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, this.showCodingTutorials)
       this.setQueryParameter('code', this.showCodingTutorials)
     },
-    trackEvent: function (event, opts = {}) {
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          path: this.$route.path,
-          ...opts
-        }
-      }])
+    trackEvent: function (event, data) {
+      countly.trackEvent(event, {
+        path: this.$route.path,
+        ...data
+      })
     }
   }
 }
