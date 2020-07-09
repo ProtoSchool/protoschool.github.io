@@ -1,4 +1,4 @@
-import { EVENTS } from '../static/countly'
+import { EVENTS } from '../utils/countly'
 import { getTutorialByUrl } from './tutorials'
 import settings from './settings'
 

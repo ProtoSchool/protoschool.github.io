@@ -120,7 +120,7 @@ import {
   getLesson,
   isLessonPassed
 } from '../utils/tutorials'
-import { EVENTS } from '../static/countly'
+import countly from '../utils/countly'
 import marked from '../utils/marked'
 import Header from './Header.vue'
 import Quiz from './Quiz.vue'
@@ -279,7 +279,7 @@ export default {
   mounted: function () {
     if (this.isResources) {
       setLessonPassed(this.tutorial, this.lesson)
-      this.trackEvent(EVENTS.LESSON_PASSED)
+      this.trackEvent(countly.events.LESSON_PASSED)
     }
   },
   methods: {
@@ -348,7 +348,7 @@ export default {
         this.isSubmitting = false
         this.clearPassed()
         if (auto !== true) {
-          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+          this.trackEvent(countly.events.CODE_SUBMIT_WRONG)
         }
         return
       }
@@ -395,7 +395,7 @@ export default {
         setLessonPassed(this.tutorial, this.lesson)
         if (auto !== true) {
           // track lesson passed if it has a challenge (incl file ones)
-          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.trackEvent(countly.events.LESSON_PASSED)
           this.updateTutorialState()
         }
       } else {
@@ -404,7 +404,7 @@ export default {
         }
         this.clearPassed()
         if (auto !== true) {
-          this.trackEvent(EVENTS.CODE_SUBMIT_WRONG)
+          this.trackEvent(countly.events.CODE_SUBMIT_WRONG)
         }
       }
       this.lessonPassed = !!localStorage[this.lessonKey]
@@ -454,7 +454,7 @@ export default {
       this.clearPassed()
       delete this.output.test
       this.showUploadInfo = false
-      this.trackEvent(EVENTS.CODE_RESET)
+      this.trackEvent(countly.events.CODE_RESET)
     },
     resetFileUpload: function () {
       this.uploadedFiles = false
@@ -480,19 +480,16 @@ export default {
       }
 
       setTutorialPassed(this.tutorial)
-      this.trackEvent(EVENTS.TUTORIAL_PASSED)
+      this.trackEvent(countly.events.TUTORIAL_PASSED)
       return true
     },
-    trackEvent: function (event, opts = {}) {
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          tutorial: this.tutorial.shortTitle,
-          lessonNumber: this.isResources ? 'resources' : this.lessonId,
-          path: this.$route.path,
-          ...opts
-        }
-      }])
+    trackEvent: function (event, data) {
+      countly.trackEvent(event, {
+        tutorial: this.tutorial.shortTitle,
+        lessonNumber: this.isResources ? 'resources' : this.lessonId,
+        path: this.$route.path,
+        ...data
+      })
     },
     onMounted: function (editor) {
       // runs on page load, NOT on every keystroke in editor
@@ -536,13 +533,13 @@ export default {
         this.lessonPassed = !!localStorage[this.lessonKey]
         if (result.auto !== true) {
           // track multiple choice lesson passed if not on page load
-          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.trackEvent(countly.events.LESSON_PASSED)
           this.updateTutorialState()
         }
       } else {
         this.clearPassed()
         if (result.auto !== true) {
-          this.trackEvent(EVENTS.CHOICE_SUBMIT_WRONG, { wrongChoice: result.selected })
+          this.trackEvent(countly.events.CHOICE_SUBMIT_WRONG, { wrongChoice: result.selected })
         }
       }
     },
@@ -553,7 +550,7 @@ export default {
         setLessonPassed(this.tutorial, this.lesson)
         // track passed lesson if text only
         if (!this.isMultipleChoiceLesson) {
-          this.trackEvent(EVENTS.LESSON_PASSED)
+          this.trackEvent(countly.events.LESSON_PASSED)
           this.updateTutorialState()
         }
       }

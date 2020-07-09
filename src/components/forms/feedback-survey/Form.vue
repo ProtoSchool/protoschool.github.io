@@ -71,7 +71,7 @@
 </template>
 <script>
 import translations from '../../../static/translations'
-import { EVENTS } from '../../../static/countly'
+import countly from '../../../utils/countly'
 import settings from '../../../utils/settings'
 import Question from './Question.vue'
 import StepsTracker from './StepsTracker.vue'
@@ -120,24 +120,21 @@ export default {
       }
     },
     onDismiss: function () {
-      this.trackEvent(EVENTS.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
+      this.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
         numberOfQuestionsAnswered: this.currentStep === -1 ? 0 : this.currentStep,
         surveyCompleted: this.currentStep === this.maximumStep
       })
 
       this.dismissed = true
     },
-    trackEvent: function (event, opts = {}) {
+    trackEvent: function (event, data) {
       const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
 
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          path: this.$route.path,
-          option: tutorialFeedbackSurveyOption,
-          ...opts
-        }
-      }])
+      countly.trackEvent(event, {
+        path: this.$route.path,
+        option: tutorialFeedbackSurveyOption,
+        ...data
+      })
     }
   }
 }

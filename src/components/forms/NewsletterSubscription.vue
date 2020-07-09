@@ -80,7 +80,7 @@ import qs from 'querystringify'
 
 import config from '../../config'
 import settings from '../../utils/settings'
-import { EVENTS } from '../../static/countly'
+import countly from '../../utils/countly'
 import Button from '../buttons/Button.vue'
 import CheckboxInput from './inputs/CheckboxInput.vue'
 import TextInput from './inputs/TextInput.vue'
@@ -159,18 +159,15 @@ export default {
 
       this.setState(states.PENDING)
       setTimeout(() => this.setState(states.SUCCESS), 1000)
-      this.trackEvent(EVENTS.NEWSLETTER)
+      this.trackEvent(countly.events.NEWSLETTER)
       settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
     },
-    trackEvent: function (event, opts = {}) {
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          path: this.$route.path,
-          source: this.tracking,
-          ...opts
-        }
-      }])
+    trackEvent: function (event, data) {
+      countly.trackEvent(event, {
+        path: this.$route.path,
+        source: this.tracking,
+        ...data
+      })
     },
     setState (state, data = {}) {
       this.state = { type: state }
