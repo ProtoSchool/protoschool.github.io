@@ -1,3 +1,5 @@
+import settings from './settings'
+
 export const events = {
   CODE_RESET: 'resetCode',
   CODE_SUBMIT_WRONG: 'submitWrongCode',
@@ -19,7 +21,17 @@ export function trackEvent (event, data = {}) {
   }])
 }
 
+export function trackEventOnce (event, data) {
+  if (settings.countly.hasEventBeenTracked(event, data)) {
+    return
+  }
+
+  trackEvent(event, data)
+  settings.countly.markEventAsTracked(event, data)
+}
+
 export default {
   events,
-  trackEvent
+  trackEvent,
+  trackEventOnce
 }
