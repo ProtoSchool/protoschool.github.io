@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     filteredTutorials: function () {
-      return filterTutorials(this.courseFilter.key, this.showCodingTutorials)
+      return filterTutorials(this.courseFilter, this.showCodingTutorials)
     }
   },
   data: self => {
@@ -71,7 +71,7 @@ export default {
     return {
       tutorials,
       courseList,
-      courseFilter: courseList[self.$route.query.course] ? courseList[self.$route.query.course] : courseList.all,
+      courseFilter: courseList.find(course => course.key === self.$route.query.course) || courseList.find(course => course.key === 'all'),
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },

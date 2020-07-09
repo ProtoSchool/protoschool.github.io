@@ -4,7 +4,7 @@
     <v-select
       :name="name"
       :id="id"
-      :options="selectOptions"
+      :options="options"
       :value="value"
       @input="value => $emit('input', value)"
       label="name"
@@ -22,14 +22,9 @@ export default {
     id: String,
     name: String,
     value: Object,
-    options: Object,
+    options: Array,
     label: String,
     dataCy: String
-  },
-  computed: {
-    selectOptions: function () {
-      return Object.values(this.options)
-    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 import tutorialsList, { getTutorialType } from '../../src/utils/tutorials'
-import { courseList, filterTutorials } from '../../src/utils/filters'
+import { filterTutorials, courseList } from '../../src/utils/filters'
 import courses from '../../src/static/courses.json'
 
 const tutorials = _.omitBy(tutorialsList, tutorial => tutorial.hidden)
@@ -38,7 +38,8 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
 
   // pass in only course key
   function assertTutorialsAreFiltered (courseKey, showCodingTutorials) {
-    const expectedTutorials = filterTutorials(courseKey, showCodingTutorials) // an array of tutorial IDs
+    const course = courseList.find(course => course.key === courseKey)
+    const expectedTutorials = filterTutorials(course, showCodingTutorials) // an array of tutorial IDs
     cy.get('[data-cy=tutorial-card-title]').should('have.length', expectedTutorials.length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < expectedTutorials.length; i++) {
       cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[expectedTutorials[i].formattedId].title)
@@ -67,9 +68,9 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     cy.get('[data-cy=course-select]').should('have.class', 'vs--open') // dropdown open
       .find('ul#vs1__listbox').should('not.be.hidden') // selections visible
       .find('li').should(($lis) => {
-        expect($lis, `${Object.keys(courseList).length}`).to.have.length(Object.keys(courseList).length)
-        Object.keys(courseList).forEach(function (courseKey, i) {
-          expect($lis.eq(i), 'i').to.contain(courseList[courseKey].name)
+        expect($lis, `${courseList.length}`).to.have.length(courseList.length)
+        courseList.forEach(function (course, i) {
+          expect($lis.eq(i), 'i').to.contain(course.name)
         })
       })
   })
@@ -92,18 +93,21 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
   it(`course filter displays correct tutorials with and without code`, function () {
     // starts with coding ones hidden
 
-    Object.keys(courseList).forEach(function (courseKey, i) {
+    function selectCourse (course, i) {
       cy.get('[data-cy=course-select]').find('.vs__actions').click()
-      cy.get('[data-cy=course-select]').find(`li#vs1__option-${i}`).contains(courseList[courseKey].name).click()
-      assertTutorialsAreFiltered(courseKey, false)
+      cy.get('[data-cy=course-select]').find(`li#vs1__option-${i}`).contains(course.name).click()
+    }
+
+    courseList.forEach(function (course, i) {
+      selectCourse(course, i)
+      assertTutorialsAreFiltered(course.key, false)
     })
 
     cy.get('[data-cy=toggle-coding-tutorials]').click() // show coding tutorials
 
-    Object.keys(courseList).forEach(function (courseKey, i) {
-      cy.get('[data-cy=course-select]').find('.vs__actions').click()
-      cy.get('[data-cy=course-select]').find(`li#vs1__option-${i}`).contains(courseList[courseKey].name).click()
-      assertTutorialsAreFiltered(courseKey, true)
+    courseList.forEach(function (course, i) {
+      selectCourse(course, i)
+      assertTutorialsAreFiltered(course.key, true)
     })
   })
 })
