@@ -87,12 +87,18 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     assertTutorialsAreNotFiltered()
     cy.visit(`/#/tutorials?code=false`)
     cy.reload()
-    assertTutorialsAreFiltered('all', false)
+    cy.visit(`/#/tutorials?course=ipfs&code=false`)
+    cy.reload()
+    assertTutorialsAreFiltered('ipfs', false)
+    cy.reload()
+    assertTutorialsAreFiltered('ipfs', false)
+    cy.get('[data-cy=toggle-coding-tutorials]').click()
+    cy.url().should('contain', '/#/tutorials?course=ipfs&code=true')
+    assertTutorialsAreFiltered('ipfs', true)
   })
 
   it(`course filter displays correct tutorials with and without code`, function () {
-    // starts with coding ones hidden
-
+    // starts with coding ones shown
     function selectCourse (course, i) {
       cy.get('[data-cy=course-select]').find('.vs__actions').click()
       cy.get('[data-cy=course-select]').find(`li#vs1__option-${i}`).contains(course.name).click()
@@ -100,14 +106,14 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
 
     courseList.forEach(function (course, i) {
       selectCourse(course, i)
-      assertTutorialsAreFiltered(course.key, false)
+      assertTutorialsAreFiltered(course.key, true)
     })
 
-    cy.get('[data-cy=toggle-coding-tutorials]').click() // show coding tutorials
+    cy.get('[data-cy=toggle-coding-tutorials]').click()
 
     courseList.forEach(function (course, i) {
       selectCourse(course, i)
-      assertTutorialsAreFiltered(course.key, true)
+      assertTutorialsAreFiltered(course.key, false)
     })
   })
 })
