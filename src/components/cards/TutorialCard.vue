@@ -15,7 +15,7 @@
           />
           <h4 class="f6 mv0 fw5 charcoal-muted">{{tutorial.project.name}}</h4>
         </div>
-        <span v-if="state" class="tutorial-state f7 mv0 fw7 charcoal-muted br3">{{state.title}}</span>
+        <span v-if="state" class="tutorial-state f7 mv0 fw7 white br3">{{state.title}}</span>
       </div>
       <div class="flex flex-row justify-between items-start navy">
         <h3 class="ma0 f3 fw7" data-cy="tutorial-card-title">{{tutorial.title}}</h3>
@@ -62,7 +62,6 @@ export default {
   text-transform: uppercase;
   padding: 0.3rem 0.8rem;
   line-height: 1;
-  color: white;
 }
 
 .tutorial[data-tutorial-state="new"] .tutorial-state {
