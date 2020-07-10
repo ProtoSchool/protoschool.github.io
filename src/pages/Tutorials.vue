@@ -58,6 +58,11 @@ export default {
   computed: {
     filteredTutorials: function () {
       return filterTutorials(this.courseFilter, this.showCodingTutorials)
+    },
+    trackingData: function () {
+      return {
+        path: this.$route.path
+      }
     }
   },
   data: self => {
@@ -77,16 +82,31 @@ export default {
   },
   created: function () {
     if (this.$attrs.code === 'false') {
-      this.trackEvent(countly.events.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'urlQuery' })
+      countly.trackEvent(countly.events.FILTER, {
+        ...this.trackingData,
+        filteredData: 'tutorials',
+        filter: 'hideCodingTutorials',
+        method: 'urlQuery'
+      })
     }
     if (this.$attrs.course && this.$attrs.course !== 'all') {
-      this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: this.$attrs.course, method: 'urlQuery' })
+      countly.trackEvent(countly.events.FILTER, {
+        ...this.trackingData,
+        filteredData: 'courses',
+        filter: this.$attrs.course,
+        method: 'urlQuery'
+      })
     }
   },
   watch: {
     courseFilter: function (value) {
       if (value.key !== 'all') {
-        this.trackEvent(EVENTS.FILTER, { filteredData: 'courses', filter: value.key, method: 'select' })
+        countly.trackEvent(countly.events.FILTER, {
+          ...this.trackingData,
+          filteredData: 'courses',
+          filter: value.key,
+          method: 'select'
+        })
       }
 
       this.setQueryParameter('course', value.key)
@@ -111,16 +131,16 @@ export default {
       this.showCodingTutorials = !this.showCodingTutorials
 
       if (!this.showCodingTutorials) {
-        this.trackEvent(countly.events.FILTER, { filteredData: 'tutorials', filter: 'hideCodingTutorials', method: 'toggle' })
+        countly.trackEvent(countly.events.FILTER, {
+          ...this.trackingData,
+          filteredData: 'tutorials',
+          filter: 'hideCodingTutorials',
+          method: 'toggle'
+        })
       }
+
       settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, this.showCodingTutorials)
       this.setQueryParameter('code', this.showCodingTutorials)
-    },
-    trackEvent: function (event, data) {
-      countly.trackEvent(event, {
-        path: this.$route.path,
-        ...data
-      })
     }
   }
 }
