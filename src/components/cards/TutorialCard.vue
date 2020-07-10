@@ -4,7 +4,7 @@
     :key="tutorial.tutorialId"
     :data-tutorial-state="state && state.type"
   >
-    <router-link :to="tutorial.url" class="flex flex-column pa4 no-underline">
+    <router-link :to="tutorial.url" class="flex flex-column w-100 pa4 no-underline">
       <div class="flex items-center justify-between mb3">
         <div class="flex items-center">
           <img
