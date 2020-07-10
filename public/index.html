@@ -64,7 +64,6 @@
           // Provide countly initialization parameters
           Countly.app_key = location.hostname === 'proto.school' ? COUNTLY_KEY_PROTOSCHOOL : COUNTLY_KEY_PROTOSCHOOL_TEST;
           Countly.url = COUNTLY_URL;
-          Countly.debug = true;
           // Choose what to track
           Countly.q.push(['track_sessions']);
           Countly.q.push(['track_pageview']);
