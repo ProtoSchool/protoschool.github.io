@@ -5,7 +5,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueTooltip from 'v-tooltip'
 import VueHighlightJS from 'vue-highlight.js'
-import vSelect from 'vue-select'
+import VueSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
 import App from './App.vue'
@@ -16,7 +16,7 @@ Vue
   .use(VueHighlightJS)
   .use(VueTooltip)
 
-Vue.component('v-select', vSelect)
+Vue.component('v-select', VueSelect)
 
 Vue.config.productionTip = false
 Vue.config.errorHandler = (error, vm, info) => {
