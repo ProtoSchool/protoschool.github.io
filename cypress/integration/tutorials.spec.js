@@ -80,7 +80,7 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     assertTutorialsAreNotFiltered()
     cy.get('[data-cy=toggle-coding-tutorials]').click()
     assertTutorialsAreFiltered('all', false)
-    cy.reload()
+    cy.reload() // reload is necessary because vue router does not listen to changes to the location hash
     assertTutorialsAreFiltered('all', false)
     cy.visit(`/#/tutorials?code=true`)
     cy.reload()
