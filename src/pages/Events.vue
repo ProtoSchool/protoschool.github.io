@@ -29,7 +29,7 @@
           <span v-else>(Most Recent)</span>
         </h2>
         <div class="flex flex-wrap justify-between events-list">
-          <Event v-for="event in pastEvents((viewAllPast ? null : maxRedacted))"
+          <EventCard v-for="event in pastEvents((viewAllPast ? null : maxRedacted))"
             v-bind="event"
             class="event-tile"
             :key="event.id"
@@ -46,14 +46,14 @@
 
 <script>
 import Header from '../components/Header'
-import Event from '../components/Event'
+import EventCard from '../components/cards/EventCard'
 import { pastEvents, futureEvents } from '../utils/events'
 
 export default {
   name: 'events',
   components: {
     Header,
-    Event
+    EventCard
   },
   data: self => {
     return {

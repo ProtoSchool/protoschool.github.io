@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 import tutorialsList, { getTutorialType } from '../../src/utils/tutorials'
+import { filterTutorials, courseList } from '../../src/utils/filters'
 import courses from '../../src/static/courses.json'
 
 const tutorials = _.omitBy(tutorialsList, tutorial => tutorial.hidden)
@@ -25,48 +26,95 @@ const testLessons = {
   }
 }
 
-// ensure every lesson in every tutorial included in tutorials.json is renderable, including resources pages
-describe(`DISPLAYS CORRECT TUTORIALS`, function () {
+// ensure correct tutorial cards appear on tutorials page and landing page (matching tutorials.json & courses.json)
+describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function () {
   function assertTutorialsAreNotFiltered () {
-    cy.get('[data-cy=tutorial-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
-    cy.get('[data-cy=tutorial-title]').should('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
+    cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
+      .and('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < courses.all.length; i++) {
-      cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
-    }
-  }
-  function assertTutorialsAreFiltered () {
-    const codelessTutorials = courses.all.filter(tutorialId => (getTutorialType(tutorialId) !== 'code') && (getTutorialType(tutorialId) !== 'file-upload'))
-
-    cy.get('[data-cy=tutorial-title]').should('have.length', codelessTutorials.length) // displaying # of tutorials in tutorials.json
-    for (let i = 0; i < codelessTutorials.length; i++) {
-      cy.get('[data-cy=tutorial-title]').eq(i).should('contain', tutorials[codelessTutorials[i]].title)
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
     }
   }
 
-  it(`tutorials page shows all tutorials in correct order`, function () {
-    cy.visit(`/#/tutorials/`)
-    assertTutorialsAreNotFiltered()
-  })
-  it(`toggle hides coding tutorials`, function () {
-    cy.visit(`/#/tutorials/`)
-    assertTutorialsAreNotFiltered()
-    cy.get('[data-cy=toggle-coding-tutorials]').click()
-    assertTutorialsAreFiltered()
-    cy.reload()
-    assertTutorialsAreFiltered()
-    cy.visit(`/#/tutorials?code=true`)
-    cy.reload()
-    assertTutorialsAreNotFiltered()
-    cy.visit(`/#/tutorials?code=false`)
-    cy.reload()
-    assertTutorialsAreFiltered()
-  })
+  // pass in only course key
+  function assertTutorialsAreFiltered (courseKey, showCodingTutorials) {
+    const course = courseList.find(course => course.key === courseKey)
+    const expectedTutorials = filterTutorials(course, showCodingTutorials) // an array of tutorial IDs
+    cy.get('[data-cy=tutorial-card-title]').should('have.length', expectedTutorials.length) // displaying # of tutorials in tutorials.json
+    for (let i = 0; i < expectedTutorials.length; i++) {
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[expectedTutorials[i].formattedId].title)
+    }
+  }
+
   it(`homepage shows featured tutorials in correct order`, function () {
     cy.visit(`/#/`)
     cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.featured.length)
     for (let i = 0; i < courses.featured.length; i++) {
       cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.featured[i]].title)
     }
+  })
+
+  it(`tutorials page shows all tutorials in correct order`, function () {
+    cy.visit(`/#/tutorials/`)
+    assertTutorialsAreNotFiltered()
+  })
+
+  it(`course select displays correct options`, function () {
+    // starts with coding ones displayed
+    cy.get('[data-cy=course-select]').should('not.have.class', 'vs--open') // dropdown closed
+    cy.get('[data-cy=course-select]').find('ul#vs1__listbox').should('be.hidden') // selections hidden
+    cy.get('[data-cy=course-select]').find('span.vs__selected').contains('All') // 'All' selected
+    cy.get('[data-cy=course-select]').find('.vs__actions').click() // click to see options
+    cy.get('[data-cy=course-select]').should('have.class', 'vs--open') // dropdown open
+      .find('ul#vs1__listbox').should('not.be.hidden') // selections visible
+      .find('li').should(($lis) => {
+        expect($lis, `${courseList.length}`).to.have.length(courseList.length)
+        courseList.forEach(function (course, i) {
+          expect($lis.eq(i), 'i').to.contain(course.name)
+        })
+      })
+  })
+
+  it(`toggle hides coding tutorials via click and url`, function () {
+    cy.visit(`/#/tutorials/`)
+    assertTutorialsAreNotFiltered()
+    cy.get('[data-cy=toggle-coding-tutorials]').click()
+    assertTutorialsAreFiltered('all', false)
+    cy.reload() // reload is necessary because vue router does not listen to changes to the location hash
+    assertTutorialsAreFiltered('all', false)
+    cy.visit(`/#/tutorials?code=true`)
+    cy.reload()
+    assertTutorialsAreNotFiltered()
+    cy.visit(`/#/tutorials?code=false`)
+    cy.reload()
+    cy.visit(`/#/tutorials?course=ipfs&code=false`)
+    cy.reload()
+    assertTutorialsAreFiltered('ipfs', false)
+    cy.reload()
+    assertTutorialsAreFiltered('ipfs', false)
+    cy.get('[data-cy=toggle-coding-tutorials]').click()
+    cy.url().should('contain', '/#/tutorials?course=ipfs&code=true')
+    assertTutorialsAreFiltered('ipfs', true)
+  })
+
+  it(`course filter displays correct tutorials with and without code`, function () {
+    // starts with coding ones shown
+    function selectCourse (course, i) {
+      cy.get('[data-cy=course-select]').find('.vs__actions').click()
+      cy.get('[data-cy=course-select]').find(`li#vs1__option-${i}`).contains(course.name).click()
+    }
+
+    courseList.forEach(function (course, i) {
+      selectCourse(course, i)
+      assertTutorialsAreFiltered(course.key, true)
+    })
+
+    cy.get('[data-cy=toggle-coding-tutorials]').click()
+
+    courseList.forEach(function (course, i) {
+      selectCourse(course, i)
+      assertTutorialsAreFiltered(course.key, false)
+    })
   })
 })
 
@@ -198,11 +246,22 @@ function advanceThroughLessons (tutorialId) {
   let firstFileUploadIndex = lessons.findIndex(lesson => lesson.type === 'file-upload')
   lessons.push(resourcesLesson) // index of resourcesLesson = lessonCount
 
-  it(`finds ${tutorialTitle} landing page with links to ${lessonCount} lessons plus resources`, function () {
+  it(`finds ${tutorialTitle} landing page with links to correct ${lessonCount} lessons plus resources`, function () {
     cy.visit(`/#/${tutorialName}/`)
     cy.contains('h2', tutorialTitle)
     cy.get(`[data-cy=lesson-link-standard]`).should('have.length', lessonCount)
     cy.get(`[data-cy=lesson-link-resources]`).should('have.length', 1)
+    // show that correct links are in correct order, but don't click through to test them
+    // (instead test a single case of linking below and test render when clicking through lessons in order)
+    for (let i = 0; i < lessonCount; i++) {
+      cy.get('[data-cy=lesson-link-standard]').eq(i)
+        .should('contain', lessons[i].title)
+        .and('have.attr', 'href', `#/${tutorialName}/${lessons[i].formattedId}`)
+    }
+
+    cy.get(`[data-cy=lesson-link-resources]`).eq(0)
+      .should('contain', 'More to explore')
+      .and('have.attr', 'href', `#/${tutorialName}/resources`)
   })
 
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
@@ -216,7 +275,7 @@ function advanceThroughLessons (tutorialId) {
     cy.contains('h1', lessons[0].title)
   })
 
-  // ALL TUTORIAL TYPES - loop through all lessons incl resources
+  // ALL TUTORIAL TYPES - loop through all lessons incl resources by clicking through lessons
   lessons.forEach(function (lesson, index) {
     let lessonNr = lesson.formattedId
     let lessonType = lesson.type
@@ -426,4 +485,4 @@ function advanceThroughLessons (tutorialId) {
       }
     }) // end this lesson
   }) // end loop through standard lessons, landing on resources page
-}
+} // end advanceThroughLessons

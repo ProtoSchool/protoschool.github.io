@@ -25,7 +25,7 @@
       <div v-if="futureEvents().length">
         <h2>Coming Soon</h2>
         <div class="flex flex-wrap justify-between events-list">
-          <Event v-for="event in futureEvents(4)"
+          <EventCard v-for="event in futureEvents(4)"
             v-bind="event"
             class="event-tile"
             :key="event.id"
@@ -43,7 +43,7 @@
 
 <script>
 import Header from '../components/Header'
-import Event from '../components/Event'
+import EventCard from '../components/cards/EventCard'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
 import coursesList from '../static/courses.json'
 import tutorials from '../utils/tutorials'
@@ -54,7 +54,7 @@ export default {
   components: {
     Header,
     TutorialsGrid,
-    Event
+    EventCard
   },
   data: self => {
     return {
