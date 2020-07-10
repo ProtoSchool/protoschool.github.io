@@ -111,6 +111,14 @@ export default {
     },
     answers: function () {
       return settings.tutorialFeedbackSurvey.getProgress(this.tutorial.id).answers
+    },
+    trackingData: function () {
+      const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
+
+      return {
+        path: this.$route.path,
+        option: tutorialFeedbackSurveyOption
+      }
     }
   },
   methods: {
@@ -123,21 +131,13 @@ export default {
       }
     },
     onDismiss: function () {
-      this.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
+      countly.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
+        ...this.trackingData,
         numberOfQuestionsAnswered: this.currentStep === -1 ? 0 : this.currentStep,
         surveyCompleted: this.currentStep === this.maximumStep
       })
 
       this.dismissed = true
-    },
-    trackEvent: function (event, data) {
-      const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
-
-      countly.trackEvent(event, {
-        path: this.$route.path,
-        option: tutorialFeedbackSurveyOption,
-        ...data
-      })
     }
   }
 }

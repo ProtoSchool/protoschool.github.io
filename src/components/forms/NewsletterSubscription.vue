@@ -146,6 +146,12 @@ export default {
       }
 
       return qs.stringify(params)
+    },
+    trackingData: function () {
+      return {
+        path: this.$route.path,
+        source: this.tracking
+      }
     }
   },
   methods: {
@@ -159,15 +165,8 @@ export default {
 
       this.setState(states.PENDING)
       setTimeout(() => this.setState(states.SUCCESS), 1000)
-      this.trackEvent(countly.events.NEWSLETTER)
+      countly.trackEvent(countly.events.NEWSLETTER, this.trackingData)
       settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
-    },
-    trackEvent: function (event, data) {
-      countly.trackEvent(event, {
-        path: this.$route.path,
-        source: this.tracking,
-        ...data
-      })
     },
     setState (state, data = {}) {
       this.state = { type: state }

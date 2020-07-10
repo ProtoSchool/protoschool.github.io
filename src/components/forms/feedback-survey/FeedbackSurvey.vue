@@ -44,31 +44,29 @@ export default {
     },
     surveyCompleted: function () {
       return this.progress.completed
+    },
+    trackingData: function () {
+      const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
+
+      return {
+        path: this.$route.path,
+        option: tutorialFeedbackSurveyOption,
+        tutorial: this.tutorial.shortTitle
+      }
     }
   },
   methods: {
     done: function () {
-      this.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_COMPLETED, {
-        tutorial: this.tutorial.shortTitle
-      })
+      countly.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_COMPLETED, this.trackingData)
     },
     onAnswer: function (question, answer) {
-      this.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_ANSWER, {
-        tutorial: this.tutorial.shortTitle,
+      countly.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_ANSWER, {
+        ...this.trackingData,
         question: question.trackingId,
         answer
       })
 
       settings.tutorialFeedbackSurvey.saveProgress(this.tutorial.id, question.number, answer)
-    },
-    trackEvent: function (event, data) {
-      const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
-
-      countly.trackEvent(event, {
-        path: this.$route.path,
-        option: tutorialFeedbackSurveyOption,
-        ...data
-      })
     }
   }
 }
