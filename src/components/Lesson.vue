@@ -541,7 +541,7 @@ export default {
       } else {
         this.clearPassed()
         if (result.auto !== true) {
-          countly.trackEvent(countly.events.CHOICE_SUBMIT_WRONG, { ...this.trackingData, wrongChoice: result.selected })
+          countly.trackEventOnce(countly.events.CHOICE_SUBMIT_WRONG, { ...this.trackingData, wrongChoice: result.selected })
         }
       }
     },
