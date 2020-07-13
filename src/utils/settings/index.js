@@ -84,7 +84,7 @@ const abTesting = {
  Countly
  */
 const countly = {
-  EVENT_TRACKED: 'event-traked',
+  EVENT_TRACKED: 'event-tracked',
   ...makeOperations(COUNTLY_PREFIX)
 }
 
