@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="tutorialState.type"
+    v-if="tutorialState && tutorialState.type"
     class="container ph3 pt2 pb2 ba b--light-gray br3 flex-row tutorial-message flex"
     :data-tutorial-state="tutorialState.type"
   >
