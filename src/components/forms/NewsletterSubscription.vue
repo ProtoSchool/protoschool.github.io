@@ -106,8 +106,7 @@ export default {
     hideIfAlreadySubscribed: {
       type: Boolean,
       default: true
-    },
-    tracking: String
+    }
   },
   data: (self) => {
     return {
@@ -148,9 +147,17 @@ export default {
       return qs.stringify(params)
     },
     trackingData: function () {
+      let source = `${this.$route.name} Page`
+
+      if (this.$route.path === '/news') {
+        source = 'News Page'
+      } else if (this.$route.path.endsWith('/resources')) {
+        source = 'Resources Page'
+      }
+
       return {
         path: this.$route.path,
-        source: this.tracking
+        source
       }
     }
   },

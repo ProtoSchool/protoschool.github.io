@@ -73,7 +73,8 @@ const routes = [
   {
     path: '/:tutorialUrl/resources',
     component: ResourcesLesson,
-    props: true
+    props: true,
+    name: 'Resources'
   },
   {
     path: '/:tutorialUrl/:lessonId',
