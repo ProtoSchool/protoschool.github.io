@@ -8,7 +8,7 @@ function testComponent () {
   const option = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY) ||
     (Math.random() > 0.5 ? 'optionA' : 'optionB')
 
-  countly.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_AB_TESTING, {
+  countly.trackEventOnce(countly.events.TUTORIAL_FEEDBACK_SURVEY_AB_TESTING, {
     path: this.$route.path,
     tutorial: tutorial.shortTitle,
     option
