@@ -54,7 +54,9 @@
             :resetCode="resetCode"
             :expandChallenge="expandChallenge"
             :cyReplaceWithSolution="cyReplaceWithSolution"
-            :cyClearDefaultCode="cyClearDefaultCode" />
+            :cyClearDefaultCode="cyClearDefaultCode"
+            :trackingData="trackingData"
+          />
           <Quiz
             v-if="isMultipleChoiceLesson"
             :question="this.question"
@@ -68,7 +70,9 @@
             :output="output"
             :isFileLesson="isFileLesson"
             :lessonPassed="lessonPassed"
-            :parseData="parseData" />
+            :parseData="parseData"
+            :trackingData="trackingData"
+          />
           <Info
             v-if="(challenge && !isSubmitting && !output.test) || (output.test && output.test.fail && showLessonChangedInfo)"
             :showUploadInfo="showUploadInfo"

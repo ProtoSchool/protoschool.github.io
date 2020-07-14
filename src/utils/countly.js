@@ -2,6 +2,8 @@ import settings from './settings'
 
 export const events = {
   CODE_RESET: 'resetCode',
+  CODE_VIEW_SOLUTION: 'viewSolutionCode',
+  SUCCESS_LINK_CLICK: 'successLinkClick',
   CODE_SUBMIT_WRONG: 'submitWrongCode',
   CHOICE_SUBMIT_WRONG: 'submitWrongChoice',
   LESSON_PASSED: 'lessonPassed',

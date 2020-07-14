@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import countly from '../utils/countly'
 import MonacoEditor from 'vue-monaco-editor'
 
 export default {
@@ -59,7 +60,8 @@ export default {
     resetCode: Function,
     expandChallenge: Boolean,
     cyReplaceWithSolution: Function,
-    cyClearDefaultCode: Function
+    cyClearDefaultCode: Function,
+    trackingData: Object
   },
   data: self => {
     return {
@@ -75,6 +77,10 @@ export default {
   methods: {
     toggleSolution: function () {
       this.viewSolution = !this.viewSolution
+
+      if (this.viewSolution) {
+        countly.trackEvent(countly.events.CODE_VIEW_SOLUTION, this.trackingData)
+      }
     }
   },
   computed: {

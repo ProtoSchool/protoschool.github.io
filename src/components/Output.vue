@@ -16,11 +16,19 @@
         <a
           class="link fw7 underline-hover dib ph2 mh2 white"
           target="_blank"
-        :href="exploreIpldUrl">View in IPLD Explorer</a>
+          :href="exploreIpldUrl"
+          @click="onClickTrackIPLD"
+        >
+          View in IPLD Explorer
+        </a>
         <a
           class="link fw7 underline-hover dib ph2 mh2 white"
           target="_blank"
-          :href="inspectCidUrl">View in CID Inspector</a>
+          :href="inspectCidUrl"
+          @click="onClickTrackCID"
+        >
+          View in CID Inspector
+        </a>
       </span>
     </div>
     <div v-if="output.test.log">
@@ -33,12 +41,15 @@
 </template>
 
 <script>
+import countly from '../utils/countly'
+
 export default {
   props: {
     output: Object,
     isFileLesson: Boolean,
     lessonPassed: Boolean,
-    parseData: Function
+    parseData: Function,
+    trackingData: Object
   },
   computed: {
     exploreIpldUrl: function () {
@@ -50,6 +61,22 @@ export default {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
 
       return `https://cid.ipfs.io/#${cid || ''}`
+    }
+  },
+  methods: {
+    onClickTrackIPLD: function () {
+      countly.trackEvent(countly.events.SUCCESS_LINK_CLICK, {
+        ...this.trackingData,
+        href: this.exploreIpldUrl,
+        type: 'IPLD Explorer'
+      })
+    },
+    onClickTrackCID: function () {
+      countly.trackEvent(countly.events.SUCCESS_LINK_CLICK, {
+        ...this.trackingData,
+        href: this.inspectCidUrl,
+        type: 'CID Inspector'
+      })
     }
   }
 }
