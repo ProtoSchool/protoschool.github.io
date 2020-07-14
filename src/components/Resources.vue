@@ -17,7 +17,7 @@
       <div v-if='item.description' class='ma0 resource-desc' v-html='parse(item.description)'></div>
     </div>
     <FeedbackSurvey class="mv4" />
-    <NewsletterSubscription class="mv4" tracking="Resources Page" />
+    <NewsletterSubscription class="mv4" />
   </div>
 </template>
 

@@ -8,7 +8,6 @@
       <NewsletterSubscription
         class="mv4"
         :hideIfAlreadySubscribed="false"
-        tracking="News Page"
       />
     </section>
   </div>
