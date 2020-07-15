@@ -56,7 +56,7 @@
           v-if="currentStep === maximumStep"
           :data-state-view-active="currentStep === maximumStep"
           key="thank-you"
-          :showProfileSurveyLink="isProfileSurveyComplete()"
+          :showProfileSurveyLink="!isProfileSurveyComplete()"
         />
       </transition>
       <button

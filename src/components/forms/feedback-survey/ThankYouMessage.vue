@@ -1,10 +1,10 @@
 <template>
   <div class="thank-you-message">
-    <div v-if="showProfileSurveyLink" class="text" v-html="translations.thankYouMessage.textWithoutPrompt">
+    <div v-if="!showProfileSurveyLink" class="text" v-html="translations.thankYouMessage.textWithoutPrompt">
     </div>
     <div v-else class="text" v-html="translations.thankYouMessage.textWithPrompt">
     </div>
-    <div v-if="!showProfileSurveyLink"
+    <div v-if="showProfileSurveyLink"
       class="flex justify-end mt4"
     >
       <ButtonLink
