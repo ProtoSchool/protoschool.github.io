@@ -2,11 +2,15 @@
     Create auth object for connecting with the Google APIs.
     All required information will be ready from env vars.
  */
+const errorCode = require('err-code')
 
 const { google } = require('googleapis')
 
 if (!process.env.GOOGLE_CLIENT_ID) {
-  throw new Error('No config available. Add a .env file or make all the config available through env variables. Please check the docs at https://github.com/ProtoSchool/protoschool.github.io/tree/feat/events/scripts')
+  throw errorCode(
+    new Error('No config available. Add a .env file or make all the config available through env variables. Please check the docs at https://github.com/ProtoSchool/protoschool.github.io/tree/code/scripts'),
+    'NO_CONFIG'
+  )
 }
 
 const credentials = {

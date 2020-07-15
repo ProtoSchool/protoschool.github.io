@@ -64,7 +64,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "cids": "^0.7.1",
-    "err-code": "^2.0.0",
+    "err-code": "^2.0.3",
     "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
     "inquirer": "^7.1.0",
@@ -89,6 +89,7 @@
     "vue-highlight.js": "^3.1.0",
     "vue-monaco-editor": "0.0.19",
     "vue-router": "^3.1.6",
+    "vue-select": "^3.10.5",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {

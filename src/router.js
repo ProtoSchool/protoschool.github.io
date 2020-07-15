@@ -51,7 +51,7 @@ const routes = [
     path: '/tutorials',
     component: Tutorials,
     name: 'Tutorials',
-    props: (route) => ({ code: route.query.code })
+    props: (route) => ({ code: route.query.code, course: route.query.course })
   },
   {
     path: '/news',
@@ -73,7 +73,8 @@ const routes = [
   {
     path: '/:tutorialUrl/resources',
     component: ResourcesLesson,
-    props: true
+    props: true,
+    name: 'Resources'
   },
   {
     path: '/:tutorialUrl/:lessonId',

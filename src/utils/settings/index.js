@@ -32,7 +32,8 @@ import {
   NEWSLETTER_KEY_PREFIX,
   FEEDBACK_SURVEY_KEY_PREFIX,
   PROFILE_SURVEY_KEY_PREFIX,
-  AB_TESTING_PREFIX
+  AB_TESTING_PREFIX,
+  COUNTLY_PREFIX
 } from './prefixes'
 import { makeOperations } from './helpers'
 
@@ -111,10 +112,31 @@ const abTesting = {
   ...makeOperations(AB_TESTING_PREFIX)
 }
 
+/*
+ Countly
+ */
+const countly = {
+  EVENT_TRACKED: 'event-tracked',
+  ...makeOperations(COUNTLY_PREFIX)
+}
+
+countly.EVENT_KEY = function (event, data) {
+  return `${countly.EVENT_TRACKED}/${event}-${JSON.stringify(data)}`
+}
+
+countly.hasEventBeenTracked = function (event, data) {
+  return !!countly.get(countly.EVENT_KEY(event, data))
+}
+
+countly.markEventAsTracked = function (event, data) {
+  countly.set(countly.EVENT_KEY(event, data), new Date().toISOString())
+}
+
 export default {
   filters,
   newsletters,
   tutorialFeedbackSurvey,
   profileSurvey,
-  abTesting
+  abTesting,
+  countly
 }

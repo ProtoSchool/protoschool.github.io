@@ -80,7 +80,7 @@ import qs from 'querystringify'
 
 import config from '../../config'
 import settings from '../../utils/settings'
-import { EVENTS } from '../../static/countly'
+import countly from '../../utils/countly'
 import Button from '../buttons/Button.vue'
 import CheckboxInput from './inputs/CheckboxInput.vue'
 import TextInput from './inputs/TextInput.vue'
@@ -106,8 +106,7 @@ export default {
     hideIfAlreadySubscribed: {
       type: Boolean,
       default: true
-    },
-    tracking: String
+    }
   },
   data: (self) => {
     return {
@@ -146,6 +145,20 @@ export default {
       }
 
       return qs.stringify(params)
+    },
+    trackingData: function () {
+      let source = `${this.$route.name} Page`
+
+      if (this.$route.path === '/news') {
+        source = 'News Page'
+      } else if (this.$route.path.endsWith('/resources')) {
+        source = 'Resources Page'
+      }
+
+      return {
+        path: this.$route.path,
+        source
+      }
     }
   },
   methods: {
@@ -159,18 +172,8 @@ export default {
 
       this.setState(states.PENDING)
       setTimeout(() => this.setState(states.SUCCESS), 1000)
-      this.trackEvent(EVENTS.NEWSLETTER)
+      countly.trackEvent(countly.events.NEWSLETTER, this.trackingData)
       settings.newsletters.set(settings.newsletters.PROTOSCHOOL, 'subscribed')
-    },
-    trackEvent: function (event, opts = {}) {
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          path: this.$route.path,
-          source: this.tracking,
-          ...opts
-        }
-      }])
     },
     setState (state, data = {}) {
       this.state = { type: state }

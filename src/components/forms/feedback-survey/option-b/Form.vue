@@ -73,7 +73,7 @@
 </template>
 <script>
 import translations from '../../../../static/translations'
-import { EVENTS } from '../../../../static/countly'
+import countly from '../../../../utils/countly'
 import { getTutorialByUrl } from '../../../../utils/tutorials'
 import settings from '../../../../utils/settings'
 import Question from '../Question.vue'
@@ -112,6 +112,14 @@ export default {
     },
     answers: function () {
       return settings.tutorialFeedbackSurvey.getProgress(this.tutorial.id).answers
+    },
+    trackingData: function () {
+      const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
+
+      return {
+        path: this.$route.path,
+        option: tutorialFeedbackSurveyOption
+      }
     }
   },
   methods: {
@@ -124,24 +132,13 @@ export default {
       }
     },
     onDismiss: function () {
-      this.trackEvent(EVENTS.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
+      countly.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
+        ...this.trackingData,
         numberOfQuestionsAnswered: this.currentStep === -1 ? 0 : this.currentStep,
         surveyCompleted: this.currentStep === this.maximumStep
       })
 
       this.dismissed = true
-    },
-    trackEvent: function (event, opts = {}) {
-      const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
-
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          path: this.$route.path,
-          option: tutorialFeedbackSurveyOption,
-          ...opts
-        }
-      }])
     },
     isProfileSurveyComplete: function () {
       return settings.profileSurvey.isCompleted()

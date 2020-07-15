@@ -252,7 +252,7 @@
     "url": "anatomy-of-a-cid",
     "project": "multiformats",
     "title": "Anatomy of a CID",
-    "description": "A content identifier, or CID, is a label used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin. It doesn’t indicate where the content is stored, but it forms a kind of address based on the content itself.",
+    "description": "Explore the ins and outs of CIDs (Content Identifiers), the unique labels used to point to data stored on distributed information systems including IPFS, IPLD, libp2p, and Filecoin.",
     "newMessage": "",
     "updateMessage": "",
     "createdAt": "2020-03-15T00:00:00.000Z",
@@ -293,6 +293,50 @@
         "link": "https://github.com/multiformats/cid/",
         "type": "docs",
         "description": "Review the specification for CID, the self-describing content-addressed identifier for distributed systems like IPFS and IPLD."
+      }
+    ]
+  },
+  "0007": {
+    "id": 7,
+    "formattedId": "0007",
+    "url": "verifying-storage-on-filecoin",
+    "project": "filecoin",
+    "title": "Verifying Storage on Filecoin",
+    "description": "Learn how Filecoin's built-in verification methods make it possible to trust peers in an incentivized, decentralized file storage system.",
+    "newMessage": "Interested in Filecoin but want to know more about its core concepts? Our first-ever Filecoin tutorial explains how the protocol uses proofs and consensus mechanisms to incentivize good behavior on the part of storage providers.",
+    "updateMessage": "",
+    "createdAt": "2020-06-22T00:30:18.971Z",
+    "updatedAt": "2020-06-22T00:30:18.971Z",
+    "resources": [
+      {
+        "title": "What Sets Us Apart: Filecoin’s Proof System",
+        "link": "https://filecoin.io/blog/filecoin-proof-system/",
+        "type": "article",
+        "description": "Explore what sets Filecoin apart from other blockchains in this blog post from founder Juan Benet."
+      },
+      {
+        "title": "Scaling Proof of Replication for Filecoin Mining",
+        "link": "https://research.protocol.ai/publications/scaling-proof-of-replication-for-filecoin-mining/",
+        "type": "paper",
+        "description": "Learn more about the powers of Proof of Replication (PoRep) in this academic paper from Ben Fisch, Joseph Bonneau, Nicola Greco, and Juan Benet."
+      },
+      {
+        "title": "Good SNARKs are Here Needed",
+        "link": "https://youtu.be/qii1xq9j7ny",
+        "type": "video",
+        "description": "Explore ZK SNARKs in this Zcon0 talk from Nicola Greco of Protocol Labs."
+      },
+      {
+        "title": "Filecoin Spec",
+        "link": "https://filecoin-project.github.io/specs/",
+        "type": "spec",
+        "description": "Take a deep dive into the technical side of Filecoin in the spec for the protocol."
+      },
+      {
+        "title": "Anatomy of a CID",
+        "link": "https://proto.school/#/anatomy-of-a-cid",
+        "type": "tutorial",
+        "description": "Explore how CIDs are constructed in Filecoin, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       }
     ]
   }
