@@ -132,7 +132,8 @@ export default {
       countly.trackEvent(countly.events.TUTORIAL_FEEDBACK_SURVEY_DISMISSED, {
         ...this.trackingData,
         numberOfQuestionsAnswered: this.currentStep === -1 ? 0 : this.currentStep,
-        surveyCompleted: this.currentStep === this.maximumStep
+        surveyCompleted: this.currentStep === this.maximumStep,
+        profileSurveyClicked: !!settings.profileSurvey.isCompleted()
       })
 
       this.dismissed = true

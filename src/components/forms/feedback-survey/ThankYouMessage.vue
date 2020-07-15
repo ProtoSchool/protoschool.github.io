@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import { EVENTS } from '../../../static/countly'
+import countly from '../../../utils/countly'
 import translations from '../../../static/translations'
 import settings from '../../../utils/settings'
 import { getTutorialByUrl } from '../../../utils/tutorials'
@@ -40,23 +40,19 @@ export default {
   computed: {
     tutorial: function () {
       return getTutorialByUrl(this.$route.params.tutorialUrl)
+    },
+    trackingData: function () {
+      return {
+        tutorial: this.tutorial.shortTitle,
+        path: this.$route.path
+      }
     }
   },
   methods: {
     onClickToProfileSurvey: function () {
       settings.profileSurvey.markComplete()
 
-      this.trackEvent(EVENTS.PROFILE_SURVEY_CLICK)
-    },
-    trackEvent: function (event, opts = {}) {
-      window.Countly.q.push(['add_event', {
-        key: event,
-        segmentation: {
-          tutorial: this.tutorial.shortTitle,
-          path: this.$route.path,
-          ...opts
-        }
-      }])
+      countly.trackEvent(countly.events.PROFILE_SURVEY_CLICK, this.trackingData)
     }
   }
 }
