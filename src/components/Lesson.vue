@@ -112,6 +112,7 @@ import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
 
+import { isProduction } from '../utils/env'
 import {
   getTutorialByUrl,
   isTutorialPassed,
@@ -136,7 +137,7 @@ import Validator from './Validator.vue'
 import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
 import TypeIcon from './TypeIcon.vue'
 
-const MAX_EXEC_TIMEOUT = 10000
+const MAX_EXEC_TIMEOUT = isProduction ? 10e3 : 60e3
 
 class SyntaxError extends Error {
   toString () {
