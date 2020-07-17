@@ -5,7 +5,7 @@ import utils from '../utils'
 const validate = async (result, ipfs) => {
   const uploadedFiles = window.uploadedFiles || false
 
-  const iterable = ipfs.add(window.uploadedFiles)
+  const iterable = ipfs.addAll(window.uploadedFiles)
   const expectedResult = await all(iterable)
 
   if (!result) {
@@ -75,12 +75,12 @@ return run
 const solution = `/* global ipfs, all */
 
 const run = async (files) => {
-  const result = await all(ipfs.add(files))
+  const result = await all(ipfs.addAll(files))
 
   // or using for await...of loop
   //const result = []
   //
-  //for await (const resultPart of ipfs.add(files)) {
+  //for await (const resultPart of ipfs.addAll(files)) {
   //  result.push(resultPart)
   //}
 

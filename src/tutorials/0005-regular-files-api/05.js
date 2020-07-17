@@ -11,7 +11,7 @@ const validate = async (result, ipfs) => {
       content: file
     }
   })
-  const expectedResults = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const expectedResults = await all(ipfs.addAll(fileObjectsArray, { wrapWithDirectory: true }))
 
   if (!result) {
     return {
@@ -119,7 +119,7 @@ const run = async (files) => {
   //   fileObjectsArray.push(fileObject)
   // })
 
-  const results = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const results = await all(ipfs.addAll(fileObjectsArray, { wrapWithDirectory: true }))
 
   return results
 
