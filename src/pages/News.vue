@@ -9,6 +9,7 @@
         class="mv4"
         :hideIfAlreadySubscribed="false"
       />
+      <p class="f4 fw5 lh-copy ma0 pv2">Want updates from related projects? Sign up for the <a href="http://eepurl.com/gL2Pi5" target="blank">IPFS</a> or <a href="https://mailchi.mp/filecoin.io/subscribe" target="blank">Filecoin</a> newsletters.</p>
     </section>
   </div>
 </template>
