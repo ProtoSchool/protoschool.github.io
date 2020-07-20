@@ -79,7 +79,7 @@
     "title": "P2P Data Links with Content Addressing",
     "description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
     "newMessage": "",
-    "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by adding `files.addAll` to use with multiple files, while `files.add` can now only be used with a single file. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
+    "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by changing `ipfs.dag.get` by moving the `path` into the `options` object. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-07-20T00:00:00.000Z",
     "resources": [
@@ -157,7 +157,7 @@
     "title": "Mutable File System",
     "description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
     "newMessage": "",
-    "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by adding `files.addAll` to use with multiple files, while `files.add` can now only be used with a single file. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
+    "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by changing the acceptable formats for moving multiple files with `ipfs.files.mv`. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-07-20T00:00:00.000Z",
     "resources": [
