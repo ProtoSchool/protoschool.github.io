@@ -120,7 +120,7 @@ const run = async (files) => {
   const rootDirectoryContents = await all(ipfs.files.ls('/'))
 
   const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
-  await ipfs.files.mv(filepathsToMove, '/some/stuff')
+  await ipfs.files.mv(...filepathsToMove, '/some/stuff')
 
   //  // alternatively, wrapping multiple mv calls into a single async function with await:
   //  const filesToMove = rootDirectoryContents.filter(item => item.type === 0)

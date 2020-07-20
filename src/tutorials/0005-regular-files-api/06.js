@@ -5,7 +5,7 @@ import utils from '../utils'
 const validate = async (result, ipfs) => {
   let uploadedFiles = window.uploadedFiles || false
   const fileObjectsArray = window.uploadedFiles.map((file) => { return { path: file.name, content: file } })
-  const addedFiles = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const addedFiles = await all(ipfs.addAll(fileObjectsArray, { wrapWithDirectory: true }))
   const directoryCID = addedFiles[addedFiles.length - 1].cid
 
   const expectedResults = await all(ipfs.ls(directoryCID))
@@ -88,7 +88,7 @@ const code = `/* global ipfs, all */
 
 const run = async (files) => {
   const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
-  const addedFiles = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const addedFiles = await all(ipfs.addAll(fileObjectsArray, { wrapWithDirectory: true }))
   const directoryCID = addedFiles[addedFiles.length - 1].cid
 
   // only edit code below this point
@@ -102,7 +102,7 @@ const solution = `/* global ipfs, all */
 
 const run = async (files) => {
   const fileObjectsArray = files.map((file) => { return { path: file.name, content: file }})
-  const addedFiles = await all(ipfs.add(fileObjectsArray, { wrapWithDirectory: true }))
+  const addedFiles = await all(ipfs.addAll(fileObjectsArray, { wrapWithDirectory: true }))
   const directoryCID = addedFiles[addedFiles.length - 1].cid
 
   return all(ipfs.ls(directoryCID))
