@@ -65,14 +65,14 @@ export default {
   },
   methods: {
     onClickTrackIPLD: function () {
-      countly.trackEvent(countly.events.SUCCESS_LINK_CLICK, {
+      countly.trackEvent(countly.events.LINK_CLICK_IPLD_EXPLORER, {
         ...this.trackingData,
         href: this.exploreIpldUrl,
         type: 'IPLD Explorer'
       })
     },
     onClickTrackCID: function () {
-      countly.trackEvent(countly.events.SUCCESS_LINK_CLICK, {
+      countly.trackEvent(countly.events.LINK_CLICK_CID_INSPECTOR, {
         ...this.trackingData,
         href: this.inspectCidUrl,
         type: 'CID Inspector'

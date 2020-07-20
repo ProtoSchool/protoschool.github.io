@@ -3,7 +3,8 @@ import settings from './settings'
 export const events = {
   CODE_RESET: 'resetCode',
   CODE_VIEW_SOLUTION: 'viewSolutionCode',
-  SUCCESS_LINK_CLICK: 'successLinkClick',
+  LINK_CLICK_IPLD_EXPLORER: 'linkClickIpldExplorer',
+  LINK_CLICK_CID_INSPECTOR: 'linkClickCidInspector',
   CODE_SUBMIT_WRONG: 'submitWrongCode',
   CHOICE_SUBMIT_WRONG: 'submitWrongChoice',
   LESSON_PASSED: 'lessonPassed',
