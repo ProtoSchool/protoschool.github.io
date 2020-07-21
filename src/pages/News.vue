@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     newsletters: function() {
-     console.log(getNewsletters())
      return getNewsletters()
    },
    trackingData: function () {
