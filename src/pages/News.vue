@@ -9,7 +9,17 @@
         class="mv4"
         :hideIfAlreadySubscribed="false"
       />
-      <p class="f4 fw5 lh-copy ma0 pv2">Want updates from related projects? Sign up for the <a href="http://eepurl.com/gL2Pi5" target="blank">IPFS</a> or <a href="https://mailchi.mp/filecoin.io/subscribe" target="blank">Filecoin</a> newsletters.</p>
+      <p class="f4 fw5 lh-copy ma0 pv2 mb2 mt4">Get news from related projects:</p>
+      <ul class="flex flex-wrap justify-center ma0 pa0 mb2">
+        <li class="list " v-for="project in newsletters">
+          <a v-on:click="onClickTrack(project)" class="newsletter-link pv3 ph4 db ma1 br3 flex items-center no-underline navy" :href="project.newsletterUrl" target="blank">
+            <img class="h2 mr3" :src="project.logo"/>
+            <span class="f4">{{project.name}}</span>
+          </a>
+        </li>
+      </ul>
+
+
     </section>
   </div>
 </template>
@@ -17,12 +27,63 @@
 <script>
 import Header from '../components/Header.vue'
 import NewsletterSubscription from '../components/forms/NewsletterSubscription.vue'
+import { getNewsletters } from '../utils/projects'
+import countly from '../utils/countly'
 
 export default {
   name: 'News',
   components: {
     Header,
     NewsletterSubscription
+  },
+  computed: {
+    newsletters: function() {
+     console.log(getNewsletters())
+     return getNewsletters()
+   },
+   trackingData: function () {
+     return {
+      path: this.$route.path,
+      source: 'News Page'
+     }
+   }
+  },
+  methods: {
+    onClickTrack: function (project) {
+      countly.trackEvent(countly.events.NEWSLETTER_REFERRAL, {
+        ...this.trackingData,
+        href: project.newsletterUrl,
+        project: project.name
+      })
+    }
   }
 }
 </script>
+<style scoped>
+
+.newsletter-link {
+  outline: none;
+
+  transition:
+    background-color var(--transition-default);
+}
+
+.newsletter-link span {
+  user-select: none;
+}
+
+/* States */
+.newsletter-link:hover {
+  background-color: var(--color-snow-muted);
+}
+
+.newsletter-link:active {
+  background-color: var(--color-snow);
+}
+
+@media screen and (max-width: 640px) {
+  .newsletter-link {
+    background-color: var(--color-snow-muted);
+  }
+}
+</style>
