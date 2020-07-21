@@ -5,15 +5,20 @@ data.forEach(project => {
   project.logo = require(`../static/images/projects/${project.id}.svg`)
 })
 
-function get (id) {
+export function get (id) {
   return getAll().find(project => project.id === id)
 }
 
-function getAll () {
+export function getAll () {
   return data
+}
+
+export function getNewsletters () {
+  return getAll().filter(project => project.hasOwnProperty('newsletterUrl'))
 }
 
 export default {
   get,
-  getAll
+  getAll,
+  getNewsletters
 }
