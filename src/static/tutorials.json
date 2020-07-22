@@ -54,19 +54,19 @@
       },
       {
         "title": "Anatomy of a CID",
-        "link": "https://proto.school/#/anatomy-of-a-cid",
+        "link": "https://proto.school/anatomy-of-a-cid",
         "type": "tutorial",
         "description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       },
       {
         "title": "IPFS: Mutable File System (MFS)",
-        "link": "https://proto.school/#/mutable-file-system",
+        "link": "https://proto.school/mutable-file-system",
         "type": "tutorial",
         "description": "Explore the Mutable File System (MFS), which lets you work with files and directories in IPFS as if you were using a traditional name-based file system. (This tutorial includes JavaScript code challenges.)"
       },
       {
         "title": "P2P Data Links with Content Addressing",
-        "link": "https://proto.school/#/basics/",
+        "link": "https://proto.school/basics/",
         "type": "tutorial",
         "description": "Use the IPFS DAG API to create create verifiable links between dataset with Content Identifiers (CIDs). (This tutorial includes JavaScript code challenges.)"
       }
@@ -90,7 +90,7 @@
       },
       {
         "title": "Blogging on the Decentralized Web",
-        "link": "https://proto.school/#/blog/",
+        "link": "https://proto.school/blog/",
         "type": "tutorial",
         "description": "Ready for a bigger challenge with the IPFS DAG API? Use CIDs to build and update a complex web of data."
       },
@@ -108,7 +108,7 @@
       },
       {
         "title": "IPFS: Regular Files API",
-        "link": "https://proto.school/#/regular-files-api",
+        "link": "https://proto.school/regular-files-api",
         "type": "tutorial",
         "description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
       }
@@ -144,7 +144,7 @@
       },
       {
         "title": "IPFS: Regular Files API",
-        "link": "https://proto.school/#/regular-files-api",
+        "link": "https://proto.school/regular-files-api",
         "type": "tutorial",
         "description": "Ready to deal with more than primitives? Explore the API custom-built for efficient handling of files in IPFS."
       }
@@ -181,7 +181,7 @@
       },
       {
         "title": "IPFS: Regular Files API",
-        "link": "https://proto.school/#/regular-files-api",
+        "link": "https://proto.school/regular-files-api",
         "type": "tutorial",
         "description": "Explore the other half of the IPFS Files API, where you'll add and retrieve files and read their contents without the abstraction layer of the Mutable File System."
       },
@@ -199,7 +199,7 @@
       },
       {
         "title": "P2P Data Links with Content Addressing",
-        "link": "https://proto.school/#/basics/",
+        "link": "https://proto.school/basics/",
         "type": "tutorial",
         "description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
       }
@@ -236,13 +236,13 @@
       },
       {
         "title": "IPFS: Mutable File System (MFS)",
-        "link": "https://proto.school/#/mutable-file-system",
+        "link": "https://proto.school/mutable-file-system",
         "type": "tutorial",
         "description": "Wish adding files to IPFS felt more like using a traditional name-based file system? Explore the Mutable File System (MFS)."
       },
       {
         "title": "P2P Data Links with Content Addressing",
-        "link": "https://proto.school/#/basics/",
+        "link": "https://proto.school/basics/",
         "type": "tutorial",
         "description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
       }
@@ -334,7 +334,7 @@
       },
       {
         "title": "Anatomy of a CID",
-        "link": "https://proto.school/#/anatomy-of-a-cid",
+        "link": "https://proto.school/anatomy-of-a-cid",
         "type": "tutorial",
         "description": "Explore how CIDs are constructed in Filecoin, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       }

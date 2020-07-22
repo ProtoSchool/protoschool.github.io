@@ -47,7 +47,7 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
   }
 
   it(`homepage shows featured tutorials in correct order`, function () {
-    cy.visit(`/#/`)
+    cy.visit(`/`)
     cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.featured.length)
     for (let i = 0; i < courses.featured.length; i++) {
       cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.featured[i]].title)
@@ -55,7 +55,7 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
   })
 
   it(`tutorials page shows all tutorials in correct order`, function () {
-    cy.visit(`/#/tutorials/`)
+    cy.visit(`/tutorials`)
     assertTutorialsAreNotFiltered()
   })
 
@@ -76,24 +76,19 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
   })
 
   it(`toggle hides coding tutorials via click and url`, function () {
-    cy.visit(`/#/tutorials/`)
+    cy.visit(`/tutorials`)
     assertTutorialsAreNotFiltered()
     cy.get('[data-cy=toggle-coding-tutorials]').click()
     assertTutorialsAreFiltered('all', false)
-    cy.reload() // reload is necessary because vue router does not listen to changes to the location hash
     assertTutorialsAreFiltered('all', false)
-    cy.visit(`/#/tutorials?code=true`)
-    cy.reload()
+    cy.visit(`/tutorials?code=true`)
     assertTutorialsAreNotFiltered()
-    cy.visit(`/#/tutorials?code=false`)
-    cy.reload()
-    cy.visit(`/#/tutorials?course=ipfs&code=false`)
-    cy.reload()
+    cy.visit(`/tutorials?code=false`)
+    cy.visit(`/tutorials?course=ipfs&code=false`)
     assertTutorialsAreFiltered('ipfs', false)
-    cy.reload()
     assertTutorialsAreFiltered('ipfs', false)
     cy.get('[data-cy=toggle-coding-tutorials]').click()
-    cy.url().should('contain', '/#/tutorials?course=ipfs&code=true')
+    cy.url().should('contain', '/tutorials?course=ipfs&code=true')
     assertTutorialsAreFiltered('ipfs', true)
   })
 
@@ -148,7 +143,7 @@ function testResetCode (tutorialId, lessonNr) {
   const tutorialName = tutorials[tutorialId].url
   const tutorialType = getTutorialType(tutorialId)
   it(`toggles resetCode in ${tutorialType} challenge (tutorial ${tutorialId} lesson ${lessonNr})`, function () {
-    cy.visit(`/#/${tutorialName}/${lessonNr}`)
+    cy.visit(`/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
     cy.get('[data-cy=reset-code]').should('not.exist')
     cy.get(`[data-cy=progress-not-yet-started]`).should('be.visible')
@@ -167,7 +162,7 @@ function testViewSolution (tutorialId, lessonNr) {
   const tutorialName = tutorials[tutorialId].url
   const tutorialType = getTutorialType(tutorialId)
   it(`toggles view solution in ${tutorialType} challenge (tutorial ${tutorialId} lesson ${lessonNr})`, function () {
-    cy.visit(`/#/${tutorialName}/${lessonNr}`)
+    cy.visit(`/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
     cy.get('[data-cy=hide-solution]').should('not.exist')
     cy.get('[data-cy=view-solution]').should('be.visible')
@@ -188,7 +183,7 @@ function testMultipleChoiceOptions (tutorialId, lessonNr) {
   const choices = lesson.logic.choices
   const correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
   it(`displays right number of choices lesson ${lessonNr} and displays as not yet started`, function () {
-    cy.visit(`/#/${tutorialName}/${lessonNr}`)
+    cy.visit(`/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=choice]').should('have.length', choices.length)
     cy.get('[data-cy=output-success]').should('not.exist')
     cy.get('[data-cy=output-fail]').should('not.exist')
@@ -247,7 +242,7 @@ function advanceThroughLessons (tutorialId) {
   lessons.push(resourcesLesson) // index of resourcesLesson = lessonCount
 
   it(`finds ${tutorialTitle} landing page with links to correct ${lessonCount} lessons plus resources`, function () {
-    cy.visit(`/#/${tutorialName}/`)
+    cy.visit(`/${tutorialName}/`)
     cy.contains('h2', tutorialTitle)
     cy.get(`[data-cy=lesson-link-standard]`).should('have.length', lessonCount)
     cy.get(`[data-cy=lesson-link-resources]`).should('have.length', 1)
@@ -256,22 +251,22 @@ function advanceThroughLessons (tutorialId) {
     for (let i = 0; i < lessonCount; i++) {
       cy.get('[data-cy=lesson-link-standard]').eq(i)
         .should('contain', lessons[i].title)
-        .and('have.attr', 'href', `#/${tutorialName}/${lessons[i].formattedId}`)
+        .and('have.attr', 'href', `/${tutorialName}/${lessons[i].formattedId}`)
     }
 
     cy.get(`[data-cy=lesson-link-resources]`).eq(0)
       .should('contain', 'More to explore')
-      .and('have.attr', 'href', `#/${tutorialName}/resources`)
+      .and('have.attr', 'href', `/${tutorialName}/resources`)
   })
 
   // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
   it(`uses lesson links and nav links btw landing page and 1st lesson`, function () {
-    cy.visit(`/#/${tutorialName}/`)
-    cy.get(`[href="#/${tutorialName}/01"]`).click()
-    cy.url().should('include', `#/${tutorialName}/01`)
+    cy.visit(`/${tutorialName}/`)
+    cy.get(`[href="/${tutorialName}/01"]`).click()
+    cy.url().should('include', `/${tutorialName}/01`)
     cy.get(`[data-cy=tutorial-landing-link]`).click() // test nav link back to tutorial landing page
     cy.contains('h2', tutorialTitle)
-    cy.get(`[href="#/${tutorialName}/01"]`).click()
+    cy.get(`[href="/${tutorialName}/01"]`).click()
     cy.contains('h1', lessons[0].title)
   })
 
@@ -288,7 +283,7 @@ function advanceThroughLessons (tutorialId) {
           cy.contains('h1', 'Resources') // loads resources page
           cy.get('[data-cy=resources-content]') // loads meaningful content
           cy.get('[data-cy=more-tutorials]').click()
-          cy.url().should('include', `#/tutorials`)
+          cy.url().should('include', `/tutorials`)
         })
         return
       }
@@ -474,12 +469,12 @@ function advanceThroughLessons (tutorialId) {
         it(`${advance.msg}`, function () {
           if (advance.method === 'cheat') {
             cy.log(`cannot fully test tutorial ${tutorialId}, lesson ${lessonNr} because it is of type ${lessonType}`)
-            cy.visit(`/#/${tutorialName}/${nextLessonNr}`)
+            cy.visit(`/${tutorialName}/${nextLessonNr}`)
           } else if (advance.method === 'click') {
             cy.get(`[data-cy=${advance.buttonData}]`).should('be.visible').and('not.be.disabled')
             cy.get(`[data-cy=${advance.buttonData}]`).click()
           }
-          cy.url().should('include', `#/${tutorialName}/${nextLessonNr}`)
+          cy.url().should('include', `/${tutorialName}/${nextLessonNr}`)
           cy.contains('h1', lessons[index + 1].title)
         })
       }

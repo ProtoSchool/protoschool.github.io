@@ -1,4 +1,4 @@
-const fs = require('fs').promises
+const fs = require('fs')
 const path = require('path')
 
 const config = require('./config')
@@ -10,8 +10,8 @@ const correctedCases = {
   a: 'a'
 }
 
-async function writeStaticFile (staticFileName, data) {
-  await fs.writeFile(path.resolve(config.staticPath, staticFileName), JSON.stringify(data, null, 2))
+function writeStaticFile (staticFileName, data) {
+  fs.writeFileSync(path.resolve(config.staticPath, staticFileName), JSON.stringify(data, null, 2))
 }
 
 function deriveShortname (path) {

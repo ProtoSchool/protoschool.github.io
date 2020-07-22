@@ -127,7 +127,7 @@ $ npm install
 $ npm run serve
 ```
 
-6. Open a web browser to the following address to preview your work: http://localhost:3000/#/
+6. Open a web browser to the following address to preview your work: http://localhost:3000
 
 Vue will update your localhost preview automatically as you make changes.
 
@@ -342,7 +342,7 @@ The `title` of your tutorial will be seen in course listings on our tutorials pa
 
 ![screenshot](public/title-in-featured-tutorials.png)
 
-The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/#/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
+The `url` will appear in the URL of your tutorial landing page and lessons. For example,  `http://proto.school/short-tutorial-title/01`. In most cases this will match your tutorial title, but you may find that you need to make it shorter. Note that this URL will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial.
 
 ![screenshot](public/url-breadcrumb-header.png)
 

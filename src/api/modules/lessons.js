@@ -1,4 +1,4 @@
-const fs = require('fs').promises
+const fs = require('fs')
 
 const errorCode = require('err-code')
 const marked = require('meta-marked')
@@ -23,7 +23,7 @@ function getNextLessonId (tutorial) {
     : 1
 }
 
-async function get (tutorial, lessonId) {
+function get (tutorial, lessonId) {
   const formattedId = getFormattedId(lessonId)
   const lessonFilePrefix = `${tutorial.folderName}/${formattedId}`
 
@@ -33,11 +33,12 @@ async function get (tutorial, lessonId) {
   debug && log.debug(logGroup('get'), tutorial.id, lessonId, formattedId)
 
   try {
-    lessonMd = await fs.readFile(files.getMarkdownPath(tutorial, lessonId), 'utf8')
+    lessonMd = fs.readFileSync(files.getMarkdownPath(tutorial, lessonId), 'utf8')
     lesson = {
       id: lessonId,
       formattedId: formattedId,
       tutorialId: tutorial.id,
+      url: `${tutorial.url}/${formattedId}`,
       ...marked(lessonMd).meta
     }
 
@@ -80,25 +81,25 @@ async function get (tutorial, lessonId) {
  * @returns The newly created lesson
  *
  * @example
- * await api.lessons.create(tutorial, { title: 'Lesson title', type: 'text' })
+ * api.lessons.create(tutorial, { title: 'Lesson title', type: 'text' })
  */
-async function create (tutorial, data) {
+function create (tutorial, data) {
   const lessonId = getNextLessonId(tutorial)
 
-  let lessonMarkdown = await fs.readFile(config.boilerplates.markdownPath, 'utf8')
+  let lessonMarkdown = fs.readFileSync(config.boilerplates.markdownPath, 'utf8')
 
   lessonMarkdown = lessonMarkdown.replace(`title: "Lesson title"`, `title: "${data.title}"`)
   lessonMarkdown = lessonMarkdown.replace(`type: "text"`, `type: "${data.type || 'text'}"`)
 
   if (data.type !== 'text') {
-    await fs.copyFile(`${config.boilerplates.path}/boilerplate-${data.type}.js`, files.getJsPath(tutorial, lessonId))
+    fs.copyFileSync(`${config.boilerplates.path}/boilerplate-${data.type}.js`, files.getJsPath(tutorial, lessonId))
 
     if (data.type !== 'multiple-choice') {
-      await fs.copyFile(config.boilerplates.challengeMarkdownPath, files.getChallengeMarkdownPath(tutorial, lessonId))
+      fs.copyFileSync(config.boilerplates.challengeMarkdownPath, files.getChallengeMarkdownPath(tutorial, lessonId))
     }
   }
 
-  await fs.writeFile(files.getMarkdownPath(tutorial, lessonId), lessonMarkdown)
+  fs.writeFileSync(files.getMarkdownPath(tutorial, lessonId), lessonMarkdown)
 
   return get(tutorial, lessonId)
 }

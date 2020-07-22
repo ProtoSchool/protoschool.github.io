@@ -31,7 +31,7 @@ function visitWithDates ({
   passedAt,
   lessons = []
 }) {
-  cy.visit(`/#/${url}`, {
+  cy.visit(`/${url}`, {
     onBeforeLoad (window) {
       window.__DATA__ = {
         tutorials: {

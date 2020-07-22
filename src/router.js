@@ -93,6 +93,7 @@ migrateCache()
 
 const router = new VueRouter({
   routes,
+  mode: 'history',
   scrollBehavior (to, from, savedPosition) {
     return savedPosition || { x: 0, y: 0 }
   }

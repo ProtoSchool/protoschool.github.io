@@ -4,7 +4,7 @@
  * @module api/tutorials
  */
 
-const fs = require('fs').promises
+const fs = require('fs')
 const path = require('path')
 
 const errorCode = require('err-code')
@@ -22,8 +22,8 @@ const STATIC_FILE = 'tutorials.json'
 
 const logGroup = log.createLogGroup('tutorials')
 
-async function getNextTutorialId () {
-  return (await list.getLatest()).id + 1
+function getNextTutorialId () {
+  return list.getLatest().id + 1
 }
 
 function getFormattedId (id) {
@@ -41,8 +41,8 @@ function getId (formattedId) {
  *
  * @returns Final tutorial data
  */
-async function get (id) {
-  const tutorialsJson = await list.getJson()
+function get (id) {
+  const tutorialsJson = list.getJson()
   let tutorialId = id
 
   if (typeof id === 'object') {
@@ -63,18 +63,18 @@ async function get (id) {
   tutorial.shortTitle = utils.deriveShortname(tutorial.url)
   tutorial.folderName = `${tutorial.formattedId}-${tutorial.url}`
   tutorial.fullPath = path.resolve(`${config.tutorialsPath}/${tutorial.folderName}`)
-  tutorial.lessons = await getLessons(tutorial)
-  tutorial.project = await projectsApi.get(tutorial.project)
+  tutorial.lessons = getLessons(tutorial)
+  tutorial.project = projectsApi.get(tutorial.project)
 
   debug && log.debug(logGroup('get'), tutorial)
 
   return tutorial
 }
 
-async function getByUrl (url) {
-  const tutorialsList = await list.getJson()
+function getByUrl (url) {
+  const tutorialsList = list.getJson()
 
-  const tutorial = await get(Object.values(tutorialsList).find(tutorial => tutorial.url === url))
+  const tutorial = get(Object.values(tutorialsList).find(tutorial => tutorial.url === url))
   debug && log.debug(logGroup('getByUrl'), url, tutorial)
 
   if (!tutorial) {
@@ -84,11 +84,11 @@ async function getByUrl (url) {
   return tutorial
 }
 
-async function getLessons (tutorial, lessons = [], lessonId = 1) {
+function getLessons (tutorial, lessons = [], lessonId = 1) {
   let lesson
 
   try {
-    lesson = await lessonsApi.get(tutorial, lessonId)
+    lesson = lessonsApi.get(tutorial, lessonId)
   } catch (error) {
     // lesson not found, we reached the end
     if (error.code === 'NOT_FOUND') {
@@ -103,14 +103,14 @@ async function getLessons (tutorial, lessons = [], lessonId = 1) {
   return getLessons(tutorial, lessons, lessonId + 1)
 }
 
-async function getFolderName (id, url) {
-  const urlSuffix = url || (await list.getJson())[getFormattedId(id)].url
+function getFolderName (id, url) {
+  const urlSuffix = url || (list.getJson())[getFormattedId(id)].url
 
   return `${getFormattedId(id)}-${urlSuffix}`
 }
 
-async function getFullPath (id, url) {
-  return path.resolve(config.tutorialsPath, await getFolderName(id, url))
+function getFullPath (id, url) {
+  return path.resolve(config.tutorialsPath, getFolderName(id, url))
 }
 
 /**
@@ -123,20 +123,20 @@ async function getFullPath (id, url) {
  * @returns New Tutorial object
  *
  * @example
- * await api.tutorials.create({
+ * api.tutorials.create({
  *    title: 'libp2p Peers',
  *    url: 'libp2p-peers',
  *    project: 'libp2p',
  *    description: 'Learn how peers interact with each other in libp2p.'
  * })
  */
-async function create (data) {
-  const newTutorialId = await getNextTutorialId()
+function create (data) {
+  const newTutorialId = getNextTutorialId()
 
   debug && log.debug(logGroup('create'), newTutorialId, data.url)
 
   // create new directory
-  await fs.mkdir(await getFullPath(newTutorialId, data.url))
+  fs.mkdirSync(getFullPath(newTutorialId, data.url))
 
   const tutorial = {
     id: newTutorialId,
@@ -152,22 +152,22 @@ async function create (data) {
     resources: []
   }
 
-  await list.add(tutorial)
+  list.add(tutorial)
 
   return get(newTutorialId)
 }
 
-async function remove (id) {
+function remove (id) {
   // delete tutorial folder
-  await del((await getFullPath(id)))
+  del.sync(getFullPath(id))
 
-  const tutorials = await list.getJson()
+  const tutorials = list.getJson()
 
   debug && log.debug(logGroup('remove'), id, tutorials[getFormattedId(id)].url)
 
   // delete tutorial metadata from static file
   delete tutorials[getFormattedId(id)]
-  await utils.writeStaticFile(STATIC_FILE, tutorials)
+  utils.writeStaticFile(STATIC_FILE, tutorials)
 }
 
 const list = {}
@@ -176,36 +176,36 @@ list.getStaticPath = function getStaticPath () {
   return path.resolve(config.staticPath, STATIC_FILE)
 }
 
-list.getJson = async function getJson () {
-  const tutorialsJson = await fs.readFile(list.getStaticPath(), 'utf8')
+list.getJson = function getJson () {
+  const tutorialsJson = fs.readFileSync(list.getStaticPath(), 'utf8')
 
   return JSON.parse(tutorialsJson)
 }
 
-list.get = async function listGet () {
-  const tutorialsJson = await list.getJson()
+list.get = function listGet () {
+  const tutorialsJson = list.getJson()
   const tutorials = {}
 
   for (let id in tutorialsJson) {
-    tutorials[id] = await get(tutorialsJson[id])
+    tutorials[id] = get(tutorialsJson[id])
   }
 
   return tutorials
 }
 
-list.getLatest = async function getLatest () {
-  const tutorials = await list.get()
+list.getLatest = function getLatest () {
+  const tutorials = list.get()
 
   return Object.values(tutorials)
     .sort((tutorial1, tutorial2) => tutorial2.id - tutorial1.id)[0]
 }
 
-list.add = async function listAdd (data) {
-  const tutorials = await list.getJson()
+list.add = function listAdd (data) {
+  const tutorials = list.getJson()
 
   tutorials[data.formattedId] = data
 
-  await utils.writeStaticFile(STATIC_FILE, tutorials)
+  utils.writeStaticFile(STATIC_FILE, tutorials)
 }
 
 module.exports = {

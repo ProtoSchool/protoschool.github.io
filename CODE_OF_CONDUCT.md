@@ -53,7 +53,7 @@ representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.
 
 Note that each ProtoSchool event also maintains its own Code of Conduct, which is
-linked from our [event listings](https://proto.school/#/events). Please refer to
+linked from our [event listings](https://proto.school/events). Please refer to
 the local event organizer's Code of Conduct for additional policies that may apply
 to its events, website, and/or GitHub repos.
 
@@ -70,7 +70,7 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
-Please note that the organizers of each local ProtoSchool [event](https://proto.school/#/events)
+Please note that the organizers of each local ProtoSchool [event](https://proto.school/events)
 maintain their own Code of Conduct with additional guidance for local events and
 any related websites or repositories. To report instances of abusive, harassing, or
 otherwise unacceptable behavior that have occurred within local events or repos,

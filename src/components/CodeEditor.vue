@@ -10,14 +10,13 @@
       <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
       <MonacoEditor
         class="editor mt2"
-        srcPath="."
         :height="editorHeight"
         :options="options"
-        :code="code"
+        :value="code"
         theme="vs"
         language="javascript"
-        @mounted="onMounted"
-        @codeChange="onCodeChange" />
+        :editorMounted="onMounted"
+        @change="onCodeChange" />
     </div>
     <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
       <div v-if="solution" class="mb2 ml3">
@@ -30,20 +29,19 @@
       <MonacoEditor
         v-show="viewSolution"
         class="editor"
-        srcPath="."
         :height="editorHeight"
         :options="Object.assign({}, { readOnly: true }, options)"
-        :code="solution"
-        theme="vs-dark"
+        :value="solution"
+        theme="vs"
         language="javascript"
-        data-cy="solution"/>
+        data-cy="solution" />
     </div>
   </div>
 </template>
 
 <script>
 import countly from '../utils/countly'
-import MonacoEditor from 'vue-monaco-editor'
+import MonacoEditor from 'monaco-editor-vue'
 
 export default {
   components: {
@@ -69,7 +67,10 @@ export default {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
         scrollBeyondLastLine: false,
-        automaticLayout: true
+        automaticLayout: true,
+        minimap: {
+          enabled: false
+        }
       },
       viewSolution: false
     }

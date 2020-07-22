@@ -5,16 +5,16 @@ const utils = require('../utils')
 
 const logGroup = functionMethod => `[resources.${functionMethod}()]`
 
-async function add (id, resource) {
-  const tutorials = await tutorialsApi.list.getJson()
+function add (id, resource) {
+  const tutorials = tutorialsApi.list.getJson()
 
   tutorials[tutorialsApi.getFormattedId(id)].resources.push(resource)
 
-  await utils.writeStaticFile(tutorialsApi.STATIC_FILE, tutorials)
+  utils.writeStaticFile(tutorialsApi.STATIC_FILE, tutorials)
 }
 
-async function get (id) {
-  const tutorial = await tutorialsApi.get(id)
+function get (id) {
+  const tutorial = tutorialsApi.get(id)
 
   debug && log.debug(logGroup('get'), id, tutorial)
 
