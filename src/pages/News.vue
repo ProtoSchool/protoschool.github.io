@@ -11,15 +11,13 @@
       />
       <p class="f4 fw5 lh-copy ma0 pv2 mb2 mt4">Get news from related projects:</p>
       <ul class="flex flex-wrap justify-center ma0 pa0 mb2">
-        <li class="list " v-for="project in newsletters">
+        <li class="list " v-for="project in newsletters" :key="project.id">
           <a v-on:click="onClickTrack(project)" class="newsletter-link pv3 ph4 db ma1 br3 flex items-center no-underline navy" :href="project.newsletterUrl" target="blank">
             <img class="h2 mr3" :src="project.logo"/>
             <span class="f4">{{project.name}}</span>
           </a>
         </li>
       </ul>
-
-
     </section>
   </div>
 </template>
@@ -37,15 +35,15 @@ export default {
     NewsletterSubscription
   },
   computed: {
-    newsletters: function() {
-     return getNewsletters()
-   },
-   trackingData: function () {
-     return {
-      path: this.$route.path,
-      source: 'News Page'
-     }
-   }
+    newsletters: function () {
+      return getNewsletters()
+    },
+    trackingData: function () {
+      return {
+        path: this.$route.path,
+        source: 'News Page'
+      }
+    }
   },
   methods: {
     onClickTrack: function (project) {
