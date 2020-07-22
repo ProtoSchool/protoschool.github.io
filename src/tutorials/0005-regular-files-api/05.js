@@ -57,7 +57,7 @@ const validate = async (result, ipfs) => {
   const resultingFiles = await pTimeout(all(ipfs.ls(result[result.length - 1].cid.toString())), 5000).catch(() => 'error')
   if (resultingFiles === 'error') {
     return {
-      fail: 'Could not get CID of top-level directory. Please make sure you are returning the result of the `add` method. The items of the array should be objects with a `cid` attribute whose value must be a valid CID.'
+      fail: 'Could not get CID of top-level directory. Please make sure you are returning the result of the `addAll` method. The items of the array should be objects with a `cid` attribute whose value must be a valid CID.'
     }
   } else {
     if (resultingFiles.length !== uploadedFiles.length) {
@@ -74,9 +74,9 @@ const validate = async (result, ipfs) => {
   if (JSON.stringify(result) === JSON.stringify(expectedResults)) {
     return {
       success: 'Success!',
-      logDesc: "Here are the results returned by the `add` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the top-level directory with path `''`)." +
+      logDesc: "Here are the results returned by the `addAll` method.  Note that you have one object for each file, plus one for each directory created by the `{ wrapWithDirectory: true }` option (in this case, just the top-level directory with path `''`)." +
                 "\n\n Because you used the `{ wrapWithDirectory: true }` option, the `path` of each file is now the filename you provided, rather than matching the file's `cid`.  You'll be able to use these human-readable paths to in combination with the directory's CID to access the file's content in a future lesson." +
-                "\n\n We only have access to the added files' and directories' CIDs when the `add` method returns them. When you use this method in the future, you may want to save them for later use.",
+                "\n\n We only have access to the added files' and directories' CIDs when the `addAll` method returns them. When you use this method in the future, you may want to save them for later use.",
       log: result.map(utils.format.ipfsObject)
     }
   } else {
