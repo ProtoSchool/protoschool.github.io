@@ -70,6 +70,9 @@ export default {
         automaticLayout: true,
         minimap: {
           enabled: false
+        },
+        scrollbar: {
+          alwaysConsumeMouseWheel: false
         }
       },
       viewSolution: false
