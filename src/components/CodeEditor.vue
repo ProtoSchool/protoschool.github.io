@@ -28,7 +28,7 @@
       </div>
       <MonacoEditor
         v-show="viewSolution"
-        class="editor"
+        class="editor solution-editor"
         :height="editorHeight"
         :options="Object.assign({}, { readOnly: true }, options)"
         :value="solution"
@@ -140,5 +140,9 @@ export default {
   border-style: solid;
   border-width:  5px 5px 5px;
   margin-top: 5px;
+}
+
+.solution-editor {
+  filter: invert(1) hue-rotate(170deg) brightness(0.8) grayscale(0.3)
 }
 </style>
