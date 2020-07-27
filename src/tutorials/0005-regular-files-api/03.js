@@ -43,7 +43,7 @@ async function validateSingleFile (result, uploadedFiles, { ipfs }) {
 
   if (uploadedFiles.length > 1) {
     return {
-      fail: 'You uploaded multiple files, but you returned only one single file. To upload a single file with `add`, click "Reset Files" to upload a single file to the code editor. To upload multiple files with `addAll` be sure to concatenate the Async Iterable result from `addAll` into an array.'
+      fail: 'You uploaded multiple files, but you returned only one single file. To upload a single file with `add`, click "Reset Files" to upload a single file to the code editor. To upload multiple files with `addAll`, be sure to concatenate the Async Iterable result from `addAll` into an array.'
     }
   }
 
