@@ -23,7 +23,7 @@
     },
     "thankYouMessage": {
       "title": "Thank you!",
-      "textWithPrompt": "<p class='b mt2 mb0'>Have a few more minutes to help us out?</p><p style='margin-top: 0;'>We've created a five-minute survey to learn more about our users so we can better meet your needs.</p>",
+      "textWithPrompt": "<p class='b mt2 mb0'>Have 3 more minutes to help us out?</p><p style='margin-top: 0;'>We'd love to learn more about you so we can create content and features that meet your needs. Take this anonymous survey to share your experience with ProtoSchool, DWeb, and coding.</p>",
       "textWithoutPrompt": "We appreciate your feedback on this tutorial!",
       "surveyLink": "https://forms.gle/yPXid3EpNQkrpDqM7"
     }
