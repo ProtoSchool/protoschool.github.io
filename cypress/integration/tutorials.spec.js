@@ -32,7 +32,12 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.all.length) // displaying # of tutorials in all array in courses.json
       .and('have.length', Object.keys(tutorials).length) // displaying # of tutorials in tutorials.json
     for (let i = 0; i < courses.all.length; i++) {
-      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.all[i]].title)
+      const tutorial = tutorials[courses.all[i]]
+
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorial.title)
+      cy.get(`.tutorial a[href="/${tutorial.url}"]`).click()
+      cy.location('pathname').should('eq', `/${tutorial.url}`)
+      cy.visit(`/tutorials`)
     }
   }
 
@@ -50,7 +55,12 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     cy.visit(`/`)
     cy.get('[data-cy=tutorial-card-title]').should('have.length', courses.featured.length)
     for (let i = 0; i < courses.featured.length; i++) {
-      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorials[courses.featured[i]].title)
+      const tutorial = tutorials[courses.featured[i]]
+
+      cy.get('[data-cy=tutorial-card-title]').eq(i).should('contain', tutorial.title)
+      cy.get(`.tutorial a[href="/${tutorial.url}"]`).click()
+      cy.location('pathname').should('eq', `/${tutorial.url}`)
+      cy.visit(`/`)
     }
   })
 
@@ -440,7 +450,7 @@ function advanceThroughLessons (tutorialId) {
       }
 
       function advanceToNextLesson () {
-        // ADVANCE TO NEXT LESSON AS ABLE OR BY CHEATING, DEPENDING ON LESSON TYPE
+        // ADVANCE TO NEXT LESSON DEPENDING ON ITS TYPE
         let advance = {}
 
         switch (lessonType) {
@@ -467,13 +477,8 @@ function advanceThroughLessons (tutorialId) {
         }
 
         it(`${advance.msg}`, function () {
-          if (advance.method === 'cheat') {
-            cy.log(`cannot fully test tutorial ${tutorialId}, lesson ${lessonNr} because it is of type ${lessonType}`)
-            cy.visit(`/${tutorialName}/${nextLessonNr}`)
-          } else if (advance.method === 'click') {
-            cy.get(`[data-cy=${advance.buttonData}]`).should('be.visible').and('not.be.disabled')
-            cy.get(`[data-cy=${advance.buttonData}]`).click()
-          }
+          cy.get(`[data-cy=${advance.buttonData}]`).should('be.visible').and('not.be.disabled')
+          cy.get(`[data-cy=${advance.buttonData}]`).click()
           cy.url().should('include', `/${tutorialName}/${nextLessonNr}`)
           cy.contains('h1', lessons[index + 1].title)
         })
