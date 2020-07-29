@@ -5,9 +5,9 @@ describe('REDIRECTS', () => {
   }
 
   it('404 redirect', () => {
-    cy.visit('/unknown-path')
+    cy.visit('/unknown-path', { failOnStatusCode: false })
     cy.location('pathname').should('eq', '/404')
-    cy.visit('/unknown-path/02')
+    cy.visit('/unknown-path/02', { failOnStatusCode: false })
     cy.location('pathname').should('eq', '/404')
   })
 
