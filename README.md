@@ -38,7 +38,7 @@ $ npm install
 $ npm run serve
 ```
 
-View the site on localhost at: http://localhost:3000/#/
+View the site on localhost at: http://localhost:3000
 
 ## Managing remote data
 

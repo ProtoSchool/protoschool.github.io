@@ -45,7 +45,7 @@ async function createTutorial ({ createLesson, createResource }, { skipPromptLes
     {
       type: 'input',
       name: 'url',
-      message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/#/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept our suggestion.)',
+      message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept our suggestion.)',
       default: function (responses) {
         return responses.title.toLowerCase().split(' ').join('-')
       },

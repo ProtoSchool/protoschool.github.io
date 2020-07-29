@@ -6,17 +6,17 @@ const { assertTutorial } = require('./helpers/asserts')
 describe('api', () => {
   let lastTutorialId
 
-  beforeAll(async () => {
-    lastTutorialId = (await api.tutorials.list.getLatest()).id
+  beforeAll(() => {
+    lastTutorialId = api.tutorials.list.getLatest().id
   })
 
-  afterAll(async () => {
-    await setup.restoreData(lastTutorialId)
+  afterAll(() => {
+    setup.restoreData(lastTutorialId)
   })
 
   describe('1 api.tutorials', () => {
-    test('1.1 api.tutorials.getNextTutorialId()', async () => {
-      expect(await api.tutorials.getNextTutorialId()).toEqual(lastTutorialId + 1)
+    test('1.1 api.tutorials.getNextTutorialId()', () => {
+      expect(api.tutorials.getNextTutorialId()).toEqual(lastTutorialId + 1)
     })
 
     test('1.2 api.tutorials.getFormattedId(id)', () => {
@@ -35,21 +35,21 @@ describe('api', () => {
       expect(api.tutorials.getId('0004')).toEqual(4)
     })
 
-    test('1.4 api.tutorials.get(id)', async () => {
-      const { tutorial } = await fixtures.generateTutorial()
-      const createResult = await api.tutorials.create(tutorial)
-      const result = await api.tutorials.get(createResult.id)
+    test('1.4 api.tutorials.get(id)', () => {
+      const { tutorial } = fixtures.generateTutorial()
+      const createResult = api.tutorials.create(tutorial)
+      const result = api.tutorials.get(createResult.id)
 
       expect(result).toMatchObject({
         ...tutorial,
-        project: await api.projects.get(tutorial.project)
+        project: api.projects.get(tutorial.project)
       })
       expect(result).toEqual(createResult)
 
-      await expect(api.tutorials.get(0)).rejects.toThrow('not found')
+      expect(() => api.tutorials.get(0)).toThrow('not found')
 
       try {
-        await api.tutorials.get(0)
+        api.tutorials.get(0)
       } catch (error) {
         expect(error).toBeInstanceOf(Error)
         expect(error.message).toEqual(expect.stringContaining('not found'))
@@ -57,73 +57,73 @@ describe('api', () => {
       }
     })
 
-    test('1.5 api.tutorials.getByUrl(url)', async () => {
-      const { tutorial } = await fixtures.generateTutorial()
+    test('1.5 api.tutorials.getByUrl(url)', () => {
+      const { tutorial } = fixtures.generateTutorial()
 
-      const result = await api.tutorials.create(tutorial)
+      const result = api.tutorials.create(tutorial)
 
       expect(
-        await api.tutorials.getByUrl(result.url)
+        api.tutorials.getByUrl(result.url)
       ).toEqual(
-        await api.tutorials.get(result.id)
+        api.tutorials.get(result.id)
       )
     })
 
-    test('1.6 api.tutorials.getLessons(id)', async () => {
-      const tutorial = await fixtures.createTutorial({ lessons: 4 })
+    test('1.6 api.tutorials.getLessons(id)', () => {
+      const tutorial = fixtures.createTutorial({ lessons: 4 })
 
-      const lessonsResult = await api.tutorials.getLessons(await api.tutorials.get(tutorial.id))
+      const lessonsResult = api.tutorials.getLessons(api.tutorials.get(tutorial.id))
 
       expect(lessonsResult).toHaveLength(4)
       expect(lessonsResult).toEqual(tutorial.lessons)
     })
 
-    test('1.7 api.tutorials.getFolderName(id, url)', async () => {
-      const { tutorial } = await fixtures.generateTutorial()
-      const result = await api.tutorials.create(tutorial)
+    test('1.7 api.tutorials.getFolderName(id, url)', () => {
+      const { tutorial } = fixtures.generateTutorial()
+      const result = api.tutorials.create(tutorial)
 
-      expect(await api.tutorials.getFolderName(result.id)).toEqual(result.folderName)
+      expect(api.tutorials.getFolderName(result.id)).toEqual(result.folderName)
       expect(result.folderName).toEqual(
         `${api.tutorials.getFormattedId(result.id)}-${tutorial.url}`
       )
-      expect(await api.tutorials.getFolderName(result.id)).toEqual(
+      expect(api.tutorials.getFolderName(result.id)).toEqual(
         `${api.tutorials.getFormattedId(result.id)}-${tutorial.url}`
       )
-      expect(await api.tutorials.getFolderName(result.id, tutorial.url)).toEqual(
+      expect(api.tutorials.getFolderName(result.id, tutorial.url)).toEqual(
         `${api.tutorials.getFormattedId(result.id)}-${tutorial.url}`
       )
     })
 
-    test('1.8 api.tutorials.getFullPath(id, url)', async () => {
-      const { tutorial } = await fixtures.generateTutorial()
-      const result = await api.tutorials.create(tutorial)
+    test('1.8 api.tutorials.getFullPath(id, url)', () => {
+      const { tutorial } = fixtures.generateTutorial()
+      const result = api.tutorials.create(tutorial)
 
       expect(result.fullPath).toEqual(
-        expect.stringContaining(`${api._config.tutorialsPath}/${await api.tutorials.getFolderName(result.id)}`)
+        expect.stringContaining(`${api._config.tutorialsPath}/${api.tutorials.getFolderName(result.id)}`)
       )
-      expect(await api.tutorials.getFullPath(result.id)).toEqual(result.fullPath)
-      expect(await api.tutorials.getFullPath(result.id)).toEqual(
-        expect.stringContaining(`${api._config.tutorialsPath}/${await api.tutorials.getFolderName(result.id)}`)
+      expect(api.tutorials.getFullPath(result.id)).toEqual(result.fullPath)
+      expect(api.tutorials.getFullPath(result.id)).toEqual(
+        expect.stringContaining(`${api._config.tutorialsPath}/${api.tutorials.getFolderName(result.id)}`)
       )
-      expect(await api.tutorials.getFullPath(result.id, tutorial.url)).toEqual(
-        expect.stringContaining(`${api._config.tutorialsPath}/${await api.tutorials.getFolderName(result.id)}`)
+      expect(api.tutorials.getFullPath(result.id, tutorial.url)).toEqual(
+        expect.stringContaining(`${api._config.tutorialsPath}/${api.tutorials.getFolderName(result.id)}`)
       )
     })
 
-    test('1.9 api.tutorials.create(data)', async () => {
-      const { tutorial } = await fixtures.generateTutorial()
-      const result = await api.tutorials.create(tutorial)
+    test('1.9 api.tutorials.create(data)', () => {
+      const { tutorial } = fixtures.generateTutorial()
+      const result = api.tutorials.create(tutorial)
 
-      await assertTutorial(result, tutorial)
+      assertTutorial(result, tutorial)
     })
 
-    test('1.10 api.tutorials.remove(id)', async () => {
-      const { tutorial } = await fixtures.generateTutorial()
-      const result = await api.tutorials.create(tutorial)
+    test('1.10 api.tutorials.remove(id)', () => {
+      const { tutorial } = fixtures.generateTutorial()
+      const result = api.tutorials.create(tutorial)
 
-      await api.tutorials.remove(result.id)
+      api.tutorials.remove(result.id)
 
-      await expect(api.tutorials.get(result.id)).rejects.toThrow('not found')
+      expect(() => api.tutorials.get(result.id)).toThrow('not found')
     })
 
     describe('1.11 api.tutorials.list', () => {

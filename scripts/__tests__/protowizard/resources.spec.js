@@ -7,17 +7,17 @@ const runners = require('../helpers/runners')
 describe('protowizard', () => {
   let lastTutorialId
 
-  beforeAll(async () => {
-    lastTutorialId = (await api.tutorials.list.getLatest()).id
+  beforeAll(() => {
+    lastTutorialId = api.tutorials.list.getLatest().id
   })
 
-  afterEach(async () => {
-    await setup.restoreData(lastTutorialId)
+  afterEach(() => {
+    setup.restoreData(lastTutorialId)
   })
 
   describe('3. create resource', () => {
     test('3.1. should create resource after creating a new tutorial (skips lesson creation)', async () => {
-      const { tutorial, resources, expected } = await fixtures.generateTutorial({
+      const { tutorial, resources, expected } = fixtures.generateTutorial({
         resources: 1
       })
 
@@ -31,7 +31,7 @@ describe('protowizard', () => {
         { confirm: false } // no to create first lesson
       ])
 
-      const result = await api.tutorials.getByUrl(tutorial.url)
+      const result = api.tutorials.getByUrl(tutorial.url)
 
       expect(result.resources).toHaveLength(1)
 
@@ -43,7 +43,7 @@ describe('protowizard', () => {
     })
 
     test('3.2. should create a resource and add it to the latest tutorial (skips lesson creation)', async () => {
-      const { resource, tutorial, expected } = await fixtures.generateResource({ createTutorial: true })
+      const { resource, tutorial, expected } = fixtures.generateResource({ createTutorial: true })
 
       await runners.protowizard([
         { type: 'resource' },
@@ -53,7 +53,7 @@ describe('protowizard', () => {
         { confirm: false } // no to create first lesson
       ])
 
-      const result = await api.tutorials.get(tutorial.id)
+      const result = api.tutorials.get(tutorial.id)
 
       expect(result.resources).toHaveLength(1)
 

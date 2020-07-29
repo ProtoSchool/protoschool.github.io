@@ -7,17 +7,17 @@ const runners = require('../helpers/runners')
 describe('protowizard', () => {
   let lastTutorialId
 
-  beforeAll(async () => {
-    lastTutorialId = (await api.tutorials.list.getLatest()).id
+  beforeAll(() => {
+    lastTutorialId = api.tutorials.list.getLatest().id
   })
 
-  afterEach(async () => {
-    await setup.restoreData(lastTutorialId)
+  afterEach(() => {
+    setup.restoreData(lastTutorialId)
   })
 
   describe('2. create lesson', () => {
     test('2.1. should create lesson after creating a new tutorial (skips resource creation)', async () => {
-      const { tutorial, lessons, expected } = await fixtures.generateTutorial({
+      const { tutorial, lessons, expected } = fixtures.generateTutorial({
         lessons: 1
       })
 
@@ -31,7 +31,7 @@ describe('protowizard', () => {
         { confirm: false } // no to create first resource
       ])
 
-      const result = await api.tutorials.getByUrl(tutorial.url)
+      const result = api.tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
 
@@ -43,7 +43,7 @@ describe('protowizard', () => {
     })
 
     test('2.2. should create a lesson and add it to the latest tutorial (skips resource creation)', async () => {
-      const { lesson, tutorial, expected } = await fixtures.generateLesson({ createTutorial: true })
+      const { lesson, tutorial, expected } = fixtures.generateLesson({ createTutorial: true })
 
       await runners.protowizard([
         { type: 'lesson' },
@@ -55,19 +55,19 @@ describe('protowizard', () => {
 
       asserts.assertNewLesson({
         expected,
-        result: await api.tutorials.getByUrl(tutorial.url)
+        result: api.tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('2.3. should list the lessons created so far', async () => {
-      const tutorial = await fixtures.createTutorial({ lessons: 4 })
+      const tutorial = fixtures.createTutorial({ lessons: 4 })
 
       expect(tutorial.lessons).toHaveLength(4)
 
       await runners.protowizard([
         { type: 'lesson' },
         { latestTutorial: true }, // yes add to latest tutorial
-        (await fixtures.generateLesson()).lesson,
+        fixtures.generateLesson().lesson,
         { confirm: false }, // no to create another lesson
         { confirm: false } // no to create first resource
       ])

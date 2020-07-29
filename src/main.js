@@ -25,7 +25,19 @@ Vue.config.errorHandler = (error, vm, info) => {
   console.info(info)
 }
 
-new Vue({
+const root = new Vue({
   router,
+  mounted: function () {
+    document.dispatchEvent(new Event('x-app-rendered'))
+
+    // support redirects from old hash routes
+    if (window.location.hash.startsWith('#/')) {
+      this.$router.replace({ path: window.location.hash.replace('#', '') })
+    }
+  },
   render: h => h(App)
-}).$mount('#app')
+})
+
+document.addEventListener('DOMContentLoaded', function () {
+  root.$mount('#app')
+})
