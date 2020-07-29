@@ -10,3 +10,9 @@ TERM = "xterm"
 package = "netlify-plugin-cypress"
   [plugins.inputs]
   spa = true
+
+
+[[redirects]]
+  from = "/*"
+  to = "/404/index.html"
+  status = 404
