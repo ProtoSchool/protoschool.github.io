@@ -1,4 +1,5 @@
 export default function headRoot () {
+  // Return to vue-meta
   return {
     title: 'ProtoSchool',
     titleTemplate: '%s | ProtoSchool',
