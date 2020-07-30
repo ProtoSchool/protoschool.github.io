@@ -94,11 +94,11 @@ describe(`DISPLAYS CORRECT TUTORIALS ON HOMEPAGE AND TUTORIALS PAGE`, function (
     cy.visit(`/tutorials?code=true`)
     assertTutorialsAreNotFiltered()
     cy.visit(`/tutorials?code=false`)
-    cy.visit(`/tutorials?course=ipfs&code=false`)
+    cy.visit(`/tutorials?code=false&course=ipfs`)
     assertTutorialsAreFiltered('ipfs', false)
     assertTutorialsAreFiltered('ipfs', false)
     cy.get('[data-cy=toggle-coding-tutorials]').click()
-    cy.url().should('contain', '/tutorials?course=ipfs&code=true')
+    cy.url().should('contain', '/tutorials?code=true&course=ipfs')
     assertTutorialsAreFiltered('ipfs', true)
   })
 
