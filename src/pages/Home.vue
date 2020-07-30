@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import head from '../utils/head'
 import Header from '../components/Header'
 import EventCard from '../components/cards/EventCard'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
@@ -50,7 +51,7 @@ import tutorials from '../utils/tutorials'
 import { futureEvents } from '../utils/events'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     Header,
     TutorialsGrid,
@@ -63,6 +64,7 @@ export default {
   },
   computed: {
     featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
-  }
+  },
+  head: head()
 }
 </script>

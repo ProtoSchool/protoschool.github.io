@@ -36,6 +36,7 @@
 
 <script>
 import _ from 'lodash'
+import head from '../utils/head'
 import tutorials from '../utils/tutorials'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
@@ -115,11 +116,14 @@ export default {
     setQueryParameter: function (name, value) {
       const scrollPosition = window.pageYOffset
 
+      // In order to always have the same order of the parameters in the url,
+      // we need to sort the keys of the query object, and then create the object
       this.$router.push({
-        query: {
-          ...this.$route.query,
-          [name]: value
-        }
+        query: Object.keys(this.$route.query).concat([name]).sort().reduce((query, key) => {
+          query[key] = key === name ? value : this.$route.query[key]
+
+          return query
+        }, {})
       })
 
       // fix for vue-router: do not scroll to top on location.search change
@@ -141,6 +145,7 @@ export default {
       settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, this.showCodingTutorials)
       this.setQueryParameter('code', this.showCodingTutorials)
     }
-  }
+  },
+  head: head()
 }
 </script>

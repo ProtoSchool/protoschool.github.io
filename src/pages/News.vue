@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import head from '../utils/head'
 import Header from '../components/Header.vue'
 import NewsletterSubscription from '../components/forms/NewsletterSubscription.vue'
 import { getNewsletters } from '../utils/projects'
@@ -53,7 +54,8 @@ export default {
         project: project.name
       })
     }
-  }
+  },
+  head: head()
 }
 </script>
 <style scoped>

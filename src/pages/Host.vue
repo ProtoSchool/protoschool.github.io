@@ -88,12 +88,14 @@
 </template>
 
 <script>
+import head from '../utils/head'
 import Header from '../components/Header.vue'
 
 export default {
   name: 'Host',
   components: {
     Header
-  }
+  },
+  head: head()
 }
 </script>

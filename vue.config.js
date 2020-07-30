@@ -1,31 +1,10 @@
 const path = require('path')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+
+const routes = require('./src/routes')
+
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
-
-const api = require('./src/api')
-
-// compute routes for tutorials
-const tutorialRoutes = Object.values(api.tutorials.list.get()).reduce((routes, tutorial) => {
-  routes.push(`/${tutorial.url}`)
-  routes.push(`/${tutorial.url}/resources`)
-
-  return routes.concat(tutorial.lessons.map(lesson => `/${lesson.url}`))
-}, [])
-
-const routes = [
-  // Pages
-  '/',
-  '/events',
-  '/chapters',
-  '/host',
-  '/build',
-  '/contribute',
-  '/tutorials',
-  '/news',
-  ...tutorialRoutes,
-  '/404'
-]
 
 module.exports = {
   publicPath: '/',
@@ -60,5 +39,12 @@ module.exports = {
         ...opts,
         failOnError: process.env.NODE_ENV === 'production'
       }))
+  },
+  pluginOptions: {
+    sitemap: {
+      baseURL: 'https://proto.school',
+      urls: routes,
+      outputDir: 'public'
+    }
   }
 }
