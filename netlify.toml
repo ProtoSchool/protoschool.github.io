@@ -1,0 +1,18 @@
+[build]
+command = "npm run scripts:build:data -- --dry-run=false && npm run test:jest && npm run build"
+publish = "dist"
+
+[build.environment]
+TERM = "xterm"
+
+[[plugins]]
+# local Cypress plugin will test our site after it is built
+package = "netlify-plugin-cypress"
+  [plugins.inputs]
+  spa = true
+
+
+[[redirects]]
+  from = "/*"
+  to = "/404/index.html"
+  status = 404

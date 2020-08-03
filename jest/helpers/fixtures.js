@@ -1,16 +1,16 @@
 const api = require('../../src/api')
 
 // Creators: create data (tutorials, lessons)
-async function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
-  const { tutorial, lessons, resources } = await generateTutorial(config)
-  const createdTutorial = await api.tutorials.create(tutorial)
+function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
+  const { tutorial, lessons, resources } = generateTutorial(config)
+  const createdTutorial = api.tutorials.create(tutorial)
 
   for (let i = 0; i < lessons.length; ++i) {
-    await api.lessons.create(await api.tutorials.get(createdTutorial.id), lessons[i])
+    api.lessons.create(api.tutorials.get(createdTutorial.id), lessons[i])
   }
 
-  resources.forEach(async resource => {
-    await api.resources.add(createdTutorial.id, resource)
+  resources.forEach(resource => {
+    api.resources.add(createdTutorial.id, resource)
   })
 
   return api.tutorials.get(createdTutorial.id)
@@ -18,8 +18,8 @@ async function createTutorial (config = { override: {}, lessons: 0, resources: 0
 
 // Generators: generate data to be used
 
-async function generateTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
-  const suffix = await api.tutorials.getNextTutorialId()
+function generateTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
+  const suffix = api.tutorials.getNextTutorialId()
 
   const tutorial = {
     title: `New Tutorial (${suffix})`,
@@ -29,18 +29,18 @@ async function generateTutorial (config = { override: {}, lessons: 0, resources:
     ...config.override
   }
 
-  const lessons = await Promise.all(new Array(config.lessons).fill().map(async (_, i) => (
-    (await generateLesson({ override: { title: `Lesson ${i + 1}` } })).lesson
-  )))
+  const lessons = new Array(config.lessons).fill().map((_, i) => (
+    generateLesson({ override: { title: `Lesson ${i + 1}` } }).lesson
+  ))
 
-  const resources = await Promise.all(new Array(config.resources).fill().map(async (_, i) => (
-    (await generateResource({
+  const resources = new Array(config.resources).fill().map((_, i) => (
+    generateResource({
       override: {
         title: `Resource ${i + 1}`,
         link: `https://resource${i + 1}.com`
       }
-    })).resource
-  )))
+    }).resource
+  ))
 
   return {
     tutorial,
@@ -50,7 +50,7 @@ async function generateTutorial (config = { override: {}, lessons: 0, resources:
   }
 }
 
-async function generateLesson ({ createTutorial = false, override = {} } = {}) {
+function generateLesson ({ createTutorial = false, override = {} } = {}) {
   const lesson = {
     title: 'Lesson',
     type: 'text',
@@ -59,8 +59,8 @@ async function generateLesson ({ createTutorial = false, override = {} } = {}) {
   let tutorial
 
   if (createTutorial) {
-    tutorial = await api.tutorials.create((await generateTutorial()).tutorial)
-    await api.courses.add(tutorial.id)
+    tutorial = api.tutorials.create(generateTutorial().tutorial)
+    api.courses.add(tutorial.id)
   }
 
   return {
@@ -70,7 +70,7 @@ async function generateLesson ({ createTutorial = false, override = {} } = {}) {
   }
 }
 
-async function generateResource ({ createTutorial, override = {} } = {}) {
+function generateResource ({ createTutorial, override = {} } = {}) {
   const resource = {
     title: 'Resource',
     link: 'https://resource.com',
@@ -81,8 +81,8 @@ async function generateResource ({ createTutorial, override = {} } = {}) {
   let tutorial
 
   if (createTutorial) {
-    tutorial = await api.tutorials.create((await generateTutorial()).tutorial)
-    await api.courses.add(tutorial.id)
+    tutorial = api.tutorials.create(generateTutorial().tutorial)
+    api.courses.add(tutorial.id)
   }
 
   return {

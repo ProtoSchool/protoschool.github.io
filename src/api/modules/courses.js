@@ -1,4 +1,4 @@
-const fs = require('fs').promises
+const fs = require('fs')
 const path = require('path')
 
 const config = require('../config')
@@ -11,27 +11,27 @@ function getStaticPath () {
   return path.resolve(config.staticPath, STATIC_FILE)
 }
 
-async function get () {
-  const coursesJson = await fs.readFile(getStaticPath(), 'utf8')
+function get () {
+  const coursesJson = fs.readFileSync(getStaticPath(), 'utf8')
 
   return JSON.parse(coursesJson)
 }
 
-async function getAll () {
-  return (await get()).all
+function getAll () {
+  return get().all
 }
 
-async function getFeatured () {
-  return (await get()).featured
+function getFeatured () {
+  return get().featured
 }
 
-async function save (courses) {
-  await utils.writeStaticFile(STATIC_FILE, courses)
+function save (courses) {
+  utils.writeStaticFile(STATIC_FILE, courses)
 }
 
-async function add (id) {
+function add (id) {
   const formattedId = tutorials.getFormattedId(id)
-  const courses = await get()
+  const courses = get()
 
   if (courses.all.find(courseId => courseId === formattedId)) {
     return
@@ -39,17 +39,17 @@ async function add (id) {
 
   courses.all.push(formattedId)
 
-  await save(courses)
+  save(courses)
 }
 
 async function remove (id) {
   const tutorialFormattedId = tutorials.getFormattedId(id)
-  const courses = await get()
+  const courses = get()
 
   courses.all = courses.all.filter(courseId => courseId !== tutorialFormattedId)
   courses.featured = courses.featured.filter(courseId => courseId !== tutorialFormattedId)
 
-  await utils.writeStaticFile(STATIC_FILE, courses)
+  utils.writeStaticFile(STATIC_FILE, courses)
 }
 
 module.exports = {

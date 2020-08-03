@@ -54,7 +54,9 @@
             :resetCode="resetCode"
             :expandChallenge="expandChallenge"
             :cyReplaceWithSolution="cyReplaceWithSolution"
-            :cyClearDefaultCode="cyClearDefaultCode" />
+            :cyClearDefaultCode="cyClearDefaultCode"
+            :trackingData="trackingData"
+          />
           <Quiz
             v-if="isMultipleChoiceLesson"
             :question="this.question"
@@ -68,7 +70,9 @@
             :output="output"
             :isFileLesson="isFileLesson"
             :lessonPassed="lessonPassed"
-            :parseData="parseData" />
+            :parseData="parseData"
+            :trackingData="trackingData"
+          />
           <Info
             v-if="(challenge && !isSubmitting && !output.test) || (output.test && output.test.fail && showLessonChangedInfo)"
             :showUploadInfo="showUploadInfo"
@@ -112,6 +116,7 @@ import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
 
+import { isProduction } from '../utils/env'
 import {
   getTutorialByUrl,
   isTutorialPassed,
@@ -136,7 +141,7 @@ import Validator from './Validator.vue'
 import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
 import TypeIcon from './TypeIcon.vue'
 
-const MAX_EXEC_TIMEOUT = 10000
+const MAX_EXEC_TIMEOUT = isProduction ? 10000 : 60000
 
 class SyntaxError extends Error {
   toString () {
@@ -432,14 +437,14 @@ export default {
       // create a sample file for the user to read from, acessible at this CID:
       // QmWCscor6qWPdx53zEQmZvQvuWQYxx1ARRCXwYVE4s9wzJ
       /* eslint-disable no-new */
-      return all(ipfs.add('You did it!'))
+      return ipfs.add('You did it!')
     },
     createTree: function (ipfs) {
       // create a sample directory for the user to read from, acessible at these CIDs:
       // top-level directory: QmcmnUvVV31txDfAddgAaNcNKbrtC2rC9FvkJphNWyM7gy
       // `fun` directory: QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r
       /* eslint-disable no-new */
-      return all(ipfs.add([
+      return all(ipfs.addAll([
         {
           content: '¯\\_(ツ)_/¯',
           path: 'shrug.txt'

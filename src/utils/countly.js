@@ -2,6 +2,9 @@ import settings from './settings'
 
 export const events = {
   CODE_RESET: 'resetCode',
+  CODE_VIEW_SOLUTION: 'viewSolutionCode',
+  LINK_CLICK_IPLD_EXPLORER: 'linkClickIpldExplorer',
+  LINK_CLICK_CID_INSPECTOR: 'linkClickCidInspector',
   CODE_SUBMIT_WRONG: 'submitWrongCode',
   CHOICE_SUBMIT_WRONG: 'submitWrongChoice',
   LESSON_PASSED: 'lessonPassed',
@@ -11,7 +14,8 @@ export const events = {
   TUTORIAL_FEEDBACK_SURVEY_ANSWER: 'tutorialFeedbackSurveyAnswer',
   TUTORIAL_FEEDBACK_SURVEY_COMPLETED: 'tutorialFeedbackSurveyCompleted',
   TUTORIAL_FEEDBACK_SURVEY_DISMISSED: 'tutorialFeedbackSurveyDismissed',
-  TUTORIAL_FEEDBACK_SURVEY_AB_TESTING: 'tutorialFeedbackSurveyABTesting'
+  TUTORIAL_FEEDBACK_SURVEY_AB_TESTING: 'tutorialFeedbackSurveyABTesting',
+  NEWSLETTER_REFERRAL: 'newsletterReferral'
 }
 
 /*

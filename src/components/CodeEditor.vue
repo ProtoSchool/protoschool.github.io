@@ -10,14 +10,13 @@
       <span v-if="cachedCode" @click="resetCode" class="textLink" data-cy="reset-code">Reset Code</span>
       <MonacoEditor
         class="editor mt2"
-        srcPath="."
         :height="editorHeight"
         :options="options"
-        :code="code"
+        :value="code"
         theme="vs"
         language="javascript"
-        @mounted="onMounted"
-        @codeChange="onCodeChange" />
+        :editorMounted="onMounted"
+        @change="onCodeChange" />
     </div>
     <div class="mt2 h-100 flex-auto" v-bind:data-cy="editorReady ? 'solution-editor-ready' : undefined">
       <div v-if="solution" class="mb2 ml3">
@@ -29,20 +28,20 @@
       </div>
       <MonacoEditor
         v-show="viewSolution"
-        class="editor"
-        srcPath="."
+        class="editor solution-editor"
         :height="editorHeight"
         :options="Object.assign({}, { readOnly: true }, options)"
-        :code="solution"
-        theme="vs-dark"
+        :value="solution"
+        theme="vs"
         language="javascript"
-        data-cy="solution"/>
+        data-cy="solution" />
     </div>
   </div>
 </template>
 
 <script>
-import MonacoEditor from 'vue-monaco-editor'
+import countly from '../utils/countly'
+import MonacoEditor from 'monaco-editor-vue'
 
 export default {
   components: {
@@ -59,7 +58,8 @@ export default {
     resetCode: Function,
     expandChallenge: Boolean,
     cyReplaceWithSolution: Function,
-    cyClearDefaultCode: Function
+    cyClearDefaultCode: Function,
+    trackingData: Object
   },
   data: self => {
     return {
@@ -67,7 +67,13 @@ export default {
         selectOnLineNumbers: false,
         lineNumbersMinChars: 3,
         scrollBeyondLastLine: false,
-        automaticLayout: true
+        automaticLayout: true,
+        minimap: {
+          enabled: false
+        },
+        scrollbar: {
+          alwaysConsumeMouseWheel: false
+        }
       },
       viewSolution: false
     }
@@ -75,6 +81,10 @@ export default {
   methods: {
     toggleSolution: function () {
       this.viewSolution = !this.viewSolution
+
+      if (this.viewSolution) {
+        countly.trackEvent(countly.events.CODE_VIEW_SOLUTION, this.trackingData)
+      }
     }
   },
   computed: {
@@ -133,5 +143,9 @@ export default {
   border-style: solid;
   border-width:  5px 5px 5px;
   margin-top: 5px;
+}
+
+.solution-editor {
+  filter: invert(1) hue-rotate(170deg) brightness(0.8) grayscale(0.3)
 }
 </style>

@@ -36,7 +36,6 @@
 
 <script>
 import _ from 'lodash'
-import qs from 'querystringify'
 import tutorials from '../utils/tutorials'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
@@ -114,17 +113,17 @@ export default {
   },
   methods: {
     setQueryParameter: function (name, value) {
-      const queries = {
-        ...this.$route.query,
-        [name]: value
-      }
-      const queryString = qs.stringify(queries)
+      const scrollPosition = window.pageYOffset
 
-      // update query parameters
-      // don't use this.$router.push/replace because it triggers a full re-render and does not preserve the scroll
-      window.location.hash = window.location.hash.indexOf('?') === -1
-        ? window.location.hash + '?' + queryString
-        : window.location.hash.replace(window.location.hash.split('?')[1], queryString)
+      this.$router.push({
+        query: {
+          ...this.$route.query,
+          [name]: value
+        }
+      })
+
+      // fix for vue-router: do not scroll to top on location.search change
+      setTimeout(() => window.scrollTo(0, scrollPosition), 0)
     },
     capitalize: _.capitalize,
     processToggle: function () {
