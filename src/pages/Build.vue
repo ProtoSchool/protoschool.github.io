@@ -24,7 +24,7 @@
 
       <h2>Share a tutorial idea</h2>
       <p class="f4 fw5 lh-copy ma0 pv2  ">
-      Our guide to <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md">designing effective ProtoSchool tutorials</a> covers the process for proposing and outlining a new tutorial with community input and explains the skills needed to build a tutorial using the ProtoSchool platform. Perhaps more importantly, it clarifies the scope of ProtoSchool and outlines some of the key elements of an effective learning experience, so that you can design the best possible tutorial for our users.</p>
+      Our guide to <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/main/DEVELOPING_TUTORIALS.md">designing effective ProtoSchool tutorials</a> covers the process for proposing and outlining a new tutorial with community input and explains the skills needed to build a tutorial using the ProtoSchool platform. Perhaps more importantly, it clarifies the scope of ProtoSchool and outlines some of the key elements of an effective learning experience, so that you can design the best possible tutorial for our users.</p>
 
       <p class="f4 fw5 lh-copy ma0 pv2  ">
       Ready to share your idea for new content? After reviewing the guide, please check out the
@@ -52,7 +52,7 @@
       </p>
 
       <p class="f4 fw5 lh-copy ma0 pv2 ">Our boilerplate files make it easy to build new tutorials using Markdown formatting for lesson content, and you can create text-based or multiple-choice lessons without any coding background. To build coding challenges, you'll need to create validation tests using JavaScript, a process that feels similar to creating a unit test suite
-      which the learner must pass by implementing the correct code. Whichever lesson type you choose, our <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md">detailed instructions on building tutorials</a> will walk you through every step of the process.
+      which the learner must pass by implementing the correct code. Whichever lesson type you choose, our <a href="https://github.com/ProtoSchool/protoschool.github.io/blob/main/DEVELOPING_TUTORIALS.md">detailed instructions on building tutorials</a> will walk you through every step of the process.
       </p>
 
       <p class="f4 fw5 lh-copy ma0 pv2 ">

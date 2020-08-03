@@ -9,10 +9,10 @@ const validate = async (result, ipfs) => {
     There are some additional options you can find useful:
 
     If you want to show some data or result to the user, it's possible to add an additional step after submitting the code:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#display-results-to-the-user-optional
+    https://github.com/ProtoSchool/protoschool.github.io/blob/main/README.md#display-results-to-the-user-optional
 
     If you want to catch external errors and override them to display a more user-friendly error message:
-    https://github.com/ProtoSchool/protoschool.github.io/blob/code/README.md#override-external-error-messages-optional
+    https://github.com/ProtoSchool/protoschool.github.io/blob/main/README.md#override-external-error-messages-optional
   */
 }
 
@@ -31,7 +31,7 @@ return run
 `
 
 // for more on the available options:
-// https://github.com/ProtoSchool/protoschool.github.io/blob/code/DEVELOPING_TUTORIALS.md#lesson-file
+// https://github.com/ProtoSchool/protoschool.github.io/blob/main/DEVELOPING_TUTORIALS.md#lesson-file
 const options = {
   overrideErrors: false,
   createTestFile: false,
