@@ -4,10 +4,10 @@ export default function headRoot () {
     title: 'ProtoSchool',
     titleTemplate: '%s | ProtoSchool',
     link: [
-      { rel: 'canonical', href: window.location.origin + window.location.pathname }
+      { rel: 'canonical', href: 'https://proto.school' + window.location.pathname }
     ],
     meta: [
-      { property: 'og:url', content: window.location.origin + window.location.pathname },
+      { property: 'og:url', content: 'https://proto.school' + window.location.pathname },
       { property: 'og:type', content: 'website' },
       { property: 'og:image', content: 'https://proto.school/protoschool_screenshot.png' },
       { property: 'og:site_name', content: 'ProtoSchool' },
