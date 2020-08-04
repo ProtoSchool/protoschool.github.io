@@ -24,7 +24,7 @@ module.exports = {
       config.plugins.push(
         new PrerenderSPAPlugin({
           staticDir: path.join(__dirname, 'dist'),
-          routes,
+          routes: routes.map(route => route.path),
           renderer: new Renderer({
             renderAfterDocumentEvent: 'x-app-rendered',
             renderAfterElementExists: '#app',
@@ -43,7 +43,9 @@ module.exports = {
   pluginOptions: {
     sitemap: {
       baseURL: 'https://proto.school',
-      urls: routes,
+      urls: routes
+        .filter(route => route.type === routes.types.STATIC || route.type === routes.types.TUTORIAL)
+        .map(route => route.path),
       outputDir: 'public'
     }
   }
