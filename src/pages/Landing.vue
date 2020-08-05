@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import head from '../utils/head'
 import Header from '../components/Header.vue'
 import Tutorial from '../components/Tutorial.vue'
 import { getTutorialByUrl } from '../utils/tutorials'
@@ -31,6 +32,9 @@ export default {
 
       return tutorial
     }
+  },
+  head () {
+    return head.dynamic.tutorials({ context: this })
   }
 }
 </script>

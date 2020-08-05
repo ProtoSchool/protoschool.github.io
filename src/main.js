@@ -3,6 +3,7 @@ import 'tachyons'
 import 'ipfs-css'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueMeta from 'vue-meta'
 import VueTooltip from 'v-tooltip'
 import VueHighlightJS from 'vue-highlight.js'
 import VueSelect from 'vue-select'
@@ -13,6 +14,7 @@ import router from './router'
 
 Vue
   .use(VueRouter)
+  .use(VueMeta, { keyName: 'head', refreshOnceOnNavigation: true })
   .use(VueHighlightJS)
   .use(VueTooltip)
 

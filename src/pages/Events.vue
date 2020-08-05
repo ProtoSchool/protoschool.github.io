@@ -45,9 +45,10 @@
 </template>
 
 <script>
+import head from '../utils/head'
+import { pastEvents, futureEvents } from '../utils/events'
 import Header from '../components/Header'
 import EventCard from '../components/cards/EventCard'
-import { pastEvents, futureEvents } from '../utils/events'
 
 export default {
   name: 'events',
@@ -67,7 +68,8 @@ export default {
     togglePastEvents: function () {
       this.viewAllPast = !this.viewAllPast
     }
-  }
+  },
+  head: head()
 }
 
 </script>

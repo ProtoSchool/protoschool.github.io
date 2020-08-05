@@ -6,9 +6,11 @@
 
 <script>
 import './styles/index.css'
+import head from './utils/head'
 
 export default {
-  name: 'app'
+  name: 'app',
+  head: head.root()
 }
 </script>
 

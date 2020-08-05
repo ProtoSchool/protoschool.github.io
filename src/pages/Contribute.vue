@@ -79,12 +79,14 @@
 </template>
 
 <script>
+import head from '../utils/head'
 import Header from '../components/Header.vue'
 
 export default {
   name: 'Community',
   components: {
     Header
-  }
+  },
+  head: head()
 }
 </script>

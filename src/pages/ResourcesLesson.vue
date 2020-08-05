@@ -8,8 +8,9 @@
 
 <script>
 import router from '../router'
-import Lesson from '../components/Lesson'
+import head from '../utils/head'
 import { getTutorialByUrl } from '../utils/tutorials'
+import Lesson from '../components/Lesson'
 
 export default {
   components: {
@@ -32,6 +33,9 @@ export default {
 
       return this.tutorial.resources
     }
+  },
+  head () {
+    return head.dynamic.resources({ context: this })
   }
 }
 </script>

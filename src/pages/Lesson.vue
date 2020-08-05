@@ -44,6 +44,7 @@
 <script>
 import router from '../router'
 import debug from '../utils/debug'
+import head from '../utils/head'
 import { getTutorialByUrl } from '../utils/tutorials'
 import marked from '../utils/marked'
 import Lesson from '../components/Lesson.vue'
@@ -62,7 +63,6 @@ export default {
   },
   methods: {
     loadFile: function (file, { failOnNotFound = true } = {}) {
-      const tutorial = getTutorialByUrl(this.tutorialUrl)
       let filename
       let fileData
 
@@ -82,7 +82,7 @@ export default {
       }
 
       try {
-        fileData = require(`../tutorials/${tutorial.formattedId}-${tutorial.url}/${filename}`)
+        fileData = require(`../tutorials/${this.tutorial.formattedId}-${this.tutorial.url}/${filename}`)
       } catch (error) {
         const errorMessage = `File "${filename}" not found`
 
@@ -109,6 +109,9 @@ export default {
     }
   },
   computed: {
+    tutorial: function () {
+      return getTutorialByUrl(this.tutorialUrl)
+    },
     textFileData: function () {
       return marked(this.loadFile('md'))
     },
@@ -171,6 +174,9 @@ export default {
 
       return logic
     }
+  },
+  head () {
+    return head.dynamic.lessons({ context: this })
   }
 }
 </script>
