@@ -4,13 +4,6 @@ describe('REDIRECTS', () => {
     cy.location('pathname').should('eq', redirect || path)
   }
 
-  it('404 redirect', () => {
-    cy.visit('/unknown-path', { failOnStatusCode: false })
-    cy.location('pathname').should('eq', '/404')
-    cy.visit('/unknown-path/02', { failOnStatusCode: false })
-    cy.location('pathname').should('eq', '/404')
-  })
-
   it('should redirect the old hash urls to the new paths', () => {
     assertHashRouteRedirect('/tutorials')
     assertHashRouteRedirect('/news')
