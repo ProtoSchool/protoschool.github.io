@@ -57,6 +57,7 @@
           v-if="currentStep === maximumStep"
           :data-state-view-active="currentStep === maximumStep"
           key="thank-you"
+          :showProfileSurveyLink="!isProfileSurveyComplete()"
         />
       </transition>
       <button
@@ -138,6 +139,9 @@ export default {
       })
 
       this.dismissed = true
+    },
+    isProfileSurveyComplete: function () {
+      return settings.profileSurvey.isCompleted()
     }
   }
 }

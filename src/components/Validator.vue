@@ -3,7 +3,7 @@
     <!-- Coding lesson -->
     <div v-if="challenge" :class="{'fixed bottom-0 right-0': expandChallenge}" class="coding-challenge-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
-        <Button
+        <ButtonLink
           class="bg-navy white"
           data-cy="more-tutorials"
           text="More Tutorials"
@@ -56,7 +56,7 @@
     <!-- Multiple choice lesson -->
     <div v-else-if="isMultipleChoiceLesson" class="coding-challenge-container pr4 pb4 tr">
       <div v-if="!nextLessonIsResources && (lessonPassed && (lessonNumber === lessonsInTutorial)) || isResources">
-        <Button
+        <ButtonLink
           class="bg-navy white"
           data-cy="more-tutorials"
           text="More Tuturials"
@@ -79,7 +79,7 @@
     <!-- Text only lesson -->
     <div v-else class="mb3 ph2 tr">
       <div v-if="!nextLessonIsResources && ((lessonNumber === lessonsInTutorial) || isResources)">
-        <Button
+        <ButtonLink
           data-cy="more-tutorials"
           class="bg-navy white"
           text="More Tutorials"
@@ -100,10 +100,12 @@
 
 <script>
 import Button from './buttons/Button.vue'
+import ButtonLink from './buttons/ButtonLink.vue'
 
 export default {
   components: {
-    Button
+    Button,
+    ButtonLink
   },
   props: {
     challenge: String,

@@ -10,6 +10,20 @@
   `settings/filters/*`
   `settings/newsletters/*`
   `settings/feedbackSurveys/*`
+
+  How to add a new module:
+
+  1. Create a new module object
+  2. Add specific constants to it if needed
+  3. Define additional methods as needed
+  4. Spread `makeOperations` to the module so we have access to the `get` and `set` operations
+  5. Export the new module in the bottom default export
+
+  TODO: make docs more clear:
+    - Rethink about the `module` naming
+    - think about a simplified API
+    - be more explicit about the reason for this module and use cases
+    - show clear examples explaning
  */
 
 import translations from '../../static/translations'
@@ -17,6 +31,7 @@ import {
   FILTERS_KEY_PREFIX,
   NEWSLETTER_KEY_PREFIX,
   FEEDBACK_SURVEY_KEY_PREFIX,
+  PROFILE_SURVEY_KEY_PREFIX,
   AB_TESTING_PREFIX,
   COUNTLY_PREFIX
 } from './prefixes'
@@ -73,6 +88,23 @@ tutorialFeedbackSurvey.saveProgress = function (tutorialId, questionNumber, answ
 }
 
 /*
+  Profile Survey
+ */
+
+const profileSurvey = {
+  COMPLETED: 'completed',
+  ...makeOperations(PROFILE_SURVEY_KEY_PREFIX)
+}
+
+profileSurvey.markComplete = function () {
+  profileSurvey.set(profileSurvey.COMPLETED, true)
+}
+
+profileSurvey.isCompleted = function () {
+  return profileSurvey.get(profileSurvey.COMPLETED)
+}
+
+/*
   A/B Testing
  */
 const abTesting = {
@@ -104,6 +136,7 @@ export default {
   filters,
   newsletters,
   tutorialFeedbackSurvey,
+  profileSurvey,
   abTesting,
   countly
 }

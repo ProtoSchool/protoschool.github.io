@@ -1,5 +1,7 @@
 import * as prefixes from './prefixes'
 
+// TODO: More documentation about what prefix / key / value / module mean in this context
+
 function settingsKey (module, key) {
   return `${prefixes.SETTINGS_KEY_PREFIX}/${module}/${key}`
 }

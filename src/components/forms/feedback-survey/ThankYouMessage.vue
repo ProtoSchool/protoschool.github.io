@@ -1,31 +1,60 @@
 <template>
   <div class="thank-you-message">
-    <div class="text" v-html="translations.thankYouMessage.text">
+    <div v-if="!showProfileSurveyLink" class="text" v-html="translations.thankYouMessage.textWithoutPrompt">
     </div>
-    <!-- TODO: show button when survey is available -->
-    <div
-      v-if="false"
+    <div v-else class="text" v-html="translations.thankYouMessage.textWithPrompt">
+    </div>
+    <div v-if="showProfileSurveyLink"
       class="flex justify-end mt4"
     >
-        <Button
-          link="Tutorials"
-          text="Go to Survey"
-        />
+      <ButtonLink
+        text="Go to Survey"
+        :link="translations.thankYouMessage.surveyLink"
+        external
+        :onClick="onClickToProfileSurvey"
+      />
     </div>
   </div>
 </template>
 <script>
+import countly from '../../../utils/countly'
 import translations from '../../../static/translations'
-import Button from '../../buttons/Button.vue'
+import settings from '../../../utils/settings'
+import { getTutorialByUrl } from '../../../utils/tutorials'
+import ButtonLink from '../../buttons/ButtonLink.vue'
 
 export default {
   name: 'ThankYouMessage',
   components: {
-    Button
+    ButtonLink
+  },
+  props: {
+    showProfileSurveyLink: {
+      type: Boolean,
+      default: false
+    }
   },
   data: () => ({
     translations: translations.feedbackSurvey
-  })
+  }),
+  computed: {
+    tutorial: function () {
+      return getTutorialByUrl(this.$route.params.tutorialUrl)
+    },
+    trackingData: function () {
+      return {
+        tutorial: this.tutorial.shortTitle,
+        path: this.$route.path
+      }
+    }
+  },
+  methods: {
+    onClickToProfileSurvey: function () {
+      settings.profileSurvey.markComplete()
+
+      countly.trackEvent(countly.events.PROFILE_SURVEY_CLICK, this.trackingData)
+    }
+  }
 }
 </script>
 <style scoped>
