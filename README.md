@@ -40,6 +40,15 @@ $ npm run serve
 
 View the site on localhost at: http://localhost:3000
 
+## Testing without affecting site analytics in Countly
+
+Only actions taken at the https://proto.school domain affect our main ProtoSchool analytics in Countly. 
+
+You can safely experiment with any of the following to send stats to our TEST ProtoSchool dashboard in Countly instead: 
+- served locally: http://localhost:3000
+- live site accessed directly through Netlify: https://protoschool-prod.netlify.app/
+- preview for a specific PR via link found in PR testing section (e.g. https://deploy-preview-505--protoschool-prod.netlify.app/)
+
 ## Managing remote data
 
 Some data, such as the events list, is pulled at build-time from remote sources using Node.js scripts. Please check the documentation [here](scripts/README.md) for further details.
