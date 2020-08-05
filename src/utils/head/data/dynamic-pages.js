@@ -8,8 +8,16 @@
 export default function (head) {
   return {
     tutorials: function lessons ({ context, data }) {
+      let titleString = ''
+      if (context.tutorial.title.includes(context.tutorial.project.name)) {
+        titleString = `${context.tutorial.title} Tutorial`
+      } else if (context.tutorial.project.id === 'dweb') {
+        titleString = `${context.tutorial.title} | DWeb Tutorial`
+      } else {
+        titleString = `${context.tutorial.title} | ${context.tutorial.project.name} Tutorial`
+      }
       return head({
-        'title': `${context.tutorial.title} Tutorial`,
+        'title': titleString,
         'description': context.tutorial.description,
         ...data
       })
