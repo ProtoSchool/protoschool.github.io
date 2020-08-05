@@ -21,7 +21,7 @@ export default {
     'description': 'ProtoSchool is making it easy to get started with decentralized web technologies. Contribute by building tutorials, hosting local events, and more.'
   },
   '/events/': {
-    'title': 'Events'
+    'title': 'Events',
     'og:title': 'Attend ProtoSchool workshops',
     'description': 'Attend in-person or virtual ProtoSchool workshops around the globe to learn about decentralized web protocols with the support of local mentors.'
   },
