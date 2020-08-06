@@ -1,4 +1,8 @@
+const moment = require('moment')
+
 const api = require('./api')
+
+const lastmod = moment().format('YYYY-MM-DD')
 
 const types = {
   STATIC: 'static',
@@ -12,30 +16,39 @@ const types = {
 const tutorialRoutes = Object.values(api.tutorials.list.get()).reduce((routes, tutorial) => {
   routes.push({
     type: types.TUTORIAL,
-    path: `/${tutorial.url}/`
+    loc: `/${tutorial.url}/`,
+    priority: 1,
+    changefreq: 'monthly',
+    lastmod
   })
   routes.push({
     type: types.RESOURCES,
-    path: `/${tutorial.url}/resources/`
+    loc: `/${tutorial.url}/resources/`,
+    priority: 0.6,
+    changefreq: 'monthly',
+    lastmod
   })
 
   return routes.concat(tutorial.lessons.map(lesson => ({
     type: types.LESSON,
-    path: `/${lesson.url}/`
+    loc: `/${lesson.url}/`,
+    priority: 0.6,
+    changefreq: 'monthly',
+    lastmod
   })))
 }, [])
 
 const routes = [
   // Pages
-  { type: types.STATIC, path: '/' },
-  { type: types.STATIC, path: '/tutorials/' },
-  { type: types.STATIC, path: '/events/' },
-  { type: types.STATIC, path: '/host/' },
-  { type: types.STATIC, path: '/build/' },
-  { type: types.STATIC, path: '/contribute/' },
-  { type: types.STATIC, path: '/news/' },
+  { type: types.STATIC, loc: '/', priority: 1, changefreq: 'weekly', lastmod },
+  { type: types.STATIC, loc: '/tutorials/', priority: 0.9, changefreq: 'weekly', lastmod },
+  { type: types.STATIC, loc: '/events/', priority: 0.8, changefreq: 'weekly', lastmod },
+  { type: types.STATIC, loc: '/news/', priority: 0.7, changefreq: 'monthly', lastmod },
+  { type: types.STATIC, loc: '/host/', priority: 0.6, changefreq: 'monthly', lastmod },
+  { type: types.STATIC, loc: '/build/', priority: 0.6, changefreq: 'monthly', lastmod },
+  { type: types.STATIC, loc: '/contribute/', priority: 0.6, changefreq: 'monthly', lastmod },
   ...tutorialRoutes,
-  { type: types.ERROR, path: '/404/' }
+  { type: types.ERROR, loc: '/404/' }
 ]
 
 routes.types = types

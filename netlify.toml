@@ -1,5 +1,5 @@
 [build]
-command = "npm run scripts:build:data -- --dry-run=false && npm run test:jest && npm run build"
+command = "npm run sitemap && npm run scripts:build:data -- --dry-run=false && npm run test:jest && npm run build"
 publish = "dist"
 
 [build.environment]
