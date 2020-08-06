@@ -27,7 +27,6 @@ module.exports = {
           routes: routes.map(route => route.path),
           renderer: new Renderer({
             renderAfterDocumentEvent: 'x-app-rendered',
-            renderAfterElementExists: '#app',
             maxConcurrentRoutes: 4
           })
         })
