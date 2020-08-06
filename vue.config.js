@@ -45,7 +45,8 @@ module.exports = {
       urls: routes
         .filter(route => route.type === routes.types.STATIC || route.type === routes.types.TUTORIAL)
         .map(route => route.path),
-      outputDir: 'public'
+      outputDir: 'public',
+      trailingSlash: true
     }
   }
 }

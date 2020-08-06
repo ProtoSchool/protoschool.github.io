@@ -1,31 +1,23 @@
 import VueRouter from 'vue-router'
 
-// Utils
 import { migrateCache } from './utils/paths'
-import { getRedirects as getTutorialRedirects } from './utils/tutorials'
-// Components
-import Home from './pages/Home.vue'
-import Landing from './pages/Landing.vue'
-import Lesson from './pages/Lesson.vue'
-import ResourcesLesson from './pages/ResourcesLesson.vue'
-import Events from './pages/Events.vue'
-import Host from './pages/Host.vue'
-import Build from './pages/Build.vue'
-import Contribute from './pages/Contribute.vue'
-import Tutorials from './pages/Tutorials.vue'
-import News from './pages/News.vue'
-import NotFound from './pages/NotFound.vue'
 
 const routes = [
   // Pages
   {
     path: '/',
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ './pages/Home'),
     name: 'Home'
   },
   {
+    path: '/tutorials',
+    component: () => import(/* webpackChunkName: "tutorials" */ './pages/Tutorials'),
+    name: 'Tutorials',
+    props: (route) => ({ code: route.query.code, course: route.query.course })
+  },
+  {
     path: '/events',
-    component: Events,
+    component: () => import(/* webpackChunkName: "events" */ './pages/Events'),
     name: 'Events'
   },
   {
@@ -34,51 +26,43 @@ const routes = [
   },
   {
     path: '/host',
-    component: Host,
+    component: () => import(/* webpackChunkName: "host" */ './pages/Host'),
     name: 'Host'
   },
   {
     path: '/build',
-    component: Build,
+    component: () => import(/* webpackChunkName: "build" */ './pages/Build'),
     name: 'Build'
   },
   {
     path: '/contribute',
-    component: Contribute,
+    component: () => import(/* webpackChunkName: "contribute" */ './pages/Contribute'),
     name: 'Contribute'
   },
   {
-    path: '/tutorials',
-    component: Tutorials,
-    name: 'Tutorials',
-    props: (route) => ({ code: route.query.code, course: route.query.course })
-  },
-  {
     path: '/news',
-    component: News,
+    component: () => import(/* webpackChunkName: "news" */ './pages/News'),
     name: 'News'
   },
   {
     path: '/404',
     name: '404',
-    component: NotFound
+    component: () => import(/* webpackChunkName: "not-found" */ './pages/NotFound')
   },
-  // Tutorials
-  ...getTutorialRedirects(),
   {
     path: '/:tutorialUrl',
-    component: Landing,
+    component: () => import(/* webpackChunkName: "tutorial" */ './pages/Landing'),
     props: true
   },
   {
     path: '/:tutorialUrl/resources',
-    component: ResourcesLesson,
+    component: () => import(/* webpackChunkName: "resources" */ './pages/ResourcesLesson'),
     props: true,
     name: 'Resources'
   },
   {
     path: '/:tutorialUrl/:lessonId',
-    component: Lesson,
+    component: () => import(/* webpackChunkName: "lessons" */ './pages/Lesson'),
     props: true
   },
   // 404

@@ -28,12 +28,12 @@ const tutorialRoutes = Object.values(api.tutorials.list.get()).reduce((routes, t
 const routes = [
   // Pages
   { type: types.STATIC, path: '/' },
+  { type: types.STATIC, path: '/tutorials/' },
   { type: types.STATIC, path: '/events/' },
   { type: types.STATIC, path: '/host/' },
   { type: types.STATIC, path: '/build/' },
   { type: types.STATIC, path: '/contribute/' },
   { type: types.STATIC, path: '/news/' },
-  { type: types.STATIC, path: '/tutorials/' },
   ...tutorialRoutes,
   { type: types.ERROR, path: '/404/' }
 ]
