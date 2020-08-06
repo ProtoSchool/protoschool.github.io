@@ -16,7 +16,7 @@
     "scripts:build:data": "node scripts/commands/build-data",
     "scripts:googleapis-generate-token": "node scripts/commands/googleapis-generate-token",
     "scripts:wizard": "node scripts/commands/wizard/index.js",
-    "sitemap": "vue-cli-service sitemap",
+    "sitemap": "rm public/sitemap.xml && vue-cli-service sitemap",
     "start": "npm run serve",
     "test": "start-server-and-test serve http://localhost:3000 cy:run",
     "test:jest": "jest --maxWorkers=1 --verbose"

@@ -11,6 +11,12 @@ package = "netlify-plugin-cypress"
   [plugins.inputs]
   spa = true
 
+# redirects
+
+[[redirects]]
+  from = "/chapters"
+  to = "/events"
+  status = 301
 
 [[redirects]]
   from = "/*"

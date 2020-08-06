@@ -4,7 +4,8 @@ const types = {
   STATIC: 'static',
   TUTORIAL: 'tutorial',
   LESSON: 'lesson',
-  RESOURCES: 'resources'
+  RESOURCES: 'resources',
+  ERROR: 'error'
 }
 
 // compute routes for tutorials
@@ -26,14 +27,14 @@ const tutorialRoutes = Object.values(api.tutorials.list.get()).reduce((routes, t
 
 const routes = [
   // Pages
-  { type: 'static', path: '/' },
-  { type: 'static', path: '/events' },
-  { type: 'static', path: '/chapters' },
-  { type: 'static', path: '/host' },
-  { type: 'static', path: '/build' },
-  { type: 'static', path: '/contribute' },
-  { type: 'static', path: '/news' },
-  { type: 'static', path: '/tutorials' },
+  { type: types.STATIC, path: '/' },
+  { type: types.STATIC, path: '/events' },
+  { type: types.STATIC, path: '/host' },
+  { type: types.STATIC, path: '/build' },
+  { type: types.STATIC, path: '/contribute' },
+  { type: types.STATIC, path: '/news' },
+  { type: types.STATIC, path: '/tutorials' },
+  { type: types.ERROR, path: '/404' },
   ...tutorialRoutes
 ]
 
