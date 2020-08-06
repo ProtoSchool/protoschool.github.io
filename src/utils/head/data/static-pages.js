@@ -7,7 +7,7 @@
 
 export default {
   '/': {
-    'title': 'Homepage',
+    'title': 'ProtoSchool | Interactive tutorials on decentralized web protocols',
     'description': 'Interactive tutorials on decentralized web protocols. Explore IPFS and Filecoin through code challenges, code-free lessons, and local events.'
   },
   '/build/': {
