@@ -13,12 +13,12 @@
             :alt="tutorial.project.name"
             style="height: 23px"
           />
-          <h4 class="f6 mv0 fw5 charcoal-muted">{{tutorial.project.name}}</h4>
+          <div class="f6 mv0 fw5 charcoal-muted">{{tutorial.project.name}}</div>
         </div>
         <span v-if="state" class="tutorial-state f7 mv0 fw7 white br3">{{state.title}}</span>
       </div>
       <div class="flex flex-row justify-between items-start navy">
-        <h3 class="ma0 f3 fw7" data-cy="tutorial-card-title">{{tutorial.title}}</h3>
+        <div class="ma0 f3 fw7" data-cy="tutorial-card-title">{{tutorial.title}}</div>
         <TypeIcon
           :tutorialId="tutorial.tutorialId"
           class="h2 ml3 type-icon"
