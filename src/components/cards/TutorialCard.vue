@@ -10,7 +10,7 @@
           <img
             class="mr2"
             :src="tutorial.project.logo"
-            :alt="tutorial.project.name"
+            :alt="`${tutorial.project.name} project logo`"
             style="height: 23px"
           />
           <div class="f6 mv0 fw5 charcoal-muted">{{tutorial.project.name}}</div>

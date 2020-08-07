@@ -13,7 +13,7 @@
       <ul class="flex flex-wrap justify-center ma0 pa0 mb2">
         <li class="list " v-for="project in newsletters" :key="project.id">
           <a v-on:click="onClickTrack(project)" class="newsletter-link pv3 ph4 db ma1 br3 flex items-center no-underline navy" :href="project.newsletterUrl" target="blank">
-            <img class="h2 mr3" :src="project.logo"/>
+            <img class="h2 mr3" :src="project.logo" :alt="`${project.name} project logo`" />
             <span class="f4">{{project.name}}</span>
           </a>
         </li>
