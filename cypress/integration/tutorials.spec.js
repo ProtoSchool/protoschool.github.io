@@ -253,7 +253,7 @@ function advanceThroughLessons (tutorialId) {
 
   it(`finds ${tutorialTitle} landing page with links to correct ${lessonCount} lessons plus resources`, function () {
     cy.visit(`/${tutorialName}/`)
-    cy.contains('h2', tutorialTitle)
+    cy.contains('h1', tutorialTitle)
     cy.get(`[data-cy=lesson-link-standard]`).should('have.length', lessonCount)
     cy.get(`[data-cy=lesson-link-resources]`).should('have.length', 1)
     // show that correct links are in correct order, but don't click through to test them
@@ -269,13 +269,11 @@ function advanceThroughLessons (tutorialId) {
       .and('have.attr', 'href', `/${tutorialName}/resources`)
   })
 
-  // const hasResources = tutorials[tutorialId].hasOwnProperty('resources')
   it(`uses lesson links and nav links btw landing page and 1st lesson`, function () {
     cy.visit(`/${tutorialName}/`)
     cy.get(`[href="/${tutorialName}/01"]`).click()
     cy.url().should('include', `/${tutorialName}/01`)
     cy.get(`[data-cy=tutorial-landing-link]`).click() // test nav link back to tutorial landing page
-    cy.contains('h2', tutorialTitle)
     cy.get(`[href="/${tutorialName}/01"]`).click()
     cy.contains('h1', lessons[0].title)
   })
