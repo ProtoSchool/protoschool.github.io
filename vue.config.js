@@ -29,7 +29,22 @@ module.exports = {
           renderer: new Renderer({
             renderAfterDocumentEvent: 'x-app-rendered',
             maxConcurrentRoutes: 4
-          })
+          }),
+          // Allows to customize the HTML and output path before
+          // writing the rendered contents to a file.
+          // renderedRoute format:
+          // {
+          //   route: String, // Where the output file will end up (relative to outputDir)
+          //   originalRoute: String, // The route that was passed into the renderer, before redirects.
+          //   html: String, // The rendered HTML for this route.
+          //   outputPath: String // The path the rendered HTML will be written to.
+          // }
+          postProcess (renderedRoute) {
+            // ignore redirects
+            renderedRoute.route = renderedRoute.originalRoute
+
+            return renderedRoute
+          }
         })
       )
   },

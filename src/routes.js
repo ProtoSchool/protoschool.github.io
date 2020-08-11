@@ -9,7 +9,8 @@ const types = {
   TUTORIAL: 'tutorial',
   LESSON: 'lesson',
   RESOURCES: 'resources',
-  ERROR: 'error'
+  ERROR: 'error',
+  REDIRECT: 'redirect'
 }
 
 // compute routes for tutorials
@@ -28,6 +29,18 @@ const tutorialRoutes = Object.values(api.tutorials.list.get()).reduce((routes, t
     changefreq: 'monthly',
     lastmod
   })
+
+  if (tutorial.redirectUrls && tutorial.redirectUrls.length) {
+    tutorial.redirectUrls.forEach(url => {
+      routes.push({ type: types.REDIRECT, loc: `/${url}` })
+      routes.push({ type: types.REDIRECT, loc: `/${url}/resources` })
+
+      tutorial.lessons.forEach(lesson => routes.push({
+        type: types.REDIRECT,
+        loc: `/${url}/${lesson.formattedId}`
+      }))
+    })
+  }
 
   return routes.concat(tutorial.lessons.map(lesson => ({
     type: types.LESSON,
@@ -48,7 +61,10 @@ const routes = [
   { type: types.STATIC, loc: '/build/', priority: 0.6, changefreq: 'monthly', lastmod },
   { type: types.STATIC, loc: '/contribute/', priority: 0.6, changefreq: 'monthly', lastmod },
   ...tutorialRoutes,
-  { type: types.ERROR, loc: '/404/' }
+  // error pages
+  { type: types.ERROR, loc: '/404/' },
+  // redirect pages
+  { type: types.REDIRECT, loc: '/chapters/' }
 ]
 
 routes.types = types

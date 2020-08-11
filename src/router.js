@@ -1,7 +1,11 @@
 import VueRouter from 'vue-router'
 
+import { getRedirects as getTutorialRedirects } from './utils/tutorials'
 import { migrateCache } from './utils/paths'
 
+// Routes to prerender should also be added to the routes.js file
+// Redirects that need to return a 301 status code need to be configured in
+// the server
 const routes = [
   // Pages
   {
@@ -20,10 +24,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "events" */ './pages/Events'),
     name: 'Events'
   },
-  {
-    path: '/chapters',
-    redirect: '/events'
-  },
+  { path: '/chapters', redirect: '/events' },
   {
     path: '/host',
     component: () => import(/* webpackChunkName: "host" */ './pages/Host'),
@@ -49,6 +50,7 @@ const routes = [
     name: '404',
     component: () => import(/* webpackChunkName: "not-found" */ './pages/NotFound')
   },
+  ...getTutorialRedirects(),
   {
     path: '/:tutorialUrl',
     component: () => import(/* webpackChunkName: "tutorial" */ './pages/Landing'),
