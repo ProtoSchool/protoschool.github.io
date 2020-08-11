@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+/public/sitemap.xml
 
 # local env files
 .env*
