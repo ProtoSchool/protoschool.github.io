@@ -29,7 +29,7 @@
     />
     <MultipleChoiceLesson
         v-else-if="!!lesson && lesson.meta.type === 'multiple-choice'"
-        :text="!!esson && lesson.html"
+        :text="!!lesson && lesson.html"
         :concepts="concepts"
         :question="logic.question"
         :choices="logic.choices"

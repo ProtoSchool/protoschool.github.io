@@ -32,7 +32,7 @@
         <div v-else class="flex-auto link fw6 f5 db bb border-aqua">{{currentPage}}</div>
         <button @click="toggleHamburger" class="menu-toggle button-reset bg-transparent b--transparent">
           <img v-if="isHamburgerClosed" src="../static/images/burger.svg" alt="open navigation menu" />
-          <img v-else src="../static/images/close.svg" alt="close nativation menu" />
+          <img v-else src="../static/images/close.svg" alt="close navigation menu" />
         </button>
       </div>
       <!-- hamburger displayed when requested -->
