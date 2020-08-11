@@ -1,10 +1,17 @@
 const moment = require('moment')
 
-const api = require('./api')
-
 const lastmod = moment().format('YYYY-MM-DD')
 
-const types = {
+function addSitemapLoc (route) {
+  if (route.sitemap) {
+    route.sitemap.loc = route.path
+  }
+
+  return route
+}
+
+// Route types - used to choose which routes are prerendered or added to the sitemap
+const TYPES = {
   STATIC: 'static',
   TUTORIAL: 'tutorial',
   LESSON: 'lesson',
@@ -13,60 +20,138 @@ const types = {
   REDIRECT: 'redirect'
 }
 
-// compute routes for tutorials
-const tutorialRoutes = Object.values(api.tutorials.list.get()).reduce((routes, tutorial) => {
-  routes.push({
-    type: types.TUTORIAL,
-    loc: `/${tutorial.url}/`,
-    priority: 1,
-    changefreq: 'monthly',
-    lastmod
-  })
-  routes.push({
-    type: types.RESOURCES,
-    loc: `/${tutorial.url}/resources/`,
-    priority: 0.6,
-    changefreq: 'monthly',
-    lastmod
-  })
+// Static routes
+function statics () {
+  return [
+    {
+      path: '/',
+      component: () => import(/* webpackChunkName: "home" */ './pages/Home'),
+      name: 'Home',
+      sitemap: { priority: 1, changefreq: 'weekly', lastmod }
+    },
+    {
+      path: '/tutorials/',
+      component: () => import(/* webpackChunkName: "tutorials" */ './pages/Tutorials'),
+      name: 'Tutorials',
+      props: (route) => ({ code: route.query.code, course: route.query.course }),
+      sitemap: { priority: 0.9, changefreq: 'weekly', lastmod }
+    },
+    {
+      path: '/events/',
+      component: () => import(/* webpackChunkName: "events" */ './pages/Events'),
+      name: 'Events',
+      sitemap: { priority: 0.8, changefreq: 'weekly', lastmod }
+    },
+    {
+      path: '/news/',
+      component: () => import(/* webpackChunkName: "news" */ './pages/News'),
+      name: 'News',
+      sitemap: { priority: 0.7, changefreq: 'monthly', lastmod }
+    },
+    {
+      path: '/host/',
+      component: () => import(/* webpackChunkName: "host" */ './pages/Host'),
+      name: 'Host',
+      sitemap: { priority: 0.6, changefreq: 'monthly', lastmod }
+    },
+    {
+      path: '/build/',
+      component: () => import(/* webpackChunkName: "build" */ './pages/Build'),
+      name: 'Build',
+      sitemap: { priority: 0.6, changefreq: 'monthly', lastmod }
+    },
+    {
+      path: '/contribute/',
+      component: () => import(/* webpackChunkName: "contribute" */ './pages/Contribute'),
+      name: 'Contribute',
+      sitemap: { priority: 0.6, changefreq: 'monthly', lastmod }
+    }
+  ].map(route => ({ ...route, type: TYPES.STATIC })).map(addSitemapLoc)
+}
 
-  if (tutorial.redirectUrls && tutorial.redirectUrls.length) {
-    tutorial.redirectUrls.forEach(url => {
-      routes.push({ type: types.REDIRECT, loc: `/${url}` })
-      routes.push({ type: types.REDIRECT, loc: `/${url}/resources` })
+// Redirect routes
+// Redirects that need to return a 301 status code need to be configured in the server as well
+function redirects () {
+  return [
+    { path: '/chapters/', redirect: '/events' }
+  ].map(route => ({ ...route, type: TYPES.REDIRECT })).map(addSitemapLoc)
+}
 
-      tutorial.lessons.forEach(lesson => routes.push({
-        type: types.REDIRECT,
-        loc: `/${url}/${lesson.formattedId}`
-      }))
+// Error routes
+function errors () {
+  return [
+    {
+      path: '/404',
+      name: '404',
+      component: () => import(/* webpackChunkName: "error" */ './pages/NotFound')
+    }
+  ].map(route => ({ ...route, type: TYPES.ERROR })).map(addSitemapLoc)
+}
+
+/* Tutorials routes. These are used to prerender and to be added to the sitemap
+  e.g.
+  /data-structures
+  /data-structures/01
+  /data-structures/resources
+
+  `redirectUrls` property will also be read to generate equivalent redirect routes
+*/
+function tutorials () {
+  const api = require('./api')
+
+  return Object.values(api.tutorials.list.get()).reduce((routes, tutorial) => {
+    routes.push({
+      type: TYPES.TUTORIAL,
+      path: `/${tutorial.url}/`,
+      sitemap: { priority: 1, changefreq: 'monthly', lastmod }
     })
-  }
+    routes.push({
+      type: TYPES.RESOURCES,
+      path: `/${tutorial.url}/resources/`
+    })
 
-  return routes.concat(tutorial.lessons.map(lesson => ({
-    type: types.LESSON,
-    loc: `/${lesson.url}/`,
-    priority: 0.6,
-    changefreq: 'monthly',
-    lastmod
-  })))
-}, [])
+    if (tutorial.redirectUrls && tutorial.redirectUrls.length) {
+      tutorial.redirectUrls.forEach(url => {
+        routes.push({
+          type: TYPES.REDIRECT,
+          path: `/${url}/`,
+          redirect: `/${tutorial.url}`
+        })
+        routes.push({
+          type: TYPES.REDIRECT,
+          path: `/${url}/resources/`,
+          redirect: `/${tutorial.url}/resources/`
+        })
 
-const routes = [
-  // Pages
-  { type: types.STATIC, loc: '/', priority: 1, changefreq: 'weekly', lastmod },
-  { type: types.STATIC, loc: '/tutorials/', priority: 0.9, changefreq: 'weekly', lastmod },
-  { type: types.STATIC, loc: '/events/', priority: 0.8, changefreq: 'weekly', lastmod },
-  { type: types.STATIC, loc: '/news/', priority: 0.7, changefreq: 'monthly', lastmod },
-  { type: types.STATIC, loc: '/host/', priority: 0.6, changefreq: 'monthly', lastmod },
-  { type: types.STATIC, loc: '/build/', priority: 0.6, changefreq: 'monthly', lastmod },
-  { type: types.STATIC, loc: '/contribute/', priority: 0.6, changefreq: 'monthly', lastmod },
-  ...tutorialRoutes,
-  // error pages
-  { type: types.ERROR, loc: '/404/' },
-  // redirect pages
-  { type: types.REDIRECT, loc: '/chapters/' }
-]
+        tutorial.lessons.forEach(lesson => routes.push({
+          type: TYPES.REDIRECT,
+          path: `/${url}/${lesson.formattedId}/`,
+          redirect: `/${lesson.url}/`
+        }))
+      })
+    }
 
-routes.types = types
+    return routes.concat(tutorial.lessons.map(lesson => ({
+      type: TYPES.LESSON,
+      path: `/${lesson.url}/`
+    })))
+  }, []).map(addSitemapLoc)
+}
 
-module.exports = routes
+function all () {
+  return [
+    ...statics(),
+    ...tutorials(),
+    ...errors(),
+    ...redirects()
+  ]
+}
+
+module.exports = {
+  statics,
+  tutorials,
+  errors,
+  redirects,
+  all,
+  TYPES
+}

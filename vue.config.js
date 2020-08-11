@@ -1,5 +1,4 @@
 const path = require('path')
-const _ = require('lodash')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 
@@ -25,7 +24,7 @@ module.exports = {
       config.plugins.push(
         new PrerenderSPAPlugin({
           staticDir: path.join(__dirname, 'dist'),
-          routes: routes.map(route => route.loc),
+          routes: routes.all().map(route => route.path),
           renderer: new Renderer({
             renderAfterDocumentEvent: 'x-app-rendered',
             maxConcurrentRoutes: 4
@@ -58,9 +57,9 @@ module.exports = {
   pluginOptions: {
     sitemap: {
       baseURL: 'https://proto.school',
-      urls: routes
-        .filter(route => route.type === routes.types.STATIC || route.type === routes.types.TUTORIAL)
-        .map(route => _.pick(route, ['loc', 'priority', 'lastmod', 'changefreq'])),
+      urls: routes.all()
+        .filter(route => !!route.sitemap)
+        .map(route => route.sitemap),
       outputDir: 'public',
       trailingSlash: true
     }
