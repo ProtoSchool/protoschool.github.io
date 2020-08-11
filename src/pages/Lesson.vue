@@ -15,7 +15,7 @@
     />
     <FileLesson
         v-else-if="!!lesson && lesson.meta.type === 'file-upload'"
-        :text="!!lesson.html"
+        :text="!!lesson && lesson.html"
         :concepts="concepts"
         :challenge="challenge"
         :validate="logic.validate"
