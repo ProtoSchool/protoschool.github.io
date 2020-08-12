@@ -298,6 +298,10 @@ function advanceThroughLessons (tutorialId) {
 
       let nextLessonNr = lessons[index + 1].formattedId
 
+      it('should show the lesson text', () => {
+        cy.get('[data-cy-text]').should('have.attr', 'data-cy-text', lesson.html)
+      })
+
       // TEXT LESSONS ONLY
       if (lessonType === 'text') {
         it(`shows enabled next button`, function () {

@@ -1,6 +1,6 @@
-import marked from 'meta-marked'
 import moment from 'moment'
 
+import marked from './marked'
 import projects from './projects'
 
 // Load data from the window variable
@@ -53,11 +53,13 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
   let lesson
 
   try {
-    lessonMd = require(`../tutorials/${lessonFilePrefix}.md`)
+    lessonMd = marked(require(`../tutorials/${lessonFilePrefix}.md`))
+
     lesson = {
       id: lessonNumber,
       formattedId: lessonNumber.toString().padStart(2, 0),
-      ...marked(lessonMd).meta
+      ...lessonMd.meta,
+      html: lessonMd.html
     }
   } catch (error) {
     // lesson not found, we reached the end

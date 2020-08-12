@@ -23,7 +23,16 @@
         <h1>{{isResources ? 'Resources' : lesson.title}}</h1>
         <Concepts v-if="concepts" :concepts="concepts" />
         <Resources v-if="isResources" :data="resources" />
-        <div v-else class="lesson-text lh-copy" v-html="text"></div>
+        <!--
+          only add the text on data-cy-text when not in production
+          otherwise the html document will be bigger than it needs to in production
+         -->
+        <div
+          v-else class="lesson-text lh-copy"
+          v-html="text"
+          :data-cy-text="!isProduction && text"
+        >
+        </div>
       </section>
       <section v-if="challenge || isMultipleChoiceLesson" :class="{expand: expandChallenge}" class="challenge center pa3 ph4-l flex flex-column">
         <div class="flex-none">
@@ -245,7 +254,8 @@ export default {
       uploadedFiles: window.uploadedFiles || false,
       choice: localStorage[self.cacheKey] || '',
       cachedChoice: !!localStorage['cached' + self.$route.path],
-      output: self.output
+      output: self.output,
+      isProduction
     }
   },
   computed: {
