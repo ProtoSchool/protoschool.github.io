@@ -274,7 +274,6 @@ export default {
       return this.lessonId === this.lessonsInTutorial && hasResources
     },
     tutorialType: function () {
-      console.log(getTutorialType(this.tutorial.formattedId))
       return getTutorialType(this.tutorial.formattedId)
     },
     trackingData: function () {
