@@ -283,7 +283,8 @@ export default {
         lessonNumber: this.isResources ? 'resources' : this.lessonId,
         path: this.$route.path,
         lessonType: this.lesson.type,
-        tutorialType: this.tutorialType
+        tutorialType: this.tutorialType,
+        project: this.tutorial.project.name
       }
     }
   },
@@ -501,7 +502,8 @@ export default {
       setTutorialPassed(this.tutorial)
       countly.trackEventOnce(countly.events.TUTORIAL_PASSED, {
         tutorial: this.trackingData.tutorial,
-        tutorialType: this.trackingData.tutorialType
+        tutorialType: this.trackingData.tutorialType,
+        project: this.trackingData.project
       })
 
       return true

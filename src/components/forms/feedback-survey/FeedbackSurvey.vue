@@ -55,7 +55,8 @@ export default {
         path: this.$route.path,
         option: tutorialFeedbackSurveyOption,
         tutorial: this.tutorial.shortTitle,
-        tutorialType: this.tutorialType
+        tutorialType: this.tutorialType,
+        project: this.tutorial.project
       }
     }
   },
