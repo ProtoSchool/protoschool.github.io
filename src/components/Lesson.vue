@@ -276,7 +276,8 @@ export default {
       return {
         tutorial: this.tutorial.shortTitle,
         lessonNumber: this.isResources ? 'resources' : this.lessonId,
-        path: this.$route.path
+        path: this.$route.path,
+        lessonType: this.lesson.type
       }
     }
   },
