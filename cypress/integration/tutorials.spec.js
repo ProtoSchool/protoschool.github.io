@@ -486,3 +486,47 @@ function advanceThroughLessons (tutorialId) {
     }) // end this lesson
   }) // end loop through standard lessons, landing on resources page
 } // end advanceThroughLessons
+
+describe('SHOULD ADVANCE LESSONS WITH TRAILING SLASHES', () => {
+  it('should advance text lessons', () => {
+    cy.visit('/data-structures/01/')
+    cy.get(`[data-cy=next-lesson-text]`).should('be.visible').and('not.be.disabled').click()
+    cy.location('pathname').should('eq', '/data-structures/02')
+  })
+
+  it('should advance multiple choice lessons', () => {
+    cy.visit('/anatomy-of-a-cid/01/')
+    cy.get('[data-cy=choice]').eq(1).click()
+    cy.get(`[data-cy=next-lesson-mult-choice]`).should('be.visible').and('not.be.disabled').click()
+    cy.location('pathname').should('eq', '/anatomy-of-a-cid/02')
+  })
+
+  it('should advance code challenge lessons', () => {
+    cy.visit('/basics/01/')
+    cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+    cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
+    cy.get('[data-cy=replace-with-solution]').click({ force: true })
+    cy.get('[data-cy=submit-answer]').click()
+    cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=next-lesson-code]`).should('be.visible').click()
+    cy.location('pathname').should('eq', '/basics/02')
+  })
+
+  it('should advance file upload code challenge lessons', () => {
+    cy.visit('/mutable-file-system/04/')
+    cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+
+    const fileName = 'favicon.png'
+    cy.fixture(fileName).then(fileContent => {
+      cy.get('[data-cy=file-upload]').upload({ fileContent, fileName, mimeType: 'image/png' })
+    })
+    cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
+    cy.get('[data-cy=replace-with-solution]').click({ force: true })
+    cy.get('[data-cy=submit-answer]').click()
+    cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=next-lesson-code]`).should('be.visible').click()
+    cy.location('pathname').should('eq', '/mutable-file-system/05')
+  })
+})
