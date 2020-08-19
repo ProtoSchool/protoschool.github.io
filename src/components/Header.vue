@@ -3,14 +3,14 @@
     <header>
       <section class="bg-navy white pv3">
         <div class="flex-auto flex items-center center mw7 ph3">
-          <a href="/">
+          <router-link to="/">
             <img src="../static/images/ps_symbol_color.svg" alt="ProtoSchool" class="w3" />
-          </a>
+          </router-link>
           <div class="header-text ml3">
-            <div class=" header-title ma0 fw4">
+            <router-link class=" header-title ma0 fw4 white" to="/">
               <span class="montserrat fw4">Proto</span>
               <span class="montserrat fw2">School</span>
-            </div>
+            </router-link>
             <div class="header-slogan ma0 montserrat fw3">
               Interactive tutorials on decentralized web protocols
             </div>
@@ -39,6 +39,7 @@ export default {
 <style scoped>
 .header-title {
   font-size: 32px;
+  text-decoration: none;
 }
 .header-slogan {
   font-size: 16px;
