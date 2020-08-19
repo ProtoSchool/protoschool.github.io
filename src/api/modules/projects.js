@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 
 const config = require('../config')
@@ -11,7 +12,7 @@ function getStaticPath () {
 const list = {}
 
 list.get = function listGet () {
-  return require(getStaticPath())
+  return JSON.parse(fs.readFileSync(getStaticPath(), 'utf8'))
 }
 
 function get (id) {

@@ -90,6 +90,10 @@
   "babel": {
     "presets": [
       "@vue/app"
+    ],
+    "ignore": [
+      "src/routes.js",
+      "src/api/**/*.js"
     ]
   },
   "eslintConfig": {
