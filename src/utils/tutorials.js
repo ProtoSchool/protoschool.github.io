@@ -1,6 +1,6 @@
-import marked from 'meta-marked'
 import moment from 'moment'
 
+import marked from './marked'
 import projects from './projects'
 
 // Load data from the window variable
@@ -54,13 +54,14 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
   let lesson
 
   try {
-    lessonMd = require(`../tutorials/${lessonFilePrefix}.md`)
+    lessonMd = marked(require(`../tutorials/${lessonFilePrefix}.md`))
 
     lesson = {
       id: lessonNumber,
       formattedId,
       url: `/${tutorial.url}/${formattedId}`,
-      ...marked(lessonMd).meta
+      ...lessonMd.meta,
+      html: lessonMd.html
     }
   } catch (error) {
     // lesson not found, we reached the end
@@ -235,30 +236,6 @@ export function setLessonPassed (tutorial, lesson) {
 
 export function isLessonPassed (tutorial, lesson) {
   return !!localStorage[`passed/${tutorial.url}/${lesson.formattedId}`]
-}
-
-// Get all redirects for each tutorial through the `redirects` attribute
-export function getRedirects () {
-  return Object.values(tutorials).reduce((redirects, tutorial) => {
-    if (tutorial.redirectUrls) {
-      redirects = redirects.concat(
-        ...tutorial.redirectUrls.map(redirect => [
-          {
-            path: `/${redirect}`,
-            redirect: `/${tutorial.url}`
-          }, {
-            path: `/${redirect}/resources`,
-            redirect: `/${tutorial.url}/resources`
-          }, {
-            path: `/${redirect}/:lessonId`,
-            redirect: `/${tutorial.url}/:lessonId`
-          }
-        ])
-      )
-    }
-
-    return redirects
-  }, [])
 }
 
 export default tutorials

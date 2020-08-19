@@ -2,7 +2,7 @@ export default function headRoot () {
   // Return to vue-meta
   return {
     title: 'ProtoSchool',
-    titleTemplate: '%s | ProtoSchool',
+    titleTemplate: title => title && !title.includes('ProtoSchool') ? `${title} | ProtoSchool` : title,
     link: [
       { rel: 'canonical', href: 'https://proto.school' + window.location.pathname }
     ],
@@ -16,8 +16,9 @@ export default function headRoot () {
       { name: 'twitter:image:alt', content: 'ProtoSchool screenshot' },
       { name: 'twitter:site', content: '@ProtoSchool' }
     ],
-    changed (newInfo, addedTags, removedTags) {
+    changed () {
       clearTimeout(window.__APP_RENDERED_TIMEOUT__)
+
       window.__APP_RENDERED_TIMEOUT__ = setTimeout(() => {
         document.dispatchEvent(new Event('x-app-rendered'))
       }, 200)

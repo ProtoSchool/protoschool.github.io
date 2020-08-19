@@ -65,7 +65,7 @@
         v-on:click="onDismiss"
         aria-label="Dismiss survey"
       >
-        <img src="../../../static/images/close.svg" />
+        <img src="../../../static/images/close.svg" alt="dismiss or hide the tutorial feedback survey" />
       </button>
     </div>
   </transition>

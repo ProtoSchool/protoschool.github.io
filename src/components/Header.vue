@@ -7,13 +7,13 @@
             <img src="../static/images/ps_symbol_color.svg" alt="ProtoSchool" class="w3" />
           </a>
           <div class="header-text ml3">
-            <h1 class="ma0 fw4">
+            <div class=" header-title ma0 fw4">
               <span class="montserrat fw4">Proto</span>
               <span class="montserrat fw2">School</span>
-            </h1>
-            <h2 class="ma0 montserrat fw3">
+            </div>
+            <div class="header-slogan ma0 montserrat fw3">
               Interactive tutorials on decentralized web protocols
-            </h2>
+            </div>
           </div>
         </div>
       </section>
@@ -37,27 +37,27 @@ export default {
 </script>
 
 <style scoped>
-.header-text h1 {
+.header-title {
   font-size: 32px;
 }
-.header-text h2 {
+.header-slogan {
   font-size: 16px;
 }
 
 @media screen and (min-width: 620px) {
-  .header-text h1 {
+  .header-title {
     font-size: 40px;
   }
-  .header-text h2 {
+  .header-slogan {
     font-size: 20px;
   }
 }
 
 @media screen and (max-width: 498px) {
-  .header-text h1 {
+  .header-title {
     font-size: 24px;
   }
-  .header-text h2 {
+  .header-slogan {
     font-size: 12px;
   }
 }

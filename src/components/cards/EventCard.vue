@@ -4,7 +4,7 @@
     <p class="f7 fw5 ma0 pt0 lh-copy ttu teal mb3">
       {{displayTimeZone}}
     </p>
-    <h3 class="ma0 mb1 f3 fw9 ttu">{{ isVirtual ? "Virtual" : city }}</h3>
+    <div class="ma0 mb1 f3 fw9 ttu">{{ isVirtual ? "Virtual" : city }}</div>
     <p v-if="!isVirtual" class="f5 fw5 ma0 pt0">
       <span v-if="country" class="fw7">{{country}}</span>
       <span v-if="region"> - {{region}}</span>
