@@ -62,12 +62,12 @@ export default {
       tutorialLanding: '/' + self.$route.path.split('/')[1],
       links: [
         { text: 'Home', path: '/' },
-        { text: 'Tutorials', path: '/tutorials' },
-        { text: 'Events', path: '/events' },
-        { text: 'Contribute', path: '/contribute' },
-        { text: 'Host', path: '/host' },
-        { text: 'Build', path: '/build' },
-        { text: 'News', path: '/news' }
+        { text: 'Tutorials', path: '/tutorials/' },
+        { text: 'Events', path: '/events/' },
+        { text: 'Contribute', path: '/contribute/' },
+        { text: 'Host', path: '/host/' },
+        { text: 'Build', path: '/build/' },
+        { text: 'News', path: '/news/' }
       ]
     }
   },
