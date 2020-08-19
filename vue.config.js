@@ -29,7 +29,7 @@ module.exports = {
             renderAfterDocumentEvent: 'x-app-rendered',
             maxConcurrentRoutes: 4
           }),
-          // Allows to customize the HTML and output path before
+          // Allows customization of the HTML and output path before
           // writing the rendered contents to a file.
           // renderedRoute format:
           // {
