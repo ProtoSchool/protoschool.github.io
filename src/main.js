@@ -8,6 +8,7 @@ import VueTooltip from 'v-tooltip'
 import VueHighlightJS from 'vue-highlight.js'
 import VueSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
+import 'highlight.js/styles/github.css'
 
 import App from './App.vue'
 import router from './router'

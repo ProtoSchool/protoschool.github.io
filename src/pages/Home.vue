@@ -17,7 +17,7 @@
       <TutorialsGrid
         :tutorials="featuredTutorials"
       />
-      <h1>Local Events</h1>
+      <h2>Local Events</h2>
       <p class="f4 fw5 lh-copy ma0 pv3  ">
       Groups and individuals around the world host in-person events using our tutorials
       as curriculum, with mentors available to help you work through the challenges.

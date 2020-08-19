@@ -24,7 +24,7 @@
             v-on:change="onSelect(index + 1)"
             v-model="selected"
           />
-          <img :src="icon" />
+          <img :src="icon" :alt="`answer ${index + 1} out of 5 to the question`" />
         </label>
       </div>
       <br />

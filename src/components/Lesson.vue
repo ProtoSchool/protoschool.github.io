@@ -23,7 +23,16 @@
         <h1>{{isResources ? 'Resources' : lesson.title}}</h1>
         <Concepts v-if="concepts" :concepts="concepts" />
         <Resources v-if="isResources" :data="resources" />
-        <div v-else class="lesson-text lh-copy" v-html="text"></div>
+        <!--
+          only add the text on data-cy-text when not in production
+          otherwise the html document will be bigger than it needs to in production
+         -->
+        <div
+          v-else class="lesson-text lh-copy"
+          v-html="text"
+          :data-cy-text="!isProduction && text"
+        >
+        </div>
       </section>
       <section v-if="challenge || isMultipleChoiceLesson" :class="{expand: expandChallenge}" class="challenge center pa3 ph4-l flex flex-column">
         <div class="flex-none">
@@ -228,12 +237,14 @@ export default {
     createTestTree: Boolean
   },
   data: self => {
+    const routePath = self.$route.path.endsWith('/') ? self.$route.path.slice(0, self.$route.path.length - 1) : self.$route.path
+
     return {
       isSubmitting: false,
-      lessonPassed: !!localStorage['passed' + self.$route.path],
-      lessonKey: 'passed' + self.$route.path,
-      cacheKey: 'cached' + self.$route.path,
-      cachedCode: !!localStorage['cached' + self.$route.path],
+      lessonPassed: !!localStorage['passed' + routePath],
+      lessonKey: 'passed' + routePath,
+      cacheKey: 'cached' + routePath,
+      cachedCode: !!localStorage['cached' + routePath],
       editorCode: localStorage[self.cacheKey] || self.code || self.defaultCode,
       viewSolution: false,
       cachedStateMsg: '',
@@ -245,11 +256,15 @@ export default {
       isMultipleChoiceLesson: self.isMultipleChoiceLesson,
       uploadedFiles: window.uploadedFiles || false,
       choice: localStorage[self.cacheKey] || '',
-      cachedChoice: !!localStorage['cached' + self.$route.path],
-      output: self.output
+      cachedChoice: !!localStorage['cached' + routePath],
+      output: self.output,
+      isProduction
     }
   },
   computed: {
+    routePath: function () {
+      return this.$route.path.endsWith('/') ? this.$route.path.slice(0, this.$route.path.length - 1) : this.$route.path
+    },
     tutorial: function () {
       return getTutorialByUrl(this.$route.params.tutorialUrl)
     },
@@ -269,7 +284,7 @@ export default {
       return this.tutorial.lessons.length
     },
     nextLessonIsResources: function () {
-      const basePath = this.$route.path.slice(0, -2)
+      const basePath = this.routePath.slice(0, -2)
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
       return this.lessonId === this.lessonsInTutorial && hasResources
     },
@@ -280,7 +295,7 @@ export default {
       return {
         tutorial: this.tutorial.shortTitle,
         lessonNumber: this.isResources ? 'resources' : this.lessonId,
-        path: this.$route.path,
+        path: this.routePath,
         lessonType: this.lesson.type,
         tutorialType: this.tutorialType,
         project: this.tutorial.project.name
@@ -570,11 +585,10 @@ export default {
           this.updateTutorialState()
         }
       }
-      const current = this.lessonId
 
       const next = this.nextLessonIsResources
-        ? 'resources'
-        : (parseInt(current) + 1).toString().padStart(2, '0')
+        ? `/${this.tutorial.url}/resources`
+        : this.tutorial.lessons[this.tutorial.lessons.findIndex(lesson => lesson === this.lesson) + 1].url
 
       this.$router.push({ path: next })
     },

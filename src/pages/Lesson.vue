@@ -1,7 +1,7 @@
 <template>
     <Lesson
-        v-if="!lesson.type || lesson.type === 'text' || lesson.type === 'code'"
-        :text="text"
+        v-if="!!lesson && (!lesson.meta.type || lesson.meta.type === 'text' || lesson.meta.type === 'code')"
+        :text="!!lesson && lesson.html"
         :concepts="concepts"
         :challenge="challenge"
         :validate="logic.validate"
@@ -11,11 +11,11 @@
         :createTestFile="logic.options.createTestFile"
         :createTestTree="logic.options.createTestTree"
         :lessonId="parseInt(lessonId, 10)"
-        :lessonTitle="lesson.title"
+        :lessonTitle="!!lesson && lesson.meta.title"
     />
     <FileLesson
-        v-else-if="lesson.type === 'file-upload'"
-        :text="text"
+        v-else-if="!!lesson && lesson.meta.type === 'file-upload'"
+        :text="!!lesson && lesson.html"
         :concepts="concepts"
         :challenge="challenge"
         :validate="logic.validate"
@@ -25,11 +25,11 @@
         :createTestFile="logic.options.createTestFile"
         :createTestTree="logic.options.createTestTree"
         :lessonId="parseInt(lessonId, 10)"
-        :lessonTitle="lesson.title"
+        :lessonTitle="!!lesson && lesson.meta.title"
     />
     <MultipleChoiceLesson
-        v-else-if="lesson.type === 'multiple-choice'"
-        :text="text"
+        v-else-if="!!lesson && lesson.meta.type === 'multiple-choice'"
+        :text="!!lesson && lesson.html"
         :concepts="concepts"
         :question="logic.question"
         :choices="logic.choices"
@@ -37,12 +37,11 @@
         :createTestFile="logic.options.createTestFile"
         :createTestTree="logic.options.createTestTree"
         :lessonId="parseInt(lessonId, 10)"
-        :lessonTitle="lesson.title"
+        :lessonTitle="!!lesson && lesson.meta.title"
     />
 </template>
 
 <script>
-import router from '../router'
 import debug from '../utils/debug'
 import head from '../utils/head'
 import { getTutorialByUrl } from '../utils/tutorials'
@@ -65,6 +64,10 @@ export default {
     loadFile: function (file, { failOnNotFound = true } = {}) {
       let filename
       let fileData
+
+      if (!this.tutorial) {
+        return null
+      }
 
       switch (file) {
         case 'concepts':
@@ -97,7 +100,7 @@ export default {
         // If no markdown file for the lesson was found, then lesson does not exist
         // redirect to 404 page
         if (file === 'md') {
-          router.replace({ name: '404' })
+          this.$router.replace({ name: '404' })
         }
 
         if (failOnNotFound) {
@@ -110,19 +113,22 @@ export default {
   },
   computed: {
     tutorial: function () {
-      return getTutorialByUrl(this.tutorialUrl)
-    },
-    textFileData: function () {
-      return marked(this.loadFile('md'))
+      const tutorial = getTutorialByUrl(this.tutorialUrl)
+
+      // If no tutorial was found, redirect to 404 page
+      if (!tutorial) {
+        this.$router.replace({ name: '404' })
+
+        return null
+      }
+
+      return tutorial
     },
     lesson: function () {
-      return this.textFileData.meta
+      return this.tutorial && marked(this.loadFile('md'))
     },
     lessonNeedsJsFile: function () {
-      return !!this.lesson.type && this.lesson.type !== 'text'
-    },
-    text: function () {
-      return this.textFileData.html
+      return this.lesson && !!this.lesson.meta.type && this.lesson.meta.type !== 'text'
     },
     concepts: function () {
       const concepts = this.loadFile('concepts', { failOnNotFound: false })
@@ -143,7 +149,7 @@ export default {
         }
       }
 
-      if (!this.lessonNeedsJsFile) {
+      if (!this.tutorial || !this.lesson || !this.lessonNeedsJsFile) {
         return logic
       }
 
@@ -158,7 +164,7 @@ export default {
         }
       }
 
-      if (this.lesson.type === 'code') {
+      if (this.lesson.meta.type === 'code') {
         if (!logic.validate) {
           console.warn(`No "validate" function found. Please export a "validate" function from the JavaScript file.`)
         }
@@ -176,7 +182,7 @@ export default {
     }
   },
   head () {
-    return head.dynamic.lessons({ context: this })
+    return this.tutorial && this.lesson && head.dynamic.lessons({ context: this })
   }
 }
 </script>

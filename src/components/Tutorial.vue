@@ -14,18 +14,18 @@
           :alt="tutorial.project.name"
           style="height: 23px"
         />
-        <h1 class="f6 mv0 fw2">{{tutorial.project.name}}</h1>
+        <h2 class="f6 mv0 fw2">{{tutorial.project.name}}</h2>
       </div>
       <div class="flex justify-between flex-row items-start mb1">
         <div class="flex flex-row items-center mt1">
-          <h2 class="ma0 f3 fw5">
+          <h1 class="ma0 f3 fw5">
             <template v-if="isLanding !== true">
               <router-link :to="landingLink" data-cy="tutorial-title">{{tutorial.title}}</router-link>
             </template>
             <template v-else>
               {{tutorial.title}}
             </template>
-          </h2>
+          </h1>
           <span v-if="isTutorialPassed(tutorial)" class="ml2 f3">🏆</span>
         </div>
         <TypeIcon
