@@ -10,19 +10,23 @@ const tutorials = _.omitBy(tutorialsList, tutorial => tutorial.hidden)
 const testLessons = {
   code: {
     tutorialId: '0002',
-    lessonNr: '02'
+    lessonNr: '02',
+    nextLessonNr: '03'
   },
   fileUpload: {
     tutorialId: '0004',
-    lessonNr: '05'
+    lessonNr: '05',
+    nextLessonNr: '06'
   },
   multipleChoice: {
     tutorialId: '0006',
-    lessonNr: '03'
+    lessonNr: '03',
+    nextLessonNr: '04'
   },
   text: {
     tutorialId: '0001',
-    lessonNr: '01'
+    lessonNr: '01',
+    nextLessonNr: '02'
   }
 }
 
@@ -488,3 +492,55 @@ function advanceThroughLessons (tutorialId) {
     }) // end this lesson
   }) // end loop through standard lessons, landing on resources page
 } // end advanceThroughLessons
+
+describe('SHOULD ADVANCE LESSONS WITH TRAILING SLASHES', () => {
+  it('should advance text lessons', () => {
+    const tutorial = tutorials[testLessons.text.tutorialId]
+
+    cy.visit(`/${tutorial.url}/${testLessons.text.lessonNr}/`)
+    cy.get(`[data-cy=next-lesson-text]`).should('be.visible').and('not.be.disabled').click()
+    cy.location('pathname').should('eq', `/${tutorial.url}/${testLessons.text.nextLessonNr}`)
+  })
+
+  it('should advance multiple choice lessons', () => {
+    const tutorial = tutorials[testLessons.multipleChoice.tutorialId]
+
+    cy.visit(`/${tutorial.url}/${testLessons.multipleChoice.lessonNr}/`)
+    cy.get('[data-cy=choice]').eq(0).click()
+    cy.get(`[data-cy=next-lesson-mult-choice]`).should('be.visible').and('not.be.disabled').click()
+    cy.location('pathname').should('eq', `/${tutorial.url}/${testLessons.multipleChoice.nextLessonNr}`)
+  })
+
+  it('should advance code challenge lessons', () => {
+    const tutorial = tutorials[testLessons.code.tutorialId]
+
+    cy.visit(`/${tutorial.url}/${testLessons.code.lessonNr}/`)
+    cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+    cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
+    cy.get('[data-cy=replace-with-solution]').click({ force: true })
+    cy.get('[data-cy=submit-answer]').click()
+    cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=next-lesson-code]`).should('be.visible').click()
+    cy.location('pathname').should('eq', `/${tutorial.url}/${testLessons.code.nextLessonNr}`)
+  })
+
+  it('should advance file upload code challenge lessons', () => {
+    const tutorial = tutorials[testLessons.fileUpload.tutorialId]
+
+    cy.visit(`/${tutorial.url}/${testLessons.fileUpload.lessonNr}/`)
+    cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
+
+    const fileName = 'favicon.png'
+    cy.fixture(fileName).then(fileContent => {
+      cy.get('[data-cy=file-upload]').upload({ fileContent, fileName, mimeType: 'image/png' })
+    })
+    cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
+    cy.get('[data-cy=replace-with-solution]').click({ force: true })
+    cy.get('[data-cy=submit-answer]').click()
+    cy.get(`[data-cy=progress-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=progress-icon-in-progress]`).should('be.visible')
+    cy.get(`[data-cy=next-lesson-code]`).should('be.visible').click()
+    cy.location('pathname').should('eq', `/${tutorial.url}/${testLessons.fileUpload.nextLessonNr}`)
+  })
+})

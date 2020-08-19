@@ -47,7 +47,8 @@ for (const tutorialId in tutorials) {
 // TODO Move this to a build script in the future to avoid heavy processing on the client.
 // This will only become a problem when the number of tutorials and lessons increases
 export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
-  const lessonFilePrefix = `${tutorial.formattedId}-${tutorial.url}/${lessonNumber.toString().padStart(2, 0)}`
+  const formattedId = lessonNumber.toString().padStart(2, 0)
+  const lessonFilePrefix = `${tutorial.formattedId}-${tutorial.url}/${formattedId}`
 
   let lessonMd
   let lesson
@@ -57,7 +58,8 @@ export function getTutorialLessons (tutorial, lessons = [], lessonNumber = 1) {
 
     lesson = {
       id: lessonNumber,
-      formattedId: lessonNumber.toString().padStart(2, 0),
+      formattedId,
+      url: `/${tutorial.url}/${formattedId}`,
       ...lessonMd.meta,
       html: lessonMd.html
     }
