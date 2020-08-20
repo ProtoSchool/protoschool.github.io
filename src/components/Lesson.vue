@@ -132,7 +132,8 @@ import {
   setTutorialPassed,
   setLessonPassed,
   getLesson,
-  isLessonPassed
+  isLessonPassed,
+  getTutorialType
 } from '../utils/tutorials'
 import countly from '../utils/countly'
 import marked from '../utils/marked'
@@ -287,11 +288,17 @@ export default {
       const hasResources = this.$router.resolve(basePath + 'resources').route.name !== '404'
       return this.lessonId === this.lessonsInTutorial && hasResources
     },
+    tutorialType: function () {
+      return getTutorialType(this.tutorial.formattedId)
+    },
     trackingData: function () {
       return {
         tutorial: this.tutorial.shortTitle,
         lessonNumber: this.isResources ? 'resources' : this.lessonId,
-        path: this.routePath
+        path: this.routePath,
+        lessonType: this.lesson.type,
+        tutorialType: this.tutorialType,
+        project: this.tutorial.project.name
       }
     }
   },
@@ -508,7 +515,9 @@ export default {
 
       setTutorialPassed(this.tutorial)
       countly.trackEventOnce(countly.events.TUTORIAL_PASSED, {
-        tutorial: this.trackingData.tutorial
+        tutorial: this.trackingData.tutorial,
+        tutorialType: this.trackingData.tutorialType,
+        project: this.trackingData.project
       })
 
       return true

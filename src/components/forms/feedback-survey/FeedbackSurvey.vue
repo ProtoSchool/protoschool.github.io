@@ -17,7 +17,7 @@
 
 <script>
 import countly from '../../../utils/countly'
-import { getTutorialByUrl } from '../../../utils/tutorials'
+import { getTutorialByUrl, getTutorialType } from '../../../utils/tutorials'
 import settings from '../../../utils/settings'
 import abTesting from '../../../utils/ab-testing'
 import FormOptionA from './Form.vue'
@@ -45,13 +45,18 @@ export default {
     surveyCompleted: function () {
       return this.progress.completed
     },
+    tutorialType: function () {
+      return getTutorialType(this.tutorial.formattedId)
+    },
     trackingData: function () {
       const tutorialFeedbackSurveyOption = settings.abTesting.get(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY)
 
       return {
         path: this.$route.path,
         option: tutorialFeedbackSurveyOption,
-        tutorial: this.tutorial.shortTitle
+        tutorial: this.tutorial.shortTitle,
+        tutorialType: this.tutorialType,
+        project: this.tutorial.project
       }
     }
   },
