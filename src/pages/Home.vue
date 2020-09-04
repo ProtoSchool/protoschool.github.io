@@ -65,6 +65,8 @@ export default {
   computed: {
     featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
   },
-  head: head()
+  head () {
+    return head()
+  }
 }
 </script>

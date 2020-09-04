@@ -146,6 +146,8 @@ export default {
       this.setQueryParameter('code', this.showCodingTutorials)
     }
   },
-  head: head()
+  head () {
+    return head()
+  }
 }
 </script>

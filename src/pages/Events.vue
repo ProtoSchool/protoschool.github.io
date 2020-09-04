@@ -69,7 +69,9 @@ export default {
       this.viewAllPast = !this.viewAllPast
     }
   },
-  head: head()
+  head () {
+    return head()
+  }
 }
 
 </script>
