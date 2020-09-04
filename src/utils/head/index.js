@@ -17,7 +17,9 @@
   import head from '../utils/head
 
   export default {
-    head: head()
+    head() {
+      return head()
+    }
   }
   </script>
   ```

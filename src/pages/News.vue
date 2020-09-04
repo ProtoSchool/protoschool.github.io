@@ -55,7 +55,9 @@ export default {
       })
     }
   },
-  head: head()
+  head () {
+    return head()
+  }
 }
 </script>
 <style scoped>

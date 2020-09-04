@@ -96,6 +96,8 @@ export default {
   components: {
     Header
   },
-  head: head()
+  head () {
+    return head()
+  }
 }
 </script>
