@@ -9,12 +9,10 @@ export default function (head) {
   return {
     tutorials: function lessons ({ context, data }) {
       let titleString = ''
-      if (context.tutorial.title.includes(context.tutorial.project.name)) {
-        titleString = `${context.tutorial.title} Tutorial`
-      } else if (context.tutorial.project.id === 'dweb') {
-        titleString = `${context.tutorial.title} | DWeb Tutorial`
+      if (context.tutorial.project.id === 'dweb') {
+        titleString = `DWeb Tutorial | ${context.tutorial.title}`
       } else {
-        titleString = `${context.tutorial.title} | ${context.tutorial.project.name} Tutorial`
+        titleString = `${context.tutorial.project.name} Tutorial | ${context.tutorial.title}`
       }
       return head({
         'title': titleString,
@@ -23,16 +21,31 @@ export default function (head) {
       })
     },
     lessons: function lessons ({ context, data }) {
+      let titleString = ''
+      if (context.tutorial.project.id === 'dweb') {
+        titleString = `DWeb Tutorial | ${context.tutorial.title} (Lesson ${parseInt(context.lessonId, 10)})`
+      } else {
+        titleString = `${context.tutorial.project.name} Tutorial | ${context.tutorial.title} (Lesson ${parseInt(context.lessonId, 10)})`
+      }
       return head({
-        'title': `Lesson ${parseInt(context.lessonId, 10)} | ${context.tutorial.title} Tutorial`,
+        'title': titleString,
         'description': context.lesson.description || context.tutorial.description || null,
         ...data
       })
     },
     resources: function resources ({ context, data }) {
+      let titleString = ''
+      let descriptionString = ''
+      if (context.tutorial.project.id === 'dweb') {
+        titleString = `DWeb Tutorial | ${context.tutorial.title} (Resources)`
+        descriptionString = `Learning resources to supplement ProtoSchool's decentralized web tutorial, ${context.tutorial.title}.`
+      } else {
+        titleString = `${context.tutorial.project.name} Tutorial | ${context.tutorial.title} (Resources)`
+        descriptionString = `Learning resources to supplement ProtoSchool's ${context.tutorial.project.name} tutorial, ${context.tutorial.title}.`
+      }
       return head({
-        'title': `Resources - ${context.tutorial.title} Tutorial`,
-        'description': `Here are some additional resources to explore related to the tutorial "${context.tutorial.title}".`,
+        'title': titleString,
+        'description': descriptionString,
         ...data
       })
     }
