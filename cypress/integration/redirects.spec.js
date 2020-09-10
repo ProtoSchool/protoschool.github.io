@@ -16,7 +16,7 @@ describe('REDIRECTS', () => {
     assertHashRouteRedirect('/data-structures/resources')
     assertHashRouteRedirect('/data-structures/01')
     assertHashRouteRedirect('/basics')
-    assertHashRouteRedirect('/basics/')
+    assertHashRouteRedirect('/basics/', '/basics')
     assertHashRouteRedirect('/basics/resources')
     assertHashRouteRedirect('/basics/02')
     assertHashRouteRedirect('/unknown-route', '/404')
