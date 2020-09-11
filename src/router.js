@@ -47,4 +47,13 @@ router.afterEach((to) => {
   window.Countly.q.push(['track_pageview', to.path])
 })
 
+router.beforeEach((to, from, next) => {
+  // Remove trailing slash on client side only
+  if (to.path !== '/' && to.path.endsWith('/')) {
+    next({ path: to.path.substring(0, to.path.length - 1), replace: true })
+  } else {
+    next()
+  }
+})
+
 export default router
