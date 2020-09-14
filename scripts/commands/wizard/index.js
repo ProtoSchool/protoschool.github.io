@@ -8,6 +8,7 @@ const run = require('../../modules/run')
 const tutorials = require('./tutorial')
 const lessons = require('./lesson')
 const resources = require('./resource')
+const quizzes = require('./quiz')
 
 // customize log styling
 log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizard')
@@ -19,19 +20,23 @@ async function command (options) {
     {
       type: 'list',
       name: 'type',
-      message: 'What would you like to create?',
+      message: 'What would you like to do?',
       choices: [
         {
-          name: 'Tutorial',
+          name: 'Create a new tutorial',
           value: 'tutorial'
         },
         {
-          name: 'Lesson',
+          name: 'Add a new lesson to a tutorial',
           value: 'lesson'
         },
         {
-          name: 'Resource',
+          name: 'Add resources to a tutorial',
           value: 'resource'
+        },
+        {
+          name: 'Add a multiple-choice quiz to a lesson',
+          value: 'quiz'
         }
       ]
     }
@@ -46,13 +51,22 @@ async function command (options) {
     await lessons.createLessonIntro({
       createResource: resources.createResource,
       createTutorial: tutorials.createTutorial,
-      createLesson: lessons.createLesson
+      createLesson: lessons.createLesson,
+      createQuiz: quizzes.createQuiz
     })
   } else if (item.type === 'resource') {
     await resources.createResourceIntro({
       createLesson: lessons.createLesson,
       createTutorial: tutorials.createTutorial,
-      createResource: resources.createResource
+      createResource: resources.createResource,
+      createQuiz: quizzes.createQuiz
+    })
+  } else if (item.type === 'quiz') {
+    await quizzes.createQuizIntro({
+      createLesson: lessons.createLesson,
+      createTutorial: tutorials.createTutorial,
+      createResource: resources.createResource,
+      createQuiz: quizzes.createQuiz
     })
   }
 }
