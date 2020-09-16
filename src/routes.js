@@ -73,7 +73,7 @@ function statics () {
 // Redirects that need to return a 301 status code need to be configured in the server as well
 function redirects () {
   return [
-    { path: '/chapters/', redirect: '/events' }
+    { path: '/chapters/', redirect: '/events/' }
   ].map(route => ({ ...route, type: TYPES.REDIRECT })).map(addSitemapLoc)
 }
 
@@ -81,7 +81,7 @@ function redirects () {
 function errors () {
   return [
     {
-      path: '/404',
+      path: '/404/',
       name: '404',
       component: () => import(/* webpackChunkName: "error" */ './pages/NotFound')
     }

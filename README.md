@@ -46,8 +46,8 @@ Only actions taken at the https://proto.school domain affect our main ProtoSchoo
 
 You can safely experiment with any of the following to send stats to our TEST ProtoSchool dashboard in Countly instead: 
 - served locally: http://localhost:3000
-- live site accessed directly through Netlify: https://protoschool-prod.netlify.app/
-- preview for a specific PR via link found in PR testing section (e.g. https://deploy-preview-505--protoschool-prod.netlify.app/)
+- live site accessed directly through Fleek: https://protoschool.on.fleek.co/
+- preview for a specific PR via link found in PR testing section (e.g. https://bafybeihebd2p64xghtqjuewonkfm4l5n2lkvrllviz7nb33qtyir5q5fau.on.fleek.co/)
 
 ## Managing remote data
 
