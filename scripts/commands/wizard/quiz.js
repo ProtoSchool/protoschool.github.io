@@ -5,10 +5,9 @@ const api = require('../../../src/api')
 const {
   promptRepeat,
   validateStringPresent,
-  selectTutorial
-  // promptCreateFirst,
-  // logEverythingDone,
-  // logList,
+  selectTutorial,
+  promptCreateFirst,
+  logEverythingDone
   // logPreview,
   // logCreateLater
 } = require('./utils.js')
@@ -30,25 +29,21 @@ const {
 // show which file to go to to edit text
 // create another quiz OR return to main menu for other options OR exit
 
-
 // *** LOGGING ***
 
 function logQuiz (question, choices) {
   log.info("Here's your quiz, with the order of the answers randomized.")
-  log.info("Question: ", question)
-  log.info("Answer Choices: ")
-  for (choice in choices) {
+  log.info('Question: ', question)
+  log.info('Answer Choices: ')
+  for (let choice in choices) {
     log.info(choice.choice)
     log.info(`[${choice.correct}] - ${choice.feedback}`)
   }
-
-}
+} // end logQuiz
 
 // *** INPUT VALIDATION ***
 
-
 // *** TRANSITIONAL DIALOGS & PROMPTS ***
-
 
 async function createQuizIntro ({ createLesson, createTutorial }) {
   // determine new tutorial number
@@ -65,28 +60,24 @@ async function createQuizIntro ({ createLesson, createTutorial }) {
     if (await promptCreateFirst('lesson', tutorial.id)) {
       await createLesson(tutorial, { createResource })
     } else {
-      logCreateLater('lessons')
+    //   logCreateLater('lessons')
     }
   } else {
     logEverythingDone(tutorial)
   }
-}
 
-// TODO: confirm which lesson in tutorial
-// TODO: create new lesson if needed
+  // TODO: confirm which lesson in tutorial
+  // TODO: create new lesson if needed
 
   return createQuiz(tutorial.id, { createLesson }) // loops until user declines to repeat, then offers closing statements
-}
-
-
+} // end createQuizIntro - don't know what this error is
 
 async function afterQuizCreate (tutorialId, { createLesson }) {
   const tutorial = await api.tutorials.get(tutorialId) // get lesson
 
-  logPreview('your resources page', lesson.url, 'resources')
-  log.info('Need to change something? You can edit your quiz in the file ___.') // insert path of .js file
-
-
+  // logPreview('your resources page', lesson.url, 'resources') // TODO: tell it which lesson we're in
+  // log.info('Need to change something? You can edit your quiz in the file ___.') // insert path of .js file
+} // end afterQuizCreate
 
 // *** QUIZ CREATION ***
 
@@ -103,7 +94,7 @@ async function createQuiz (tutorialId, { createLesson }) {
     {
       type: 'input',
       name: 'question',
-      message: "What question should the learner answer?",
+      message: 'What question should the learner answer?',
       validate: validateStringPresent
     },
     {
@@ -119,31 +110,9 @@ async function createQuiz (tutorialId, { createLesson }) {
       validate: validateStringPresent
     }
   ])
-
-  const responses1 = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'question',
-      message: "What question should the learner answer?",
-      validate: validateStringPresent
-    },
-    {
-      type: 'input',
-      name: 'correctAnswer',
-      message: "What's the correct answer to this question?",
-      validate: validateStringPresent
-    },
-    {
-      type: 'input',
-      name: 'correctFeedback',
-      message: 'What success message should we show the learner if they pick this option?',
-      validate: validateStringPresent
-    }
-  ])
-
 
   const question = {
-    question: responses1.question,
+    question: responses1.question
   }
 
   const choices = [
@@ -158,8 +127,8 @@ async function createQuiz (tutorialId, { createLesson }) {
   let responses2
   let wrongAnswer
 
- while (askAgain) {
-   // repeat as many times as they want to create new wrong answers
+  while (askAgain) {
+    // repeat as many times as they want to create new wrong answers
     responses2 = await inquirer.prompt([
       {
         type: 'input',
@@ -186,49 +155,27 @@ async function createQuiz (tutorialId, { createLesson }) {
     if (!(await promptRepeat('wrong answer'))) {
       askAgain = false
     }
- }
+  } // end while loop
 
- // shuffle right and wrong answers to change position of correct one
- for(let i = choices.length — 1; i > 0; i--){
-  const j = Math.floor(Math.random() * i)
-  const temp = choices[i]
-  choices[i] = choices[j]
-  choices[j] = temp
-}
+  // shuffle right and wrong answers to change position of correct one
+  for (let i = (choices.length - 1); i > 0; i--) {
+    const j = Math.floor(Math.random() * i)
+    const temp = choices[i]
+    choices[i] = choices[j]
+    choices[j] = temp
+  }
+  // TODO: Does that ^ mutate the arra permanently so I can still refer to it as choices?
 
-// TODO: actually save question and choices to the appropriate .js file
+  // TODO: actually save question and choices to the appropriate .js file
 
-  // prompt to repeat process until user declines, then log results
-  if (await promptRepeat('quiz')) {
-    return createQuiz(tutorial.id, { createLesson  }) //TODO
-  } else {
-  //   logResources(
-  //     `Okay, sounds like we're done. Here are all the resources now included in "${tutorial.title}"`,
-  //     await api.resources.get(tutorial.id)
-  //   )
-  //
-  //   await afterResourceCreate(tutorial.id, { createLesson })
-  // }
-
-
-
-    // create resource in tutorials.json
-    await api.resources.add(tutorial.id, newResource)
-
-  // log success
-  log.info(`We've added the quiz to your lesson.`)
+  // await api.resources.add(tutorial.id, newResource)
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat('quiz')) {
-    return createQuiz(tutorial.id, { createLesson  }) //TODO
+    return createQuiz(tutorial.id, { createLesson }) // TODO
   } else {
-  //   logResources(
-  //     `Okay, sounds like we're done. Here are all the resources now included in "${tutorial.title}"`,
-  //     await api.resources.get(tutorial.id)
-  //   )
-  //
-  //   await afterResourceCreate(tutorial.id, { createLesson })
-  // }
+    logQuiz(question, choices)
+  }
 }
 
 module.exports = { createQuizIntro, createQuiz }
