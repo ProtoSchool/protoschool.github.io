@@ -23,7 +23,7 @@ function validateStringPresent (string) {
 }
 
 // *** TRANSITIONAL DIALOGS & PROMPTS (INQUIRER) ***
-
+// TODO: Add createQuiz to input below? And some of the output?
 async function selectTutorial (newItemType, { createTutorial, createResource, createLesson }) {
   let tutorial
   let tutorials = await api.tutorials.list.get()

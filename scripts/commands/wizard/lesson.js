@@ -1,6 +1,3 @@
-const promisify = require('util').promisify
-
-const fs = require('fs')
 const inquirer = require('inquirer')
 const log = require('npmlog')
 
@@ -27,6 +24,7 @@ function logLessons (message, lessons) {
 async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
   // determine new tutorial number
   log.info("Let's add lessons to your tutorial.")
+  // TODO: Add createQuiz below? But it says it's not defined when I try.
   const tutorial = await selectTutorial('lesson', { createTutorial, createResource, createLesson })
 
   // print existing lessons if present
