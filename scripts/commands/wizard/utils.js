@@ -23,8 +23,7 @@ function validateStringPresent (string) {
 }
 
 // *** TRANSITIONAL DIALOGS & PROMPTS (INQUIRER) ***
-// TODO: Add createQuiz to input below? And some of the output?
-async function selectTutorial (newItemType, { createTutorial, createResource, createLesson }) {
+async function selectTutorial (newItemType, { createTutorial, createResource, createLesson, createQuiz }) {
   let tutorial
   let tutorials = await api.tutorials.list.get()
   let latestTutorial = await api.tutorials.list.getLatest()
@@ -43,10 +42,15 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
   // offer selection of existing tutorials or creating a new one
   } else {
     let tutorialChoices = [
-      new inquirer.Separator(),
-      { name: '+ Create new tutorial', value: 'new' },
       new inquirer.Separator()
     ]
+    if (newItemType !== 'quiz') {
+      tutorialChoices = [
+        new inquirer.Separator(),
+        { name: '+ Create new tutorial', value: 'new' },
+        new inquirer.Separator()
+      ]
+    }
 
     Object.keys(tutorials).sort().forEach(tutorialId => {
       tutorialChoices.push({ name: tutorials[tutorialId].title, value: tutorialId })
@@ -65,12 +69,40 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
     if (tutorialResponses2.tutorialId !== 'new') {
       tutorial = tutorials[tutorialResponses2.tutorialId]
     // create new tutorial and set data accordingly
+    } else if (newItemType === 'quiz') {
+      log.info("you want a quiz but you're making a new tutorial that won't have any lessons in it")
+      tutorial = await createTutorial({ createLesson, createResource, createQuiz }, { skipPromptLesson: false })
     } else {
-      tutorial = await createTutorial({ createLesson, createResource }, { skipPromptLesson: true })
+      tutorial = await createTutorial({ createLesson, createResource, createQuiz }, { skipPromptLesson: true })
     }
   }
 
   return tutorial
+}
+
+async function selectLesson (tutorial) {
+  logList(`These are the lessons in ${tutorial.title}`, tutorial.lessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
+  let multChoiceLessons = tutorial.lessons.filter(lesson => lesson.type === 'multiple-choice')
+  if (multChoiceLessons.length > 0) {
+    logList(`Filtered to mult choice only:`, multChoiceLessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
+    let lessonChoices = []
+    multChoiceLessons.forEach(lesson => {
+      lessonChoices.push({ name: lesson.title, value: lesson })
+    })
+    const selectLesson = await inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'lesson',
+          message: `Which of these multiple-choice lessons in ${tutorial.title} should we add your quiz to?`,
+          choices: lessonChoices
+        }
+      ])
+    return selectLesson.lesson
+  } else {
+    log.info("There aren't any multiple-choice lessons in this tutorial. Please run the ProtoWizard again to add one.")
+    return null
+  }
 }
 
 async function promptRepeat (type) {
@@ -93,6 +125,18 @@ async function promptCreateFirst (itemType, tutorialId) {
       type: 'confirm',
       name: 'confirm',
       message: `Are you ready to add your first ${itemType} to the "${tutorial.title}" tutorial?`
+    }
+  ])
+
+  return confirm
+}
+
+async function promptFilesReady () {
+  const { confirm } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: `Have you already created a lesson in the appropriate tutorial?`
     }
   ])
 
@@ -137,5 +181,7 @@ module.exports = {
   validateStringPresent,
   logPreview,
   logGuide,
-  logCreateLater
+  logCreateLater,
+  promptFilesReady,
+  selectLesson
 }

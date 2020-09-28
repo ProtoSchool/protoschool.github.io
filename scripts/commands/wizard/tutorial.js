@@ -30,7 +30,7 @@ function validateUniqueUrl (url, tutorials) {
 
 // *** TUTORIAL CREATION ***
 
-async function createTutorial ({ createLesson, createResource }, { skipPromptLesson } = {}) {
+async function createTutorial ({ createLesson, createResource, createQuiz }, { skipPromptLesson } = {}) {
   log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
 
   const tutorials = await api.tutorials.list.get()

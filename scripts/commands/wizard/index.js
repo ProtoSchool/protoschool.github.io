@@ -27,15 +27,15 @@ async function command (options) {
           value: 'tutorial'
         },
         {
-          name: 'Add a new lesson to a tutorial',
+          name: 'Add a new lesson to an existing tutorial',
           value: 'lesson'
         },
         {
-          name: 'Add resources to a tutorial',
+          name: 'Add resources to an existing tutorial',
           value: 'resource'
         },
         {
-          name: 'Add a multiple-choice quiz to a lesson',
+          name: 'Add a multiple-choice quiz to an existing lesson',
           value: 'quiz'
         }
       ]
