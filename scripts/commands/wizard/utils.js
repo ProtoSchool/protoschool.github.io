@@ -81,20 +81,14 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
 }
 
 async function selectLesson (tutorial) {
-  logList(`These are the lessons in ${tutorial.title}`, tutorial.lessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
-  let multChoiceLessons = tutorial.lessons.filter(lesson => lesson.type === 'multiple-choice')
-  if (multChoiceLessons.length > 0) {
-    logList(`Filtered to mult choice only:`, multChoiceLessons.map(lesson => `${lesson.id} - ${lesson.title} (${lesson.type})`))
-    let lessonChoices = []
-    multChoiceLessons.forEach(lesson => {
-      lessonChoices.push({ name: lesson.title, value: lesson })
-    })
+  if (tutorial.lessons.some(lesson => lesson.type === 'multiple-choice')) {
+    let lessonChoices = tutorial.lessons.map(lesson => (lesson.type === 'multiple-choice') ? `${lesson.id} - ${lesson.title} (${lesson.type})` : new inquirer.Separator(`${lesson.id} - ${lesson.title} (${lesson.type})`))
     const selectLesson = await inquirer
       .prompt([
         {
           type: 'list',
           name: 'lesson',
-          message: `Which of these multiple-choice lessons in ${tutorial.title} should we add your quiz to?`,
+          message: `Which of the multiple-choice lessons in ${tutorial.title} should we add your quiz to?`,
           choices: lessonChoices
         }
       ])
