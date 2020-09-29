@@ -1,5 +1,5 @@
 import Libp2p from 'libp2p'
-// import { NOISE } from 'libp2p-noise'
+import { NOISE } from 'libp2p-noise'
 // import Secio from 'libp2p-secio'
 // import Mplex from 'libp2p-mplex'
 import Gossipsub from 'libp2p-gossipsub'
@@ -17,7 +17,7 @@ export async function createNode ({ onLog, onConnect }) {
     },
     modules: {
       transport: [Memory],
-      // connEncryption: [NOISE, Secio],
+      connEncryption: [NOISE],
       // streamMuxer: [Mplex],
       pubsub: Gossipsub
     }
@@ -47,7 +47,7 @@ export async function createNode ({ onLog, onConnect }) {
 }
 
 export async function dial (peer, peerToDial) {
-  console.log(peerToDial.peerInfo.id.toB58String())
+  console.log('dial', peerToDial.peerInfo.id.toB58String())
   await peer.dial(`${ADDRESS}/p2p/${peerToDial.peerInfo.id.toB58String()}`)
 }
 

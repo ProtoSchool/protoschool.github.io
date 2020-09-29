@@ -36,6 +36,7 @@
     "ipfs": "^0.48.2",
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.1",
+    "it-pair": "^1.0.0",
     "it-to-buffer": "^1.0.1",
     "libp2p": "^0.27.8",
     "libp2p-gossipsub": "^0.3.0",

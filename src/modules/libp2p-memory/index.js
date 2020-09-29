@@ -1,5 +1,7 @@
 const EventEmitter = require('events')
 const withIs = require('class-is')
+const Pair = require('it-pair')
+// const DuplexPair = require('it-pair/duplex')
 
 const constants = {
   CODE_P2P: 421
@@ -16,38 +18,24 @@ class MemoryTransport {
     }
 
     this._upgrader = upgrader
+    // this._duplexPair = DuplexPair()
+    this._p = Pair()
   }
 
   async dial (ma, options = {}) {
     console.log('[MemoryTransport.dial]', ma, ma.toString(), ma.protos())
 
     const maConn = {
-      conn: { ma },
+      conn: { ma }, // stream
       remoteAddr: ma,
       signal: options.signal,
-      close: () => {
-        console.log('maCoon - close')
-        return Buffer.from('\n')
+      close: (error) => {
+        console.log('maCoon - close', error)
       },
-      sink: async source => {
-        for await (const chunk of source) {
-          console.log('sink - chunk', chunk)
-          console.log('sink - string', chunk.toString())
-        }
-
-        return Buffer.from('\n')
-      },
-      source: (async function * () {
-        let i = 20
-
-        while (i > 0) {
-          console.log('source it', i)
-          yield ([i--, ...Buffer.from('\n')])
-        }
-
-        console.log('source', i)
-        yield Buffer.from('\n')
-      })()
+      // source: duplexPair[0],
+      // sink: duplexPair[1]
+      source: this._p.source,
+      sink: this._p.sink
     }
 
     this._maConn = maConn
@@ -61,12 +49,11 @@ class MemoryTransport {
     return conn
   }
 
-  async createListener (options = {}, handler) {
+  createListener (options = {}, handler) {
     const listener = new EventEmitter()
 
     console.log('[MemoryTransport.createListener]')
 
-    // setTimeout(() => listener.emit('listening'), 2000)
     // setTimeout(() => listener.emit('connection', {}), 3000)
 
     let peerId, listeningAddr
@@ -79,6 +66,10 @@ class MemoryTransport {
         listeningAddr = ma.decapsulateCode(constants.CODE_P2P)
         console.log('listen', peerId)
       }
+
+      listener.emit('listening')
+
+      this._p.source.pipe(this._p.sink)
     }
 
     listener.getAddrs = () => {
@@ -87,7 +78,11 @@ class MemoryTransport {
 
     listener.close = () => console.log('[MemoryTransport.listener]', 'event: close')
 
-    handler(this._upgrader.upgradeInbound(this._maConn))
+    this._upgrader.upgradeInbound(this._maConn)
+      .then(handler)
+      .catch(error => {
+        listener.emit('error', error)
+      })
 
     return listener
   }
