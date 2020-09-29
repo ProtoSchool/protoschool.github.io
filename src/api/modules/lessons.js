@@ -83,6 +83,30 @@ function get (tutorial, lessonId) {
  * @example
  * api.lessons.create(tutorial, { title: 'Lesson title', type: 'text' })
  */
+
+function updateQuiz (tutorial, lesson, data) {
+  const lessonId = lesson.formattedId
+  const newFileContent = `
+/* eslint quotes: ["error", "double"]  */
+
+// Question must be a string
+const question = "${data.question}"
+
+// Choices must be an array of objects, each with the properties:
+// \`answer\` (string), \`correct\` (boolean), and \`feedback\` (string)
+// Only one answer can be correct.
+const choices = ${JSON.stringify(data.choices, null, 2)}
+
+export default {
+  question,
+  choices
+}
+`
+
+  fs.writeFileSync(files.getJsPath(tutorial, lessonId), newFileContent)
+  return get(tutorial, lessonId)
+}
+
 function create (tutorial, data) {
   const lessonId = getNextLessonId(tutorial)
 
@@ -124,5 +148,6 @@ module.exports = {
   getId,
   get,
   create,
-  files
+  files,
+  updateQuiz
 }

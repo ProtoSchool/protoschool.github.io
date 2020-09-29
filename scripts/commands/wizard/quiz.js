@@ -19,6 +19,7 @@
 
 const log = require('npmlog')
 const inquirer = require('inquirer')
+const api = require('../../../src/api')
 
 const {
   selectTutorial,
@@ -57,20 +58,18 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     }
   ])
 
-  const question = {
-    question: responses1.question
-  }
+  const question = responses1.question
 
   const choices = [
     {
-      choice: responses1.correctAnswer,
+      answer: responses1.correctAnswer,
       correct: true,
       feedback: responses1.correctFeedback
     }
   ]
-  log.info(`Your question is: "${question.question}"`)
-  log.info(`The correct answer is: "${choices[0].choice}"`)
-  log.info(`The correct answer is: "${choices[0].feedback}"`)
+  log.info(`Your question is: "${question}"`)
+  log.info(`The correct answer is: "${choices[0].answer}"`)
+  log.info(`The feedback provided will be: "${choices[0].feedback}"`)
 
   let askAgain = true
   let responses2
@@ -94,12 +93,12 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     ])
 
     wrongAnswer = {
-      choice: responses2.incorrectAnswer,
+      answer: responses2.incorrectAnswer,
       correct: false,
       feedback: responses2.incorrectFeedback
     }
 
-    log.info(`Your new wrong answer is: "${wrongAnswer.choice}"`)
+    log.info(`Your new wrong answer is: "${wrongAnswer.answer}"`)
     log.info(`The feedback provided will be: "${wrongAnswer.feedback}"`)
 
     choices.push(wrongAnswer)
@@ -117,8 +116,9 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     choices[i] = choices[j]
     choices[j] = temp
   }
-  logList(`Cool! Here's what we get when we mix up the order of the answer choices:`, choices.map((choice, index) => `Option ${index + 1}: \n    ‣ Answer: ${choice.choice} \n    ‣ Feedback [${choice.correct ? 'Correct' : 'Incorrect'}]: ${choice.feedback}`))
-  log.info(`Pretend we're saving that to the file so it's actually useful!`)
+
+  logList(`Cool! Here's what we get when we mix up the order of the answer choices:`, choices.map((choice, index) => `Option ${index + 1}: \n    ‣ Answer: ${choice.answer} \n    ‣ Feedback [${choice.correct ? 'Correct' : 'Incorrect'}]: ${choice.feedback}`))
+  await api.lessons.updateQuiz(tutorial, lesson, { question, choices })
   afterQuizCreate(tutorial, lesson, { createLesson, createTutorial, createResource })
 } // end createQuiz
 
@@ -133,7 +133,6 @@ async function createQuizIntro ({ createLesson, createTutorial, createResource }
     if (lesson) { // skip if value is null because there weren't mult choice lessons in tutorial
       return createQuiz(tutorial, lesson, { createLesson, createTutorial, createResource })
     }
-    // return createQuiz(tutorial.id, { createLesson }) // loops until user declines to repeat, then offers closing statements
   } else {
     log.info('No worries. Please run the ProtoWizard again to create your tutorial and lesson. Once you have the necessary files, you can run this script again to build your quiz.')
   }
