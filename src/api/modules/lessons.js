@@ -107,6 +107,11 @@ export default {
   return get(tutorial, lessonId)
 }
 
+function isQuizPristine (tutorial, lesson) {
+  let quizContent = fs.readFileSync(files.getJsPath(tutorial, lesson.formattedId), 'utf8')
+  return quizContent.includes('#PRISTINE#')
+}
+
 function create (tutorial, data) {
   const lessonId = getNextLessonId(tutorial)
 
@@ -149,5 +154,6 @@ module.exports = {
   get,
   create,
   files,
-  updateQuiz
+  updateQuiz,
+  isQuizPristine
 }
