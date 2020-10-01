@@ -37,7 +37,6 @@ async function createResourceIntro ({ createLesson, createTutorial }) {
   // determine new tutorial number
   log.info("Let's add resources to your tutorial.")
 
-  // TODO: Add createQuiz below? But it says it's not defined when I try.
   const tutorial = await selectTutorial('resources', { createTutorial, createResource, createLesson })
 
   // print existing resources if present

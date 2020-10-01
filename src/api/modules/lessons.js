@@ -71,23 +71,14 @@ function get (tutorial, lessonId) {
 }
 
 /**
- * Creates a new lesson in the specificed tutorial
- *
- * `data.type` can be one of `text`, `multiple-choice`, `code` or `file-upload`.
- *
- * @param {String} tutorial Tutorial object
- * @param {Object} data Lesson data (mandatory: `title`, `type`)
- *
- * @returns The newly created lesson
- *
- * @example
- * api.lessons.create(tutorial, { title: 'Lesson title', type: 'text' })
+ * overwrites the JS file for a multiple-choice lesson with new quiz content &
+ * removes boilerplate's #PRISTINE# tag (if present) to show edits have been made
  */
 
 function updateQuiz (tutorial, lesson, data) {
   const lessonId = lesson.formattedId
   const newFileContent = `
-/* eslint quotes: ["error", "double"]  */
+/ eslint quotes: ["error", "double"]  */
 
 // Question must be a string
 const question = "${data.question}"
@@ -102,15 +93,35 @@ export default {
   choices
 }
 `
-
   fs.writeFileSync(files.getJsPath(tutorial, lessonId), newFileContent)
   return get(tutorial, lessonId)
 }
+
+/**
+ * returns true if the quiz was created from the boilerplate and still has
+ * #PRISTINE# tag because either:
+ * a) it's never been edited, manually or via ProtoWizard
+ * b) user edited manually and failed to remove #PRISTINE# tag as instructed
+*/
 
 function isQuizPristine (tutorial, lesson) {
   let quizContent = fs.readFileSync(files.getJsPath(tutorial, lesson.formattedId), 'utf8')
   return quizContent.includes('#PRISTINE#')
 }
+
+/**
+ * Creates a new lesson in the specified tutorial
+ *
+ * `data.type` can be one of `text`, `multiple-choice`, `code` or `file-upload`.
+ *
+ * @param {String} tutorial Tutorial object
+ * @param {Object} data Lesson data (mandatory: `title`, `type`)
+ *
+ * @returns The newly created lesson
+ *
+ * @example
+ * api.lessons.create(tutorial, { title: 'Lesson title', type: 'text' })
+ */
 
 function create (tutorial, data) {
   const lessonId = getNextLessonId(tutorial)

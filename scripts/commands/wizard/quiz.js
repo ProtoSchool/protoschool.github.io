@@ -17,7 +17,7 @@ const {
 
 async function createQuiz (tutorial, lesson, { createLesson, createTutorial, createResource }) {
   log.info("Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.")
-  const responses1 = await inquirer.prompt([
+  let responses = await inquirer.prompt([
     {
       type: 'input',
       name: 'question',
@@ -38,13 +38,13 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     }
   ])
 
-  const question = responses1.question
+  const question = responses.question
 
   const choices = [
     {
-      answer: responses1.correctAnswer,
+      answer: responses.correctAnswer,
       correct: true,
-      feedback: responses1.correctFeedback
+      feedback: responses.correctFeedback
     }
   ]
   log.info(`Your question is: "${question}"`)
@@ -52,12 +52,11 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
   log.info(`The feedback provided will be: "${choices[0].feedback}"`)
 
   let askAgain = true
-  let responses2
   let wrongAnswer
 
   while (askAgain) {
     // repeat as many times as they want to create new wrong answers
-    responses2 = await inquirer.prompt([
+    responses = await inquirer.prompt([
       {
         type: 'input',
         name: 'incorrectAnswer',
@@ -73,9 +72,9 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     ])
 
     wrongAnswer = {
-      answer: responses2.incorrectAnswer,
+      answer: responses.incorrectAnswer,
       correct: false,
-      feedback: responses2.incorrectFeedback
+      feedback: responses.incorrectFeedback
     }
 
     log.info(`Your new wrong answer is: "${wrongAnswer.answer}"`)
@@ -110,7 +109,7 @@ async function createQuizIntro ({ createLesson, createTutorial, createResource }
   if (await promptFilesReady()) {
     const tutorial = await selectTutorial('quiz', { createTutorial, createResource, createLesson, createQuiz })
     const lesson = await selectLesson(tutorial)
- 
+
     if (lesson) { // skip if value is null because there weren't multiple choice lessons in tutorial
       logList(`Great! You've chosen to build a quiz for`, [`Tutorial: ${tutorial.title}`, `Lesson: ${lesson.title}`])
 
