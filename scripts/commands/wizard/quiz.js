@@ -106,14 +106,17 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
 
 async function createQuizIntro ({ createLesson, createTutorial, createResource }) {
   log.info("Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files.")
+
   if (await promptFilesReady()) {
     const tutorial = await selectTutorial('quiz', { createTutorial, createResource, createLesson, createQuiz })
-    // CHOOSE A LESSON
     const lesson = await selectLesson(tutorial)
-    if (lesson) { // skip if value is null because there weren't mult choice lessons in tutorial
+ 
+    if (lesson) { // skip if value is null because there weren't multiple choice lessons in tutorial
       logList(`Great! You've chosen to build a quiz for`, [`Tutorial: ${tutorial.title}`, `Lesson: ${lesson.title}`])
+
       const shouldOverridePristineQuiz = api.lessons.isQuizPristine(tutorial, lesson) && await promptOverwritePristineQuiz(tutorial, lesson)
       const shouldOverrideQuiz = !shouldOverridePristineQuiz && await promptOverwriteQuiz(tutorial, lesson)
+
       if (shouldOverridePristineQuiz || shouldOverrideQuiz) {
         return createQuiz(tutorial, lesson, { createLesson, createTutorial, createResource })
       } else {
