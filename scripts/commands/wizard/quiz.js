@@ -1,22 +1,3 @@
-// USER FLOW:
-
-// DONE let's create a quiz
-// DONE do the lesson and tutorial exist?
-// DONE if not, bounce back to main menu
-// DONE confirm which tutorial
-// DONE confirm which lesson in an existing tutorial
-// DONE if no mult choice lesson there, bounce back to main menu
-// TODO confirm overwrite existing quiz if there's real data
-// DONE prompt for question
-// DONE prompt for correct answer (text, success message)
-// DONE prompt repetitively for 2-4 wrong answers (text, failure message)
-// DONE randomly sort order of wrong answers
-// DONE store data to js file (remember to deal with quotes correctly)
-// DONE log randomized questions?
-// DONE show link to preview
-// DONE show which file to go to to edit text
-// DONE create another quiz OR exit
-
 const log = require('npmlog')
 const inquirer = require('inquirer')
 const api = require('../../../src/api')
