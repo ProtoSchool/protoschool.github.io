@@ -153,7 +153,7 @@ function logList (message, items) {
 }
 
 function logPreview (item, tutorialUrl, pageUrl = '') {
-  log.info(`To preview ${item}, first run \`npm run start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/${tutorialUrl}/${pageUrl}`)
+  log.info(`To preview ${item}, first run \`npm run serve\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/${tutorialUrl}/${pageUrl}`)
 }
 
 function logCreateLater (items) {

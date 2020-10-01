@@ -16,7 +16,8 @@ const {
 // *** QUIZ CREATION ***
 
 async function createQuiz (tutorial, lesson, { createLesson, createTutorial, createResource }) {
-  log.info("Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.")
+  log.info("Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.)")
+
   let responses = await inquirer.prompt([
     {
       type: 'input',
@@ -88,6 +89,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
       askAgain = false
     }
   } // end while loop
+
   // shuffle right and wrong answers to change position of correct one
   for (let i = (choices.length - 1); i > 0; i--) {
     const j = Math.floor(Math.random() * i)
@@ -143,6 +145,7 @@ async function promptOverwriteQuiz (tutorial, lesson) {
 async function promptOverwritePristineQuiz (tutorial, lesson) {
   log.info('When we create a quiz using the ProtoWizard, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding.')
   logPreview('the quiz in its current state', tutorial.url, lesson.formattedId)
+
   const { confirm } = await inquirer.prompt([
     {
       type: 'confirm',
@@ -150,6 +153,7 @@ async function promptOverwritePristineQuiz (tutorial, lesson) {
       message: `Would you like to continue?`
     }
   ])
+
   return confirm
 }
 

@@ -78,7 +78,7 @@ function get (tutorial, lessonId) {
 function updateQuiz (tutorial, lesson, data) {
   const lessonId = lesson.formattedId
   const newFileContent = `
-/ eslint quotes: ["error", "double"]  */
+/* eslint quotes: ["error", "double"]  */
 
 // Question must be a string
 const question = "${data.question}"
