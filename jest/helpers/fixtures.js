@@ -18,7 +18,7 @@ function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
 
 // Generators: generate data to be used
 
-function generateTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
+function generateTutorial (config = { override: {}, lessons: 0, resources: 0, lessonOverride: {} }) {
   const suffix = api.tutorials.getNextTutorialId()
 
   const tutorial = {
@@ -30,7 +30,12 @@ function generateTutorial (config = { override: {}, lessons: 0, resources: 0 }) 
   }
 
   const lessons = new Array(config.lessons).fill().map((_, i) => (
-    generateLesson({ override: { title: `Lesson ${i + 1}` } }).lesson
+    generateLesson({
+      override: {
+        title: `Lesson ${i + 1}`,
+        ...config.lessonOverride
+      }
+    }).lesson
   ))
 
   const resources = new Array(config.resources).fill().map((_, i) => (
