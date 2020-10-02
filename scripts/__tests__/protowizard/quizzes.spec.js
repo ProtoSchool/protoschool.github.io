@@ -46,7 +46,12 @@ describe('protowizard', () => {
 
       expect(result.lessons).toHaveLength(1)
       console.log(result.lessons[0])
-      // asserts.assertNewTutorial({
+      // TODO: create a result.lessons.choices array that can be referenced elsewhere
+      // would then be able to test by checking that each answer is present (in any order)
+      // OR sorting and then comparing directly
+
+      // TODO: Add assertions
+      // asserts.assertQuiz({
       //   context: { lastTutorialId },
       //   expected,
       //   result

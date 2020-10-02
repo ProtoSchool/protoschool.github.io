@@ -54,6 +54,10 @@ function assertNewResource ({ result, expected }) {
   expect(result.resources[0]).toMatchObject(expected.resource)
 }
 
+// TODO:
+// function assertQuiz ({ result, expected }) {
+// }
+
 module.exports = {
   assertNewTutorial,
   assertNewLesson,
