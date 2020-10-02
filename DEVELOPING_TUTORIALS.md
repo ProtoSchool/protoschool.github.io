@@ -124,7 +124,7 @@ $ npm install
 5. Run the dev server locally:
 
 ```sh
-$ npm run serve
+$ npm start
 ```
 
 6. Open a web browser to the following address to preview your work: http://localhost:3000

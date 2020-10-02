@@ -35,16 +35,16 @@ $ git clone https://github.com/ProtoSchool/protoschool.github.io.git
 $ cd protoschool.github.io
 $ git checkout existing-branch-name-from-PR
 $ npm install
-$ npm run serve
+$ npm start
 ```
 
 View the site on localhost at: http://localhost:3000
 
 ## Testing without affecting site analytics in Countly
 
-Only actions taken at the https://proto.school domain affect our main ProtoSchool analytics in Countly. 
+Only actions taken at the https://proto.school domain affect our main ProtoSchool analytics in Countly.
 
-You can safely experiment with any of the following to send stats to our TEST ProtoSchool dashboard in Countly instead: 
+You can safely experiment with any of the following to send stats to our TEST ProtoSchool dashboard in Countly instead:
 - served locally: http://localhost:3000
 - live site accessed directly through Fleek: https://protoschool.on.fleek.co/
 - preview for a specific PR via link found in PR testing section (e.g. https://bafybeihebd2p64xghtqjuewonkfm4l5n2lkvrllviz7nb33qtyir5q5fau.on.fleek.co/)
