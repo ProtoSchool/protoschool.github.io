@@ -55,7 +55,10 @@ function assertNewResource ({ result, expected }) {
 }
 
 // TODO:
-// function assertQuiz ({ result, expected }) {
+// function assertNewQuiz ({ result, expected }) {
+// }
+
+// function assertBoilerplateQuiz ({ result, expected }) {
 // }
 
 module.exports = {
