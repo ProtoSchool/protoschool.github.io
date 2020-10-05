@@ -1,7 +1,7 @@
+import toConnection from './connection'
+
 const EventEmitter = require('events')
 const withIs = require('class-is')
-const Pair = require('it-pair')
-// const DuplexPair = require('it-pair/duplex')
 
 const constants = {
   CODE_P2P: 421
@@ -10,41 +10,32 @@ const constants = {
 class MemoryTransport {
   peers = []
 
-  constructor ({ upgrader }) {
-    console.log('[MemoryTransport.construct]', upgrader)
+  constructor ({ upgrader, input, output }) {
+    // console.log('[MemoryTransport.construct]', upgrader)
 
     if (!upgrader) {
       throw new Error('An upgrader must be provided. See https://github.com/libp2p/interface-transport#upgrader.')
     }
 
     this._upgrader = upgrader
-    // this._duplexPair = DuplexPair()
-    this._p = Pair()
+    this._input = input
+    this._output = output
   }
 
   async dial (ma, options = {}) {
-    console.log('[MemoryTransport.dial]', ma, ma.toString(), ma.protos())
+    // console.log('[MemoryTransport.dial]', ma, ma.toString(), ma.protos())
 
-    const maConn = {
-      conn: { ma }, // stream
-      remoteAddr: ma,
-      signal: options.signal,
-      close: (error) => {
-        console.log('maCoon - close', error)
-      },
-      // source: duplexPair[0],
-      // sink: duplexPair[1]
-      source: this._p.source,
-      sink: this._p.sink
-    }
+    this._dialConnection = toConnection({
+      address: ma,
+      input: this._input,
+      output: this._output
+    })
 
-    this._maConn = maConn
+    // console.log('new outbound connection %s', this._dialConnection.remoteAddr)
 
-    console.log('new outbound connection %s', maConn.remoteAddr)
+    const conn = await this._upgrader.upgradeOutbound(this._dialConnection)
 
-    const conn = await this._upgrader.upgradeOutbound(maConn)
-
-    console.log('outbound connection %s upgraded', maConn.remoteAddr)
+    // console.log('outbound connection %s upgraded', this._dialConnection.remoteAddr)
 
     return conn
   }
@@ -52,8 +43,14 @@ class MemoryTransport {
   createListener (options = {}, handler) {
     const listener = new EventEmitter()
 
-    console.log('[MemoryTransport.createListener]')
+    // console.log('[MemoryTransport.createListener]', options, handler)
 
+    if (!handler && typeof options === 'function') {
+      handler = options
+      options = {}
+    }
+
+    listener.emit('listening')
     // setTimeout(() => listener.emit('connection', {}), 3000)
 
     let peerId, listeningAddr
@@ -64,25 +61,27 @@ class MemoryTransport {
 
       if (peerId) {
         listeningAddr = ma.decapsulateCode(constants.CODE_P2P)
-        console.log('listen', peerId)
       }
 
-      listener.emit('listening')
+      this._listenConnection = toConnection({
+        address: ma,
+        input: this._input,
+        output: this._output
+      })
 
-      this._p.source.pipe(this._p.sink)
+      const upgradedConnection = this._upgrader.upgradeInbound(this._listenConnection)
+      handler(upgradedConnection)
+      // console.log('### listener', handler(upgradedConnection))
+      listener.emit('connection', upgradedConnection)
+
+      return new Promise(resolve => resolve())
     }
 
     listener.getAddrs = () => {
-      return peerId ? listeningAddr.encapsulate(`/p2p/${peerId}`) : listeningAddr
+      return peerId ? [listeningAddr.encapsulate(`/p2p/${peerId}`)] : [listeningAddr]
     }
 
-    listener.close = () => console.log('[MemoryTransport.listener]', 'event: close')
-
-    this._upgrader.upgradeInbound(this._maConn)
-      .then(handler)
-      .catch(error => {
-        listener.emit('error', error)
-      })
+    listener.close = () => { } // console.log('[MemoryTransport.listener]', 'event: close')
 
     return listener
   }
