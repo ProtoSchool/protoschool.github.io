@@ -115,10 +115,11 @@ async function createQuizIntro ({ createLesson, createTutorial, createResource }
     if (lesson) { // skip if value is null because there weren't multiple choice lessons in tutorial
       logList(`Great! You've chosen to build a quiz for`, [`Tutorial: ${tutorial.title}`, `Lesson: ${lesson.title}`])
 
-      const shouldOverridePristineQuiz = api.lessons.isQuizPristine(tutorial, lesson) && await promptOverwritePristineQuiz(tutorial, lesson)
-      const shouldOverrideQuiz = !shouldOverridePristineQuiz && await promptOverwriteQuiz(tutorial, lesson)
+      const overwrite = api.lessons.isQuizPristine(tutorial, lesson)
+        ? await promptOverwritePristineQuiz(tutorial, lesson)
+        : await promptOverwriteQuiz(tutorial, lesson)
 
-      if (shouldOverridePristineQuiz || shouldOverrideQuiz) {
+      if (overwrite) {
         return createQuiz(tutorial, lesson, { createLesson, createTutorial, createResource })
       } else {
         logEditQuizManually(tutorial, lesson)
