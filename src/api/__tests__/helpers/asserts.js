@@ -71,10 +71,17 @@ function assertLesson (result, expected) {
     case 'multiple-choice':
       assertIsFile(result.files.js)
       assertIsNotAFile(api.lessons.files.getChallengeMarkdownPath(api.tutorials.get(result.tutorialId), result.id))
+      // TODO assert that the file contents are correct (match boilerplate)
   }
+}
+
+function assertUpdatedQuiz (result) {
+  const fileContents = fs.readFileSync(result.files.js, 'utf8')
+  expect(fileContents).toMatchSnapshot()
 }
 
 module.exports = {
   assertTutorial,
-  assertLesson
+  assertLesson,
+  assertUpdatedQuiz
 }

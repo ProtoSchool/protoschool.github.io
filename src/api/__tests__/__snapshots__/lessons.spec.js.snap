@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api 2 api.lessons 2.2 api.lessons.updateQuiz(tutorial, data) 2.2.1 should update quiz 1`] = `
+"
+/* eslint quotes: [\\"error\\", \\"double\\"]  */
+
+// Question must be a string
+const question = \\"What's my question?\\"
+
+// Choices must be an array of objects, each with the properties:
+// \`answer\` (string), \`correct\` (boolean), and \`feedback\` (string)
+// Only one answer can be correct.
+const choices = [
+  {
+    \\"answer\\": \\"Incorrect answer 1\\",
+    \\"correct\\": false,
+    \\"feedback\\": \\"Feedback for incorrect answer 1\\"
+  },
+  {
+    \\"answer\\": \\"Correct answer\\",
+    \\"correct\\": true,
+    \\"feedback\\": \\"Positive feedback\\"
+  },
+  {
+    \\"answer\\": \\"Incorrect answer 2\\",
+    \\"correct\\": false,
+    \\"feedback\\": \\"Feedback for incorrect answer 2\\"
+  }
+]
+
+export default {
+  question,
+  choices
+}
+"
+`;
