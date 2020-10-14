@@ -1,7 +1,7 @@
 name: Trigger Weekly Build
 on:
   schedule:
-    - cron: '0 9 * * 1' # every fridat at 9am
+    - cron: '0 9 * * 1' # every monday at 9am
 jobs:
   build:
     name: Request Fleek Webhook
