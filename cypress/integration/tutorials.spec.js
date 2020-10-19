@@ -6,6 +6,11 @@ import courses from '../../src/static/courses.json'
 
 const tutorials = _.omitBy(tutorialsList, tutorial => tutorial.hidden)
 
+const fixtures = {
+  png: 'favicon.png',
+  json: 'example.json'
+}
+
 // lessons to use as samples when testing functionality only once per lesson type
 const testLessons = {
   code: {
@@ -366,19 +371,18 @@ function advanceThroughLessons (tutorialId) {
 
       function uploadSingleFile () {
         it(`uploads a single file`, function () {
-          const fileName = 'favicon.png'
-          cy.fixture(fileName).then(fileContent => {
-            cy.get('[data-cy=file-upload]').upload({ fileContent, fileName, mimeType: 'image/png' })
+          cy.fixture(fixtures.png).then(fileContent => {
+            cy.get('[data-cy=file-upload]').upload({ fileContent, fileName: fixtures.png, mimeType: 'image/png' })
           })
         })
       }
       function uploadMultipleFiles () {
         it(`uploads 2 files`, function () {
-          cy.fixture('example.json', 'base64').then(exampleJson => {
-            cy.fixture('favicon.png', 'base64').then(faviconPng => {
+          cy.fixture(fixtures.json, 'base64').then(exampleJson => {
+            cy.fixture(fixtures.png, 'base64').then(faviconPng => {
               const files = [
-                { fileName: 'example.json', fileContent: exampleJson, mimeType: 'application/json' },
-                { fileName: 'favicon.png', fileContent: faviconPng, mimeType: 'image/png' }
+                { fileName: fixtures.json, fileContent: exampleJson, mimeType: 'application/json' },
+                { fileName: fixtures.png, fileContent: faviconPng, mimeType: 'image/png' }
               ]
               cy.get('[data-cy=file-upload]').upload(files, { uploadType: 'input' })
             })
@@ -531,9 +535,8 @@ describe('SHOULD ADVANCE LESSONS WITH TRAILING SLASHES', () => {
     cy.visit(`/${tutorial.url}/${testLessons.fileUpload.lessonNr}/`)
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
 
-    const fileName = 'favicon.png'
-    cy.fixture(fileName).then(fileContent => {
-      cy.get('[data-cy=file-upload]').upload({ fileContent, fileName, mimeType: 'image/png' })
+    cy.fixture(fixtures.png).then(fileContent => {
+      cy.get('[data-cy=file-upload]').upload({ fileContent, fileName: fixtures.png, mimeType: 'image/png' })
     })
     cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
     cy.get('[data-cy=replace-with-solution]').click({ force: true })

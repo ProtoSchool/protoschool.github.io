@@ -63,7 +63,7 @@
     "@vue/cli-service": "^3.12.1",
     "babel-eslint": "^8.2.6",
     "cli-table": "^0.3.1",
-    "cypress": "^3.8.3",
+    "cypress": "^5.4.0",
     "cypress-file-upload": "^3.5.3",
     "del": "^5.1.0",
     "dotenv": "^8.2.0",
