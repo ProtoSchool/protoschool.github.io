@@ -4,6 +4,27 @@ const fixtures = require('../../../jest/helpers/fixtures')
 const asserts = require('../helpers/asserts')
 const runners = require('../helpers/runners')
 
+const hardcodedData = {
+  question: "What's my question?",
+  choices: [
+    {
+      answer: 'Incorrect answer 1',
+      correct: false,
+      feedback: 'Feedback for incorrect answer 1'
+    },
+    {
+      answer: 'Correct answer',
+      correct: true,
+      feedback: 'Positive feedback'
+    },
+    {
+      answer: 'Incorrect answer 2',
+      correct: false,
+      feedback: 'Feedback for incorrect answer 2'
+    }
+  ]
+}
+
 describe('protowizard', () => {
   let lastTutorialId
 
@@ -30,14 +51,14 @@ describe('protowizard', () => {
         { latestTutorial: true }, // add to latest (test) tutorial
         { lesson: tutorial.lessons[0] }, // select first (test) lesson
         { confirm: true }, // overwrite pristine quiz
-        { question: 'Is this my question?', // question
-          correctAnswer: 'Right answer', // correct answer
-          correctFeedback: 'That is soooo right!' }, // correct feedback
-        { incorrectAnswer: 'first wrong answer', // incorrect answer
-          incorrectFeedback: 'Try again.' }, // incorrect feedback
+        { question: "What's my question?", // question
+          correctAnswer: 'Correct answer', // correct answer
+          correctFeedback: 'Positive feedback' }, // correct feedback
+        { incorrectAnswer: 'Incorrect answer 1', // incorrect answer
+          incorrectFeedback: 'Feedback for incorrect answer 1' }, // incorrect feedback
         { confirm: true }, // add another incorrect answer
-        { incorrectAnswer: 'second wrong answer', // incorrect answer
-          incorrectFeedback: 'Nope!' }, // incorrect feedba
+        { incorrectAnswer: 'Incorrect answer 2', // incorrect answer
+          incorrectFeedback: 'Feedback for incorrect answer 2' }, // incorrect feedback
         { confirm: false }, // don't add another answer
         { confirm: false } // don't add another quiz
       ])
@@ -46,16 +67,8 @@ describe('protowizard', () => {
 
       expect(result.lessons).toHaveLength(1)
       console.log(result.lessons[0])
-      // TODO: create a result.lessons.choices array that can be referenced elsewhere
-      // would then be able to test by checking that each answer is present (in any order)
-      // OR sorting and then comparing directly
 
-      // TODO: Add assertions - HAS 1 NEW QUIZ WITH GIVEN QUESTIONS
-      // asserts.assertNewQuiz({
-      //   context: { lastTutorialId },
-      //   expected,
-      //   result
-      // })
+      asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
 
     test('4.2 should add quiz to existing lesson', async () => {
@@ -85,14 +98,14 @@ describe('protowizard', () => {
         { latestTutorial: true }, // add to latest (test) tutorial
         { lesson: tutorial.lessons[0] }, // select first (test) lesson
         { confirm: true }, // overwrite non-pristine quiz
-        { question: 'Is this my question?', // question
-          correctAnswer: 'Right answer', // correct answer
-          correctFeedback: 'That is soooo right!' }, // correct feedback
-        { incorrectAnswer: 'first wrong answer', // incorrect answer
-          incorrectFeedback: 'Try again.' }, // incorrect feedback
+        { question: "What's my question?", // question
+          correctAnswer: 'Correct answer', // correct answer
+          correctFeedback: 'Positive feedback' }, // correct feedback
+        { incorrectAnswer: 'Incorrect answer 1', // incorrect answer
+          incorrectFeedback: 'Feedback for incorrect answer 1' }, // incorrect feedback
         { confirm: true }, // add another incorrect answer
-        { incorrectAnswer: 'second wrong answer', // incorrect answer
-          incorrectFeedback: 'Nope!' }, // incorrect feedback
+        { incorrectAnswer: 'Incorrect answer 2', // incorrect answer
+          incorrectFeedback: 'Feedback for incorrect answer 2' }, // incorrect feedback
         { confirm: false }, // don't add another answer
         { confirm: false } // don't add another quiz
       ])
@@ -101,16 +114,8 @@ describe('protowizard', () => {
 
       expect(result.lessons).toHaveLength(1)
       console.log(result.lessons[0])
-      // TODO: create a result.lessons.choices array that can be referenced elsewhere
-      // would then be able to test by checking that each answer is present (in any order)
-      // OR sorting and then comparing directly
 
-      // TODO: Add assertions - HAS 1 NEW QUIZ WITH GIVEN QUESTIONS
-      // asserts.assertNewQuiz({
-      //   context: { lastTutorialId },
-      //   expected,
-      //   result
-      // })
+      asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
 
     test('4.3 should cancel overwrite of non-pristine lesson', async () => {
@@ -121,23 +126,12 @@ describe('protowizard', () => {
         }
       })
 
+      // use API to create a non-pristine quiz
+      api.lessons.updateQuiz(tutorial, tutorial.lessons[0], hardcodedData)
+
       await runners.protowizard([
+        // start to make a new quiz and then cancel rather than overwrite non-pristine
         { type: 'quiz' },
-        { confirm: true }, // lesson already exists
-        { latestTutorial: true }, // add to latest (test) tutorial
-        { lesson: tutorial.lessons[0] }, // select first (test) lesson
-        { confirm: true }, // overwrite pristine quiz
-        { question: 'Is this my question?', // question
-          correctAnswer: 'Right answer', // correct answer
-          correctFeedback: 'That is soooo right!' }, // correct feedback
-        { incorrectAnswer: 'first wrong answer', // incorrect answer
-          incorrectFeedback: 'Try again.' }, // incorrect feedback
-        { confirm: true }, // add another incorrect answer
-        { incorrectAnswer: 'second wrong answer', // incorrect answer
-          incorrectFeedback: 'Nope!' }, // incorrect feedback
-        { confirm: false }, // don't add another answer
-        { confirm: true }, //  add another quiz
-        // start to make a new quiz and then cancel rather than overwrite
         { confirm: true }, // lesson already exists
         { latestTutorial: true }, // add to latest (test) tutorial
         { lesson: tutorial.lessons[0] }, // select first (test) lesson
@@ -147,17 +141,8 @@ describe('protowizard', () => {
       const result = api.tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
-      console.log(result.lessons[0])
-      // TODO: create a result.lessons.choices array that can be referenced elsewhere
-      // would then be able to test by checking that each answer is present (in any order)
-      // OR sorting and then comparing directly
 
-      // TODO: Add assertions - HAS 1 NEW QUIZ WITH GIVEN QUESTIONS
-      // asserts.assertNewQuiz({
-      //   context: { lastTutorialId },
-      //   expected,
-      //   result
-      // })
+      asserts.assertQuizKnownOrder({ result })
     })
 
     test('4.4 should cancel overwrite of pristine lesson', async () => {
@@ -175,21 +160,6 @@ describe('protowizard', () => {
         { lesson: tutorial.lessons[0] }, // select first (test) lesson
         { confirm: false } // cancel overwriting pristine quiz
       ])
-
-      const result = api.tutorials.getByUrl(tutorial.url)
-
-      expect(result.lessons).toHaveLength(1)
-      console.log(result.lessons[0])
-      // TODO: create a result.lessons.choices array that can be referenced elsewhere
-      // would then be able to test by checking that each answer is present (in any order)
-      // OR sorting and then comparing directly
-
-      // TODO: Add assertions - SHOULD HAVE 1 NEW LESSON MATCHING #PRISTINE# BOILERPLATE
-      // asserts.assertPristineQuiz({
-      //   context: { lastTutorialId },
-      //   expected,
-      //   result
-      // })
     })
   })
 })

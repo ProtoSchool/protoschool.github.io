@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 // Used with generateTutorial
 function assertNewTutorial ({ context, result, expected }) {
   expect(result).toBeInstanceOf(Object)
@@ -54,15 +56,27 @@ function assertNewResource ({ result, expected }) {
   expect(result.resources[0]).toMatchObject(expected.resource)
 }
 
-// TODO:
-// function assertNewQuiz ({ result, expected }) {
-// }
+function assertQuizUnknownOrder ({ result, hardcodedData }) {
+  const fileContents = fs.readSyncFile(result.files.js, 'utf8')
+  expect(fileContents).toContain(`question: "${hardcodedData.question}"`)
+  hardcodedData.choices.forEach(choice => {
+    expect(fileContents).toContain(`{
+          answer: '${choice.answer}',
+          correct: ${choice.correct},
+          feedback: '${choice.feedback}'
+        }`)
+  })
+}
 
-// function assertBoilerplateQuiz ({ result, expected }) {
-// }
+function assertQuizKnownOrder (result) {
+  const fileContents = fs.readFileSync(result.files.js, 'utf8')
+  expect(fileContents).toMatchSnapshot()
+}
 
 module.exports = {
   assertNewTutorial,
   assertNewLesson,
-  assertNewResource
+  assertNewResource,
+  assertQuizKnownOrder,
+  assertQuizUnknownOrder
 }
