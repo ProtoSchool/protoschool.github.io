@@ -66,7 +66,6 @@ describe('protowizard', () => {
       const result = api.tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
-      console.log(result.lessons[0])
 
       asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
@@ -92,6 +91,7 @@ describe('protowizard', () => {
         { incorrectAnswer: 'Incorrect answer to overwrite', // incorrect answer
           incorrectFeedback: 'Incorrect feedback to overwrite' }, // incorrect feedback
         { confirm: false }, // don't add another answer
+        // ***THE STATE OF THE JS FILE RIGHT HERE (WITH DATA MEANT TO BE OVERWRITTEN) IS WHAT JEST IS COMPARING TO WHEN IT FAILS
         { confirm: true }, // add another quiz
         // add quiz and overwrite the one above
         { confirm: true }, // lesson already exists
@@ -113,8 +113,8 @@ describe('protowizard', () => {
       const result = api.tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
-      console.log(result.lessons[0])
-
+      console.log('in 4.2 before assert and result.lessons[0] is: ', result.lessons[0])
+      // *** IT'S PASSING OLD FILE CONTENTS FROM HALFWAY THROUGH THE PROTOWIZARD INTO THE ASSERTION BELOW
       asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
 
