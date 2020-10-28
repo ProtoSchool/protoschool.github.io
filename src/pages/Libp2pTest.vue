@@ -13,7 +13,7 @@
         </form>
       </div>
       <div class="flex">
-        <div class="w-50 messages pr2">
+        <div class="w-25 messages pr2">
           <h2>Messages</h2>
           <div class="messages-list h5">
             <span
@@ -27,7 +27,7 @@
             <input v-model="inputText" />
           </form>
         </div>
-        <div class="w-50 logs h5">
+        <div class="w-75 logs h5">
           <h2>Logs</h2>
           <div class="logs-list h5 f7">
             <pre
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import DuplexPair from 'it-pair/duplex'
+
 import libp2p from '../modules/libp2p'
 
 import Header from '../components/Header.vue'
@@ -103,18 +105,22 @@ export default {
       return
     }
 
+    const duplex = DuplexPair()
+
     this.node1 = await libp2p.createNode({
+      duplex: duplex[0],
       onLog: log => this.onLog(`node 1: ${log}`)
     })
     this.node2 = await libp2p.createNode({
+      duplex: duplex[1],
       onLog: log => this.onLog(`node 2: ${log}`)
     })
 
-    this.ids.push(this.node1.peerInfo.id.toB58String())
-    this.ids.push(this.node2.peerInfo.id.toB58String())
+    this.ids.push(this.node1.peerInfo.id.toString())
+    this.ids.push(this.node2.peerInfo.id.toString())
 
     await libp2p.dial(this.node1, this.node2)
-    this.logs.push(`node1 dialled to peer ${this.node2.peerInfo.id.toB58String()}`)
+    this.logs.push(`node1 dialled to peer ${this.node2.peerInfo.id.toString()}`)
 
     /* await this.node1.pubsub.subscribe(topic, ({ data }) => {
       this.messages.push(JSON.parse(data.toString()))

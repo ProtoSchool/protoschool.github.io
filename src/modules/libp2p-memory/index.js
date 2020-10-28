@@ -1,7 +1,7 @@
-import toConnection from './connection'
-
 const EventEmitter = require('events')
 const withIs = require('class-is')
+
+const toConnection = require('./to-connection').default
 
 const constants = {
   CODE_P2P: 421
@@ -10,32 +10,37 @@ const constants = {
 class MemoryTransport {
   peers = []
 
-  constructor ({ upgrader, input, output }) {
-    // console.log('[MemoryTransport.construct]', upgrader)
+  // TODO: libp2p provides itself to the transport: https://github.com/libp2p/js-libp2p/blob/master/src/transport-manager.js#L45
+  // change this to receive libp2p and use peer id to listen on memory event as:
+  // /memory/test1/p2p/QmcrQZ6RJdpYuGvZqD5QEHAv6qX4BrQLJLQPQUrTrzdcgm
+  // current: /memory/test1
+  constructor ({ upgrader, duplex, memory }) {
+    // console.log('[MemoryTransport.construct]', address, input, output)
 
     if (!upgrader) {
       throw new Error('An upgrader must be provided. See https://github.com/libp2p/interface-transport#upgrader.')
     }
 
     this._upgrader = upgrader
-    this._input = input
-    this._output = output
+    this._duplex = duplex
+    this._memory = memory
   }
 
   async dial (ma, options = {}) {
-    // console.log('[MemoryTransport.dial]', ma, ma.toString(), ma.protos())
+    console.log('[MemoryTransport.dial]', ma, ma.toString(), ma.protos())
+    this._memory.emit(ma.decapsulate('/p2p').toString(), ma) // TODO: remove this once libp2p peer id is provided
 
     this._dialConnection = toConnection({
-      address: ma,
-      input: this._input,
-      output: this._output
+      localAddr: this.listeningAddress,
+      remoteAddr: ma,
+      duplex: this._duplex
     })
 
-    // console.log('new outbound connection %s', this._dialConnection.remoteAddr)
+    console.log('new outbound connection', this._dialConnection)
 
     const conn = await this._upgrader.upgradeOutbound(this._dialConnection)
 
-    // console.log('outbound connection %s upgraded', this._dialConnection.remoteAddr)
+    console.log('outbound connection upgraded', this._dialConnection.remoteAddr)
 
     return conn
   }
@@ -50,35 +55,40 @@ class MemoryTransport {
       options = {}
     }
 
-    listener.emit('listening')
-    // setTimeout(() => listener.emit('connection', {}), 3000)
+    let peerId
 
-    let peerId, listeningAddr
+    console.log('create listener', handler)
 
     listener.listen = ma => {
-      listeningAddr = ma
+      this.listeningAddress = ma
+
+      console.log('listen ma', ma)
+
+      this._memory.on(this.listeningAddress.toString(), async (dialCon) => {
+        const upgradedConnection = await this._upgrader.upgradeInbound(toConnection({
+          localAddr: this.listeningAddress,
+          remoteAddr: dialCon,
+          duplex: this._duplex
+        }))
+
+        handler && handler(upgradedConnection)
+        listener.emit('connection', upgradedConnection)
+      })
+
       peerId = ma.getPeerId()
 
       if (peerId) {
-        listeningAddr = ma.decapsulateCode(constants.CODE_P2P)
+        this.listeningAddress = ma.decapsulateCode(constants.CODE_P2P)
       }
 
-      this._listenConnection = toConnection({
-        address: ma,
-        input: this._input,
-        output: this._output
+      return new Promise(resolve => {
+        listener.emit('listening', this.listeningAddress.toString())
+        resolve()
       })
-
-      const upgradedConnection = this._upgrader.upgradeInbound(this._listenConnection)
-      handler(upgradedConnection)
-      // console.log('### listener', handler(upgradedConnection))
-      listener.emit('connection', upgradedConnection)
-
-      return new Promise(resolve => resolve())
     }
 
     listener.getAddrs = () => {
-      return peerId ? [listeningAddr.encapsulate(`/p2p/${peerId}`)] : [listeningAddr]
+      return peerId ? [this.listeningAddress.encapsulate(`/p2p/${peerId}`)] : [this.listeningAddress]
     }
 
     listener.close = () => { } // console.log('[MemoryTransport.listener]', 'event: close')
@@ -98,6 +108,4 @@ class MemoryTransport {
   }
 }
 
-const EnhancedMemoryTransport = withIs(MemoryTransport, { className: 'Memory', symbolName: '@libp2p/js-libp2p-memory/Memory' })
-
-export default EnhancedMemoryTransport
+export default withIs(MemoryTransport, { className: 'Memory', symbolName: '@libp2p/js-libp2p-memory/Memory' })
