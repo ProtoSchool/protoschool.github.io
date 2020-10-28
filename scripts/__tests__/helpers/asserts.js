@@ -61,12 +61,11 @@ function assertQuizUnknownOrder ({ result, hardcodedData }) {
   console.log('in assertQuizUnknownOrder and fileContents: ', fileContents)
   expect(fileContents).toContain(`question = "${hardcodedData.question}"`)
   hardcodedData.choices.forEach(choice => {
-    expect(fileContents).toContain(`
-   {
-     "answer": "${choice.answer}",
-     "correct": ${choice.correct},
-     "feedback": "${choice.feedback}"
-   }`)
+    expect(fileContents).toContain(`{
+    "answer": "${choice.answer}",
+    "correct": ${choice.correct},
+    "feedback": "${choice.feedback}"
+  }`)
     // TODO: FOR 4.1, FORMATTING ABOVE DOESN'T MATCH RESULT ALTHOUGH THEY LOOK IDENTICAL TO THE EYE
     // IT WORKS WITH SOMETHING MORE SIMPLE SUCH AS:
     // expect(fileContents).toContain(`feedback`)
