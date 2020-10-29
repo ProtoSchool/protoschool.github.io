@@ -10,7 +10,7 @@ const validate = async (result, ipfs) => {
   let directoryContentsMatch = JSON.stringify(result) === JSON.stringify(expected)
 
   // Confirm the right files were added to IPFS (should be unless they tweaked the default code)
-  let uploadedFiles = window.uploadedFiles || false
+  let uploadedFiles = window.uploadedFiles || []
   let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
   let ipfsFilenames = expected.map(file => file.name.toString()).sort()
   let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
@@ -19,7 +19,7 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'Oops, you forgot to return a result. Did you accidentally delete `return directoryContents`?' }
-  } else if (uploadedFiles === false) {
+  } else if (uploadedFiles.length === 0) {
     // shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (expected.length === 0) {

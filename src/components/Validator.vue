@@ -12,11 +12,11 @@
       </div>
       <div v-else-if="lessonPassed && !isSubmitting">
         <span class="disabled-btn-wrapper">
-          <span v-if="isFileLesson && !uploadedFiles" class="mr2 red lh-copy o-0" data-cy="need-new-files-msg">
+          <span v-if="isFileLesson && uploadedFiles.length === 0" class="mr2 red lh-copy o-0" data-cy="need-new-files-msg">
             You must upload a file before submitting.
           </span>
-          <Button v-if="(isFileLesson && !output) || (isFileLesson && !uploadedFiles)"
-            :disabled="!uploadedFiles"
+          <Button v-if="(isFileLesson && !output) || (isFileLesson && uploadedFiles.length ===0)"
+            :disabled="uploadedFiles.length === 0"
             :click="run"
             class="mr2 bg-navy white"
             style="minWidth: 90px"
@@ -32,14 +32,14 @@
         />
       </div>
       <div v-else>
-        <span v-if="(isFileLesson && !uploadedFiles) || isSubmitting" class="disabled-btn-wrapper">
-          <span v-if="isFileLesson && !uploadedFiles" class="mr2 red lh-copy o-0" data-cy="need-files-msg">
+        <span v-if="(isFileLesson && uploadedFiles.length === 0) || isSubmitting" class="disabled-btn-wrapper">
+          <span v-if="isFileLesson && uploadedFiles.length === 0" class="mr2 red lh-copy o-0" data-cy="need-files-msg">
             You must upload a file before submitting.
           </span>
           <Button
             :click="next"
             :loading="isSubmitting"
-            :disabled="isFileLesson && !uploadedFiles"
+            :disabled="isFileLesson && uploadedFiles.length === 0"
             class="bg-navy white"
             data-cy="submit-disabled"
             text="Submit"
@@ -111,7 +111,7 @@ export default {
     challenge: String,
     isFileLesson: Boolean,
     isMultipleChoiceLesson: Boolean,
-    uploadedFiles: [Boolean, Array],
+    uploadedFiles: Array,
     lessonPassed: Boolean,
     output: Object,
     isResources: Boolean,

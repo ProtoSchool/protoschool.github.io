@@ -201,6 +201,7 @@ function testMultipleChoiceOptions (tutorialId, lessonNr) {
   const lesson = tutorials[tutorialId].lessons[parseInt(lessonNr) - 1]
   const choices = lesson.logic.choices
   const correctChoiceIndex = choices.findIndex(choice => choice.correct === true)
+
   it(`displays right number of choices lesson ${lessonNr} and displays as not yet started`, function () {
     cy.visit(`/${tutorialName}/${lessonNr}`)
     cy.get('[data-cy=choice]').should('have.length', choices.length)
@@ -209,12 +210,14 @@ function testMultipleChoiceOptions (tutorialId, lessonNr) {
     cy.get(`[data-cy=progress-not-yet-started]`).should('be.visible')
     cy.get(`[data-cy=progress-icon-not-yet-started]`).should('be.visible')
   })
+
   function testChoice (choice, index) {
     let choiceType = index === correctChoiceIndex ? 'RIGHT' : 'WRONG'
     let correctOutput = index === correctChoiceIndex ? 'output-success' : 'output-fail'
     let incorrectOutput = index === correctChoiceIndex ? 'output-fail' : 'output-success'
     let correctButton = index === correctChoiceIndex ? 'not.be.disabled' : 'be.disabled'
     let correctProgress = index === correctChoiceIndex ? 'passed' : 'in-progress'
+
     describe(`${choiceType} choice ${index}`, function () {
       it(`shows correct completion status and button state`, function () {
         cy.get('[data-cy=choice]').eq(index).click()
@@ -222,15 +225,18 @@ function testMultipleChoiceOptions (tutorialId, lessonNr) {
         cy.get(`[data-cy=progress-icon-${correctProgress}]`).should('be.visible')
         cy.get('[data-cy=next-lesson-mult-choice]').should(correctButton)
       })
+
       it(`displays answer correctly`, function () {
         cy.get('[data-cy=choice]').eq(index).should('contain', parseTextForMarkdown(choice.answer))
       })
+
       it(`displays feedback correctly`, function () {
         cy.get(`[data-cy=${incorrectOutput}]`).should('not.exist')
         cy.get(`[data-cy=${correctOutput}]`).should('contain', parseTextForMarkdown(choice.feedback))
       })
     })
   }
+
   //  test correct answer first to ensure passed status will be cleared afterward
   testChoice(choices[correctChoiceIndex], correctChoiceIndex)
   //  test all incorrect answers
@@ -372,19 +378,21 @@ function advanceThroughLessons (tutorialId) {
       function uploadSingleFile () {
         it(`uploads a single file`, function () {
           cy.fixture(fixtures.png).then(fileContent => {
-            cy.get('[data-cy=file-upload]').upload({ fileContent, fileName: fixtures.png, mimeType: 'image/png' })
+            cy.get('[data-cy=file-upload]').attachFile({ fileContent, fileName: fixtures.png, mimeType: 'image/png' })
           })
         })
       }
       function uploadMultipleFiles () {
         it(`uploads 2 files`, function () {
-          cy.fixture(fixtures.json, 'base64').then(exampleJson => {
-            cy.fixture(fixtures.png, 'base64').then(faviconPng => {
+          cy.fixture(fixtures.json).then(exampleJson => {
+            cy.fixture(fixtures.png).then(faviconPng => {
               const files = [
                 { fileName: fixtures.json, fileContent: exampleJson, mimeType: 'application/json' },
                 { fileName: fixtures.png, fileContent: faviconPng, mimeType: 'image/png' }
               ]
-              cy.get('[data-cy=file-upload]').upload(files, { uploadType: 'input' })
+              cy.get('[data-cy=file-upload]')
+                .attachFile(files[0], { uploadType: 'input' })
+                .attachFile(files[1], { uploadType: 'input' })
             })
           })
         })
@@ -536,7 +544,7 @@ describe('SHOULD ADVANCE LESSONS WITH TRAILING SLASHES', () => {
     cy.get('[data-cy=code-editor-ready]').should('be.visible') // wait for editor to be updated
 
     cy.fixture(fixtures.png).then(fileContent => {
-      cy.get('[data-cy=file-upload]').upload({ fileContent, fileName: fixtures.png, mimeType: 'image/png' })
+      cy.get('[data-cy=file-upload]').attachFile({ fileContent, fileName: fixtures.png, mimeType: 'image/png' })
     })
     cy.get(`[data-cy=next-lesson-code]`).should('not.be.visible')
     cy.get('[data-cy=replace-with-solution]').click({ force: true })

@@ -3,11 +3,11 @@
     <div class="f5 fw7 mt4 mb2">
       Step 1: Upload files
       <span class="pl1">
-        <img v-if="uploadedFiles" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid" />
+        <img v-if="uploadedFiles.length" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid" />
       </span>
     </div>
     <input type="file" multiple id="file" class="dn" data-cy="file-upload"/>
-    <div v-if="!uploadedFiles"
+    <div v-if="uploadedFiles.length === 0"
       @click="onFileClick" @drop="onFileDrop"
       @dragenter="dragging=true" @dragend="dragging=false" @dragleave="dragging=false" @dragover.prevent
       class="dropfile mb2 pa2 w-100 br3 shadow-4 bg-white color-navy" :class="{dragging: dragging}">
@@ -44,7 +44,7 @@ export default {
     onFileClick: Function,
     onFileDrop: Function,
     resetFileUpload: Function,
-    uploadedFiles: [Boolean, Array]
+    uploadedFiles: Array
   },
   data: self => {
     return {

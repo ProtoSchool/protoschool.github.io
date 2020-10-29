@@ -42,14 +42,14 @@ const validate = async (result, ipfs) => {
 
   /** CHECK FOR CORRECT FILENAMES **/
 
-  let uploadedFiles = window.uploadedFiles || false
+  let uploadedFiles = window.uploadedFiles || []
   let resultSorted = null
   let expectedSorted = null
   let contentsMatch = null
 
   if (Array.isArray(result)) {
     resultSorted = result.map(file => file.name.toString()).sort()
-    if (uploadedFiles) {
+    if (uploadedFiles.length) {
       let expected = uploadedFiles.map(file => file.name.toString())
       expected.push('some')
       expectedSorted = expected.sort()
@@ -88,7 +88,7 @@ const validate = async (result, ipfs) => {
       logDesc: 'Here\'s what your `ls` command shows' + returnedDirectoryMsg + ':',
       log: result.map(utils.format.ipfsObject)
     }
-  } else if (uploadedFiles === false) {
+  } else if (uploadedFiles.length === 0) {
     // shouldn't happen because you can't hit submit without uploading files
     return {fail: 'Oops! You forgot to upload files to work with :('}
   } else if (!rootSomeItemIsFile) {
