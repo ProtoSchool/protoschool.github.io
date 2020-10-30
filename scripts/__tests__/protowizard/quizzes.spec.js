@@ -113,8 +113,6 @@ describe('protowizard', () => {
       const result = api.tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
-      console.log('in 4.2 before assert and result.lessons[0] is: ', result.lessons[0])
-      // *** IT'S PASSING OLD FILE CONTENTS FROM HALFWAY THROUGH THE PROTOWIZARD INTO THE ASSERTION BELOW
       asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
 

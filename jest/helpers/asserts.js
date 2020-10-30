@@ -1,3 +1,6 @@
+// ** SNAPSHOT FILTERING ***
+// prevent snapshots for logs that change on each instance, such as shuffled quiz options
+
 const excludedPhrases = [
   "Cool! Here's what we get when we mix up the order of the answer choices:"
 ]

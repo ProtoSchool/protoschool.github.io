@@ -58,7 +58,6 @@ function assertNewResource ({ result, expected }) {
 
 function assertQuizUnknownOrder ({ result, hardcodedData }) {
   const fileContents = fs.readFileSync(result.files.js, 'utf8')
-  console.log('in assertQuizUnknownOrder and fileContents: ', fileContents)
   expect(fileContents).toContain(`question = "${hardcodedData.question}"`)
   hardcodedData.choices.forEach(choice => {
     expect(fileContents).toContain(`{
@@ -66,9 +65,6 @@ function assertQuizUnknownOrder ({ result, hardcodedData }) {
     "correct": ${choice.correct},
     "feedback": "${choice.feedback}"
   }`)
-    // TODO: FOR 4.1, FORMATTING ABOVE DOESN'T MATCH RESULT ALTHOUGH THEY LOOK IDENTICAL TO THE EYE
-    // IT WORKS WITH SOMETHING MORE SIMPLE SUCH AS:
-    // expect(fileContents).toContain(`feedback`)
   })
 }
 

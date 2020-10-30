@@ -96,7 +96,6 @@ export default {
   choices
 }
 `
-  console.log('in updateQuiz and newFileContent: ', newFileContent)
   fs.writeFileSync(files.getJsPath(tutorial, lessonId), newFileContent)
   return get(tutorial, lessonId)
 }
