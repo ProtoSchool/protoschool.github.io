@@ -164,7 +164,7 @@ async function afterQuizCreate (tutorial, lesson, { createLesson, createTutorial
   if (await promptRepeat('quiz')) {
     return createQuizIntro({ createLesson, createTutorial, createResource })
   } else {
-    logCreateLater('quizzes')
+    logCreateLater(' more quizzes')
   }
 }
 

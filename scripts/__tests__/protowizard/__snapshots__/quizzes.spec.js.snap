@@ -36,7 +36,7 @@ exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 15`] 
 
 exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 16`] = `"To make changes to your quiz, you can edit this file directly: src/tutorials/0008-new-tut-8/01.js"`;
 
-exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 17`] = `"Okay, no problem. You can summon me later to add quizzes."`;
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 17`] = `"Okay, no problem. You can summon me later to add  more quizzes."`;
 
 exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 18`] = `"View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
@@ -108,7 +108,7 @@ exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 29`] 
 
 exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 30`] = `"To make changes to your quiz, you can edit this file directly: src/tutorials/0008-new-tut-8/01.js"`;
 
-exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 31`] = `"Okay, no problem. You can summon me later to add quizzes."`;
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 31`] = `"Okay, no problem. You can summon me later to add  more quizzes."`;
 
 exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 32`] = `"View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
