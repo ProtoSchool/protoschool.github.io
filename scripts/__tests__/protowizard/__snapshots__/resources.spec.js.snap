@@ -2,15 +2,15 @@
 
 exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 1`] = `"Let's add resources to your tutorial."`;
 
-exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 2`] = `"Let's create the files you need to build your tutorial. We'll ask you a few questions to get started."`;
+exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 2`] = `"Let's create the files you need to build your tutorial. I'll ask you a few questions to get started."`;
 
-exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 3`] = `"Thanks! We've created a directory for your tutorial at \`src/tutorials/0008-new-tut-8/\`."`;
+exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 3`] = `"Thanks! I've created a directory for your tutorial at \`src/tutorials/0008-new-tut-8/\`."`;
 
 exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/"`;
 
 exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 5`] = `"Let's create your first resource!"`;
 
-exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 6`] = `"We've added \\"Resource 1\\" to your resources list."`;
+exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 6`] = `"I've added \\"Resource 1\\" to your resources list."`;
 
 exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 7`] = `
 "Okay, sounds like we're done. Here are all the resources now included in \\"New Tutorial (8)\\":
@@ -23,17 +23,17 @@ exports[`protowizard 3. create resource 3.1. should create resource after creati
 
 exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 10`] = `"Looks like your \\"New Tutorial (8)\\" tutorial doesn't have any lessons yet."`;
 
-exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 11`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
+exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 11`] = `"Okay, no problem. You can summon me later to add lessons."`;
 
-exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 12`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
+exports[`protowizard 3. create resource 3.1. should create resource after creating a new tutorial (skips lesson creation) 12`] = `"View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
-exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
+exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 1`] = `"Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial."`;
 
 exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 2`] = `"Let's add resources to your tutorial."`;
 
 exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 3`] = `"Let's create your first resource!"`;
 
-exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 4`] = `"We've added \\"Resource\\" to your resources list."`;
+exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 4`] = `"I've added \\"Resource\\" to your resources list."`;
 
 exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 5`] = `
 "Okay, sounds like we're done. Here are all the resources now included in \\"New Tutorial (8)\\":
@@ -46,6 +46,6 @@ exports[`protowizard 3. create resource 3.2. should create a resource and add it
 
 exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 8`] = `"Looks like your \\"New Tutorial (8)\\" tutorial doesn't have any lessons yet."`;
 
-exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 9`] = `"Okay, no problem. You can run the ProtoWizard later to add lessons."`;
+exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 9`] = `"Okay, no problem. You can summon me later to add lessons."`;
 
-exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 10`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
+exports[`protowizard 3. create resource 3.2. should create a resource and add it to the latest tutorial (skips lesson creation) 10`] = `"View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;

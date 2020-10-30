@@ -31,7 +31,7 @@ function validateUniqueUrl (url, tutorials) {
 // *** TUTORIAL CREATION ***
 
 async function createTutorial ({ createLesson, createResource, createQuiz }, { skipPromptLesson } = {}) {
-  log.info("Let's create the files you need to build your tutorial. We'll ask you a few questions to get started.")
+  log.info("Let's create the files you need to build your tutorial. I'll ask you a few questions to get started.")
 
   const tutorials = await api.tutorials.list.get()
 
@@ -45,7 +45,7 @@ async function createTutorial ({ createLesson, createResource, createQuiz }, { s
     {
       type: 'input',
       name: 'url',
-      message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept our suggestion.)',
+      message: 'What short title should appear in the URL for your tutorial (eg `http://proto.school/short-tutorial-title/). It will also be used to create the abbreviated title that is shown in the breadcrumb navigation and the small header at the top of each page of your tutorial. In most cases this will match your tutorial title. (Hit return to accept my suggestion.)',
       default: function (responses) {
         return responses.title.toLowerCase().split(' ').join('-')
       },
@@ -66,7 +66,7 @@ async function createTutorial ({ createLesson, createResource, createQuiz }, { s
     {
       type: 'confirm',
       name: 'addNewMessage',
-      message: `When your tutorial is first published, we'll alert users that it's new. Would you like to add a custom message to that alert? (See an example at https://bit.ly/protoschool-alerts.)`
+      message: `When your tutorial is first published, learners will be alerted that it's new. Would you like to add a custom message to that alert? (See an example at https://bit.ly/protoschool-alerts.)`
     },
     {
       type: 'input',
@@ -83,7 +83,7 @@ async function createTutorial ({ createLesson, createResource, createQuiz }, { s
   await api.courses.add(tutorial.id)
 
   // log success
-  log.info(`Thanks! We've created a directory for your tutorial at \`src/tutorials/${tutorial.formattedId}-${responses.url}/\`.`)
+  log.info(`Thanks! I've created a directory for your tutorial at \`src/tutorials/${tutorial.formattedId}-${responses.url}/\`.`)
   logPreview('your tutorial', responses.url)
 
   if (!skipPromptLesson) {

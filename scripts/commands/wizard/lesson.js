@@ -107,7 +107,7 @@ async function createLesson (tutorialId, { createResource }) {
   }
 
   // log success
-  logList(`Tada! We've created the following files that you'll need for this lesson`, newFileDetails)
+  logList(`Tada! I've created the following files that you'll need for this lesson`, newFileDetails)
   logPreview('this lesson', tutorial.url, lesson.formattedId)
 
   // prompt to repeat process until user declines, then log results

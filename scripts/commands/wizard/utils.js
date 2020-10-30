@@ -32,7 +32,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
     {
       type: 'confirm',
       name: 'latestTutorial',
-      message: `Should we add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
+      message: `Should I add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
     }
   ])
   // set data to latest tutorial
@@ -61,7 +61,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
         {
           type: 'list',
           name: 'tutorialId',
-          message: `Which of these existing tutorials should we add your ${newItemType} to?`,
+          message: `Which of these existing tutorials should I add your ${newItemType} to?`,
           choices: tutorialChoices.reverse()
         }
       ])
@@ -88,13 +88,13 @@ async function selectLesson (tutorial) {
         {
           type: 'list',
           name: 'lesson',
-          message: `Which of the multiple-choice lessons in ${tutorial.title} should we add your quiz to?`,
+          message: `Which of the multiple-choice lessons in ${tutorial.title} should I add your quiz to?`,
           choices: lessonChoices
         }
       ])
     return selectLesson.lesson
   } else {
-    log.info("There aren't any multiple-choice lessons in this tutorial. Please run the ProtoWizard again to add one.")
+    log.info("There aren't any multiple-choice lessons in this tutorial. Please summon me again to add one.")
     return null
   }
 }
@@ -157,12 +157,12 @@ function logPreview (item, tutorialUrl, pageUrl = '') {
 }
 
 function logCreateLater (items) {
-  log.info(`Okay, no problem. You can run the ProtoWizard later to add ${items}.`)
+  log.info(`Okay, no problem. You can summon me later to add ${items}.`)
   logGuide()
 }
 
 function logGuide () {
-  log.info(`View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
+  log.info(`View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
 }
 
 module.exports = {

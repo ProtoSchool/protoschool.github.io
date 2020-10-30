@@ -67,7 +67,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
       {
         type: 'input',
         name: 'incorrectFeedback',
-        message: 'What failure message should we show the learner if they pick this option? Be sure to explain why this choice is wrong so they can feel more confident when choosing again.',
+        message: 'What failure message should the learner see if they pick this option? Be sure to explain why this choice is wrong so they can feel more confident when choosing again.',
         validate: validateStringPresent
       }
     ])
@@ -83,7 +83,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
 
     choices.push(wrongAnswer)
 
-    log.info(`You currently have 1 correct answer and ${choices.length - 1} wrong answer${choices.length > 2 ? 's' : ''}. (We recommend providing 2-3 incorrect options.)`)
+    log.info(`You currently have 1 correct answer and ${choices.length - 1} wrong answer${choices.length > 2 ? 's' : ''}. (I recommend providing 2-3 incorrect options.)`)
 
     if (!(await promptRepeat('wrong answer'))) {
       askAgain = false
@@ -126,7 +126,7 @@ async function createQuizIntro ({ createLesson, createTutorial, createResource }
       }
     }
   } else {
-    log.info('No worries. Please run the ProtoWizard again to create your tutorial and lesson. Once you have the necessary files, you can run this script again to build your quiz.')
+    log.info('No worries. Please summon me again to create your tutorial and lesson. Once you have the necessary files, I can help you build your quiz.')
   }
 } // end createQuizIntro
 
@@ -144,7 +144,7 @@ async function promptOverwriteQuiz (tutorial, lesson) {
 }
 
 async function promptOverwritePristineQuiz (tutorial, lesson) {
-  log.info('When we create a quiz using the ProtoWizard, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding.')
+  log.info('When we create a quiz together, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding.')
   logPreview('the quiz in its current state', tutorial.url, lesson.formattedId)
 
   const { confirm } = await inquirer.prompt([

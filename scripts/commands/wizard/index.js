@@ -14,7 +14,7 @@ const quizzes = require('./quiz')
 log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizard')
 
 async function command (options) {
-  log.info(`Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial.`)
+  log.info(`Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial.`)
 
   const item = await inquirer.prompt([
     {

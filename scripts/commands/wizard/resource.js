@@ -112,7 +112,7 @@ async function createResource (tutorialId, { createLesson }) {
   await api.resources.add(tutorial.id, newResource)
 
   // log success
-  log.info(`We've added "${responses.title}" to your resources list.`)
+  log.info(`I've added "${responses.title}" to your resources list.`)
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat('resource')) {

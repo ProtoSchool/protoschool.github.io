@@ -140,7 +140,7 @@ We've included instructions in this guide for doing all of this manually (in cas
 
 #### Using the ProtoWizard CLI (recommended)
 
-The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lesson files, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready. You can even return to the ProtoWizard to build the quizzes for your multiple-choice lessons.
+The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lesson files, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready. You can even summon the ProtoWizard to build the quizzes for your multiple-choice lessons.
 
 It's easy to use the ProtoWizard even if you're not familiar with the command line. It will ask you a few questions and let you type your answers or select options using arrow keys. Based on your answers, the ProtoWizard will build the directory, files, and metadata you'll need to create your tutorial.
 
@@ -157,12 +157,12 @@ First, install the wizard:
 $ npm run install-protowizard
 ```
 
-Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
+Once the wizard is installed, you'll be able to summon it repeatedly with the shortcut command:
 ```sh
 $ protowizard
 ```
 
-If you choose not to install it, you'll need to use this longer command to run the ProtoWizard:
+If you choose not to install it, you'll need to use this longer command to summon the ProtoWizard:
 ```sh
 $ npm run scripts:wizard
 ```
@@ -190,21 +190,21 @@ While the ProtoWizard only supports the initial creation of this data, you can e
 
 Tell the ProtoWizard the name of your lesson and its type (text-only, multiple-choice, coding challenge with or without file upload) and it will create all the starter files you need inside your tutorial's directory. ([Learn more about the files required for each lesson type.](#create-lesson-files)) The ProtoWizard will provide you with the names of the files it's created so you'll know where to go to make your edits.
 
-If you have a solid outline, you can create these files all at once before editing them to create your content. Alternatively, you can set up just the files for your first lesson, build out that content to get familiar with the process, and return to the ProtoWizard later to create your next set of files. It's up to you.
+If you have a solid outline, you can create these files all at once before editing them to create your content. Alternatively, you can set up just the files for your first lesson, build out that content to get familiar with the process, and summon the ProtoWizard again later to create your next set of files. It's up to you.
 
 This guide includes detailed instructions on how to work within those files to [create your lesson content](#create-your-lesson-content) when you're ready.
 
 **Resources**
 
-Each ProtoSchool tutorial ends with a resources page where you can share suggestions of other learning materials relevant to your learners. The ProtoWizard will ask you a few quick questions about each resource in order to add the necessary details your tutorial's metadata. You can add all of your entries in the ProtoWizard at once or come back to it as you think of more resources.
+Each ProtoSchool tutorial ends with a resources page where you can share suggestions of other learning materials relevant to your learners. The ProtoWizard will ask you a few quick questions about each resource in order to add the necessary details your tutorial's metadata. You can add all of your entries at once or come summon the ProtoWizard repeatedly as you think of more resources.
 
 If you'd like to make edits to the resources you've created through the ProtoWizard, you can edit the details later in `src/static/tutorials.json`. [Learn how to create or edit resources manually.](#manage-your-tutorials-metadata)
 
 **Multiple-choice quizzes**
 
-Each multiple-choice lesson ends with a quiz to reinforce the lesson content. Through the ProtoWizard, you'll draft the question the learner needs to answer, then provide answer choices and feedback positive or negative feedback to display when each option is selected.
+Each multiple-choice lesson ends with a quiz to reinforce the lesson content. With the help of the ProtoWizard, you'll draft the question the learner needs to answer, then provide answer choices and feedback positive or negative feedback to display when each option is selected.
 
-The ProtoWizard will provide you with a link to the updated quiz file so you can make further edits as needed, or you can return to the ProtoWizard to start from scratch and overwrite the quiz content. [Learn how to create or edit quizzes manually.](#create-multiple-choice-quizzes-skip-for-coding-challenges-and-text-only-lessons)
+The ProtoWizard will provide you with a link to the updated quiz file so you can make further edits as needed, or you can summon the ProtoWizard again to start from scratch and overwrite the quiz content. [Learn how to create or edit quizzes manually.](#create-multiple-choice-quizzes-skip-for-coding-challenges-and-text-only-lessons)
 
 #### Manually
 
