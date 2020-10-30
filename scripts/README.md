@@ -25,6 +25,24 @@ To update one or more ToCs on demand (without automatically saving), you can run
   - `npm run build:docs:develop` - update TOC in DEVELOPING_TUTORIALS.md
   - `npm run build:docs` - update ToC in both files
 
+## Testing
+We use a number of test suites to ensure the best possible user experience. These tests are run automatically for each pull request and build.
+
+When submitting a PR for a new feature, please include updated tests as well. You can use the following tools and commands to build your tests.
+
+### Cypress
+Cypress provides end-to-end testing that mimics the user's experience with our interface.
+
+TODO: add link to docs, most common commands and flags, incl how to keep window open, whether or not screenshots need to be committed, etc.
+
+
+### Jest
+Jest is used for snapshot testing of our CLI, the ProtoWizard.
+
+TODO: add link to docs, most common commands and flags, incl when and how to update (and when not to update) snapshots
+
+
+
 ## Event and Newsletter Data Import
 
 This project depends on some remote sources for data:

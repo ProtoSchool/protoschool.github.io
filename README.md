@@ -49,6 +49,10 @@ You can safely experiment with any of the following to send stats to our TEST Pr
 - live site accessed directly through Fleek: https://protoschool.on.fleek.co/
 - preview for a specific PR via link found in PR testing section (e.g. https://bafybeihebd2p64xghtqjuewonkfm4l5n2lkvrllviz7nb33qtyir5q5fau.on.fleek.co/)
 
+## Testing suites
+
+We use Cypress and Jest for testing. Please check the documentation [here](scripts/README.md) for further details.
+
 ## Managing remote data
 
 Some data, such as the events list, is pulled at build-time from remote sources using Node.js scripts. Please check the documentation [here](scripts/README.md) for further details.
