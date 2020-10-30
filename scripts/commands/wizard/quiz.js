@@ -48,9 +48,9 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
       feedback: responses.correctFeedback
     }
   ]
-  log.info(`Your question is: "${question}"`)
-  log.info(`The correct answer is: "${choices[0].answer}"`)
-  log.info(`The feedback provided will be: "${choices[0].feedback}"`)
+  log.info(`Question: "${question}"`)
+  log.info(`Answer (Correct): "${choices[0].answer}"`)
+  log.info(`Feedback: "${choices[0].feedback}"`)
 
   let askAgain = true
   let wrongAnswer
@@ -78,8 +78,8 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
       feedback: responses.incorrectFeedback
     }
 
-    log.info(`Your new wrong answer is: "${wrongAnswer.answer}"`)
-    log.info(`The feedback provided will be: "${wrongAnswer.feedback}"`)
+    log.info(`Answer (Incorrect): "${wrongAnswer.answer}"`)
+    log.info(`Feedback: "${wrongAnswer.feedback}"`)
 
     choices.push(wrongAnswer)
 
@@ -98,7 +98,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     choices[j] = temp
   }
 
-  logList(`Cool! Here's what we get when we mix up the order of the answer choices`, choices.map((choice, index) => `Option ${index + 1}: \n    ‣ Answer: ${choice.answer} \n    ‣ Feedback [${choice.correct ? 'Correct' : 'Incorrect'}]: ${choice.feedback}`))
+  logList(`Cool! Here's what we get when we mix up the order of the answer choices`, choices.map((choice, index) => `Option ${index + 1}: \n    ‣ Answer (${choice.correct ? 'Correct' : 'Incorrect'}): ${choice.answer} \n    ‣ Feedback: ${choice.feedback}`))
   await api.lessons.updateQuiz(tutorial, lesson, { question, choices })
   await afterQuizCreate(tutorial, lesson, { createLesson, createTutorial, createResource })
 } // end createQuiz
