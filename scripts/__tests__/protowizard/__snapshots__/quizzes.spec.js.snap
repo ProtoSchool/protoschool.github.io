@@ -24,7 +24,7 @@ exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 9`] =
 
 exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 10`] = `"The feedback provided will be: \\"Feedback for incorrect answer 1\\""`;
 
-exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 11`] = `"You currently have 1 correct answer and 1 wrong answers. (We recommend providing 2-3 incorrect options.)"`;
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 11`] = `"You currently have 1 correct answer and 1 wrong answer. (We recommend providing 2-3 incorrect options.)"`;
 
 exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 12`] = `"Your new wrong answer is: \\"Incorrect answer 2\\""`;
 
@@ -66,7 +66,7 @@ exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 10`] 
 
 exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 11`] = `"The feedback provided will be: \\"Incorrect feedback to overwrite\\""`;
 
-exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 12`] = `"You currently have 1 correct answer and 1 wrong answers. (We recommend providing 2-3 incorrect options.)"`;
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 12`] = `"You currently have 1 correct answer and 1 wrong answer. (We recommend providing 2-3 incorrect options.)"`;
 
 exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 13`] = `"To preview your quiz, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
 
@@ -79,6 +79,38 @@ exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 16`] 
  ‣ Tutorial: New Tutorial (8)
  ‣ Lesson: Lesson 1"
 `;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 17`] = `"It looks like you've already created the quiz for this lesson."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 18`] = `"To preview the existing version, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 19`] = `"Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 20`] = `"Your question is: \\"What's my question?\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 21`] = `"The correct answer is: \\"Correct answer\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 22`] = `"The feedback provided will be: \\"Positive feedback\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 23`] = `"Your new wrong answer is: \\"Incorrect answer 1\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 24`] = `"The feedback provided will be: \\"Feedback for incorrect answer 1\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 25`] = `"You currently have 1 correct answer and 1 wrong answer. (We recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 26`] = `"Your new wrong answer is: \\"Incorrect answer 2\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 27`] = `"The feedback provided will be: \\"Feedback for incorrect answer 2\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 28`] = `"You currently have 1 correct answer and 2 wrong answers. (We recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 29`] = `"To preview your quiz, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 30`] = `"To make changes to your quiz, you can edit this file directly: src/tutorials/0008-new-tut-8/01.js"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 31`] = `"Okay, no problem. You can run the ProtoWizard later to add quizzes."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 32`] = `"View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
 
 exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 1`] = `"Welcome to the ProtoWizard! We're excited to help you build your ProtoSchool tutorial."`;
 
