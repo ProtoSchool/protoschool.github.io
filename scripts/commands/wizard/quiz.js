@@ -83,7 +83,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
 
     choices.push(wrongAnswer)
 
-    log.info(`You currently have 1 correct answer and ${choices.length - 1} wrong answers. (We recommend providing 2-3 incorrect options.)`)
+    log.info(`You currently have 1 correct answer and ${choices.length - 1} wrong answer${choices.length > 2 ? 's' : ''}. (We recommend providing 2-3 incorrect options.)`)
 
     if (!(await promptRepeat('wrong answer'))) {
       askAgain = false
@@ -98,9 +98,9 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
     choices[j] = temp
   }
 
-  logList(`Cool! Here's what we get when we mix up the order of the answer choices:`, choices.map((choice, index) => `Option ${index + 1}: \n    ‣ Answer: ${choice.answer} \n    ‣ Feedback [${choice.correct ? 'Correct' : 'Incorrect'}]: ${choice.feedback}`))
+  logList(`Cool! Here's what we get when we mix up the order of the answer choices`, choices.map((choice, index) => `Option ${index + 1}: \n    ‣ Answer: ${choice.answer} \n    ‣ Feedback [${choice.correct ? 'Correct' : 'Incorrect'}]: ${choice.feedback}`))
   await api.lessons.updateQuiz(tutorial, lesson, { question, choices })
-  afterQuizCreate(tutorial, lesson, { createLesson, createTutorial, createResource })
+  await afterQuizCreate(tutorial, lesson, { createLesson, createTutorial, createResource })
 } // end createQuiz
 
 // *** TRANSITIONAL DIALOGS & PROMPTS ***
@@ -162,7 +162,7 @@ async function afterQuizCreate (tutorial, lesson, { createLesson, createTutorial
   logPreview('your quiz', tutorial.url, lesson.formattedId)
   log.info(`To make changes to your quiz, you can edit this file directly: src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lesson.formattedId}.js`)
   if (await promptRepeat('quiz')) {
-    return createQuizIntro({ createLesson, createTutorial, createResource }) // TODO
+    return createQuizIntro({ createLesson, createTutorial, createResource })
   } else {
     logCreateLater('quizzes')
   }
