@@ -85,9 +85,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
 
     log.info(`You currently have 1 correct answer and ${choices.length - 1} wrong answer${choices.length > 2 ? 's' : ''}. (I recommend providing 2-3 incorrect options.)`)
 
-    if (!(await promptRepeat('wrong answer'))) {
-      askAgain = false
-    }
+    askAgain = await promptRepeat('wrong answer') // prompt to repeat adding a wrong answer
   } // end while loop
 
   // shuffle right and wrong answers to change position of correct one
