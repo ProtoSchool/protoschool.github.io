@@ -52,9 +52,6 @@ function get (tutorial, lessonId) {
       if (lesson.type !== 'multiple-choice') {
         lesson.files.challengeMarkdown = files.getChallengeMarkdownPath(tutorial, lessonId)
       }
-      // TODO else if mult choice, lessons.choices = choices
-      // require JS file to get choices object  (path at line 50)
-      // but we can't actually require it so...  ¯\_(ツ)_/¯
     }
   } catch (error) {
     // lesson not found, we reached the end
