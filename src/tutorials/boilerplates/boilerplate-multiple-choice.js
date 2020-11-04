@@ -1,5 +1,7 @@
 /* eslint quotes: ["error", "double"]  */
 
+// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+
 // Question must be a string
 const question = "What's the meaning of life, the universe, and everything?"
 

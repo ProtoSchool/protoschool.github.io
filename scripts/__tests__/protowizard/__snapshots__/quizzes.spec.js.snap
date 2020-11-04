@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 1`] = `"Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files."`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 2`] = `
+"Great! You've chosen to build a quiz for:
+ ‣ Tutorial: New Tutorial (8)
+ ‣ Lesson: Lesson 1"
+`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 3`] = `"When we create a quiz together, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding."`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 4`] = `"To preview the quiz in its current state, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 5`] = `"Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.)"`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 6`] = `"Question: \\"What's my question?\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 7`] = `"Answer (Correct): \\"Correct answer\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 8`] = `"Feedback: \\"Positive feedback\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 9`] = `"Answer (Incorrect): \\"Incorrect answer 1\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 10`] = `"Feedback: \\"Feedback for incorrect answer 1\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 11`] = `"You currently have 1 correct answer and 1 wrong answer. (I recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 12`] = `"Answer (Incorrect): \\"Incorrect answer 2\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 13`] = `"Feedback: \\"Feedback for incorrect answer 2\\""`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 14`] = `"You currently have 1 correct answer and 2 wrong answers. (I recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 15`] = `"To preview your quiz, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 16`] = `"To make changes to your quiz, you can edit this file directly: src/tutorials/0008-new-tut-8/01.js"`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 17`] = `"Okay, no problem. You can summon me later to add  more quizzes."`;
+
+exports[`protowizard 4. create quiz 4.1 should add quiz to pristine lesson 18`] = `"View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 1`] = `"Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 2`] = `"Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 3`] = `
+"Great! You've chosen to build a quiz for:
+ ‣ Tutorial: New Tutorial (8)
+ ‣ Lesson: Lesson 1"
+`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 4`] = `"When we create a quiz together, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 5`] = `"To preview the quiz in its current state, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 6`] = `"Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 7`] = `"Question: \\"Question to overwrite\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 8`] = `"Answer (Correct): \\"Correct answer to overwrite\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 9`] = `"Feedback: \\"Correct feedback to overwrite\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 10`] = `"Answer (Incorrect): \\"Incorrect answer to overwrite\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 11`] = `"Feedback: \\"Incorrect feedback to overwrite\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 12`] = `"You currently have 1 correct answer and 1 wrong answer. (I recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 13`] = `"To preview your quiz, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 14`] = `"To make changes to your quiz, you can edit this file directly: src/tutorials/0008-new-tut-8/01.js"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 15`] = `"Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 16`] = `
+"Great! You've chosen to build a quiz for:
+ ‣ Tutorial: New Tutorial (8)
+ ‣ Lesson: Lesson 1"
+`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 17`] = `"It looks like you've already created the quiz for this lesson."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 18`] = `"To preview the existing version, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 19`] = `"Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 20`] = `"Question: \\"What's my question?\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 21`] = `"Answer (Correct): \\"Correct answer\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 22`] = `"Feedback: \\"Positive feedback\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 23`] = `"Answer (Incorrect): \\"Incorrect answer 1\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 24`] = `"Feedback: \\"Feedback for incorrect answer 1\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 25`] = `"You currently have 1 correct answer and 1 wrong answer. (I recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 26`] = `"Answer (Incorrect): \\"Incorrect answer 2\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 27`] = `"Feedback: \\"Feedback for incorrect answer 2\\""`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 28`] = `"You currently have 1 correct answer and 2 wrong answers. (I recommend providing 2-3 incorrect options.)"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 29`] = `"To preview your quiz, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 30`] = `"To make changes to your quiz, you can edit this file directly: src/tutorials/0008-new-tut-8/01.js"`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 31`] = `"Okay, no problem. You can summon me later to add  more quizzes."`;
+
+exports[`protowizard 4. create quiz 4.2 should add quiz to existing lesson 32`] = `"View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing"`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 1`] = `"Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 2`] = `"Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files."`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 3`] = `
+"Great! You've chosen to build a quiz for:
+ ‣ Tutorial: New Tutorial (8)
+ ‣ Lesson: Lesson 1"
+`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 4`] = `"It looks like you've already created the quiz for this lesson."`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 5`] = `"To preview the existing version, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 6`] = `"Okay, no problem. You can edit your existing quiz directly in this file: src/tutorials/0008-new-tut-8/01.js"`;
+
+exports[`protowizard 4. create quiz 4.3 should cancel overwrite of non-pristine lesson 7`] = `
+"
+/* eslint quotes: [\\"error\\", \\"double\\"]  */
+
+// Question must be a string
+const question = \\"What's my question?\\"
+
+// Choices must be an array of objects, each with the properties:
+// \`answer\` (string), \`correct\` (boolean), and \`feedback\` (string)
+// Only one answer can be correct.
+const choices = [
+  {
+    \\"answer\\": \\"Incorrect answer 1\\",
+    \\"correct\\": false,
+    \\"feedback\\": \\"Feedback for incorrect answer 1\\"
+  },
+  {
+    \\"answer\\": \\"Correct answer\\",
+    \\"correct\\": true,
+    \\"feedback\\": \\"Positive feedback\\"
+  },
+  {
+    \\"answer\\": \\"Incorrect answer 2\\",
+    \\"correct\\": false,
+    \\"feedback\\": \\"Feedback for incorrect answer 2\\"
+  }
+]
+
+export default {
+  question,
+  choices
+}
+"
+`;
+
+exports[`protowizard 4. create quiz 4.4 should cancel overwrite of pristine lesson 1`] = `"Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial."`;
+
+exports[`protowizard 4. create quiz 4.4 should cancel overwrite of pristine lesson 2`] = `"Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files."`;
+
+exports[`protowizard 4. create quiz 4.4 should cancel overwrite of pristine lesson 3`] = `
+"Great! You've chosen to build a quiz for:
+ ‣ Tutorial: New Tutorial (8)
+ ‣ Lesson: Lesson 1"
+`;
+
+exports[`protowizard 4. create quiz 4.4 should cancel overwrite of pristine lesson 4`] = `"When we create a quiz together, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding."`;
+
+exports[`protowizard 4. create quiz 4.4 should cancel overwrite of pristine lesson 5`] = `"To preview the quiz in its current state, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+
+exports[`protowizard 4. create quiz 4.4 should cancel overwrite of pristine lesson 6`] = `"Okay, no problem. You can edit your existing quiz directly in this file: src/tutorials/0008-new-tut-8/01.js"`;

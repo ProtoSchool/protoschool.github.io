@@ -23,8 +23,7 @@ function validateStringPresent (string) {
 }
 
 // *** TRANSITIONAL DIALOGS & PROMPTS (INQUIRER) ***
-
-async function selectTutorial (newItemType, { createTutorial, createResource, createLesson }) {
+async function selectTutorial (newItemType, { createTutorial, createResource, createLesson, createQuiz }) {
   let tutorial
   let tutorials = await api.tutorials.list.get()
   let latestTutorial = await api.tutorials.list.getLatest()
@@ -33,7 +32,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
     {
       type: 'confirm',
       name: 'latestTutorial',
-      message: `Should we add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
+      message: `Should I add your ${newItemType} to the "${latestTutorial.title}" tutorial?`
     }
   ])
   // set data to latest tutorial
@@ -43,10 +42,15 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
   // offer selection of existing tutorials or creating a new one
   } else {
     let tutorialChoices = [
-      new inquirer.Separator(),
-      { name: '+ Create new tutorial', value: 'new' },
       new inquirer.Separator()
     ]
+    if (newItemType !== 'quiz') {
+      tutorialChoices = [
+        new inquirer.Separator(),
+        { name: '+ Create new tutorial', value: 'new' },
+        new inquirer.Separator()
+      ]
+    }
 
     Object.keys(tutorials).sort().forEach(tutorialId => {
       tutorialChoices.push({ name: tutorials[tutorialId].title, value: tutorialId })
@@ -57,7 +61,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
         {
           type: 'list',
           name: 'tutorialId',
-          message: `Which of these existing tutorials should we add your ${newItemType} to?`,
+          message: `Which of these existing tutorials should I add your ${newItemType} to?`,
           choices: tutorialChoices.reverse()
         }
       ])
@@ -65,12 +69,34 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
     if (tutorialResponses2.tutorialId !== 'new') {
       tutorial = tutorials[tutorialResponses2.tutorialId]
     // create new tutorial and set data accordingly
+    } else if (newItemType === 'quiz') {
+      log.info("you want a quiz but you're making a new tutorial that won't have any lessons in it")
+      tutorial = await createTutorial({ createLesson, createResource, createQuiz }, { skipPromptLesson: false })
     } else {
-      tutorial = await createTutorial({ createLesson, createResource }, { skipPromptLesson: true })
+      tutorial = await createTutorial({ createLesson, createResource, createQuiz }, { skipPromptLesson: true })
     }
   }
 
   return tutorial
+}
+
+async function selectMultipleChoiceLesson (tutorial) {
+  if (tutorial.lessons.some(lesson => lesson.type === 'multiple-choice')) {
+    let lessonChoices = tutorial.lessons.map(lesson => (lesson.type === 'multiple-choice') ? { name: `${lesson.id} - ${lesson.title} (${lesson.type})`, value: lesson } : new inquirer.Separator(`${lesson.id} - ${lesson.title} (${lesson.type})`))
+    const selectLesson = await inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'lesson',
+          message: `Which of the multiple-choice lessons in ${tutorial.title} should I add your quiz to?`,
+          choices: lessonChoices
+        }
+      ])
+    return selectLesson.lesson
+  } else {
+    log.info("There aren't any multiple-choice lessons in this tutorial. Please summon me again to add one.")
+    return null
+  }
 }
 
 async function promptRepeat (type) {
@@ -99,6 +125,18 @@ async function promptCreateFirst (itemType, tutorialId) {
   return confirm
 }
 
+async function promptFilesReady () {
+  const { confirm } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message: `Have you already created a lesson in the appropriate tutorial?`
+    }
+  ])
+
+  return confirm
+}
+
 // *** LOGGING ***
 
 function logEverythingDone (tutorial) {
@@ -119,12 +157,12 @@ function logPreview (item, tutorialUrl, pageUrl = '') {
 }
 
 function logCreateLater (items) {
-  log.info(`Okay, no problem. You can run the ProtoWizard later to add ${items}.`)
+  log.info(`Okay, no problem. You can summon me later to add ${items}.`)
   logGuide()
 }
 
 function logGuide () {
-  log.info(`View our detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
+  log.info(`View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
 }
 
 module.exports = {
@@ -137,5 +175,7 @@ module.exports = {
   validateStringPresent,
   logPreview,
   logGuide,
-  logCreateLater
+  logCreateLater,
+  promptFilesReady,
+  selectMultipleChoiceLesson
 }

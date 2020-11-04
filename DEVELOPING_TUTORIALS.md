@@ -79,7 +79,7 @@ There are four lesson formats available, which you may mix and match within your
 
 To build any of these lesson types, you'll need to use Markdown, a fairly simple way to style text on the web. [Learn more about Markdown formatting here.](https://guides.github.com/features/mastering-markdown/)
 
-To create text-based or multiple-choice lessons, no prior coding knowledge is required. Our text-only lessons are written exclusively in Markdown, and you'll only need to do some simple text replacements in our JavaScript boilerplate to set up questions and answers for multiple-choice quizzes.
+To create text-based or multiple-choice lessons, no prior coding knowledge is required, as the content of these lessons is written in Markdown. To create the question and answer choices for a multiple-choice quiz, you can either use the ProtoWizard or make some text edits to the provided JavaScript template.
 
 However, if you want to create code challenges (with or without file upload), you'll need to use JavaScript extensively to set up your default and solution code and validation. JavaScript is a scripting language for building interactive web pages, and you should have a solid understanding of JavaScript before building a code challenge for ProtoSchool.
 
@@ -124,7 +124,7 @@ $ npm install
 5. Run the dev server locally:
 
 ```sh
-$ npm run serve
+$ npm start
 ```
 
 6. Open a web browser to the following address to preview your work: http://localhost:3000
@@ -140,7 +140,7 @@ We've included instructions in this guide for doing all of this manually (in cas
 
 #### Using the ProtoWizard CLI (recommended)
 
-The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lesson files, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready.
+The ProtoWizard is a CLI (Command-Line Interface) that makes it easy to create the starter files and metadata needed for a new tutorial. You can build your full tutorial at once, creating your tutorial metadata (URL, description, etc.), lesson files, and resources in one go. Alternatively, you can create your tutorial framework and then come back to add lessons and resources as you're ready. You can even summon the ProtoWizard to build the quizzes for your multiple-choice lessons.
 
 It's easy to use the ProtoWizard even if you're not familiar with the command line. It will ask you a few questions and let you type your answers or select options using arrow keys. Based on your answers, the ProtoWizard will build the directory, files, and metadata you'll need to create your tutorial.
 
@@ -157,12 +157,12 @@ First, install the wizard:
 $ npm run install-protowizard
 ```
 
-Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
+Once the wizard is installed, you'll be able to summon it repeatedly with the shortcut command:
 ```sh
 $ protowizard
 ```
 
-If you choose not to install it, you'll need to use this longer command to run the ProtoWizard:
+If you choose not to install it, you'll need to use this longer command to summon the ProtoWizard:
 ```sh
 $ npm run scripts:wizard
 ```
@@ -176,7 +176,7 @@ When you run either of the commands above to start the CLI, our friendly little 
 
 ![screenshot](public/protowizard.png)
 
-If you're creating a new tutorial from scratch, you'll need to create a tutorial before adding lessons or resources to it. You can either add your lessons and resources immediately after creating the tutorial or exit the ProtoWizard and run it again later to create those items.
+If you're creating a new tutorial from scratch, you'll need to create a tutorial before adding lessons or resources to it. You can either add your lessons and resources immediately after creating the tutorial or exit the ProtoWizard and run it again later to create those items. To create a multiple-choice quiz, you'll need to have first created your tutorial and lesson files.
 
 By keeping your server running, you can preview your new tutorial in a web browser while using the ProtoWizard to add content.
 
@@ -190,15 +190,21 @@ While the ProtoWizard only supports the initial creation of this data, you can e
 
 Tell the ProtoWizard the name of your lesson and its type (text-only, multiple-choice, coding challenge with or without file upload) and it will create all the starter files you need inside your tutorial's directory. ([Learn more about the files required for each lesson type.](#create-lesson-files)) The ProtoWizard will provide you with the names of the files it's created so you'll know where to go to make your edits.
 
-If you have a solid outline, you can create these files all at once before editing them to create your content. Alternatively, you can set up just the files for your first lesson, build out that content to get familiar with the process, and return to the ProtoWizard later to create your next set of files. It's up to you.
+If you have a solid outline, you can create these files all at once before editing them to create your content. Alternatively, you can set up just the files for your first lesson, build out that content to get familiar with the process, and summon the ProtoWizard again later to create your next set of files. It's up to you.
 
 This guide includes detailed instructions on how to work within those files to [create your lesson content](#create-your-lesson-content) when you're ready.
 
 **Resources**
 
-Each ProtoSchool tutorial ends with a resources page where you can share suggestions of other learning materials relevant to your learners. The ProtoWizard will ask you a few quick questions about each resource in order to add the necessary details your tutorial's metadata. You can add all of your entries in the ProtoWizard at once or come back to it as you think of more resources.
+Each ProtoSchool tutorial ends with a resources page where you can share suggestions of other learning materials relevant to your learners. The ProtoWizard will ask you a few quick questions about each resource in order to add the necessary details your tutorial's metadata. You can add all of your entries at once or come summon the ProtoWizard repeatedly as you think of more resources.
 
 If you'd like to make edits to the resources you've created through the ProtoWizard, you can edit the details later in `src/static/tutorials.json`. [Learn how to create or edit resources manually.](#manage-your-tutorials-metadata)
+
+**Multiple-choice quizzes**
+
+Each multiple-choice lesson ends with a quiz to reinforce the lesson content. With the help of the ProtoWizard, you'll draft the question the learner needs to answer, then provide answer choices and feedback positive or negative feedback to display when each option is selected.
+
+The ProtoWizard will provide you with a link to the updated quiz file so you can make further edits as needed, or you can summon the ProtoWizard again to start from scratch and overwrite the quiz content. [Learn how to create or edit quizzes manually.](#create-multiple-choice-quizzes-skip-for-coding-challenges-and-text-only-lessons)
 
 #### Manually
 
@@ -432,7 +438,15 @@ Then in your lesson Markdown file, you can either add the image with regular Mar
 
 #### Create multiple-choice quizzes (skip for coding challenges and text-only lessons)
 
-When creating a multiple-choice lesson, you'll use your JavaScript (eg `01.js`) file to define the question and its answer choices.
+We recommend that you [use the ProtoWizard to create your multiple-choice quizzes](#using-the-protowizard-cli-recommended).
+
+However, you may instead choose to edit your JavaScript (eg `01.js`) file directly to define the question and its answer choices, as described below.
+
+When editing manually, please be sure to remove the following line of code:
+```
+// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+```
+This will allow the ProtoWizard to identify the file as having been edited, so that it can warn you if you later ask to overwrite existing content.
 
 The `question` value must be a string:
 
@@ -448,26 +462,26 @@ const question = "What's the meaning of life, the universe, and everything?"
 ```js
  const choices = [
    {
-     answer: 'An incorrect answer',
+     answer: "An incorrect answer",
      correct: false,
-     feedback: 'Oops. Here\'s some clue about why that answer is wrong.'
+     feedback: "Oops. Here's some clue about why that answer is wrong."
    },
    {
-     answer: 'A correct answer.',
+     answer: "A correct answer.",
      correct: true,
-     feedback: 'Great job!'
+     feedback: "Great job!"
    },
    {
-     answer: 'A different incorrect answer',
+     answer: "A different incorrect answer",
      correct: false,
-     feedback: 'Sorry, here\'s some clue about why this choice is wrong.'
+     feedback: "Sorry, here's some clue about why this choice is wrong."
    }
  ]
 ```
 
 Please provide 3-5 answer choices per question. **You may only provide _one_ correct choice.**
 
-The answer choices will be presented in the order in which you list them. Be sure to vary the position of the correct answer from lesson to lesson.
+If you create the quiz manually, the answer choices will be presented in the order in which you list them. Be sure to vary the position of the correct answer from lesson to lesson. (When using the ProtoWizard, your choices will be shuffled automatically.)
 
 The `feedback` provided for each choice will be shown highlighted in red if incorrect or in green if correct, and the user will be able to advance to next lesson once they've made the right selection.
 
