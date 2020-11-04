@@ -91,7 +91,6 @@ describe('protowizard', () => {
         { incorrectAnswer: 'Incorrect answer to overwrite', // incorrect answer
           incorrectFeedback: 'Incorrect feedback to overwrite' }, // incorrect feedback
         { confirm: false }, // don't add another answer
-        // ***THE STATE OF THE JS FILE RIGHT HERE (WITH DATA MEANT TO BE OVERWRITTEN) IS WHAT JEST IS COMPARING TO WHEN IT FAILS
         { confirm: true }, // add another quiz
         // add quiz and overwrite the one above
         { confirm: true }, // lesson already exists
