@@ -5,7 +5,7 @@ const api = require('../../../src/api')
 const {
   selectTutorial,
   promptFilesReady,
-  selectLesson,
+  selectMultipleChoiceLesson,
   logList,
   validateStringPresent,
   promptRepeat,
@@ -108,16 +108,16 @@ async function createQuizIntro ({ createLesson, createTutorial, createResource }
 
   if (await promptFilesReady()) {
     const tutorial = await selectTutorial('quiz', { createTutorial, createResource, createLesson, createQuiz })
-    const lesson = await selectLesson(tutorial)
+    const lesson = await selectMultipleChoiceLesson(tutorial)
 
     if (lesson) { // skip if value is null because there weren't multiple choice lessons in tutorial
       logList(`Great! You've chosen to build a quiz for`, [`Tutorial: ${tutorial.title}`, `Lesson: ${lesson.title}`])
 
-      const overwrite = api.lessons.isQuizPristine(tutorial, lesson)
+      const shouldOverwrite = api.lessons.isQuizPristine(tutorial, lesson)
         ? await promptOverwritePristineQuiz(tutorial, lesson)
         : await promptOverwriteQuiz(tutorial, lesson)
 
-      if (overwrite) {
+      if (shouldOverwrite) {
         return createQuiz(tutorial, lesson, { createLesson, createTutorial, createResource })
       } else {
         logEditQuizManually(tutorial, lesson)

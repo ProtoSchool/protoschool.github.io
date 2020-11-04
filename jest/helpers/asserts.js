@@ -13,7 +13,7 @@ function isExcluded (log) {
 // add log to snapshot UNLESS it contains an excluded phrase
 function assertLogSnapshot (log) {
   if (!isExcluded(log)) {
-    expect(log).toMatchSnapshot() // expect if log isn't excluded from exertion
+    expect(log).toMatchSnapshot() // expect if log isn't excluded from assertion
   }
   // do nothing if log is excluded from assertion
 }

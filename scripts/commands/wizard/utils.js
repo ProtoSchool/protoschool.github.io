@@ -80,7 +80,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
   return tutorial
 }
 
-async function selectLesson (tutorial) {
+async function selectMultipleChoiceLesson (tutorial) {
   if (tutorial.lessons.some(lesson => lesson.type === 'multiple-choice')) {
     let lessonChoices = tutorial.lessons.map(lesson => (lesson.type === 'multiple-choice') ? { name: `${lesson.id} - ${lesson.title} (${lesson.type})`, value: lesson } : new inquirer.Separator(`${lesson.id} - ${lesson.title} (${lesson.type})`))
     const selectLesson = await inquirer
@@ -177,5 +177,5 @@ module.exports = {
   logGuide,
   logCreateLater,
   promptFilesReady,
-  selectLesson
+  selectMultipleChoiceLesson
 }
