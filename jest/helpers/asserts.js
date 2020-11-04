@@ -7,12 +7,7 @@ const excludedPhrases = [
 
 // returns true if log includes a string from the excludedPhrases array
 function isExcluded (log) {
-  for (let phrase of excludedPhrases) {
-    if (log.includes(phrase)) {
-      return true
-    }
-  }
-  return false
+  return excludedPhrases.some(phrase => log.includes(phrase))
 }
 
 // add log to snapshot UNLESS it contains an excluded phrase
