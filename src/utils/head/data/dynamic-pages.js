@@ -17,6 +17,9 @@ export default function (head) {
       return head({
         'title': titleString,
         'description': context.tutorial.description,
+        'og:image': `https://proto.school/social-tiles/twitter/tutorials/${context.tutorial.url}.jpg`,
+        'twitter:image': `https://proto.school/social-tiles/twitter/tutorials/${context.tutorial.url}.jpg`,
+        'twitter:image:alt': titleString,
         ...data
       })
     },
@@ -30,6 +33,9 @@ export default function (head) {
       return head({
         'title': titleString,
         'description': context.lesson.description || context.tutorial.description || null,
+        'og:image': `https://proto.school/social-tiles/twitter/tutorials/${context.tutorial.url}.jpg`,
+        'twitter:image': `https://proto.school/social-tiles/twitter/tutorials/${context.tutorial.url}.jpg`,
+        'twitter:image:alt': titleString,
         ...data
       })
     },
@@ -46,6 +52,9 @@ export default function (head) {
       return head({
         'title': titleString,
         'description': descriptionString,
+        'og:image': `https://proto.school/social-tiles/twitter/tutorials/${context.tutorial.url}.jpg`,
+        'twitter:image': `https://proto.school/social-tiles/twitter/tutorials/${context.tutorial.url}.jpg`,
+        'twitter:image:alt': titleString,
         ...data
       })
     }
