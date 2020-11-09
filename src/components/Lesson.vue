@@ -254,7 +254,7 @@ export default {
       editorReady: false,
       isFileLesson: self.isFileLesson,
       isMultipleChoiceLesson: self.isMultipleChoiceLesson,
-      uploadedFiles: window.uploadedFiles || false,
+      uploadedFiles: window.uploadedFiles || [],
       choice: localStorage[self.cacheKey] || '',
       cachedChoice: !!localStorage['cached' + routePath],
       output: self.output,
@@ -364,7 +364,7 @@ export default {
 
       const code = this.editor.getValue()
 
-      if (this.isFileLesson && this.uploadedFiles === false && auto === true) {
+      if (this.isFileLesson && this.uploadedFiles.length === 0 && auto === true) {
         this.showUploadInfo = true
         this.isSubmitting = false
         return
@@ -491,7 +491,8 @@ export default {
       countly.trackEvent(countly.events.CODE_RESET, this.trackingData)
     },
     resetFileUpload: function () {
-      this.uploadedFiles = false
+      this.uploadedFiles = []
+      this.onFilesReset()
       delete this.output.test
     },
     clearPassed: function () {

@@ -590,7 +590,7 @@ const run = async (files) => {
 Behind the scenes, the uploaded files have been saved as `window.uploadedFiles` for use both in your user's code and in your own validation. In your `validate` function, we recommend saving the files to a variable and allowing for the fact that they may not be present. For example:
 
 ```js
-const uploadedFiles = window.uploadedFiles || false
+const uploadedFiles = window.uploadedFiles || []
 ```
 
 Remember that these files are stored as browser file objects. Reference the [Files documentation](https://developer.mozilla.org/en-US/docs/Web/API/File#Properties) to see what properties are available to both you and the user, including `name` and `type`.

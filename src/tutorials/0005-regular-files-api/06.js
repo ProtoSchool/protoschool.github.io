@@ -3,7 +3,7 @@ import all from 'it-all'
 import utils from '../utils'
 
 const validate = async (result, ipfs) => {
-  let uploadedFiles = window.uploadedFiles || false
+  let uploadedFiles = window.uploadedFiles || []
   const fileObjectsArray = window.uploadedFiles.map((file) => { return { path: file.name, content: file } })
   const addedFiles = await all(ipfs.addAll(fileObjectsArray, { wrapWithDirectory: true }))
   const directoryCID = addedFiles[addedFiles.length - 1].cid

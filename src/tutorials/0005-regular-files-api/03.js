@@ -64,7 +64,7 @@ async function validateSingleFile (result, uploadedFiles, { ipfs }) {
 }
 
 const validate = async (result, ipfs) => {
-  const uploadedFiles = window.uploadedFiles || false
+  const uploadedFiles = window.uploadedFiles || []
 
   if (!result) {
     return {

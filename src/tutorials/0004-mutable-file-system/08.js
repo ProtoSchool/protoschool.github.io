@@ -16,7 +16,7 @@ const validate = async (result, ipfs) => {
   }
 
   // identify files that should have been moved
-  let uploadedFiles = window.uploadedFiles || false
+  let uploadedFiles = window.uploadedFiles || []
   let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
 
   // check whether user returned the contents of /some/stuff
@@ -38,7 +38,7 @@ const validate = async (result, ipfs) => {
 
   if (!result) {
     return { fail: 'You forgot to return a result. Did you accidentally edit the return statement?' }
-  } else if (uploadedFiles === false) {
+  } else if (uploadedFiles.length === 0) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   } else if (result instanceof Error && result.message === 'Unexpected token const') {

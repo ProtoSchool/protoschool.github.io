@@ -46,7 +46,7 @@ const validate = async (result, ipfs) => {
     }
   }
 
-  if (uploadedFiles === false) {
+  if (uploadedFiles.length === 0) {
     // Shouldn't happen because you can't hit submit without uploading files
     return { fail: 'Oops! You forgot to upload files to work with :(' }
   }

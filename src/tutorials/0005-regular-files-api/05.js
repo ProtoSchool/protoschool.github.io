@@ -4,7 +4,7 @@ import all from 'it-all'
 import utils from '../utils'
 
 const validate = async (result, ipfs) => {
-  let uploadedFiles = window.uploadedFiles || false
+  let uploadedFiles = window.uploadedFiles || []
   let fileObjectsArray = window.uploadedFiles.map((file) => {
     return {
       path: file.name,

@@ -43,6 +43,11 @@ export default {
       let elem = document.querySelector('input#file')
       elem.click()
     },
+    onFilesReset: function () {
+      let elem = document.querySelector('input#file')
+      elem.value = ''
+      delete elem.files
+    },
     onFiles: function (files) {
       this.uploadedFiles = files
       window.uploadedFiles = files
