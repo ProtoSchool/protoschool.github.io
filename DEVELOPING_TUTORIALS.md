@@ -102,10 +102,10 @@ $ cd protoschool.github.io
 
 3. Check out the appropriate branch:
 
-If creating a new tutorial, create a new branch before making any changes, starting with our current website code (the `code` branch):
+If creating a new tutorial, create a new branch before making any changes, starting with our current website code (the `main` branch):
 
 ```sh
-$ git checkout code
+$ git checkout main
 $ git checkout -b new-branch-name
 ```
 If proofing a PR for someone else, check out their branch (you'll see its name listed in the PR):
