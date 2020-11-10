@@ -10,7 +10,7 @@ export default {
     'title': 'ProtoSchool | Interactive tutorials on decentralized web protocols',
     'description': 'Interactive tutorials on decentralized web protocols. Explore IPFS and Filecoin through code challenges, code-free lessons, and local events.'
   },
-  '/build/': {
+  '/build': {
     'title': 'Build',
     'og:title': 'Build interactive ProtoSchool tutorials',
     'description': 'Build interactive ProtoSchool tutorials on decentralized web protocols like IPFS and Filecoin. Create DWeb coding challenges or text-based lessons and quizzes.',
@@ -19,7 +19,7 @@ export default {
     'twitter:image': 'https://proto.school/social-tiles/twitter/build.jpg',
     'twitter:image:alt': 'Build an interactive DWeb tutorial'
   },
-  '/contribute/': {
+  '/contribute': {
     'title': 'Contribute',
     'og:title': 'Contribute to the ProtoSchool community',
     'description': 'ProtoSchool is making it easy to get started with decentralized web technologies. Contribute by building tutorials, hosting local events, and more.',
@@ -28,7 +28,7 @@ export default {
     'twitter:image': 'https://proto.school/social-tiles/twitter/contribute.jpg',
     'twitter:image:alt': 'Share your skills at ProtoSchool'
   },
-  '/events/': {
+  '/events': {
     'title': 'Events',
     'og:title': 'Attend ProtoSchool workshops',
     'description': 'Attend in-person or virtual ProtoSchool workshops around the globe to learn about decentralized web protocols with the support of local mentors.',
@@ -37,7 +37,7 @@ export default {
     'twitter:image': 'https://proto.school/social-tiles/twitter/events-A.jpg',
     'twitter:image:alt': 'Attend a local or virtual DWeb workshop'
   },
-  '/host/': {
+  '/host': {
     'title': 'Host',
     'og:title': 'Host ProtoSchool workshops',
     'description': 'Host local ProtoSchool workshops in your communtiy to introduce others to IPFS, Filecoin, and other decentralized web protocols and concepts.',
@@ -46,7 +46,7 @@ export default {
     'twitter:image': 'https://proto.school/social-tiles/twitter/host.jpg',
     'twitter:image:alt': 'Host a local or virtual DWeb workshop'
   },
-  '/news/': {
+  '/news': {
     'title': 'News',
     'og:title': 'Subscribe to the ProtoSchool newsletter',
     'description': 'Subscribe to the ProtoSchool Newsletter for updates on new tutorials and site features. Opt-in for additional resources for local event leaders.',
@@ -57,7 +57,7 @@ export default {
   },
 
   // Tutorials Page
-  '/tutorials/': {
+  '/tutorials': {
     'title': 'Tutorials',
     'og:title': `Interactive tutorials on DWeb protocols | ProtoSchool`,
     'description': `Interactive tutorials on decentralized web protocols. Explore IPFS and Filecoin through coding challenges and code-free tutorials.`,

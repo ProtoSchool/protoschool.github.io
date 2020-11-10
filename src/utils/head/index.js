@@ -83,20 +83,19 @@ function head (customData) {
 
   // Pass title to og:title if not present
   if (data.title && !data['og:title']) {
-    meta.push({ property: 'og:title', content: data.title })
+    meta.push({ property: 'og:title', content: data.title, vmid: 'og:title' })
   }
 
   // Pass description to og:description if not present
   if (data.description && !data['og:description']) {
-    meta.push({ property: 'og:description', content: data.description })
+    meta.push({ property: 'og:description', content: data.description, vmid: 'og:description' })
   }
 
   // Add all og:* with `property` attribute, otherwise, use `name` attribute
   for (const key in data) {
     if (data.hasOwnProperty(key) && key !== 'title') {
       const objectKey = key.startsWith('og:') ? 'property' : 'name'
-
-      meta.push({ [objectKey]: key, content: data[key] })
+      meta.push({ [objectKey]: key, content: data[key], vmid: key })
     }
   }
 
