@@ -15,8 +15,11 @@ export default function headRoot () {
       { name: 'twitter:image', content: 'https://proto.school/social-tiles/twitter/home-B.jpg' },
       { name: 'twitter:image:alt', content: 'ProtoSchool: Interactive tutorials on decentralized web protocols' },
       { name: 'twitter:site', content: '@ProtoSchool' }
-    ],
-    changed () {
+    ].map(item => ({
+      ...item,
+      vmid: item.property || item.name
+    })),
+    changed (newInfo) {
       clearTimeout(window.__APP_RENDERED_TIMEOUT__)
 
       window.__APP_RENDERED_TIMEOUT__ = setTimeout(() => {
