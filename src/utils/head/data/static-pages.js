@@ -32,9 +32,9 @@ export default {
     'title': 'Events',
     'og:title': 'Attend ProtoSchool workshops',
     'description': 'Attend in-person or virtual ProtoSchool workshops around the globe to learn about decentralized web protocols with the support of local mentors.',
-    'og:image': 'https://proto.school/social-tiles/twitter/events-A.jpg',
+    'og:image': 'https://proto.school/social-tiles/twitter/events.jpg',
     'og:site_name': 'Events | ProtoSchool',
-    'twitter:image': 'https://proto.school/social-tiles/twitter/events-A.jpg',
+    'twitter:image': 'https://proto.school/social-tiles/twitter/events.jpg',
     'twitter:image:alt': 'Attend a local or virtual DWeb workshop'
   },
   '/host': {
@@ -50,9 +50,9 @@ export default {
     'title': 'News',
     'og:title': 'Subscribe to the ProtoSchool newsletter',
     'description': 'Subscribe to the ProtoSchool Newsletter for updates on new tutorials and site features. Opt-in for additional resources for local event leaders.',
-    'og:image': 'https://proto.school/social-tiles/twitter/home-A.jpg',
+    'og:image': 'https://proto.school/social-tiles/twitter/news.jpg',
     'og:site_name': 'Subscribe | ProtoSchool',
-    'twitter:image': 'https://proto.school/social-tiles/twitter/home-A.jpg',
+    'twitter:image': 'https://proto.school/social-tiles/twitter/news.jpg',
     'twitter:image:alt': 'Subscribe | ProtoSchool'
   },
 
@@ -61,9 +61,9 @@ export default {
     'title': 'Tutorials',
     'og:title': `Interactive tutorials on DWeb protocols | ProtoSchool`,
     'description': `Interactive tutorials on decentralized web protocols. Explore IPFS and Filecoin through coding challenges and code-free tutorials.`,
-    'og:image': 'https://proto.school/social-tiles/twitter/home-B.jpg',
+    'og:image': 'https://proto.school/social-tiles/twitter/brand-tutorials.jpg',
     'og:site_name': 'Tutorials | ProtoSchool',
-    'twitter:image': 'https://proto.school/social-tiles/twitter/home-B.jpg',
+    'twitter:image': 'https://proto.school/social-tiles/twitter/brand-tutorials.jpg',
     'twitter:image:alt': 'ProtoSchool: Interactive tutorials on decentralized web protocols'
   },
   '/tutorials/?code=false': {
