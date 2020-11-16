@@ -20,7 +20,7 @@
             :tutorial="tutorial"
             class="mv4"
         />
-        <h1>{{isResources ? 'Resources' : lesson.title}}</h1>
+        <h1 v-if="!isResources">{{lesson.title}}</h1>
         <Concepts v-if="concepts" :concepts="concepts" />
         <Resources v-if="isResources" :data="resources" />
         <!--
