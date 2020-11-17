@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!surveyCompleted">
+  <div v-if="!surveyCompleted || !isProfileSurveyComplete()">
     <FormOptionA
       v-if="option === 'optionA'"
       :initialStep="initialStep"
@@ -72,6 +72,9 @@ export default {
       })
 
       settings.tutorialFeedbackSurvey.saveProgress(this.tutorial.id, question.number, answer)
+    },
+    isProfileSurveyComplete: function () {
+      return settings.profileSurvey.isCompleted()
     }
   }
 }
