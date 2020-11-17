@@ -19,6 +19,7 @@ export const correctedCases = {
   of: 'of',
   a: 'a',
   on: 'on',
+  to: 'to',
   ipfs: 'IPFS',
   libp2p: 'libp2p'
 }

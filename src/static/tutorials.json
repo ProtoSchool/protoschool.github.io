@@ -339,5 +339,31 @@
         "description": "Explore how CIDs are constructed in Filecoin, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       }
     ]
+  },
+  "0008": {
+    "id": 8,
+    "formattedId": "0008",
+    "url": "introduction-to-libp2p",
+    "project": "libp2p",
+    "title": "Introduction to libp2p",
+    "description": "In this tutorial you'll learn what libp2p is, what problems it is trying to solve, and how it tries to solve them. You'll also get an overview of it's modularity and how it aims to be the de facto peer-to-peer library.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2020-11-16T18:04:37.607Z",
+    "updatedAt": "2020-11-16T18:04:37.607Z",
+    "resources": [
+      {
+        "title": "libp2p website",
+        "link": "https://libp2p.io",
+        "type": "docs",
+        "description": "libp2p main website. Includes links to all the native implementations, videos of past talks, specifications and documentation."
+      },
+      {
+        "title": "Introduction to libp2p by David Dias",
+        "link": "https://www.youtube.com/watch?v=CRe_oDtfRLw",
+        "type": "video",
+        "description": "Talk that heavily inspired this tutorial. David goes through why we need libp2p, how it works and what are its objectives for the future."
+      }
+    ]
   }
 }

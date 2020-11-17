@@ -4,9 +4,9 @@ exports[`protowizard 2. create lesson 2.1. should create lesson after creating a
 
 exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 2`] = `"Let's create the files you need to build your tutorial. I'll ask you a few questions to get started."`;
 
-exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 3`] = `"Thanks! I've created a directory for your tutorial at \`src/tutorials/0008-new-tut-8/\`."`;
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 3`] = `"Thanks! I've created a directory for your tutorial at \`src/tutorials/0009-new-tut-9/\`."`;
 
-exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/"`;
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 4`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-9/"`;
 
 exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 5`] = `"Let's create your first lesson!"`;
 
@@ -15,14 +15,14 @@ exports[`protowizard 2. create lesson 2.1. should create lesson after creating a
  ‣ 01.md (for writing the text of your lesson)"
 `;
 
-exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 7`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 7`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-9/01"`;
 
 exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 8`] = `
-"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (8)\\":
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (9)\\":
  ‣ 1 - Lesson 1 (text)"
 `;
 
-exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 9`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0008-new-tut-8/\` directory."`;
+exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 9`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0009-new-tut-9/\` directory."`;
 
 exports[`protowizard 2. create lesson 2.1. should create lesson after creating a new tutorial (skips resource creation) 10`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
 
@@ -41,14 +41,14 @@ exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to 
  ‣ 01.md (for writing the text of your lesson)"
 `;
 
-exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 5`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/01"`;
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 5`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-9/01"`;
 
 exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 6`] = `
-"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (8)\\":
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (9)\\":
  ‣ 1 - Lesson (text)"
 `;
 
-exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 7`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0008-new-tut-8/\` directory."`;
+exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 7`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0009-new-tut-9/\` directory."`;
 
 exports[`protowizard 2. create lesson 2.2. should create a lesson and add it to the latest tutorial (skips resource creation) 8`] = `"All tutorials have a resources page where users can find opportunities for further learning."`;
 
@@ -75,10 +75,10 @@ exports[`protowizard 2. create lesson 2.3. should list the lessons created so fa
  ‣ 05.md (for writing the text of your lesson)"
 `;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/05"`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 6`] = `"To preview this lesson, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-9/05"`;
 
 exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 7`] = `
-"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (8)\\":
+"Okay, sounds like we're done. Here are all the lessons now included in \\"New Tutorial (9)\\":
  ‣ 1 - Lesson 1 (text)
  ‣ 2 - Lesson 2 (text)
  ‣ 3 - Lesson 3 (text)
@@ -86,13 +86,13 @@ exports[`protowizard 2. create lesson 2.3. should list the lessons created so fa
  ‣ 5 - Lesson (text)"
 `;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 8`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0008-new-tut-8/\` directory."`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 8`] = `"You can find all the files you'll need for these lessons in the \`src/tutorials/0009-new-tut-9/\` directory."`;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 9`] = `"Awesome work! \\"New Tutorial (8)\\" has both lesson files and resources!"`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 9`] = `"Awesome work! \\"New Tutorial (9)\\" has both lesson files and resources!"`;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 10`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-8/"`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 10`] = `"To preview your tutorial, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/new-tut-9/"`;
 
-exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 11`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0008-new-tut-8/\` directory. (Learn more at https://bit.ly/protoschool-content.)"`;
+exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 11`] = `"To create the content of your lessons, edit the files in the \`src/tutorials/0009-new-tut-9/\` directory. (Learn more at https://bit.ly/protoschool-content.)"`;
 
 exports[`protowizard 2. create lesson 2.3. should list the lessons created so far 12`] = `"To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)"`;
 
