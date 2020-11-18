@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!surveyCompleted || !isProfileSurveyComplete()">
+  <div v-if="!surveyCompleted">
     <FormOptionA
       v-if="option === 'optionA'"
       :initialStep="initialStep"

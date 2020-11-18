@@ -10,7 +10,7 @@
         target="_blank"
         class="twitter-share-link no-underline b navy-muted hover-white inline-flex items-center mt2 pv2 tc br2 link"
         title="Twitter"
-        v-on:click="dismissMessage"
+        v-on:click="dismiss"
       >
         <span class="f5 pr2">Share on Twitter</span>
         <img src="../../static/images/icons/twitter.svg" class="dib h1 w1 navy-muted" alt="twitter" />
@@ -18,13 +18,14 @@
     </div>
     <ButtonClose
       title="Dismiss message"
-      :onDismiss="dismissMessage"
+      :onDismiss="dismiss"
     />
   </div>
 </template>
 <script>
 import ButtonClose from '../buttons/ButtonClose'
 import { getTutorialFullUrl } from '../../utils/tutorials'
+import settings from '../../utils/settings'
 
 export default {
   components: {
@@ -33,9 +34,11 @@ export default {
   props: {
     tutorial: Object
   },
-  data: () => ({
-    dismissed: false
-  }),
+  data: function () {
+    return {
+      dismissed: settings.tutorialCompletionCallout.isDismissed(this.tutorial.id)
+    }
+  },
   computed: {
     twitterShareLink: function () {
       let href = 'https://twitter.com/intent/tweet?'
@@ -47,8 +50,12 @@ export default {
     }
   },
   methods: {
-    dismissMessage () {
+    dismiss () {
       this.dismissed = true
+      settings.tutorialCompletionCallout.dismissed(this.tutorial.id)
+    },
+    isDismissed: function () {
+      this.dismissed = settings.tutorialCompletionCallout.isDismissed(this.tutorial.id)
     }
   }
 }
