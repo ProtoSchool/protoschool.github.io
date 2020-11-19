@@ -44,7 +44,7 @@
           data-state-view-transition-delay-leave="default"
         >
           <Question
-            class="mt4 question"
+            class="mt4"
             v-for="(question, index) in questions"
             :key="question.text"
             :question="question"
@@ -153,14 +153,5 @@ export default {
 .steps-tracker {
   width: 15.625rem;
   max-width: 100%;
-}
-
-.question {
-  transition: opacity var(--transition-default) var(--transition-duration-default);
-}
-
-.question[data-selected="true"] {
-  pointer-events: none;
-  opacity: 0.5;
 }
 </style>

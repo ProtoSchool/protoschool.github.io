@@ -1,39 +1,45 @@
 <template>
-  <div
-    class="question"
-    :data-selected="selected !== -1"
+  <transition
+    name="state-view-transition"
   >
-    <p>{{question.text}}<p/>
-    <div class="answers dib">
-      <div
-        class="answers-list dib"
-      >
-        <label
-          class="answer inline-flex items-center justify-center"
-          v-for="(icon, index) in icons"
-          :key="icon"
-          :for="`response-${index + 1}`"
-          :data-number="index + 1"
-          :data-selected="selected === (index + 1)"
+    <div
+      v-if="selected === -1"
+      data-state-view-active="true"
+      data-state-view-transition-function="slide"
+      class="question state-view"
+    >
+      <p>{{question.text}}<p/>
+      <div class="answers dib">
+        <div
+          class="answers-list dib"
         >
-          <input
-            type="radio"
-            class="input-reset"
-            :value="index + 1"
-            :name="`response-${index + 1}`"
-            v-on:change="onSelect(index + 1)"
-            v-model="selected"
-          />
-          <img :src="icon" :alt="`answer ${index + 1} out of 5 to the question`" />
-        </label>
-      </div>
-      <br />
-      <div class="answers-legend w-100 inline-flex justify-between">
-        <div class="lowest">{{labels.lowest}}</div>
-        <div class="highest">{{labels.highest}}</div>
+          <label
+            class="answer inline-flex items-center justify-center"
+            v-for="(icon, index) in icons"
+            :key="icon"
+            :for="`response-${index + 1}`"
+            :data-number="index + 1"
+            :data-selected="selected === (index + 1)"
+          >
+            <input
+              type="radio"
+              class="input-reset"
+              :value="index + 1"
+              :name="`response-${index + 1}`"
+              v-on:change="onSelect(index + 1)"
+              v-model="selected"
+            />
+            <img :src="icon" :alt="`answer ${index + 1} out of 5 to the question`" />
+          </label>
+        </div>
+        <br />
+        <div class="answers-legend w-100 inline-flex justify-between">
+          <div class="lowest">{{labels.lowest}}</div>
+          <div class="highest">{{labels.highest}}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 import answerOneIcon from '../../../static/images/icons/survey/1.svg'
