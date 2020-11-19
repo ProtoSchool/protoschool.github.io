@@ -57,4 +57,12 @@ button.close:active {
 button.close {
   opacity: 0.2;
 }
+
+@media screen and (max-width: 30rem) {
+  button.close {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 </style>
