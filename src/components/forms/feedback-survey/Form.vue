@@ -32,7 +32,7 @@
           {{translations.thankYouMessage.title}}
         </h2>
       </transition>
-      <StepsTracker
+      <StepsTrackerB
         class="steps-tracker mb3"
         :currentStep="currentStep"
         :maximumStep="maximumStep"
@@ -72,7 +72,7 @@ import translations from '../../../static/translations'
 import countly from '../../../utils/countly'
 import settings from '../../../utils/settings'
 import Question from './Question.vue'
-import StepsTracker from './StepsTracker.vue'
+import StepsTrackerB from './StepsTrackerB.vue'
 import ThankYouMessage from './ThankYouMessage.vue'
 import ButtonClose from '../../buttons/ButtonClose.vue'
 
@@ -80,7 +80,7 @@ export default {
   name: 'Form',
   components: {
     Question,
-    StepsTracker,
+    StepsTrackerB,
     ThankYouMessage,
     ButtonClose
   },

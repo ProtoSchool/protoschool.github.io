@@ -1,24 +1,27 @@
 <template>
   <div
-    class="tracker-wrapper flex"
+    class="tracker flex"
+    :style="`--progress: ${currentStep}`"
   >
     <div
-      class="tracker dib"
-      :style="`--progress: ${currentStep === 0 ? 0.01 : currentStep / maximumStep}`"
-      :data-show="currentStep === maximumStep"
+      v-for="i in maximumStep"
+      :key="i"
+      class="step dib"
+      :data-completed="currentStep === maximumStep"
+      :data-step-completed="(i - 1) >= currentStep"
+      :data-is-last="i === maximumStep"
     >
       <div
-        class="progress"
+        class="step-progress"
         role="progressbar"
         :aria-valuenow="currentStep / maximumStep"
         aria-valuemin="1"
-        :aria-valuemax="maximumStep + 1"
+        :aria-valuemax="maximumStep"
         :aria-valuetext="`Question ${currentStep + 1}`"
       >
       </div>
-      <div class="progress-tip"></div>
     </div>
-    <div class="progress-completed"></div>
+    <div class="completed-pills"></div>
   </div>
 </template>
 
@@ -32,7 +35,7 @@ export default {
 </script>
 
 <style scoped>
-.tracker-wrapper {
+.tracker {
   --height: 0.25rem;
   --progress: 2px;
 
@@ -40,85 +43,50 @@ export default {
   height: var(--height);
 }
 
-.tracker {
+.step {
   position: relative;
   background: var(--color-gray-muted);
   height: var(--height);
   width: 100%;
+  margin-right: 1rem;
 
   border-radius: var(--height);
   overflow: hidden;
 }
 
-.progress {
-  content: '';
+.step[data-is-last="true"] {
+  margin-right: 0;
+}
 
+.step-progress {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
-  transform: scaleX(var(--progress));
+  transform: translateX(0);
 
   width: 100%;
 
   background: var(--color-aqua);
-}
 
-.progress-tip {
-  content: '';
-
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  transform: translateX(calc(var(--progress) * 100%));
-
-  height: 100%;
-  border-radius: var(--height);
-}
-
-.progress-tip::before {
-  content: '';
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: calc(var(--height) * -0.5);
-  bottom: 0;
-
-  width: var(--height);
-
-  background-color: var(--color-gray-muted);
-}
-.progress-tip::after {
-  content: '';
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  left: calc(var(--height) * -1);
-  bottom: 0;
-
-  width: var(--height);
-  border-radius: var(--height);
-
-  background-color: var(--color-aqua);
-}
-
-.progress, .progress-tip {
   transform-origin: left;
 
   transition:
     transform 900ms cubic-bezier(1, 0.18, 0, 1);
 }
 
-.progress-completed {
+.step[data-step-completed="true"] .step-progress {
+  transform: translateX(-100%);
+}
+
+.completed-pills {
   --pill-height: calc(var(--height) * 0.8);
   --pill-width: calc(var(--pill-height) * 2.8);
 }
 
-.progress-completed,
-.progress-completed::after,
-.progress-completed::before {
+.completed-pills,
+.completed-pills::after,
+.completed-pills::before {
   content: '';
 
   position: absolute;
@@ -133,38 +101,38 @@ export default {
     transform 350ms ease 700ms;
 }
 
-.progress-completed {
+.completed-pills {
   opacity: 0;
   top: calc(50% - var(--pill-height) / 2);
   right: calc(-1 * var(--pill-width) - 5px);
 }
 
-.progress-completed::after {
+.completed-pills::after {
   top: calc(50% - var(--pill-height) / 2);
   right: 0.2rem;
   transform: translateY(-0.6rem) rotateZ(-45deg);
 }
 
-.progress-completed::before {
+.completed-pills::before {
   top: calc(50% - var(--pill-height) / 2);
   right: 0.2rem;
 
   transform: translateY(0.6rem) rotateZ(45deg);
 }
 
-.tracker[data-show="true"] + .progress-completed {
+.step[data-completed="true"] + .completed-pills {
   opacity: 0.01;
   transform: translateX(3px);
 }
-.tracker[data-show="true"] + .progress-completed::after {
+.step[data-completed="true"] + .completed-pills::after {
   transform: translateY(-0.7rem) rotateZ(-45deg);
 }
-.tracker[data-show="true"] + .progress-completed::before {
+.step[data-completed="true"] + .completed-pills::before {
   transform: translateY(0.7rem) rotateZ(45deg);
 }
 
-/* Completely hide the tracker */
-.tracker[data-show="true"] {
+/* Completely hide the steps */
+.step[data-completed="true"] {
   transform: scaleX(0);
 
   transform-origin: right;
