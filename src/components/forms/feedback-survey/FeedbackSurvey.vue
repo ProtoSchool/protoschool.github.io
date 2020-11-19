@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!surveyCompleted || !isProfileSurveyComplete()">
+  <div v-if="isTutorialPassed && (!surveyCompleted || !isProfileSurveyComplete())">
     <FormOptionA
       v-if="option === 'optionA'"
       :initialStep="initialStep"
@@ -17,7 +17,7 @@
 
 <script>
 import countly from '../../../utils/countly'
-import { getTutorialByUrl, getTutorialType } from '../../../utils/tutorials'
+import { getTutorialByUrl, getTutorialType, isTutorialPassed } from '../../../utils/tutorials'
 import settings from '../../../utils/settings'
 import abTesting from '../../../utils/ab-testing'
 import FormOptionA from './Form.vue'
@@ -41,6 +41,9 @@ export default {
     },
     initialStep: function () {
       return this.progress.lastAnsweredQuestionNumber === -1 ? 0 : this.progress.lastAnsweredQuestionNumber
+    },
+    isTutorialPassed: function () {
+      return isTutorialPassed(this.tutorial)
     },
     surveyCompleted: function () {
       return this.progress.completed
