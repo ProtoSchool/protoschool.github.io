@@ -114,7 +114,7 @@ export default {
 
       return {
         path: this.$route.path,
-        option: tutorialFeedbackSurveyOption
+        option: tutorialFeedbackSurveyOption + '-2'
       }
     }
   },
