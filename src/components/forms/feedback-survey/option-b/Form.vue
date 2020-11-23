@@ -44,7 +44,7 @@
           data-state-view-transition-delay-leave="default"
         >
           <Question
-            :class="currentStep < (maximumStep - 1) ? 'mt4' : ''"
+            class="mt3"
             v-for="(question) in currentQuestions"
             :key="question.text"
             :question="question"
