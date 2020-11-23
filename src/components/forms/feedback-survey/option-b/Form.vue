@@ -52,7 +52,7 @@
           />
         </div>
         <ThankYouMessage
-          class="state-view"
+          class="state-view mt3"
           v-if="currentStep === maximumStep"
           :data-state-view-active="currentStep === maximumStep"
           key="thank-you"
