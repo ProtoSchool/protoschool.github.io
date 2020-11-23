@@ -6,6 +6,7 @@
       v-if="selected === -1"
       data-state-view-active="true"
       data-state-view-transition-function="slide"
+      data-state-view-transition-delay-leave="default"
       class="question state-view"
     >
       <p>{{question.text}}<p/>
@@ -58,7 +59,6 @@ export default {
   props: {
     question: Object,
     onSelect: Function,
-    selectedAnswer: Number,
     answerSelected: {
       type: Number,
       default: -1

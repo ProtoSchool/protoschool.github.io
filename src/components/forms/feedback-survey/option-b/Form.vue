@@ -45,11 +45,10 @@
         >
           <Question
             :class="currentStep < (maximumStep - 1) ? 'mt4' : ''"
-            v-for="(question, index) in questions"
+            v-for="(question) in currentQuestions"
             :key="question.text"
             :question="question"
             :onSelect="answerNumber => onSelect(question, answerNumber)"
-            :answerSelected="answers[index]"
           />
         </div>
         <ThankYouMessage
@@ -108,6 +107,9 @@ export default {
   computed: {
     tutorial: function () {
       return getTutorialByUrl(this.$route.params.tutorialUrl)
+    },
+    currentQuestions: function () {
+      return this.questions.filter((_, index) => index >= this.currentStep)
     },
     answers: function () {
       return settings.tutorialFeedbackSurvey.getProgress(this.tutorial.id).answers
