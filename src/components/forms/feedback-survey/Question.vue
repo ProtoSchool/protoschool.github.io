@@ -74,7 +74,7 @@ export default {
     }
   },
   beforeDestroy () {
-    if (this.selected === -1) {
+    if (this.selected === -1 || !this.$el.querySelector) {
       return
     }
 
