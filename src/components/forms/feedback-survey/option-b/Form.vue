@@ -44,11 +44,12 @@
           data-state-view-transition-delay-leave="default"
         >
           <Question
-            class="mt3"
-            v-for="(question) in currentQuestions"
+            class="question mt3"
+            v-for="(question, index) in currentQuestions"
             :key="question.text"
             :question="question"
             :onSelect="answerNumber => onSelect(question, answerNumber)"
+            :answerSelected="answers[index]"
           />
         </div>
         <ThankYouMessage
@@ -148,6 +149,12 @@ export default {
 }
 </script>
 <style scoped>
+.question:not(:first-child) {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
 .form {
   position: relative;
 }

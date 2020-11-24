@@ -7,6 +7,7 @@
       v-for="i in maximumStep"
       :key="i"
       class="step dib"
+      :data-is-active="(i - 1) === currentStep"
       :data-completed="currentStep === maximumStep"
       :data-step-completed="(i - 1) >= currentStep"
       :data-is-last="i === maximumStep"
@@ -38,6 +39,7 @@ export default {
 .tracker {
   --height: 0.25rem;
   --progress: 2px;
+  --transition: 900ms cubic-bezier(1, 0.18, 0, 1);
 
   position: relative;
   height: var(--height);
@@ -52,6 +54,13 @@ export default {
 
   border-radius: var(--height);
   overflow: hidden;
+
+  transition:
+    background var(--transition);
+}
+
+.step[data-is-active="true"]:not([data-step-completed="false"]) {
+  background: var(--color-gray);
 }
 
 .step[data-is-last="true"] {
@@ -72,7 +81,7 @@ export default {
   transform-origin: left;
 
   transition:
-    transform 900ms cubic-bezier(1, 0.18, 0, 1);
+    transform var(--transition);
 }
 
 .step[data-step-completed="true"] .step-progress {
@@ -133,10 +142,13 @@ export default {
 
 /* Completely hide the steps */
 .step[data-completed="true"] {
+  background: var(--color-gray-muted);
   transform: scaleX(0);
 
   transform-origin: right;
-  transition: transform var(--transition-slow);
+  transition:
+    background var(--transition),
+    transform var(--transition-slow);
   transition-delay: 1.2s;
 }
 </style>

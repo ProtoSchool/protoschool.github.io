@@ -62,6 +62,10 @@ export default {
     answerSelected: {
       type: Number,
       default: -1
+    },
+    active: {
+      type: String,
+      default: 'on'
     }
   },
   data: self => ({

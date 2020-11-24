@@ -4,7 +4,7 @@
   >
     <div
       class="tracker dib"
-      :style="`--progress: ${currentStep === 0 ? 0.01 : currentStep / maximumStep}`"
+      :style="`--progress: ${currentStep === 0 ? 0.05 : (currentStep / maximumStep * 1.2)}`"
       :data-show="currentStep === maximumStep"
     >
       <div
@@ -19,6 +19,12 @@
       <div class="progress-tip"></div>
     </div>
     <div class="progress-completed"></div>
+    <div
+      class="tracker-counter f7 absolute"
+      :data-active="(currentStep + 1) <= maximumStep"
+    >
+      {{(currentStep + 1) > maximumStep ? maximumStep : currentStep + 1}} of {{maximumStep}}
+    </div>
   </div>
 </template>
 
@@ -48,6 +54,20 @@ export default {
 
   border-radius: var(--height);
   overflow: hidden;
+}
+
+.tracker-counter {
+  width: 3rem;
+  top: 50%;
+  left: calc(100% + 0.5rem);
+  opacity: 1;
+  transform: translateY(-50%);
+
+  transition: opacity var(--transition-default);
+}
+
+.tracker-counter:not([data-active="true"]) {
+  opacity: 0;
 }
 
 .progress {
@@ -129,8 +149,8 @@ export default {
   background-color: var(--color-navy);
 
   transition:
-    opacity 600ms cubic-bezier(1, -300, 0, 300) 400ms,
-    transform 350ms ease 700ms;
+    opacity 600ms cubic-bezier(1, -300, 0, 300) 200ms,
+    transform 350ms ease 400ms;
 }
 
 .progress-completed {
