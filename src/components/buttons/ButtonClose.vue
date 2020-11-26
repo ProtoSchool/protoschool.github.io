@@ -60,8 +60,11 @@ button.close {
 
 @media screen and (max-width: 30rem) {
   button.close {
-    opacity: 1;
-    transform: scale(1);
+    top: 0.3rem;
+    right: 0.3rem;
+
+    opacity: 0.8;
+    transform: scale(0.8);
   }
 }
 

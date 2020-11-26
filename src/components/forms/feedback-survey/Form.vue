@@ -149,7 +149,6 @@ export default {
 }
 
 .steps-tracker {
-  width: 15.625rem;
-  max-width: 100%;
+  max-width: 16rem;
 }
 </style>

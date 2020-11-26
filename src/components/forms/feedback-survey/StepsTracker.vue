@@ -16,11 +16,10 @@
         :aria-valuetext="`Question ${currentStep + 1}`"
       >
       </div>
-      <div class="progress-tip"></div>
     </div>
-    <div class="progress-completed"></div>
+    <div class="completed-pills"></div>
     <div
-      class="tracker-counter f7 absolute"
+      class="tracker-counter f7"
       :data-active="(currentStep + 1) <= maximumStep"
     >
       {{(currentStep + 1) > maximumStep ? maximumStep : currentStep + 1}} of {{maximumStep}}
@@ -40,6 +39,7 @@ export default {
 <style scoped>
 .tracker-wrapper {
   --height: 0.25rem;
+  --tracker-counter-width: 4rem;
   --progress: 2px;
 
   position: relative;
@@ -57,11 +57,11 @@ export default {
 }
 
 .tracker-counter {
-  width: 3rem;
-  top: 50%;
-  left: calc(100% + 0.5rem);
+  width: var(--tracker-counter-width);
   opacity: 1;
-  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   transition: opacity var(--transition-default);
 }
@@ -84,61 +84,23 @@ export default {
   background: var(--color-aqua);
 }
 
-.progress-tip {
-  content: '';
-
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  transform: translateX(calc(var(--progress) * 100%));
-
-  height: 100%;
-  border-radius: var(--height);
-}
-
-.progress-tip::before {
-  content: '';
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: calc(var(--height) * -0.5);
-  bottom: 0;
-
-  width: var(--height);
-
-  background-color: var(--color-gray-muted);
-}
-.progress-tip::after {
-  content: '';
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  left: calc(var(--height) * -1);
-  bottom: 0;
-
-  width: var(--height);
-  border-radius: var(--height);
-
-  background-color: var(--color-aqua);
-}
-
-.progress, .progress-tip {
+.progress {
   transform-origin: left;
 
   transition:
     transform 900ms cubic-bezier(1, 0.18, 0, 1);
 }
 
-.progress-completed {
+.completed-pills {
   --pill-height: calc(var(--height) * 0.8);
   --pill-width: calc(var(--pill-height) * 2.8);
+
+  position: relative !important;
 }
 
-.progress-completed,
-.progress-completed::after,
-.progress-completed::before {
+.completed-pills,
+.completed-pills::after,
+.completed-pills::before {
   content: '';
 
   position: absolute;
@@ -153,33 +115,33 @@ export default {
     transform 350ms ease 400ms;
 }
 
-.progress-completed {
+.completed-pills {
   opacity: 0;
   top: calc(50% - var(--pill-height) / 2);
   right: calc(-1 * var(--pill-width) - 5px);
 }
 
-.progress-completed::after {
+.completed-pills::after {
   top: calc(50% - var(--pill-height) / 2);
   right: 0.2rem;
   transform: translateY(-0.6rem) rotateZ(-45deg);
 }
 
-.progress-completed::before {
+.completed-pills::before {
   top: calc(50% - var(--pill-height) / 2);
   right: 0.2rem;
 
   transform: translateY(0.6rem) rotateZ(45deg);
 }
 
-.tracker[data-show="true"] + .progress-completed {
+.tracker[data-show="true"] + .completed-pills {
   opacity: 0.01;
   transform: translateX(3px);
 }
-.tracker[data-show="true"] + .progress-completed::after {
+.tracker[data-show="true"] + .completed-pills::after {
   transform: translateY(-0.7rem) rotateZ(-45deg);
 }
-.tracker[data-show="true"] + .progress-completed::before {
+.tracker[data-show="true"] + .completed-pills::before {
   transform: translateY(0.7rem) rotateZ(45deg);
 }
 
