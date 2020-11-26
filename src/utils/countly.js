@@ -15,6 +15,7 @@ export const events = {
   TUTORIAL_FEEDBACK_SURVEY_COMPLETED: 'tutorialFeedbackSurveyCompleted',
   TUTORIAL_FEEDBACK_SURVEY_DISMISSED: 'tutorialFeedbackSurveyDismissed',
   TUTORIAL_FEEDBACK_SURVEY_AB_TESTING: 'tutorialFeedbackSurveyABTesting',
+  PROFILE_SURVEY_CLICK: 'profileSurveyClick',
   NEWSLETTER_REFERRAL: 'newsletterReferral'
 }
 
