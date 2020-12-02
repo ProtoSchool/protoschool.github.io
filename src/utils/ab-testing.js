@@ -11,7 +11,7 @@ function testComponent () {
   countly.trackEventOnce(countly.events.TUTORIAL_FEEDBACK_SURVEY_AB_TESTING, {
     path: this.$route.path,
     tutorial: tutorial.shortTitle,
-    option
+    option: option + '-2'
   })
 
   settings.abTesting.set(settings.abTesting.TUTORIAL_FEEDBACK_SURVEY, option)

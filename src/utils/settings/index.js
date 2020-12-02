@@ -30,6 +30,7 @@ import translations from '../../static/translations'
 import {
   FILTERS_KEY_PREFIX,
   NEWSLETTER_KEY_PREFIX,
+  TUTORIAL_COMPLETION_CALLOUT_KEY_PREFIX,
   FEEDBACK_SURVEY_KEY_PREFIX,
   PROFILE_SURVEY_KEY_PREFIX,
   AB_TESTING_PREFIX,
@@ -88,6 +89,21 @@ tutorialFeedbackSurvey.saveProgress = function (tutorialId, questionNumber, answ
 }
 
 /*
+  Tutorial Completion Callout
+ */
+const tutorialCompletionCallout = {
+  ...makeOperations(TUTORIAL_COMPLETION_CALLOUT_KEY_PREFIX)
+}
+
+tutorialCompletionCallout.dismissed = tutorialId => (
+  tutorialCompletionCallout.set(`tutorial-${tutorialId}-dismissed`, true)
+)
+
+tutorialCompletionCallout.isDismissed = tutorialId => {
+  return tutorialCompletionCallout.get(`tutorial-${tutorialId}-dismissed`)
+}
+
+/*
   Profile Survey
  */
 
@@ -135,6 +151,7 @@ countly.markEventAsTracked = function (event, data) {
 export default {
   filters,
   newsletters,
+  tutorialCompletionCallout,
   tutorialFeedbackSurvey,
   profileSurvey,
   abTesting,

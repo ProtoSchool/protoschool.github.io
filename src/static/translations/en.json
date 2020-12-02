@@ -1,7 +1,7 @@
 {
   "feedbackSurvey": {
     "form": {
-      "title": "Tell us what you think!",
+      "title": "Share your feedback on this tutorial!",
       "questions": [{
         "text": "How clearly do you understand the concepts presented in this tutorial?",
         "trackingId": "1. Understanding of the concepts"
@@ -9,7 +9,7 @@
         "text": "How excited are you to continue learning about the Decentralized Web?",
         "trackingId": "2. Excitement to continue learning"
       }, {
-        "text": "Do you know where to go next in your learning journey?",
+        "text": "After reviewing the resources below, do you know where to go next in your learning journey?",
         "trackingId": "3. Where to go next",
         "answers": {
           "lowest": "Not really",
@@ -23,7 +23,7 @@
     },
     "thankYouMessage": {
       "title": "Thank you!",
-      "textWithPrompt": "<p class='b mt2 mb0'>Have 3 more minutes to help us out?</p><p style='margin-top: 0;'>We'd love to learn more about you so we can create content and features that meet your needs. Take this anonymous survey to share your experience with ProtoSchool, DWeb, and coding.</p>",
+      "textWithPrompt": "<h3 class='b mt2 mb1'>Have 3 more minutes to help us out? Tell us about yourself!</h3><p style='margin-top: 0;'>We'd love to learn more about you so we can create content and features that meet your needs. Take this anonymous survey to share your experience with ProtoSchool, DWeb, and coding.</p>",
       "textWithoutPrompt": "We appreciate your feedback on this tutorial!",
       "surveyLink": "https://forms.gle/yPXid3EpNQkrpDqM7"
     }
