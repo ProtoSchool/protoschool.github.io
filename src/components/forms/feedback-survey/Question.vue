@@ -30,7 +30,7 @@
               v-on:change="onSelect(index + 1)"
               v-model="selected"
             />
-            <img :src="icon" :alt="`answer ${index + 1} out of 5 to the question`" />
+            <img :src="icon" :alt="`Rate as ${index + 1} on scale of 1 to 5`" />
           </label>
         </div>
         <br />

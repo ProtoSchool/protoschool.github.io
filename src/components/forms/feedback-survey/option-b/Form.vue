@@ -63,7 +63,7 @@
       <ButtonClose
         title="Dismiss survey"
         :onDismiss="onDismiss"
-        imageAlt="Dismiss or hide the tutorial feedback survey"
+        imageAlt="Dismiss tutorial feedback survey"
       />
     </div>
   </transition>
