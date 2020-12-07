@@ -353,16 +353,28 @@
     "updatedAt": "2020-11-16T18:04:37.607Z",
     "resources": [
       {
-        "title": "libp2p website",
+        "title": "libp2p main website",
         "link": "https://libp2p.io",
         "type": "docs",
         "description": "libp2p main website. Includes links to all the native implementations, videos of past talks, specifications and documentation."
+      },
+      {
+        "title": "libp2p documentation website",
+        "link": "https://docs.libp2p.io/",
+        "type": "docs",
+        "description": "Includes code examples and concepts glossary."
       },
       {
         "title": "Introduction to libp2p by David Dias",
         "link": "https://www.youtube.com/watch?v=CRe_oDtfRLw",
         "type": "video",
         "description": "Talk that heavily inspired this tutorial. David goes through why we need libp2p, how it works and what are its objectives for the future."
+      },
+      {
+        "title": "libp2p javascript code examples",
+        "link": "https://github.com/libp2p/js-libp2p/tree/master/examples",
+        "type": "docs",
+        "description": "Examples include a chat app, browser, encrypted communications, peer and content routing and more."
       }
     ]
   }
