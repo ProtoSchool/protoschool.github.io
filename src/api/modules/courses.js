@@ -25,6 +25,11 @@ function getFeatured () {
   return get().featured
 }
 
+function getCourseNames () {
+  console.log(Object.keys(get()).filter(course => (course !== 'all' && course !== 'featured')))
+  return Object.keys(get()).filter(course => (course !== 'all' && course !== 'featured'))
+}
+
 function save (courses) {
   utils.writeStaticFile(STATIC_FILE, courses)
 }
@@ -57,6 +62,7 @@ module.exports = {
   get,
   getAll,
   getFeatured,
+  getCourseNames,
   save,
   add,
   remove

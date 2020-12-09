@@ -14,6 +14,11 @@ const router = new VueRouter({
     ...routes.redirects(),
     // Dynamic routes
     {
+      path: '/course/:course',
+      component: () => import(/* webpackChunkName: "course" */ './pages/Course'),
+      props: true
+    },
+    {
       path: '/:tutorialUrl',
       component: () => import(/* webpackChunkName: "tutorial" */ './pages/Landing'),
       props: true
