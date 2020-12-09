@@ -32,7 +32,7 @@ import head from '../utils/head'
 import tutorials, { correctedCases } from '../utils/tutorials'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
-// import { getCourseNames } from '../api/modules/courses'
+import { getCourseNames } from '../api/modules/courses'
 
 import Header from '../components/Header.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
@@ -42,7 +42,7 @@ import countly from '../utils/countly'
 export default {
   name: 'Tutorials',
   props: {
-    course: String
+    courseUrl: String
   },
   components: {
     Header,
@@ -50,17 +50,18 @@ export default {
     ToggleButton
   },
   computed: {
-    // course: function () {
-    //   console.log(this.courseUrl)
-    //   // If courseUrl is not valid, redirect to 404 page
-    //   if (!getCourseNames().includes(this.courseUrl)) {
-    //     this.$router.replace({ name: '404' })
-    //
-    //     return null
-    //   }
-    //
-    //   return this.courseUrl
-    // },
+    course: function () {
+      const course = this.courseUrl
+      console.log(course)
+      // If courseUrl is not valid, redirect to 404 page
+      if (!getCourseNames().includes(course)) {
+        this.$router.replace({ name: '404' })
+
+        return null
+      }
+
+      return course
+    },
     filteredTutorials: function () {
       return filterTutorials(this.courseFilter, this.showCodingTutorials)
     },
