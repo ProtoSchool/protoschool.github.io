@@ -26,7 +26,6 @@ function getFeatured () {
 }
 
 function getCourseNames () {
-  console.log(Object.keys(get()).filter(course => (course !== 'all' && course !== 'featured')))
   return Object.keys(get()).filter(course => (course !== 'all' && course !== 'featured'))
 }
 

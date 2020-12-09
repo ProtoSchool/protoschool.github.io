@@ -30,9 +30,9 @@
 import _ from 'lodash'
 import head from '../utils/head'
 import tutorials, { correctedCases } from '../utils/tutorials'
+import { getCourseNames } from '../utils/courses'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
-import { getCourseNames } from '../api/modules/courses'
 
 import Header from '../components/Header.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
@@ -52,7 +52,7 @@ export default {
   computed: {
     course: function () {
       const course = this.courseUrl
-      console.log(course)
+
       // If courseUrl is not valid, redirect to 404 page
       if (!getCourseNames().includes(course)) {
         this.$router.replace({ name: '404' })
