@@ -3,7 +3,6 @@
     <Header/>
     <section class="center ph3 mw7">
       <h1 class="mt4">{{courseName}}</h1>
-      <p>{{courseFilter}}</p>
       <p class="f4 fw5 lh-copy ma0 pb4">
         This is a description of the course that needs to be replaced with custom content from the translations file.</p>
       <div class="mw7 center w100 tr mb4 flex items-center-ns flex-row-ns flex-column justify-between items-start">
@@ -74,6 +73,9 @@ export default {
       return this.course.split('-').map(word => (
         correctedCases[word] ? correctedCases[word] : (word.charAt(0).toUpperCase() + word.slice(1))
       )).join(' ')
+    },
+    courseFilter: function () {
+      return courseList.find(course => course.key === this.course)
     }
   },
   data: self => {
@@ -86,8 +88,6 @@ export default {
 
     return {
       tutorials,
-      courseList,
-      courseFilter: courseList.find(course => course.key === self.course) || courseList.find(course => course.key === 'all'),
       // courseFilter format example: { "key": "ipfs", "name": "IPFS", "count": 6, "tutorials": [ "0001", "0004", "0005", "0002", "0003", "0006" ] }
       //  hasCodingTutorials: Object.keys(courseFilter).some(course => course.type === 'code' || course.type === 'file-upload'),
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
