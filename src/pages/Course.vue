@@ -7,6 +7,7 @@
         This is a description of the course that needs to be replaced with custom content from the translations file.</p>
       <div class="mw7 center w100 tr mb4 flex items-center-ns flex-row-ns flex-column justify-between items-start">
         <ToggleButton
+            v-if="hasCodingTutorials"
             :value="showCodingTutorials"
             sync
             color="#69c4cd"
@@ -28,7 +29,7 @@
 <script>
 import _ from 'lodash'
 import head from '../utils/head'
-import tutorials, { correctedCases } from '../utils/tutorials'
+import tutorials, { correctedCases, getTutorialType } from '../utils/tutorials'
 import { getCourseNames } from '../utils/courses'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
@@ -76,6 +77,9 @@ export default {
     },
     courseFilter: function () {
       return courseList.find(course => course.key === this.course)
+    },
+    hasCodingTutorials: function () {
+      return this.courseFilter.tutorials.some(tutorialId => getTutorialType(tutorialId) === 'code' || getTutorialType(tutorialId) === 'file-upload')
     }
   },
   data: self => {
@@ -89,7 +93,7 @@ export default {
     return {
       tutorials,
       // courseFilter format example: { "key": "ipfs", "name": "IPFS", "count": 6, "tutorials": [ "0001", "0004", "0005", "0002", "0003", "0006" ] }
-      //  hasCodingTutorials: Object.keys(courseFilter).some(course => course.type === 'code' || course.type === 'file-upload'),
+      //
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
