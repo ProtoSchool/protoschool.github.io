@@ -3,8 +3,7 @@
     <Header/>
     <section class="center ph3 mw7">
       <h1 class="mt4">{{courseName}}</h1>
-      <p class="f4 fw5 lh-copy ma0 pb4">
-        This is a description of the course that needs to be replaced with custom content from the translations file.</p>
+      <p class="f4 fw5 lh-copy ma0 pb4">{{courseDescription}}</p>
       <div class="mw7 center w100 tr mb4 flex items-center-ns flex-row-ns flex-column justify-between items-start">
         <ToggleButton
             v-if="hasCodingTutorials"
@@ -33,6 +32,7 @@ import tutorials, { correctedCases, getTutorialType } from '../utils/tutorials'
 import { getCourseNames } from '../utils/courses'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
+import translations from '../static/translations'
 
 import Header from '../components/Header.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
@@ -80,6 +80,9 @@ export default {
     },
     hasCodingTutorials: function () {
       return this.courseFilter.tutorials.some(tutorialId => getTutorialType(tutorialId) === 'code' || getTutorialType(tutorialId) === 'file-upload')
+    },
+    courseDescription: function () {
+      return translations.courses[this.course].description
     }
   },
   data: self => {

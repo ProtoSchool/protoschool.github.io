@@ -27,5 +27,16 @@
       "textWithoutPrompt": "We appreciate your feedback on this tutorial!",
       "surveyLink": "https://forms.gle/yPXid3EpNQkrpDqM7"
     }
+  },
+  "courses": {
+    "ipfs": {
+      "description": "A description of the IPFS course."
+    },
+    "multiformats": {
+      "description": "A description of the Multiformats course."
+    },
+    "filecoin": {
+      "description": "A description of the Filecoin course."
+    }
   }
 }
