@@ -2,9 +2,9 @@
   <div>
     <Header/>
     <section class="center ph3 mw7">
-      <h1 class="mt4">{{courseName}}</h1>
+      <h1 class="mt4">Course: {{courseName}}</h1>
       <p class="f4 fw5 lh-copy ma0 pb4">{{courseDescription}}</p>
-      <div class="mw7 center w100 tr mb4 flex items-center-ns flex-row-ns flex-column justify-between items-start">
+      <div class="mw7 center w100 tr mb4 flex flex-row justify-end">
         <ToggleButton
             v-if="hasCodingTutorials"
             :value="showCodingTutorials"
