@@ -339,5 +339,25 @@
         "description": "Explore how CIDs are constructed in Filecoin, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       }
     ]
+  },
+  "0008": {
+    "id": 8,
+    "formattedId": "0008",
+    "url": "merkle-dags",
+    "project": "dweb",
+    "title": "Merkle DAGs: Structuring Data for the Distributed Web",
+    "description": "Learn how we can use CIDs to create content-addressable data structures for the distributed web!",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2020-12-16T19:42:31.780Z",
+    "updatedAt": "2020-12-16T19:42:31.780Z",
+    "resources": [
+      {
+        "title": "Test",
+        "link": "http://test.com",
+        "type": "article",
+        "description": "a test resource"
+      }
+    ]
   }
 }
