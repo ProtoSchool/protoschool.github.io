@@ -23,6 +23,17 @@ export default function (head) {
         ...data
       })
     },
+    courses: function courses ({ context, data }) {
+      let titleString = `${context.courseName} Course | ProtoSchool`
+      return head({
+        'title': titleString,
+        'description': context.seoDescription || 'No idea what context.course.description is',
+        'og:image': `https://proto.school/social-tiles/twitter/courses/${context.course}.jpg`,
+        'twitter:image': `https://proto.school/social-tiles/twitter/courses/${context.course}.jpg`,
+        'twitter:image:alt': titleString,
+        ...data
+      })
+    },
     lessons: function lessons ({ context, data }) {
       let titleString = ''
       if (context.tutorial.project.id === 'dweb') {

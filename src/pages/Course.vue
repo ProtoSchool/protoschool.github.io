@@ -94,6 +94,9 @@ export default {
     },
     courseDescription: function () {
       return translations.courses[this.course].description
+    },
+    seoDescription: function () {
+      return translations.courses[this.course].seoDescription
     }
   },
   data: self => {
@@ -129,7 +132,7 @@ export default {
     }
   },
   head () {
-    return head()
+    return this.course && head.dynamic.courses({ context: this })
   }
 }
 </script>
