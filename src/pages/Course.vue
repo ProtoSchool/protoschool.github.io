@@ -3,7 +3,17 @@
     <Header/>
     <section class="center ph3 mw7">
       <h1 class="mt4">Course: {{courseName}}</h1>
+      <div>
+        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">View All Tutorials</router-link>
+      </div>
       <p class="f4 fw5 lh-copy ma0 pb4">{{courseDescription}}</p>
+      <p class="f4 fw5 lh-copy ma0 pb4">
+        ProtoSchool's self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools.
+        <span v-if="hasCodingTutorials">This course on {{courseName}} includes both JavaScript code challenges and code-free tutorials with text-based lessons and  multiple-choice quizzes. Our handy little icons will guide you to the content that fits your needs. </span>
+        <span v-else>The tutorials in this course on {{courseName}} offer a code-free experience with text-based lessons and multiple-choice quizzes. </span>
+        We recommend proceeding through the tutorials in the order in which they're presented.
+      </p>
+
       <div class="mw7 center w100 tr mb4 flex flex-row justify-end">
         <ToggleButton
             v-if="hasCodingTutorials"
@@ -18,6 +28,7 @@
             :onClick="processToggle"
         />
       </div>
+
       <TutorialsGrid
         :tutorials="filteredTutorials"
       />
