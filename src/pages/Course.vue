@@ -2,10 +2,8 @@
   <div>
     <Header/>
     <section class="center ph3 mw7">
-      <h1 class="mt4">Course: {{courseName}}</h1>
-      <div>
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">View All Tutorials</router-link>
-      </div>
+      <h1 class="mt4">{{courseName}} Course</h1>
+
       <p class="f4 fw5 lh-copy ma0 pb4">{{courseDescription}}</p>
       <p class="f4 fw5 lh-copy ma0 pb4">
         ProtoSchool's self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools.
@@ -32,6 +30,12 @@
       <TutorialsGrid
         :tutorials="filteredTutorials"
       />
+      <h2>More Content to Explore</h2>
+      <div class="course-list mb5" >
+        <router-link v-for="course in otherCourses" :key="course.key" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3"
+        :to="`/course/${course.key}`">{{course.name}} Course</router-link>
+        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">All Tutorials</router-link>
+      </div>
     </section>
   </div>
 </template>
@@ -97,6 +101,9 @@ export default {
     },
     seoDescription: function () {
       return translations.courses[this.course].seoDescription
+    },
+    otherCourses: function () {
+      return courseList.filter(courseObject => courseObject.key !== this.course && courseObject.key !== 'all')
     }
   },
   data: self => {
@@ -110,12 +117,14 @@ export default {
     return {
       tutorials,
       // courseFilter format example: { "key": "ipfs", "name": "IPFS", "count": 6, "tutorials": [ "0001", "0004", "0005", "0002", "0003", "0006" ] }
-      //
+      courseList,
+      getCourseNames,
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
   methods: {
     capitalize: _.capitalize,
+
     processToggle: function () {
       this.showCodingTutorials = !this.showCodingTutorials
 
