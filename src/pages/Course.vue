@@ -31,9 +31,18 @@
         :tutorials="filteredTutorials"
       />
       <h2>More Content to Explore</h2>
+      <!-- <p>{{get(course.key).logo}}</p> -->
       <div class="course-list mb5" >
         <router-link v-for="course in otherCourses" :key="course.key" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3"
-        :to="`/course/${course.key}`">{{course.name}} Course</router-link>
+        :to="`/course/${course.key}`">
+          <!-- <img
+            class="mr2"
+            :src="`${get(course.key).logo}`"
+            :alt="`${course.name} project logo`"
+            style="height: 23px"
+          /> -->
+          <span>{{course.name}} Course</span>
+        </router-link>
         <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">All Tutorials</router-link>
       </div>
     </section>
@@ -48,6 +57,7 @@ import { getCourseNames } from '../utils/courses'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
 import translations from '../static/translations'
+// import { get } from '../utils/projects'
 
 import Header from '../components/Header.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
