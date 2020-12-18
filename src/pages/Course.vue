@@ -37,7 +37,7 @@
           data-cy="all-tutorials"
           class="bg-navy white mb3 mr3"
           text="All Tutorials"
-          :to="course.path"
+          :to="`/course/${course.id}`"
         >
           <img
             class="mr2"
