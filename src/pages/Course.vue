@@ -31,37 +31,46 @@
         :tutorials="filteredTutorials"
       />
       <h2>More Content to Explore</h2>
-      <!-- <p>{{get(course.key).logo}}</p> -->
-      <div class="course-list mb5" >
-        <router-link v-for="course in otherCourses" :key="course.key" class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3"
-        :to="`/course/${course.key}`">
-          <!-- <img
+      <div class="flex flex-wrap items-start mb5 mt4" >
+        <ButtonLink
+          v-for="course in otherCourses" :key="course.id"
+          data-cy="all-tutorials"
+          class="bg-navy white mb3 mr3"
+          text="All Tutorials"
+          :to="course.path"
+        >
+          <img
             class="mr2"
-            :src="`${get(course.key).logo}`"
+            :src="course.logo"
             :alt="`${course.name} project logo`"
-            style="height: 23px"
-          /> -->
+            style="height: 1.5em;"
+          />
           <span>{{course.name}} Course</span>
-        </router-link>
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">All Tutorials</router-link>
+        </ButtonLink>
+        <ButtonLink
+          data-cy="all-tutorials"
+          class="bg-navy white"
+          text="All Tutorials"
+          link="Tutorials"
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
 import head from '../utils/head'
 import tutorials, { correctedCases, getTutorialType } from '../utils/tutorials'
 import { getCourseNames } from '../utils/courses'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
 import translations from '../static/translations'
-// import { get } from '../utils/projects'
+import { getAll } from '../utils/projects'
 
 import Header from '../components/Header.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
-import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
+import ToggleButton from '../components/ToggleButton.vue'
+import ButtonLink from '../components/buttons/ButtonLink.vue'
 import countly from '../utils/countly'
 
 export default {
@@ -72,7 +81,8 @@ export default {
   components: {
     Header,
     TutorialsGrid,
-    ToggleButton
+    ToggleButton,
+    ButtonLink
   },
   computed: {
     course: function () {
@@ -113,7 +123,7 @@ export default {
       return translations.courses[this.course].seoDescription
     },
     otherCourses: function () {
-      return courseList.filter(courseObject => courseObject.key !== this.course && courseObject.key !== 'all')
+      return getAll().filter(course => course.id !== this.course && getCourseNames().includes(course.id))
     }
   },
   data: self => {
@@ -126,15 +136,12 @@ export default {
 
     return {
       tutorials,
-      // courseFilter format example: { "key": "ipfs", "name": "IPFS", "count": 6, "tutorials": [ "0001", "0004", "0005", "0002", "0003", "0006" ] }
       courseList,
       getCourseNames,
       showCodingTutorials: showCodingTutorials == null ? true : showCodingTutorials // default is true
     }
   },
   methods: {
-    capitalize: _.capitalize,
-
     processToggle: function () {
       this.showCodingTutorials = !this.showCodingTutorials
 

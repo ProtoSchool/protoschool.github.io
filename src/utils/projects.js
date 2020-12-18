@@ -3,6 +3,7 @@ import data from '../static/projects.json'
 // Populate data with more properties
 data.forEach(project => {
   project.logo = require(`../static/images/projects/${project.id}.svg`)
+  project.path = `/course/${project.id}`
 })
 
 export function get (id) {
