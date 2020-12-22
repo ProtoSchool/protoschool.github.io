@@ -4,7 +4,7 @@
     <section class="center ph3 mw7">
       <h1 class="mt4">{{courseName}} Course</h1>
 
-      <p class="f4 fw5 lh-copy ma0 pb4">{{courseDescription}}</p>
+      <p class="f4 fw5 lh-copy ma0 pb4" v-html='parse(courseDescription)'></p>
       <p class="f4 fw5 lh-copy ma0 pb4">
         ProtoSchool's self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools.
         <span v-if="hasCodingTutorials">This course on {{courseName}} includes both JavaScript code challenges and code-free tutorials with text-based lessons and  multiple-choice quizzes. Our handy little icons will guide you to the content that fits your needs. </span>
@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import marked from 'marked'
+
 import head from '../utils/head'
 import tutorials, { correctedCases, getTutorialType } from '../utils/tutorials'
 import { getCourseNames } from '../utils/courses'
@@ -66,12 +68,12 @@ import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
 import translations from '../static/translations'
 import { getAll } from '../utils/projects'
+import countly from '../utils/countly'
 
 import Header from '../components/Header.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
 import ToggleButton from '../components/ToggleButton.vue'
 import ButtonLink from '../components/buttons/ButtonLink.vue'
-import countly from '../utils/countly'
 
 export default {
   name: 'Tutorials',
@@ -155,6 +157,9 @@ export default {
       }
 
       settings.filters.set(settings.filters.TUTORIALS.SHOW_CODING, this.showCodingTutorials)
+    },
+    parse (description) {
+      return marked(description || '')
     }
   },
   head () {
