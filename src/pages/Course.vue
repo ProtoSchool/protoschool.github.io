@@ -4,8 +4,8 @@
     <section class="center ph3 mw7">
       <h1 class="mt4">{{courseName}} Course</h1>
 
-      <p class="f4 fw5 lh-copy ma0 pb4" v-html='parse(courseDescription)'></p>
-      <p class="f4 fw5 lh-copy ma0 pb4">
+      <p class="f4 fw5 lh-copy ma0 pb4" data-cy="course-content-description" v-html="parse(courseDescription)"></p>
+      <p class="f4 fw5 lh-copy ma0 pb4" data-cy="course-format-description">
         ProtoSchool's self-guided interactive tutorials are designed to introduce you to decentralized web concepts, protocols, and tools.
         <span v-if="hasCodingTutorials">This course on {{courseName}} includes both JavaScript code challenges and code-free tutorials with text-based lessons and  multiple-choice quizzes. Our handy little icons will guide you to the content that fits your needs. </span>
         <span v-else>The tutorials in this course on {{courseName}} offer a code-free experience with text-based lessons and multiple-choice quizzes. </span>

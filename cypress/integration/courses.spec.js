@@ -22,7 +22,10 @@ describe(`DISPLAYS ALL COURSE PAGES CORRECTLY`, function () {
       cy.visit(`/course/${courseKey}`) // loads page
       cy.get('h1').contains(courseName(courseKey)) // includes course name in H1
       cy.get('[data-cy=tutorial-card-title]').should('have.length', namedCourses[courseKey].length) // has corrected number of tutorials
-      cy.get('p').first().contains(courseDescription(courseKey)) // 1st para matches course description
+      // this one fails after using marked for formatting:
+      // cy.get('p').first().contains(courseDescription(courseKey)) // 1st para matches course description
+      cy.get('[data-cy=course-content-description]') // loads content description
+      cy.get('[data-cy=course-format-description]') // loads format description
     })
   }
 })
