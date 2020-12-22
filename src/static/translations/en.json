@@ -27,5 +27,19 @@
       "textWithoutPrompt": "We appreciate your feedback on this tutorial!",
       "surveyLink": "https://forms.gle/yPXid3EpNQkrpDqM7"
     }
+  },
+  "courses": {
+    "ipfs": {
+      "description": "The [InterPlanetary File System (IPFS)](https://ipfs.io) is a peer-to-peer network protocol for storing and sharing data in a distributed file system, with addresses based on content, not location. In this course, we'll dive into the basics of cryptographic hashing and content addressing on the decentralized web, take a look at how Content Identifiers (CIDs) are constructed in IPFS, and get hands on with the js-ipfs API. Through JavaScript coding challenges, we'll learn to store and share files with peers, create links between Merkle DAGs, and explore the Mutable File System (MFS), which lets you work with content-addressed files and directories as if you were using a traditional named-based file system. As we go, we'll learn more about other protocol layers of the Web3 stack that work in parallel with IPFS, including Multiformats, IPLD, libp2p, and Filecoin.",
+      "seoDescription": "Interactive tutorials on IPFS, the peer-to-peer network protocol for storing and sharing data in a distributed file system, with addresses based on content, not location."
+    },
+    "multiformats": {
+      "description": "[Multiformats](https://multiformats.io) is a collection of protocols that encode self-describing values for content-addressed data on the distributed web. The course begins with a tutorial introducing content addressing and cryptographic hashing, key building blocks of the decentralized web. In our next tutorial, we'll take a deep dive into the properties of CIDs (Content Identifiers), the unique labels used to point to data stored on distributed information systems including IPFS, Filecoin, libp2p, and IPLD. Along the way, we'll find lessons on the cryptographic hashing algorithms described by multihash, encoding systems described by multicodec, CID versions described by version prefixes, and base encoding methods described by multibase. We'll even explore the [CID Inspector](https://cid.ipfs.io/), a tool for breaking down CIDs into human-readable properties.",
+      "seoDescription": "Interactive tutorials on Multiformats, a collection of protocols that encode self-describing values for content-addressed data in distributed web projects like IPFS, Filecoin, libp2p, and IPLD."
+    },
+    "filecoin": {
+      "description": "[Filecoin](https://filecoin.io) is a distributed storage network powered by cryptocurrency and backed by cryptographic proofs. The keystone of this course is a tutorial exploring how Filecoin's built-in verification methods make it possbile to trust peers in an incentivized, decentralized file storage system. Lessons focus on the unique cryptographic proofs that set Filecoin apart from other blockchains: Proof of Replication (PoRep), in which storage miners prove that they're physically storing a unique copy of the client's data, and Proof of Spacetime (PoSt), which proves that they're continuing to dedicate storage space to that same data over time. In other tutorials, we'll learn the basics of content addressing and cryptographic hashing, key building blocks of the decentralized web, and take a deep dive into the properties of CIDs (Content Identifiers), the unique labels used to point to data stored on distributed information systems including IPFS, Filecoin, libp2p, and IPLD.",
+      "seoDescription": "Interactive tutorials on Filecoin, the decentralized storage network powered by cryptocurrency and backed by blockchain technology and cryptographic proofs."
+    }
   }
 }
