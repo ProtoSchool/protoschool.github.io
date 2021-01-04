@@ -1,7 +1,7 @@
 <template>
   <router-link
     v-if="!external"
-    :to="{ name: link }"
+    :to="link ? { name: link } : to"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
     :disabled="disabled"
     @click="onClick"
@@ -24,6 +24,7 @@
 export default {
   props: {
     link: String,
+    to: String,
     external: Boolean,
     text: {
       type: String,
