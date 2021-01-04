@@ -27,10 +27,7 @@ export default {
     to: String,
     href: String,
     external: Boolean,
-    text: {
-      type: String,
-      required: true
-    },
+    text: String,
     type: {
       type: String,
       default: 'primary'

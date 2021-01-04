@@ -21,6 +21,22 @@
       <TutorialsGrid
         :tutorials="featuredTutorials"
       />
+      <h2>Courses</h2>
+      <div class="flex flex-wrap items-start mb4   mt4" >
+        <ButtonLink
+          v-for="course in courses" :key="course.id"
+          class="bg-navy white mb3 mr3"
+          :to="`/course/${course.id}`"
+        >
+          <img
+            class="mr2"
+            :src="course.logo"
+            :alt="`${course.name} project logo`"
+            style="height: 1.5em;"
+          />
+          <span>{{course.name}} Course</span>
+        </ButtonLink>
+      </div>
       <h2>Local Events</h2>
       <p class="f4 fw5 lh-copy ma0 pv3  ">
       Groups and individuals around the world host in-person events using our tutorials
@@ -37,7 +53,6 @@
           />
         </div>
       </div>
-
       <div class="mv3">
         <ButtonLink class="mb2 mr3" link="Events">
           View All Events
@@ -59,6 +74,8 @@ import TutorialsGrid from '../components/TutorialsGrid'
 import coursesList from '../static/courses.json'
 import tutorials from '../utils/tutorials'
 import { futureEvents } from '../utils/events'
+import { getAll } from '../utils/projects'
+import { getCourseNames } from '../utils/courses'
 
 export default {
   name: 'Home',
@@ -74,7 +91,8 @@ export default {
     }
   },
   computed: {
-    featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId }))
+    featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId })),
+    courses: () => getAll().filter(course => getCourseNames().includes(course.id))
   },
   head () {
     return head()
