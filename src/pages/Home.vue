@@ -22,6 +22,8 @@
         :tutorials="featuredTutorials"
       />
       <h2>Courses</h2>
+      <p class="f4 fw5 lh-copy ma0 pb3">
+        Interested in a specific distributed web protocol or storage network? Explore these curated collections of tutorials on projects including IPFS, Filecoin, and Multiformats.</p>
       <div class="flex flex-wrap items-start mb4   mt4" >
         <ButtonLink
           v-for="course in courses" :key="course.id"
@@ -75,7 +77,7 @@ import coursesList from '../static/courses.json'
 import tutorials from '../utils/tutorials'
 import { futureEvents } from '../utils/events'
 import { getAll } from '../utils/projects'
-import { getCourseNames } from '../utils/courses'
+import { getCourseNames, getTutorialCount } from '../utils/courses'
 
 export default {
   name: 'Home',
@@ -87,12 +89,13 @@ export default {
   },
   data: self => {
     return {
-      futureEvents
+      futureEvents,
+      getTutorialCount
     }
   },
   computed: {
     featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId })),
-    courses: () => getAll().filter(course => getCourseNames().includes(course.id))
+    courses: () => getAll().filter(course => getCourseNames().includes(course.id)).sort((a,b) => getTutorialCount(b.id) - getTutorialCount(a.id))
   },
   head () {
     return head()
