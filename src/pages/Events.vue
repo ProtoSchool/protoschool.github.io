@@ -8,7 +8,12 @@
         opportunity to complete our interactive tutorials with the support of
         local mentors. Learn alongside fellow community members at a Meetup, conference, or independent event near you.
       </p>
-      <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mv3" to="/host">Host an Event</router-link>
+      <ButtonLink
+        class="mb2 mt3"
+        link="Host"
+      >
+        Host an Event
+      </ButtonLink>
       <h2>Upcoming Events</h2>
       <div v-if="futureEvents().length" class="flex flex-wrap justify-between events-list">
         <EventCard v-for="event in futureEvents()"
@@ -36,7 +41,7 @@
             :future="false"
           />
         </div>
-        <div v-if="!viewAllPast && (pastEvents().length > maxRedacted)" class="mb2">
+        <div v-if="!viewAllPast && (pastEvents().length > maxRedacted)" class="mv2">
           <span @click="togglePastEvents" tabindex="0" class="textLink chevron right" data-cy="view-solution">View Older Events</span>
         </div>
       </div>
@@ -49,12 +54,14 @@ import head from '../utils/head'
 import { pastEvents, futureEvents } from '../utils/events'
 import Header from '../components/Header'
 import EventCard from '../components/cards/EventCard'
+import ButtonLink from '../components/buttons/ButtonLink'
 
 export default {
   name: 'events',
   components: {
     Header,
-    EventCard
+    EventCard,
+    ButtonLink
   },
   data: self => {
     return {

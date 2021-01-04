@@ -10,8 +10,12 @@
       JavaScript code challenges right in your web browser or stick to our text-based
       or multiple-choice tutorials for a code-free experience.</p>
       <div>
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/tutorials">View All Tutorials</router-link>
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/build">Build a Tutorial</router-link>
+        <ButtonLink class="mb2 mr3" link="Tutorials">
+          View All Tutorials
+        </ButtonLink>
+        <ButtonLink class="mb2" link="Build">
+          Build a Tutorial
+        </ButtonLink>
       </div>
       <h2 id="featured">Featured Tutorials</h2>
       <TutorialsGrid
@@ -33,9 +37,14 @@
           />
         </div>
       </div>
+
       <div class="mv3">
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" to="/events">View All Events</router-link>
-        <router-link class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" to="/host">Host an Event</router-link>
+        <ButtonLink class="mb2 mr3" link="Events">
+          View All Events
+        </ButtonLink>
+        <ButtonLink class="mb2" link="Host">
+          Host an Event
+        </ButtonLink>
       </div>
     </section>
   </div>
@@ -45,7 +54,8 @@
 import head from '../utils/head'
 import Header from '../components/Header'
 import EventCard from '../components/cards/EventCard'
-import TutorialsGrid from '../components/TutorialsGrid.vue'
+import ButtonLink from '../components/buttons/ButtonLink'
+import TutorialsGrid from '../components/TutorialsGrid'
 import coursesList from '../static/courses.json'
 import tutorials from '../utils/tutorials'
 import { futureEvents } from '../utils/events'
@@ -55,7 +65,8 @@ export default {
   components: {
     Header,
     TutorialsGrid,
-    EventCard
+    EventCard,
+    ButtonLink
   },
   data: self => {
     return {

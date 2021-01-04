@@ -10,12 +10,12 @@
   </router-link>
   <a
     v-else
-    :href="link"
+    :href="link || href"
     target="__blank"
     @click="onClick"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3 link"
   >
-    {{text}}
+    <slot>{{text}}</slot>
     <img src="../../static/images/icons/arrow.svg" class="ml3" />
   </a>
 </template>
@@ -25,6 +25,7 @@ export default {
   props: {
     link: String,
     to: String,
+    href: String,
     external: Boolean,
     text: {
       type: String,
