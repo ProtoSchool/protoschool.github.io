@@ -1,29 +1,23 @@
 /* eslint quotes: ["error", "double"]  */
 
-// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+const question = "If we were to edit the tabby cat image in our file hierarchy and construct a new Merkle DAG along the same lines as before, how many nodes would the new Merkle DAG and previous Merkle DAG differ by?
 
-// Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
-
-// Choices must be an array of objects, each with the properties:
-// `answer` (string), `correct` (boolean), and `feedback` (string)
-// Only one answer can be correct.
 const choices = [
   {
-    answer: "Some correct answer.",
+    answer: "3: the tabby cat node and each of its ancestors!",
     correct: true,
-    feedback: "Great job!"
+    feedback: "That's right! Modifying the tabby cat node means its CID would change, prompting changes in the nodes for the cats and pics directories as well."
   },
   {
-    answer: "Some incorrect answer",
+    answer: "4: all the cat pictures and their parent nodes will change!",
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
+    feedback: "Not quite! While the tabby cat node would need a new CID, its sibling would not, because its content has not changed."
   },
   {
-    answer: "Some incorrect answer",
+    answer: "8: the entire DAG needs to change!",
     correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
-  }
+    feedback: "Try again! None of the nodes representing the fish subdirectory would need to change, because the content of each would remain the same."
+    },
 ]
 
 export default {
