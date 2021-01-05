@@ -36,8 +36,6 @@
       </ButtonLink>
     </div>
     <NewsletterSubscription class="mv4" />
-
-
   </div>
 </template>
 
@@ -48,9 +46,8 @@ import NewsletterSubscription from './forms/NewsletterSubscription.vue'
 import FeedbackSurvey from './forms/feedback-survey/FeedbackSurvey.vue'
 import ButtonLink from './buttons/ButtonLink.vue'
 
-import coursesList from '../static/courses.json'
 import { getAll } from '../utils/projects'
-import { getCourseNames, getTutorialCount, coursesIncludingTutorial } from '../utils/courses'
+import { getTutorialCount, coursesIncludingTutorial } from '../utils/courses'
 
 export default {
   components: {
@@ -62,7 +59,7 @@ export default {
     coursesIncludingTutorial: Function,
     project: String,
     tutorialId: String,
-    data: Array,
+    data: Array
 
   },
   methods: {
@@ -72,7 +69,7 @@ export default {
     courses (tutorialId) {
       return getAll()
         .filter(course => coursesIncludingTutorial(tutorialId).includes(course.id))
-        .sort((a,b) => getTutorialCount(b.id) - getTutorialCount(a.id))
+        .sort((a, b) => getTutorialCount(b.id) - getTutorialCount(a.id))
     }
   }
 }
