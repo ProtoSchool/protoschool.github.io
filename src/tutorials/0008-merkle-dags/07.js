@@ -1,28 +1,32 @@
 /* eslint quotes: ["error", "double"]  */
 
-// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+const question = "Deduplication..."
 
-// Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
-
-// Choices must be an array of objects, each with the properties:
-// `answer` (string), `correct` (boolean), and `feedback` (string)
-// Only one answer can be correct.
 const choices = [
   {
-    answer: "Some correct answer.",
+    answer: "Allows us to save space by eliminating repeated information in data.",
+    correct: false,
+    feedback: "This is correct, but at least one other answer is as well!"
+  },
+  {
+    answer: "Has no tradeoffs, only benefits!",
+    correct: false,
+    feedback: "Deduplication makes data more vulnerable to corruption, as it eliminates redundancy. However, this can be mitigated with other data management techniques."
+  },
+  {
+    answer: "Can be implemented at multiple levels of granularity.",
+    correct: false,
+    feedback: "Yes, but make sure to check the other answers as well!"
+  },
+  {
+    answer: "A and C.",
     correct: true,
-    feedback: "Great job!"
-  },
+    feedback: "Yes! Both A and C are correct!"
+  }
   {
-    answer: "Some incorrect answer",
+    answer: "All of the above.",
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
-  },
-  {
-    answer: "Some incorrect answer",
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: "If deduplication is used to shrink data by linking redundant sections to a single copy, what happens if that copy is corrupted?"
   }
 ]
 
