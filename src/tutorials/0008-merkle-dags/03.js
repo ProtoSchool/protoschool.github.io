@@ -1,28 +1,27 @@
 /* eslint quotes: ["error", "double"]  */
 
-// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+const question = "Which of the following datasets is likely to form a DAG?"
 
-// Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
-
-// Choices must be an array of objects, each with the properties:
-// `answer` (string), `correct` (boolean), and `feedback` (string)
-// Only one answer can be correct.
 const choices = [
   {
-    answer: "Some correct answer.",
+    answer: "A family tree",
     correct: true,
-    feedback: "Great job!"
+    feedback: "That’s right! A family tree is acyclic (you can’t be your own ancestor) and directed along lines of ancestry."
   },
   {
-    answer: "Some incorrect answer",
+    answer: "A map of highways between major cities",
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
+    feedback: "Not quite! While highways can be seen as directed edges, they often connect loops cities in loops!"
   },
   {
-    answer: "Some incorrect answer",
+    answer: "Connections between users of a social network",
     correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: "Try again! Connections between users are usually not directed, and a trio of friends that know each other will form a cycle.
+  },
+  {
+    answer: "A map of Internet infrastructure",
+    correct: false,
+    feedback: "Internet hubs have a high degree of interconnection, forming cycles."
   }
 ]
 

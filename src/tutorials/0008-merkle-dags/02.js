@@ -1,28 +1,27 @@
 /* eslint quotes: ["error", "double"]  */
 
-// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+const question = "Structuring data..."
 
-// Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
-
-// Choices must be an array of objects, each with the properties:
-// `answer` (string), `correct` (boolean), and `feedback` (string)
-// Only one answer can be correct.
 const choices = [
   {
-    answer: "Some correct answer.",
+    answer: "Enables us find relevant information more quickly",
+    correct: false,
+    feedback: "Structuring data does help us search more efficiently, but it also helps in other ways."
+  },
+  {
+    answer: "Imparts meaning to information",
+    correct: false,
+    feedback: "Structure can be used to help describe data, but it has other advantages as well."
+  },
+  {
+    answer: "Helps us manage large amounts of data",
+    correct: false,
+    feedback: "While structure is key to working with data at school, it can also confer other benefits."
+  },
+  {
+    answer: "All of the above!",
     correct: true,
-    feedback: "Great job!"
-  },
-  {
-    answer: "Some incorrect answer",
-    correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
-  },
-  {
-    answer: "Some incorrect answer",
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: "Great job! Properly structured data has many advantages!"
   }
 ]
 
