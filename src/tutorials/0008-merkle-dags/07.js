@@ -22,7 +22,7 @@ const choices = [
     answer: "A and C.",
     correct: true,
     feedback: "Yes! Both A and C are correct!"
-  }
+  },
   {
     answer: "All of the above.",
     correct: false,

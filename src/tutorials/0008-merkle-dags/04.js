@@ -1,6 +1,6 @@
 /* eslint quotes: ["error", "double"]  */
 
-const question = "If we were to edit the tabby cat image in our file hierarchy and construct a new Merkle DAG along the same lines as before, how many nodes would the new Merkle DAG and previous Merkle DAG differ by?
+const question = "If we were to edit the tabby cat image in our file hierarchy and construct a new Merkle DAG along the same lines as before, how many nodes would the new Merkle DAG and previous Merkle DAG differ by?"
 
 const choices = [
   {
@@ -17,7 +17,7 @@ const choices = [
     answer: "8: the entire DAG needs to change!",
     correct: false,
     feedback: "Try again! None of the nodes representing the fish subdirectory would need to change, because the content of each would remain the same."
-    },
+  }
 ]
 
 export default {

@@ -16,7 +16,7 @@ const choices = [
   {
     answer: "Connections between users of a social network",
     correct: false,
-    feedback: "Try again! Connections between users are usually not directed, and a trio of friends that know each other will form a cycle.
+    feedback: "Try again! Connections between users are usually not directed, and a trio of friends that know each other will form a cycle."
   },
   {
     answer: "A map of Internet infrastructure",
