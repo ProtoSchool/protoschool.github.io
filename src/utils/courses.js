@@ -11,4 +11,8 @@ export function getTutorialCount (courseId) {
   return courses[courseId].length
 }
 
+// array like ["ipfs", "filecoin", "multiformats"]
+export function coursesIncludingTutorial (tutorialId) {
+  return getCourseNames().filter(courseId => courses[courseId].includes(tutorialId))
+}
 export default courses
