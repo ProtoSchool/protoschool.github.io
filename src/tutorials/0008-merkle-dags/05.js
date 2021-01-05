@@ -1,28 +1,27 @@
 /* eslint quotes: ["error", "double"]  */
 
-// #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
+const question = "When you are using content addressing to share or retrieve data arranged in a Merkle DAG..."
 
-// Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
-
-// Choices must be an array of objects, each with the properties:
-// `answer` (string), `correct` (boolean), and `feedback` (string)
-// Only one answer can be correct.
 const choices = [
   {
-    answer: "Some correct answer.",
+    answer: "Having the CID of any node in the DAG will allow you to retrieve all the others.",
+    correct: false,
+    feedback: "Nope! Any given node can only be used to retrieve the nodes it is a direct ancestor to."
+  },
+  {
+    answer: "You need the CIDs of every node in the DAG before retrieving it.",
+    correct: false,
+    feedback: "Try again! In a Merkle DAG, parent nodes embed the CIDs of their children, so you don't need to have them all at the start."
+  },
+  {
+    answer: "You can always specify an entire DAG using a single root node.",
     correct: true,
-    feedback: "Great job!"
+    feedback: "Yes! Even if the DAG doesn't have a single root node, the person sharing the DAG can always make one."
   },
   {
-    answer: "Some incorrect answer",
+    answer: "You can make the DAG a child within a larger DAG, but each of the smaller DAG's nodes will need a new CID.",
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
-  },
-  {
-    answer: "Some incorrect answer",
-    correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: "The first part of this statement is true, but the second part is false! A node's CID in a Merkle DAG is not influenced by parent nodes."
   }
 ]
 
