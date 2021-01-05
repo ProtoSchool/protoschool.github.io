@@ -13,10 +13,9 @@
     :href="link || href"
     target="__blank"
     @click="onClick"
-    class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3 link"
+    class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
   >
     <slot>{{text}}</slot>
-    <img src="../../static/images/icons/arrow.svg" class="ml3" />
   </a>
 </template>
 
