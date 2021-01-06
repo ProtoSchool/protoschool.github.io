@@ -125,7 +125,7 @@ export default {
       return translations.courses[this.course].seoDescription
     },
     otherCourses: function () {
-      return getAll().filter(course => course.id !== this.course && getCourseNames().includes(course.id)).sort((a,b) => getTutorialCount(b.id) - getTutorialCount(a.id))
+      return getAll().filter(course => course.id !== this.course && getCourseNames().includes(course.id)).sort((a, b) => getTutorialCount(b.id) - getTutorialCount(a.id))
     }
   },
   data: self => {

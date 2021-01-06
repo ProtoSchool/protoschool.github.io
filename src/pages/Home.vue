@@ -95,7 +95,7 @@ export default {
   },
   computed: {
     featuredTutorials: () => coursesList.featured.map(tutorialId => ({ ...tutorials[tutorialId], tutorialId })),
-    courses: () => getAll().filter(course => getCourseNames().includes(course.id)).sort((a,b) => getTutorialCount(b.id) - getTutorialCount(a.id))
+    courses: () => getAll().filter(course => getCourseNames().includes(course.id)).sort((a, b) => getTutorialCount(b.id) - getTutorialCount(a.id))
   },
   head () {
     return head()
