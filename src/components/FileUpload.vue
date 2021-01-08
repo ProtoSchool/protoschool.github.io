@@ -3,7 +3,7 @@
     <div class="f5 fw7 mt4 mb2">
       Step 1: Upload files
       <span class="pl1">
-        <img v-if="uploadedFiles.length" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid" />
+        <CompleteIcon v-if="uploadedFiles.length" alt="complete" style="height: 1.2rem;" class="v-mid" />
       </span>
     </div>
     <input type="file" multiple id="file" class="dn" data-cy="file-upload"/>
@@ -39,7 +39,12 @@
 </template>
 
 <script>
+import CompleteIcon from '../static/images/complete.svg?inline'
+
 export default {
+  components: {
+    CompleteIcon
+  },
   props: {
     onFileClick: Function,
     onFileDrop: Function,

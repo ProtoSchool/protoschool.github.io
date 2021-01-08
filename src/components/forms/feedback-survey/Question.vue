@@ -16,21 +16,25 @@
         >
           <label
             class="answer inline-flex items-center justify-center"
-            v-for="(icon, index) in icons"
-            :key="icon"
-            :for="`response-${index + 1}`"
-            :data-number="index + 1"
-            :data-selected="selected === (index + 1)"
+            v-for="answerNr in nrAnswers"
+            :key="answerNr"
+            :for="`response-${answerNr}`"
+            :data-number="answerNr"
+            :data-selected="selected === answerNr"
           >
             <input
               type="radio"
               class="input-reset"
-              :value="index + 1"
-              :name="`response-${index + 1}`"
-              v-on:change="onSelect(index + 1)"
+              :value="answerNr"
+              :name="`response-${answerNr}`"
+              v-on:change="onSelect(answerNr)"
               v-model="selected"
             />
-            <img :src="icon" :alt="`Rate as ${index + 1} on scale of 1 to 5`" />
+            <AnswerOneIcon v-if="answerNr === 1" :alt="`Rate as ${answerNr} on scale of 1 to 5`" />
+            <AnswerTwoIcon v-else-if="answerNr === 2" :alt="`Rate as ${answerNr} on scale of 1 to 5`" />
+            <AnswerThreeIcon v-else-if="answerNr === 3" :alt="`Rate as ${answerNr} on scale of 1 to 5`" />
+            <AnswerFourIcon v-else-if="answerNr === 4" :alt="`Rate as ${answerNr} on scale of 1 to 5`" />
+            <AnswerFiveIcon v-else-if="answerNr === 5" :alt="`Rate as ${answerNr} on scale of 1 to 5`" />
           </label>
         </div>
         <br />
@@ -43,19 +47,22 @@
   </transition>
 </template>
 <script>
-import answerOneIcon from '../../../static/images/icons/survey/1.svg'
-import answerTwoIcon from '../../../static/images/icons/survey/2.svg'
-import answerThreeIcon from '../../../static/images/icons/survey/3.svg'
-import answerFourIcon from '../../../static/images/icons/survey/4.svg'
-import answerFiveIcon from '../../../static/images/icons/survey/5.svg'
+import AnswerOneIcon from '../../../static/images/icons/survey/1.svg?inline'
+import AnswerTwoIcon from '../../../static/images/icons/survey/2.svg?inline'
+import AnswerThreeIcon from '../../../static/images/icons/survey/3.svg?inline'
+import AnswerFourIcon from '../../../static/images/icons/survey/4.svg?inline'
+import AnswerFiveIcon from '../../../static/images/icons/survey/5.svg?inline'
 import translations from '../../../static/translations'
-
-const icons = [
-  answerOneIcon, answerTwoIcon, answerThreeIcon, answerFourIcon, answerFiveIcon
-]
 
 export default {
   name: 'Question',
+  components: {
+    AnswerOneIcon,
+    AnswerTwoIcon,
+    AnswerThreeIcon,
+    AnswerFourIcon,
+    AnswerFiveIcon
+  },
   props: {
     question: Object,
     onSelect: Function,
@@ -69,7 +76,7 @@ export default {
     }
   },
   data: self => ({
-    icons,
+    nrAnswers: 5,
     selected: self.answerSelected
   }),
   computed: {
@@ -122,7 +129,7 @@ export default {
   user-select: none;
 }
 
-.answer img {
+.answer svg {
   top: 0;
   height: var(--inner-size);
   width: var(--inner-size);
@@ -146,13 +153,13 @@ export default {
   opacity: 0.5;
 }
 
-.answer:focus img,
-.answer:focus-within img,
-.answer:hover img {
+.answer:focus svg,
+.answer:focus-within svg,
+.answer:hover svg {
   transform: scale(1);
 }
 
-.answer:active img {
+.answer:active svg {
   transform: scale(0.95);
 }
 
@@ -169,7 +176,7 @@ export default {
 .answer[data-selected="true"] {
   opacity: 1 !important;
 }
-.answer[data-selected="true"] img {
+.answer[data-selected="true"] svg {
   transition-timing-function: cubic-bezier(1, -10, 0, 10);
   transform: scale(1.08) rotateZ(1deg);
 }

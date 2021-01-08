@@ -31,8 +31,8 @@
         <!-- standard nav  -->
         <div v-else class="flex-auto link fw6 f5 db bb border-aqua">{{currentPage}}</div>
         <button @click="toggleHamburger" class="menu-toggle button-reset bg-transparent b--transparent">
-          <img v-if="isHamburgerClosed" src="../static/images/burger.svg" alt="open navigation menu" />
-          <img v-else src="../static/images/close.svg" alt="close navigation menu" />
+          <BurgerIcon v-if="isHamburgerClosed" alt="open navigation menu" />
+          <CloseIcon v-else alt="close navigation menu" />
         </button>
       </div>
       <!-- hamburger displayed when requested -->
@@ -48,10 +48,17 @@
 </template>
 
 <script>
+import BurgerIcon from '../static/images/burger.svg?inline'
+import CloseIcon from '../static/images/close.svg?inline'
+
 import { getTutorialByUrl } from '../utils/tutorials'
 
 export default {
   name: 'Navigation',
+  components: {
+    BurgerIcon,
+    CloseIcon
+  },
   props: {
     hidden: Boolean
   },
