@@ -344,13 +344,13 @@
     "id": 8,
     "formattedId": "0008",
     "url": "merkle-dags",
-    "project": "dweb",
+    "project": "ipld",
     "title": "Merkle DAGs: Structuring Data for the Distributed Web",
     "description": "Learn how we can use CIDs to create content-addressable data structures for the distributed web!",
     "newMessage": "",
     "updateMessage": "",
-    "createdAt": "2020-12-16T19:42:31.780Z",
-    "updatedAt": "2020-12-16T19:42:31.780Z",
+    "createdAt": "2021-01-08T19:42:31.780Z",
+    "updatedAt": "2021-01-08T19:42:31.780Z",
     "resources": [
       {
         "title": "Test",

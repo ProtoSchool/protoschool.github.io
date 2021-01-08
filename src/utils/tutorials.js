@@ -20,7 +20,8 @@ export const correctedCases = {
   a: 'a',
   on: 'on',
   ipfs: 'IPFS',
-  libp2p: 'libp2p'
+  libp2p: 'libp2p',
+  ipld: 'IPLD'
 }
 
 function deriveShortname (path) {
