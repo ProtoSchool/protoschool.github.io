@@ -1,14 +1,14 @@
 {
   "0001": {
-    "url": "data-structures",
-    "redirectUrls": [],
+    "url": "content-addressing",
+    "redirectUrls": ["data-structures"],
     "project": "dweb",
-    "title": "Decentralized Data Structures",
+    "title": "Content Addressing on the Decentralized Web",
     "description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
     "newMessage": "",
     "updateMessage": "",
     "createdAt": "2019-01-01T00:00:00.000Z",
-    "updatedAt": "2019-01-01T00:00:00.000Z",
+    "updatedAt": "2020-01-08T00:00:00.000Z",
     "resources": [
       {
         "title": "Understanding How IPFS Deals with Files",
