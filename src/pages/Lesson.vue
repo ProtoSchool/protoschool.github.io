@@ -130,13 +130,19 @@ export default {
     lessonNeedsJsFile: function () {
       return this.lesson && !!this.lesson.meta.type && this.lesson.meta.type !== 'text'
     },
+    lessonNeedsChallengeFile: function () {
+      return this.lesson && !!this.lesson.meta.type && (
+        this.lesson.meta.type === 'code' ||
+        this.lesson.meta.type === 'file-upload'
+      )
+    },
     concepts: function () {
       const concepts = this.loadFile('concepts', { failOnNotFound: false })
 
       return concepts ? marked(concepts).html : ''
     },
     challenge: function () {
-      const challenge = this.lessonNeedsJsFile && this.loadFile('challenge')
+      const challenge = this.lessonNeedsChallengeFile && this.loadFile('challenge')
 
       return challenge ? marked(challenge).html : ''
     },
