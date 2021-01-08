@@ -63,7 +63,7 @@ import marked from 'marked'
 
 import head from '../utils/head'
 import tutorials, { correctedCases, getTutorialType } from '../utils/tutorials'
-import { getCourseNames } from '../utils/courses'
+import { getCourseNames, getTutorialCount } from '../utils/courses'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
 import translations from '../static/translations'
@@ -125,7 +125,7 @@ export default {
       return translations.courses[this.course].seoDescription
     },
     otherCourses: function () {
-      return getAll().filter(course => course.id !== this.course && getCourseNames().includes(course.id))
+      return getAll().filter(course => course.id !== this.course && getCourseNames().includes(course.id)).sort((a, b) => getTutorialCount(b.id) - getTutorialCount(a.id))
     }
   },
   data: self => {
