@@ -353,11 +353,50 @@
     "updatedAt": "2021-01-08T19:42:31.780Z",
     "resources": [
       {
-        "title": "Test",
-        "link": "http://test.com",
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
+      },
+      {
+        "title": "P2P Data Links with Content Addressing",
+        "link": "https://proto.school/basics",
+        "type": "tutorial",
+        "description": "Ready to get hands on with Merkle DAGs? In this JavaScript coding tutorial, you’ll use the IPFS DAG API to add data objects to IPFS and link between them."
+      },
+      {
+        "title": "Blogging on the Decentralized Web",
+        "link": "https://proto.school/blog/",
+        "type": "tutorial",
+        "description": "In this hands-on JavaScript tutorial, use the IPFS DAG API to encode relationships between authors, posts, and tags as you create a blog."
+      },
+      {
+        "title": "InterPlanetary Linked Data",
+        "link": "https://docs.ipld.io/",
         "type": "article",
-        "description": "a test resource"
+        "description": "This article explains the IPLD project in greater detail."
+      },
+      {
+        "title": "Thinking in Data Structures Tutorial",
+        "link": "https://docs.ipld.io/tutorial.html",
+        "type": "article",
+        "description": "In this tutorial from IPLD, practice using data structures to describe data."
+      },
+      {
+        "title": "Thinking in Data Structures Tutorial",
+        "link": "https://docs.ipld.io/tutorial.html",
+        "type": "article",
+        "description": "In this tutorial from IPLD, practice using data structures to describe data."
+      },
+      {
+        "title": "Content-addressed distributed data structures [SpeakeasyJS]",
+        "link": "https://www.youtube.com/watch?v=VtzpJU4Cns8&feature=youtu.be",
+        "type": "video",
+        "description": "In this talk, Rod Vagg covers the basics of content-addressing, Merkle DAGs, and IPLD."
       }
     ]
   }
 }
+
+
+
