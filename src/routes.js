@@ -75,7 +75,7 @@ function statics () {
 function redirects () {
   return [
     { path: '/chapters/', redirect: '/events/' }
-  ].map(route => ({ ...route, type: TYPES.REDIRECT })).map(addSitemapLoc)
+  ].map(route => ({ ...route, type: TYPES.REDIRECT }))
 }
 
 // Error routes
