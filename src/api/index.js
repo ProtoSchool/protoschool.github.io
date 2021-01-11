@@ -1,7 +1,7 @@
 /**
  * API for ProtoSchool.
  *
- * TODO:
+ * TODO: Make API universal https://github.com/ProtoSchool/protoschool.github.io/issues/589
  *  - make all scripts use this API
  *  - change it to be universal so the website can also use it
  *   - ATM we have deps on fs.readFile etc
