@@ -4,23 +4,23 @@
     "redirectUrls": ["data-structures"],
     "project": "dweb",
     "title": "Content Addressing on the Decentralized Web",
-    "description": "The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!",
+    "description": "Learn how hashing and content addressing enable verifiable data sharing on the decentralized web.",
     "newMessage": "",
     "updateMessage": "",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-01-08T00:00:00.000Z",
     "resources": [
       {
-        "title": "Understanding How IPFS Deals with Files",
-        "link": "https://youtu.be/Z5zNPwMDYGg",
-        "type": "video",
-        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
+        "title": "Merkle DAGs: Structuring Data for the Distributed Web",
+        "link": "https://proto.school/merkle-dags",
+        "type": "tutorial",
+        "description": "Learn about the benefits of Merkle DAGs, unique content-addressed data structures for the distributed web. (No coding required.)"
       },
       {
-        "title": "The Lifecycle of Data in the DWeb",
-        "link": "https://youtu.be/fLUq0RkiTBA",
-        "type": "video",
-        "description": "This course from IPFS Camp 2019 explores how users share files on IPFS, from providing to getting to pinning to deleting."
+        "title": "Anatomy of a CID",
+        "link": "https://proto.school/anatomy-of-a-cid",
+        "type": "tutorial",
+        "description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
       },
       {
         "title": "Decentralized Web Primer: The Power of Content-Addressing",
@@ -53,11 +53,12 @@
         "description": "Kyle Drake of Neocities explores the downsides of the Hypertext Transfer Protocol (HTTP)."
       },
       {
-        "title": "Anatomy of a CID",
-        "link": "https://proto.school/anatomy-of-a-cid",
-        "type": "tutorial",
-        "description": "Dive deeper into how CIDs are constructed in IPFS, from multihash and multicodec prefixes to CID versions. (No coding required.)"
+        "title": "Understanding How IPFS Deals with Files",
+        "link": "https://youtu.be/Z5zNPwMDYGg",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
       },
+
       {
         "title": "IPFS: Mutable File System (MFS)",
         "link": "https://proto.school/mutable-file-system",
@@ -69,6 +70,12 @@
         "link": "https://proto.school/basics/",
         "type": "tutorial",
         "description": "Use the IPFS DAG API to create create verifiable links between dataset with Content Identifiers (CIDs). (This tutorial includes JavaScript code challenges.)"
+      },
+      {
+        "title": "The Lifecycle of Data in the DWeb",
+        "link": "https://youtu.be/fLUq0RkiTBA",
+        "type": "video",
+        "description": "This course from IPFS Camp 2019 explores how users share files on IPFS, from providing to getting to pinning to deleting."
       }
     ]
   },
@@ -83,6 +90,12 @@
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-07-20T00:00:00.000Z",
     "resources": [
+      {
+        "title": "Merkle DAGs: Structuring Data for the Distributed Web",
+        "link": "https://proto.school/merkle-dags",
+        "type": "tutorial",
+        "description": "Learn about the benefits of Merkle DAGs, unique content-addressed data structures for the distributed web. (No coding required.)"
+      },
       {
         "title": "JS-IPFS DAG API",
         "link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md",
@@ -125,6 +138,12 @@
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2019-01-01T00:00:00.000Z",
     "resources": [
+      {
+        "title": "Merkle DAGs: Structuring Data for the Distributed Web",
+        "link": "https://proto.school/merkle-dags",
+        "type": "tutorial",
+        "description": "Learn about the benefits of Merkle DAGs, unique content-addressed data structures for the distributed web. (No coding required.)"
+      },
       {
         "title": "JS-IPFS DAG API",
         "link": "https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md",
@@ -337,6 +356,12 @@
         "link": "https://proto.school/anatomy-of-a-cid",
         "type": "tutorial",
         "description": "Explore how CIDs are constructed in Filecoin, from multihash and multicodec prefixes to CID versions. (No coding required.)"
+      },
+      {
+        "title": "Merkle DAGs: Structuring Data for the Distributed Web",
+        "link": "https://proto.school/merkle-dags",
+        "type": "tutorial",
+        "description": "Learn about the benefits of Merkle DAGs, unique content-addressed data structures for the distributed networks like Filecoin. (No coding required.)"
       }
     ]
   },
@@ -371,32 +396,29 @@
         "description": "In this hands-on JavaScript tutorial, use the IPFS DAG API to encode relationships between authors, posts, and tags as you create a blog."
       },
       {
-        "title": "InterPlanetary Linked Data",
-        "link": "https://docs.ipld.io/",
-        "type": "article",
-        "description": "This article explains the IPLD project in greater detail."
-      },
-      {
-        "title": "Thinking in Data Structures Tutorial",
+        "title": "Thinking in Data Structures",
         "link": "https://docs.ipld.io/tutorial.html",
-        "type": "article",
+        "type": "tutorial",
         "description": "In this tutorial from IPLD, practice using data structures to describe data."
       },
       {
-        "title": "Thinking in Data Structures Tutorial",
-        "link": "https://docs.ipld.io/tutorial.html",
-        "type": "article",
-        "description": "In this tutorial from IPLD, practice using data structures to describe data."
-      },
-      {
-        "title": "Content-addressed distributed data structures [SpeakeasyJS]",
+        "title": "Content-Addressed Distributed Data Structures",
         "link": "https://www.youtube.com/watch?v=VtzpJU4Cns8&feature=youtu.be",
         "type": "video",
-        "description": "In this talk, Rod Vagg covers the basics of content-addressing, Merkle DAGs, and IPLD."
+        "description": "In this talk from the SpeakeasyJS meetup, Rod Vagg covers the basics of content-addressing, Merkle DAGs, and IPLD."
+      },
+      {
+        "title": "How Merkle Trees Enable the Decentralized Web ",
+        "link": "https://youtu.be/YIc6MNfv5iQ",
+        "type": "video",
+        "description": "In this talk from !!Con 2017, Tara Vancil explains the unique properties that make Merkle trees the backbone of decentralized software like Git,BitTorrent, ZFS, and Ethereum."
+      },
+      {
+        "title": "InterPlanetary Linked Data (IPLD)",
+        "link": "https://docs.ipld.io/",
+        "type": "docs",
+        "description": "Explore the IPLD project, an ecosystem of formats and data structures for building fully decentralized applications."
       }
     ]
   }
 }
-
-
-
