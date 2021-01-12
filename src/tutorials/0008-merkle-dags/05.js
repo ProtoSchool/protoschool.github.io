@@ -1,17 +1,17 @@
 /* eslint quotes: ["error", "double"]  */
 
-const question = "When you are using content addressing to share or retrieve data arranged in a Merkle DAG..."
+const question = "When you use content addressing to share or retrieve data arranged in a Merkle DAG..."
 
 const choices = [
   {
     answer: "Having the CID of any node in the DAG will allow you to retrieve all the others.",
     correct: false,
-    feedback: "Nope! Any given node can only be used to retrieve the nodes it is a direct ancestor to."
+    feedback: "Nope! Any given node can only be used to retrieve the nodes for which it is a direct ancestor."
   },
   {
     answer: "You need the CIDs of every node in the DAG before retrieving it.",
     correct: false,
-    feedback: "Try again! In a Merkle DAG, parent nodes embed the CIDs of their children, so you don't need to have them all at the start."
+    feedback: "Try again! In a Merkle DAG, parent nodes embed the CIDs of their children, so you don't need to know the children's CIDs in advance."
   },
   {
     answer: "You can always specify an entire DAG using a single root node.",

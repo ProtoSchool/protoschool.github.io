@@ -11,12 +11,12 @@ const choices = [
   {
     answer: "Has no tradeoffs, only benefits!",
     correct: false,
-    feedback: "Deduplication makes data more vulnerable to corruption, as it eliminates redundancy. However, this can be mitigated with other data management techniques."
+    feedback: "Oops! Deduplication does in fact have tradeoffs: it makes data more vulnerable to corruption, as it eliminates redundancy. However, this can be mitigated with other data management techniques."
   },
   {
     answer: "Can be implemented at multiple levels of granularity.",
     correct: false,
-    feedback: "Yes, but make sure to check the other answers as well!"
+    feedback: "This one's true, but it's not the only correct answer!"
   },
   {
     answer: "A and C.",
@@ -26,7 +26,7 @@ const choices = [
   {
     answer: "All of the above.",
     correct: false,
-    feedback: "If deduplication is used to shrink data by linking redundant sections to a single copy, what happens if that copy is corrupted?"
+    feedback: "Not quite. If deduplication is used to shrink data by linking redundant sections to a single copy, what happens if that copy is corrupted?"
   }
 ]
 

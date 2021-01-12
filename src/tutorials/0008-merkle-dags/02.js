@@ -16,7 +16,7 @@ const choices = [
   {
     answer: "Helps us manage large amounts of data",
     correct: false,
-    feedback: "While structure is key to working with data at school, it can also confer other benefits."
+    feedback: "While structure is key to working with data at scale, it can also offer other benefits."
   },
   {
     answer: "All of the above!",
