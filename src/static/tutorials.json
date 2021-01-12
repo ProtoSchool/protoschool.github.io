@@ -4,11 +4,11 @@
     "redirectUrls": ["data-structures"],
     "project": "dweb",
     "title": "Content Addressing on the Decentralized Web",
-    "description": "Learn how hashing and content addressing enable verifiable data sharing on the decentralized web.",
+    "description": "Learn how hashing and content addressing enable verifiable data sharing with peers on the decentralized web.",
     "newMessage": "",
-    "updateMessage": "",
+    "updateMessage": "This tutorial, formerly known as Decentralized Data Structures, has been updated to focus exclusively on content addressing, while our new Merkle DAGs tutorial explores content-addressable data structures in greater depth.",
     "createdAt": "2019-01-01T00:00:00.000Z",
-    "updatedAt": "2020-01-08T00:00:00.000Z",
+    "updatedAt": "2021-01-11T00:00:00.000Z",
     "resources": [
       {
         "title": "Merkle DAGs: Structuring Data for the Distributed Web",
