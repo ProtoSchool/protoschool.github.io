@@ -16,6 +16,7 @@ const TYPES = {
   TUTORIAL: 'tutorial',
   LESSON: 'lesson',
   RESOURCES: 'resources',
+  COURSE: 'course',
   ERROR: 'error',
   REDIRECT: 'redirect'
 }
@@ -138,10 +139,29 @@ function tutorials () {
   }, []).map(addSitemapLoc)
 }
 
+/* Course routes. These are used to prerender and to be added to the sitemap
+  e.g.
+  /ipfs
+  /filecoin
+
+*/
+function courses () {
+  const api = require('./api')
+
+  return api.courses.getCourseNames().map(course => {
+    return {
+      type: TYPES.COURSE,
+      path: `/course/${course}/`,
+      sitemap: { priority: 1, changefreq: 'monthly', lastmod }
+    }
+  }).map(addSitemapLoc)
+}
+
 function all () {
   return [
     ...statics(),
     ...tutorials(),
+    ...courses(),
     ...errors(),
     ...redirects()
   ]
@@ -150,6 +170,7 @@ function all () {
 module.exports = {
   statics,
   tutorials,
+  courses,
   errors,
   redirects,
   all,

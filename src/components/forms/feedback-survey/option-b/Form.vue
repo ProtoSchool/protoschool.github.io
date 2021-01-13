@@ -44,8 +44,8 @@
           data-state-view-transition-delay-leave="default"
         >
           <Question
-            class="mt4 question"
-            v-for="(question, index) in questions"
+            class="question mt3"
+            v-for="(question, index) in currentQuestions"
             :key="question.text"
             :question="question"
             :onSelect="answerNumber => onSelect(question, answerNumber)"
@@ -53,21 +53,18 @@
           />
         </div>
         <ThankYouMessage
-          class="state-view"
+          class="state-view mt3"
           v-if="currentStep === maximumStep"
           :data-state-view-active="currentStep === maximumStep"
           key="thank-you"
           :showProfileSurveyLink="!isProfileSurveyComplete()"
         />
       </transition>
-      <button
-        class="close"
+      <ButtonClose
         title="Dismiss survey"
-        v-on:click="onDismiss"
-        aria-label="Dismiss survey"
-      >
-        <img src="../../../../static/images/close.svg" alt="dismiss or hide the tutorial feedback survey" />
-      </button>
+        :onDismiss="onDismiss"
+        imageAlt="Dismiss tutorial feedback survey"
+      />
     </div>
   </transition>
 </template>
@@ -78,12 +75,14 @@ import { getTutorialByUrl } from '../../../../utils/tutorials'
 import settings from '../../../../utils/settings'
 import Question from '../Question.vue'
 import ThankYouMessage from '../ThankYouMessage.vue'
+import ButtonClose from '../../../buttons/ButtonClose.vue'
 
 export default {
   name: 'Form',
   components: {
     Question,
-    ThankYouMessage
+    ThankYouMessage,
+    ButtonClose
   },
   props: {
     initialStep: {
@@ -110,6 +109,9 @@ export default {
     tutorial: function () {
       return getTutorialByUrl(this.$route.params.tutorialUrl)
     },
+    currentQuestions: function () {
+      return this.questions.filter((_, index) => index >= this.currentStep)
+    },
     answers: function () {
       return settings.tutorialFeedbackSurvey.getProgress(this.tutorial.id).answers
     },
@@ -118,7 +120,7 @@ export default {
 
       return {
         path: this.$route.path,
-        option: tutorialFeedbackSurveyOption
+        option: tutorialFeedbackSurveyOption + '-2'
       }
     }
   },
@@ -147,6 +149,12 @@ export default {
 }
 </script>
 <style scoped>
+.question:not(:first-child) {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
 .form {
   position: relative;
 }
@@ -154,48 +162,5 @@ export default {
 .steps-tracker {
   width: 15.625rem;
   max-width: 100%;
-}
-
-.question {
-  transition: opacity var(--transition-default) var(--transition-duration-default);
-}
-
-.question[data-selected="true"] {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-button.close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  transform: scale(0.95);
-
-  padding: 0.5rem;
-  background: none;
-  border: none;
-  line-height: 0;
-  -webkit-tap-highlight-color: transparent; /* hide tap highlight on webkit browers */
-
-  cursor: pointer;
-
-  transition:
-    transform var(--transition-default),
-    opacity var(--transition-default);
-}
-
-button.close:hover,
-button.close:focus,
-button.close:active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-button.close:active {
-  transform: scale(0.95);
-}
-
-button.close {
-  opacity: 0.2;
 }
 </style>

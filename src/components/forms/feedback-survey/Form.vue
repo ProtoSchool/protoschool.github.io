@@ -33,7 +33,7 @@
         </h2>
       </transition>
       <StepsTracker
-        class="steps-tracker mb3"
+        class="steps-tracker mb3 mt2"
         :currentStep="currentStep"
         :maximumStep="maximumStep"
       />
@@ -59,14 +59,11 @@
           :showProfileSurveyLink="!isProfileSurveyComplete()"
         />
       </transition>
-      <button
-        class="close"
+      <ButtonClose
         title="Dismiss survey"
-        v-on:click="onDismiss"
-        aria-label="Dismiss survey"
-      >
-        <img src="../../../static/images/close.svg" alt="dismiss or hide the tutorial feedback survey" />
-      </button>
+        :onDismiss="onDismiss"
+        imageAlt="Dismiss tutorial feedback survey"
+      />
     </div>
   </transition>
 </template>
@@ -77,13 +74,15 @@ import settings from '../../../utils/settings'
 import Question from './Question.vue'
 import StepsTracker from './StepsTracker.vue'
 import ThankYouMessage from './ThankYouMessage.vue'
+import ButtonClose from '../../buttons/ButtonClose.vue'
 
 export default {
   name: 'Form',
   components: {
     Question,
     StepsTracker,
-    ThankYouMessage
+    ThankYouMessage,
+    ButtonClose
   },
   props: {
     initialStep: {
@@ -115,7 +114,7 @@ export default {
 
       return {
         path: this.$route.path,
-        option: tutorialFeedbackSurveyOption
+        option: tutorialFeedbackSurveyOption + '-2'
       }
     }
   },
@@ -150,41 +149,6 @@ export default {
 }
 
 .steps-tracker {
-  width: 15.625rem;
-  max-width: 100%;
-}
-
-button.close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  transform: scale(0.95);
-
-  padding: 0.5rem;
-  background: none;
-  border: none;
-  line-height: 0;
-  -webkit-tap-highlight-color: transparent; /* hide tap highlight on webkit browers */
-
-  cursor: pointer;
-
-  transition:
-    transform var(--transition-default),
-    opacity var(--transition-default);
-}
-
-button.close:hover,
-button.close:focus,
-button.close:active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-button.close:active {
-  transform: scale(0.95);
-}
-
-button.close {
-  opacity: 0.2;
+  max-width: 16rem;
 }
 </style>

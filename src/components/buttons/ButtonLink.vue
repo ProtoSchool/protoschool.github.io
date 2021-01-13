@@ -1,7 +1,7 @@
 <template>
   <router-link
     v-if="!external"
-    :to="{ name: link }"
+    :to="link ? { name: link } : to"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
     :disabled="disabled"
     @click="onClick"
@@ -10,13 +10,12 @@
   </router-link>
   <a
     v-else
-    :href="link"
+    :href="link || href"
     target="__blank"
     @click="onClick"
-    class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3 link"
+    class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
   >
-    {{text}}
-    <img src="../../static/images/icons/arrow.svg" class="ml3" />
+    <slot>{{text}}</slot>
   </a>
 </template>
 
@@ -24,11 +23,10 @@
 export default {
   props: {
     link: String,
+    to: String,
+    href: String,
     external: Boolean,
-    text: {
-      type: String,
-      required: true
-    },
+    text: String,
     type: {
       type: String,
       default: 'primary'

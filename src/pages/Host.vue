@@ -17,15 +17,14 @@
         <li> Are <strong>not-for-profit</strong> (free or low-cost to attendees)</li>
       </ul>
       <div class="mv3">
-        <a
-          class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" href="https://github.com/ProtoSchool/organizing/blob/master/RESOURCES.md"
-          target="_blank">
+        <ButtonLink class="mb2 mr3" external link="https://github.com/ProtoSchool/organizing/blob/master/RESOURCES.md">
           Explore our event resources
-        </a>
-          <a class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">
+        </ButtonLink>
+        <ButtonLink class="mb2" external link="https://forms.gle/t1iEzpQAFSYHhpBr9">
             Add your event to our list
-          </a>
-        </div>
+        </ButtonLink>
+      </div>
+
       <h2>How it works</h2>
 
       <p class="f4 fw5 lh-copy ma0 pv2">Whether you want to lead a single workshop at a conference or incorporate
@@ -63,16 +62,15 @@
 
         <h2>Ready to get started?</h2>
         <p class="f4 fw5 lh-copy ma0 pv2"  >We're excited to have you join the ProtoSchool community as a local event leader! Please <router-link to="/news">subscribe to our newsletter</router-link> to stay up to date on helpful resources.</p>
-        <div class="mv3">
-          <a
-            class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy mr3" href="https://github.com/ProtoSchool/organizing/blob/master/RESOURCES.md"
-            target="_blank">
-            Explore our event resources
-          </a>
-            <a class="f5 link dim br-pill ph3 pv2 mb2 dib white bg-navy" href="https://forms.gle/t1iEzpQAFSYHhpBr9" target="_blank">
-              Add your event to our list
-            </a>
-          </div>
+
+      <div class="mv3">
+        <ButtonLink class="mb2 mr3" external link="https://github.com/ProtoSchool/organizing/blob/master/RESOURCES.md">
+          Explore our event resources
+        </ButtonLink>
+        <ButtonLink class="mb2" external link="https://forms.gle/t1iEzpQAFSYHhpBr9">
+            Add your event to our list
+        </ButtonLink>
+      </div>
 
       <h2 class="">Other ways to contribute</h2>
       <p class="f4 fw5 lh-copy ma0 pv2  ">
@@ -90,11 +88,13 @@
 <script>
 import head from '../utils/head'
 import Header from '../components/Header.vue'
+import ButtonLink from '../components/buttons/ButtonLink.vue'
 
 export default {
   name: 'Host',
   components: {
-    Header
+    Header,
+    ButtonLink
   },
   head () {
     return head()

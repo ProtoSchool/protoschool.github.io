@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import head from '../utils/head'
 import tutorials from '../utils/tutorials'
 import settings from '../utils/settings'
@@ -129,7 +128,6 @@ export default {
       // fix for vue-router: do not scroll to top on location.search change
       setTimeout(() => window.scrollTo(0, scrollPosition), 0)
     },
-    capitalize: _.capitalize,
     processToggle: function () {
       this.showCodingTutorials = !this.showCodingTutorials
 
