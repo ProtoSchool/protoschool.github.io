@@ -17,7 +17,7 @@
         <h2 class="f6 mv0 fw2">{{tutorial.project.name}}</h2>
       </div>
       <div class="flex justify-between flex-row items-start mb1">
-        <div class="flex flex-row items-center mt1">
+        <div class="flex flex-row items-start mt1">
           <h1 class="ma0 f3 fw5">
             <template v-if="isLanding !== true">
               <router-link :to="landingLink" data-cy="tutorial-title">{{tutorial.title}}</router-link>
