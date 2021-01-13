@@ -3,7 +3,7 @@
 // #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
 
 // Question must be a string
-const question = "Which of the following statements about datasets distributed as Merkle DAGs is FASLE?"
+const question = "Which of the following statements about datasets distributed as Merkle DAGs is FALSE?"
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
