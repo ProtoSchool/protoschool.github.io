@@ -8,7 +8,7 @@
     "newMessage": "",
     "updateMessage": "This tutorial, formerly known as Decentralized Data Structures, has been updated to focus exclusively on content addressing, while our new Merkle DAGs tutorial explores content-addressable data structures in greater depth.",
     "createdAt": "2019-01-01T00:00:00.000Z",
-    "updatedAt": "2021-01-11T00:00:00.000Z",
+    "updatedAt": "2021-01-14T18:00:00.000Z",
     "resources": [
       {
         "title": "Merkle DAGs: Structuring Data for the Distributed Web",
@@ -374,8 +374,8 @@
     "description": "Learn how we can use CIDs to create content-addressable data structures for the distributed web!",
     "newMessage": "",
     "updateMessage": "",
-    "createdAt": "2021-01-08T19:42:31.780Z",
-    "updatedAt": "2021-01-08T19:42:31.780Z",
+    "createdAt": "2021-01-14T18:00:00.000Z",
+    "updatedAt": "2021-01-14T18:00:00.000Z",
     "resources": [
       {
         "title": "Understanding How IPFS Deals with Files",
