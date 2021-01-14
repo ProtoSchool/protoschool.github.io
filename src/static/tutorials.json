@@ -346,11 +346,11 @@
     "url": "introduction-to-libp2p",
     "project": "libp2p",
     "title": "Introduction to libp2p",
-    "description": "In this tutorial you'll learn what libp2p is, what problems it is trying to solve, and how it tries to solve them. You'll also get an overview of it's modularity and how it aims to be the de facto peer-to-peer library.",
+    "description": "In this tutorial you'll learn what libp2p is, what problems it is trying to solve, and how it tries to solve them. You'll also get an overview of it's modularity and how it aims to be the de facto peer-to-peer library. This tutorial uses `js-libp2p` version `0.30`.",
     "newMessage": "",
     "updateMessage": "",
-    "createdAt": "2020-11-16T18:04:37.607Z",
-    "updatedAt": "2020-11-16T18:04:37.607Z",
+    "createdAt": "2021-01-11T00:00:00.000Z",
+    "updatedAt": "2021-01-11T00:00:00.000Z",
     "resources": [
       {
         "title": "libp2p main website",
