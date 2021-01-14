@@ -73,9 +73,36 @@ function statics () {
 // Redirect routes
 // Redirects that need to return a 301 status code need to be configured in the server as well
 function redirects () {
+  // TODO Use API to get the tutorials (needs API to be universal)
+  // https://github.com/ProtoSchool/protoschool.github.io/issues/589
+  // const api = require('./api')
+
+  // const tutorialRedirects = Object.values(api.tutorials.list()).reduce((redirects, tutorial) => {
+  //   if (tutorial.redirectUrls && tutorial.redirectUrls.length) {
+  //     tutorial.redirectUrls.forEach(url => {
+  //       redirects.push({ path: `/${url}/`, redirect: `/${tutorial.url}` })
+  //       redirects.push({ path: `/${url}/resources/`, redirect: `/${tutorial.url}/resources/` })
+
+  //       tutorial.lessons.forEach(lesson => {
+  //         redirects.push({ path: `/${url}/${lesson.formattedId}/`, redirect: `/${lesson.url}/` })
+  //       })
+  //     })
+  //   }
+
+  //   return redirects
+  // }, [])
+
   return [
-    { path: '/chapters/', redirect: '/events/' }
-  ].map(route => ({ ...route, type: TYPES.REDIRECT })).map(addSitemapLoc)
+    // ...tutorialRedirects,
+    { path: '/chapters/', redirect: '/events/' },
+    { path: '/data-structures/', redirect: '/content-addressing/' },
+    { path: '/data-structures/resources/', redirect: '/content-addressing/resources/' },
+    { path: '/data-structures/01/', redirect: '/content-addressing/01/' },
+    { path: '/data-structures/02/', redirect: '/content-addressing/02/' },
+    { path: '/data-structures/03/', redirect: '/content-addressing/03/' },
+    { path: '/data-structures/04/', redirect: '/content-addressing/04/' },
+    { path: '/data-structures/05/', redirect: '/content-addressing/05/' }
+  ].map(route => ({ ...route, type: TYPES.REDIRECT }))
 }
 
 // Error routes
@@ -110,27 +137,6 @@ function tutorials () {
       type: TYPES.RESOURCES,
       path: `/${tutorial.url}/resources/`
     })
-
-    if (tutorial.redirectUrls && tutorial.redirectUrls.length) {
-      tutorial.redirectUrls.forEach(url => {
-        routes.push({
-          type: TYPES.REDIRECT,
-          path: `/${url}/`,
-          redirect: `/${tutorial.url}`
-        })
-        routes.push({
-          type: TYPES.REDIRECT,
-          path: `/${url}/resources/`,
-          redirect: `/${tutorial.url}/resources/`
-        })
-
-        tutorial.lessons.forEach(lesson => routes.push({
-          type: TYPES.REDIRECT,
-          path: `/${url}/${lesson.formattedId}/`,
-          redirect: `/${lesson.url}/`
-        }))
-      })
-    }
 
     return routes.concat(tutorial.lessons.map(lesson => ({
       type: TYPES.LESSON,

@@ -1,17 +1,17 @@
 <template>
   <section class="mw7 w-100 center ph3 flex items-start pv3 mt3">
-    <img
+    <ProjectIcon
       class="dn db-ns mr3"
-      :src="tutorial.project.logo"
-      :alt="tutorial.project.name"
+      :id="tutorial.project.id"
+      :alt="`${tutorial.project.name} project logo`"
       style="height: 53px"
     />
     <div class="w-100">
       <div class="flex items-center">
-        <img
+        <ProjectIcon
           class="dn-ns mr1 mb1"
-          :src="tutorial.project.logo"
-          :alt="tutorial.project.name"
+          :id="tutorial.project.id"
+          :alt="`${tutorial.project.name} project logo`"
           style="height: 23px"
         />
         <h2 class="f6 mv0 fw2">{{tutorial.project.name}}</h2>
@@ -56,6 +56,7 @@
 <script>
 import LessonLink from '../components/LessonLink.vue'
 import TypeIcon from '../components/TypeIcon.vue'
+import ProjectIcon from '../components/icons/ProjectIcon.vue'
 import TutorialMessage from '../components/callouts/TutorialMessage.vue'
 import { isTutorialPassed } from '../utils/tutorials'
 
@@ -74,6 +75,7 @@ export default {
   components: {
     LessonLink,
     TypeIcon,
+    ProjectIcon,
     TutorialMessage
   },
   data: self => {

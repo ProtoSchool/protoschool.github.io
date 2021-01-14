@@ -39,9 +39,9 @@
           text="All Tutorials"
           :to="`/course/${course.id}`"
         >
-          <img
+          <ProjectIcon
             class="mr2"
-            :src="course.logo"
+            :id="course.id"
             :alt="`${course.name} project logo`"
             style="height: 1.5em;"
           />
@@ -70,10 +70,11 @@ import translations from '../static/translations'
 import { getAll } from '../utils/projects'
 import countly from '../utils/countly'
 
-import Header from '../components/Header.vue'
-import TutorialsGrid from '../components/TutorialsGrid.vue'
-import ToggleButton from '../components/ToggleButton.vue'
-import ButtonLink from '../components/buttons/ButtonLink.vue'
+import Header from '../components/Header'
+import TutorialsGrid from '../components/TutorialsGrid'
+import ToggleButton from '../components/ToggleButton'
+import ButtonLink from '../components/buttons/ButtonLink'
+import ProjectIcon from '../components/icons/ProjectIcon'
 
 export default {
   name: 'Tutorials',
@@ -84,7 +85,8 @@ export default {
     Header,
     TutorialsGrid,
     ToggleButton,
-    ButtonLink
+    ButtonLink,
+    ProjectIcon
   },
   computed: {
     course: function () {

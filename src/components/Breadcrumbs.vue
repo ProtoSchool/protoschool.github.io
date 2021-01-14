@@ -3,12 +3,17 @@
     <span class="b">{{tutorial.shortTitle}}</span> |
     <span v-if="isResources">Resources</span>
     <span v-else>Lesson {{lessonNumber}} of {{lessonsInTutorial}}</span>
-    <img v-if="lessonPassed" src="../static/images/complete.svg" class="dib ml1 v-mid" alt="complete" />
+    <CompleteIcon v-if="lessonPassed" class="dib ml1 v-mid h1" alt="complete" />
   </div>
 </template>
 
 <script>
+import CompleteIcon from '../static/images/complete.svg?inline'
+
 export default {
+  components: {
+    CompleteIcon
+  },
   props: {
     isResources: Boolean,
     tutorial: Object,

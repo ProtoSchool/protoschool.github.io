@@ -5,12 +5,17 @@
     v-on:click="onDismiss"
     :aria-label="ariaLabel || title"
   >
-    <img src="../../static/images/close.svg" :alt="imageAlt || ariaLabel || title" />
+    <CloseIcon :alt="imageAlt || ariaLabel || title" />
   </button>
 </template>
 
 <script>
+import CloseIcon from '../../static/images/close.svg?inline'
+
 export default {
+  components: {
+    CloseIcon
+  },
   props: {
     title: String,
     imageAlt: String,

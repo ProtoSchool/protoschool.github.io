@@ -3,8 +3,8 @@ import moment from 'moment'
 const mockTutorial = {
   formattedId: '0001',
   id: 1,
-  url: 'data-structures',
-  redirectUrls: [],
+  url: 'content-addressing',
+  redirectUrls: ['data-structures'],
   project: 'ipfs',
   title: 'Decentralized Data Structures',
   description: 'The decentralized web relies on unique data structures and linking strategies. Learn about the benefits of hashing, content addressing, DAG and Merkle Trees!',

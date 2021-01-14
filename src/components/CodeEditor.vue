@@ -3,7 +3,7 @@
     <div v-if="isFileLesson" class="f5 fw7 mt4 mb2">
       Step 2: Update code
       <span class="pl1">
-        <img v-if="cachedCode" src="../static/images/complete.svg" alt="complete" style="height: 1.2rem;" class="v-mid" />
+        <CompleteIcon v-if="cachedCode" alt="complete" style="height: 1.2rem;" class="v-mid" />
       </span>
     </div>
     <div class="h-100 flex-auto" v-bind:data-cy="editorReady ? 'code-editor-ready' : undefined">
@@ -40,12 +40,15 @@
 </template>
 
 <script>
+import CompleteIcon from '../static/images/complete.svg?inline'
+
 import countly from '../utils/countly'
 import MonacoEditor from 'monaco-editor-vue'
 
 export default {
   components: {
-    MonacoEditor
+    MonacoEditor,
+    CompleteIcon
   },
   props: {
     isFileLesson: Boolean,

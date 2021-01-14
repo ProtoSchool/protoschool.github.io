@@ -26,9 +26,9 @@
         text="All Tutorials"
         :to="`/course/${course.id}`"
       >
-        <img
+        <ProjectIcon
           class="mr2"
-          :src="course.logo"
+          :id="course.id"
           :alt="`${course.name} project logo`"
           style="height: 1.5em;"
         />
@@ -42,6 +42,7 @@
 <script>
 import marked from 'marked'
 
+import ProjectIcon from './icons/ProjectIcon'
 import NewsletterSubscription from './forms/NewsletterSubscription.vue'
 import FeedbackSurvey from './forms/feedback-survey/FeedbackSurvey.vue'
 import ButtonLink from './buttons/ButtonLink.vue'
@@ -53,7 +54,8 @@ export default {
   components: {
     NewsletterSubscription,
     FeedbackSurvey,
-    ButtonLink
+    ButtonLink,
+    ProjectIcon
   },
   props: {
     coursesIncludingTutorial: Function,

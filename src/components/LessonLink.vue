@@ -5,9 +5,9 @@
         <div v-if="isResources" class="flex-ns items-center-ns dn tl green ttu f6" style="min-width: 93px">Resources</div>
         <div v-else class="flex-ns items-center dn tl green ttu f6" style="min-width: 93px">Lesson {{lessonNumber}}</div>
         <div class="flex-ns items-center-ns pr3" style="flexShrink: 0">
-          <img v-if="getLessonValue('passed' + to)" src="../static/images/complete.svg" alt="complete" style="height: 1rem;"/>
-          <img v-else-if="getLessonValue('cached' + to)" src="../static/images/in-progress.svg" alt="in progress" style="height: 1rem;"/>
-          <img v-else src="../static/images/not-started.svg" alt="not yet started" style="height: 0.9rem;"/>
+          <CompleteIcon v-if="getLessonValue('passed' + to)" alt="complete" style="height: 1rem;"/>
+          <InProgressIcon v-else-if="getLessonValue('cached' + to)" alt="in progress" style="height: 1rem;"/>
+          <NotStartedIcon v-else alt="not yet started" style="height: 0.9rem;"/>
         </div>
         <div class="navy fw5 mw6">{{lesson.title}}</div>
       </div>
@@ -21,20 +21,26 @@
 </template>
 
 <script>
+import CompleteIcon from '../static/images/complete.svg?inline'
+import InProgressIcon from '../static/images/in-progress.svg?inline'
+import NotStartedIcon from '../static/images/not-started.svg?inline'
 
 import TypeIcon from '../components/TypeIcon.vue'
 
 export default {
   name: 'LessonLink',
+  components: {
+    CompleteIcon,
+    InProgressIcon,
+    NotStartedIcon,
+    TypeIcon
+  },
   props: {
     to: String,
     lessonNumber: Number,
     lesson: Object,
     lessonId: String,
     tutorialId: [String, undefined]
-  },
-  components: {
-    TypeIcon
   },
   computed: {
     isResources: function () {
