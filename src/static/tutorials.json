@@ -375,6 +375,18 @@
         "link": "https://github.com/libp2p/js-libp2p/tree/master/examples",
         "type": "docs",
         "description": "Examples include a chat app, browser, encrypted communications, peer and content routing and more."
+      },
+      {
+        "title": "libp2p javascript NodeJs getting started guide",
+        "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md",
+        "type": "docs",
+        "description": "This guide will walk you through setting up a fully functional libp2p node 🚀"
+      },
+      {
+        "title": "libp2p configuration docs page",
+        "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md",
+        "type": "docs",
+        "description": "This document is a guide on how to configure libp2p for your particular project."
       }
     ]
   }
