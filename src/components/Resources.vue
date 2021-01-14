@@ -18,6 +18,23 @@
       </p>
       <div v-if='item.description' class='ma0 resource-desc' v-html='parse(item.description)'></div>
     </div>
+    <div class="flex flex-wrap items-start mb5 mt4" >
+      <ButtonLink
+        v-for="course in courses(tutorialId)" :key="course.id"
+        data-cy="all-tutorials"
+        class="bg-navy white mb3 mr3"
+        text="All Tutorials"
+        :to="`/course/${course.id}`"
+      >
+        <ProjectIcon
+          class="mr2"
+          :id="course.id"
+          :alt="`${course.name} project logo`"
+          style="height: 1.5em;"
+        />
+        <span>{{course.name}} Course</span>
+      </ButtonLink>
+    </div>
     <NewsletterSubscription class="mv4" />
   </div>
 </template>
@@ -25,20 +42,36 @@
 <script>
 import marked from 'marked'
 
+import ProjectIcon from './icons/ProjectIcon'
 import NewsletterSubscription from './forms/NewsletterSubscription.vue'
 import FeedbackSurvey from './forms/feedback-survey/FeedbackSurvey.vue'
+import ButtonLink from './buttons/ButtonLink.vue'
+
+import { getAll } from '../utils/projects'
+import { getTutorialCount, coursesIncludingTutorial } from '../utils/courses'
 
 export default {
   components: {
     NewsletterSubscription,
-    FeedbackSurvey
+    FeedbackSurvey,
+    ButtonLink,
+    ProjectIcon
   },
   props: {
+    coursesIncludingTutorial: Function,
+    project: String,
+    tutorialId: String,
     data: Array
+
   },
   methods: {
     parse (description) {
       return marked(description || '')
+    },
+    courses (tutorialId) {
+      return getAll()
+        .filter(course => coursesIncludingTutorial(tutorialId).includes(course.id))
+        .sort((a, b) => getTutorialCount(b.id) - getTutorialCount(a.id))
     }
   }
 }

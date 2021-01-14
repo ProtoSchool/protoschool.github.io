@@ -22,7 +22,11 @@
         />
         <h1 v-if="!isResources">{{lesson.title}}</h1>
         <Concepts v-if="concepts" :concepts="concepts" />
-        <Resources v-if="isResources" :data="resources" />
+        <Resources v-if="isResources"
+          :data="resources"
+          :tutorialId="tutorial.formattedId"
+          :project="tutorial.project.id"
+        />
         <!--
           only add the text on data-cy-text when not in production
           otherwise the html document will be bigger than it needs to in production

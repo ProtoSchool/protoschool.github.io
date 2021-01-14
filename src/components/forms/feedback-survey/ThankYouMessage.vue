@@ -8,7 +8,7 @@
       class="flex justify-end mt4"
     >
       <ButtonLink
-        text="Go to Survey"
+        text="Take the Survey"
         :link="translations.thankYouMessage.surveyLink"
         external
         :onClick="onClickToProfileSurvey"

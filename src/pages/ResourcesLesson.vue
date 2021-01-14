@@ -4,6 +4,7 @@
     :isResources="true"
     :tutorialId="tutorial && tutorial.tutorialId"
     :resources="tutorial && tutorial.resources"
+    :project="tutorial.project.id"
   />
 </template>
 

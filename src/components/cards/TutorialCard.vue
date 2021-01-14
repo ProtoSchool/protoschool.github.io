@@ -7,9 +7,9 @@
     <router-link :to="`/${tutorial.url}`" class="flex flex-column w-100 pa4 no-underline">
       <div class="flex items-center justify-between mb3">
         <div class="flex items-center">
-          <img
+          <ProjectIcon
             class="mr2"
-            :src="tutorial.project.logo"
+            :id="tutorial.project.id"
             :alt="`${tutorial.project.name} project logo`"
             style="height: 23px"
           />
@@ -30,6 +30,7 @@
 </template>
 <script>
 import Card from './SimpleCard'
+import ProjectIcon from '../icons/ProjectIcon'
 import TypeIcon from '../TypeIcon'
 import { state as tutorialState } from '../../utils/tutorials'
 
@@ -37,6 +38,7 @@ export default {
   name: 'TutorialCard',
   components: {
     Card,
+    ProjectIcon,
     TypeIcon
   },
   props: {
