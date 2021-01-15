@@ -27,17 +27,9 @@ module.exports = {
           routes: routes.all().map(route => route.path),
           renderer: new Renderer({
             renderAfterDocumentEvent: 'x-app-rendered',
-            maxConcurrentRoutes: 4
+            maxConcurrentRoutes: 4,
+            headless: true // If false, display the browser window when rendering. Useful for debugging
           }),
-          // Allows customization of the HTML and output path before
-          // writing the rendered contents to a file.
-          // renderedRoute format:
-          // {
-          //   route: String, // Where the output file will end up (relative to outputDir)
-          //   originalRoute: String, // The route that was passed into the renderer, before redirects.
-          //   html: String, // The rendered HTML for this route.
-          //   outputPath: String // The path the rendered HTML will be written to.
-          // }
           postProcess (renderedRoute) {
             // ignore redirects
             renderedRoute.route = renderedRoute.originalRoute

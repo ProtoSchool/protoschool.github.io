@@ -1,9 +1,9 @@
 <template>
   <h2 class="mt0 mb2 green fw4 fill-current">
     <span style="vertical-align:-1px">
-      <img v-if="lessonPassed" src="../static/images/complete.svg" alt="complete" data-cy="progress-icon-passed"/>
-      <img v-else-if="cachedCode || cachedChoice" src="../static/images/in-progress.svg" alt="in progress" data-cy="progress-icon-in-progress"/>
-      <img v-else src="../static/images/not-started.svg" alt="not yet started" data-cy="progress-icon-not-yet-started"/>
+      <CompleteIcon v-if="lessonPassed" alt="complete" data-cy="progress-icon-passed" class="h1" />
+      <InProgressIcon v-else-if="cachedCode || cachedChoice" alt="in progress" data-cy="progress-icon-in-progress" class="h1" />
+      <NotStartedIcon v-else alt="not yet started" data-cy="progress-icon-not-yet-started" class="h1" />
     </span>
     <span class="green ttu f6 pl2 pr1 fw7 v-mid">
       <span v-if="lessonPassed" data-cy="progress-passed">You did it!</span>
@@ -29,7 +29,16 @@
 </template>
 
 <script>
+import CompleteIcon from '../static/images/complete.svg?inline'
+import InProgressIcon from '../static/images/in-progress.svg?inline'
+import NotStartedIcon from '../static/images/not-started.svg?inline'
+
 export default {
+  components: {
+    CompleteIcon,
+    InProgressIcon,
+    NotStartedIcon
+  },
   props: {
     isMultipleChoiceLesson: Boolean,
     lessonPassed: Boolean,

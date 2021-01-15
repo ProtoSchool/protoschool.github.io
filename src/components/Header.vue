@@ -4,7 +4,7 @@
       <section class="bg-navy white pv3">
         <div class="flex-auto flex items-center center mw7 ph3">
           <router-link to="/">
-            <img src="../static/images/ps_symbol_color.svg" alt="ProtoSchool" class="w3" />
+            <ProtoSchoolLogo alt="ProtoSchool" class="w3" />
           </router-link>
           <div class="header-text ml3">
             <router-link class=" header-title ma0 fw4 white" to="/">
@@ -23,10 +23,13 @@
 </template>
 
 <script>
+import ProtoSchoolLogo from '../static/images/ps_symbol_color.svg?inline'
+
 import Navigation from './Navigation.vue'
 export default {
   name: 'Header',
   components: {
+    ProtoSchoolLogo,
     Navigation
   },
   props: {

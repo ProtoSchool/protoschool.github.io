@@ -23,16 +23,17 @@
       />
       <h2>Courses</h2>
       <p class="f4 fw5 lh-copy ma0 pb3">
-        Interested in a specific distributed web protocol or storage network? Explore these curated collections of tutorials on projects including IPFS, Filecoin, and Multiformats.</p>
-      <div class="flex flex-wrap items-start mb4   mt4" >
+        Interested in a specific distributed web protocol or storage network? Explore these curated collections of tutorials on projects including IPFS, Filecoin, and Multiformats.
+      </p>
+      <div class="flex flex-wrap items-start mb4 mt4" >
         <ButtonLink
           v-for="course in courses" :key="course.id"
           class="bg-navy white mb3 mr3"
           :to="`/course/${course.id}`"
         >
-          <img
+          <ProjectIcon
             class="mr2"
-            :src="course.logo"
+            :id="course.id"
             :alt="`${course.name} project logo`"
             style="height: 1.5em;"
           />
@@ -40,7 +41,7 @@
         </ButtonLink>
       </div>
       <h2>Local Events</h2>
-      <p class="f4 fw5 lh-copy ma0 pv3  ">
+      <p class="f4 fw5 lh-copy ma0 pv3">
       Groups and individuals around the world host in-person events using our tutorials
       as curriculum, with mentors available to help you work through the challenges.
       </p>
@@ -73,6 +74,7 @@ import Header from '../components/Header'
 import EventCard from '../components/cards/EventCard'
 import ButtonLink from '../components/buttons/ButtonLink'
 import TutorialsGrid from '../components/TutorialsGrid'
+import ProjectIcon from '../components/icons/ProjectIcon'
 import coursesList from '../static/courses.json'
 import tutorials from '../utils/tutorials'
 import { futureEvents } from '../utils/events'
@@ -85,7 +87,8 @@ export default {
     Header,
     TutorialsGrid,
     EventCard,
-    ButtonLink
+    ButtonLink,
+    ProjectIcon
   },
   data: self => {
     return {
