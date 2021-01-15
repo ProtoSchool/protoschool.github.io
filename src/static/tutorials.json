@@ -1,7 +1,9 @@
 {
   "0001": {
     "url": "content-addressing",
-    "redirectUrls": ["data-structures"],
+    "redirectUrls": [
+      "data-structures"
+    ],
     "project": "dweb",
     "title": "Content Addressing on the Decentralized Web",
     "description": "Learn how hashing and content addressing enable verifiable data sharing with peers on the decentralized web.",
@@ -58,7 +60,6 @@
         "type": "video",
         "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
       },
-
       {
         "title": "IPFS: Mutable File System (MFS)",
         "link": "https://proto.school/mutable-file-system",
