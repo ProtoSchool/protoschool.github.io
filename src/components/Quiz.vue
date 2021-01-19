@@ -1,12 +1,15 @@
 <template>
   <div>
     <h3>{{this.question}}</h3>
-    <div v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
+    <div class="input-wrapper" v-for="(choice, idx) in this.choices" :key="`choice-${idx}`">
       <input type="radio"
       :id="idx" :value="idx"
       v-model="selected"
       @change="handleRadioClick">
-      <label :for="idx" v-html='parse(choice.answer)' data-cy="choice"></label>
+      <span class="radio-button" :data-selected="selected">
+      </span>
+      <label :for="idx" v-html='parse(choice.answer)' data-cy="choice">
+      </label>
     </div>
   </div>
 </template>
@@ -16,12 +19,10 @@ import marked from 'marked'
 
 export default {
   name: 'Quiz',
-  data: self => {
-    return {
-      question: self.$attrs.question,
-      choices: self.$attrs.choices,
-      selected: self.$attrs.selected
-    }
+  props: {
+    question: String,
+    choices: Array,
+    selected: String
   },
   mounted: function () {
     this.handleRadioClick(true)
@@ -61,6 +62,10 @@ export default {
 </script>
 
 <style scoped>
+.input-wrapper {
+  position: relative;
+}
+
 input[type=radio] {
   display: none;
 }
@@ -73,24 +78,40 @@ label {
   padding-left: 25px;
 }
 
-label:before {
-  content: "";
+.radio-button {
+  --size: 1rem;
+  --border-width: 1px;
+
   position: absolute;
-  display: inline-block;
+  top: 0;
   left: 0;
-  width: 16px;
-  height: 16px;
-  background-color: #fff;
-  border: 1px solid #0a3a52;
-  border-radius: 50%;
+
+  height: var(--size);
+  width: var(--size);
+
+  border-radius: 100%;
+  background-color: var(--color-white);
+  border: var(--border-width) solid var(--color-navy);
 }
 
-input[type=radio]:checked + label:before {
-  content: "\2022";
-  color: #0a3a52;
-  font-size: 1.45rem;
-  text-align: center;
-  line-height: 1.1rem;
+.radio-button:after {
+  content: "";
+  position: absolute;
+  top: calc(var(--size) / 2 - var(--border-width));
+  right: 0;
+  bottom: 0;
+  left: calc(var(--size) / 2 - var(--border-width));
+  height: calc(var(--size) / 2);
+  width: calc(var(--size) / 2);
+  border-radius: var(--size);
+  background-color: var(--color-navy);
+  transform: translate(-50%, -50%) scale(0);
+
+  transition: transform 200ms;
+}
+
+input[type=radio]:checked + .radio-button:after  {
+  transform: translate(-50%, -50%) scale(1);
 }
 
 </style>
