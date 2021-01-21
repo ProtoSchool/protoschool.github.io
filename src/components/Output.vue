@@ -1,15 +1,15 @@
 <template>
   <div class="pt2">
-    <div v-if="output.test.error"
-      class="lh-copy pv2 ph3 bg-red white"
-      v-html="parseData(`Error: ${output.test.error.message}`)"
-      >
-    </div>
+    <div v-if="output.test && (output.test instanceof Error || output.test.error)"
+      class="output-log lh-copy bg-red white"
+      v-html="parseData(`${output.test instanceof Error ? output.test : output.test.error}`)"
+    />
     <div
       v-if="output.test.fail"
       class="output-log lh-copy bg-red white"
       v-html="parseData(output.test.fail)"
-      data-cy="output-fail"/>
+      data-cy="output-fail"
+    />
     <div class="lh-copy bg-green white" v-if="output.test.success && lessonPassed">
       <span class="output-log" data-cy="output-success" v-html="parseData(output.test.success)" />
       <span v-if="output.test.cid">
@@ -52,6 +52,7 @@ export default {
     trackingData: Object
   },
   computed: {
+    Error: () => Error,
     exploreIpldUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
 

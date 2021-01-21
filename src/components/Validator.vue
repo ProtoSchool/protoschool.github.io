@@ -113,7 +113,7 @@ export default {
     isMultipleChoiceLesson: Boolean,
     uploadedFiles: Array,
     lessonPassed: Boolean,
-    output: Object,
+    output: [Object, Error],
     isResources: Boolean,
     nextLessonIsResources: Boolean,
     lessonNumber: Number,
