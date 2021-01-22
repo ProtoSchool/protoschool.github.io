@@ -465,6 +465,12 @@
         "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md",
         "type": "docs",
         "description": "This document is a guide on how to configure libp2p for your particular project."
+      },
+      {
+        "title": "libp2p go code examples",
+        "link": "https://github.com/libp2p/go-libp2p-examples",
+        "type": "docs",
+        "description": "Examples include a chat app, a basic getting started echo client and server example and more."
       }
     ]
   }
