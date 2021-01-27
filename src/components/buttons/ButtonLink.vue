@@ -4,7 +4,8 @@
     :to="link ? { name: link } : to"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
     :disabled="disabled"
-    @click="onClick"
+    @click.native="onClick"
+    :data-cy="dataCy"
   >
     <slot>{{text}}</slot>
   </router-link>
@@ -14,6 +15,7 @@
     target="__blank"
     @click="onClick"
     class="inline-flex justify-center avenir dib v-mid fw7 nowrap lh-copy bn br1 pointer bg-navy white outline-focus pv2 ph3"
+    :data-cy="dataCy"
   >
     <slot>{{text}}</slot>
   </a>
@@ -38,7 +40,8 @@ export default {
     onClick: {
       type: Function,
       default: () => {}
-    }
+    },
+    dataCy: String
   }
 }
 </script>
@@ -47,7 +50,8 @@ export default {
 a {
   position: relative;
   opacity: 0.9;
-  min-width: 120px;
+  min-width: 7.5rem;
+  min-height: 2.5rem;
   box-shadow: inset 0 0 8px rgb(0 0 0 / 0%);
   outline: none;
   user-select: none;

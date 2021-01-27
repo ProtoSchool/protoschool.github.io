@@ -5,19 +5,23 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import VueTooltip from 'v-tooltip'
+import PortalVue from 'portal-vue'
 import VueHighlightJS from 'vue-highlight.js'
 import VueSelect from 'vue-select'
+
 import 'vue-select/dist/vue-select.css'
 import 'highlight.js/styles/github.css'
 
 import App from './App.vue'
 import router from './router'
+import stateInit from './state/init'
 
 Vue
   .use(VueRouter)
   .use(VueMeta, { keyName: 'head', refreshOnceOnNavigation: true })
   .use(VueHighlightJS)
   .use(VueTooltip)
+  .use(PortalVue)
 
 Vue.component('v-select', VueSelect)
 
@@ -36,7 +40,10 @@ const root = new Vue({
       this.$router.replace({ path: window.location.hash.replace('#', '') })
     }
   },
-  render: h => h(App)
+  render: h => h(App),
+  data: {
+    state: stateInit()
+  }
 })
 
 document.addEventListener('DOMContentLoaded', function () {

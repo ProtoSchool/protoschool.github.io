@@ -7,6 +7,7 @@
     :data-loading="loading"
     :type="type"
     :disabled="loading || disabled"
+    :data-cy="dataCy"
   >
     <span class="loader"></span>
     <span class="text">{{text}}</span>
@@ -39,7 +40,8 @@ export default {
     blur: {
       type: Function,
       default: () => {}
-    }
+    },
+    dataCy: String
   }
 }
 </script>
@@ -48,7 +50,8 @@ export default {
 button {
   position: relative;
   opacity: 0.9;
-  min-width: 120px;
+  min-width: 7.5rem;
+  min-height: 2.5rem;
   box-shadow: inset 0 0 8px rgb(0 0 0 / 0%);
   outline: none;
 

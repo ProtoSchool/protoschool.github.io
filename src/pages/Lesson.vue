@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import debug from '../utils/debug'
+import { debug } from '../utils/debug'
 import head from '../utils/head'
 import { getTutorialByUrl } from '../utils/tutorials'
 import marked from '../utils/marked'

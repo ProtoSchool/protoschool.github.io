@@ -1,5 +1,5 @@
 const log = require('../logger')
-const debug = require('../../utils/debug')
+const debug = require('../debug')
 const tutorialsApi = require('./tutorials')
 const utils = require('../utils')
 

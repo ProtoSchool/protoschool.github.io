@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view :key="$route.path"></router-view>
+    <portal-target name="modal"></portal-target>
   </div>
 </template>
 

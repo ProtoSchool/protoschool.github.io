@@ -1,5 +1,6 @@
 <template>
   <div :class="{'overflow-hidden': expandChallenge}">
+    <TutorialRedirectModal :tutorial="tutorial" :lesson="lesson" />
     <Header/>
     <div class="container center-l mw7-l ph3">
       <section class="mw7 center mt3 pt2">
@@ -11,7 +12,7 @@
               :lessonsInTutorial="lessonsInTutorial"
               :lessonPassed="lessonPassed" />
             <TypeIcon
-              :lessonId="isResources? 'resources' : lessonId"
+              :lessonId="isResources ? 'resources' : lessonId"
               :tutorialId="tutorial.formattedId"
               class="h2 ml3" />
         </div>
@@ -153,6 +154,7 @@ import Output from './Output.vue'
 import Info from './Info.vue'
 import Validator from './Validator.vue'
 import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
+import TutorialRedirectModal from './modals/TutorialRedirectModal.vue'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = isProduction ? 10000 : 60000
@@ -221,6 +223,7 @@ export default {
     Info,
     Validator,
     TutorialCompletionCallout,
+    TutorialRedirectModal,
     TypeIcon
   },
   props: {

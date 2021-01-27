@@ -1,0 +1,13 @@
+:root {
+  /*
+    Viewport widths for reference
+    Cannot be used directly in media queries
+  */
+  --vw-mobile-small: 20rem; /* 320px */
+  --vw-mobile-medium: 24rem; /* 375px */
+  --vw-mobile-large: 26rem; /* 425px */
+  --vw-tablet: 48rem; /* 768px */
+  --vw-laptop: 64rem; /* 1024px */
+  --vw-laptop-large: 90rem; /* 1440px */
+  --vw-laptop-huge: 160rem; /* 2560px */
+}
