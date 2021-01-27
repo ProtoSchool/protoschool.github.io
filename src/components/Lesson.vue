@@ -176,8 +176,8 @@ const _eval = async (text, ipfs, args = []) => {
   try {
     // eslint-disable-next-line
     fn = new Function(Object.keys(modules).join(','), text)
-  } catch (err) {
-    return new SyntaxError(err.message, err)
+  } catch (error) {
+    return new SyntaxError(error.message, error)
   }
 
   let result
