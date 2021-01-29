@@ -424,53 +424,53 @@
     "url": "introduction-to-libp2p",
     "project": "libp2p",
     "title": "Introduction to libp2p",
-    "description": "In this tutorial you'll learn what libp2p is, what problems it is trying to solve, and how it tries to solve them. You'll also get an overview of it's modularity and how it aims to be the de facto peer-to-peer library. This tutorial uses `js-libp2p` version `0.30`.",
+    "description": "Learn how libp2p solves common networking problems through modularity, aiming to be the de facto peer-to-peer (P2P) library for the decentralized web.",
     "newMessage": "",
     "updateMessage": "",
-    "createdAt": "2021-01-20T00:00:00.000Z",
-    "updatedAt": "2021-01-20T00:00:00.000Z",
+    "createdAt": "2021-01-29T00:00:00.000Z",
+    "updatedAt": "2021-01-29T00:00:00.000Z",
     "resources": [
       {
-        "title": "libp2p main website",
+        "title": "libp2p Website",
         "link": "https://libp2p.io",
         "type": "docs",
-        "description": "libp2p main website. Includes links to all the native implementations, videos of past talks, specifications and documentation."
+        "description": "Explore libp2p's native implementations, videos of conference talks, specifications, and documentation."
       },
       {
-        "title": "libp2p documentation website",
+        "title": "libp2p Documentation",
         "link": "https://docs.libp2p.io/",
         "type": "docs",
-        "description": "Includes code examples and concepts glossary."
+        "description": "Dig deeper into libp2p's concepts and modules on its docs site, which includes a glossary and code examples across Go, JavaScript, and Rust implementations."
       },
       {
-        "title": "Introduction to libp2p by David Dias",
+        "title": "Introduction to libp2p",
         "link": "https://www.youtube.com/watch?v=CRe_oDtfRLw",
         "type": "video",
-        "description": "Talk that heavily inspired this tutorial. David goes through why we need libp2p, how it works and what are its objectives for the future."
+        "description": "Watch the talk from David Dias that heavily inspired this tutorial, in which he explains we need libp2p, how it works, and what its future objectives are."
       },
       {
-        "title": "libp2p javascript code examples",
+        "title": "js-libp2p Code Examples",
         "link": "https://github.com/libp2p/js-libp2p/tree/master/examples",
         "type": "docs",
-        "description": "Examples include a chat app, browser, encrypted communications, peer and content routing and more."
+        "description": "Explore libp2p code examples in JavaScript, indluding a chat app, browser, encrypted communications, peer and content routing, and more."
       },
       {
-        "title": "libp2p javascript NodeJs getting started guide",
+        "title": "Getting started with js-libp2p",
         "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md",
         "type": "docs",
-        "description": "This guide will walk you through setting up a fully functional libp2p node 🚀"
+        "description": "Walk through the process of setting up a fully functional js-libp2p node using JavaScript. 🚀"
       },
       {
-        "title": "libp2p configuration docs page",
+        "title": "js-libp2p Configuration",
         "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md",
         "type": "docs",
-        "description": "This document is a guide on how to configure libp2p for your particular project."
+        "description": "Learn how to configure js-libp2p for your particular project."
       },
       {
-        "title": "libp2p go code examples",
+        "title": "go-libp2p Code Examples",
         "link": "https://github.com/libp2p/go-libp2p-examples",
         "type": "docs",
-        "description": "Examples include a chat app, a basic getting started echo client and server example and more."
+        "description": "Explore libp2p code examples in the Go programming language, including a chat app, a basic getting started echo client and server example, and more."
       }
     ]
   }
