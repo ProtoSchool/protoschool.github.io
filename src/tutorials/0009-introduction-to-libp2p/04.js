@@ -4,7 +4,7 @@ const question = "Where does libp2p fit into the OSI Model?"
 
 const choices = [
   {
-    answer: "libp2p breaks the OSI Model apart and allows applications to mix and match freely without having to be restricted to rigid conceptual models.",
+    answer: "libp2p breaks the OSI Model apart and allows applications to mix and match freely without being restricted to rigid conceptual models.",
     correct: true,
     feedback: "That's correct!"
   },
@@ -14,7 +14,7 @@ const choices = [
     feedback: "Oops, that's not correct."
   },
   {
-    answer: "libp2p made the effort to tackle all the layers at once, making it a better protocol than most.",
+    answer: "libp2p tackles all the layers of the OSI Model at once, making it a better protocol than most.",
     correct: false,
     feedback: "Sorry, but that's not quite right."
   }
