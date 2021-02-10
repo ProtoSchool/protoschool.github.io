@@ -11,7 +11,7 @@ const choices = [
   {
     answer: "libp2p is a great new P2P protocol that solves all of the networking issues previously mentioned.",
     correct: false,
-    feedback: "Not quite. While libp2p solves many of these challenges, the way in which it does it is especially important. Try again!"
+    feedback: "Not quite. While libp2p solves many of these challenges, the way in which it does so is especially important. Try again!"
   },
   {
     answer: "No P2P protocol will cover all the use cases that all the applications need. Instead, we need an easy way to interop between protocols seamlessly.",
