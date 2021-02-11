@@ -11,7 +11,7 @@ const choices = [
   {
     answer: "By separating itself from IPFS.",
     correct: false,
-    feedback: "Not quiite. Separating from IPFS allowed libp2p to be adopted by other projects, but there's more to its success. Try again!"
+    feedback: "Not quite. Separating from IPFS allowed libp2p to be adopted by other projects, but there's more to its success. Try again!"
   },
   {
     answer: "By creating well defined interfaces that allow anyone to create modules that follow those interfaces.",
