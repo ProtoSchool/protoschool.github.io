@@ -45,6 +45,7 @@
     "monaco-editor-webpack-plugin": "^1.9.0",
     "new-github-issue-url": "^0.2.1",
     "p-timeout": "^3.2.0",
+    "portal-vue": "^2.1.7",
     "prerender-spa-plugin": "^3.4.0",
     "querystringify": "^2.1.1",
     "raw-loader": "^0.5.1",

@@ -4,7 +4,7 @@ const errorCode = require('err-code')
 const marked = require('meta-marked')
 
 const log = require('../logger')
-const debug = require('../../utils/debug')
+const debug = require('../debug')
 const config = require('../config')
 
 const logGroup = log.createLogGroup('lessons')

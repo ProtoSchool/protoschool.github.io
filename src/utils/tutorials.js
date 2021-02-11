@@ -238,7 +238,7 @@ export function setLessonPassed (tutorial, lesson) {
 }
 
 export function isLessonPassed (tutorial, lesson) {
-  return !!localStorage[`passed/${tutorial.url}/${lesson.formattedId}`]
+  return !!localStorage[`passed/${tutorial.url}/${lesson.type === 'resources' ? 'resources' : lesson.formattedId}`]
 }
 
 export default tutorials

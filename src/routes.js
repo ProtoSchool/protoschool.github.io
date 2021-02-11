@@ -140,7 +140,8 @@ function tutorials () {
 
     return routes.concat(tutorial.lessons.map(lesson => ({
       type: TYPES.LESSON,
-      path: `/${lesson.url}/`
+      path: `/${lesson.url}/`,
+      sitemap: { priority: 1, changefreq: 'monthly', lastmod }
     })))
   }, []).map(addSitemapLoc)
 }

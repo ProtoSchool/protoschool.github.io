@@ -30,9 +30,11 @@ export default {
   Parent needs to have position != static
  */
 button.close {
+  --position: 0.4rem;
+
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: var(--position);
+  right: var(--position);
   transform: scale(0.95);
 
   padding: 0.5rem;
@@ -65,8 +67,7 @@ button.close {
 
 @media screen and (max-width: 30rem) {
   button.close {
-    top: 0.3rem;
-    right: 0.3rem;
+    --position: 0.3rem;
 
     opacity: 0.8;
     transform: scale(0.8);

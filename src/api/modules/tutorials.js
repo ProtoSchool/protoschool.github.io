@@ -12,7 +12,7 @@ const _ = require('lodash')
 const del = require('del')
 
 const log = require('../logger')
-const debug = require('../../utils/debug')
+const debug = require('../debug')
 const config = require('../config')
 const utils = require('../utils')
 const lessonsApi = require('./lessons')
