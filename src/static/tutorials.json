@@ -7,7 +7,7 @@
     "description": "Learn how hashing and content addressing enable verifiable data sharing with peers on the decentralized web.",
     "newMessage": "",
     "updateMessage": "This tutorial, formerly known as Decentralized Data Structures, has been updated to focus exclusively on content addressing, while our new Merkle DAGs tutorial explores content-addressable data structures in greater depth.",
-    "createdAt": "2019-01-01T00:00:00.000Z",
+    "createdAt": "2019-01-02T00:00:00.000Z",
     "updatedAt": "2021-01-14T18:00:00.000Z",
     "resources": [
       {
@@ -87,7 +87,7 @@
     "description": "Store, fetch, and create verifiable links between peer-hosted datasets using the IPFS DAG API and CIDs. It’s graphs with friends!",
     "newMessage": "",
     "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by changing `ipfs.dag.get` by moving the `path` into the `options` object. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
-    "createdAt": "2019-01-01T00:00:00.000Z",
+    "createdAt": "2018-07-31T00:00:00.000Z",
     "updatedAt": "2020-07-20T00:00:00.000Z",
     "resources": [
       {
@@ -135,7 +135,7 @@
     "description": "Cool content addresses don't change. Create a chain of links from one CID to another with the IPFS DAG API.",
     "newMessage": "",
     "updateMessage": "",
-    "createdAt": "2019-01-01T00:00:00.000Z",
+    "createdAt": "2018-07-31T00:00:00.000Z",
     "updatedAt": "2019-01-01T00:00:00.000Z",
     "resources": [
       {
@@ -177,7 +177,7 @@
     "description": "The Mutable File System (MFS) lets you work with files and directories as if you were using a traditional name-based file system.",
     "newMessage": "",
     "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by changing the acceptable formats for moving multiple files with `ipfs.files.mv`. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
-    "createdAt": "2019-01-01T00:00:00.000Z",
+    "createdAt": "2019-06-10T00:00:00.000Z",
     "updatedAt": "2020-07-20T00:00:00.000Z",
     "resources": [
       {
@@ -232,7 +232,7 @@
     "description": "The IPFS Regular Files API provides a way to store and share files in a peer-to-peer storage system.",
     "newMessage": "",
     "updateMessage": "Version `0.48` of `js-ipfs` has introduced some changes, most notably by adding `addAll` to use with multiple files, while `add` can now only be used with a single file. This means that **some code challenge solutions have changed**. We recommend re-visiting this tutorial to learn about the updated methods and complete the revised challenges!",
-    "createdAt": "2019-01-01T00:00:00.000Z",
+    "createdAt": "2019-11-06T00:00:00.000Z",
     "updatedAt": "2020-07-20T00:00:00.000Z",
     "resources": [
       {
