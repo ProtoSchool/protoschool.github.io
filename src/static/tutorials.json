@@ -1,7 +1,9 @@
 {
   "0001": {
     "url": "content-addressing",
-    "redirectUrls": ["data-structures"],
+    "redirectUrls": [
+      "data-structures"
+    ],
     "project": "dweb",
     "title": "Content Addressing on the Decentralized Web",
     "description": "Learn how hashing and content addressing enable verifiable data sharing with peers on the decentralized web.",
@@ -58,7 +60,6 @@
         "type": "video",
         "description": "This course from IPFS Camp 2019 offers a deep exploration of how IPFS deals with files, including key concepts like immutability, content addressing, hashing, the anatomy of CIDs, what the heck a Merkle DAG is, and how chunk size affects file imports."
       },
-
       {
         "title": "IPFS: Mutable File System (MFS)",
         "link": "https://proto.school/mutable-file-system",
@@ -366,8 +367,6 @@
     ]
   },
   "0008": {
-    "id": 8,
-    "formattedId": "0008",
     "url": "merkle-dags",
     "project": "ipld",
     "title": "Merkle DAGs: Structuring Data for the Distributed Web",
@@ -418,6 +417,66 @@
         "link": "https://docs.ipld.io/",
         "type": "docs",
         "description": "Explore the IPLD project, an ecosystem of formats and data structures for building fully decentralized applications."
+      }
+    ]
+  },
+  "0009": {
+    "url": "introduction-to-libp2p",
+    "project": "libp2p",
+    "title": "Introduction to libp2p",
+    "description": "Learn how libp2p solves common networking problems through modularity, aiming to be the de facto peer-to-peer (P2P) library for the decentralized web.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2021-02-17T00:00:00.000Z",
+    "updatedAt": "2021-02-17T00:00:00.000Z",
+    "resources": [
+      {
+        "title": "libp2p Website",
+        "link": "https://libp2p.io",
+        "type": "docs",
+        "description": "Explore libp2p's native implementations, videos of conference talks, specifications, and documentation."
+      },
+      {
+        "title": "libp2p Documentation",
+        "link": "https://docs.libp2p.io/",
+        "type": "docs",
+        "description": "Dig deeper into libp2p's concepts and modules on its docs site, which includes a glossary and code examples across Go, JavaScript, and Rust implementations."
+      },
+      {
+        "title": "Introduction to libp2p",
+        "link": "https://www.youtube.com/watch?v=CRe_oDtfRLw",
+        "type": "video",
+        "description": "Watch the talk from David Dias that heavily inspired this tutorial, in which he explains we need libp2p, how it works, and what its future objectives are."
+      },
+      {
+        "title": "js-libp2p Code Examples",
+        "link": "https://github.com/libp2p/js-libp2p/tree/master/examples",
+        "type": "docs",
+        "description": "Explore libp2p code examples in JavaScript, indluding a chat app, browser, encrypted communications, peer and content routing, and more."
+      },
+      {
+        "title": "Getting started with js-libp2p",
+        "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/GETTING_STARTED.md",
+        "type": "docs",
+        "description": "Walk through the process of setting up a fully functional js-libp2p node using JavaScript. 🚀"
+      },
+      {
+        "title": "js-libp2p Configuration",
+        "link": "https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md",
+        "type": "docs",
+        "description": "Learn how to configure js-libp2p for your particular project."
+      },
+      {
+        "title": "go-libp2p Code Examples",
+        "link": "https://github.com/libp2p/go-libp2p-examples",
+        "type": "docs",
+        "description": "Explore libp2p code examples in the Go programming language, including a chat app, a basic getting started echo client and server example, and more."
+      },
+      {
+        "title": "Content Addressing on the Decentralized Web",
+        "link": "https://proto.school/content-addressing",
+        "type": "tutorial",
+        "description": "Many of the applications that incorporate libp2p for _process addressing_ also use _content addressing_ to identify the data shared among peers on a decentralized network. Learn more about content addressing in our most popular ProtoSchool tutorial."
       }
     ]
   }

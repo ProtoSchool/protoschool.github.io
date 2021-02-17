@@ -33,7 +33,7 @@
           class="h2 ml3 type-icon"/>
       </div>
 
-      <p class="f5 fw5 mt2 mb3 lh-copy charcoal-muted">{{tutorial.description}}</p>
+      <p class="f5 fw5 mt2 mb3 lh-copy charcoal-muted" v-html="description"></p>
       <TutorialMessage :tutorial="tutorial" class="mb4" />
       <ul class="lessons-list mv2 pa0 f5 br3">
         <template v-for="(lesson, index) in tutorial.lessons">
@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import marked from 'meta-marked'
+
 import LessonLink from '../components/LessonLink.vue'
 import TypeIcon from '../components/TypeIcon.vue'
 import ProjectIcon from '../components/icons/ProjectIcon.vue'
@@ -85,6 +87,9 @@ export default {
     }
   },
   computed: {
+    description: function () {
+      return marked(this.tutorial.description).html
+    },
     landingLink: function () {
       return `/${this.tutorial.url}`
     },
