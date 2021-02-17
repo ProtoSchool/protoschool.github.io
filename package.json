@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "async": "^2.6.1",
-    "cids": "^0.8.3",
+    "cids": "^1.1.5",
     "err-code": "^2.0.3",
     "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
