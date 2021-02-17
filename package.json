@@ -31,7 +31,7 @@
     "googleapis": "^47.0.0",
     "highlight.js": "^9.12.0",
     "inquirer": "^7.1.0",
-    "ipfs": "^0.48.2",
+    "ipfs": "^0.54.2",
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.1",
     "it-to-buffer": "^1.0.1",
