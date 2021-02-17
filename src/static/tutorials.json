@@ -471,6 +471,12 @@
         "link": "https://github.com/libp2p/go-libp2p-examples",
         "type": "docs",
         "description": "Explore libp2p code examples in the Go programming language, including a chat app, a basic getting started echo client and server example, and more."
+      },
+      {
+        "title": "Content Addressing on the Decentralized Web",
+        "link": "https://proto.school/content-addressing",
+        "type": "tutorial",
+        "description": "Many of the applications that incorporate libp2p for _process addressing_ also use _content addressing_ to identify the data shared among peers on a decentralized network. Learn more about content addressing in our most popular ProtoSchool tutorial."
       }
     ]
   }
