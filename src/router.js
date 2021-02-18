@@ -20,7 +20,7 @@ const router = new VueRouter({
     },
     {
       path: '/:tutorialUrl',
-      component: () => import(/* webpackChunkName: "tutorial" */ './pages/Landing'),
+      component: () => import(/* webpackChunkName: "tutorial" */ './pages/Tutorial'),
       props: true
     },
     {

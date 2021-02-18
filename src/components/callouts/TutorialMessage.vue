@@ -1,13 +1,13 @@
 <template>
   <div
     v-if="tutorialState && tutorialState.type"
-    class="container ph3 pt2 pb2 ba b--light-gray br3 flex-row tutorial-message flex"
+    class="container ph3 pt2 pb2 ba b--light-gray br2 flex-row tutorial-message flex"
     :data-tutorial-state="tutorialState.type"
   >
     <InfoIcon class="mr1" />
     <div>
       <h2 class="f5 fw6 ttu mt0 nb1 p0 flex items-center content-center">{{tutorialState.title}}</h2>
-      <div v-if="tutorialState.message" class="f6 lh-copy mt2 mb2 tutorial-message-text" v-html="tutorialState.message" />
+      <div v-if="tutorialState.message" class="f6 fw5 lh-copy mt2 mb2 tutorial-message-text" v-html="tutorialState.message" />
     </div>
   </div>
 </template>

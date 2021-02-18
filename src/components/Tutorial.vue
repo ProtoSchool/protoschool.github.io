@@ -35,7 +35,7 @@
 
       <p class="f5 fw5 mt2 mb3 lh-copy charcoal-muted" v-html="description"></p>
       <TutorialMessage :tutorial="tutorial" class="mb4" />
-      <ul class="lessons-list mv2 pa0 f5 br3">
+      <ul class="lessons-list mv2 pa0 f5 br2">
         <template v-for="(lesson, index) in tutorial.lessons">
           <li :key="index">
             <LessonLink
@@ -57,7 +57,7 @@
 import marked from 'meta-marked'
 
 import LessonLink from '../components/LessonLink.vue'
-import TypeIcon from '../components/TypeIcon.vue'
+import TypeIcon from '../components/icons/TypeIcon.vue'
 import ProjectIcon from '../components/icons/ProjectIcon.vue'
 import TutorialMessage from '../components/callouts/TutorialMessage.vue'
 import { isTutorialPassed } from '../utils/tutorials'

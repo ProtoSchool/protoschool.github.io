@@ -31,7 +31,7 @@
 <script>
 import Card from './SimpleCard'
 import ProjectIcon from '../icons/ProjectIcon'
-import TypeIcon from '../TypeIcon'
+import TypeIcon from '../icons/TypeIcon'
 import { state as tutorialState } from '../../utils/tutorials'
 
 export default {
