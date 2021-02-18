@@ -66,6 +66,12 @@ function statics () {
       component: () => import(/* webpackChunkName: "contribute" */ './pages/Contribute'),
       name: 'Contribute',
       sitemap: { priority: 0.6, changefreq: 'monthly', lastmod }
+    },
+    {
+      path: '/libp2p-test/',
+      component: () => import(/* webpackChunkName: "contribute" */ './pages/Libp2pTest'),
+      name: 'Libp2p Test',
+      sitemap: { priority: 0.6, changefreq: 'monthly', lastmod }
     }
   ].map(route => ({ ...route, type: TYPES.STATIC })).map(addSitemapLoc)
 }

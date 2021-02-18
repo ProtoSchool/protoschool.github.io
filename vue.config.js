@@ -45,6 +45,7 @@ module.exports = {
         ...opts,
         failOnError: process.env.NODE_ENV === 'production'
       }))
+    config.resolve.symlinks(false)
   },
   pluginOptions: {
     sitemap: {
