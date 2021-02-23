@@ -51,7 +51,7 @@ import ProtoSchoolLogo from '../../static/images/ps_symbol_color.svg?inline'
 export default {
   name: 'Footer',
   components: {
-    ProtoSchoolLogo,
+    ProtoSchoolLogo
   }
 }
 </script>
