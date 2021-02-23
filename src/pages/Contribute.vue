@@ -49,7 +49,7 @@
 
        <p class="f4 fw5 lh-copy ma0 pv2 ">Feeling overwhelmed by GitHub while contributing to ProtoSchool? Send us a good old-fashioned <a href="mailto:protoschool@protocol.ai">email</a> and we'll do our best to help.</p>
 
-      <h2>Get in Touch</h2>
+      <h2 id="contact">Get in Touch</h2>
       <p class="f4 fw5 lh-copy ma0 pv2 ">
       We use GitHub to organize ProtoSchool. The best place to get in touch
       with questions about event leadership and community engagement is our
