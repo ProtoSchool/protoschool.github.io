@@ -1,22 +1,43 @@
 <template>
   <div>
-    <footer>
-      <section class="bg-navy white pv3">
-        <div class="flex-auto flex items-center center mw7 ph3">
-          <router-link to="/">
-            <ProtoSchoolLogo alt="ProtoSchool" class="w3" />
-          </router-link>
-          <div class="header-text ml3">
-            <router-link class=" header-title ma0 fw4 white" to="/">
-              <span class="montserrat fw4">Proto</span>
-              <span class="montserrat fw2">School</span>
-            </router-link>
-            <div class="header-slogan ma0 montserrat fw3">
-              Interactive tutorials on decentralized web protocols
-            </div>
-          </div>
+    <footer class="bg-navy white pv3">
+      <div class="flex justify-between mw7 center">
+        <div>
+          <h3>Put Logo Here</h3>
         </div>
-      </section>
+        <div>
+          <h3>Courses</h3>
+          <ul class="list pl0">
+            <li>IPFS</li>
+            <li>Filecoin</li>
+            <li>IPLD</li>
+            <li>Multiformats</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Community</h3>
+          <ul class="list pl0">
+            <li>GitHub</li>
+            <li>Twitter</li>
+            <li>Newsletter</li>
+            <li>Contribute</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Related Projects</h3>
+          <ul class="list pl0">
+            <li>IPFS</li>
+            <li>Filecoin</li>
+            <li>IPLD</li>
+            <li>libp2p</li>
+            <li>Multiformats</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex justify-between mw7 center">
+        <p>© Protocol Labs | Except as <a href="https://protocol.ai/legal/">noted</a>, content licensed <a href="https://creativecommons.org/licenses/by/3.0/">CC-BY 3.0</a>.</p>
+      </div>
     </footer>
   </div>
 </template>
