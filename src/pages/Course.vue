@@ -55,6 +55,7 @@
         />
       </div>
     </section>
+    <Footer/>
   </div>
 </template>
 
@@ -70,7 +71,8 @@ import translations from '../static/translations'
 import { getAll } from '../utils/projects'
 import countly from '../utils/countly'
 
-import Header from '../components/Header'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 import TutorialsGrid from '../components/TutorialsGrid'
 import ToggleButton from '../components/ToggleButton'
 import ButtonLink from '../components/buttons/ButtonLink'
@@ -83,6 +85,7 @@ export default {
   },
   components: {
     Header,
+    Footer,
     TutorialsGrid,
     ToggleButton,
     ButtonLink,

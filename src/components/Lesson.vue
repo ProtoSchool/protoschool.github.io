@@ -111,14 +111,15 @@
         :run="run"
         :next="next" />
     </div>
-    <footer class="mt4 ph3-ns bg-navy white">
+    <div class="mt4 ph3-ns bg-aqua navy">
       <div v-if="isResources" class="mw7 center ph3">
         <p>How did you feel about this tutorial? We'd love to hear your thoughts and suggestions for improvement! Please <a :href="tutorialIssueUrl" target="_blank">share your feedback</a>.</p>
       </div>
       <div v-else class="mw7 center ph3">
-        <p>Feeling stuck? We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
+        <p><strong>Feeling stuck?</strong> We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
-    </footer>
+    </div>
+    <Footer/>
   </div>
 </template>
 
@@ -142,7 +143,8 @@ import {
 } from '../utils/tutorials'
 import countly from '../utils/countly'
 import marked from '../utils/marked'
-import Header from './Header.vue'
+import Header from './layout/Header.vue'
+import Footer from './layout/Footer.vue'
 import Quiz from './Quiz.vue'
 import Resources from './Resources.vue'
 import Breadcrumbs from './Breadcrumbs.vue'
@@ -224,7 +226,8 @@ export default {
     Validator,
     TutorialCompletionCallout,
     TutorialRedirectModal,
-    TypeIcon
+    TypeIcon,
+    Footer
   },
   props: {
     lessonId: Number,

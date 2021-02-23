@@ -73,19 +73,21 @@
       workshop is also required to maintain its own Code of Conduct, which you'll
       find linked from our <router-link to="/events">events page</router-link>.
       </p>
-
     </section>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import head from '../utils/head'
-import Header from '../components/Header.vue'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 
 export default {
   name: 'Community',
   components: {
-    Header
+    Header,
+    Footer
   },
   head () {
     return head()

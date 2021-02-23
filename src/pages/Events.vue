@@ -46,13 +46,15 @@
         </div>
       </div>
     </section>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import head from '../utils/head'
 import { pastEvents, futureEvents } from '../utils/events'
-import Header from '../components/Header'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 import EventCard from '../components/cards/EventCard'
 import ButtonLink from '../components/buttons/ButtonLink'
 
@@ -60,6 +62,7 @@ export default {
   name: 'events',
   components: {
     Header,
+    Footer,
     EventCard,
     ButtonLink
   },

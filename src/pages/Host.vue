@@ -82,18 +82,21 @@
       <router-link to="/contribute">ways to contribute</router-link>.
       </p>
     </section>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import head from '../utils/head'
-import Header from '../components/Header.vue'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 import ButtonLink from '../components/buttons/ButtonLink.vue'
 
 export default {
   name: 'Host',
   components: {
     Header,
+    Footer,
     ButtonLink
   },
   head () {

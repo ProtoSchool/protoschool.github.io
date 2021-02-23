@@ -48,10 +48,10 @@
 </template>
 
 <script>
-import BurgerIcon from '../static/images/burger.svg?inline'
-import CloseIcon from '../static/images/close.svg?inline'
+import BurgerIcon from '../../static/images/burger.svg?inline'
+import CloseIcon from '../../static/images/close.svg?inline'
 
-import { getTutorialByUrl } from '../utils/tutorials'
+import { getTutorialByUrl } from '../../utils/tutorials'
 
 export default {
   name: 'Navigation',

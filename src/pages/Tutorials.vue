@@ -31,6 +31,7 @@
         :tutorials="filteredTutorials"
       />
     </section>
+    <Footer/>
   </div>
 </template>
 
@@ -40,7 +41,8 @@ import tutorials from '../utils/tutorials'
 import settings from '../utils/settings'
 import { courseList, filterTutorials } from '../utils/filters'
 
-import Header from '../components/Header.vue'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 import SelectInput from '../components/forms/inputs/SelectInput.vue'
 import TutorialsGrid from '../components/TutorialsGrid.vue'
 import ToggleButton from '../components/ToggleButton.vue' // adapted locally from npm package 'vue-js-toggle-button'
@@ -50,6 +52,7 @@ export default {
   name: 'Tutorials',
   components: {
     Header,
+    Footer,
     TutorialsGrid,
     ToggleButton,
     SelectInput

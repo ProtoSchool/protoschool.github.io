@@ -66,12 +66,14 @@
         </ButtonLink>
       </div>
     </section>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import head from '../utils/head'
-import Header from '../components/Header'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 import EventCard from '../components/cards/EventCard'
 import ButtonLink from '../components/buttons/ButtonLink'
 import TutorialsGrid from '../components/TutorialsGrid'
@@ -86,6 +88,7 @@ export default {
   name: 'Home',
   components: {
     Header,
+    Footer,
     TutorialsGrid,
     EventCard,
     ButtonLink,
