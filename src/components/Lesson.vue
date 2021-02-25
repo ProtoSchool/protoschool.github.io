@@ -119,7 +119,9 @@
         <p><strong>Feeling stuck?</strong> We'd love to hear what's confusing so we can improve this lesson. Please <a :href="lessonIssueUrl" target="_blank">share your questions and feedback</a>.</p>
       </div>
     </div>
-    <Footer/>
+    <Footer
+      noTopMargin
+    />
   </div>
 </template>
 
