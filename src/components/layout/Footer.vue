@@ -1,6 +1,6 @@
 <template>
   <footer :class="`bg-navy white pt4 pb2 ${noTopMargin ? '':'mt4'}`">
-    <div class="flex mw7 ph3 center flex-wrap">
+    <div class="flex mw7 ph3 center flex-wrap"> <!-- logo & columns -->
       <div  class="w-33-l w-100 mb0-l mb3">
         <router-link to="/" class="flex items-center link">
           <ProtoSchoolLogo alt="ProtoSchool" class="w2 mr2 "/>
@@ -9,9 +9,6 @@
             <span class="montserrat fw2">School</span>
           </div>
         </router-link>
-        <div class="header-text mr3 mt3-l mt2 ma0 montserrat fw3 f6 lh-copy">
-          Interactive tutorials on decentralized web protocols
-        </div>
       </div>
         <div class="w-20-l w-25-m w-33 column">
           <span class="fw7">Courses</span>
@@ -44,7 +41,9 @@
           </ul>
         </div>
     </div>
-    <div class="flex justify-start mt4 mw7 center ph3 f6">
+    <div class="flex justify-start mt4 mw7 center ph3 f6 o-70"> <!-- fake element plus copyright -->
+      <div class="w-33-l">
+      </div>
       <p>© <a class="link underline white o-80 glow" href="https://protocol.ai">Protocol Labs</a> | Except as <a class="link underline white o-80 glow" href="https://protocol.ai/legal/">noted</a>, content licensed <a class="link underline white o-80 glow" href="https://creativecommons.org/licenses/by/3.0/">CC-BY 3.0</a>.</p>
     </div>
   </footer>
