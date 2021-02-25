@@ -1,7 +1,7 @@
 <template>
   <footer :class="`bg-navy white pt4 pb2 ${noTopMargin ? '':'mt4'}`">
-    <div class="flex mw7 ph3 center">
-      <div  class="w-33">
+    <div class="flex mw7 ph3 center flex-wrap">
+      <div  class="w-33-l w-100 mb0-l mb3">
         <router-link to="/" class="flex items-center link">
           <ProtoSchoolLogo alt="ProtoSchool" class="w2 mr2 "/>
           <div class="ma0 fw4 white f4">
@@ -9,11 +9,11 @@
             <span class="montserrat fw2">School</span>
           </div>
         </router-link>
-        <div class="header-text mr3 mt3 ma0 montserrat fw3 f6 lh-copy">
+        <div class="header-text mr3 mt3-l mt2 ma0 montserrat fw3 f6 lh-copy">
           Interactive tutorials on decentralized web protocols
         </div>
       </div>
-        <div class="w-20">
+        <div class="w-20-l w-25-m w-33 column">
           <span class="fw7">Courses</span>
           <ul class="list pl0">
             <li class="pv1"><a class="link underline-hover white o-80 glow" href="/course/ipfs">IPFS</a></li>
@@ -22,7 +22,7 @@
             <li class="pv1"><a class="link underline-hover white o-80 glow" href="/course/multiformats">Multiformats</a></li>
           </ul>
         </div>
-        <div class="w-20">
+        <div class="w-20-l w-25-m w-33 column">
           <span class="fw7">Community</span>
           <ul class="list pl0">
             <li class="pv1"><a class="link underline-hover white o-80 glow" href="https://github.com/protoschool">GitHub</a></li>
@@ -33,7 +33,7 @@
           </ul>
         </div>
 
-        <div class="w-20">
+        <div class="w-20-l w-25-m w-33 column">
           <span class="fw7">Related Projects</span>
           <ul class="list pl0">
             <li class="pv1"><a class="link underline-hover white o-80 glow" href="https://ipfs.io">IPFS</a></li>
@@ -63,3 +63,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.column {
+  /* margin-top: 3.44rem; */
+  margin-top: 0.7rem;
+}
+</style>
