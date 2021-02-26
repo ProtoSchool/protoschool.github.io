@@ -69,17 +69,44 @@
     }
   },
   "footer": {
-    "columnHeaders": {
-      "courses": "Courses",
-      "community": "Community",
-      "relatedProjects": "Related Projects"
-    },
-    "communityLinks": {
-      "newsletter": "Newsletter",
-      "contribute": "Contribute",
-      "contact":"Contact"
-    },
-
+    "columns": [
+      {
+        "type": "courses",
+        "title": "Courses",
+        "links": ["ipfs", "ipld", "filecoin", "multiformats"]
+      },
+      {
+        "type": "community",
+        "title": "Community",
+        "links": [
+          {
+            "text": "GitHub",
+            "url": "https://github.com/protoschool"
+          },
+          {
+            "text": "Twitter",
+            "url": "https://twitter.com/protoschool"
+          },
+          {
+            "text": "Newsletter",
+            "url": "/news"
+          },
+          {
+            "text": "Contribute",
+            "url": "/contribute"
+          },
+          {
+            "text": "Contact",
+            "url": "/contribute#contact"
+          }
+        ]
+      },
+      {
+        "type": "projects",
+        "title": "Related Projects",
+        "links": [ "ipfs", "filecoin", "ipld", "libp2p", "multiformats" ]
+      }
+    ],
     "copyright": {
       "_1": "Except as",
       "_2": "noted",
