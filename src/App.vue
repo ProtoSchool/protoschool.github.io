@@ -55,10 +55,6 @@ body {
 }
 
 #app {
-  display: flex; /* 2 */
-  flex: 1 0 auto; /* 2 */
-  flex-direction: column; /* 2 */
-
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -69,6 +65,16 @@ body {
   display: flex; /* 2 */
   flex: 1 0 auto; /* 2 */
   flex-direction: column; /* 2 */
+  height: 100%;
+}
+
+#app > div > div.home,
+#app > div > footer {
+  flex: 0 0 auto; /* 2 */
+}
+
+#app > div > section {
+  flex: 1 0 auto; /* 2 */
 }
 
 pre {
