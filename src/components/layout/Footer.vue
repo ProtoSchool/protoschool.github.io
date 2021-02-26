@@ -10,10 +10,10 @@
           </div>
         </router-link>
       </div>
-        <div v-for="column in processedColumns" class="w-20-l w-25-m w-33 column f6">
+        <div v-for="column in processedColumns" :key="column.title" class="w-20-l w-25-m w-33 column f6">
           <span class="fw7">{{column.title}}</span>
           <ul class="list pl0">
-            <li v-for="link in column.links" class="pv1"><a class="link underline-hover white o-80 glow" :target="link.external ? '_blank' : ''" :href="link.url">{{link.text}}</a></li>
+            <li v-for="(link, index) in column.links" :key="index" class="pv1"><a class="link underline-hover white o-80 glow" :target="link.external ? '_blank' : ''" :href="link.url">{{link.text}}</a></li>
           </ul>
         </div>
       </div>
@@ -45,26 +45,22 @@ export default {
       return translations.footer
     },
     processedColumns: function () {
-      return translations.footer.columns.map(column => {
-          return {
-            ...column,
-            links: column.links.map(link => {
-              let text = link.text // text or undefined
-              let url = link.url // url or underfined
-              let external // undefined
-              if (column.type === "courses" || column.type === "projects") {
-                let project = projects.find(project => project.id === link)
-                text = project.name
-                url = (column.type === "courses") ? `/course/${link}` : project.url
-              }
-              return {text, url, external: !(url.startsWith('/')) }
-            })
+      return translations.footer.columns.map(column => ({
+        ...column,
+        links: column.links.map(link => {
+          let text = link.text // text or undefined
+          let url = link.url // url or underfined
+
+          if (column.type === 'courses' || column.type === 'projects') {
+            let project = projects.find(project => project.id === link)
+
+            text = project.name
+            url = (column.type === 'courses') ? `/course/${link}` : project.url
           }
 
-      })
-
-
-      return columns
+          return { text, url, external: !(url.startsWith('/')) }
+        })
+      }))
     }
   }
 }
