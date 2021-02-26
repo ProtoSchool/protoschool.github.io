@@ -59,9 +59,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  height: 100%;
 }
 
-#app > div {
+#app > div:not(.vue-portal-target) {
   display: flex; /* 2 */
   flex: 1 0 auto; /* 2 */
   flex-direction: column; /* 2 */
