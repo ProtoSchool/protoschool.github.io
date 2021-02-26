@@ -1,6 +1,10 @@
 <template>
   <div :class="{'overflow-hidden': expandChallenge}">
     <TutorialRedirectModal :tutorial="tutorial" :lesson="lesson" />
+    <MobileWarningModal v-if="!isResources && (tutorialType === 'code' || tutorialType === 'file-upload')"
+      :tutorial="tutorial"
+      :lesson="lesson"
+    />
     <Header/>
     <div class="container center-l mw7-l ph3">
       <section class="mw7 center mt3 pt2">
@@ -155,6 +159,7 @@ import Info from './Info.vue'
 import Validator from './Validator.vue'
 import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
 import TutorialRedirectModal from './modals/TutorialRedirectModal.vue'
+import MobileWarningModal from './modals/MobileWarningModal.vue'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = isProduction ? 10000 : 60000
@@ -224,6 +229,7 @@ export default {
     Validator,
     TutorialCompletionCallout,
     TutorialRedirectModal,
+    MobileWarningModal,
     TypeIcon
   },
   props: {

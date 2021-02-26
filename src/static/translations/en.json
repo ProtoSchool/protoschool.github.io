@@ -66,6 +66,18 @@
         "resume": "Resume tutorial",
         "stay": "View lesson"
       }
+    },
+    "mobileWarning": {
+      "title": "Hey there!",
+      "body": {
+        "_1": "We noticed that you're viewing our site at a low resolution.",
+        "_2": "If you're on a computer with a keyboard and just shrunk the window, you can maximize the window and keep working!",
+        "_3": "If you're on a mobile device or a device without a keyboard, we suggest coming back on a computer. This tutorial requires writing code in the browser, so it's difficult to do on a handheld device.",
+        "_4": "In the meantime, please check out our text- and quiz-based tutorials, which should work just find on any device!"
+      },
+      "actions": {
+        "codeFree": "View code-free tutorials"
+      }
     }
   }
 }
