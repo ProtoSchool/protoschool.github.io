@@ -3,26 +3,26 @@
 // #PRISTINE# This file was auto-generated. Please remove this line when updating the file manually.
 
 // Question must be a string
-const question = "What's the meaning of life, the universe, and everything?"
+const question = "What is the name for a single participant in a p2p network?"
 
 // Choices must be an array of objects, each with the properties:
 // `answer` (string), `correct` (boolean), and `feedback` (string)
 // Only one answer can be correct.
 const choices = [
   {
-    answer: "Some correct answer.",
+    answer: "Peer",
     correct: true,
-    feedback: "Great job!"
+    feedback: "Great job! Peer-to-peer networks are made of, well, peers!"
   },
   {
-    answer: "Some incorrect answer",
+    answer: "Protocol",
     correct: false,
-    feedback: "Oops. Here's some clue about why that answer is wrong."
+    feedback: "A **protocol** tells us _how_ to talk to each other. But what do we call _who_ we're talking to?"
   },
   {
-    answer: "Some incorrect answer",
+    answer: "Host",
     correct: false,
-    feedback: "Sorry, here's some clue about why that answer is wrong."
+    feedback: "So close! The `Host` is one of the most important interfaces in go-libp2p though!"
   }
 ]
 
