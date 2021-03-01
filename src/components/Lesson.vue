@@ -2,6 +2,7 @@
   <div :class="{'overflow-hidden': expandChallenge}">
     <TutorialRedirectModal :tutorial="tutorial" :lesson="lesson" />
     <MobileWarningModal v-if="!isResources && (tutorialType === 'code' || tutorialType === 'file-upload')"
+      targetClass="dn-ns"
       :tutorial="tutorial"
       :lesson="lesson"
     />

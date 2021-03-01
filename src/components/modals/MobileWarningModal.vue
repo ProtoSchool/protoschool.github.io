@@ -4,6 +4,7 @@
     :onClose="onStay"
     :title="translations.title"
     data-cy="mobile-warning-modal"
+    :targetClass="targetClass"
   >
     <p class="f4 measure lh-copy">{{translations.body._1}}</p>
     <p class="f4 measure lh-copy">{{translations.body._2}}</p>
@@ -40,7 +41,8 @@ export default {
   },
   props: {
     tutorial: Object,
-    lesson: Object
+    lesson: Object,
+    targetClass: String
   },
   computed: {
     translations: function () {

@@ -1,7 +1,7 @@
 <template>
-  <portal to="modal" v-if="show">
-    <div class="modal-overlay"></div>
-    <div class="modal" :data-cy="dataCy">
+  <portal to="modal" v-if="show" :target-class="targetClass">
+    <div :class="`modal-overlay ${targetClass}`"></div>
+    <div :class="`modal ${targetClass}`" :data-cy="dataCy">
       <div class="modal-content pa4">
         <div v-if="title" class="modal-title f2 measure-narrow b mb4 lh-title">{{title}}</div>
         <slot></slot>
@@ -24,6 +24,11 @@ export default {
   },
   props: {
     show: Boolean,
+    targetClass:
+    {
+      type: String,
+      default: ''
+    },
     onClose: {
       type: Function,
       default: () => {}
@@ -63,6 +68,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (min-width: 30em) {
+  .modal.dn-ns,
+  .modal-overlay.dn-ns {
+    display: none !important;
+  }
 }
 
 .modal-content {
