@@ -1,5 +1,5 @@
 <template>
-  <footer :class="`bg-navy white pt4 pb2 ${noTopMargin ? '':'mt4'}`">
+  <footer :class="`bg-navy white pt5-m pt5-l pt4 pb2 ${noTopMargin ? '':'footer-margin'}`">
     <div class="flex mw7 ph3 center flex-wrap"> <!-- logo & columns -->
       <div  class="w-33-l w-100 mb0-l mb3">
         <router-link to="/" class="flex items-center link">
@@ -66,5 +66,14 @@ export default {
 <style scoped>
 .column {
   margin-top: 0.7rem;
+}
+.footer-margin {
+  margin-top: 6rem;
+}
+
+@media (max-width: 30rem) {
+  .footer-margin {
+    margin-top: 3rem;
+  }
 }
 </style>
