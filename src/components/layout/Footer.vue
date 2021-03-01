@@ -10,7 +10,7 @@
           </div>
         </router-link>
       </div>
-      <div v-for="column in processedColumns" :key="column.title" class="w-20-l w-25-m w-33 column f6">
+      <div v-for="column in processedColumns" :key="column.title" class="w-20-l w-25-m w-33 column ">
         <span class="fw7">{{column.title}}</span>
         <ul class="list pl0">
           <li v-for="(link, index) in column.links" :key="index" class="pv1"><a class="link underline-hover white o-80 glow" :target="link.external ? '_blank' : ''" :href="link.url">{{link.text}}</a></li>
