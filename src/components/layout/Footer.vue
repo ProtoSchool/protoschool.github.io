@@ -57,6 +57,7 @@ export default {
           let text = link.text // text or undefined
           let url = link.url // url or underfined
 
+          // Fill in course and project link data automatically
           if (column.type === 'courses' || column.type === 'projects') {
             let project = projects.find(project => project.id === link)
 
