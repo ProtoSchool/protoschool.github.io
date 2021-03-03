@@ -64,7 +64,7 @@ export default {
             url = (column.type === 'courses') ? `/course/${link}` : project.url
           }
 
-          return { text, url, external: !(url.startsWith('/')) }
+          return { text, url, external: !url.startsWith('/') }
         })
       }))
     }
