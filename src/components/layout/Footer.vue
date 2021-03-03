@@ -1,5 +1,7 @@
 <template>
-  <footer :class="`bg-navy white pt5-m pt5-l pt4 pb2 ${noTopMargin ? '':'footer-margin'}`">
+  <footer :class="`bg-navy white pt5-m pt5-l pt4 pb2 ${noTopMargin ? '':'footer-margin'}`"
+    data-cy="footer-component"
+  >
     <div class="flex mw7 ph3 center flex-wrap"> <!-- logo & columns -->
       <div  class="w-33-l w-100 mb0-l mb3">
         <router-link to="/" class="flex items-center link">
@@ -13,7 +15,13 @@
       <div v-for="column in processedColumns" :key="column.title" class="w-20-l w-25-m w-33 column ">
         <span class="fw7">{{column.title}}</span>
         <ul class="list pl0">
-          <li v-for="(link, index) in column.links" :key="index" class="pv1"><a class="link underline-hover white o-80 glow" :target="link.external ? '_blank' : ''" :href="link.url">{{link.text}}</a></li>
+          <li v-for="(link, index) in column.links" :key="index" class="pv1">
+            <a class="link underline-hover white o-80 glow"
+              :target="link.external ? '_blank' : ''"
+              :data-cy="link.external ? 'footer-link-external' : 'footer-link-internal'"
+              :href="link.url">{{link.text}}
+            </a>
+          </li>
         </ul>
       </div>
     </div>
