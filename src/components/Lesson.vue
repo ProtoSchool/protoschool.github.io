@@ -1,6 +1,11 @@
 <template>
   <div :class="{'overflow-hidden': expandChallenge}">
     <TutorialRedirectModal :tutorial="tutorial" :lesson="lesson" />
+    <MobileWarningModal v-if="!isResources && (tutorialType === 'code' || tutorialType === 'file-upload')"
+      targetClass="dn-ns"
+      :tutorial="tutorial"
+      :lesson="lesson"
+    />
     <Header/>
     <div class="container center-l mw7-l ph3">
       <section class="mw7 center mt3 pt2">
@@ -21,7 +26,13 @@
             :tutorial="tutorial"
             class="mv4"
         />
+
         <h1 v-if="!isResources">{{lesson.title}}</h1>
+        <MobileWarningBanner
+          v-if="(tutorialType === 'code' || tutorialType === 'file-upload') && lessonType !== 'code' && lessonType !== 'file-upload'"
+          :tutorial="tutorial"
+          class="mb4"
+        />
         <Concepts v-if="concepts" :concepts="concepts" />
         <Resources v-if="isResources"
           :data="resources"
@@ -155,6 +166,8 @@ import Info from './Info.vue'
 import Validator from './Validator.vue'
 import TutorialCompletionCallout from './callouts/TutorialCompletion.vue'
 import TutorialRedirectModal from './modals/TutorialRedirectModal.vue'
+import MobileWarningModal from './modals/MobileWarningModal.vue'
+import MobileWarningBanner from '../components/callouts/MobileWarningBanner.vue'
 import TypeIcon from './TypeIcon.vue'
 
 const MAX_EXEC_TIMEOUT = isProduction ? 10000 : 60000
@@ -224,6 +237,8 @@ export default {
     Validator,
     TutorialCompletionCallout,
     TutorialRedirectModal,
+    MobileWarningModal,
+    MobileWarningBanner,
     TypeIcon
   },
   props: {

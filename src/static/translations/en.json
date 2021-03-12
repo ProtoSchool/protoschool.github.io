@@ -66,6 +66,18 @@
         "resume": "Resume tutorial",
         "stay": "View lesson"
       }
+    },
+    "mobileWarning": {
+      "title": "Hey there!",
+      "body": {
+        "_1": "We noticed that you're viewing our site at a low resolution.",
+        "_2": "Our coding challenges work best on a computer or high-res device with a keyboard.  This tutorial requires writing code in the browser, which isn't supported on a touchscreen.",
+        "_3": "If you're on a computer with a keyboard and just shrunk the window, you can maximize the window and keep working!",
+        "_4": "Otherwise, please check out our text- and quiz-based tutorials, which should work just find on any device!"
+      },
+      "actions": {
+        "codeFree": "View code-free tutorials"
+      }
     }
   }
 }

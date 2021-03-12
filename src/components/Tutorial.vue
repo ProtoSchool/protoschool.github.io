@@ -35,6 +35,7 @@
 
       <p class="f5 fw5 mt2 mb3 lh-copy charcoal-muted" v-html="description"></p>
       <TutorialMessage :tutorial="tutorial" class="mb4" />
+      <MobileWarningBanner :tutorial="tutorial" class="mb4" />
       <ul class="lessons-list mv2 pa0 f5 br3">
         <template v-for="(lesson, index) in tutorial.lessons">
           <li :key="index">
@@ -60,6 +61,7 @@ import LessonLink from '../components/LessonLink.vue'
 import TypeIcon from '../components/TypeIcon.vue'
 import ProjectIcon from '../components/icons/ProjectIcon.vue'
 import TutorialMessage from '../components/callouts/TutorialMessage.vue'
+import MobileWarningBanner from '../components/callouts/MobileWarningBanner.vue'
 import { isTutorialPassed } from '../utils/tutorials'
 
 const resourcesLesson = {
@@ -78,7 +80,8 @@ export default {
     LessonLink,
     TypeIcon,
     ProjectIcon,
-    TutorialMessage
+    TutorialMessage,
+    MobileWarningBanner
   },
   data: self => {
     return {
