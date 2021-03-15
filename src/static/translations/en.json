@@ -54,11 +54,11 @@
           "_1": "You seem to have landed in the middle of our ",
           "_2": " tutorial. Because each lesson in a ProtoSchool tutorial builds on the previous one, we recommend starting each tutorial from its first lesson. Would you like to start this tutorial from the beginning or view the requested lesson, ",
           "_3": ", out of context?"
-        },
-        "resume": {
-          "_1": "You seem to have landed on a lesson in our ",
-          "_2": " tutorial that you haven't yet reached in your previous visits. Because each lesson in a ProtoSchool tutorial builds on the previous one, we recommend progressing through them in order. Would you like to resume the tutorial where you left off or view the requested lesson, ",
-          "_3": ", out of context?"
+      },
+      "resume": {
+        "_1": "You seem to have landed on a lesson in our ",
+        "_2": " tutorial that you haven't yet reached in your previous visits. Because each lesson in a ProtoSchool tutorial builds on the previous one, we recommend progressing through them in order. Would you like to resume the tutorial where you left off or view the requested lesson, ",
+        "_3": ", out of context?"
         }
       },
       "actions": {
@@ -66,6 +66,53 @@
         "resume": "Resume tutorial",
         "stay": "View lesson"
       }
+    }
+  },
+  "footer": {
+    "columns": [
+      {
+        "type": "courses",
+        "title": "Courses",
+        "links": ["ipfs", "ipld", "filecoin", "multiformats"]
+      },
+      {
+        "type": "community",
+        "title": "Community",
+        "links": [
+          {
+            "text": "GitHub",
+            "url": "https://github.com/protoschool"
+          },
+          {
+            "text": "Twitter",
+            "url": "https://twitter.com/protoschool"
+          },
+          {
+            "text": "Newsletter",
+            "url": "/news"
+          },
+          {
+            "text": "Contribute",
+            "url": "/contribute"
+          },
+          {
+            "text": "Contact",
+            "url": "/contribute#contact"
+          }
+        ]
+      },
+      {
+        "type": "projects",
+        "title": "Related Projects",
+        "links": [ "ipfs", "filecoin", "ipld", "libp2p", "multiformats" ]
+      }
+    ],
+    "copyright": {
+      "_1": "Except as",
+      "_2": "noted",
+      "_3":", content licensed",
+      "_4": ".",
+      "licenseURL": "https://creativecommons.org/licenses/by/3.0/deed.en"
     }
   }
 }

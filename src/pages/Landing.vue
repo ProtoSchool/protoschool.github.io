@@ -2,18 +2,21 @@
   <div>
     <Header />
     <Tutorial :tutorial="tutorial" isLanding :tutorialId="tutorial.formattedId"/>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import head from '../utils/head'
-import Header from '../components/Header.vue'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 import Tutorial from '../components/Tutorial.vue'
 import { getTutorialByUrl } from '../utils/tutorials'
 
 export default {
   components: {
     Header,
+    Footer,
     Tutorial
   },
   props: {

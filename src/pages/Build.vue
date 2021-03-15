@@ -71,17 +71,20 @@
       <router-link to="/contribute">ways to contribute</router-link>.
       </p>
     </section>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import head from '../utils/head'
-import Header from '../components/Header.vue'
+import Header from '../components/layout/Header.vue'
+import Footer from '../components/layout/Footer.vue'
 
 export default {
   name: 'Build',
   components: {
-    Header
+    Header,
+    Footer
   },
   head () {
     return head()

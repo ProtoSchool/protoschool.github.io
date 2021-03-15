@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ProtoSchoolLogo from '../static/images/ps_symbol_color.svg?inline'
+import ProtoSchoolLogo from '../../static/images/ps_symbol_color.svg?inline'
 
 import Navigation from './Navigation.vue'
 export default {

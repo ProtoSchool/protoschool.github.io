@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
 
   // Remove trailing slash on client side only
   if (to.path !== '/' && to.path.endsWith('/')) {
-    next({ path: to.path.substring(0, to.path.length - 1), replace: true, query: to.query })
+    next({ path: to.path.substring(0, to.path.length - 1), replace: true, query: to.query, hash: to.hash })
   } else {
     next()
   }
