@@ -27,7 +27,7 @@
   "dependencies": {
     "async": "^2.6.1",
     "cids": "^1.1.5",
-    "err-code": "^2.0.3",
+    "err-code": "^3.0.1",
     "googleapis": "^71.0.0",
     "highlight.js": "^9.12.0",
     "inquirer": "^7.1.0",
