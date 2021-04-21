@@ -29,7 +29,7 @@
     "cids": "^1.1.5",
     "err-code": "^3.0.1",
     "googleapis": "^71.0.0",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^10.4.1",
     "inquirer": "^7.1.0",
     "ipfs": "^0.50.2",
     "ipfs-css": "^0.6.0",
