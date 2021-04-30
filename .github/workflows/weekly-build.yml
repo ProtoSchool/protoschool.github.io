@@ -1,0 +1,17 @@
+name: Weekly Build (events and mailchimp subscriptions updates)
+on:
+  schedule:
+    - cron: '0 9 * * 1' # every monday at 9am
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Trigger Fleek Deploy
+        uses: fleekhq/action-deploy@v1
+        with:
+          apiKey: ${{ secrets.FLEEK_API_KEY }}
+      - name: Done
+        run: echo "Check https://proto.school"

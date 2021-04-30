@@ -1,0 +1,7 @@
+{
+ "build": {
+   "image": "fleek/puppeteer:cypress",
+   "command": "npm run build:fleek",
+   "publicDir": "dist"
+ }
+}
