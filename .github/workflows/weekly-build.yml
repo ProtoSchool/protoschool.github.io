@@ -1,4 +1,4 @@
-name: Weekly Build (events and mailchimp subscriptions updates)
+name: Daily Build (events and Mailchimp subscription updates)
 on:
   schedule:
     - cron: '0 9 * * *' # everyday at 9am
