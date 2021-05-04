@@ -1,7 +1,7 @@
 name: Weekly Build (events and mailchimp subscriptions updates)
 on:
   schedule:
-    - cron: '0 9 * * *' # every monday at 9am
+    - cron: '0 9 * * *' # everyday at 9am
 jobs:
   build:
     name: Build
