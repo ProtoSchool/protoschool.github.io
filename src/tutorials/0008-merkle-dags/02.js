@@ -9,7 +9,7 @@ const choices = [
     feedback: "Structuring data does help us search more efficiently, but it also helps in other ways."
   },
   {
-    answer: "Imparts meaning to information",
+    answer: "Gives meaning to information",
     correct: false,
     feedback: "Structure can be used to help describe data, but it has other advantages as well."
   },
