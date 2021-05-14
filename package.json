@@ -47,7 +47,7 @@
     "p-timeout": "^5.0.0",
     "portal-vue": "^2.1.7",
     "prerender-spa-plugin": "^3.4.0",
-    "querystringify": "^2.1.1",
+    "querystringify": "^2.2.0",
     "raw-loader": "^0.5.1",
     "shallow-equal": "^1.0.0",
     "tachyons": "^4.11.1",
