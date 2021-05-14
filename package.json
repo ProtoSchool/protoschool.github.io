@@ -48,7 +48,7 @@
     "portal-vue": "^2.1.7",
     "prerender-spa-plugin": "^3.4.0",
     "querystringify": "^2.2.0",
-    "raw-loader": "^0.5.1",
+    "raw-loader": "^4.0.2",
     "shallow-equal": "^1.0.0",
     "tachyons": "^4.11.1",
     "v-tooltip": "^2.1.3",
