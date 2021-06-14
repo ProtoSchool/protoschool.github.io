@@ -34,7 +34,7 @@
     "ipfs": "^0.50.2",
     "ipfs-css": "^0.6.0",
     "it-all": "^1.0.5",
-    "it-to-buffer": "^1.0.1",
+    "it-to-buffer": "^2.0.0",
     "lodash": "^4.17.19",
     "mailchimp-api-v3": "^1.13.1",
     "markdown-toc": "^1.2.0",
