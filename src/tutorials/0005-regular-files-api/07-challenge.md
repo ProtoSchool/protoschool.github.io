@@ -15,6 +15,6 @@ Based on our file structure, the path could be expressed as:
 There are two valid ways to solve this challenge. Take your pick!
 
 **Hints:**
-- In the code below we've already taken care of converting the `bufferedContents` to a string before returning the result, as you did yourself previously using `.toString()`.
+- In the code below we've already taken care of converting the `bufferedContents` to a string before returning the result, as you did yourself previously using `new TextDecoder().decode()`.
 - Don't forget to prepend `/ipfs/` to the IPFS Path string
 - You need to concatenate all the data into a single buffer because the `ipfs.cat` method returns an `Async Iterable`. You can use the package `it-to-buffer`.
