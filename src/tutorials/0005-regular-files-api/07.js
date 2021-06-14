@@ -65,7 +65,7 @@ const run = async () => {
 
   // we've taken care of converting the buffer to a string in the return statement below
 
-  return bufferedContents.toString()
+  return new TextDecoder().decode(bufferedContents)
 
 }
 return run
