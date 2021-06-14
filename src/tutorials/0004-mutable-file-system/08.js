@@ -33,7 +33,7 @@ const validate = async (result, ipfs) => {
 
     // check whether contents of /some/stuff are the right files
     itemsMatch = JSON.stringify(someStuffFilenames) === JSON.stringify(uploadedFilenames)
-    itemsAreFiles = someStuffFiles.every(file => file.type === 0)
+    itemsAreFiles = someStuffFiles.every(file => file.type === 'file')
   }
 
   if (!result) {
@@ -61,7 +61,7 @@ const validate = async (result, ipfs) => {
       fail: utils.validationMessages.VALUE_IS_ASYNC_ITERABLE_ALL
     }
   } else if (rootIsEmpty) {
-    return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === 0`) before moving it.' }
+    return { fail: 'Your root directory is empty. Did you accidentally move the `some/stuff` directory? Remember to test whether each item is a file (`type === \'file\'`) before moving it.' }
   } else if (result instanceof Error && result.code === utils.ipfs.errorCodes.ERR_INVALID_PATH) {
     return {
       fail: 'Invalid path. Did you use just the file name when attempting to move each file? Remember to start the path with a leading `/`.',
@@ -119,11 +119,11 @@ const run = async (files) => {
   await ipfs.files.mkdir('/some/stuff', { parents: true })
   const rootDirectoryContents = await all(ipfs.files.ls('/'))
 
-  const filepathsToMove = rootDirectoryContents.filter(file => file.type === 0).map(file => '/' + file.name)
-  await ipfs.files.mv(...filepathsToMove, '/some/stuff')
+  const filepathsToMove = rootDirectoryContents.filter(file => file.type === 'file').map(file => '/' + file.name)
+  await ipfs.files.mv(filepathsToMove, '/some/stuff')
 
   //  // alternatively, wrapping multiple mv calls into a single async function with await:
-  //  const filesToMove = rootDirectoryContents.filter(item => item.type === 0)
+  //  const filesToMove = rootDirectoryContents.filter(item => item.type === 'file')
   //  await Promise.all(filesToMove.map(file => {
   //    return ipfs.files.mv('/' + file.name, '/some/stuff')
   // }))

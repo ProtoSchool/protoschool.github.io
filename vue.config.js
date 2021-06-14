@@ -20,6 +20,18 @@ module.exports = {
       test: /\.md$/,
       use: 'raw-loader'
     })
+    // this is to enable optional chaining in webpack 4 - can be
+    // removed once vue upgrades to webpack 5
+    config.module.rules.push({
+      test: /\.js$/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@vue/babel-preset-app', '@babel/preset-env'],
+          plugins: ['@babel/plugin-proposal-optional-chaining']
+        }
+      }
+    })
     process.env.NODE_ENV === 'production' &&
       config.plugins.push(
         new PrerenderSPAPlugin({
