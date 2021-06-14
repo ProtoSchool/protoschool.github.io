@@ -36,7 +36,7 @@ const validate = async (result, ipfs) => {
   let uploadedFilenames = uploadedFiles.map(file => file.name.toString()).sort()
   let ipfsFilenames = ipfsFiles.map(file => file.name.toString()).sort()
   let itemsMatch = JSON.stringify(ipfsFilenames) === JSON.stringify(uploadedFilenames)
-  let itemsAreFiles = ipfsFiles.every(file => file.type === 0)
+  let itemsAreFiles = ipfsFiles.every(file => file.type === 'file')
 
   if (itemsMatch && itemsAreFiles) {
     return {

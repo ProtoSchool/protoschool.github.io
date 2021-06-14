@@ -11,14 +11,14 @@ const validate = async (result, ipfs) => {
   let stringifiedResult = JSON.stringify(result, null, 2)
   let ipfsFilesInRoot = await all(ipfs.files.ls('/'))
   let listedRoot = stringifiedResult === JSON.stringify(ipfsFilesInRoot, null, 2)
-  let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 0)
+  let rootSomeItemIsFile = ipfsFilesInRoot.some(file => file.type === 'file')
 
-  const includesSome = ipfsFilesInRoot.some(file => file.name === 'some' && file.type === 1)
+  const includesSome = ipfsFilesInRoot.some(file => file.name === 'some' && file.type === 'directory')
   if (includesSome) {
     const ipfsFilesInSome = await all(ipfs.files.ls('/some'))
     listedSome = stringifiedResult === JSON.stringify(ipfsFilesInSome, null, 2)
 
-    const includesStuff = ipfsFilesInSome.some(file => file.name === 'stuff' && file.type === 1)
+    const includesStuff = ipfsFilesInSome.some(file => file.name === 'stuff' && file.type === 'directory')
     if (includesStuff) {
       const ipfsFilesInSomeStuff = await all(ipfs.files.ls('/some/stuff'))
       listedSomeStuff = stringifiedResult === JSON.stringify(ipfsFilesInSomeStuff, null, 2)

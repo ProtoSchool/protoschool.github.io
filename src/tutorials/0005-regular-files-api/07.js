@@ -83,7 +83,7 @@ const run = async () => {
   // Using the dir subdirectory CID and file path relative to it:
   // const bufferedContents = await toBuffer(ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt"))
 
-  return bufferedContents.toString()
+  return new TextDecoder.decode(bufferedContents)
 }
 return run
 `
