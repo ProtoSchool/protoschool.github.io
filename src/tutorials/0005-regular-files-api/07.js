@@ -37,7 +37,7 @@ const validate = async (result, ipfs) => {
   }
 
   if (result instanceof Uint8Array) {
-    let isEqual = (new TextEncoder()).encode('You did it!').every((elem, idx) => {
+    let isEqual = new TextEncoder().encode('You did it!').every((elem, idx) => {
       return elem === result[idx]
     })
     if (isEqual) {
@@ -83,7 +83,7 @@ const run = async () => {
   // Using the dir subdirectory CID and file path relative to it:
   // const bufferedContents = await toBuffer(ipfs.cat("/ipfs/QmPT14mWCteuybfrfvqas2L2oin1Y2NCbwzTh9cc33GM1r/success.txt"))
 
-  return new TextDecoder.decode(bufferedContents)
+  return new TextDecoder().decode(bufferedContents)
 }
 return run
 `
