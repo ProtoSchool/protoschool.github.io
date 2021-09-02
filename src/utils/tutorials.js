@@ -2,6 +2,7 @@ import moment from 'moment'
 
 import marked from './marked'
 import projects from './projects'
+import { DOMAIN } from '../config'
 
 // Load data from the window variable
 // This supports data overriding and custom SSR
@@ -127,7 +128,7 @@ export function getLesson (tutorialId, lessonId) {
 
 // returns URL for tutorial's landing page
 export function getTutorialFullUrl (tutorialId) {
-  return `${window.location.origin}/${tutorials[tutorialId].url}`
+  return `${DOMAIN}/${tutorials[tutorialId].url}`
 }
 
 export const states = {
