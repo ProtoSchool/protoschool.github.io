@@ -67,7 +67,13 @@ The production values for the variables are set up in Fleek's build UI.
 
 #### `npm run scripts:build:data`
 
-As part of the build process (see [fleek config](../.fleek.json#L11)), we fetch all event data for submitted events and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. Additionally, we add new event organizers to our Mailchimp audience to subscribe them to our newsletter.
+This script is run as part of the build process (see [fleek config](../.fleek.json#L11)).
+It should be used to affect any data of the website that you might want to change automatically based on remote sources.
+
+Currently, only the events list is based on remote data (google spreadsheet events file), and the script performs the following actions:
+
+- fetch all event data for submitted events from the google spreadsheet events list and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings.
+- use the email addresses of the users that submitted the events and add them as new event organizers to our Mailchimp audience to subscribe them to our newsletter. This is only done if they aren't subscribed yet and only if they have checked the box to accept the subscription when submitting the event.
 
 Output example: `npm run scripts:build:data -- --dry-run=false`
 
@@ -96,11 +102,11 @@ info buid:data:mailchimp Found 4 event organizers.
 info buid:data:mailchimp No members to update.
 ```
 
-**Note: All changes to event data must be made directly in Google Sheets.** You _cannot_ make changes to the website by overwriting data in `events.json`. This is because the script referenced here will be run both at the time your PR is merged and at regular intervals via cron jobs, thereby overwriting any local changes made to the `events.json` file.
+**Note: All changes to event data must be made directly in Google Sheets.** You _cannot_ make changes to the website by overwriting data in `events.json`. This is because the script referenced here will be run both at the time your PR is merged and [daily via a cron job](../.github/workflows/daily-build.yml), thereby overwriting any local changes made to the `events.json` file.
 
 To add new data sources:
 
-- Add a new function to the `scripts/commands/build-data.js` script to be run in the build process.
+- Add a new function to the `scripts/commands/build-data/index.js` script to be run in the build process.
 - Any new environment variables need to be saved:
     -  in your local `.env` file
     -  in the `.env` record in the secure ProtoSchool vault in Protocol Labs' `1Password` account
@@ -108,7 +114,7 @@ To add new data sources:
 
 ##### `--debug` (default: false)
 
-Prints extra information when fetching and processing the data.
+Prints extra information when fetching and processing the data. No sensitive information is ever printed out.
 
 ##### `--dry-run` (default: true)
 
@@ -117,7 +123,6 @@ Data is fetched and processed, allowing you to see the statistics noted above, b
 Passing `--dry-run=false` will change this value to `false` and data will be fetched and saved (used in CI).
 
 The default value `true` means that the default command will not make any changes to event listings or newsletter subscriptions. In "production" we specify `--dry-run=false` to make the necessary changes.
-
 
 #### `npm run scripts:googleapis-generate-token`
 
