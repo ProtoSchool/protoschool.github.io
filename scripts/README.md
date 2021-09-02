@@ -14,11 +14,11 @@ For a quicker shorthand, first install the wizard:
 Once the wizard is installed, you'll be able to launch it repeatedly with the shortcut command:
 `protowizard`
 
-Learn more in our [Developing Tutorials](../../DEVELOPING_TUTORIALS.md) guide.
+Learn more in our [Developing Tutorials](../DEVELOPING_TUTORIALS.md) guide.
 
 ## Table of Contents Updates for Docs
 
-The [Developing Tutorials](../../DEVELOPING_TUTORIALS.md) and [Designing Tutorials](../../DESIGNING_TUTORIALS.md) guides use [`markdown-toc`](https://www.npmjs.com/package/markdown-toc) to create their table of contents from Markdown headers of levels 2 - 6, replacing the content between the `<!-- toc -->` and `<!-- tocstop -->` comments. The script to update the ToCs on both files will be run automatically before any commit, so if you've changed one of these files and the ToC is updated by the script, those changes will be saved with your own.
+The [Developing Tutorials](../DEVELOPING_TUTORIALS.md) and [Designing Tutorials](../DESIGNING_TUTORIALS.md) guides use [`markdown-toc`](https://www.npmjs.com/package/markdown-toc) to create their table of contents from Markdown headers of levels 2 - 6, replacing the content between the `<!-- toc -->` and `<!-- tocstop -->` comments. The script to update the ToCs on both files will be run automatically before any commit, so if you've changed one of these files and the ToC is updated by the script, those changes will be saved with your own.
 
 To update one or more ToCs on demand (without automatically saving), you can run one of these commands:
   - `npm run build:docs:design` - update TOC in DESIGNING_TUTORIALS.md
@@ -61,13 +61,13 @@ To run the commands, some environment variables are needed on your local machine
 
 Note that because `.env` is included in `.gitignore`, your local copy of the file will not be synced to GitHub, thereby keeping our credentials private.
 
-A copy of the `.env` file is also stored in our Travis account and used to update event listings both when PRs are merged and when regularly scheduled cron jobs are run.
+The production values for the variables are set up in Fleek's build UI.
 
 ### Commands
 
 #### `npm run scripts:build:data`
 
-As part of the build process (see [travis config](../.travis.yml)), we fetch all event data for submitted events and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. Additionally, we add new event organizers to our Mailchimp audience to subscribe them to our newsletter.
+As part of the build process (see [fleek config](../.fleek.json#L11)), we fetch all event data for submitted events and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. Additionally, we add new event organizers to our Mailchimp audience to subscribe them to our newsletter.
 
 Output example: `npm run scripts:build:data -- --dry-run=false`
 
@@ -104,7 +104,7 @@ To add new data sources:
 - Any new environment variables need to be saved:
     -  in your local `.env` file
     -  in the `.env` record in the secure ProtoSchool vault in Protocol Labs' `1Password` account
-    -  as environment variables in the [Travis CI settings](https://travis-ci.org/ProtoSchool/protoschool.github.io/settings)
+    -  as environment variables in [Fleek's build UI](https://app.fleek.co/#/sites/protoschool/settings/advanced-build-settings?accountId=protocollabs-team)
 
 ##### `--debug` (default: false)
 
