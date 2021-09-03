@@ -70,10 +70,10 @@ The production values for the variables are set up in Fleek's build UI.
 This script is run as part of the build process (see [fleek config](../.fleek.json#L11)).
 It should be used to affect any data of the website that you might want to change automatically based on remote sources.
 
-Currently, only the events list is based on remote data (google spreadsheet events file), and the script performs the following actions:
+Currently, only the events list is based on remote data (a Google spreadsheet generated from our workshop submission form), and the script performs the following actions:
 
 - fetch all event data for submitted events from the google spreadsheet events list and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings.
-- use the email addresses of the users that submitted the events and add them as new event organizers to our Mailchimp audience to subscribe them to our newsletter. This is only done if they aren't subscribed yet and only if they have checked the box to accept the subscription when submitting the event.
+- takes the email addresses of the users that submitted the events and adds them to our Mailchimp audience, subscribing them to our local leadership newsletter. This is only done if they aren't subscribed yet, and after they've acknowledged through the form submission that they agree to receive these updates.
 
 Output example: `npm run scripts:build:data -- --dry-run=false`
 
