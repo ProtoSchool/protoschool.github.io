@@ -72,7 +72,7 @@ It should be used to affect any data of the website that you might want to chang
 
 Currently, only the events list is based on remote data (a Google spreadsheet generated from our workshop submission form), and the script performs the following actions:
 
-- fetch all event data for submitted events from the google spreadsheet events list and write the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings.
+- fetches all event data for submitted events from the Google Sheets and writes the data for approved events to specific `static/*.json` files so the UI can read these JSON files and render the content as event listings. (Entries on the sheet must be manually approved.) 
 - takes the email addresses of the users that submitted the events and adds them to our Mailchimp audience, subscribing them to our local leadership newsletter. This is only done if they aren't subscribed yet, and after they've acknowledged through the form submission that they agree to receive these updates.
 
 Output example: `npm run scripts:build:data -- --dry-run=false`
