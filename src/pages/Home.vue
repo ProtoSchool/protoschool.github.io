@@ -65,6 +65,21 @@
           Host an Event
         </ButtonLink>
       </div>
+    <br>
+
+    <h2>Video Tutorials</h2>
+      <p class="f4 fw5 lh-copy ma0 pv3">
+      Check this series of video tutorials that cover the entire stack of protocols for the decentralised web. The tutorials cover broad concepts and then go deep into protocol details too, so that you get a complete understanding of the system's operation.
+      </p>
+      
+
+      <div class="mv3">
+        <ButtonLink class="mb2 mr3" external link="https://research.protocol.ai/tutorials/resnetlab-on-tour/">
+          View All Videos
+        </ButtonLink>
+      </div>
+    
+    
     </section>
     <Footer/>
   </div>
