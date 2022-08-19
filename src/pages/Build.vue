@@ -14,7 +14,7 @@
       protocols, and tools that support the decentralized web. We're excited
       to add new tutorials to our collection, and we'd love your help brainstorming and building new content
       content about projects such as
-      <a href="https://ipfs.io/" target="blank">IPFS</a>,
+      <a href="https://ipfs.tech/" target="blank">IPFS</a>,
       <a href="https://ipld.io/" target="blank">IPLD</a>,
       <a href="https://libp2p.io/" target="blank">libp2p</a>,
       <a href="https://multiformats.io/" target="blank">Multiformats</a>,
