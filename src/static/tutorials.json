@@ -286,13 +286,13 @@
       },
       {
         "title": "CID Inspector",
-        "link": "https://cid.ipfs.io/",
+        "link": "https://cid.ipfs.tech/",
         "type": "tool",
         "description": "Paste a CID into this handy web app for a human-readable breakdown of its multibase, multicodec, multihash and version."
       },
       {
         "title": "Hashes",
-        "link": "https://docs.ipfs.io/concepts/hashing/",
+        "link": "https://docs.ipfs.tech/concepts/hashing/",
         "type": "docs",
         "description": "Learn more about cryptographic hashes in the official IPFS docs."
       },
