@@ -1,13 +1,13 @@
-const fs = require('fs')
-const promisify = require('util').promisify
+import { writeFile } from 'fs'
+import { promisify } from 'util'
 
-const _ = require('lodash')
-const log = require('npmlog')
-const moment = require('moment')
-const Table = require('cli-table')
+import { pick } from 'lodash'
+import { info, verbose, error as _error, warn } from 'npmlog'
+import moment from 'moment'
+import Table from 'cli-table'
 
-const allTutorials = require('../../../src/static/tutorials.json')
-const googleSheets = require('../googleapis/sheets')
+import allTutorials from '../../../src/static/tutorials.json'
+import { getSpreadSheet, transformSpreadSheet } from '../googleapis/sheets'
 
 const logGroup = 'modules:data:events'
 
@@ -151,26 +151,26 @@ function logEventsResults (events) {
   console.log(table.toString())
   console.log()
 
-  log.info(logGroup, `total events submitted: ${events.length}`)
+  info(logGroup, `total events submitted: ${events.length}`)
 }
 
 /*
     Fetch events from Google Sheets and return only the approved ones
  */
-exports.fetch = async function () {
+export async function fetch () {
   let spreadsheet
 
-  log.info(logGroup, 'fetch: fetching spreadsheet from Google')
+  info(logGroup, 'fetch: fetching spreadsheet from Google')
 
   try {
-    log.verbose(logGroup, 'sheets.spreadsheets.values.get() request initiated')
+    verbose(logGroup, 'sheets.spreadsheets.values.get() request initiated')
 
-    spreadsheet = await googleSheets.getSpreadSheet(SPREADSHEET)
+    spreadsheet = await getSpreadSheet(SPREADSHEET)
 
-    log.info(logGroup, 'spreadsheet successfully fetched')
+    info(logGroup, 'spreadsheet successfully fetched')
   } catch (error) {
     if (error) {
-      log.error(logGroup, `Failed to fetch spreadsheet from Google: ${error.message}`)
+      _error(logGroup, `Failed to fetch spreadsheet from Google: ${error.message}`)
       console.error(error)
 
       return
@@ -180,14 +180,14 @@ exports.fetch = async function () {
   const rows = spreadsheet.data.values
 
   if (!rows.length) {
-    log.warn(logGroup, 'spreadsheet has no data')
+    warn(logGroup, 'spreadsheet has no data')
     return
   }
 
-  log.verbose(logGroup, `processing spreadsheet with ${rows.length} rows`)
+  verbose(logGroup, `processing spreadsheet with ${rows.length} rows`)
 
   // Transform google spreadsheet rows (array of arrays) to array of event objects
-  let events = googleSheets.transformSpreadSheet(rows, columns, extraColumns)
+  let events = transformSpreadSheet(rows, columns, extraColumns)
 
   logEventsResults(events)
 
@@ -197,32 +197,32 @@ exports.fetch = async function () {
 /*
   Save events to local static file to be used by the application
  */
-exports.save = async (events, options) => {
+export async function save(events, options) {
   const approved = events.filter(event => event.approved)
 
   if (options.dryRun) {
-    log.info(logGroup, `save({ dryRun: true }): would save ${approved.length} events`)
+    info(logGroup, `save({ dryRun: true }): would save ${approved.length} events`)
     return []
   }
 
-  log.info(logGroup, `save: saving ${approved.length} approved events to ${EVENTS_FILE}`)
+  info(logGroup, `save: saving ${approved.length} approved events to ${EVENTS_FILE}`)
 
-  await promisify(fs.writeFile)(
+  await promisify(writeFile)(
     EVENTS_FILE,
-    JSON.stringify(approved.map(event => _.pick(event, whitelist)), null, 2)
+    JSON.stringify(approved.map(event => pick(event, whitelist)), null, 2)
   )
 
   return approved
 }
 
-exports.getOrganizers = async (events) => {
-  log.info(logGroup, `getOrganizers: computing organizers from events list.`)
+export async function getOrganizers(events) {
+  info(logGroup, `getOrganizers: computing organizers from events list.`)
 
   const organizers = []
 
   events.forEach(event => {
     if (event.emailAddress && !organizers.find(organizer => event.emailAddress === organizer.emailAddress)) {
-      organizers.push(_.pick(event, ['firstName', 'lastName', 'emailAddress']))
+      organizers.push(pick(event, ['firstName', 'lastName', 'emailAddress']))
     }
   })
 

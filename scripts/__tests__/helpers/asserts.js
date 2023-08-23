@@ -1,4 +1,4 @@
-const fs = require('fs')
+import { readFileSync } from 'fs'
 
 // Used with generateTutorial
 function assertNewTutorial ({ context, result, expected }) {
@@ -57,7 +57,7 @@ function assertNewResource ({ result, expected }) {
 }
 
 function assertQuizUnknownOrder ({ result, hardcodedData }) {
-  const fileContents = fs.readFileSync(result.files.js, 'utf8')
+  const fileContents = readFileSync(result.files.js, 'utf8')
   expect(fileContents).toContain(`question = "${hardcodedData.question}"`)
   hardcodedData.choices.forEach(choice => {
     expect(fileContents).toContain(`{
@@ -69,12 +69,12 @@ function assertQuizUnknownOrder ({ result, hardcodedData }) {
 }
 
 function assertQuizKnownOrder ({ result }) {
-  const fileContents = fs.readFileSync(result.lessons[0].files.js, 'utf8')
+  const fileContents = readFileSync(result.lessons[0].files.js, 'utf8')
 
   expect(fileContents).toMatchSnapshot()
 }
 
-module.exports = {
+export default {
   assertNewTutorial,
   assertNewLesson,
   assertNewResource,

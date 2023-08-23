@@ -1,7 +1,7 @@
-const fs = require('fs')
-const path = require('path')
+import { writeFileSync } from 'fs'
+import { resolve } from 'path'
 
-const config = require('./config')
+import { staticPath } from './config'
 
 const correctedCases = {
   api: 'API',
@@ -11,7 +11,7 @@ const correctedCases = {
 }
 
 function writeStaticFile (staticFileName, data) {
-  fs.writeFileSync(path.resolve(config.staticPath, staticFileName), JSON.stringify(data, null, 2))
+  writeFileSync(resolve(staticPath, staticFileName), JSON.stringify(data, null, 2))
 }
 
 function deriveShortname (path) {
@@ -20,7 +20,7 @@ function deriveShortname (path) {
   )).join(' ')
 }
 
-module.exports = {
+export default {
   writeStaticFile,
   deriveShortname
 }

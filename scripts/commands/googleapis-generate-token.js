@@ -18,36 +18,36 @@
  GOOGLE_REDIRECT_URIS=["urn:ietf:wg:oauth:2.0:oob","http://localhost"]
  */
 
-const fs = require('fs')
-const readline = require('readline')
+import { appendFile } from 'fs'
+import { createInterface } from 'readline'
 
-const log = require('npmlog')
+import { info, error as _error } from 'npmlog'
 
-const run = require('../modules/run')
-const googleAuth = require('../modules/googleapis/auth')
+import run from '../modules/run'
+import { generateAuthUrl, getToken } from '../modules/googleapis/auth'
 
 async function command (options) {
-  const authUrl = googleAuth.generateAuthUrl({
+  const authUrl = generateAuthUrl({
     access_type: 'offline',
     scope: ['https://www.googleapis.com/auth/spreadsheets.readonly']
   })
 
-  log.info('googleapis', 'Authorize this app by visiting this url:', authUrl)
+  info('googleapis', 'Authorize this app by visiting this url:', authUrl)
 
-  const readlineInterface = readline.createInterface({
+  const readlineInterface = createInterface({
     input: process.stdin,
     output: process.stdout
   })
 
   readlineInterface.question('Enter the code from that page here: ', (code) => {
     readlineInterface.close()
-    googleAuth.getToken(code, (error, token) => {
+    getToken(code, (error, token) => {
       if (error) {
-        return log.error('googleapis', 'Error while trying to retrieve access token', error)
+        return _error('googleapis', 'Error while trying to retrieve access token', error)
       }
 
       // Store the token to disk for later program executions
-      fs.appendFile(
+      appendFile(
         '.env',
         `
         # google apis token
@@ -59,10 +59,10 @@ async function command (options) {
         GOOGLE_EXPIRY_DAT=${token.expiry_date}`,
         (error) => {
           if (error) {
-            return log.error('googleapis', error)
+            return _error('googleapis', error)
           }
 
-          log.info('googleapis', 'Token stored to .env file')
+          info('googleapis', 'Token stored to .env file')
         })
     })
   })

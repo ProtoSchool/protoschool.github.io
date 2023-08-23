@@ -1,27 +1,27 @@
-const api = require('../../../src/api')
-const setup = require('../../../jest/helpers/setup')
-const fixtures = require('../../../jest/helpers/fixtures')
-const asserts = require('../helpers/asserts')
-const runners = require('../helpers/runners')
+import { tutorials } from '../../../src/api'
+import { restoreData } from '../../../jest/helpers/setup'
+import { generateTutorial, generateLesson, createTutorial as _createTutorial } from '../../../jest/helpers/fixtures'
+import { assertNewTutorial, assertNewLesson } from '../helpers/asserts'
+import { protowizard } from '../helpers/runners'
 
 describe('protowizard', () => {
   let lastTutorialId
 
   beforeAll(() => {
-    lastTutorialId = api.tutorials.list.getLatest().id
+    lastTutorialId = tutorials.list.getLatest().id
   })
 
   afterEach(() => {
-    setup.restoreData(lastTutorialId)
+    restoreData(lastTutorialId)
   })
 
   describe('2. create lesson', () => {
     test('2.1. should create lesson after creating a new tutorial (skips resource creation)', async () => {
-      const { tutorial, lessons, expected } = fixtures.generateTutorial({
+      const { tutorial, lessons, expected } = generateTutorial({
         lessons: 1
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'lesson' },
         { confirm: false }, // no add to latest tutorial
         { tutorialId: 'new' }, // choose to create a new tutorial
@@ -31,11 +31,11 @@ describe('protowizard', () => {
         { confirm: false } // no to create first resource
       ])
 
-      const result = api.tutorials.getByUrl(tutorial.url)
+      const result = tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
 
-      asserts.assertNewTutorial({
+      assertNewTutorial({
         context: { lastTutorialId },
         expected,
         result
@@ -43,9 +43,9 @@ describe('protowizard', () => {
     })
 
     test('2.2. should create a lesson and add it to the latest tutorial (skips resource creation)', async () => {
-      const { lesson, tutorial, expected } = fixtures.generateLesson({ createTutorial: true })
+      const { lesson, tutorial, expected } = generateLesson({ createTutorial: true })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'lesson' },
         { latestTutorial: true }, // yes add to latest tutorial
         lesson,
@@ -53,21 +53,21 @@ describe('protowizard', () => {
         { confirm: false } // no to create first resource
       ])
 
-      asserts.assertNewLesson({
+      assertNewLesson({
         expected,
-        result: api.tutorials.getByUrl(tutorial.url)
+        result: tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('2.3. should list the lessons created so far', async () => {
-      const tutorial = fixtures.createTutorial({ lessons: 4 })
+      const tutorial = _createTutorial({ lessons: 4 })
 
       expect(tutorial.lessons).toHaveLength(4)
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'lesson' },
         { latestTutorial: true }, // yes add to latest tutorial
-        fixtures.generateLesson().lesson,
+        generateLesson().lesson,
         { confirm: false }, // no to create another lesson
         { confirm: false } // no to create first resource
       ])

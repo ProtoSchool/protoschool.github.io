@@ -1,25 +1,25 @@
-const api = require('../../src/api')
+import { lessons as _lessons, resources as _resources, courses, tutorials } from '../../src/api'
 
 // Creators: create data (tutorials, lessons)
 function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
   const { tutorial, lessons, resources } = generateTutorial(config)
-  const createdTutorial = api.tutorials.create(tutorial)
+  const createdTutorial = tutorials.create(tutorial)
 
   for (let i = 0; i < lessons.length; ++i) {
-    api.lessons.create(api.tutorials.get(createdTutorial.id), lessons[i])
+    _lessons.create(tutorials.get(createdTutorial.id), lessons[i])
   }
 
   resources.forEach(resource => {
-    api.resources.add(createdTutorial.id, resource)
+    _resources.add(createdTutorial.id, resource)
   })
 
-  return api.tutorials.get(createdTutorial.id)
+  return tutorials.get(createdTutorial.id)
 }
 
 // Generators: generate data to be used
 
 function generateTutorial (config = { override: {}, lessons: 0, resources: 0, lessonOverride: {} }) {
-  const suffix = api.tutorials.getNextTutorialId()
+  const suffix = tutorials.getNextTutorialId()
 
   const tutorial = {
     title: `New Tutorial (${suffix})`,
@@ -64,8 +64,8 @@ function generateLesson ({ createTutorial = false, override = {} } = {}) {
   let tutorial
 
   if (createTutorial) {
-    tutorial = api.tutorials.create(generateTutorial().tutorial)
-    api.courses.add(tutorial.id)
+    tutorial = tutorials.create(generateTutorial().tutorial)
+    courses.add(tutorial.id)
   }
 
   return {
@@ -86,8 +86,8 @@ function generateResource ({ createTutorial, override = {} } = {}) {
   let tutorial
 
   if (createTutorial) {
-    tutorial = api.tutorials.create(generateTutorial().tutorial)
-    api.courses.add(tutorial.id)
+    tutorial = tutorials.create(generateTutorial().tutorial)
+    courses.add(tutorial.id)
   }
 
   return {
@@ -97,7 +97,7 @@ function generateResource ({ createTutorial, override = {} } = {}) {
   }
 }
 
-module.exports = {
+export default {
   createTutorial,
   generateTutorial,
   generateLesson,

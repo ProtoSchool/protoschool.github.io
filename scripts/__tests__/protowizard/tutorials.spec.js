@@ -1,43 +1,43 @@
-const api = require('../../../src/api')
-const setup = require('../../../jest/helpers/setup')
-const fixtures = require('../../../jest/helpers/fixtures')
-const asserts = require('../helpers/asserts')
-const runners = require('../helpers/runners')
+import { tutorials } from '../../../src/api'
+import { restoreData } from '../../../jest/helpers/setup'
+import { generateTutorial } from '../../../jest/helpers/fixtures'
+import { assertNewTutorial } from '../helpers/asserts'
+import { protowizard } from '../helpers/runners'
 
 describe('protowizard', () => {
   let lastTutorialId
 
   beforeAll(() => {
-    lastTutorialId = api.tutorials.list.getLatest().id
+    lastTutorialId = tutorials.list.getLatest().id
   })
 
   afterEach(() => {
-    setup.restoreData(lastTutorialId)
+    restoreData(lastTutorialId)
   })
 
   describe('1. create tutorial', () => {
     test('1.1. should create tutorial (skips lesson creation)', async () => {
-      const { tutorial, expected } = fixtures.generateTutorial()
+      const { tutorial, expected } = generateTutorial()
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'tutorial' },
         tutorial,
         { confirm: false } // no to create first lesson
       ])
 
-      asserts.assertNewTutorial({
+      assertNewTutorial({
         context: { lastTutorialId },
         expected,
-        result: api.tutorials.getByUrl(tutorial.url)
+        result: tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('1.2. should create tutorial with one text lesson', async () => {
-      const { tutorial, lessons, expected } = fixtures.generateTutorial({
+      const { tutorial, lessons, expected } = generateTutorial({
         lessons: 1
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'tutorial' },
         tutorial,
         { confirm: true }, // yes to create the first lesson
@@ -46,19 +46,19 @@ describe('protowizard', () => {
         { confirm: false } // no to create the first resource
       ])
 
-      asserts.assertNewTutorial({
+      assertNewTutorial({
         context: { lastTutorialId },
         expected,
-        result: api.tutorials.getByUrl(tutorial.url)
+        result: tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('1.3. should create tutorial with two text lessons', async () => {
-      const { tutorial, lessons, expected } = fixtures.generateTutorial({
+      const { tutorial, lessons, expected } = generateTutorial({
         lessons: 2
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'tutorial' },
         tutorial,
         { confirm: true }, // yes to create the first lesson
@@ -69,20 +69,20 @@ describe('protowizard', () => {
         { confirm: false } // no to create the first resource
       ])
 
-      asserts.assertNewTutorial({
+      assertNewTutorial({
         context: { lastTutorialId },
         expected,
-        result: api.tutorials.getByUrl(tutorial.url)
+        result: tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('1.4. should create tutorial with one lesson and one resource', async () => {
-      const { tutorial, lessons, resources, expected } = fixtures.generateTutorial({
+      const { tutorial, lessons, resources, expected } = generateTutorial({
         lessons: 1,
         resources: 1
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'tutorial' },
         tutorial,
         { confirm: true }, // yes to create the first lesson
@@ -93,20 +93,20 @@ describe('protowizard', () => {
         { confirm: false } // no to create another resource
       ])
 
-      asserts.assertNewTutorial({
+      assertNewTutorial({
         context: { lastTutorialId },
         expected,
-        result: api.tutorials.getByUrl(tutorial.url)
+        result: tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('1.5. should create tutorial with one lesson and two resources', async () => {
-      const { tutorial, lessons, resources, expected } = fixtures.generateTutorial({
+      const { tutorial, lessons, resources, expected } = generateTutorial({
         lessons: 1,
         resources: 2
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'tutorial' },
         tutorial,
         { confirm: true }, // yes to create the first lesson
@@ -119,24 +119,24 @@ describe('protowizard', () => {
         { confirm: false } // no to create another resource
       ])
 
-      asserts.assertNewTutorial({
+      assertNewTutorial({
         context: { lastTutorialId },
         expected,
-        result: api.tutorials.getByUrl(tutorial.url)
+        result: tutorials.getByUrl(tutorial.url)
       })
     })
 
     test('1.6. should not allow to create two tutorials with the same title or url', async () => {
-      const { tutorial } = fixtures.generateTutorial()
+      const { tutorial } = generateTutorial()
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'tutorial' },
         tutorial,
         { confirm: false } // no to create first lesson
       ])
 
       await expect(
-        runners.protowizard([
+        protowizard([
           { type: 'tutorial' },
           tutorial,
           { confirm: false } // no to create first lesson

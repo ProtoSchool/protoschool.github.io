@@ -1,8 +1,8 @@
-const api = require('../../../src/api')
-const setup = require('../../../jest/helpers/setup')
-const fixtures = require('../../../jest/helpers/fixtures')
-const asserts = require('../helpers/asserts')
-const runners = require('../helpers/runners')
+import { tutorials, lessons as _lessons } from '../../../src/api'
+import { restoreData } from '../../../jest/helpers/setup'
+import { createTutorial } from '../../../jest/helpers/fixtures'
+import { assertQuizUnknownOrder, assertQuizKnownOrder } from '../helpers/asserts'
+import { protowizard } from '../helpers/runners'
 
 const hardcodedData = {
   question: "What's my question?",
@@ -29,23 +29,23 @@ describe('protowizard', () => {
   let lastTutorialId
 
   beforeAll(() => {
-    lastTutorialId = api.tutorials.list.getLatest().id
+    lastTutorialId = tutorials.list.getLatest().id
   })
 
   afterEach(() => {
-    setup.restoreData(lastTutorialId)
+    restoreData(lastTutorialId)
   })
 
   describe('4. create quiz', () => {
     test('4.1 should add quiz to pristine lesson', async () => {
-      const tutorial = fixtures.createTutorial({
+      const tutorial = createTutorial({
         lessons: 1,
         lessonOverride: {
           type: 'multiple-choice'
         }
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'quiz' },
         { confirm: true }, // lesson already exists
         { latestTutorial: true }, // add to latest (test) tutorial
@@ -63,22 +63,22 @@ describe('protowizard', () => {
         { confirm: false } // don't add another quiz
       ])
 
-      const result = api.tutorials.getByUrl(tutorial.url)
+      const result = tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
 
-      asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
+      assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
 
     test('4.2 should add quiz to existing lesson', async () => {
-      const tutorial = fixtures.createTutorial({
+      const tutorial = createTutorial({
         lessons: 1,
         lessonOverride: {
           type: 'multiple-choice'
         }
       })
 
-      await runners.protowizard([
+      await protowizard([
         // add quiz just to overwrite later
         { type: 'quiz' },
         { confirm: true }, // lesson already exists
@@ -109,14 +109,14 @@ describe('protowizard', () => {
         { confirm: false } // don't add another quiz
       ])
 
-      const result = api.tutorials.getByUrl(tutorial.url)
+      const result = tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
-      asserts.assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
+      assertQuizUnknownOrder({ result: result.lessons[0], hardcodedData })
     })
 
     test('4.3 should cancel overwrite of non-pristine lesson', async () => {
-      const tutorial = fixtures.createTutorial({
+      const tutorial = createTutorial({
         lessons: 1,
         lessonOverride: {
           type: 'multiple-choice'
@@ -124,9 +124,9 @@ describe('protowizard', () => {
       })
 
       // use API to create a non-pristine quiz
-      api.lessons.updateQuiz(tutorial, tutorial.lessons[0], hardcodedData)
+      _lessons.updateQuiz(tutorial, tutorial.lessons[0], hardcodedData)
 
-      await runners.protowizard([
+      await protowizard([
         // start to make a new quiz and then cancel rather than overwrite non-pristine
         { type: 'quiz' },
         { confirm: true }, // lesson already exists
@@ -135,22 +135,22 @@ describe('protowizard', () => {
         { confirm: false } // cancel overwriting non-pristine quiz
       ])
 
-      const result = api.tutorials.getByUrl(tutorial.url)
+      const result = tutorials.getByUrl(tutorial.url)
 
       expect(result.lessons).toHaveLength(1)
 
-      asserts.assertQuizKnownOrder({ result })
+      assertQuizKnownOrder({ result })
     })
 
     test('4.4 should cancel overwrite of pristine lesson', async () => {
-      const tutorial = fixtures.createTutorial({
+      const tutorial = createTutorial({
         lessons: 1,
         lessonOverride: {
           type: 'multiple-choice'
         }
       })
 
-      await runners.protowizard([
+      await protowizard([
         { type: 'quiz' },
         { confirm: true }, // lesson already exists
         { latestTutorial: true }, // add to latest (test) tutorial

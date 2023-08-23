@@ -1,4 +1,4 @@
-const moment = require('moment')
+import moment from 'moment'
 
 const lastmod = moment().format('YYYY-MM-DD')
 
@@ -174,7 +174,7 @@ function all () {
   ]
 }
 
-module.exports = {
+export {
   statics,
   tutorials,
   courses,

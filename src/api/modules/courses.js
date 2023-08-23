@@ -1,18 +1,18 @@
-const fs = require('fs')
-const path = require('path')
+import { readFileSync } from 'fs'
+import { resolve } from 'path'
 
-const config = require('../config')
-const utils = require('../utils')
-const tutorials = require('./tutorials')
+import { staticPath } from '../config'
+import utils from '../utils'
+import { getFormattedId } from './tutorials'
 
 const STATIC_FILE = 'courses.json'
 
 function getStaticPath () {
-  return path.resolve(config.staticPath, STATIC_FILE)
+  return resolve(staticPath, STATIC_FILE)
 }
 
 function get () {
-  const coursesJson = fs.readFileSync(getStaticPath(), 'utf8')
+  const coursesJson = readFileSync(getStaticPath(), 'utf8')
 
   return JSON.parse(coursesJson)
 }
@@ -34,7 +34,7 @@ function save (courses) {
 }
 
 function add (id) {
-  const formattedId = tutorials.getFormattedId(id)
+  const formattedId = getFormattedId(id)
   const courses = get()
 
   if (courses.all.find(courseId => courseId === formattedId)) {
@@ -47,7 +47,7 @@ function add (id) {
 }
 
 async function remove (id) {
-  const tutorialFormattedId = tutorials.getFormattedId(id)
+  const tutorialFormattedId = getFormattedId(id)
   const courses = get()
 
   courses.all = courses.all.filter(courseId => courseId !== tutorialFormattedId)
@@ -56,7 +56,7 @@ async function remove (id) {
   utils.writeStaticFile(STATIC_FILE, courses)
 }
 
-module.exports = {
+export default {
   getStaticPath,
   get,
   getAll,

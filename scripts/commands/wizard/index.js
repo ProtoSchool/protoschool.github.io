@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 
-const inquirer = require('inquirer')
-const log = require('npmlog')
+import { prompt } from 'inquirer'
+import { addLevel, info } from 'npmlog'
 
-const run = require('../../modules/run')
+import run from '../../modules/run'
 
-const tutorials = require('./tutorial')
-const lessons = require('./lesson')
-const resources = require('./resource')
-const quizzes = require('./quiz')
+import { createTutorial as _createTutorial } from './tutorial'
+import { createLesson as _createLesson, createLessonIntro } from './lesson'
+import { createResource as _createResource, createResourceIntro } from './resource'
+import { createQuiz as _createQuiz, createQuizIntro } from './quiz'
 
 // customize log styling
-log.addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizard')
+addLevel('info', 2000, { fg: 'blue', bold: true }, '🧙‍♂️ ProtoWizard')
 
 async function command (options) {
-  log.info(`Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial.`)
+  info(`Welcome! I'm the ProtoWizard, and I'm excited to help you build your ProtoSchool tutorial.`)
 
-  const item = await inquirer.prompt([
+  const item = await prompt([
     {
       type: 'list',
       name: 'type',
@@ -43,30 +43,30 @@ async function command (options) {
   ])
 
   if (item.type === 'tutorial') {
-    await tutorials.createTutorial({
-      createLesson: lessons.createLesson,
-      createResource: resources.createResource
+    await _createTutorial({
+      createLesson: _createLesson,
+      createResource: _createResource
     })
   } else if (item.type === 'lesson') {
-    await lessons.createLessonIntro({
-      createResource: resources.createResource,
-      createTutorial: tutorials.createTutorial,
-      createLesson: lessons.createLesson,
-      createQuiz: quizzes.createQuiz
+    await createLessonIntro({
+      createResource: _createResource,
+      createTutorial: _createTutorial,
+      createLesson: _createLesson,
+      createQuiz: _createQuiz
     })
   } else if (item.type === 'resource') {
-    await resources.createResourceIntro({
-      createLesson: lessons.createLesson,
-      createTutorial: tutorials.createTutorial,
-      createResource: resources.createResource,
-      createQuiz: quizzes.createQuiz
+    await createResourceIntro({
+      createLesson: _createLesson,
+      createTutorial: _createTutorial,
+      createResource: _createResource,
+      createQuiz: _createQuiz
     })
   } else if (item.type === 'quiz') {
-    await quizzes.createQuizIntro({
-      createLesson: lessons.createLesson,
-      createTutorial: tutorials.createTutorial,
-      createResource: resources.createResource,
-      createQuiz: quizzes.createQuiz
+    await createQuizIntro({
+      createLesson: _createLesson,
+      createTutorial: _createTutorial,
+      createResource: _createResource,
+      createQuiz: _createQuiz
     })
   }
 }
@@ -75,4 +75,4 @@ if (process.env.NODE_ENV !== 'test') {
   run(command)
 }
 
-module.exports = command
+export default command

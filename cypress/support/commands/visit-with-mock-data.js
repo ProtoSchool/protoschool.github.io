@@ -1,4 +1,4 @@
-const tutorials = require('../../fixtures/tutorials.json')
+import tutorials from '../../fixtures/tutorials.json'
 
 Cypress.Commands.add('visitWithMockData', function (url) {
   cy.visit(url, {

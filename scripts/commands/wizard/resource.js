@@ -1,17 +1,8 @@
-const inquirer = require('inquirer')
-const log = require('npmlog')
+import { prompt } from 'inquirer'
+import { info } from 'npmlog'
 
-const api = require('../../../src/api')
-const {
-  promptRepeat,
-  validateStringPresent,
-  selectTutorial,
-  promptCreateFirst,
-  logEverythingDone,
-  logList,
-  logPreview,
-  logCreateLater
-} = require('./utils.js')
+import { tutorials, resources as _resources } from '../../../src/api'
+import { promptRepeat, validateStringPresent, selectTutorial, promptCreateFirst, logEverythingDone, logList, logPreview, logCreateLater } from './utils.js'
 
 // *** LOGGING ***
 
@@ -35,13 +26,13 @@ function validateUrl (tutorial, link) {
 
 async function createResourceIntro ({ createLesson, createTutorial }) {
   // determine new tutorial number
-  log.info("Let's add resources to your tutorial.")
+  info("Let's add resources to your tutorial.")
 
   const tutorial = await selectTutorial('resources', { createTutorial, createResource, createLesson })
 
   // print existing resources if present
   if (tutorial.resources.length === 0) {
-    log.info("Let's create your first resource!")
+    info("Let's create your first resource!")
   } else {
     logResources("Here are the resources you've created so far", tutorial.resources)
   }
@@ -50,14 +41,14 @@ async function createResourceIntro ({ createLesson, createTutorial }) {
 }
 
 async function afterResourceCreate (tutorialId, { createLesson }) {
-  const tutorial = await api.tutorials.get(tutorialId)
+  const tutorial = await tutorials.get(tutorialId)
 
   logPreview('your resources page', tutorial.url, 'resources')
-  log.info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
+  info('Need to change something? You can edit your resources in the file `src/static/tutorials.json`.')
 
   // prompt to create lessons if not yet done
   if (tutorial.lessons.length === 0) {
-    log.info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
+    info(`Looks like your "${tutorial.title}" tutorial doesn't have any lessons yet.`)
 
     if (await promptCreateFirst('lesson', tutorial.id)) {
       await createLesson(tutorial, { createResource })
@@ -72,9 +63,9 @@ async function afterResourceCreate (tutorialId, { createLesson }) {
 // *** RESOURCE CREATION ***
 
 async function createResource (tutorialId, { createLesson }) {
-  const tutorial = await api.tutorials.get(tutorialId)
+  const tutorial = await tutorials.get(tutorialId)
 
-  const responses = await inquirer.prompt([
+  const responses = await prompt([
     {
       type: 'input',
       name: 'title',
@@ -109,10 +100,10 @@ async function createResource (tutorialId, { createLesson }) {
     description: responses.description
   }
 
-  await api.resources.add(tutorial.id, newResource)
+  await _resources.add(tutorial.id, newResource)
 
   // log success
-  log.info(`I've added "${responses.title}" to your resources list.`)
+  info(`I've added "${responses.title}" to your resources list.`)
 
   // prompt to repeat process until user declines, then log results
   if (await promptRepeat('resource')) {
@@ -120,11 +111,11 @@ async function createResource (tutorialId, { createLesson }) {
   } else {
     logResources(
       `Okay, sounds like we're done. Here are all the resources now included in "${tutorial.title}"`,
-      await api.resources.get(tutorial.id)
+      await _resources.get(tutorial.id)
     )
 
     await afterResourceCreate(tutorial.id, { createLesson })
   }
 }
 
-module.exports = { createResourceIntro, createResource, afterResourceCreate }
+export default { createResourceIntro, createResource, afterResourceCreate }

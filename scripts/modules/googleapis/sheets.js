@@ -2,18 +2,15 @@
     Google Sheets API helpers
  */
 
-const promisify = require('util').promisify
+import { promisify } from 'util'
 
-const { google } = require('googleapis')
+import { google } from 'googleapis'
 
-const googleAuth = require('./auth')
+import googleAuth from './auth'
 
 const sheets = google.sheets({ version: 'v4', auth: googleAuth })
 
-/*
-    Fetch data from a spreadsheet
- */
-exports.getSpreadSheet = promisify(sheets.spreadsheets.values.get).bind(sheets.spreadsheets.values)
+export const getSpreadSheet = promisify(sheets.spreadsheets.values.get).bind(sheets.spreadsheets.values)
 
 /*
     Transforms a spreadsheet into a usable data structure.
@@ -28,7 +25,7 @@ exports.getSpreadSheet = promisify(sheets.spreadsheets.values.get).bind(sheets.s
         - key: string to be used as property name
         - fn(row: Object): transform function to be ran on this column
  */
-exports.transformSpreadSheet = (rows, columns, extraColumns = []) => (
+export function transformSpreadSheet(rows, columns, extraColumns = []) { return (
   rows
     // transform each row array into a row object using the columns as keys
     .map(row => row.reduce((mappedRow, value, index) => ({
@@ -56,4 +53,4 @@ exports.transformSpreadSheet = (rows, columns, extraColumns = []) => (
         }), {})
       }
     })
-)
+)}

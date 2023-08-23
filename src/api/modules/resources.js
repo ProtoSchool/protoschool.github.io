@@ -1,27 +1,27 @@
-const log = require('../logger')
-const debug = require('../debug')
-const tutorialsApi = require('./tutorials')
-const utils = require('../utils')
+import { debug as _debug } from '../logger'
+import debug from '../debug'
+import { list, getFormattedId, STATIC_FILE, get as _get } from './tutorials'
+import utils from '../utils'
 
 const logGroup = functionMethod => `[resources.${functionMethod}()]`
 
 function add (id, resource) {
-  const tutorials = tutorialsApi.list.getJson()
+  const tutorials = list.getJson()
 
-  tutorials[tutorialsApi.getFormattedId(id)].resources.push(resource)
+  tutorials[getFormattedId(id)].resources.push(resource)
 
-  utils.writeStaticFile(tutorialsApi.STATIC_FILE, tutorials)
+  utils.writeStaticFile(STATIC_FILE, tutorials)
 }
 
 function get (id) {
-  const tutorial = tutorialsApi.get(id)
+  const tutorial = _get(id)
 
-  debug && log.debug(logGroup('get'), id, tutorial)
+  debug && _debug(logGroup('get'), id, tutorial)
 
   return tutorial.resources
 }
 
-module.exports = {
+export default {
   add,
   get
 }
