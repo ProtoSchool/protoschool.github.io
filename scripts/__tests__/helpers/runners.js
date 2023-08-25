@@ -1,11 +1,7 @@
-const inquirer = require('inquirer')
+import inquirer from 'inquirer'
 
-async function protowizard (responses) {
+export async function protowizard (responses) {
   inquirer.__responses = responses
 
-  await require('../../commands/wizard')()
-}
-
-module.exports = {
-  protowizard
+  await import('../../commands/wizard')()
 }

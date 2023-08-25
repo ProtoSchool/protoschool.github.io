@@ -10,9 +10,9 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
-const webpack = require('@cypress/webpack-preprocessor')
+import webpack from '@cypress/webpack-preprocessor'
 
-module.exports = (on, config) => {
+export default (on, config) => {
   on('before:browser:launch', (browser = {}, launchOptions) => {
     if (browser.name === 'chrome') {
       launchOptions.args.push('--disable-dev-shm-usage')

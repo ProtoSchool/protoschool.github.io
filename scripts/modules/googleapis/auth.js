@@ -2,9 +2,9 @@
     Create auth object for connecting with the Google APIs.
     All required information will be ready from env vars.
  */
-const errorCode = require('err-code')
+import errorCode from 'err-code'
 
-const { google } = require('googleapis')
+import { google } from 'googleapis'
 
 if (!process.env.GOOGLE_CLIENT_ID) {
   throw errorCode(
@@ -45,4 +45,4 @@ if (process.env.GOOGLE_ACCESS_TOKEN) {
   })
 }
 
-module.exports = googleAuth
+export default googleAuth

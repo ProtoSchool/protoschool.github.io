@@ -1,14 +1,9 @@
-const inquirer = require('inquirer')
-const log = require('npmlog')
+import { prompt } from 'inquirer'
+import { info } from 'npmlog'
 
-const api = require('../../../src/api')
+import { tutorials as _tutorials, projects, courses } from '../../../src/api'
 
-const {
-  validateStringPresent,
-  promptCreateFirst,
-  logPreview,
-  logCreateLater
-} = require('./utils.js')
+import { validateStringPresent, promptCreateFirst, logPreview, logCreateLater } from './utils.js'
 
 // *** INPUT VALIDATION ***
 
@@ -31,11 +26,11 @@ function validateUniqueUrl (url, tutorials) {
 // *** TUTORIAL CREATION ***
 
 async function createTutorial ({ createLesson, createResource, createQuiz }, { skipPromptLesson } = {}) {
-  log.info("Let's create the files you need to build your tutorial. I'll ask you a few questions to get started.")
+  info("Let's create the files you need to build your tutorial. I'll ask you a few questions to get started.")
 
-  const tutorials = await api.tutorials.list.get()
+  const tutorials = await _tutorials.list.get()
 
-  const responses = await inquirer.prompt([
+  const responses = await prompt([
     {
       type: 'input',
       name: 'title',
@@ -55,7 +50,7 @@ async function createTutorial ({ createLesson, createResource, createQuiz }, { s
       type: 'list',
       name: 'project',
       message: 'Which project is your tutorial about?',
-      choices: api.projects.list.get().map(project => ({name: project.name, value: project.id}))
+      choices: projects.list.get().map(project => ({name: project.name, value: project.id}))
     },
     {
       type: 'input',
@@ -78,12 +73,12 @@ async function createTutorial ({ createLesson, createResource, createQuiz }, { s
     }
   ])
 
-  const tutorial = await api.tutorials.create(responses)
+  const tutorial = await _tutorials.create(responses)
 
-  await api.courses.add(tutorial.id)
+  await courses.add(tutorial.id)
 
   // log success
-  log.info(`Thanks! I've created a directory for your tutorial at \`src/tutorials/${tutorial.formattedId}-${responses.url}/\`.`)
+  info(`Thanks! I've created a directory for your tutorial at \`src/tutorials/${tutorial.formattedId}-${responses.url}/\`.`)
   logPreview('your tutorial', responses.url)
 
   if (!skipPromptLesson) {
@@ -98,4 +93,4 @@ async function createTutorial ({ createLesson, createResource, createQuiz }, { s
   return tutorial
 }
 
-module.exports = { createTutorial }
+export default { createTutorial }
