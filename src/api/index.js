@@ -7,12 +7,10 @@
  *   - ATM we have deps on fs.readFile etc
  *
  * @module api
- */
-module.exports = {
-  projects: require('./modules/projects'),
-  lessons: require('./modules/lessons'),
-  courses: require('./modules/courses').default,
-  resources: require('./modules/resources'),
-  tutorials: require('./modules/tutorials'),
-  _config: require('./config')
-}
+*/
+export * as courses from './modules/courses.js'
+export * as lessons from './modules/lessons.js'
+export * as projects from './modules/projects.js'
+export * as resources from './modules/resources.js'
+export * as tutorials from './modules/tutorials.js'
+export * as config from './config.js'

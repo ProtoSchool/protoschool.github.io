@@ -1,39 +1,39 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-import { staticPath } from '../config'
-import utils from '../utils'
-import { getFormattedId } from './tutorials'
+import { staticPath } from '../config.js'
+import { writeStaticFile } from '../utils.js'
+import { getFormattedId } from './tutorials.js'
 
 const STATIC_FILE = 'courses.json'
 
-function getStaticPath () {
+export function getStaticPath () {
   return resolve(staticPath, STATIC_FILE)
 }
 
-function get () {
+export function get () {
   const coursesJson = readFileSync(getStaticPath(), 'utf8')
 
   return JSON.parse(coursesJson)
 }
 
-function getAll () {
+export function getAll () {
   return get().all
 }
 
-function getFeatured () {
+export function getFeatured () {
   return get().featured
 }
 
-function getCourseNames () {
+export function getCourseNames () {
   return Object.keys(get()).filter(course => (course !== 'all' && course !== 'featured'))
 }
 
-function save (courses) {
-  utils.writeStaticFile(STATIC_FILE, courses)
+export function save (courses) {
+  writeStaticFile(STATIC_FILE, courses)
 }
 
-function add (id) {
+export function add (id) {
   const formattedId = getFormattedId(id)
   const courses = get()
 
@@ -46,23 +46,12 @@ function add (id) {
   save(courses)
 }
 
-async function remove (id) {
+export async function remove (id) {
   const tutorialFormattedId = getFormattedId(id)
   const courses = get()
 
   courses.all = courses.all.filter(courseId => courseId !== tutorialFormattedId)
   courses.featured = courses.featured.filter(courseId => courseId !== tutorialFormattedId)
 
-  utils.writeStaticFile(STATIC_FILE, courses)
-}
-
-export default {
-  getStaticPath,
-  get,
-  getAll,
-  getFeatured,
-  getCourseNames,
-  save,
-  add,
-  remove
+  writeStaticFile(STATIC_FILE, courses)
 }

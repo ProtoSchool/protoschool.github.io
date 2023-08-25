@@ -12,7 +12,7 @@ function logLessons (message, lessons) {
 
 // *** TRANSITIONAL DIALOGS & PROMPTS ***
 
-async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
+export async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
   // determine new tutorial number
   info("Let's add lessons to your tutorial.")
   const tutorial = await selectTutorial('lesson', { createTutorial, createResource, createLesson })
@@ -50,7 +50,7 @@ async function afterLessonCreate (tutorialId, { createResource }) {
 
 // *** LESSON CREATION ***
 
-async function createLesson (tutorialId, { createResource }) {
+export async function createLesson (tutorialId, { createResource }) {
   const tutorial = await tutorials.get(tutorialId)
 
   const lessonResponses = await prompt([
@@ -112,5 +112,3 @@ async function createLesson (tutorialId, { createResource }) {
     await afterLessonCreate(tutorial.id, { createResource })
   }
 }
-
-export default { createLessonIntro, createLesson }

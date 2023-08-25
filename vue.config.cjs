@@ -1,10 +1,10 @@
-import { join } from 'path'
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin'
+import { join } from 'path'
 import PrerenderSPAPlugin from 'prerender-spa-plugin'
 
-const { PuppeteerRenderer } = PrerenderSPAPlugin
-
 import { all } from './src/routes.js'
+
+const { PuppeteerRenderer } = PrerenderSPAPlugin
 
 const Renderer = PuppeteerRenderer
 
@@ -13,10 +13,11 @@ export const devServer = {
   port: 3000,
   disableHostCheck: true
 }
-export function configureWebpack(config) {
+export function configureWebpack (config) {
   config.plugins.push(new MonacoWebpackPlugin({
     languages: ['javascript']
   }))
+  config.output.hashFunction = 'sha256'
   config.module.rules.push({
     test: /\.md$/,
     use: 'raw-loader'
@@ -31,7 +32,7 @@ export function configureWebpack(config) {
           maxConcurrentRoutes: 4,
           headless: true // If false, display the browser window when rendering. Useful for debugging
         }),
-        postProcess(renderedRoute) {
+        postProcess (renderedRoute) {
           // ignore redirects
           renderedRoute.route = renderedRoute.originalRoute
 
@@ -40,13 +41,14 @@ export function configureWebpack(config) {
       })
     )
 }
-export function chainWebpack(config) {
+export function chainWebpack (config) {
   config.module.rule('eslint').use('eslint-loader')
     .tap(opts => ({
       ...opts,
       failOnError: process.env.NODE_ENV === 'production'
     }))
 }
+
 export const pluginOptions = {
   sitemap: {
     baseURL: 'https://proto.school',

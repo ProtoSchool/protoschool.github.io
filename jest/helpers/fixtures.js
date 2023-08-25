@@ -1,7 +1,7 @@
 import { lessons as _lessons, resources as _resources, courses, tutorials } from '../../src/api'
 
 // Creators: create data (tutorials, lessons)
-function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
+export function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
   const { tutorial, lessons, resources } = generateTutorial(config)
   const createdTutorial = tutorials.create(tutorial)
 
@@ -18,7 +18,7 @@ function createTutorial (config = { override: {}, lessons: 0, resources: 0 }) {
 
 // Generators: generate data to be used
 
-function generateTutorial (config = { override: {}, lessons: 0, resources: 0, lessonOverride: {} }) {
+export function generateTutorial (config = { override: {}, lessons: 0, resources: 0, lessonOverride: {} }) {
   const suffix = tutorials.getNextTutorialId()
 
   const tutorial = {
@@ -55,7 +55,7 @@ function generateTutorial (config = { override: {}, lessons: 0, resources: 0, le
   }
 }
 
-function generateLesson ({ createTutorial = false, override = {} } = {}) {
+export function generateLesson ({ createTutorial = false, override = {} } = {}) {
   const lesson = {
     title: 'Lesson',
     type: 'text',
@@ -75,7 +75,7 @@ function generateLesson ({ createTutorial = false, override = {} } = {}) {
   }
 }
 
-function generateResource ({ createTutorial, override = {} } = {}) {
+export function generateResource ({ createTutorial, override = {} } = {}) {
   const resource = {
     title: 'Resource',
     link: 'https://resource.com',
@@ -95,11 +95,4 @@ function generateResource ({ createTutorial, override = {} } = {}) {
     tutorial,
     expected: { resource, tutorial }
   }
-}
-
-export default {
-  createTutorial,
-  generateTutorial,
-  generateLesson,
-  generateResource
 }

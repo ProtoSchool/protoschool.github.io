@@ -1,6 +1,6 @@
 import { courses, tutorials } from '../../src/api'
 
-function restoreData (lastTutorialId) {
+export function restoreData (lastTutorialId) {
   const newLastTutorialId = tutorials.list.getLatest().id
 
   // delete all new tutorials
@@ -8,8 +8,4 @@ function restoreData (lastTutorialId) {
     tutorials.remove(id)
     courses.remove(id)
   }
-}
-
-export default {
-  restoreData
 }

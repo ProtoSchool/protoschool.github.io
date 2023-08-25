@@ -6,7 +6,7 @@ import { selectTutorial, promptFilesReady, selectMultipleChoiceLesson, logList, 
 
 // *** QUIZ CREATION ***
 
-async function createQuiz (tutorial, lesson, { createLesson, createTutorial, createResource }) {
+export async function createQuiz (tutorial, lesson, { createLesson, createTutorial, createResource }) {
   info("Now it's time to write the question for your multiple-choice quiz and provide answer choices, with positive or negative feedback for each. Wrong answers, and the feedback associated with them, are a great way to address common misconceptions about the topic. Be sure to make your feedback as helpful as possible, to guide the learner to the right choice. You'll need to create 1 correct answer and 2-3 incorrect answers. (I'll take care of randomizing their order later.)")
 
   let responses = await prompt([
@@ -94,7 +94,7 @@ async function createQuiz (tutorial, lesson, { createLesson, createTutorial, cre
 
 // *** TRANSITIONAL DIALOGS & PROMPTS ***
 
-async function createQuizIntro ({ createLesson, createTutorial, createResource }) {
+export async function createQuizIntro ({ createLesson, createTutorial, createResource }) {
   info("Let's create a multiple-choice quiz! This will only work if you've already created the tutorial and lesson files.")
 
   if (await promptFilesReady()) {
@@ -119,7 +119,7 @@ async function createQuizIntro ({ createLesson, createTutorial, createResource }
   }
 } // end createQuizIntro
 
-async function promptOverwriteQuiz (tutorial, lesson) {
+export async function promptOverwriteQuiz (tutorial, lesson) {
   info("It looks like you've already created the quiz for this lesson.")
   logPreview('the existing version', tutorial.url, lesson.formattedId)
   const { confirm } = await prompt([
@@ -132,7 +132,7 @@ async function promptOverwriteQuiz (tutorial, lesson) {
   return confirm
 }
 
-async function promptOverwritePristineQuiz (tutorial, lesson) {
+export async function promptOverwritePristineQuiz (tutorial, lesson) {
   info('When we create a quiz together, it will overwrite any existing content. If you think you may have previously updated this quiz manually, you may want to double check before proceeding.')
   logPreview('the quiz in its current state', tutorial.url, lesson.formattedId)
 
@@ -147,7 +147,7 @@ async function promptOverwritePristineQuiz (tutorial, lesson) {
   return confirm
 }
 
-async function afterQuizCreate (tutorial, lesson, { createLesson, createTutorial, createResource }) {
+export async function afterQuizCreate (tutorial, lesson, { createLesson, createTutorial, createResource }) {
   logPreview('your quiz', tutorial.url, lesson.formattedId)
   info(`To make changes to your quiz, you can edit this file directly: src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lesson.formattedId}.js`)
   if (await promptRepeat('quiz')) {
@@ -160,5 +160,3 @@ async function afterQuizCreate (tutorial, lesson, { createLesson, createTutorial
 function logEditQuizManually (tutorial, lesson) {
   info(`Okay, no problem. You can edit your existing quiz directly in this file: src/tutorials/${tutorial.formattedId}-${tutorial.url}/${lesson.formattedId}.js`)
 }
-
-export default { createQuizIntro, createQuiz, afterQuizCreate, promptOverwriteQuiz, promptOverwritePristineQuiz }

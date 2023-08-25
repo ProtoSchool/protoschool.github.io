@@ -1,27 +1,22 @@
-import { debug as _debug } from '../logger'
-import debug from '../debug'
-import { list, getFormattedId, STATIC_FILE, get as _get } from './tutorials'
-import utils from '../utils'
+import debug from '../debug.js'
+import { debug as _debug } from '../logger.js'
+import { writeStaticFile } from '../utils.js'
+import { STATIC_FILE, get as _get, getFormattedId, list } from './tutorials.js'
 
 const logGroup = functionMethod => `[resources.${functionMethod}()]`
 
-function add (id, resource) {
+export function add (id, resource) {
   const tutorials = list.getJson()
 
   tutorials[getFormattedId(id)].resources.push(resource)
 
-  utils.writeStaticFile(STATIC_FILE, tutorials)
+  writeStaticFile(STATIC_FILE, tutorials)
 }
 
-function get (id) {
+export function get (id) {
   const tutorial = _get(id)
 
   debug && _debug(logGroup('get'), id, tutorial)
 
   return tutorial.resources
-}
-
-export default {
-  add,
-  get
 }

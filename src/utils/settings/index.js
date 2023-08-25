@@ -26,7 +26,7 @@
     - show clear examples explaning
  */
 
-import translations from '../../static/translations'
+import translations from '../../static/translations/index.js'
 import {
   FILTERS_KEY_PREFIX,
   NEWSLETTER_KEY_PREFIX,

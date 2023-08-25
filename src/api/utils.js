@@ -1,7 +1,6 @@
 import { writeFileSync } from 'fs'
 import { resolve } from 'path'
-
-import { staticPath } from './config'
+import { staticPath } from './config.js'
 
 const correctedCases = {
   api: 'API',
@@ -10,17 +9,12 @@ const correctedCases = {
   a: 'a'
 }
 
-function writeStaticFile (staticFileName, data) {
+export function writeStaticFile(staticFileName, data) {
   writeFileSync(resolve(staticPath, staticFileName), JSON.stringify(data, null, 2))
 }
 
-function deriveShortname (path) {
+export function deriveShortname(path) {
   return path.split('-').map(word => (
     correctedCases[word] ? correctedCases[word] : (word.charAt(0).toUpperCase() + word.slice(1))
   )).join(' ')
-}
-
-export default {
-  writeStaticFile,
-  deriveShortname
 }

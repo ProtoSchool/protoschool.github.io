@@ -1,5 +1,5 @@
 import { createHash } from 'crypto'
-import request from './request'
+import request from './request.js'
 
 const AUDIENCE_INTEREST = '8589872a32' // event organizer newsletter
 

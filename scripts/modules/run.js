@@ -2,9 +2,9 @@
     Runs a command
  */
 
-import { level, verbose, error } from 'npmlog'
-
-require('dotenv').config()
+import { config } from 'dotenv'
+import { error, level, verbose } from 'npmlog'
+config()
 
 // CLI Options
 const options = {

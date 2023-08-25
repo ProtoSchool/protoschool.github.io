@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 
 // Used with generateTutorial
-function assertNewTutorial ({ context, result, expected }) {
+export function assertNewTutorial ({ context, result, expected }) {
   expect(result).toBeInstanceOf(Object)
   expect(result.id).toBe(context.lastTutorialId + 1)
   expect(result.title).toBe(expected.title)
@@ -33,7 +33,7 @@ function assertNewTutorial ({ context, result, expected }) {
 }
 
 // Used with generateLesson
-function assertNewLesson ({ result, expected }) {
+export function assertNewLesson ({ result, expected }) {
   expect(result).toBeInstanceOf(Object)
   expect(result.id).toBe(expected.tutorial.id)
   expect(result.title).toBe(expected.tutorial.title)
@@ -45,7 +45,7 @@ function assertNewLesson ({ result, expected }) {
 }
 
 // Used with generateResource
-function assertNewResource ({ result, expected }) {
+export function assertNewResource ({ result, expected }) {
   expect(result).toBeInstanceOf(Object)
   expect(result.id).toBe(expected.tutorial.id)
   expect(result.title).toBe(expected.tutorial.title)
@@ -56,7 +56,7 @@ function assertNewResource ({ result, expected }) {
   expect(result.resources[0]).toMatchObject(expected.resource)
 }
 
-function assertQuizUnknownOrder ({ result, hardcodedData }) {
+export function assertQuizUnknownOrder ({ result, hardcodedData }) {
   const fileContents = readFileSync(result.files.js, 'utf8')
   expect(fileContents).toContain(`question = "${hardcodedData.question}"`)
   hardcodedData.choices.forEach(choice => {
@@ -68,16 +68,8 @@ function assertQuizUnknownOrder ({ result, hardcodedData }) {
   })
 }
 
-function assertQuizKnownOrder ({ result }) {
+export function assertQuizKnownOrder ({ result }) {
   const fileContents = readFileSync(result.lessons[0].files.js, 'utf8')
 
   expect(fileContents).toMatchSnapshot()
-}
-
-export default {
-  assertNewTutorial,
-  assertNewLesson,
-  assertNewResource,
-  assertQuizKnownOrder,
-  assertQuizUnknownOrder
 }
