@@ -132,7 +132,6 @@ import pTimeout from 'p-timeout'
 import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
-import { createHelia } from 'helia'
 
 import { isProduction } from '../utils/env'
 import {
