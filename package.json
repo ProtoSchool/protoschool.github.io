@@ -25,6 +25,7 @@
     "test:jest": "jest --maxWorkers=1 --verbose"
   },
   "dependencies": {
+    "@helia/unixfs": "^1.4.1",
     "async": "^2.6.1",
     "cids": "^1.1.5",
     "err-code": "^3.0.1",

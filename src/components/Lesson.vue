@@ -127,11 +127,13 @@
 
 <script>
 import Vue from 'vue'
+import { ref, computed } from 'vue'
 import CID from 'cids'
 import pTimeout from 'p-timeout'
 import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
+import { useUnixFS } from '@/HeliaApi/useUnixFS'
 
 import { isProduction } from '../utils/env'
 import {
@@ -617,6 +619,20 @@ export default {
     parseData: (data) => marked(data).html
   }
 }
+
+const {
+  getStat,
+  addDirectory, getDirectory,
+  addFile, getFile
+} = useUnixFS()
+
+const dirPathName = ref()
+const dirCid = ref()
+const handleNewDir = async () => {
+  const response = await addDirectory(dirPathName.value)
+  dirCid.value = response.data
+}
+
 </script>
 
 <style scoped>
