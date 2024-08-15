@@ -1,6 +1,6 @@
 # ProtoSchool
 
-ProtoSchool is an educational community that teaches decentralized web protocols and tools
+[ProtoSchool](https://proto.school/) is an educational community that teaches decentralized web protocols and tools
 through online tutorials and local events.
 
 This repository is for the main ProtoSchool website, hosted at https://proto.school, where you can
