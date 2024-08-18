@@ -61,7 +61,7 @@ export default {
     inspectCidUrl: function () {
       let cid = this.output.test && this.output.test.cid && this.output.test.cid.toString()
 
-      return `https://cid.ipfs.io/#${cid || ''}`
+      return `https://cid.ipfs.tech/#${cid || ''}`
     }
   },
   methods: {
