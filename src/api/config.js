@@ -1,16 +1,14 @@
 /* eslint-disable no-unused-expressions */
+export const staticPath = process.env.DATA_STATIC_PATH || 'src/static'
+export const tutorialsPath = process.env.DATA_TUTORIALS_PATH || 'src/tutorials'
 
-const config = {}
+const boilerplatesPath = process.env.LESSON_BOILERPLATES_PATH || `${tutorialsPath}/boilerplates`
 
-config.staticPath = process.env.DATA_STATIC_PATH || 'src/static'
-config.tutorialsPath = process.env.DATA_TUTORIALS_PATH || 'src/tutorials'
-
-config.boilerplates = {}
-config.boilerplates.path = process.env.LESSON_BOILERPLATES_PATH || `${config.tutorialsPath}/boilerplates`
-config.boilerplates.markdownPath = `${config.boilerplates.path}/boilerplate.md`
-config.boilerplates.challengeMarkdownPath = `${config.boilerplates.path}/boilerplate-challenge.md`
-config.boilerplates.multipleChoiceJsPath = `${config.boilerplates.path}/boilerplate-multiple-choice.js`
-config.boilerplates.codeJsPath = `${config.boilerplates.path}/boilerplate-code.js`
-config.boilerplates.fileUploadJsPath = `${config.boilerplates.path}/boilerplate-file-upload.js`
-
-module.exports = config
+export const boilerplates = {
+  path: boilerplatesPath,
+  markdownPath: `${boilerplatesPath}/boilerplate.md`,
+  challengeMarkdownPath: `${boilerplatesPath}/boilerplate-challenge.md`,
+  multipleChoiceJsPath: `${boilerplatesPath}/boilerplate-multiple-choice.js`,
+  codeJsPath: `${boilerplatesPath}/boilerplate-code.js`,
+  fileUploadJsPath: `${boilerplatesPath}/boilerplate-file-upload.js`
+}

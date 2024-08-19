@@ -1,9 +1,9 @@
-const crypto = require('crypto')
-const request = require('./request')
+import { createHash } from 'crypto'
+import request from './request.js'
 
 const AUDIENCE_INTEREST = '8589872a32' // event organizer newsletter
 
-exports.getAll = async () => {
+export async function getAll() {
   const result = await request({
     method: 'get',
     path: '/lists',
@@ -15,7 +15,7 @@ exports.getAll = async () => {
   return result.lists
 }
 
-exports.get = async (id) => {
+export async function get(id) {
   const result = await request({
     method: 'get',
     path: '/lists/{id}',
@@ -27,7 +27,7 @@ exports.get = async (id) => {
   return result
 }
 
-exports.getListMembers = async (id) => {
+export async function getListMembers(id) {
   const result = await request({
     method: 'get',
     path: '/lists/{id}/members',
@@ -42,8 +42,8 @@ exports.getListMembers = async (id) => {
   return result
 }
 
-exports.updateListMember = async (id, member) => {
-  const hash = crypto.createHash('md5').update(member.emailAddress).digest('hex')
+export async function updateListMember(id, member) {
+  const hash = createHash('md5').update(member.emailAddress).digest('hex')
 
   return request({
     method: 'put',

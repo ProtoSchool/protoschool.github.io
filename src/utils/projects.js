@@ -16,9 +16,3 @@ export function getAll () {
 export function getNewsletters () {
   return getAll().filter(project => project.hasOwnProperty('newsletterUrl'))
 }
-
-export default {
-  get,
-  getAll,
-  getNewsletters
-}

@@ -1,25 +1,25 @@
-let log = require('npmlog')
+import { warn, info } from 'npmlog'
 
-const events = require('../../modules/data/events')
+import { fetch, save } from '../../modules/data/events'
 
 const logGroup = 'build:data:events'
 
-module.exports = async function eventsData (options) {
+export default async function eventsData (options) {
   if (options.dryRun) {
-    log.warn(logGroup, `{ dryRun: true }: will not write events to json file`)
+    warn(logGroup, `{ dryRun: true }: will not write events to json file`)
   }
 
-  const fetchedEvents = await events.fetch()
+  const fetchedEvents = await fetch()
 
   if (!fetchedEvents.length) {
-    log.warn(logGroup, 'no events to show - events page will be empty')
+    warn(logGroup, 'no events to show - events page will be empty')
     return fetchedEvents
   }
 
-  const savedEvents = await events.save(fetchedEvents, options)
+  const savedEvents = await save(fetchedEvents, options)
 
   savedEvents.length &&
-    log.info(logGroup, `events have been processed successfully - ${savedEvents.length} events saved`)
+    info(logGroup, `events have been processed successfully - ${savedEvents.length} events saved`)
 
   return fetchedEvents
 }
