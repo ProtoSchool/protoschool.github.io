@@ -479,5 +479,18 @@
         "description": "Many of the applications that incorporate libp2p for _process addressing_ also use _content addressing_ to identify the data shared among peers on a decentralized network. Learn more about content addressing in our most popular ProtoSchool tutorial."
       }
     ]
+  },
+  "0010": {
+    "id": 10,
+    "formattedId": "0010",
+    "url": "hands-on-with-libp2p",
+    "project": "libp2p",
+    "title": "Hands-on with libp2p",
+    "description": "Learn how to use libp2p one step at a time.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2021-02-22T18:51:09.030Z",
+    "updatedAt": "2021-02-22T18:51:09.030Z",
+    "resources": []
   }
 }
