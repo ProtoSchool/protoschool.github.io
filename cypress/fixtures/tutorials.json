@@ -13,7 +13,7 @@
 				"description": "Wondering how the Mutable File System (MFS) can treat immutable data as though it's mutable? Jeromy Johnson of Protocol Labs explains the abstraction that makes it possible."
 			}
 		],
-		"updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+		"updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.tech/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-03-02T00:00:00.000Z"
 	},
@@ -31,7 +31,7 @@
 				"description": "You've seen the IPFS Files API. Now explore the IPFS DAG API, where you'll use CIDs to create verifiable links between datasets."
 			}
 		],
-    "updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.io/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
+    "updateMessage": "The version `0.41` of `js-ipfs` has introduced some major changes, most notably, introducing Async Iterables. You can learn more about it here: [IPFS Blog - The Async Await Refactor](https://blog.ipfs.tech/2020-02-01-async-await-refactor/). This means that **some code challenges solutions have changed**, so if you want to re-visit them, follow the new instructions to complete the challenges!",
     "createdAt": "2019-01-01T00:00:00.000Z",
     "updatedAt": "2020-03-02T00:00:00.000Z"
 	},
