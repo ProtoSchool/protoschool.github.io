@@ -479,5 +479,25 @@
         "description": "Many of the applications that incorporate libp2p for _process addressing_ also use _content addressing_ to identify the data shared among peers on a decentralized network. Learn more about content addressing in our most popular ProtoSchool tutorial."
       }
     ]
+  },
+  "0010": {
+    "id": 10,
+    "formattedId": "0010",
+    "url": "helia-101",
+    "project": "ipfs",
+    "title": "Helia 101",
+    "description": "Spawn a Helia node, add a file and cat the file CID locally and through the gateway.",
+    "newMessage": "",
+    "updateMessage": "",
+    "createdAt": "2023-08-30T23:18:25.638Z",
+    "updatedAt": "2023-08-30T23:18:25.638Z",
+    "resources": [
+      {
+        "title": "https://github.com/ipfs/helia/wiki",
+        "link": "https://github.com/ipfs/helia/wiki",
+        "type": "docs",
+        "description": "Helia repository wiki"
+      }
+    ]
   }
 }

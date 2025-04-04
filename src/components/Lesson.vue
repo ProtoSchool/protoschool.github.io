@@ -127,11 +127,13 @@
 
 <script>
 import Vue from 'vue'
+import { ref, computed } from 'vue'
 import CID from 'cids'
 import pTimeout from 'p-timeout'
 import all from 'it-all'
 import toBuffer from 'it-to-buffer'
 import newGithubIssueUrl from 'new-github-issue-url'
+import { useUnixFS } from '@/HeliaApi/useUnixFS'
 
 import { isProduction } from '../utils/env'
 import {
@@ -169,13 +171,13 @@ class SyntaxError extends Error {
   }
 }
 
-const _eval = async (text, ipfs, args = []) => {
+const _eval = async (text, helia, ipfs, args = []) => {
   if (!text || typeof text !== 'string' || !text.trim()) {
     return new Error('Please submit a solution.')
   }
 
   const modules = {
-    ipfs, all, toBuffer
+    helia, ipfs, all, toBuffer
   }
 
   let fn
@@ -202,7 +204,7 @@ const _eval = async (text, ipfs, args = []) => {
   return result
 }
 
-const defaultCode = `/* globals ipfs, all, toBuffer */
+const defaultCode = `/* globals helia, ipfs, all, toBuffer */
 
 const run = async () => {
   // your code goes here!
@@ -617,6 +619,20 @@ export default {
     parseData: (data) => marked(data).html
   }
 }
+
+const {
+  getStat,
+  addDirectory, getDirectory,
+  addFile, getFile
+} = useUnixFS()
+
+const dirPathName = ref()
+const dirCid = ref()
+const handleNewDir = async () => {
+  const response = await addDirectory(dirPathName.value)
+  dirCid.value = response.data
+}
+
 </script>
 
 <style scoped>

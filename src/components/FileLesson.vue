@@ -1,7 +1,7 @@
 <script>
 import Lesson from './Lesson.vue'
 
-const defaultCode = `/* globals ipfs */
+const defaultCode = `/* globals ipfs, helia */
 
 const run = async (files) => {
   // your code goes here!

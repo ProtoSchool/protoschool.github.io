@@ -25,10 +25,12 @@
     "test:jest": "jest --maxWorkers=1 --verbose"
   },
   "dependencies": {
+    "@helia/unixfs": "^1.4.1",
     "async": "^2.6.1",
     "cids": "^1.1.5",
     "err-code": "^3.0.1",
     "googleapis": "^71.0.0",
+    "helia": "^2.0.1",
     "highlight.js": "^9.12.0",
     "inquirer": "^7.1.0",
     "ipfs": "^0.50.2",
