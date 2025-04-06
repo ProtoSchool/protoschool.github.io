@@ -1,9 +1,9 @@
 const inquirer = jest.genMockFromModule('inquirer')
 
-const _ = require('lodash')
-const npmlog = require('npmlog')
+import { defaultTo } from 'lodash'
+import { _onLog } from 'npmlog'
 
-const jestAsserts = require('../../jest/helpers/asserts')
+import { assertLogSnapshot as _assertLogSnapshot } from '../../jest/helpers/asserts'
 
 inquirer.__responses = []
 
@@ -14,7 +14,7 @@ inquirer.prompt = async (prompts) => {
 
   if (response.response) {
     onLog = response.onLog
-    assertLogSnapshot = _.defaultTo(response.assertLogSnapshot, assertLogSnapshot)
+    assertLogSnapshot = defaultTo(response.assertLogSnapshot, assertLogSnapshot)
     response = response.response
   }
 
@@ -28,12 +28,12 @@ inquirer.prompt = async (prompts) => {
     }
   })
 
-  npmlog._onLog = assertLogSnapshot ? function (log) {
-    jestAsserts.assertLogSnapshot(log)
+  _onLog = assertLogSnapshot ? function (log) {
+    _assertLogSnapshot(log)
     onLog && onLog(log)
   } : onLog
 
   return response
 }
 
-module.exports = inquirer
+export default inquirer

@@ -1,15 +1,15 @@
-const promisify = require('util').promisify
+import { promisify } from 'util'
 
-const fs = require('fs')
-const inquirer = require('inquirer')
-const log = require('npmlog')
+import { writeFile } from 'fs'
+import { prompt, Separator } from 'inquirer'
+import { info } from 'npmlog'
 
-const api = require('../../../src/api')
+import { tutorials as _tutorials } from '../../../src/api'
 
 // *** DATA FETCHING & MANIPULATION ***
 
 async function saveStaticJsonFile (file, data) {
-  return promisify(fs.writeFile)(`src/static/${file.replace('.json', '')}.json`, JSON.stringify(data, null, 2))
+  return promisify(writeFile)(`src/static/${file.replace('.json', '')}.json`, JSON.stringify(data, null, 2))
 }
 
 // *** SHARED INPUT VALIDATION ***
@@ -25,10 +25,10 @@ function validateStringPresent (string) {
 // *** TRANSITIONAL DIALOGS & PROMPTS (INQUIRER) ***
 async function selectTutorial (newItemType, { createTutorial, createResource, createLesson, createQuiz }) {
   let tutorial
-  let tutorials = await api.tutorials.list.get()
-  let latestTutorial = await api.tutorials.list.getLatest()
+  let tutorials = await _tutorials.list.get()
+  let latestTutorial = await _tutorials.list.getLatest()
 
-  const tutorialResponses1 = await inquirer.prompt([
+  const tutorialResponses1 = await prompt([
     {
       type: 'confirm',
       name: 'latestTutorial',
@@ -42,13 +42,13 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
   // offer selection of existing tutorials or creating a new one
   } else {
     let tutorialChoices = [
-      new inquirer.Separator()
+      new Separator()
     ]
     if (newItemType !== 'quiz') {
       tutorialChoices = [
-        new inquirer.Separator(),
+        new Separator(),
         { name: '+ Create new tutorial', value: 'new' },
-        new inquirer.Separator()
+        new Separator()
       ]
     }
 
@@ -56,8 +56,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
       tutorialChoices.push({ name: tutorials[tutorialId].title, value: tutorialId })
     })
 
-    const tutorialResponses2 = await inquirer
-      .prompt([
+    const tutorialResponses2 = await prompt([
         {
           type: 'list',
           name: 'tutorialId',
@@ -70,7 +69,7 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
       tutorial = tutorials[tutorialResponses2.tutorialId]
     // create new tutorial and set data accordingly
     } else if (newItemType === 'quiz') {
-      log.info("you want a quiz but you're making a new tutorial that won't have any lessons in it")
+      info("you want a quiz but you're making a new tutorial that won't have any lessons in it")
       tutorial = await createTutorial({ createLesson, createResource, createQuiz }, { skipPromptLesson: false })
     } else {
       tutorial = await createTutorial({ createLesson, createResource, createQuiz }, { skipPromptLesson: true })
@@ -82,9 +81,8 @@ async function selectTutorial (newItemType, { createTutorial, createResource, cr
 
 async function selectMultipleChoiceLesson (tutorial) {
   if (tutorial.lessons.some(lesson => lesson.type === 'multiple-choice')) {
-    let lessonChoices = tutorial.lessons.map(lesson => (lesson.type === 'multiple-choice') ? { name: `${lesson.id} - ${lesson.title} (${lesson.type})`, value: lesson } : new inquirer.Separator(`${lesson.id} - ${lesson.title} (${lesson.type})`))
-    const selectLesson = await inquirer
-      .prompt([
+    let lessonChoices = tutorial.lessons.map(lesson => (lesson.type === 'multiple-choice') ? { name: `${lesson.id} - ${lesson.title} (${lesson.type})`, value: lesson } : new Separator(`${lesson.id} - ${lesson.title} (${lesson.type})`))
+    const selectLesson = await prompt([
         {
           type: 'list',
           name: 'lesson',
@@ -94,13 +92,13 @@ async function selectMultipleChoiceLesson (tutorial) {
       ])
     return selectLesson.lesson
   } else {
-    log.info("There aren't any multiple-choice lessons in this tutorial. Please summon me again to add one.")
+    info("There aren't any multiple-choice lessons in this tutorial. Please summon me again to add one.")
     return null
   }
 }
 
 async function promptRepeat (type) {
-  const { confirm } = await inquirer.prompt([
+  const { confirm } = await prompt([
     {
       type: 'confirm',
       name: 'confirm',
@@ -112,9 +110,9 @@ async function promptRepeat (type) {
 }
 
 async function promptCreateFirst (itemType, tutorialId) {
-  let tutorial = await api.tutorials.get(tutorialId)
+  let tutorial = await _tutorials.get(tutorialId)
 
-  const { confirm } = await inquirer.prompt([
+  const { confirm } = await prompt([
     {
       type: 'confirm',
       name: 'confirm',
@@ -126,7 +124,7 @@ async function promptCreateFirst (itemType, tutorialId) {
 }
 
 async function promptFilesReady () {
-  const { confirm } = await inquirer.prompt([
+  const { confirm } = await prompt([
     {
       type: 'confirm',
       name: 'confirm',
@@ -140,32 +138,32 @@ async function promptFilesReady () {
 // *** LOGGING ***
 
 function logEverythingDone (tutorial) {
-  log.info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
+  info(`Awesome work! "${tutorial.title}" has both lesson files and resources!`)
   logPreview('your tutorial', tutorial.url)
-  log.info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory. (Learn more at https://bit.ly/protoschool-content.)`)
-  log.info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)`)
+  info(`To create the content of your lessons, edit the files in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory. (Learn more at https://bit.ly/protoschool-content.)`)
+  info(`To update your tutorial's title, description, or resources, edit its entry in the \`src/static/tutorials.json\` file. (Learn more at https://bit.ly/protoschool-metadata.)`)
   logGuide()
 }
 
 function logList (message, items) {
-  log.info(`${message}:
+  info(`${message}:
  ‣ ${items.join('\n ‣ ')}`)
 }
 
 function logPreview (item, tutorialUrl, pageUrl = '') {
-  log.info(`To preview ${item}, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/${tutorialUrl}/${pageUrl}`)
+  info(`To preview ${item}, first run \`npm start\` in a separate terminal window or tab, then visit this page in your web browser: http://localhost:3000/${tutorialUrl}/${pageUrl}`)
 }
 
 function logCreateLater (items) {
-  log.info(`Okay, no problem. You can summon me later to add ${items}.`)
+  info(`Okay, no problem. You can summon me later to add ${items}.`)
   logGuide()
 }
 
 function logGuide () {
-  log.info(`View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
+  info(`View the detailed guide to developing tutorials at: https://bit.ly/protoschool-developing`)
 }
 
-module.exports = {
+export default {
   saveStaticJsonFile,
   logEverythingDone,
   logList,

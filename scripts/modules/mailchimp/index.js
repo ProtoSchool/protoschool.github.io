@@ -1,1 +1,1 @@
-exports.lists = require('./lists')
+export * as lists from './lists.js'

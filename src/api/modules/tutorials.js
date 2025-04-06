@@ -4,33 +4,35 @@
  * @module api/tutorials
  */
 
-const fs = require('fs')
-const path = require('path')
+import { mkdirSync, readFileSync } from 'fs'
+import { resolve } from 'path'
 
-const errorCode = require('err-code')
-const _ = require('lodash')
-const del = require('del')
+import { deleteSync } from 'del'
+import errorCode from 'err-code'
+import lodash from 'lodash'
 
-const log = require('../logger')
-const debug = require('../debug')
-const config = require('../config')
-const utils = require('../utils')
-const lessonsApi = require('./lessons')
-const projectsApi = require('./projects')
+import { staticPath, tutorialsPath } from '../config.js'
+import debug from '../debug.js'
+import { debug as _debug, createLogGroup } from '../logger.js'
+import { deriveShortname, writeStaticFile } from '../utils.js'
+import { get as _get } from './lessons.js'
+import { get as __get } from './projects.js'
 
-const STATIC_FILE = 'tutorials.json'
+const { findKey } = lodash
 
-const logGroup = log.createLogGroup('tutorials')
+export const STATIC_FILE = 'tutorials.json'
 
-function getNextTutorialId () {
+const logGroup = createLogGroup('tutorials')
+
+export function getNextTutorialId () {
   return list.getLatest().id + 1
 }
 
-function getFormattedId (id) {
+export function getFormattedId (id) {
   return id.toString().padStart(4, 0)
 }
 
-function getId (formattedId) {
+export function getId (formattedId) {
   return parseInt(formattedId, 10)
 }
 
@@ -41,12 +43,12 @@ function getId (formattedId) {
  *
  * @returns Final tutorial data
  */
-function get (id) {
+export function get (id) {
   const tutorialsJson = list.getJson()
   let tutorialId = id
 
   if (typeof id === 'object') {
-    tutorialId = _.findKey(tutorialsJson, tutorial => tutorial.url === id.url)
+    tutorialId = findKey(tutorialsJson, tutorial => tutorial.url === id.url)
   }
 
   const formattedId = getFormattedId(tutorialId)
@@ -60,22 +62,22 @@ function get (id) {
   // populate object with more data
   tutorial.id = getId(tutorialId)
   tutorial.formattedId = formattedId
-  tutorial.shortTitle = utils.deriveShortname(tutorial.url)
+  tutorial.shortTitle = deriveShortname(tutorial.url)
   tutorial.folderName = `${tutorial.formattedId}-${tutorial.url}`
-  tutorial.fullPath = path.resolve(`${config.tutorialsPath}/${tutorial.folderName}`)
+  tutorial.fullPath = resolve(`${tutorialsPath}/${tutorial.folderName}`)
   tutorial.lessons = getLessons(tutorial)
-  tutorial.project = projectsApi.get(tutorial.project)
+  tutorial.project = __get(tutorial.project)
 
-  debug && log.debug(logGroup('get'), tutorial)
+  debug && _debug(logGroup('get'), tutorial)
 
   return tutorial
 }
 
-function getByUrl (url) {
+export function getByUrl (url) {
   const tutorialsList = list.getJson()
 
   const tutorial = get(Object.values(tutorialsList).find(tutorial => tutorial.url === url))
-  debug && log.debug(logGroup('getByUrl'), url, tutorial)
+  debug && _debug(logGroup('getByUrl'), url, tutorial)
 
   if (!tutorial) {
     throw new Error(`NOT FOUND: Tutorial with url ${url} not found.`)
@@ -84,11 +86,11 @@ function getByUrl (url) {
   return tutorial
 }
 
-function getLessons (tutorial, lessons = [], lessonId = 1) {
+export function getLessons (tutorial, lessons = [], lessonId = 1) {
   let lesson
 
   try {
-    lesson = lessonsApi.get(tutorial, lessonId)
+    lesson = _get(tutorial, lessonId)
   } catch (error) {
     // lesson not found, we reached the end
     if (error.code === 'NOT_FOUND') {
@@ -103,14 +105,14 @@ function getLessons (tutorial, lessons = [], lessonId = 1) {
   return getLessons(tutorial, lessons, lessonId + 1)
 }
 
-function getFolderName (id, url) {
+export function getFolderName (id, url) {
   const urlSuffix = url || (list.getJson())[getFormattedId(id)].url
 
   return `${getFormattedId(id)}-${urlSuffix}`
 }
 
-function getFullPath (id, url) {
-  return path.resolve(config.tutorialsPath, getFolderName(id, url))
+export function getFullPath (id, url) {
+  return resolve(tutorialsPath, getFolderName(id, url))
 }
 
 /**
@@ -130,13 +132,13 @@ function getFullPath (id, url) {
  *    description: 'Learn how peers interact with each other in libp2p.'
  * })
  */
-function create (data) {
+export function create (data) {
   const newTutorialId = getNextTutorialId()
 
-  debug && log.debug(logGroup('create'), newTutorialId, data.url)
+  debug && _debug(logGroup('create'), newTutorialId, data.url)
 
   // create new directory
-  fs.mkdirSync(getFullPath(newTutorialId, data.url))
+  mkdirSync(getFullPath(newTutorialId, data.url))
 
   const tutorial = {
     id: newTutorialId,
@@ -157,70 +159,49 @@ function create (data) {
   return get(newTutorialId)
 }
 
-function remove (id) {
+export function remove (id) {
   // delete tutorial folder
-  del.sync(getFullPath(id))
+  deleteSync(getFullPath(id))
 
   const tutorials = list.getJson()
 
-  debug && log.debug(logGroup('remove'), id, tutorials[getFormattedId(id)].url)
+  debug && _debug(logGroup('remove'), id, tutorials[getFormattedId(id)].url)
 
   // delete tutorial metadata from static file
   delete tutorials[getFormattedId(id)]
-  utils.writeStaticFile(STATIC_FILE, tutorials)
+  writeStaticFile(STATIC_FILE, tutorials)
 }
 
-const list = {}
+export const list = {
+  getStaticPath: function getStaticPath() {
+    return resolve(staticPath, STATIC_FILE)
+  },
+  getJson: function getJson() {
+    const tutorialsJson = readFileSync(list.getStaticPath(), 'utf8')
 
-list.getStaticPath = function getStaticPath () {
-  return path.resolve(config.staticPath, STATIC_FILE)
-}
+    return JSON.parse(tutorialsJson)
+  },
+  get: function listGet() {
+    const tutorialsJson = list.getJson()
+    const tutorials = {}
 
-list.getJson = function getJson () {
-  const tutorialsJson = fs.readFileSync(list.getStaticPath(), 'utf8')
+    for (let id in tutorialsJson) {
+      tutorials[id] = get(tutorialsJson[id])
+    }
 
-  return JSON.parse(tutorialsJson)
-}
+    return tutorials
+  },
+  getLatest: function getLatest() {
+    const tutorials = list.get()
 
-list.get = function listGet () {
-  const tutorialsJson = list.getJson()
-  const tutorials = {}
+    return Object.values(tutorials)
+      .sort((tutorial1, tutorial2) => tutorial2.id - tutorial1.id)[0]
+  },
+  add: function listAdd(data) {
+    const tutorials = list.getJson()
 
-  for (let id in tutorialsJson) {
-    tutorials[id] = get(tutorialsJson[id])
+    tutorials[data.formattedId] = data
+
+    writeStaticFile(STATIC_FILE, tutorials)
   }
-
-  return tutorials
-}
-
-list.getLatest = function getLatest () {
-  const tutorials = list.get()
-
-  return Object.values(tutorials)
-    .sort((tutorial1, tutorial2) => tutorial2.id - tutorial1.id)[0]
-}
-
-list.add = function listAdd (data) {
-  const tutorials = list.getJson()
-
-  tutorials[data.formattedId] = data
-
-  utils.writeStaticFile(STATIC_FILE, tutorials)
-}
-
-module.exports = {
-  STATIC_FILE,
-
-  // methods
-  getFormattedId,
-  getId,
-  get,
-  getByUrl,
-  getFolderName,
-  getFullPath,
-  getLessons,
-  getNextTutorialId,
-  create,
-  remove,
-  list
 }

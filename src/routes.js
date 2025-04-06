@@ -1,4 +1,5 @@
-const moment = require('moment')
+import moment from 'moment'
+import * as api from './api/index.js'
 
 const lastmod = moment().format('YYYY-MM-DD')
 
@@ -11,7 +12,7 @@ function addSitemapLoc (route) {
 }
 
 // Route types - used to choose which routes are prerendered or added to the sitemap
-const TYPES = {
+export const TYPES = {
   STATIC: 'static',
   TUTORIAL: 'tutorial',
   LESSON: 'lesson',
@@ -22,7 +23,7 @@ const TYPES = {
 }
 
 // Static routes
-function statics () {
+export function statics() {
   return [
     {
       path: '/',
@@ -72,7 +73,7 @@ function statics () {
 
 // Redirect routes
 // Redirects that need to return a 301 status code need to be configured in the server as well
-function redirects () {
+export function redirects () {
   // TODO Use API to get the tutorials (needs API to be universal)
   // https://github.com/ProtoSchool/protoschool.github.io/issues/589
   // const api = require('./api')
@@ -106,7 +107,7 @@ function redirects () {
 }
 
 // Error routes
-function errors () {
+export function errors () {
   return [
     {
       path: '/404/',
@@ -124,9 +125,7 @@ function errors () {
 
   `redirectUrls` property will also be read to generate equivalent redirect routes
 */
-function tutorials () {
-  const api = require('./api')
-
+export function tutorials () {
   return Object.values(api.tutorials.list.get()).reduce((routes, tutorial) => {
     routes.push({
       type: TYPES.TUTORIAL,
@@ -152,9 +151,7 @@ function tutorials () {
   /filecoin
 
 */
-function courses () {
-  const api = require('./api')
-
+export function courses () {
   return api.courses.getCourseNames().map(course => {
     return {
       type: TYPES.COURSE,
@@ -164,7 +161,7 @@ function courses () {
   }).map(addSitemapLoc)
 }
 
-function all () {
+export function all() {
   return [
     ...statics(),
     ...tutorials(),
@@ -172,14 +169,4 @@ function all () {
     ...errors(),
     ...redirects()
   ]
-}
-
-module.exports = {
-  statics,
-  tutorials,
-  courses,
-  errors,
-  redirects,
-  all,
-  TYPES
 }

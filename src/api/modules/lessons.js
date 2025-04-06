@@ -1,39 +1,39 @@
-const fs = require('fs')
+import { copyFileSync, readFileSync, writeFileSync } from 'fs'
 
-const errorCode = require('err-code')
-const marked = require('meta-marked')
+import errorCode from 'err-code'
+import marked from 'meta-marked'
 
-const log = require('../logger')
-const debug = require('../debug')
-const config = require('../config')
+import { boilerplates } from '../config.js'
+import debug from '../debug.js'
+import { debug as _debug, createLogGroup } from '../logger.js'
 
-const logGroup = log.createLogGroup('lessons')
+const logGroup = createLogGroup('lessons')
 
-function getFormattedId (id) {
+export function getFormattedId(id) {
   return id.toString().padStart(2, 0)
 }
 
-function getId (formattedId) {
+export function getId(formattedId) {
   return parseInt(formattedId, 10)
 }
 
-function getNextLessonId (tutorial) {
+export function getNextLessonId(tutorial) {
   return tutorial.lessons.length > 0
     ? tutorial.lessons.map(lesson => lesson.id).sort().reverse()[0] + 1
     : 1
 }
 
-function get (tutorial, lessonId) {
+export function get(tutorial, lessonId) {
   const formattedId = getFormattedId(lessonId)
   const lessonFilePrefix = `${tutorial.folderName}/${formattedId}`
 
   let lessonMd
   let lesson
 
-  debug && log.debug(logGroup('get'), tutorial.id, lessonId, formattedId)
+  debug && _debug(logGroup('get'), tutorial.id, lessonId, formattedId)
 
   try {
-    lessonMd = fs.readFileSync(files.getMarkdownPath(tutorial, lessonId), 'utf8')
+    lessonMd = readFileSync(files.getMarkdownPath(tutorial, lessonId), 'utf8')
     lesson = {
       id: lessonId,
       formattedId: formattedId,
@@ -75,7 +75,7 @@ function get (tutorial, lessonId) {
  * removes boilerplate's #PRISTINE# tag (if present) to show edits have been made
  */
 
-function updateQuiz (tutorial, lesson, data) {
+export function updateQuiz(tutorial, lesson, data) {
   const lessonId = lesson.formattedId
   const newFileContent = `
 /* eslint quotes: ["error", "double"]  */
@@ -93,7 +93,7 @@ export default {
   choices
 }
 `
-  fs.writeFileSync(files.getJsPath(tutorial, lessonId), newFileContent)
+  writeFileSync(files.getJsPath(tutorial, lessonId), newFileContent)
   return get(tutorial, lessonId)
 }
 
@@ -104,8 +104,8 @@ export default {
  * b) user edited manually and failed to remove #PRISTINE# tag as instructed
 */
 
-function isQuizPristine (tutorial, lesson) {
-  let quizContent = fs.readFileSync(files.getJsPath(tutorial, lesson.formattedId), 'utf8')
+export function isQuizPristine(tutorial, lesson) {
+  let quizContent = readFileSync(files.getJsPath(tutorial, lesson.formattedId), 'utf8')
   return quizContent.includes('#PRISTINE#')
 }
 
@@ -123,48 +123,29 @@ function isQuizPristine (tutorial, lesson) {
  * api.lessons.create(tutorial, { title: 'Lesson title', type: 'text' })
  */
 
-function create (tutorial, data) {
+export function create(tutorial, data) {
   const lessonId = getNextLessonId(tutorial)
 
-  let lessonMarkdown = fs.readFileSync(config.boilerplates.markdownPath, 'utf8')
+  let lessonMarkdown = readFileSync(boilerplates.markdownPath, 'utf8')
 
   lessonMarkdown = lessonMarkdown.replace(`title: "Lesson title"`, `title: "${data.title}"`)
   lessonMarkdown = lessonMarkdown.replace(`type: "text"`, `type: "${data.type || 'text'}"`)
 
   if (data.type !== 'text') {
-    fs.copyFileSync(`${config.boilerplates.path}/boilerplate-${data.type}.js`, files.getJsPath(tutorial, lessonId))
+    copyFileSync(`${boilerplates.path}/boilerplate-${data.type}.js`, files.getJsPath(tutorial, lessonId))
 
     if (data.type !== 'multiple-choice') {
-      fs.copyFileSync(config.boilerplates.challengeMarkdownPath, files.getChallengeMarkdownPath(tutorial, lessonId))
+      copyFileSync(boilerplates.challengeMarkdownPath, files.getChallengeMarkdownPath(tutorial, lessonId))
     }
   }
 
-  fs.writeFileSync(files.getMarkdownPath(tutorial, lessonId), lessonMarkdown)
+  writeFileSync(files.getMarkdownPath(tutorial, lessonId), lessonMarkdown)
 
   return get(tutorial, lessonId)
 }
 
-const files = {}
-
-files.getMarkdownPath = (tutorial, lessonId) => (
-  `${tutorial.fullPath}/${getFormattedId(lessonId)}.md`
-)
-
-files.getJsPath = (tutorial, lessonId) => (
-  `${tutorial.fullPath}/${getFormattedId(lessonId)}.js`
-)
-
-files.getChallengeMarkdownPath = (tutorial, lessonId) => (
-  `${tutorial.fullPath}/${getFormattedId(lessonId)}-challenge.md`
-)
-
-module.exports = {
-  getNextLessonId,
-  getFormattedId,
-  getId,
-  get,
-  create,
-  files,
-  updateQuiz,
-  isQuizPristine
+export const files = {
+  getMarkdownPath: (tutorial, lessonId) => `${tutorial.fullPath}/${getFormattedId(lessonId)}.md`,
+  getJsPath: (tutorial, lessonId) => `${tutorial.fullPath}/${getFormattedId(lessonId)}.js`,
+  getChallengeMarkdownPath: (tutorial, lessonId) => `${tutorial.fullPath}/${getFormattedId(lessonId)}-challenge.md`
 }

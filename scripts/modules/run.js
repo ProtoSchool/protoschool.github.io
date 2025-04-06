@@ -2,9 +2,9 @@
     Runs a command
  */
 
-let log = require('npmlog')
-
-require('dotenv').config()
+import { config } from 'dotenv'
+import { error, level, verbose } from 'npmlog'
+config()
 
 // CLI Options
 const options = {
@@ -13,16 +13,16 @@ const options = {
 }
 
 if (options.debug) {
-  log.level = 'silly'
+  level = 'silly'
 }
 
-log.verbose('run', options)
+verbose('run', options)
 
 if (parseInt(process.version.replace('v', ''), 10) < 10) {
-  log.error('error', 'Node.js Version 10 or higher is required. Please update NodeJS to the current LTS (long-term support) version at https://nodejs.org before running this program.')
+  error('error', 'Node.js Version 10 or higher is required. Please update NodeJS to the current LTS (long-term support) version at https://nodejs.org before running this program.')
   process.exit(1)
 }
 
-module.exports = async function run (command) {
+export default async function run (command) {
   await command(options)
 }

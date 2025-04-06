@@ -1,17 +1,8 @@
-const inquirer = require('inquirer')
-const log = require('npmlog')
+import { prompt } from 'inquirer'
+import { info } from 'npmlog'
 
-const api = require('../../../src/api')
-const {
-  promptRepeat,
-  validateStringPresent,
-  selectTutorial,
-  promptCreateFirst,
-  logEverythingDone,
-  logList,
-  logPreview,
-  logCreateLater
-} = require('./utils.js')
+import { tutorials, lessons as _lessons } from '../../../src/api'
+import { promptRepeat, validateStringPresent, selectTutorial, promptCreateFirst, logEverythingDone, logList, logPreview, logCreateLater } from './utils.js'
 
 // *** LOGGING ***
 
@@ -21,17 +12,17 @@ function logLessons (message, lessons) {
 
 // *** TRANSITIONAL DIALOGS & PROMPTS ***
 
-async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
+export async function createLessonIntro ({ createResource, createTutorial, createLesson }) {
   // determine new tutorial number
-  log.info("Let's add lessons to your tutorial.")
+  info("Let's add lessons to your tutorial.")
   const tutorial = await selectTutorial('lesson', { createTutorial, createResource, createLesson })
 
   // print existing lessons if present
   if (tutorial.lessons.length === 0) {
-    log.info("Let's create your first lesson!")
+    info("Let's create your first lesson!")
   } else {
     logLessons("Here are the lessons you've created so far", tutorial.lessons)
-    log.info("Let's create your next lesson!")
+    info("Let's create your next lesson!")
   }
 
   // loops until you say you don't want more lessons, then offers closing statements
@@ -39,13 +30,13 @@ async function createLessonIntro ({ createResource, createTutorial, createLesson
 }
 
 async function afterLessonCreate (tutorialId, { createResource }) {
-  const tutorial = await api.tutorials.get(tutorialId)
+  const tutorial = await tutorials.get(tutorialId)
 
-  log.info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory.`)
+  info(`You can find all the files you'll need for these lessons in the \`src/tutorials/${tutorial.formattedId}-${tutorial.url}/\` directory.`)
 
   // prompt to create resources if not yet done
   if (tutorial.resources.length === 0) {
-    log.info(`All tutorials have a resources page where users can find opportunities for further learning.`)
+    info(`All tutorials have a resources page where users can find opportunities for further learning.`)
 
     if (await promptCreateFirst('resource', tutorial.id)) {
       await createResource(tutorial.id, { createLesson })
@@ -59,10 +50,10 @@ async function afterLessonCreate (tutorialId, { createResource }) {
 
 // *** LESSON CREATION ***
 
-async function createLesson (tutorialId, { createResource }) {
-  const tutorial = await api.tutorials.get(tutorialId)
+export async function createLesson (tutorialId, { createResource }) {
+  const tutorial = await tutorials.get(tutorialId)
 
-  const lessonResponses = await inquirer.prompt([
+  const lessonResponses = await prompt([
     {
       type: 'input',
       name: 'title',
@@ -95,7 +86,7 @@ async function createLesson (tutorialId, { createResource }) {
   ])
 
   // create lesson
-  const lesson = await api.lessons.create(tutorial, lessonResponses)
+  const lesson = await _lessons.create(tutorial, lessonResponses)
 
   let newFileDetails = [`${lesson.formattedId}.md (for writing the text of your lesson)`]
 
@@ -116,10 +107,8 @@ async function createLesson (tutorialId, { createResource }) {
   } else {
     logLessons(
       `Okay, sounds like we're done. Here are all the lessons now included in "${tutorial.title}"`,
-      await api.tutorials.getLessons(tutorial)
+      await tutorials.getLessons(tutorial)
     )
     await afterLessonCreate(tutorial.id, { createResource })
   }
 }
-
-module.exports = { createLessonIntro, createLesson }

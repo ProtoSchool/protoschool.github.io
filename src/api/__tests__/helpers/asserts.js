@@ -1,21 +1,21 @@
-const fs = require('fs')
+import { lstatSync, readFileSync } from 'fs'
 
-const marked = require('meta-marked')
+import marked from 'meta-marked'
 
-const api = require('../../')
+import { projects, tutorials, lessons } from '../../'
 
 function assertIsFile (filePath) {
   expect(filePath).toBeDefined()
-  expect(fs.lstatSync(filePath).isFile()).toBeTruthy()
+  expect(lstatSync(filePath).isFile()).toBeTruthy()
 }
 
 function assertIsDirectory (directory) {
   expect(directory).toBeDefined()
-  expect(fs.lstatSync(directory).isDirectory()).toBeTruthy()
+  expect(lstatSync(directory).isDirectory()).toBeTruthy()
 }
 
 function assertIsNotAFile (filePath) {
-  expect(() => fs.lstatSync(filePath)).toThrow('no such file or directory')
+  expect(() => lstatSync(filePath)).toThrow('no such file or directory')
 }
 
 /**
@@ -26,7 +26,7 @@ function assertIsNotAFile (filePath) {
 function assertTutorialObject (result, expected) {
   expect(result).toMatchObject({
     ...expected,
-    project: api.projects.get(expected.project)
+    project: projects.get(expected.project)
   })
 }
 
@@ -42,7 +42,7 @@ function assertTutorial (result, expected) {
   assertTutorialObject(result, expected)
 
   // assert against tutorial metadata on static file
-  assertTutorialObject(result, api.tutorials.list.getJson()[result.formattedId])
+  assertTutorialObject(result, tutorials.list.getJson()[result.formattedId])
 
   // assert correct folder was created
   assertIsDirectory(result.fullPath)
@@ -52,7 +52,7 @@ function assertLesson (result, expected) {
   expect(result).toMatchObject(expected)
 
   assertIsFile(result.files.markdown)
-  const lessonMarkdownMetadata = marked(fs.readFileSync(result.files.markdown, 'utf8')).meta
+  const lessonMarkdownMetadata = marked(readFileSync(result.files.markdown, 'utf8')).meta
 
   expect(lessonMarkdownMetadata).toHaveProperty('title')
   expect(lessonMarkdownMetadata).toHaveProperty('type')
@@ -60,8 +60,8 @@ function assertLesson (result, expected) {
 
   switch (expected.type) {
     case 'text':
-      assertIsNotAFile(api.lessons.files.getJsPath(api.tutorials.get(result.tutorialId), result.id))
-      assertIsNotAFile(api.lessons.files.getChallengeMarkdownPath(api.tutorials.get(result.tutorialId), result.id))
+      assertIsNotAFile(lessons.files.getJsPath(tutorials.get(result.tutorialId), result.id))
+      assertIsNotAFile(lessons.files.getChallengeMarkdownPath(tutorials.get(result.tutorialId), result.id))
       break
     case 'code':
     case 'file-upload':
@@ -70,17 +70,17 @@ function assertLesson (result, expected) {
       break
     case 'multiple-choice':
       assertIsFile(result.files.js)
-      assertIsNotAFile(api.lessons.files.getChallengeMarkdownPath(api.tutorials.get(result.tutorialId), result.id))
+      assertIsNotAFile(lessons.files.getChallengeMarkdownPath(tutorials.get(result.tutorialId), result.id))
       // TODO assert that the file contents are correct (match boilerplate)
   }
 }
 
 function assertUpdatedQuiz (result) {
-  const fileContents = fs.readFileSync(result.files.js, 'utf8')
+  const fileContents = readFileSync(result.files.js, 'utf8')
   expect(fileContents).toMatchSnapshot()
 }
 
-module.exports = {
+export default {
   assertTutorial,
   assertLesson,
   assertUpdatedQuiz
