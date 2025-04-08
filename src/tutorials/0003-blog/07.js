@@ -94,7 +94,7 @@ const run = async () => {
     posts: [dogPostCid]
   })
 
-  return traversePosts(dogPostCid)
+  return await traversePosts(dogPostCid)
 }
 
 return run
@@ -107,13 +107,9 @@ const traversePosts = async (cid) => {
   while (cid) {
     result.push(cid)
     const current = await ipfs.dag.get(cid)
-    const prev = current.value.prev
-    if (prev) {
-      cid = prev
-    } else {
-      return result
-    }
+    cid = current.value.prev
   }
+  return result
 }
 
 const run = async () => {
@@ -151,7 +147,7 @@ const run = async () => {
     posts: [dogPostCid]
   })
 
-  return traversePosts(dogPostCid)
+  return await traversePosts(dogPostCid)
 }
 
 return run
