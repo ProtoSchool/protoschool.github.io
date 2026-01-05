@@ -19,6 +19,7 @@ on:
 
 env:
   BUILD_PATH: 'dist'
+  NODE_OPTIONS: '--openssl-legacy-provider'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
