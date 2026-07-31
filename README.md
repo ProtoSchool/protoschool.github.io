@@ -1,3 +1,18 @@
+> [!IMPORTANT]
+> **This repository is archived and no longer maintained.**
+>
+> It holds the source of <https://proto.school>, which stays up. The last
+> tutorial landed in February 2021, and the code challenges run on js-ipfs
+> 0.50. [Helia superseded js-ipfs in 2023](https://blog.ipfs.tech/202305-js-ipfs-deprecation-for-helia/),
+> so the lessons teach an API that nobody maintains.
+>
+> For guides that are kept current, read the [IPFS docs](https://docs.ipfs.tech/).
+>
+> The repository can be unarchived, but only for a named maintainer who commits
+> to keeping it up. If that is you, reach out to the
+> [IPFS Foundation](https://ipfsfoundation.org/about/) on the
+> [IPFS forum](https://discuss.ipfs.tech/).
+
 # ProtoSchool
 
 [ProtoSchool](https://proto.school/) is an educational community that teaches decentralized web protocols and tools
